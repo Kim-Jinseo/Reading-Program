@@ -79,9 +79,9 @@ export const MainDashboard = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto pt-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
-        <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+    <div className="max-w-7xl mx-auto pt-2 md:pt-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-4 md:gap-6">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
           {t('nav_dashboard')} • {t(`grade_${grade.replace('-','_')}`)}
         </h2>
         
@@ -89,7 +89,7 @@ export const MainDashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {modules.map((mod) => {
           const dailyStatus = getDailyStatus(mod.id);
           const isDone = dailyStatus.isComplete;
@@ -97,7 +97,7 @@ export const MainDashboard = () => {
             <div 
               key={mod.id} 
               onClick={() => setView(mod.id)}
-              className={`p-10 rounded-[2.5rem] shadow-sm transition-all cursor-pointer group flex flex-col justify-between min-h-[260px] hover:shadow-xl hover:-translate-y-1.5 ${
+              className={`p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-sm transition-all cursor-pointer group flex flex-col justify-between min-h-[220px] md:min-h-[260px] hover:shadow-xl hover:-translate-y-1.5 ${
                 isDone 
                   ? mod.doneStyle.card 
                   : 'bg-white border-2 border-slate-100 ' + mod.border + ' ' + mod.shadow

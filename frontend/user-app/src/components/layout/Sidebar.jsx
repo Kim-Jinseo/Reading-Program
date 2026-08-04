@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, Globe, ShieldCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
-export const Sidebar = () => {
+export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
   const { t, lang, setLang, view, setView, user } = useAppContext();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -18,13 +18,31 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className={`relative inset-y-0 left-0 bg-white border-r border-slate-200 flex flex-col shadow-2xl z-50 shrink-0 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-[88px]' : 'w-[300px]'}`}>
-      <button 
-        onClick={() => setIsCollapsed(!isCollapsed)} 
-        className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center shadow-sm text-slate-500 hover:text-slate-800 hover:bg-slate-50 z-50 transition-colors"
-      >
-        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-      </button>
+    <>
+      {/* Mobile Backdrop */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] md:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+      
+      <aside className={`fixed md:relative inset-y-0 left-0 bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'md:w-[88px] w-64' : 'w-[300px]'}`}>
+        
+        {/* Mobile Close Button */}
+        <button 
+          onClick={() => setIsMobileOpen(false)}
+          className="md:hidden absolute top-6 right-4 p-2 text-slate-500 hover:bg-slate-100 rounded-xl"
+        >
+          <X size={20} />
+        </button>
+
+        <button 
+          onClick={() => setIsCollapsed(!isCollapsed)} 
+          className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-slate-200 rounded-full items-center justify-center shadow-sm text-slate-500 hover:text-slate-800 hover:bg-slate-50 z-50 transition-colors"
+        >
+          {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+        </button>
 
       <div className={`p-8 flex items-center justify-between border-b border-slate-50 mb-6 bg-white transition-all ${isCollapsed ? 'px-4' : ''}`}>
         <div className="flex items-center gap-4">
@@ -54,7 +72,10 @@ export const Sidebar = () => {
         {MODULES.map(item => (
           <button 
             key={item.id} 
-            onClick={() => setView(item.id)} 
+            onClick={() => {
+              setView(item.id);
+              if (setIsMobileOpen) setIsMobileOpen(false);
+            }} 
             className={`w-full flex items-center ${isCollapsed ? 'justify-center py-3' : 'gap-4 px-3 py-3'} rounded-2xl font-bold transition-all text-base 
             ${view === item.id ? 'bg-slate-50 text-slate-900 shadow-sm border border-slate-200' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border border-transparent'}`}
           >
@@ -76,5 +97,6 @@ export const Sidebar = () => {
         </button>
       </div>
     </aside>
+    </>
   );
 };

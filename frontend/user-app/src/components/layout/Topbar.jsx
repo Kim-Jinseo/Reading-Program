@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { Star } from 'lucide-react';
+import { Star, Menu } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { ProfileModal } from '../common/ProfileModal';
 
-export const Topbar = () => {
+export const Topbar = ({ onMenuClick }) => {
   const { t, grade, setGrade, user, setView } = useAppContext();
   const [showProfile, setShowProfile] = useState(false);
 
   return (
     <>
-      <header className="h-24 bg-white/80 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between px-10 shrink-0 z-10 shadow-sm">
+      <header className="h-20 md:h-24 bg-white/80 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between px-4 md:px-10 shrink-0 z-10 shadow-sm">
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
+          <button 
+            onClick={onMenuClick}
+            className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <Menu size={24} />
+          </button>
           <div className="relative group">
             <button className="flex items-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 px-6 py-3 rounded-2xl font-extrabold transition-colors">
               {t(`grade_${grade.replace('-','_')}`)}

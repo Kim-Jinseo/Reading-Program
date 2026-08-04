@@ -17,6 +17,7 @@ import { ShopView } from './pages/ShopView';
 
 const AppContent = () => {
   const { user, view, curriculumDb } = useAppContext();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   if (!user) {
     return <AuthModal />;
@@ -28,7 +29,7 @@ const AppContent = () => {
 
   return (
     <div 
-      className="flex h-screen bg-[#f8fafc] text-slate-800 overflow-hidden" 
+      className="flex h-screen bg-[#f8fafc] text-slate-800 overflow-hidden relative" 
       style={{ fontFamily: '"Inter", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif' }}
     >
       <style>
@@ -38,12 +39,12 @@ const AppContent = () => {
       </style>
 
       {/* SIDEBAR */}
-      <Sidebar />
+      <Sidebar isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden relative">
+      <main className="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
         {/* TOPBAR */}
-        <Topbar />
+        <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* WORKSPACE */}
         <div className="flex-1 overflow-y-auto p-4 md:p-10 bg-slate-50/50">

@@ -433,7 +433,7 @@ export const WritingModule = () => {
         </span>
       </div>
       
-      <div className="flex gap-6 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-visible pb-10 lg:pb-0">
         <div className="flex-1 flex flex-col min-w-0">
           {/* Synchronized Indigo-Purple Prompt Card */}
           <div className="bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] mb-6 shadow-sm shrink-0 relative">
@@ -489,7 +489,7 @@ export const WritingModule = () => {
         </div>
 
         {status === 'improving' && feedback && (feedback.grammar || feedback.general) && (
-          <div className="w-1/3 bg-white border-2 border-indigo-200 rounded-[2.5rem] p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
+          <div className="w-full lg:w-1/3 bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
              <h3 className="text-2xl font-black text-indigo-900 mb-6 flex items-center gap-2"><Sparkles className="text-indigo-500"/> AI Teacher Feedback</h3>
              
              {feedback.grammar !== undefined && (

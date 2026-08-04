@@ -1024,11 +1024,11 @@ export const VoiceJump = ({ onBack }) => {
            {/* Floor */}
            <div className="absolute bottom-0 w-full h-1/4 bg-green-500 border-t-8 border-green-600"></div>
 
-           {/* Monster Area */}
+            {/* Monster Area */}
            {(() => {
              const mStyle = MONSTER_STYLES[currentMonster.name] || MONSTER_STYLES["Slime"];
              return (
-               <div className="absolute right-[16%] bottom-[16%] flex flex-col items-center z-20">
+               <div className="absolute right-4 sm:right-[10%] md:right-[16%] bottom-[16%] flex flex-col items-center z-20">
                  {/* Monster HP & Name Badge */}
                  <div className="flex flex-col items-center mb-3">
                    <div className="flex items-center gap-2 bg-slate-900/90 text-white text-xs font-black px-3.5 py-1 rounded-full border border-slate-700 shadow-md mb-1.5">
@@ -1064,7 +1064,7 @@ export const VoiceJump = ({ onBack }) => {
            })()}
 
            {/* Player Area */}
-           <div className={`absolute left-[15%] bottom-1/4 filter drop-shadow-2xl transition-all duration-300 ${
+           <div className={`absolute left-4 sm:left-[10%] md:left-[15%] bottom-1/4 filter drop-shadow-2xl transition-all duration-300 ${
              animTrigger === 'player_attack' 
                ? 'translate-x-12 -translate-y-4 scale-110' 
                : isSpeaking 
