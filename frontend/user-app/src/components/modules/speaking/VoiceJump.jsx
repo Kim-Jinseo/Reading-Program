@@ -705,7 +705,7 @@ export const VoiceJump = ({ onBack }) => {
       formData.append('targetSentence', word);
       formData.append('grade', grade || '3rd Grade');
 
-      const res = await fetch('/api/audio/evaluate', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/audio/evaluate`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

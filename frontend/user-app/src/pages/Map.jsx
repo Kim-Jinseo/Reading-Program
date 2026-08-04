@@ -7,7 +7,7 @@ export default function Map({ user }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('${process.env.REACT_APP_API_URL || ''}/api/stories')
+    fetch(`${process.env.REACT_APP_API_URL || ''}/api/stories`)
       .then(res => res.json())
       .then(json => {
         if (json.success) setStories(json.data);

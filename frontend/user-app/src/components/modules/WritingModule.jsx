@@ -309,7 +309,7 @@ export const WritingModule = () => {
     }
 
     try {
-      const response = await fetch('/api/writing/grade', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/writing/grade`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ prompt: prompt.en, studentAnswer: text, grade })

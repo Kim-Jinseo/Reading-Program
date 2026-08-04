@@ -11,7 +11,7 @@ export const AdminDashboardView = () => {
 
   const saveToBackend = async (newGradeData) => {
     try {
-      await fetch('/api/curriculum/update', {
+      await fetch(`${process.env.REACT_APP_API_URL || ''}/api/curriculum/update`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ export default function Login({ setUser }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch('${process.env.REACT_APP_API_URL || ''}/api/auth/login', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, pin })
