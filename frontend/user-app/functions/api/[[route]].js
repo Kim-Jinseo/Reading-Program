@@ -3,8 +3,7 @@ import { handle } from 'hono/cloudflare-pages';
 import { cors } from 'hono/cors';
 import { sign, verify } from 'hono/jwt';
 import bcrypt from 'bcryptjs';
-
-let MongoClient, ServerApiVersion, ObjectId;
+import { MongoClient, ObjectId } from 'mongodb';
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
 
@@ -14,48 +13,20 @@ const app = new Hono().basePath('/api');
 app.use('/*', cors());
 
 // DB Connection Cache
+let client = null;
 let cachedCols = null;
-let connectionPromise = null;
 
 async function getDb(env) {
-  if (!MongoClient) {
-    const mongo = await import('mongodb');
-    MongoClient = mongo.MongoClient;
-    ServerApiVersion = mongo.ServerApiVersion;
-    ObjectId = mongo.ObjectId;
-  }
-
-  if (!cachedCols) {
-    if (!connectionPromise) {
-      connectionPromise = (async () => {
-        // Bypass SRV lookup which causes secureConnect timeouts on Cloudflare Edge
-        let uri = env.MONGODB_URI;
-        if (uri.startsWith('mongodb+srv://')) {
-          // Hardcoded replica set fallback for this specific cluster to bypass Cloudflare DNS SRV bugs
-          const credentials = uri.split('@')[0].replace('mongodb+srv://', '');
-          uri = `mongodb://${credentials}@ac-zjfma3a-shard-00-00.x2xjdyc.mongodb.net:27017,ac-zjfma3a-shard-00-01.x2xjdyc.mongodb.net:27017,ac-zjfma3a-shard-00-02.x2xjdyc.mongodb.net:27017/?ssl=true&replicaSet=atlas-v8xgp4-shard-0&authSource=admin&retryWrites=true&w=majority`;
-        }
-        const newClient = new MongoClient(uri, {
-          connectTimeoutMS: 10000,
-          socketTimeoutMS: 45000,
-          serverSelectionTimeoutMS: 10000
-        });
-        await newClient.connect();
-        const db = newClient.db("stepping_stones_v2");
-        const cols = {
-          users: db.collection("users"),
-          curriculum: db.collection("curriculum"),
-          progress: db.collection("progress")
-        };
-        cachedCols = cols; // Set synchronously once everything is fully ready
-        console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
-        return cols;
-      })().catch(e => {
-        connectionPromise = null;
-        throw e;
-      });
-    }
-    await connectionPromise;
+  if (!client) {
+    client = new MongoClient(env.MONGODB_URI);
+    await client.connect();
+    const db = client.db("stepping_stones_v2");
+    cachedCols = {
+      users: db.collection("users"),
+      curriculum: db.collection("curriculum"),
+      progress: db.collection("progress")
+    };
+    console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
   }
   return cachedCols;
 }
