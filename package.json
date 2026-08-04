@@ -2,7 +2,7 @@
   "name": "reading-program-backend",
   "version": "1.0.0",
   "description": "Hono Backend for Reading Program",
-  "main": "api/index.js",
+  "main": "api/[...route].js",
   "type": "module",
   "dependencies": {
     "@google/genai": "^2.15.0",
