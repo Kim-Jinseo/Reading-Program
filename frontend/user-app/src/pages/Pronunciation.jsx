@@ -16,7 +16,7 @@ export default function Pronunciation({ user }) {
   const audioChunks = useRef([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL || ''}/api/stories/${id}`)
+    fetch(`/api/stories/${id}`)
       .then(res => res.json())
       .then(json => { if (json.success) setTargetText(json.data.pronunciationTarget); });
   }, [id]);
@@ -71,7 +71,7 @@ export default function Pronunciation({ user }) {
     formData.append('targetSentence', targetText);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/audio/evaluate`, {
+      const res = await fetch(`/api/audio/evaluate`, {
         method: 'POST',
         body: formData,
       });
@@ -86,7 +86,7 @@ export default function Pronunciation({ user }) {
 
   const handleFinish = async () => {
     // Save progress to DB
-    await fetch(`${process.env.REACT_APP_API_URL || ''}/api/progress`, {
+    await fetch(`/api/progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ studentId: user.id, storyId: id, starsEarned: result.score })

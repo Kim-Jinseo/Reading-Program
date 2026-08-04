@@ -46,7 +46,7 @@ export const AppProvider = ({ children }) => {
   const t = (key) => TRANSLATIONS[lang][key] || key;
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL || ''}/api/curriculum`)
+    fetch(`/api/curriculum`)
       .then(res => res.json())
       .then(data => {
         if (data.success) setCurriculumDb(data.data);
@@ -57,7 +57,7 @@ export const AppProvider = ({ children }) => {
   const syncProgress = async (updates) => {
     if (!user || user.isGuest) return;
     try {
-      await fetch(`${process.env.REACT_APP_API_URL || ''}/api/auth/sync`, {
+      await fetch(`/api/auth/sync`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -266,7 +266,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchRealLeaderboard = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/leaderboard`, {
+      const res = await fetch(`/api/leaderboard`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

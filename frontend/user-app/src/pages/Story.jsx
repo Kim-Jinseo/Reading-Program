@@ -8,7 +8,7 @@ export default function Story() {
   const [story, setStory] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL || ''}/api/stories/${id}`)
+    fetch(`/api/stories/${id}`)
       .then(res => res.json())
       .then(json => { if (json.success) setStory(json.data); });
   }, [id]);
