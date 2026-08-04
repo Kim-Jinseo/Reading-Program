@@ -1,8 +1,13 @@
 {
+  "outputDirectory": "frontend/user-app/build",
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

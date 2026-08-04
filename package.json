@@ -11,6 +11,9 @@
     "hono": "^4.13.0",
     "mongodb": "^6.8.0"
   },
+  "scripts": {
+    "build": "cd frontend/user-app && npm install && npm run build"
+  },
   "engines": {
     "node": ">=18"
   }
