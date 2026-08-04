@@ -158,7 +158,7 @@ app.post('/auth/login', async (c) => {
     return c.json({ success: true, user, token });
   } catch (error) {
     console.error(error);
-    return c.json({ success: false, error: "Authentication failed" }, 500);
+    return c.json({ success: false, error: "Server Error: " + (error.message || "Unknown error") }, 500);
   }
 });
 
