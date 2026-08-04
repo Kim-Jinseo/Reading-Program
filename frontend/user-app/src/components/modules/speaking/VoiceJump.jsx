@@ -634,10 +634,25 @@ export const VoiceJump = ({ onBack }) => {
       }
     }
 
-    // 2. Fallback for browsers without Native SpeechRecognition (e.g. Firefox)
+    // 2. Fallback for browsers without Native SpeechRecognition (e.g. Firefox, iOS Safari)
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm', audioBitsPerSecond: 16000 });
+      let options = { audioBitsPerSecond: 16000 };
+      let ext = 'webm';
+      
+      if (typeof MediaRecorder.isTypeSupported === 'function') {
+        if (MediaRecorder.isTypeSupported('audio/webm')) {
+          options.mimeType = 'audio/webm';
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+          options.mimeType = 'audio/mp4';
+          ext = 'mp4';
+        } else if (MediaRecorder.isTypeSupported('audio/aac')) {
+          options.mimeType = 'audio/aac';
+          ext = 'aac';
+        }
+      }
+      
+      const recorder = new MediaRecorder(stream, options);
       mediaRecorderRef.current = recorder;
       audioChunksRef.current = [];
 
@@ -647,8 +662,8 @@ export const VoiceJump = ({ onBack }) => {
 
       recorder.onstop = () => {
         stream.getTracks().forEach(track => track.stop());
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        handleAudioSubmit(audioBlob);
+        const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
+        handleAudioSubmit(audioBlob, ext);
       };
 
       recorder.start();
@@ -698,10 +713,10 @@ export const VoiceJump = ({ onBack }) => {
     }
   };
 
-  const handleAudioSubmit = async (blob) => {
+  const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
       const formData = new FormData();
-      formData.append('voiceRecord', blob, 'attack.webm');
+      formData.append('voiceRecord', blob, `attack.${ext}`);
       formData.append('targetSentence', word);
       formData.append('grade', grade || '3rd Grade');
 
