@@ -26,9 +26,7 @@ async function getDb(env) {
     ObjectId = mongo.ObjectId;
   }
   if (!client) {
-    client = new MongoClient(env.MONGODB_URI, {
-      serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true }
-    });
+    client = new MongoClient(env.MONGODB_URI);
     await client.connect();
     db = client.db("stepping_stones_v2");
     cols.users = db.collection("users");
