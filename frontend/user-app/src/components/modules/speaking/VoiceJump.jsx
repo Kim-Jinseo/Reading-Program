@@ -637,6 +637,15 @@ export const VoiceJump = ({ onBack }) => {
     // 2. Fallback for browsers without Native SpeechRecognition (e.g. Firefox, iOS Safari)
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      // iOS WEBKIT BUG FIX: If the user released the button while getUserMedia was pending,
+      // we MUST stop the stream immediately. Otherwise the orphaned stream stays active in the background,
+      // causing all future getUserMedia calls in WeChat/iOS to return silent/muted audio!
+      if (!isRecordingRef.current) {
+        stream.getTracks().forEach(t => t.stop());
+        return;
+      }
+
       let options = { audioBitsPerSecond: 16000 };
       let ext = 'webm';
       
@@ -670,8 +679,10 @@ export const VoiceJump = ({ onBack }) => {
       setIsRecording(true);
       setFeedback("Listening (Gemini Backup)...");
     } catch (err) {
-      console.error(err);
+      console.error("Mic fallback error:", err);
       setFeedback("Mic error. Check permissions.");
+      isRecordingRef.current = false;
+      setIsRecording(false);
     }
   };
 
@@ -716,11 +727,11 @@ export const VoiceJump = ({ onBack }) => {
   const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
       const arrayBuffer = await blob.arrayBuffer();
-      // Use Uint8Array and chunked conversion to prevent call stack size exceeded on large buffers
       const bytes = new Uint8Array(arrayBuffer);
       let binary = '';
-      for (let i = 0; i < bytes.byteLength; i++) {
-          binary += String.fromCharCode(bytes[i]);
+      const chunkSize = 8192;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
       }
       const base64Audio = btoa(binary);
 
@@ -739,6 +750,8 @@ export const VoiceJump = ({ onBack }) => {
       });
       const data = await res.json();
       setStatus('ready');
+      isRecordingRef.current = false;
+      setIsRecording(false);
       
       if (gameStateRef.current !== 'playing') {
         return; // Game over or stage cleared while waiting for AI
