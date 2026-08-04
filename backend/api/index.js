@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { handle } from 'hono/cloudflare-pages';
+import { handle } from 'hono/vercel';
 import { cors } from 'hono/cors';
 import { sign, verify } from 'hono/jwt';
 import bcrypt from 'bcryptjs';
@@ -10,15 +10,22 @@ import { Buffer } from 'node:buffer';
 const app = new Hono().basePath('/api');
 
 // CORS setup
-app.use('/*', cors());
+app.use('/*', cors({
+  origin: '*', // Adjust this to your Cloudflare Pages URL for production
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // DB Connection Cache
 let client = null;
 let cachedCols = null;
 
-async function getDb(env) {
+async function getDb() {
   if (!client) {
-    client = new MongoClient(env.MONGODB_URI);
+    const uri = process.env.MONGODB_URI;
+    if (!uri) throw new Error("MONGODB_URI environment variable is not set!");
+    
+    client = new MongoClient(uri);
     await client.connect(); 
     const db = client.db('stepping_stones_v2');
     cachedCols = {
@@ -26,7 +33,7 @@ async function getDb(env) {
       curriculum: db.collection("curriculum"),
       progress: db.collection("progress")
     };
-    console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
+    console.log("✅ Successfully connected to MongoDB Atlas on Vercel!");
   }
   return cachedCols;
 }
@@ -39,7 +46,7 @@ const requireAuth = async (c, next) => {
   }
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = await verify(token, c.env.JWT_SECRET);
+    const decoded = await verify(token, process.env.JWT_SECRET);
     c.set('user', decoded);
     await next();
   } catch (err) {
@@ -52,7 +59,7 @@ const optionalAuth = async (c, next) => {
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
     try {
-      const decoded = await verify(token, c.env.JWT_SECRET);
+      const decoded = await verify(token, process.env.JWT_SECRET);
       c.set('user', decoded);
     } catch (err) {
       c.set('user', { isGuest: true });
@@ -101,13 +108,13 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
 }
 
 // Health Check
-app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Cloudflare Pages!' }));
+app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
 app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
 // 1. AUTH API
 app.post('/auth/login', async (c) => {
   try {
-    const { users } = await getDb(c.env);
+    const { users } = await getDb();
     const { username, pin, isSignup } = await c.req.json();
 
     if (!username || !pin || pin.length < 6) {
@@ -145,7 +152,7 @@ app.post('/auth/login', async (c) => {
       if (!isMatch) return c.json({ success: false, error: "Invalid credentials." }, 401);
     }
 
-    const token = await sign({ userId: user._id.toString(), role: user.role }, c.env.JWT_SECRET);
+    const token = await sign({ userId: user._id.toString(), role: user.role }, process.env.JWT_SECRET);
     delete user.pin;
     return c.json({ success: true, user, token });
   } catch (error) {
@@ -156,7 +163,7 @@ app.post('/auth/login', async (c) => {
 
 app.post('/auth/sync', requireAuth, async (c) => {
   try {
-    const { users } = await getDb(c.env);
+    const { users } = await getDb();
     const { updates } = await c.req.json();
     const userId = c.get('user').userId;
     
@@ -171,7 +178,7 @@ app.post('/auth/sync', requireAuth, async (c) => {
 
 app.get('/leaderboard', async (c) => {
   try {
-    const { users } = await getDb(c.env);
+    const { users } = await getDb();
     const usersData = await users.find(
       { role: { $ne: 'admin' } },
       { projection: { username: 1, stars: 1, trophies: 1, grade: 1, equippedChar: 1, equippedPet: 1 } }
@@ -196,7 +203,7 @@ app.get('/leaderboard', async (c) => {
 
 app.get('/curriculum', async (c) => {
   try {
-    const { curriculum } = await getDb(c.env);
+    const { curriculum } = await getDb();
     const allData = await curriculum.find({}).toArray();
     const formattedData = {};
     allData.forEach(doc => { formattedData[doc.grade] = doc.content; });
@@ -209,7 +216,7 @@ app.get('/curriculum', async (c) => {
 
 app.post('/curriculum/update', requireAuth, requireAdmin, async (c) => {
   try {
-    const { curriculum } = await getDb(c.env);
+    const { curriculum } = await getDb();
     const { grade, content } = await c.req.json();
     await curriculum.updateOne({ grade }, { $set: { content } }, { upsert: true });
     return c.json({ success: true });
@@ -222,7 +229,7 @@ app.post('/curriculum/update', requireAuth, requireAdmin, async (c) => {
 // AI endpoints
 app.post('/practice/generate', requireAuth, async (c) => {
   const { grade } = await c.req.json();
-  const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   try {
     const { response } = await generateContentWithRetry(ai, {
       contents: `Generate 3 completely new English vocabulary words suitable for ${grade} grade. Return ONLY a valid JSON array of objects.`,
@@ -240,7 +247,6 @@ app.post('/practice/generate', requireAuth, async (c) => {
 const firewallLayer1 = async (c, next) => {
   let input = "";
   try {
-    // We clone the request to not consume the body stream before the actual route does
     const clonedReq = c.req.raw.clone();
     const contentType = clonedReq.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
@@ -263,7 +269,7 @@ const firewallLayer1 = async (c, next) => {
 app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   const { prompt, studentAnswer, grade } = await c.req.json();
   if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
-  const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
   try {
     const { response, modelUsed } = await generateContentWithRetry(ai, {
@@ -286,7 +292,6 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       modelUsed
     });
   } catch (error) {
-    // Heuristic fallback
     return c.json({
       success: true,
       stars: 1,
@@ -298,8 +303,6 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   }
 });
 
-// Audio Helper removed (parsed inline)
-
 app.post('/audio/evaluate', async (c) => {
   try {
     const formData = await c.req.parseBody();
@@ -309,7 +312,7 @@ app.post('/audio/evaluate', async (c) => {
     
     const arrayBuffer = await file.arrayBuffer();
     const base64Audio = Buffer.from(arrayBuffer).toString('base64');
-    const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const { response } = await generateContentWithRetry(ai, {
       contents: [
@@ -338,7 +341,7 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
     if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
 
     const base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
-    const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const textResponse = await generateContentWithRetry(ai, {
       contents: [
@@ -375,7 +378,7 @@ app.post('/audio/tts', requireAuth, async (c) => {
   const { text } = await c.req.json();
   if (!text) return c.json({ success: false, error: "Missing text" }, 400);
   try {
-    const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3.1-flash-tts',
       contents: `Please read aloud enthusiastically:\n\n${text}`,
@@ -399,7 +402,7 @@ app.post('/audio/transcribe', async (c) => {
     if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
 
     const base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
-    const ai = new GoogleGenAI({ apiKey: c.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const response = await generateContentWithRetry(ai, {
       contents: [
@@ -415,4 +418,7 @@ app.post('/audio/transcribe', async (c) => {
   }
 });
 
-export const onRequest = handle(app);
+export const GET = handle(app);
+export const POST = handle(app);
+export const PUT = handle(app);
+export const DELETE = handle(app);
