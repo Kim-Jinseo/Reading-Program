@@ -307,19 +307,32 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
 
 app.post('/audio/evaluate', async (c) => {
   try {
-    const formData = await c.req.parseBody();
-    const file = formData['voiceRecord'];
-    const targetSentence = formData['targetSentence'];
-    if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
-    
-    const arrayBuffer = await file.arrayBuffer();
-    const base64Audio = Buffer.from(arrayBuffer).toString('base64');
+    const contentType = c.req.header('content-type') || '';
+    let base64Audio, mimeType, targetSentence;
+
+    if (contentType.includes('application/json')) {
+      const body = await c.req.json();
+      base64Audio = body.audioBase64;
+      mimeType = body.mimeType;
+      targetSentence = body.targetSentence;
+    } else {
+      const formData = await c.req.parseBody();
+      const file = formData['voiceRecord'];
+      targetSentence = formData['targetSentence'];
+      if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
+      const arrayBuffer = await file.arrayBuffer();
+      base64Audio = Buffer.from(arrayBuffer).toString('base64');
+      mimeType = file.type;
+    }
+
+    if (!base64Audio) return c.json({ success: false, error: "No audio detected." }, 400);
+
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const { response } = await generateContentWithRetry(ai, {
       contents: [
         { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4}` },
-        { inlineData: { data: base64Audio, mimeType: file.type } }
+        { inlineData: { data: base64Audio, mimeType: mimeType } }
       ],
       config: { responseMimeType: "application/json" }
     }, true);
@@ -338,18 +351,30 @@ app.post('/audio/evaluate', async (c) => {
 
 app.post('/audio/roleplay', requireAuth, async (c) => {
   try {
-    const formData = await c.req.parseBody();
-    const file = formData['voiceRecord'];
-    if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
+    const contentType = c.req.header('content-type') || '';
+    let base64Audio, mimeType;
 
-    const base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
+    if (contentType.includes('application/json')) {
+      const body = await c.req.json();
+      base64Audio = body.audioBase64;
+      mimeType = body.mimeType;
+    } else {
+      const formData = await c.req.parseBody();
+      const file = formData['voiceRecord'];
+      if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
+      base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
+      mimeType = file.type;
+    }
+
+    if (!base64Audio) return c.json({ success: false, error: "No audio detected." }, 400);
+
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const textResponse = await generateContentWithRetry(ai, {
       contents: [
         { text: `You are a friendly alien pen-pal. Reply to the student in 1-2 very short English sentences.` },
-        { inlineData: { data: base64Audio, mimeType: file.type } }
-      ]
+        { inlineData: { data: base64Audio, mimeType: mimeType } }
+      ],
     }, true);
 
     const replyText = textResponse.response.text.trim();

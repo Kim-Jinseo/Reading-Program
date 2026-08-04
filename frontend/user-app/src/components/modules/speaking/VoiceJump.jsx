@@ -715,17 +715,27 @@ export const VoiceJump = ({ onBack }) => {
 
   const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
-      const formData = new FormData();
-      formData.append('voiceRecord', blob, `attack.${ext}`);
-      formData.append('targetSentence', word);
-      formData.append('grade', grade || '3rd Grade');
+      const arrayBuffer = await blob.arrayBuffer();
+      // Use Uint8Array and chunked conversion to prevent call stack size exceeded on large buffers
+      const bytes = new Uint8Array(arrayBuffer);
+      let binary = '';
+      for (let i = 0; i < bytes.byteLength; i++) {
+          binary += String.fromCharCode(bytes[i]);
+      }
+      const base64Audio = btoa(binary);
 
       const res = await fetch(`/api/audio/evaluate`, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: formData
+        body: JSON.stringify({
+          audioBase64: base64Audio,
+          mimeType: blob.type || `audio/${ext}`,
+          targetSentence: word,
+          grade: grade || '3rd Grade'
+        })
       });
       const data = await res.json();
       setStatus('ready');
