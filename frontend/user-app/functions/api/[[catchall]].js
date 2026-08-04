@@ -20,8 +20,9 @@ export async function onRequest(context) {
 
   // Only attach the body for methods that allow payloads
   if (['POST', 'PUT', 'PATCH'].includes(request.method.toUpperCase())) {
-    // We can stream the body directly to Vercel
-    fetchOptions.body = request.body;
+    // Read the body into memory completely to prevent Cloudflare streaming hangs
+    // This solves issues with multipart/form-data and chunked encoding proxying
+    fetchOptions.body = await request.arrayBuffer();
   }
 
   try {
