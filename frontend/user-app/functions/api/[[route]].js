@@ -14,9 +14,8 @@ const app = new Hono().basePath('/api');
 app.use('/*', cors());
 
 // DB Connection Cache
-let client = null;
-let db = null;
-let cols = {};
+let cachedCols = null;
+let connectionPromise = null;
 
 async function getDb(env) {
   if (!MongoClient) {
@@ -25,21 +24,29 @@ async function getDb(env) {
     ServerApiVersion = mongo.ServerApiVersion;
     ObjectId = mongo.ObjectId;
   }
-  if (!client) {
-    try {
-      client = new MongoClient(env.MONGODB_URI);
-      await client.connect();
-      db = client.db("stepping_stones_v2");
-      cols.users = db.collection("users");
-      cols.curriculum = db.collection("curriculum");
-      cols.progress = db.collection("progress");
-      console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
-    } catch (e) {
-      client = null;
-      throw e;
+
+  if (!cachedCols) {
+    if (!connectionPromise) {
+      connectionPromise = (async () => {
+        const newClient = new MongoClient(env.MONGODB_URI);
+        await newClient.connect();
+        const db = newClient.db("stepping_stones_v2");
+        const cols = {
+          users: db.collection("users"),
+          curriculum: db.collection("curriculum"),
+          progress: db.collection("progress")
+        };
+        cachedCols = cols; // Set synchronously once everything is fully ready
+        console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
+        return cols;
+      })().catch(e => {
+        connectionPromise = null;
+        throw e;
+      });
     }
+    await connectionPromise;
   }
-  return cols;
+  return cachedCols;
 }
 
 // Auth Middlewares
