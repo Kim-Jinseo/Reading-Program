@@ -338,7 +338,7 @@ export const ReadingModule = () => {
     const theme = getDifficultyTheme(lesson.difficulty);
 
     return (
-      <div className="max-w-4xl mx-auto pt-4 pb-12 flex flex-col h-full animate-in fade-in zoom-in-95 duration-200">
+      <div className="max-w-4xl mx-auto pt-4 pb-12 flex flex-col min-h-full animate-in fade-in zoom-in-95 duration-200">
         {/* Top Controls */}
         <div className="flex justify-between items-center mb-6">
           <button 

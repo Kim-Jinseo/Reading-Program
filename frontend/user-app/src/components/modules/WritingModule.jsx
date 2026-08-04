@@ -419,7 +419,7 @@ export const WritingModule = () => {
   }
 
   return (
-    <div className={`mx-auto pt-4 flex flex-col h-[85vh] transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto pt-4 flex flex-col min-h-[85vh] transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
       <div className="flex justify-between items-center mb-4 shrink-0">
         <button onClick={() => {
            if (status === 'improving') setStatus('feedback');
