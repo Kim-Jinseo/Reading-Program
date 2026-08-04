@@ -33,7 +33,7 @@ async function getDb() {
       curriculum: db.collection("curriculum"),
       progress: db.collection("progress")
     };
-    console.log("Γ£à Successfully connected to MongoDB Atlas on Vercel!");
+    console.log("✅ Successfully connected to MongoDB Atlas on Vercel!");
   }
   return cachedCols;
 }
@@ -420,35 +420,4 @@ app.post('/audio/transcribe', async (c) => {
   }
 });
 
-export default async function handler(req, res) {
-  try {
-    const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers.host || 'localhost';
-    const url = new URL(req.url, `${protocol}://${host}`);
-    
-    const init = {
-      method: req.method,
-      headers: req.headers,
-    };
-    
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
-      if (req.body) {
-        init.body = typeof req.body === 'object' ? JSON.stringify(req.body) : req.body;
-      }
-    }
-    
-    const request = new Request(url, init);
-    const response = await app.fetch(request);
-    
-    res.status(response.status);
-    response.headers.forEach((value, key) => {
-      res.setHeader(key, value);
-    });
-    
-    const text = await response.text();
-    res.send(text);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-}
+export default handle(app);
