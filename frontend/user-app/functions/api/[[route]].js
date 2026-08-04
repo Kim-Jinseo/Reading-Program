@@ -26,13 +26,18 @@ async function getDb(env) {
     ObjectId = mongo.ObjectId;
   }
   if (!client) {
-    client = new MongoClient(env.MONGODB_URI);
-    await client.connect();
-    db = client.db("stepping_stones_v2");
-    cols.users = db.collection("users");
-    cols.curriculum = db.collection("curriculum");
-    cols.progress = db.collection("progress");
-    console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
+    try {
+      client = new MongoClient(env.MONGODB_URI);
+      await client.connect();
+      db = client.db("stepping_stones_v2");
+      cols.users = db.collection("users");
+      cols.curriculum = db.collection("curriculum");
+      cols.progress = db.collection("progress");
+      console.log("✅ Successfully connected to MongoDB Atlas on Edge!");
+    } catch (e) {
+      client = null;
+      throw e;
+    }
   }
   return cols;
 }
@@ -170,7 +175,8 @@ app.post('/auth/sync', requireAuth, async (c) => {
     await users.updateOne({ _id: new ObjectId(userId) }, { $set: updates });
     return c.json({ success: true });
   } catch (error) {
-    return c.json({ success: false, error: "Failed to sync user data" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Failed to sync user data: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -194,7 +200,8 @@ app.get('/leaderboard', async (c) => {
 
     return c.json({ success: true, data: leaderboard });
   } catch (error) {
-    return c.json({ success: false, error: "Failed to fetch leaderboard" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Failed to fetch leaderboard: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -206,7 +213,8 @@ app.get('/curriculum', async (c) => {
     allData.forEach(doc => { formattedData[doc.grade] = doc.content; });
     return c.json({ success: true, data: formattedData });
   } catch (error) {
-    return c.json({ success: false, error: "Failed to load curriculum" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Failed to load curriculum: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -217,7 +225,8 @@ app.post('/curriculum/update', requireAuth, requireAdmin, async (c) => {
     await curriculum.updateOne({ grade }, { $set: { content } }, { upsert: true });
     return c.json({ success: true });
   } catch (error) {
-    return c.json({ success: false, error: "Failed to update curriculum" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Failed to update curriculum: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -233,7 +242,8 @@ app.post('/practice/generate', requireAuth, async (c) => {
     const cleanJsonStr = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
     return c.json({ success: true, data: JSON.parse(cleanJsonStr) });
   } catch (error) {
-    return c.json({ success: false, error: "Failed to generate practice" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Failed to generate practice: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -274,7 +284,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       config: { responseMimeType: "application/json" }
     });
     
-    const cleanJsonStr = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
+    const cleanJsonStr = response.text ? response.text.replace(/```json/g, '').replace(/```/g, '').trim() : "{}";
     if (cleanJsonStr.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
     const evaluation = JSON.parse(cleanJsonStr);
@@ -299,14 +309,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   }
 });
 
-// Audio Helper for FormData
-async function extractAudioBase64(c) {
-  const formData = await c.req.parseBody();
-  const file = formData['voiceRecord'];
-  if (!file) return null;
-  const arrayBuffer = await file.arrayBuffer();
-  return Buffer.from(arrayBuffer).toString('base64');
-}
+// Audio Helper removed (parsed inline)
 
 app.post('/audio/evaluate', async (c) => {
   try {
@@ -334,7 +337,8 @@ app.post('/audio/evaluate', async (c) => {
     
     return c.json({ success: true, score: finalScore, feedback: finalFeedback, targetSentence });
   } catch (error) {
-    return c.json({ success: false, error: "Audio analysis failed." }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Audio analysis failed: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -364,16 +368,17 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
         contents: `Please read the following aloud in a very cute, friendly, enthusiastic voice:\n\n${replyText}`,
         config: { responseModalities: ["AUDIO"] }
       });
-      const audioPart = ttsRes.candidates[0].content.parts.find(p => p.inlineData);
+      const audioPart = ttsRes?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
       if (audioPart) {
         audioBase64 = audioPart.inlineData.data;
         audioMimeType = audioPart.inlineData.mimeType;
       }
-    } catch(e) {}
+    } catch(e) { console.error("TTS generation failed:", e); }
 
     return c.json({ success: true, text: replyText, audioBase64, mimeType: audioMimeType });
   } catch (error) {
-    return c.json({ success: false, error: "Roleplay failed." }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Roleplay failed: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -387,13 +392,14 @@ app.post('/audio/tts', requireAuth, async (c) => {
       contents: `Please read aloud enthusiastically:\n\n${text}`,
       config: { responseModalities: ["AUDIO"] }
     });
-    const audioPart = response.candidates[0].content.parts.find(p => p.inlineData);
+    const audioPart = response?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
     if (audioPart) {
       return c.json({ success: true, audioBase64: audioPart.inlineData.data, mimeType: audioPart.inlineData.mimeType });
     }
     return c.json({ success: false, error: "No audio returned" }, 500);
   } catch(error) {
-    return c.json({ success: false, error: "TTS failed" }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "TTS failed: " + (error.message || "Unknown error") }, 500);
   }
 });
 
@@ -415,7 +421,8 @@ app.post('/audio/transcribe', async (c) => {
 
     return c.json({ success: true, text: response.response.text.trim() });
   } catch (error) {
-    return c.json({ success: false, error: "Transcription failed." }, 500);
+    console.error(error);
+    return c.json({ success: false, error: "Transcription failed: " + (error.message || "Unknown error") }, 500);
   }
 });
 
