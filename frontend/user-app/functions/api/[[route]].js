@@ -28,7 +28,18 @@ async function getDb(env) {
   if (!cachedCols) {
     if (!connectionPromise) {
       connectionPromise = (async () => {
-        const newClient = new MongoClient(env.MONGODB_URI);
+        // Bypass SRV lookup which causes secureConnect timeouts on Cloudflare Edge
+        let uri = env.MONGODB_URI;
+        if (uri.startsWith('mongodb+srv://')) {
+          // Hardcoded replica set fallback for this specific cluster to bypass Cloudflare DNS SRV bugs
+          const credentials = uri.split('@')[0].replace('mongodb+srv://', '');
+          uri = `mongodb://${credentials}@ac-zjfma3a-shard-00-00.x2xjdyc.mongodb.net:27017,ac-zjfma3a-shard-00-01.x2xjdyc.mongodb.net:27017,ac-zjfma3a-shard-00-02.x2xjdyc.mongodb.net:27017/?ssl=true&replicaSet=atlas-v8xgp4-shard-0&authSource=admin&retryWrites=true&w=majority`;
+        }
+        const newClient = new MongoClient(uri, {
+          connectTimeoutMS: 10000,
+          socketTimeoutMS: 45000,
+          serverSelectionTimeoutMS: 10000
+        });
         await newClient.connect();
         const db = newClient.db("stepping_stones_v2");
         const cols = {
