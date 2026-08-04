@@ -384,12 +384,12 @@ export const WritingModule = () => {
             {writingPurplePhase 
               ? "⭐ ABSOLUTE MASTERPIECE! ⭐" 
               : feedback.stars >= 3 
-                ? "Great job on completing your writing task!" 
+                ? "Fantastic work! You're a brilliant writer! 🌟" 
                 : feedback.stars >= 2 
-                  ? "Good effort! Check grammar feedback below." 
+                  ? "Great effort! Just a few tiny tweaks to make it perfect! ✨" 
                   : feedback.stars === 1 
-                    ? "Noticeable grammar errors. Let's fix them!" 
-                    : "We need more effort! Let's try again."}
+                    ? "Good try! Let's polish it up together to make it shine! 💪" 
+                    : "Keep going! Every great writer starts with a draft. 🌱"}
           </p>
 
           <div className="flex flex-col gap-3">
