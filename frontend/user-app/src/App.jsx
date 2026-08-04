@@ -29,7 +29,7 @@ const AppContent = () => {
 
   return (
     <div 
-      className="flex h-screen bg-[#f8fafc] text-slate-800 overflow-hidden relative" 
+      className="flex h-screen h-[100dvh] bg-[#f8fafc] text-slate-800 overflow-hidden relative" 
       style={{ fontFamily: '"Inter", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif' }}
     >
       <style>
@@ -42,7 +42,7 @@ const AppContent = () => {
       <Sidebar isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
+      <main className="flex-1 flex flex-col h-screen h-[100dvh] overflow-hidden relative w-full">
         {/* TOPBAR */}
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 

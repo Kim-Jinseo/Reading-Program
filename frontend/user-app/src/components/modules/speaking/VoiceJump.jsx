@@ -387,6 +387,20 @@ export const VoiceJump = ({ onBack }) => {
 
   const toggleRecording = () => {
     if (status === 'loading' || gameState !== 'playing') return;
+    
+    // iOS Safari AudioContext Wakeup (Must happen synchronously on user gesture!)
+    try {
+       if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+           audioCtxRef.current.resume();
+       } else if (!audioCtxRef.current) {
+           const AudioContext = window.AudioContext || window.webkitAudioContext;
+           if (AudioContext) {
+              audioCtxRef.current = new AudioContext();
+              audioCtxRef.current.resume();
+           }
+       }
+    } catch(e) {}
+
     if (isRecording) {
       stopRecording();
     } else {
@@ -640,6 +654,10 @@ export const VoiceJump = ({ onBack }) => {
 
     // 2. Fallback for browsers without Native SpeechRecognition (e.g. Firefox, iOS Safari)
     try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("Audio hardware or secure HTTPS context not found on this device.");
+      }
+      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       // iOS WEBKIT BUG FIX: If the user released the button while getUserMedia was pending,
@@ -653,7 +671,7 @@ export const VoiceJump = ({ onBack }) => {
       let options = { audioBitsPerSecond: 16000 };
       let ext = 'webm';
       
-      if (typeof MediaRecorder.isTypeSupported === 'function') {
+      if (typeof window.MediaRecorder !== 'undefined' && typeof MediaRecorder.isTypeSupported === 'function') {
         if (MediaRecorder.isTypeSupported('audio/webm')) {
           options.mimeType = 'audio/webm';
         } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
@@ -663,6 +681,10 @@ export const VoiceJump = ({ onBack }) => {
           options.mimeType = 'audio/aac';
           ext = 'aac';
         }
+      }
+      
+      if (typeof window.MediaRecorder === 'undefined') {
+         throw new Error("Your browser is too old and does not support audio recording.");
       }
       
       const recorder = new MediaRecorder(stream, options);

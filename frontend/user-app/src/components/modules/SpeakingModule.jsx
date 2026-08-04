@@ -475,6 +475,10 @@ export const SpeakingModule = () => {
     // Live Volume Meter setup
     (async () => {
       try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+           console.warn("Audio hardware not supported on this device.");
+           return;
+        }
         const stream = await navigator.mediaDevices.getUserMedia({ 
           audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } 
         });
