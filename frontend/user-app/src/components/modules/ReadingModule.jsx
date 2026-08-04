@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 import { getDailyItem } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
 import Pagination from '../common/Pagination';
+import { playRobustTTS, stopRobustTTS } from '../../utils/audioTTS';
 
 export const ReadingModule = () => {
   const { t, curriculumDb, grade, user, handleEarnStars, updateCompletion, markDailyComplete, getDailyStatus } = useAppContext();
@@ -117,53 +118,31 @@ export const ReadingModule = () => {
   };
 
   const toggleAudio = (textToRead) => {
-    if (!('speechSynthesis' in window)) return;
-
+    if (!textToRead) return;
+    
     if (isPlayingAudio) {
-      window.speechSynthesis.cancel();
+      stopRobustTTS();
       setIsPlayingAudio(false);
       return;
     }
-
-    try { window.speechSynthesis.cancel(); } catch(e){}
-    try { window.speechSynthesis.resume(); } catch(e){}
-    const textToReadWithPreRoll = `, ${textToRead}`;
-    const utterance = new SpeechSynthesisUtterance(textToReadWithPreRoll);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.8;
-
-    const setVoiceAndSpeak = () => {
-      const voices = window.speechSynthesis.getVoices();
-      const premiumVoice = voices.find(v => v.name.includes('Natural') && v.lang.includes('en'))
-                        || voices.find(v => v.name.includes('Online') && v.name.includes('English'))
-                        || voices.find(v => v.name.includes('Google') && v.lang.includes('en')) 
-                        || voices.find(v => v.lang === 'en-US' || v.lang === 'en-GB');
-
-      if (premiumVoice) {
-        utterance.voice = premiumVoice;
-      }
-
-      utterance.onend = () => setIsPlayingAudio(false);
-      utterance.onerror = () => setIsPlayingAudio(false);
-
-      setIsPlayingAudio(true);
-      setTimeout(() => {
-        try { window.speechSynthesis.resume(); } catch(e){}
-        window.speechSynthesis.speak(utterance);
-      }, 50);
-    };
-
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.addEventListener('voiceschanged', setVoiceAndSpeak, { once: true });
-      setTimeout(setVoiceAndSpeak, 200);
-    } else {
-      setVoiceAndSpeak();
-    }
+    
+    // Some minor string replacements to make TTS sound slightly better
+    const textToReadWithPreRoll = " " + textToRead
+      .replace(/<[^>]+>/g, '') // remove HTML tags
+      .replace(/([.?!])\s*(?=[A-Z])/g, "$1  "); // add slight pause between sentences
+    
+    setIsPlayingAudio(true);
+    playRobustTTS(
+      textToReadWithPreRoll,
+      () => {}, // onStart
+      () => setIsPlayingAudio(false), // onEnd
+      () => setIsPlayingAudio(false)  // onError
+    );
   };
 
   const stopAudio = () => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+    if (isPlayingAudio) {
+      stopRobustTTS();
       setIsPlayingAudio(false);
     }
   };

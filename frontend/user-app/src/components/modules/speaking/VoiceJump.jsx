@@ -508,11 +508,17 @@ export const VoiceJump = ({ onBack }) => {
     // 1. Check for Native SpeechRecognition (Chrome, Safari, Edge, Android, iOS)
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     
+    // Detect ecosystems where the exposed webkitSpeechRecognition API is present but fatally broken
+    // iOS WebViews (WeChat iOS, Chrome iOS, Firefox iOS) instantly fail or loop
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // WeChat, Chrome iOS, Firefox iOS etc all expose webkitSpeechRecognition but it instantly fails/loops
     const isIOSWebView = isIOS && /CriOS|FxiOS|MicroMessenger|WeChat|Line/i.test(navigator.userAgent);
+    
+    // Chinese Android/AOSP and HarmonyOS lack Google STT, causing immediate failure loops
+    const isChineseAndroid = /MicroMessenger|WeChat|HarmonyOS|OpenHarmony|HuaweiBrowser|HeyTapBrowser|VivoBrowser/i.test(navigator.userAgent);
 
-    if (SpeechRecognition && !isIOSWebView) {
+    const isBrokenSpeechAPI = isIOSWebView || isChineseAndroid;
+
+    if (SpeechRecognition && !isBrokenSpeechAPI) {
       const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
       try {
         const recognition = new SpeechRecognition();
