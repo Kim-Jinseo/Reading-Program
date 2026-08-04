@@ -22,10 +22,11 @@ export default async function handler(req, res) {
       }
     }
     
-    const request = new Request(url, init);
-    const response = await app.fetch(request);
+    console.log("Before app.fetch");
+    // const response = await app.fetch(request);
+    console.log("After app.fetch");
     
-    res.status(response.status);
+    return res.status(200).json({ status: 'ok', msg: 'Short circuit works' });
     response.headers.forEach((value, key) => {
       res.setHeader(key, value);
     });
