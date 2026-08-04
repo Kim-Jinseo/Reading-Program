@@ -2,8 +2,9 @@ import { Hono } from 'hono';
 import { handle } from 'hono/cloudflare-pages';
 import { cors } from 'hono/cors';
 import { sign, verify } from 'hono/jwt';
-import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
+
+let MongoClient, ServerApiVersion, ObjectId;
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
 
@@ -18,6 +19,12 @@ let db = null;
 let cols = {};
 
 async function getDb(env) {
+  if (!MongoClient) {
+    const mongo = await import('mongodb');
+    MongoClient = mongo.MongoClient;
+    ServerApiVersion = mongo.ServerApiVersion;
+    ObjectId = mongo.ObjectId;
+  }
   if (!client) {
     client = new MongoClient(env.MONGODB_URI, {
       serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true }
