@@ -112,6 +112,7 @@ app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }))
 app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
 // 1. AUTH API
+app.post('/test', (c) => c.json({ status: 'ok', msg: 'POST test works' }));
 app.post('/auth/login', async (c) => {
   try {
     const { users } = await getDb();
