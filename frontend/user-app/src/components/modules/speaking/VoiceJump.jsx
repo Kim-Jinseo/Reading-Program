@@ -493,9 +493,13 @@ export const VoiceJump = ({ onBack }) => {
 
     // 1. Check for Native SpeechRecognition (Chrome, Safari, Edge, Android, iOS)
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
     
-    if (SpeechRecognition) {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // WeChat, Chrome iOS, Firefox iOS etc all expose webkitSpeechRecognition but it instantly fails/loops
+    const isIOSWebView = isIOS && /CriOS|FxiOS|MicroMessenger|WeChat|Line/i.test(navigator.userAgent);
+
+    if (SpeechRecognition && !isIOSWebView) {
+      const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
       try {
         const recognition = new SpeechRecognition();
         // Restore continuous mode so you never have to click to start
@@ -611,11 +615,11 @@ export const VoiceJump = ({ onBack }) => {
         recognition.onerror = (err) => {
           console.warn("Native SpeechRecognition error:", err.error);
           // Don't stop on 'no-speech' — just let onend restart it
-          if (err.error === 'not-allowed' || err.error === 'audio-capture') {
+          if (err.error === 'not-allowed' || err.error === 'audio-capture' || err.error === 'network') {
             isRecordingRef.current = false;
             setIsRecording(false);
             setStatus('ready');
-            setFeedback("Mic access denied. Check browser permissions!");
+            setFeedback(err.error === 'network' ? "Network STT error." : "Mic access denied.");
           }
         };
 
