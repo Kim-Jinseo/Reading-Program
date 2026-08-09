@@ -430,10 +430,10 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
 
     const result = await response.json();
     const alternative = result?.results?.channels?.[0]?.alternatives?.[0];
-    if (alternative && alternative.transcript && alternative.transcript.trim().length > 0) {
+    if (alternative && typeof alternative.transcript === 'string') {
       return {
         transcript: alternative.transcript.trim(),
-        confidence: alternative.confidence || 1.0
+        confidence: alternative.confidence || 0
       };
     }
     return null;
@@ -586,7 +586,7 @@ app.post('/audio/evaluate', async (c) => {
       contents: [{
         role: "user",
         parts: [
-          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 3, "feedback": "Good effort"}. Be very lenient and generous, grade out of a maximum of 3 stars.` },
+          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 3, "feedback": "Good effort"}. If you do NOT hear any clear speech, you MUST return {"speech_detected": false}. Be very lenient and generous if you do hear speech, grade out of a maximum of 3 stars.` },
           { inlineData: { data: base64Audio, mimeType } }
         ]
       }],
