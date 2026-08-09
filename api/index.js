@@ -133,6 +133,10 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
       const data = await response.json();
 
       if (!response.ok || data.error) {
+        if (response.status === 401 || (data.error && String(data.error.code) === '1000')) {
+          throw new Error("Zhipu API Key is invalid or expired (401/1000). Please check ZHIPU_API_KEY in Vercel!");
+        }
+
         if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
           console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
         } else {
@@ -347,7 +351,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       stars: 1,
       grammar: "Please write complete sentences.",
       content: "Nice effort answering the writing prompt!",
-      general: "Keep practicing!",
+      general: `DEBUG ERROR: ${error.message}`,
       modelUsed: "heuristic-fallback"
     });
   }
