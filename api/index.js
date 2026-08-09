@@ -513,6 +513,31 @@ app.post('/audio/stt', async (c) => {
   }
 });
 
+function levenshteinDistance(a, b) {
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+function isSimilarWord(w1, w2) {
+  if (w1 === w2) return true;
+  const dist = levenshteinDistance(w1, w2);
+  const maxTypo = Math.max(Math.floor(w1.length / 4), 1);
+  return dist <= maxTypo;
+}
+
 /**
  * POST /api/audio/evaluate
  *
@@ -546,23 +571,36 @@ app.post('/audio/evaluate', async (c) => {
       let finalScore = 0;
       let finalFeedback = `Heard: "${deepgramTranscript}"`;
       
-      // Basic includes matching for scoring
-      if (h.includes(t) && t.length > 0) {
-        finalScore = 3; // Any exact match = 3 stars, ignore confidence since kids have low STT confidence
+      const heardWords = h.split(/\s+/).filter(w => w.length > 0);
+      const targetWords = t.split(/\s+/).filter(w => w.length > 0);
+
+      const fullDist = levenshteinDistance(h, t);
+      const fullMaxTypo = t.length <= 4 ? 1 : Math.floor(t.length / 3);
+
+      // Basic includes matching OR full string levenshtein for a direct hit
+      if ((h.includes(t) && t.length > 0) || (fullDist <= fullMaxTypo && t.length > 0)) {
+        finalScore = 3; // Any exact or very close match = 3 stars, ignore confidence
         finalFeedback = `Hit! (${deepgramTranscript})`;
       } else if (h.length > 0) {
-        // Simple word overlap for partial credit
-        const heardWords = h.split(/\s+/);
-        const targetWords = t.split(/\s+/);
+        // Simple word overlap with levenshtein for partial credit
         let matchCount = 0;
         
-        targetWords.forEach(word => {
-          if (heardWords.includes(word)) matchCount++;
+        targetWords.forEach(tw => {
+          const isMatch = heardWords.some(hw => {
+            if (hw === tw) return true;
+            const dist = levenshteinDistance(hw, tw);
+            const maxTypo = tw.length <= 4 ? 1 : 2;
+            return dist <= maxTypo;
+          });
+          if (isMatch) matchCount++;
         });
         
         const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
         
-        if (matchRatio >= 0.4) {
+        if (matchRatio === 1) {
+           finalScore = 3;
+           finalFeedback = `Hit! (${deepgramTranscript})`;
+        } else if (matchRatio >= 0.4) {
            finalScore = 2;
         } else if (matchRatio > 0) {
            finalScore = 1;
