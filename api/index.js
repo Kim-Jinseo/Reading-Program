@@ -324,13 +324,13 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
     }
     cleanText = cleanText.trim();
 
-    const evaluation = JSON.parse(cleanText);
+    const stars = Math.max(0, Math.min(4, Math.round(evaluation.stars)));
     return c.json({ 
       success: true, 
-      stars: Math.max(0, Math.min(4, Math.round(evaluation.stars))), 
-      grammar: evaluation.grammar_feedback || "Clear and accurate!",
-      content: evaluation.content_feedback || "Great job answering the prompt!",
-      general: evaluation.general_feedback || "Wonderful writing effort!",
+      stars, 
+      grammar: evaluation.grammar_feedback || (stars === 0 ? "Please write complete English sentences." : "Clear and accurate!"),
+      content: evaluation.content_feedback || (stars === 0 ? "Make sure your answer matches the prompt." : "Great job answering the prompt!"),
+      general: evaluation.general_feedback || (stars === 0 ? "Keep trying! I couldn't understand your writing." : "Wonderful writing effort!"),
       modelUsed
     });
   } catch (error) {
