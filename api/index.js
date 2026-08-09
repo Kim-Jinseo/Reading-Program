@@ -639,7 +639,7 @@ app.post('/audio/tts', requireAuth, async (c) => {
   if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
 
   try {
-    const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-2-odysseus-en', {
+    const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
       method: 'POST',
       headers: {
         'Authorization': `Token ${ttsKey}`,
