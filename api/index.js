@@ -499,9 +499,8 @@ app.post('/audio/evaluate', async (c) => {
       
       // Basic includes matching for scoring
       if (h.includes(t) && t.length > 0) {
-        if (confidence >= 0.95) finalScore = 4;
-        else if (confidence >= 0.85) finalScore = 3;
-        else if (confidence >= 0.65) finalScore = 2;
+        if (confidence >= 0.70) finalScore = 3;
+        else if (confidence >= 0.40) finalScore = 2;
         else finalScore = 1; // It matched, but Deepgram wasn't very sure
         
         finalFeedback = `Hit! (${deepgramTranscript})`;
@@ -517,10 +516,8 @@ app.post('/audio/evaluate', async (c) => {
         
         const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
         
-        if (matchRatio >= 0.8) {
-           finalScore = confidence >= 0.85 ? 3 : 2;
-        } else if (matchRatio >= 0.5) {
-           finalScore = confidence >= 0.70 ? 2 : 1;
+        if (matchRatio >= 0.6) {
+           finalScore = confidence >= 0.60 ? 2 : 1;
         } else if (matchRatio > 0) {
            finalScore = 1;
         }
@@ -542,7 +539,7 @@ app.post('/audio/evaluate', async (c) => {
       contents: [{
         role: "user",
         parts: [
-          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4, "feedback": "Good effort"}` },
+          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 3, "feedback": "Good effort"}. Be very lenient and generous, grade out of a maximum of 3 stars.` },
           { inlineData: { data: base64Audio, mimeType } }
         ]
       }],
@@ -551,7 +548,7 @@ app.post('/audio/evaluate', async (c) => {
 
     const evaluation = JSON.parse(response.text.replace(/```json/g, '').replace(/```/g, '').trim());
     const speechDetected = evaluation.speech_detected === true || evaluation.speech_detected === 'true';
-    const finalScore = speechDetected ? Math.max(0, Math.min(4, Math.round(evaluation.stars))) : 0;
+    const finalScore = speechDetected ? Math.max(0, Math.min(3, Math.round(evaluation.stars))) : 0;
     const finalFeedback = speechDetected ? (evaluation.feedback || 'Good effort!') : "I couldn't hear your voice!";
 
     return c.json({ 

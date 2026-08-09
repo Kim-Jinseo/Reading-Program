@@ -250,6 +250,8 @@ export const VoiceJump = ({ onBack }) => {
   const isRecordingRef = useRef(false);
   const isEvaluatingRef = useRef(false);
   const evalDebounceRef = useRef(null);
+  const rapidRestartCountRef = useRef(0);
+  const lastEndTimeRef = useRef(0);
   // Store ALL heard text as plain strings (NOT live DOM references that Chrome invalidates)
   const allHeardTextRef = useRef('');
   const wordRef = useRef(word);
@@ -509,8 +511,8 @@ export const VoiceJump = ({ onBack }) => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // WeChat, Line, QQ, and iOS alternative browsers have notoriously broken SpeechRecognition
-    const isWebViewOrBuggyBrowser = /MicroMessenger|WeChat|Line|QQ/i.test(navigator.userAgent) || (isIOS && /CriOS|FxiOS/i.test(navigator.userAgent));
+    // WeChat, Line, QQ, Android WebViews (wv), and iOS alternative browsers have notoriously broken SpeechRecognition
+    const isWebViewOrBuggyBrowser = /MicroMessenger|WeChat|Line|QQ|wv/i.test(navigator.userAgent) || (isIOS && /CriOS|FxiOS/i.test(navigator.userAgent));
     
     const isNativeBroken = sessionStorage.getItem('nativeSTT_broken') === 'true';
 
@@ -611,23 +613,19 @@ export const VoiceJump = ({ onBack }) => {
           }, 150);
         };
 
-        // Track rapid onend loops
-        recognition.rapidRestartCount = 0;
-        recognition.lastEndTime = 0;
-
         // CRITICAL: Handle Chrome auto-stopping (silence timeout, network blip, or manual stop)
         recognition.onend = () => {
           // If mic is supposed to be on and instance wasn't killed by word transition, auto-restart
           if (isRecordingRef.current && recognitionRef.current === recognition) {
             const now = Date.now();
-            if (now - recognition.lastEndTime < 500) {
-              recognition.rapidRestartCount++;
+            if (now - lastEndTimeRef.current < 500) {
+              rapidRestartCountRef.current++;
             } else {
-              recognition.rapidRestartCount = 1;
+              rapidRestartCountRef.current = 1;
             }
-            recognition.lastEndTime = now;
+            lastEndTimeRef.current = now;
 
-            if (recognition.rapidRestartCount > 3) {
+            if (rapidRestartCountRef.current > 3) {
               // It's looping rapidly (Native STT is broken/blocked). Fallback to backup STT!
               console.warn("Native STT rapid loop detected. Falling back to Deepgram/Gemini.");
               sessionStorage.setItem('nativeSTT_broken', 'true');
@@ -828,7 +826,7 @@ export const VoiceJump = ({ onBack }) => {
       if (data.success) {
         const score = data.score;
         if (score > 0) {
-          const mult = score === 4 ? 1.0 : score === 3 ? 0.85 : score === 2 ? 0.7 : 0.5;
+          const mult = score === 3 ? 1.0 : score === 2 ? 0.8 : 0.6;
           setFeedback(data.feedback || 'Hit!');
           executeAttackSuccess({ stars: score, multiplier: mult, feedback: data.feedback || 'Hit!' }, false);
         } else {
