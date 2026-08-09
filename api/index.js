@@ -635,19 +635,28 @@ app.post('/audio/tts', requireAuth, async (c) => {
   const { text } = await c.req.json();
   if (!text) return c.json({ success: false, error: 'Missing text' }, 400);
 
+  const ttsKey = process.env.TEXT_TO_SPEECH;
+  if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
+
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.1-flash-tts',
-      contents: `Please read aloud enthusiastically:\n\n${text}`,
-      config: { responseModalities: ['AUDIO'] },
+    const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-2-odysseus-en', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${ttsKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
     });
 
-    const audioPart = response?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-    if (audioPart) {
-      return c.json({ success: true, audioBase64: audioPart.inlineData.data, mimeType: audioPart.inlineData.mimeType });
+    if (!deepgramRes.ok) {
+      throw new Error(`Deepgram TTS failed: ${deepgramRes.status}`);
     }
-    return c.json({ success: false, error: 'No audio returned' }, 500);
+
+    const audioBuffer = await deepgramRes.arrayBuffer();
+    const audioBase64 = Buffer.from(audioBuffer).toString('base64');
+    const mimeType = deepgramRes.headers.get('content-type') || 'audio/mp3';
+
+    return c.json({ success: true, audioBase64, mimeType });
   } catch (error) {
     console.error('[TTS]', error);
     return c.json({ success: false, error: 'TTS failed: ' + (error.message || 'Unknown error') }, 500);

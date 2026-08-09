@@ -116,56 +116,51 @@ export const ReadingModule = () => {
     };
   };
 
-  const toggleAudio = (textToRead) => {
-    if (!('speechSynthesis' in window)) return;
-
+  const toggleAudio = async (textToRead) => {
     if (isPlayingAudio) {
-      window.speechSynthesis.cancel();
+      if (window.currentAudioInstance) {
+        window.currentAudioInstance.pause();
+        window.currentAudioInstance.currentTime = 0;
+      }
       setIsPlayingAudio(false);
       return;
     }
 
-    try { window.speechSynthesis.cancel(); } catch(e){}
-    try { window.speechSynthesis.resume(); } catch(e){}
-    const textToReadWithPreRoll = `, ${textToRead}`;
-    const utterance = new SpeechSynthesisUtterance(textToReadWithPreRoll);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.8;
-
-    const setVoiceAndSpeak = () => {
-      const voices = window.speechSynthesis.getVoices();
-      const premiumVoice = voices.find(v => v.name.includes('Natural') && v.lang.includes('en'))
-                        || voices.find(v => v.name.includes('Online') && v.name.includes('English'))
-                        || voices.find(v => v.name.includes('Google') && v.lang.includes('en')) 
-                        || voices.find(v => v.lang === 'en-US' || v.lang === 'en-GB');
-
-      if (premiumVoice) {
-        utterance.voice = premiumVoice;
+    setIsPlayingAudio(true);
+    try {
+      const response = await fetch('https://reading-program-chi.vercel.app/api/audio/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: textToRead })
+      });
+      
+      const data = await response.json();
+      if (!data.success) {
+        console.error("TTS failed:", data.error);
+        setIsPlayingAudio(false);
+        return;
       }
-
-      utterance.onend = () => setIsPlayingAudio(false);
-      utterance.onerror = () => setIsPlayingAudio(false);
-
-      setIsPlayingAudio(true);
-      setTimeout(() => {
-        try { window.speechSynthesis.resume(); } catch(e){}
-        window.speechSynthesis.speak(utterance);
-      }, 50);
-    };
-
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.addEventListener('voiceschanged', setVoiceAndSpeak, { once: true });
-      setTimeout(setVoiceAndSpeak, 200);
-    } else {
-      setVoiceAndSpeak();
+      
+      const audioUrl = `data:${data.mimeType};base64,${data.audioBase64}`;
+      const audio = new Audio(audioUrl);
+      window.currentAudioInstance = audio;
+      
+      audio.onended = () => setIsPlayingAudio(false);
+      audio.onerror = () => setIsPlayingAudio(false);
+      
+      audio.play();
+    } catch (e) {
+      console.error("Error playing audio:", e);
+      setIsPlayingAudio(false);
     }
   };
 
   const stopAudio = () => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      setIsPlayingAudio(false);
+    if (window.currentAudioInstance) {
+      window.currentAudioInstance.pause();
+      window.currentAudioInstance.currentTime = 0;
     }
+    setIsPlayingAudio(false);
   };
 
   if (mode === 'menu') {

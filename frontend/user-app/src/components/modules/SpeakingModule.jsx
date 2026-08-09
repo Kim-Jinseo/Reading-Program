@@ -334,40 +334,25 @@ export const SpeakingModule = () => {
 
   if (mode === 'voice_jump') return <VoiceJump onBack={() => setMode('menu')} />;
 
-  const handlePlayNative = () => {
-    if ('speechSynthesis' in window) {
-      try { window.speechSynthesis.cancel(); } catch(e){}
-      try { window.speechSynthesis.resume(); } catch(e){}
-
-      // Pre-roll a gentle pause/comma so Chrome audio hardware wakes up without truncating the first 1-2 words
-      const textToSpeak = `, ${prompt.en}`;
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = 'en-US';
+  const handlePlayAudio = async () => {
+    try {
+      const response = await fetch('https://reading-program-chi.vercel.app/api/audio/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: prompt.en })
+      });
       
-      const setVoiceAndSpeak = () => {
-        const voices = window.speechSynthesis.getVoices();
-        
-        const premiumVoice = voices.find(v => v.name.includes('Natural') && v.lang.includes('en'))
-                          || voices.find(v => v.name.includes('Online') && v.name.includes('English'))
-                          || voices.find(v => v.name.includes('Google') && v.lang.includes('en')) 
-                          || voices.find(v => v.lang === 'en-US' || v.lang === 'en-GB');
-        
-        if (premiumVoice) {
-          utterance.voice = premiumVoice;
-        }
-        
-        setTimeout(() => {
-          try { window.speechSynthesis.resume(); } catch(e){}
-          window.speechSynthesis.speak(utterance);
-        }, 50);
-      };
-
-      if (window.speechSynthesis.getVoices().length === 0) {
-        window.speechSynthesis.addEventListener('voiceschanged', setVoiceAndSpeak, { once: true });
-        setTimeout(setVoiceAndSpeak, 200);
-      } else {
-        setVoiceAndSpeak();
+      const data = await response.json();
+      if (!data.success) {
+        console.error("TTS failed:", data.error);
+        return;
       }
+      
+      const audioUrl = `data:${data.mimeType};base64,${data.audioBase64}`;
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (e) {
+      console.error("Error playing audio:", e);
     }
   };
 
@@ -554,7 +539,7 @@ export const SpeakingModule = () => {
       
       <div className="bg-white border-2 border-rose-100 p-12 rounded-[3rem] shadow-xl w-full text-center mb-12 relative">
         <button 
-          onClick={handlePlayNative} 
+          onClick={handlePlayAudio} 
           className="mx-auto text-rose-300 hover:text-rose-500 transition-colors mb-6 block focus:outline-none hover:scale-110 active:scale-95"
           title="Listen to native pronunciation"
         >
