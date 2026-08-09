@@ -523,9 +523,9 @@ app.post('/audio/stt', async (c) => {
   }
 });
 
-function levenshteinDistance(a, b) {
-  if (a.length === 0) return b.length;
-  if (b.length === 0) return a.length;
+function calculateLevenshteinSimilarity(a, b) {
+  if (!a || !b) return 0;
+  if (a === b) return 1.0;
   const matrix = [];
   for (let i = 0; i <= b.length; i++) matrix[i] = [i];
   for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
@@ -538,14 +538,9 @@ function levenshteinDistance(a, b) {
       }
     }
   }
-  return matrix[b.length][a.length];
-}
-
-function isSimilarWord(w1, w2) {
-  if (w1 === w2) return true;
-  const dist = levenshteinDistance(w1, w2);
-  const maxTypo = Math.max(Math.floor(w1.length / 4), 1);
-  return dist <= maxTypo;
+  const maxLen = Math.max(a.length, b.length);
+  if (maxLen === 0) return 1.0;
+  return 1.0 - matrix[b.length][a.length] / maxLen;
 }
 
 /**
@@ -584,36 +579,36 @@ app.post('/audio/evaluate', async (c) => {
       const heardWords = h.split(/\s+/).filter(w => w.length > 0);
       const targetWords = t.split(/\s+/).filter(w => w.length > 0);
 
-      const fullDist = levenshteinDistance(h, t);
-      const fullMaxTypo = t.length <= 4 ? 1 : Math.floor(t.length / 3);
+      const sim = calculateLevenshteinSimilarity(h, t);
 
-      // Basic includes matching OR full string levenshtein for a direct hit
-      if ((h.includes(t) && t.length > 0) || (fullDist <= fullMaxTypo && t.length > 0)) {
-        finalScore = 3; // Any exact or very close match = 3 stars, ignore confidence
+      if (sim >= 0.75 || h.includes(t)) {
+        finalScore = 3;
         finalFeedback = `Hit! (${deepgramTranscript})`;
+      } else if (sim >= 0.55) {
+        finalScore = 2;
+        finalFeedback = `Good! (${deepgramTranscript})`;
+      } else if (sim >= 0.20) {
+        finalScore = 1;
+        finalFeedback = `Close! (${deepgramTranscript})`;
       } else if (h.length > 0) {
-        // Simple word overlap with levenshtein for partial credit
+        // Fallback for multi-word phrases if full phrase similarity fails but individual words match well
         let matchCount = 0;
-        
         targetWords.forEach(tw => {
-          const isMatch = heardWords.some(hw => {
-            if (hw === tw) return true;
-            const dist = levenshteinDistance(hw, tw);
-            const maxTypo = tw.length <= 4 ? 1 : 2;
-            return dist <= maxTypo;
-          });
+          const isMatch = heardWords.some(hw => calculateLevenshteinSimilarity(hw, tw) >= 0.75);
           if (isMatch) matchCount++;
         });
         
         const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
         
-        if (matchRatio === 1) {
+        if (matchRatio >= 0.6) {
            finalScore = 3;
            finalFeedback = `Hit! (${deepgramTranscript})`;
         } else if (matchRatio >= 0.4) {
            finalScore = 2;
+           finalFeedback = `Good! (${deepgramTranscript})`;
         } else if (matchRatio > 0) {
            finalScore = 1;
+           finalFeedback = `Close! (${deepgramTranscript})`;
         }
       }
       
