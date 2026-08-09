@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Mic, CheckCircle2, ChevronLeft, Volume2, Sparkles, Star, Gamepad2, Zap, Layers } from 'lucide-react';
 import { VoiceJump } from './speaking/VoiceJump';
-import { checkSpeechMatch } from '../../utils/speechScoring';
+
 import { useAppContext } from '../../context/AppContext';
 import { getDailyItem } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
@@ -30,8 +30,8 @@ export const SpeakingModule = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [status, setStatus] = useState('ready'); 
   const [feedback, setFeedback] = useState(null);
-  const recognitionRef = useRef(null);
-  const evalDebounceRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
   
   // Volume Meter Refs
   const [micVolume, setMicVolume] = useState(0);
@@ -55,15 +55,25 @@ export const SpeakingModule = () => {
 
   const stopMeter = () => {
      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-     if (micStreamRef.current) micStreamRef.current.getTracks().forEach(t => t.stop());
+     // DO NOT stop the hardware micStreamRef here, we cache it to prevent Android/WeChat permanent locks!
      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
         try { audioCtxRef.current.close(); } catch(e){}
      }
      rafIdRef.current = null;
-     micStreamRef.current = null;
      audioCtxRef.current = null;
      setMicVolume(0);
   };
+  
+  // Actually completely terminate the microphone hardware on unmount
+  useEffect(() => {
+    return () => {
+      stopMeter();
+      if (micStreamRef.current) {
+        micStreamRef.current.getTracks().forEach(t => t.stop());
+        micStreamRef.current = null;
+      }
+    };
+  }, []);
 
   // Auto-start microphone when entering speaking practice mode; auto-close when leaving or on feedback
   useEffect(() => {
@@ -75,9 +85,8 @@ export const SpeakingModule = () => {
         }
       }, 300);
     } else if (mode !== 'speak' || status === 'feedback') {
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch(e){}
-        recognitionRef.current = null;
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+        try { mediaRecorderRef.current.stop(); } catch(e){}
       }
       setIsRecording(false);
       stopMeter();
@@ -91,9 +100,7 @@ export const SpeakingModule = () => {
   // Unmount safety cleanup
   useEffect(() => {
     return () => {
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch(e){}
-      }
+
       stopMeter();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -364,113 +371,127 @@ export const SpeakingModule = () => {
     }
   };
 
-  const handleRecord = () => {
-    const stopMeter = () => {
-       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-       if (micStreamRef.current) micStreamRef.current.getTracks().forEach(t => t.stop());
-       if (audioCtxRef.current) audioCtxRef.current.close();
-       rafIdRef.current = null;
-       micStreamRef.current = null;
-       audioCtxRef.current = null;
-       setMicVolume(0);
-    };
 
-    if (isRecording) {
-      if (recognitionRef.current) {
-         try { recognitionRef.current.stop(); } catch(e){}
-      }
-      setIsRecording(false);
-      stopMeter();
-      return;
-    }
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert("Your browser does not support Speech Recognition. Please use Google Chrome.");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.interimResults = true; // Stream real-time speech tokens instantly
-    recognition.continuous = true;
-    recognition.maxAlternatives = 3;
-    recognitionRef.current = recognition;
-
-    // START RECORDING INSTANTLY ON CLICK!
+  const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
-      recognition.start();
-    } catch(e) {
-      console.error("Mic start failed", e);
-    }
-    setIsRecording(true);
-
-    recognition.onresult = (event) => {
-      let fullText = '';
-      let altTexts = [];
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i] && event.results[i][0]) {
-          fullText += event.results[i][0].transcript + ' ';
-          for (let j = 0; j < event.results[i].length; j++) {
-            if (event.results[i][j]?.transcript) altTexts.push(event.results[i][j].transcript);
-          }
-        }
-      }
-      fullText = fullText.trim();
-      if (!fullText) return;
-
-      setFeedback({
-        stars: 0,
-        text: `🎤 Hearing: "${fullText}"...`
+      const base64Audio = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const b64 = reader.result.split(',')[1];
+          resolve(b64);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
       });
+      
+      const audioMimeType = blob.type || `audio/${ext}`;
+      const authHeader = `Bearer ${localStorage.getItem('token')}`;
 
-      // Wait exactly 0.75s (750ms) of silence to ensure user has finished talking!
-      if (evalDebounceRef.current) clearTimeout(evalDebounceRef.current);
+      const res = await fetch('/api/audio/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': authHeader },
+        body: JSON.stringify({
+          audioBase64: base64Audio,
+          mimeType: audioMimeType,
+          targetSentence: prompt.en,
+          grade: grade || '3rd Grade',
+        }),
+      });
+      const data = await res.json();
+      
+      setIsRecording(false);
+      setStatus('ready');
 
-      evalDebounceRef.current = setTimeout(() => {
-        const allToCheck = [fullText, ...altTexts].filter(Boolean);
-        for (const text of allToCheck) {
-          const evalResult = checkSpeechMatch(text, prompt.en);
-          if (evalResult) {
-            stopMeter();
-            try { recognition.stop(); } catch(e){}
-            setIsRecording(false);
-
-            const earnedStars = evalResult.stars;
-            handleEarnStars(earnedStars, 'speaking', prompt.id);
-            updateCompletion('completedSpeaking', prompt.id);
-            if (isDaily) markDailyComplete('speaking', earnedStars, prompt.id);
-            
-            if (earnedStars === 3) {
-              setFeedback({
-                stars: earnedStars,
-                text: `You said: "${text}". Perfect! You pronounced it beautifully.`
-              });
-            } else {
-              const phon = prompt.enPhonetic || prompt.en;
-              const phonMsg = (prompt.enPhonetic && prompt.enPhonetic !== prompt.en) ? ` Pronunciation hint: "${phon}".` : '';
-              setFeedback({
-                stars: earnedStars,
-                text: `What you said sounded like "${text}". Maybe try focusing on saying "${prompt.en}".${phonMsg}`
-              });
-            }
-            setStatus('feedback');
-            return;
-          }
+      if (data.success) {
+        const earnedStars = data.score;
+        handleEarnStars(earnedStars, 'speaking', prompt.id);
+        updateCompletion('completedSpeaking', prompt.id);
+        if (isDaily) markDailyComplete('speaking', earnedStars, prompt.id);
+        
+        if (earnedStars === 3) {
+          setFeedback({
+            stars: earnedStars,
+            text: `Perfect! You pronounced it beautifully.`
+          });
+        } else if (earnedStars > 0) {
+          const phon = prompt.enPhonetic || prompt.en;
+          const phonMsg = (prompt.enPhonetic && prompt.enPhonetic !== prompt.en) ? ` Hint: "${phon}".` : '';
+          setFeedback({
+            stars: earnedStars,
+            text: `Good try! But maybe focus on saying "${prompt.en}" clearly.${phonMsg}`
+          });
+        } else {
+          setFeedback({ stars: 0, text: data.feedback || "Missed! Try to speak clearer!" });
         }
-      }, 750);
-    };
+      } else {
+        setFeedback({ stars: 0, text: data.error || "Didn't hear you clearly. Try again!" });
+      }
+      setStatus('feedback');
+    } catch (err) {
+      console.error('[SpeakingModule] submit error:', err);
+      setStatus('ready');
+      setFeedback({ stars: 0, text: 'Network error.' });
+      setIsRecording(false);
+    }
+  };
 
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
+  const handleRecord = async () => {
+    if (isRecording) {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+         mediaRecorderRef.current.stop();
+         setStatus('loading');
+      }
       setIsRecording(false);
       stopMeter();
-    };
+      return;
+    }
 
-    recognition.onend = () => {
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("Audio hardware or secure HTTPS context not found on this device.");
+      }
+      
+      let stream = micStreamRef.current;
+      if (!stream || !stream.active) {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+        micStreamRef.current = stream;
+      }
+      
+      let options = { audioBitsPerSecond: 16000 };
+      let ext = 'webm';
+      
+      if (typeof window.MediaRecorder !== 'undefined' && typeof MediaRecorder.isTypeSupported === 'function') {
+        if (MediaRecorder.isTypeSupported('audio/webm')) options.mimeType = 'audio/webm';
+        else if (MediaRecorder.isTypeSupported('audio/mp4')) { options.mimeType = 'audio/mp4'; ext = 'mp4'; }
+        else if (MediaRecorder.isTypeSupported('audio/aac')) { options.mimeType = 'audio/aac'; ext = 'aac'; }
+      }
+      
+      if (typeof window.MediaRecorder === 'undefined') {
+         throw new Error("Your browser is too old and does not support audio recording.");
+      }
+      
+      const recorder = new MediaRecorder(stream, options);
+      mediaRecorderRef.current = recorder;
+      audioChunksRef.current = [];
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
+        handleAudioSubmit(audioBlob, ext);
+      };
+
+      recorder.start();
+      setIsRecording(true);
+      setStatus('ready');
+    } catch (err) {
+      console.error("Mic start failed", err);
       setIsRecording(false);
-      stopMeter();
-    };
+      setFeedback({ stars: 0, text: "Microphone access denied." });
+      return;
+    }
 
     // Live Volume Meter setup
     (async () => {
@@ -548,11 +569,10 @@ export const SpeakingModule = () => {
           <div className="text-rose-500 font-bold animate-pulse text-2xl">{t('loading').replace(/\.+$/, '')}{dots}</div>
         ) : (
           <div className="flex flex-col items-center">
-            {/* Top Text */}
             <div className={`h-8 mb-4 transition-opacity duration-300`}>
               {isRecording ? (
                 <div className="text-rose-500 font-bold text-xl flex items-center gap-2 animate-pulse">
-                  <Zap size={20} className="fill-rose-500 text-rose-500" /> Listening... Speak now!
+                  <Zap size={20} className="fill-rose-500 text-rose-500" /> Listening... Click mic to submit!
                 </div>
               ) : (
                 <div className="text-slate-400 font-bold text-xl flex items-center gap-2">
