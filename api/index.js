@@ -113,6 +113,8 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
   if (!apiKey) throw new Error("ZHIPU_API_KEY is missing!");
 
+  let lastErrorMsg = "Unknown API Error";
+
   for (const model of ZHIPU_MODELS) {
     try {
       const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
@@ -139,8 +141,11 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
 
         if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
           console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
+          lastErrorMsg = `Concurrency limit hit for ${model}`;
         } else {
-          console.warn(`Zhipu model ${model} failed: ${data.error?.message || response.statusText}. Trying next model...`);
+          const errMsg = data.error?.message || response.statusText || JSON.stringify(data);
+          console.warn(`Zhipu model ${model} failed: ${errMsg}. Trying next model...`);
+          lastErrorMsg = `${model} failed: ${errMsg}`;
         }
         continue;
       }
@@ -148,9 +153,11 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
       return { text: data.choices[0].message.content, modelUsed: model };
     } catch (error) {
       console.warn(`Zhipu fetch failed for ${model}:`, error.message);
+      if (error.message.includes('API Key is invalid')) throw error;
+      lastErrorMsg = `${model} fetch error: ${error.message}`;
     }
   }
-  throw new Error("All Zhipu models exhausted due to concurrency limits.");
+  throw new Error(`All Zhipu models failed. Last Error: ${lastErrorMsg}`);
 }
 
 // Health Check
