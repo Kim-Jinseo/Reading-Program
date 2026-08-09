@@ -338,7 +338,10 @@ export const SpeakingModule = () => {
     try {
       const response = await fetch('https://reading-program-chi.vercel.app/api/audio/tts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify({ text: prompt.en })
       });
       

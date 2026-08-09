@@ -255,6 +255,8 @@ export const VoiceJump = ({ onBack }) => {
   // Store ALL heard text as plain strings (NOT live DOM references that Chrome invalidates)
   const allHeardTextRef = useRef('');
   const wordRef = useRef(word);
+  const cancelSubmissionRef = useRef(false);
+  const maxRecordingTimerRef = useRef(null);
 
   // Volume Meter Refs
   const [micVolume, setMicVolume] = useState(0);
@@ -297,11 +299,7 @@ export const VoiceJump = ({ onBack }) => {
   useEffect(() => {
     let timerId;
     if (view === 'combat' && gameState === 'playing') {
-      timerId = setTimeout(() => {
-        if (!isRecordingRef.current) {
-          startRecording();
-        }
-      }, 250);
+      // Auto-start disabled per user request
     } else {
       if (isRecordingRef.current) {
         stopRecording();
@@ -465,8 +463,16 @@ export const VoiceJump = ({ onBack }) => {
     nativeSuccessRef.current = false;
     allHeardTextRef.current = '';
     isRecordingRef.current = true;
+    cancelSubmissionRef.current = false;
     
-    // Instantly show recording UI (zero latency response)
+    if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
+    maxRecordingTimerRef.current = setTimeout(() => {
+      if (isRecordingRef.current) {
+        stopRecording(true);
+        setFeedback("Recording stopped (Max 20s).");
+      }
+    }, 20000);
+    
     // Instantly show recording UI (zero latency response)
     setIsRecording(true);
     setStatus('ready');
@@ -737,6 +743,7 @@ export const VoiceJump = ({ onBack }) => {
 
       recorder.onstop = () => {
         // DO NOT stop the hardware stream tracks here, we cache them in micStreamRef!
+        if (cancelSubmissionRef.current) return;
         const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
         handleAudioSubmit(audioBlob, ext);
       };
@@ -752,10 +759,25 @@ export const VoiceJump = ({ onBack }) => {
     }
   };
 
-  const stopRecording = () => {
+  const stopRecording = (cancelSubmit = false) => {
     isRecordingRef.current = false; // Signal onend NOT to restart
     setIsRecording(false);
     cleanupVolumeMeter();
+    
+    if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
+    
+    if (cancelSubmit) {
+       cancelSubmissionRef.current = true;
+       if (recognitionRef.current) {
+         try { recognitionRef.current.stop(); } catch(e){}
+         recognitionRef.current = null;
+       }
+       if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+         mediaRecorderRef.current.stop();
+       }
+       setStatus('ready');
+       return;
+    }
 
     // Native Browser STT Mode
     if (recognitionRef.current) {
