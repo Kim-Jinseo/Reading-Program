@@ -632,15 +632,20 @@ export const VoiceJump = ({ onBack }) => {
         if (score > 0) {
           const mult = score === 3 ? 1.0 : score === 2 ? 0.8 : 0.5;
           executeAttackSuccess({ stars: score, multiplier: mult, feedback: data.feedback || 'Hit!' }, false);
+          setTimeout(() => setFeedback(""), 1500);
         } else {
           setFeedback(`Accuracy: ☆☆☆ | Damage: 0 (${data.feedback || "Missed!"})`);
           setTimeout(() => {
+            setFeedback("");
             if (gameStateRef.current === 'playing') pickNewWord(stage);
           }, 1500);
         }
       } else {
         setFeedback(data.error || "Didn't hear you clearly. Try again!");
-        pickNewWord(stage);
+        setTimeout(() => {
+          setFeedback("");
+          if (gameStateRef.current === 'playing') pickNewWord(stage);
+        }, 1500);
       }
     } catch (err) {
       console.error('[VoiceJump] handleAudioSubmit error:', err);
