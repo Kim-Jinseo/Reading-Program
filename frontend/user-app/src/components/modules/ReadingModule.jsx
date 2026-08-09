@@ -128,7 +128,7 @@ export const ReadingModule = () => {
 
     setIsPlayingAudio(true);
     try {
-      const response = await fetch('https://reading-program-chi.vercel.app/api/audio/tts', {
+      const response = await fetch('/api/audio/tts', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -79,11 +79,7 @@ export const SpeakingModule = () => {
   useEffect(() => {
     let timerId;
     if (mode === 'speak' && prompt && status === 'ready') {
-      timerId = setTimeout(() => {
-        if (!isRecording) {
-          handleRecord();
-        }
-      }, 300);
+      // Auto-start disabled per user request
     } else if (mode !== 'speak' || status === 'feedback') {
       if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
         try { mediaRecorderRef.current.stop(); } catch(e){}
@@ -336,7 +332,7 @@ export const SpeakingModule = () => {
 
   const handlePlayAudio = async () => {
     try {
-      const response = await fetch('https://reading-program-chi.vercel.app/api/audio/tts', {
+      const response = await fetch('/api/audio/tts', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
