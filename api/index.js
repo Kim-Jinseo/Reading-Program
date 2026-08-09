@@ -586,7 +586,7 @@ app.post('/audio/evaluate', async (c) => {
       contents: [{
         role: "user",
         parts: [
-          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 3, "feedback": "Good effort"}. If you do NOT hear any clear speech, you MUST return {"speech_detected": false}. Be very lenient and generous if you do hear speech, grade out of a maximum of 3 stars.` },
+          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON using this schema: {"speech_detected": boolean, "stars": number (0-3), "feedback": string}. If you do NOT hear any clear speech, you MUST return {"speech_detected": false, "stars": 0, "feedback": "No speech detected"}. Be very lenient and generous if you do hear speech, grade out of a maximum of 3 stars.` },
           { inlineData: { data: base64Audio, mimeType } }
         ]
       }],
