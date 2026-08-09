@@ -329,7 +329,8 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
 
     const evaluation = JSON.parse(cleanText);
 
-    const stars = Math.max(0, Math.min(4, Math.round(evaluation.stars)));
+    const rawStars = Number(evaluation.stars);
+    const stars = isNaN(rawStars) ? 1 : Math.max(0, Math.min(4, Math.round(rawStars)));
     return c.json({ 
       success: true, 
       stars, 
