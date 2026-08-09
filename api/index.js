@@ -107,7 +107,7 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['GLM-5.1', 'GLM-5.2', 'GLM-4.5', 'GLM-4.6V', 'GLM-4-Plus', 'GLM-4.5V', 'GLM-4-32B-0414-128K', 'GLM-4.5-Air', 'GLM-4.5-AirX'];
+const ZHIPU_MODELS = ['glm-5.1', 'GLM-5.1', 'glm-4-plus', 'GLM-4-Plus', 'glm-5.2', 'GLM-5.2', 'glm-4.5', 'GLM-4.5', 'glm-4.6v', 'GLM-4.6V'];
 
 async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
@@ -117,7 +117,7 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
 
   for (const model of ZHIPU_MODELS) {
     try {
-      const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+      const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
