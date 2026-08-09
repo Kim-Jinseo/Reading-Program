@@ -107,13 +107,13 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['glm-5.1', 'glm-5.2', 'glm-4.5', 'glm-4.6v', 'glm-4-plus', 'glm-4.5v', 'glm-4-32b-0414-128k', 'glm-4.5-air', 'glm-4.5-airx'];
+const ZHIPU_MODELS = ['GLM-5.1', 'GLM-5.2', 'GLM-4.5', 'GLM-4.6V', 'GLM-4-Plus', 'GLM-4.5V', 'GLM-4-32B-0414-128K', 'GLM-4.5-Air', 'GLM-4.5-AirX'];
 
 async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
   if (!apiKey) throw new Error("ZHIPU_API_KEY is missing!");
 
-  let lastErrorMsg = "Unknown API Error";
+  let errorLogs = [];
 
   for (const model of ZHIPU_MODELS) {
     try {
@@ -126,8 +126,7 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
         body: JSON.stringify({
           model,
           messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt }
+            { role: "user", content: `${systemPrompt}\n\n${userPrompt}` }
           ]
         })
       });
@@ -141,11 +140,11 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
 
         if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
           console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
-          lastErrorMsg = `Concurrency limit hit for ${model}`;
+          errorLogs.push(`${model}: Concurrency Limit (Code ${data.error?.code || response.status})`);
         } else {
           const errMsg = data.error?.message || response.statusText || JSON.stringify(data);
           console.warn(`Zhipu model ${model} failed: ${errMsg}. Trying next model...`);
-          lastErrorMsg = `${model} failed: ${errMsg}`;
+          errorLogs.push(`${model}: ${errMsg}`);
         }
         continue;
       }
@@ -154,10 +153,10 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
     } catch (error) {
       console.warn(`Zhipu fetch failed for ${model}:`, error.message);
       if (error.message.includes('API Key is invalid')) throw error;
-      lastErrorMsg = `${model} fetch error: ${error.message}`;
+      errorLogs.push(`${model}: Fetch error - ${error.message}`);
     }
   }
-  throw new Error(`All Zhipu models failed. Last Error: ${lastErrorMsg}`);
+  throw new Error(`All Zhipu models failed. Errors: ${errorLogs.join(' | ')}`);
 }
 
 // Health Check
