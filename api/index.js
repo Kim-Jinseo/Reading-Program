@@ -80,8 +80,29 @@ const requireAdmin = async (c, next) => {
 };
 
 // AI Helper
-const TEXT_MODELS = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.6-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro', 'gemini-3-flash', 'gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
-const MULTIMODAL_MODELS = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+// Models ordered from highest RPM/RPD to lowest based on user limits
+const TEXT_MODELS = [
+  'gemini-3.5-flash-lite', 
+  'gemini-3.1-flash-lite', 
+  'gemini-2.5-flash-lite', 
+  'gemini-3.5-flash', 
+  'gemini-3.6-flash', 
+  'gemini-3-flash', 
+  'gemini-2.5-flash', 
+  'gemini-2.0-flash', 
+  'gemini-3.1-pro'
+];
+
+const MULTIMODAL_MODELS = [
+  'gemini-3.5-flash-lite', 
+  'gemini-3.1-flash-lite', 
+  'gemini-2.5-flash-lite', 
+  'gemini-3.5-flash', 
+  'gemini-3.6-flash', 
+  'gemini-3-flash', 
+  'gemini-2.5-flash', 
+  'gemini-2.0-flash'
+];
 
 async function generateContentWithRetry(ai, requestConfig, isMultimodal = false, maxRetriesPerModel = 2) {
   const modelsList = isMultimodal ? MULTIMODAL_MODELS : TEXT_MODELS;
@@ -291,7 +312,19 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
     const text = response.text();
     if (text && text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
-    const evaluation = JSON.parse(text);
+    // Strip markdown code blocks before parsing
+    let cleanText = text.trim();
+    if (cleanText.startsWith('```json')) {
+      cleanText = cleanText.substring(7);
+    } else if (cleanText.startsWith('```')) {
+      cleanText = cleanText.substring(3);
+    }
+    if (cleanText.endsWith('```')) {
+      cleanText = cleanText.substring(0, cleanText.length - 3);
+    }
+    cleanText = cleanText.trim();
+
+    const evaluation = JSON.parse(cleanText);
     return c.json({ 
       success: true, 
       stars: Math.max(0, Math.min(4, Math.round(evaluation.stars))), 
