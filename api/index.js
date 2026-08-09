@@ -307,7 +307,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       4. Vocabulary in the feedback should be simple enough for a Grade ${grade || '1-2'} student to read, but highly specific to the actual text they wrote.
       
       If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and gently explain in very simple words that you could not understand their writing. NEVER leave the feedback fields empty.
-      Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
+      Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "grammar_feedback_zh":"", "content_feedback":"", "content_feedback_zh":"", "general_feedback":"", "general_feedback_zh":""}`;
     const userPrompt = `Writing Prompt: ${prompt}\n\nStudent Answer: ${studentAnswer}`;
 
     const { response, modelUsed } = await generateContentWithRetry(ai, {
@@ -341,8 +341,11 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       success: true, 
       stars, 
       grammar: evaluation.grammar_feedback || (stars <= 1 ? "Please write complete English sentences." : "Clear and accurate!"),
+      grammarZh: evaluation.grammar_feedback_zh || (stars <= 1 ? "请写出完整的英文句子。" : "表达清晰准确！"),
       content: evaluation.content_feedback || (stars <= 1 ? "Make sure your answer matches the prompt." : "Great job answering the prompt!"),
+      contentZh: evaluation.content_feedback_zh || (stars <= 1 ? "请确保你的回答与题目相关。" : "你很好地回答了问题！"),
       general: evaluation.general_feedback || (stars <= 1 ? "Keep trying! I couldn't understand your writing." : "Wonderful writing effort!"),
+      generalZh: evaluation.general_feedback_zh || (stars <= 1 ? "继续努力！我不太懂你写的内容。" : "写得非常棒！"),
       modelUsed
     });
   } catch (error) {
@@ -351,8 +354,11 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       success: true,
       stars: 1,
       grammar: "Please write complete sentences.",
+      grammarZh: "请写出完整的句子。",
       content: "Nice effort answering the writing prompt!",
+      contentZh: "感谢你努力回答问题！",
       general: `Keep practicing! (Error: ${error.message})`,
+      generalZh: "继续练习！",
       modelUsed: "heuristic-fallback"
     });
   }

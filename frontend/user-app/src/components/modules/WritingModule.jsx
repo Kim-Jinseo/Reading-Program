@@ -26,6 +26,7 @@ export const WritingModule = () => {
   const [text, setText] = useState('');
   const [status, setStatus] = useState('typing'); 
   const [feedback, setFeedback] = useState(null);
+  const [feedbackLang, setFeedbackLang] = useState('en');
   const [dots, setDots] = useState('');
 
   useEffect(() => {
@@ -294,8 +295,11 @@ export const WritingModule = () => {
     setFeedback({
       stars: finalStars,
       grammar: grammarMsg,
+      grammarZh: "请写出完整的句子。",
       content: "Nice effort answering the writing prompt!",
-      general: "Wonderful effort! Keep practicing your writing skills everyday!"
+      contentZh: "感谢你努力解答写作题！",
+      general: "Wonderful effort! Keep practicing your writing skills everyday!",
+      generalZh: "很棒的尝试！坚持每天练习写作！"
     });
     setStatus('feedback');
   };
@@ -325,8 +329,11 @@ export const WritingModule = () => {
         setFeedback({ 
           stars: data.stars, 
           grammar: data.grammar,
+          grammarZh: data.grammarZh,
           content: data.content,
-          general: data.general
+          contentZh: data.contentZh,
+          general: data.general,
+          generalZh: data.generalZh
         });
         setStatus('feedback');
       } else {
@@ -490,33 +497,48 @@ export const WritingModule = () => {
 
         {status === 'improving' && feedback && (feedback.grammar || feedback.general) && (
           <div className="w-full lg:w-1/3 bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
-             <h3 className="text-2xl font-black text-indigo-900 mb-6 flex items-center gap-2"><Sparkles className="text-indigo-500"/> AI Teacher Feedback</h3>
+             <div className="flex items-center justify-between mb-6">
+               <h3 className="text-2xl font-black text-indigo-900 flex items-center gap-2"><Sparkles className="text-indigo-500"/> AI Teacher Feedback</h3>
+               <div className="flex bg-slate-100 p-1 rounded-lg">
+                 <button onClick={() => setFeedbackLang('en')} className={`px-3 py-1 text-xs font-bold rounded-md ${feedbackLang === 'en' ? 'bg-white shadow text-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}>EN</button>
+                 <button onClick={() => setFeedbackLang('zh')} className={`px-3 py-1 text-xs font-bold rounded-md ${feedbackLang === 'zh' ? 'bg-white shadow text-indigo-600' : 'text-slate-500 hover:text-slate-700'}`}>中文</button>
+               </div>
+             </div>
              
              {feedback.grammar !== undefined && (
                <div className="mb-6">
                  <h4 className="font-extrabold uppercase text-xs tracking-widest mb-2 text-indigo-600 flex items-center gap-1.5">
-                   ✨ Grammar Feedback
+                   🔧 {feedbackLang === 'en' ? 'Grammar Feedback' : '语法反馈'}
                  </h4>
-                 <p className="text-slate-700 font-medium leading-relaxed bg-indigo-50/70 p-5 rounded-2xl border border-indigo-100">{feedback.grammar}</p>
+                 <p className="text-slate-700 font-medium leading-relaxed bg-indigo-50/70 p-5 rounded-2xl border border-indigo-100">
+                   {feedbackLang === 'en' ? feedback.grammar : (feedback.grammarZh || feedback.grammar)}
+                 </p>
                </div>
              )}
              
              {feedback.content !== undefined && (
                <div className="mb-6">
                  <h4 className="font-extrabold uppercase text-xs tracking-widest mb-2 text-emerald-600 flex items-center gap-1.5">
-                   📝 Content Feedback
+                   📝 {feedbackLang === 'en' ? 'Content Feedback' : '内容反馈'}
                  </h4>
-                 <p className="text-slate-700 font-medium leading-relaxed bg-emerald-50/70 p-5 rounded-2xl border border-emerald-100">{feedback.content}</p>
+                 <p className="text-slate-700 font-medium leading-relaxed bg-emerald-50/70 p-5 rounded-2xl border border-emerald-100">
+                   {feedbackLang === 'en' ? feedback.content : (feedback.contentZh || feedback.content)}
+                 </p>
                </div>
              )}
 
              {feedback.general !== undefined && (
                <div className="mb-6">
                  <h4 className="font-extrabold uppercase text-xs tracking-widest mb-2 text-amber-600 flex items-center gap-1.5">
-                   🌟 Teacher Encouragement
+                   🌟 {feedbackLang === 'en' ? 'Teacher Encouragement' : '老师鼓励'}
                  </h4>
-                 <p className="text-slate-700 font-medium leading-relaxed bg-amber-50/70 p-5 rounded-2xl border border-amber-100">{feedback.general}</p>
+                 <p className="text-slate-700 font-medium leading-relaxed bg-amber-50/70 p-5 rounded-2xl border border-amber-100">
+                   {feedbackLang === 'en' ? feedback.general : (feedback.generalZh || feedback.general)}
+                 </p>
                </div>
+             )}
+          </div>
+        )}       </div>
              )}
           </div>
         )}
