@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock } from 'lucide-react';
 import { useAppContext } from '../../../context/AppContext';
-import { checkSpeechMatch } from '../../../utils/speechScoring';
+
 
 const VOICE_BATTLE_WORDS_BY_GRADE = {
   "1-2": [
@@ -245,16 +245,10 @@ export const VoiceJump = ({ onBack }) => {
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const recognitionRef = useRef(null);
-  const nativeSuccessRef = useRef(false);
   const isRecordingRef = useRef(false);
-  const isEvaluatingRef = useRef(false);
-  const evalDebounceRef = useRef(null);
-  const rapidRestartCountRef = useRef(0);
-  const lastEndTimeRef = useRef(0);
-  // Store ALL heard text as plain strings (NOT live DOM references that Chrome invalidates)
-  const allHeardTextRef = useRef('');
   const wordRef = useRef(word);
+  const cancelSubmissionRef = useRef(false);
+  const maxRecordingTimerRef = useRef(null);
 
   // Volume Meter Refs
   const [micVolume, setMicVolume] = useState(0);
@@ -297,11 +291,7 @@ export const VoiceJump = ({ onBack }) => {
   useEffect(() => {
     let timerId;
     if (view === 'combat' && gameState === 'playing') {
-      timerId = setTimeout(() => {
-        if (!isRecordingRef.current) {
-          startRecording();
-        }
-      }, 250);
+      // Auto-start is disabled per user request
     } else {
       if (isRecordingRef.current) {
         stopRecording();
@@ -511,188 +501,7 @@ export const VoiceJump = ({ onBack }) => {
       }
     })();
 
-    // 1. Check for Native SpeechRecognition (Chrome, Safari, Edge, Android, iOS)
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // WeChat, Line, QQ, Android WebViews (wv), and iOS alternative browsers have notoriously broken SpeechRecognition
-    const isWebViewOrBuggyBrowser = /MicroMessenger|WeChat|Line|QQ|wv/i.test(navigator.userAgent) || (isIOS && /CriOS|FxiOS/i.test(navigator.userAgent));
-    
-    const isNativeBroken = sessionStorage.getItem('nativeSTT_broken') === 'true';
-
-    if (SpeechRecognition && !isWebViewOrBuggyBrowser && !isNativeBroken) {
-      const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
-      try {
-        const recognition = new SpeechRecognition();
-        // Restore continuous mode so you never have to click to start
-        recognition.continuous = true;   
-        recognition.interimResults = true; // Get real-time feedback
-        recognition.maxAlternatives = 5;
-        recognition.lang = 'en-US';
-        
-        // SOTA: Inject JSGF Grammar to heavily bias the browser's STT weights toward the target word!
-        if (SpeechGrammarList) {
-          const speechRecognitionList = new SpeechGrammarList();
-          const targetW = wordRef.current || word;
-          // Format: JSGF V1.0 Grammar
-          const grammar = '#JSGF V1.0; grammar targetWord; public <targetWord> = ' + targetW + ' ;';
-          try {
-            speechRecognitionList.addFromString(grammar, 1);
-            recognition.grammars = speechRecognitionList;
-          } catch(e){
-            console.warn("Grammar injection not supported on this browser version");
-          }
-        }
-        
-        recognition.onresult = (event) => {
-          if (isEvaluatingRef.current) return; // Ignore background speech during attack animation!
-          
-          // Extract ONLY the current utterance from the resultIndex onwards
-          let fullText = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            if (event.results[i] && event.results[i][0]) {
-              fullText += event.results[i][0].transcript + ' ';
-            }
-          }
-          fullText = fullText.trim();
-          
-          // Also collect alternative transcripts
-          let altTexts = [];
-          for (let i = 0; i < event.results.length; i++) {
-            if (event.results[i]) {
-              for (let j = 0; j < event.results[i].length; j++) {
-                if (event.results[i][j] && event.results[i][j].transcript) {
-                  altTexts.push(event.results[i][j].transcript.trim());
-                }
-              }
-            }
-          }
-          
-          // Store as plain string (safe from Chrome invalidation!)
-          if (fullText) {
-            allHeardTextRef.current = fullText;
-            setIsSpeaking(true);
-            
-            // clear it after a short delay so they stop animating if they pause
-            setTimeout(() => {
-              if (allHeardTextRef.current === fullText) {
-                setIsSpeaking(false);
-              }
-            }, 1000);
-          }
-          
-          // Show live feedback so user sees what Chrome is hearing
-          if (fullText) {
-            setFeedback(`🎤 Hearing: "${fullText}"...`);
-          }
-          
-          // Wait exactly 0.75s (750ms) of silence to ensure user has finished talking!
-          if (evalDebounceRef.current) clearTimeout(evalDebounceRef.current);
-          
-          evalDebounceRef.current = setTimeout(() => {
-            const currentWord = wordRef.current;
-            const allToCheck = [fullText, ...altTexts].filter(Boolean);
-            
-            for (const text of allToCheck) {
-              const evalResult = checkSpeechMatch(text, currentWord);
-              if (evalResult) {
-                // Mute the AI for 1.5s during the attack animation so it doesn't double-trigger
-                isEvaluatingRef.current = true;
-                executeAttackSuccess(evalResult, true);
-                
-                setTimeout(() => {
-                  isEvaluatingRef.current = false;
-                }, 1500);
-                return;
-              }
-            }
-          }, 750);
-        };
-
-        recognition.onstart = () => {
-          setTimeout(() => {
-            if (isRecordingRef.current) {
-              setFeedback(`🎤 Mic active - Speak "${wordRef.current || word}"!`);
-            }
-          }, 150);
-        };
-
-        // CRITICAL: Handle Chrome auto-stopping (silence timeout, network blip, or manual stop)
-        recognition.onend = () => {
-          // If mic is supposed to be on and instance wasn't killed by word transition, auto-restart
-          if (isRecordingRef.current && recognitionRef.current === recognition) {
-            const now = Date.now();
-            if (now - lastEndTimeRef.current < 500) {
-              rapidRestartCountRef.current++;
-            } else {
-              rapidRestartCountRef.current = 1;
-            }
-            lastEndTimeRef.current = now;
-
-            if (rapidRestartCountRef.current > 3) {
-              // It's looping rapidly (Native STT is broken/blocked). Fallback to backup STT!
-              console.warn("Native STT rapid loop detected. Falling back to Deepgram/Gemini.");
-              sessionStorage.setItem('nativeSTT_broken', 'true');
-              isRecordingRef.current = false;
-              setIsRecording(false);
-              setStatus('ready');
-              setFeedback("Switching to backup STT...");
-              setTimeout(() => {
-                startRecording();
-              }, 150);
-              return;
-            }
-
-            setTimeout(() => {
-              if (isRecordingRef.current && recognitionRef.current === recognition) {
-                try {
-                  recognition.start();
-                } catch(e) {
-                  // Fallback: re-initialize recording if engine instance was killed
-                  startRecording();
-                }
-              }
-            }, 150);
-          }
-        };
-
-        recognition.onerror = (err) => {
-          console.warn("Native SpeechRecognition error:", err.error);
-          // Don't stop on 'no-speech' — just let onend restart it
-          if (err.error === 'not-allowed' || err.error === 'audio-capture' || err.error === 'network') {
-            isRecordingRef.current = false;
-            setIsRecording(false);
-            setStatus('ready');
-            
-            if (err.error === 'network') {
-              // Google STT blocked (e.g., China). Disable native STT for future clicks.
-              sessionStorage.setItem('nativeSTT_broken', 'true');
-              setFeedback("Switching to backup STT...");
-              setTimeout(() => {
-                startRecording(); // Automatically restart using Deepgram tier
-              }, 150);
-            } else {
-              setFeedback("Mic access denied.");
-            }
-          }
-        };
-
-        recognition.onstart = () => {
-          // Native engine has fully attached to the mic
-        };
-
-        recognition.start();
-        recognitionRef.current = recognition;
-        setStatus('ready');
-        setIsRecording(true);
-        setFeedback("⚡ Listening... Speak now!");
-        return; // Pure native mode: DO NOT start MediaRecorder or call Gemini API!
-      } catch (e) {
-        console.warn("Native SpeechRecognition start error, falling back:", e);
-      }
-    }
-
-    // 2. Fallback for browsers without Native SpeechRecognition (e.g. Firefox, iOS Safari)
+    // Initialize MediaRecorder for Deepgram unified evaluation
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error("Audio hardware or secure HTTPS context not found on this device.");
@@ -737,13 +546,26 @@ export const VoiceJump = ({ onBack }) => {
 
       recorder.onstop = () => {
         // DO NOT stop the hardware stream tracks here, we cache them in micStreamRef!
+        if (cancelSubmissionRef.current) return;
         const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
         handleAudioSubmit(audioBlob, ext);
       };
 
       recorder.start();
+      
+      cancelSubmissionRef.current = false;
+      if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
+      maxRecordingTimerRef.current = setTimeout(() => {
+        if (isRecordingRef.current) {
+          cancelSubmissionRef.current = true;
+          stopRecording();
+          setFeedback("Recording stopped (Max 20s).");
+          setStatus('ready');
+        }
+      }, 20000);
+      
       setIsRecording(true);
-      setFeedback("Listening (Deepgram Backup)...");
+      setFeedback("🎤 Listening... Click mic again to submit!");
     } catch (err) {
       console.error("Mic fallback error:", err);
       setFeedback("Mic error. Check permissions.");
@@ -756,33 +578,8 @@ export const VoiceJump = ({ onBack }) => {
     isRecordingRef.current = false; // Signal onend NOT to restart
     setIsRecording(false);
     cleanupVolumeMeter();
+    if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
 
-    // Native Browser STT Mode
-    if (recognitionRef.current) {
-       try { recognitionRef.current.stop(); } catch(e){}
-       recognitionRef.current = null;
-
-       if (!nativeSuccessRef.current) {
-          // Final check on accumulated plain-string transcript
-          const heardText = allHeardTextRef.current;
-          const evalResult = checkSpeechMatch(heardText, word);
-          if (evalResult) {
-             nativeSuccessRef.current = true;
-             setStatus('ready');
-             executeAttackSuccess(evalResult, true);
-          } else {
-             setStatus('ready');
-             if (heardText) {
-               setFeedback(`Heard: "${heardText}" — Try saying "${word}"!`);
-             } else {
-               setFeedback(`Press mic and say "${word}"!`);
-             }
-          }
-       }
-       return;
-    }
-
-    // Fallback MediaRecorder Mode for Firefox
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
        mediaRecorderRef.current.stop();
        setStatus('loading');
