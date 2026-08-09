@@ -7,6 +7,9 @@ import { MongoClient, ObjectId } from 'mongodb';
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
 
+const rootApp = new Hono();
+rootApp.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
+
 const app = new Hono().basePath('/api');
 
 // CORS setup
@@ -792,8 +795,10 @@ app.post('/audio/transcribe', async (c) => {
 // SERVER EXPORTS
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const GET = handle(app);
-export const POST = handle(app);
-export const PUT = handle(app);
-export const DELETE = handle(app);
-export const OPTIONS = handle(app);
+rootApp.route('/', app);
+
+export const GET = handle(rootApp);
+export const POST = handle(rootApp);
+export const PUT = handle(rootApp);
+export const DELETE = handle(rootApp);
+export const OPTIONS = handle(rootApp);
