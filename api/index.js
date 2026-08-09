@@ -107,7 +107,7 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['GLM-5.1', 'GLM-5.2', 'GLM-4.5', 'GLM-4.6V', 'GLM-4-Plus', 'GLM-4.5V', 'GLM-4-32B-0414-128K', 'GLM-4.5-Air', 'GLM-4.5-AirX', 'glm-4-plus'];
+const ZHIPU_MODELS = ['glm-5.1', 'glm-5.2', 'glm-4.5', 'glm-4.6v', 'glm-4-plus', 'glm-4.5v', 'glm-4-32b-0414-128k', 'glm-4.5-air', 'glm-4.5-airx'];
 
 async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
@@ -329,7 +329,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
         cleanJsonStr = match[0];
       }
     }
-    if (text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
+    if (text && text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
     const evaluation = JSON.parse(cleanJsonStr);
     return c.json({ 
