@@ -658,13 +658,17 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
 });
 
 app.get('/test/deepgram', async (c) => {
-  const ttsKey = process.env.TEXT_TO_SPEECH;
-  const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
-    method: 'POST',
-    headers: { 'Authorization': `Token ${ttsKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: 'Hello' })
-  });
-  return c.json({ status: res.status, text: await res.text() });
+  try {
+    const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
+    const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
+      method: 'POST',
+      headers: { 'Authorization': `Token ${ttsKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: 'Hello' })
+    });
+    return c.json({ status: res.status, text: await res.text() });
+  } catch (error) {
+    return c.json({ error: error.message, stack: error.stack }, 500);
+  }
 });
 
 /**
@@ -689,7 +693,7 @@ app.get('/audio/tts', async (c) => {
     return c.json({ success: false, error: 'Invalid or expired token' }, 401);
   }
 
-  const ttsKey = process.env.TEXT_TO_SPEECH;
+  const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
   if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
 
   let audioBuffer = null;
