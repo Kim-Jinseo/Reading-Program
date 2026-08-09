@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock } from 'lucide-react';
 import { useAppContext } from '../../../context/AppContext';
-import { checkSpeechMatch } from '../../../utils/speechScoring';
+
 
 const VOICE_BATTLE_WORDS_BY_GRADE = {
   "1-2": [
@@ -241,7 +241,7 @@ export const VoiceJump = ({ onBack }) => {
   
   const [animTrigger, setAnimTrigger] = useState(null);
   const [critTrigger, setCritTrigger] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
+  
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -947,7 +947,7 @@ export const VoiceJump = ({ onBack }) => {
            <div className={`absolute left-4 sm:left-[10%] md:left-[15%] bottom-1/4 filter drop-shadow-2xl transition-all duration-300 ${
              animTrigger === 'player_attack' 
                ? 'translate-x-12 -translate-y-4 scale-110' 
-               : isSpeaking 
+               : isRecording 
                  ? 'scale-110 -translate-y-2' 
                  : 'scale-100'
              }`}
