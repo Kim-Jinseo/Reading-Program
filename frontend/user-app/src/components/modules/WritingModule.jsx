@@ -538,9 +538,6 @@ export const WritingModule = () => {
                </div>
              )}
           </div>
-        )}       </div>
-             )}
-          </div>
         )}
       </div>
     </div>
