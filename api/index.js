@@ -107,6 +107,48 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
+const ZHIPU_MODELS = ['glm-5.1', 'glm-5.2', 'glm-4.5', 'glm-4.6v', 'glm-4-plus', 'glm-4.5v', 'glm-4-32b-0414-128k', 'glm-4.5-air', 'glm-4.5-airx'];
+
+async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
+  const apiKey = process.env.ZHIPU_API_KEY;
+  if (!apiKey) throw new Error("ZHIPU_API_KEY is missing!");
+
+  for (const model of ZHIPU_MODELS) {
+    try {
+      const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt }
+          ]
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
+          console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
+          continue;
+        }
+        throw new Error(`Zhipu Error: ${data.error?.message || response.statusText}`);
+      }
+
+      return { text: data.choices[0].message.content, modelUsed: model };
+    } catch (error) {
+      if (error.message.includes('Zhipu Error')) throw error;
+      console.warn(`Zhipu fetch failed for ${model}:`, error.message);
+    }
+  }
+  throw new Error("All Zhipu models exhausted due to concurrency limits.");
+}
+
 // Health Check
 app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
 app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -271,17 +313,14 @@ const firewallLayer1 = async (c, next) => {
 app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   const { prompt, studentAnswer, grade } = await c.req.json();
   if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
   try {
-    const { response, modelUsed } = await generateContentWithRetry(ai, {
-      contents: `You are an encouraging English teacher evaluating a student's writing... (rules omitted for brevity, but same spirit as Express)
-      Score out of 4 stars based on Grade ${grade || '1-2'}. Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}
-      Student Answer: ${studentAnswer}`,
-      config: { responseMimeType: "application/json" }
-    });
+    const systemPrompt = `You are an encouraging English teacher evaluating a student's writing... (rules omitted for brevity, but same spirit as Express)
+      Score out of 4 stars based on Grade ${grade || '1-2'}. Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
+    const userPrompt = `Student Answer: ${studentAnswer}`;
+
+    const { text, modelUsed } = await generateZhipuContentWithRetry(systemPrompt, userPrompt);
     
-    const cleanJsonStr = response.text ? response.text.replace(/```json/g, '').replace(/```/g, '').trim() : "{}";
+    const cleanJsonStr = text ? text.replace(/```json/g, '').replace(/```/g, '').trim() : "{}";
     if (cleanJsonStr.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
     const evaluation = JSON.parse(cleanJsonStr);
