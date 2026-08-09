@@ -516,10 +516,13 @@ app.post('/audio/evaluate', async (c) => {
     // Tier 2: Gemini Audio Evaluation Fallback
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const { response } = await generateContentWithRetry(ai, {
-      contents: [
-        { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4, "feedback": "Good effort"}` },
-        { inlineData: { data: base64Audio, mimeType } },
-      ],
+      contents: [{
+        role: "user",
+        parts: [
+          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4, "feedback": "Good effort"}` },
+          { inlineData: { data: base64Audio, mimeType } }
+        ]
+      }],
       config: { responseMimeType: 'application/json' },
     }, true);
 

@@ -611,10 +611,36 @@ export const VoiceJump = ({ onBack }) => {
           }, 150);
         };
 
+        // Track rapid onend loops
+        recognition.rapidRestartCount = 0;
+        recognition.lastEndTime = 0;
+
         // CRITICAL: Handle Chrome auto-stopping (silence timeout, network blip, or manual stop)
         recognition.onend = () => {
           // If mic is supposed to be on and instance wasn't killed by word transition, auto-restart
           if (isRecordingRef.current && recognitionRef.current === recognition) {
+            const now = Date.now();
+            if (now - recognition.lastEndTime < 500) {
+              recognition.rapidRestartCount++;
+            } else {
+              recognition.rapidRestartCount = 1;
+            }
+            recognition.lastEndTime = now;
+
+            if (recognition.rapidRestartCount > 3) {
+              // It's looping rapidly (Native STT is broken/blocked). Fallback to backup STT!
+              console.warn("Native STT rapid loop detected. Falling back to Deepgram/Gemini.");
+              sessionStorage.setItem('nativeSTT_broken', 'true');
+              isRecordingRef.current = false;
+              setIsRecording(false);
+              setStatus('ready');
+              setFeedback("Switching to backup STT...");
+              setTimeout(() => {
+                startRecording();
+              }, 150);
+              return;
+            }
+
             setTimeout(() => {
               if (isRecordingRef.current && recognitionRef.current === recognition) {
                 try {
