@@ -107,7 +107,7 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['glm-5.1', 'GLM-5.1', 'glm-4-plus', 'GLM-4-Plus', 'glm-5.2', 'GLM-5.2', 'glm-4.5', 'GLM-4.5', 'glm-4.6v', 'GLM-4.6V'];
+const ZHIPU_MODELS = ['glm-5.1', 'GLM-5.1', 'glm-4-plus', 'GLM-4-Plus', 'glm-5.2', 'GLM-5.2', 'glm-4.5', 'GLM-4.5', 'glm-4.6v', 'GLM-4.6V', 'glm-4-flash', 'GLM-4-Flash'];
 
 async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
