@@ -318,6 +318,10 @@ export const VoiceJump = ({ onBack }) => {
     return () => {
       stopRecording();
       cleanupVolumeMeter();
+      if (micStreamRef.current) {
+        micStreamRef.current.getTracks().forEach(t => t.stop());
+        micStreamRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -694,14 +698,14 @@ export const VoiceJump = ({ onBack }) => {
         throw new Error("Audio hardware or secure HTTPS context not found on this device.");
       }
       
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      let stream = micStreamRef.current;
+      if (!stream || !stream.active) {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        micStreamRef.current = stream;
+      }
       
-      // iOS WEBKIT BUG FIX: If the user released the button while getUserMedia was pending,
-      // we MUST stop the stream immediately. Otherwise the orphaned stream stays active in the background,
-      // causing all future getUserMedia calls in WeChat/iOS to return silent/muted audio!
       if (!isRecordingRef.current) {
-        stream.getTracks().forEach(t => t.stop());
-        return;
+        return; // User cancelled before getUserMedia resolved. Keep stream alive for next click.
       }
 
       let options = { audioBitsPerSecond: 16000 };
@@ -732,7 +736,7 @@ export const VoiceJump = ({ onBack }) => {
       };
 
       recorder.onstop = () => {
-        stream.getTracks().forEach(track => track.stop());
+        // DO NOT stop the hardware stream tracks here, we cache them in micStreamRef!
         const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
         handleAudioSubmit(audioBlob, ext);
       };
@@ -793,15 +797,17 @@ export const VoiceJump = ({ onBack }) => {
    */
   const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
-      // Convert audio blob to base64 for JSON transport (bypasses WeChat multipart bugs)
-      const arrayBuffer = await blob.arrayBuffer();
-      const bytes = new Uint8Array(arrayBuffer);
-      let binary = '';
-      const chunkSize = 8192;
-      for (let i = 0; i < bytes.length; i += chunkSize) {
-        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
-      }
-      const base64Audio = btoa(binary);
+      // Convert audio blob to base64 using FileReader for universal Android WebView compatibility
+      const base64Audio = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const b64 = reader.result.split(',')[1];
+          resolve(b64);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      
       const audioMimeType = blob.type || `audio/${ext}`;
       const authHeader = `Bearer ${localStorage.getItem('token')}`;
 
