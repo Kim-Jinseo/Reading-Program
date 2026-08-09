@@ -28,10 +28,13 @@ export const SpeakingModule = () => {
   const paginatedList = currentList.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const totalPages = Math.ceil(currentList.length / ITEMS_PER_PAGE);
   const [isRecording, setIsRecording] = useState(false);
+  const [isWarmingUp, setIsWarmingUp] = useState(false);
   const [status, setStatus] = useState('ready'); 
   const [feedback, setFeedback] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const cancelSubmissionRef = useRef(false);
+  const maxRecordingTimerRef = useRef(null);
   
   // Volume Meter Refs
   const [micVolume, setMicVolume] = useState(0);
@@ -409,12 +412,19 @@ export const SpeakingModule = () => {
 
   const handleRecord = async () => {
     if (isRecording) {
+      if (isWarmingUp) {
+         cancelSubmissionRef.current = true; // Block spam clicks
+      }
       if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
          mediaRecorderRef.current.stop();
-         setStatus('loading');
+         if (!isWarmingUp) {
+           setStatus('loading');
+         }
       }
       setIsRecording(false);
+      setIsWarmingUp(false);
       stopMeter();
+      if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
       return;
     }
 
@@ -451,13 +461,34 @@ export const SpeakingModule = () => {
       };
 
       recorder.onstop = () => {
+        if (cancelSubmissionRef.current) return;
         const audioBlob = new Blob(audioChunksRef.current, { type: options.mimeType || 'audio/webm' });
         handleAudioSubmit(audioBlob, ext);
       };
 
+      cancelSubmissionRef.current = false;
       recorder.start();
       setIsRecording(true);
+      setIsWarmingUp(true);
       setStatus('ready');
+      setFeedback(null); // Clear previous feedback
+
+      setTimeout(() => {
+        setIsWarmingUp(false);
+      }, 500);
+
+      if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
+      maxRecordingTimerRef.current = setTimeout(() => {
+         if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            cancelSubmissionRef.current = true;
+            mediaRecorderRef.current.stop();
+            setStatus('ready');
+            setIsRecording(false);
+            setIsWarmingUp(false);
+            setFeedback({ stars: 0, text: "Recording stopped (Max 12s limit reached)." });
+            stopMeter();
+         }
+      }, 12000);
     } catch (err) {
       console.error("Mic start failed", err);
       setIsRecording(false);
@@ -543,8 +574,8 @@ export const SpeakingModule = () => {
           <div className="flex flex-col items-center">
             <div className={`h-8 mb-4 transition-opacity duration-300`}>
               {isRecording ? (
-                <div className="text-rose-500 font-bold text-xl flex items-center gap-2 animate-pulse">
-                  <Zap size={20} className="fill-rose-500 text-rose-500" /> Listening... Click mic to submit!
+                <div className={`text-rose-500 font-bold text-xl flex items-center gap-2 ${isWarmingUp ? '' : 'animate-pulse'}`}>
+                  <Zap size={20} className="fill-rose-500 text-rose-500" /> {isWarmingUp ? "Getting ready..." : "Listening... Click mic to submit!"}
                 </div>
               ) : (
                 <div className="text-slate-400 font-bold text-xl flex items-center gap-2">
@@ -572,8 +603,8 @@ export const SpeakingModule = () => {
             {/* Bottom Status & Volume Bar */}
             <div className={`flex flex-col items-center w-64 transition-opacity duration-300 ${isRecording ? 'opacity-100' : 'opacity-0'}`}>
               <div className="flex items-center gap-2 text-slate-500 font-bold text-sm tracking-widest mb-3 uppercase">
-                 <div className="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></div>
-                 MIC ON - SPEAK NOW
+                 <div className={`w-3 h-3 rounded-full ${isWarmingUp ? 'bg-amber-400' : 'bg-rose-500 animate-pulse'}`}></div>
+                 {isWarmingUp ? "WARMING UP..." : "MIC ON - SPEAK NOW"}
               </div>
               
               <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden mb-2">

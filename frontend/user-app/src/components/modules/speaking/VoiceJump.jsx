@@ -236,6 +236,7 @@ export const VoiceJump = ({ onBack }) => {
   }, [gameState]);
   
   const [isRecording, setIsRecording] = useState(false);
+  const [isWarmingUp, setIsWarmingUp] = useState(false);
   const [status, setStatus] = useState('ready'); // ready, loading
   const [feedback, setFeedback] = useState("Click the mic to attack!");
   
@@ -437,6 +438,9 @@ export const VoiceJump = ({ onBack }) => {
 
 
   const startRecording = async () => {
+    if (isWarmingUp) {
+      cancelSubmissionRef.current = true; // Block spam
+    }
     isRecordingRef.current = true;
     cancelSubmissionRef.current = false;
     
@@ -444,13 +448,18 @@ export const VoiceJump = ({ onBack }) => {
     maxRecordingTimerRef.current = setTimeout(() => {
       if (isRecordingRef.current) {
         stopRecording(true);
-        setFeedback("Recording stopped (Max 20s).");
+        setFeedback("Recording stopped (Max 12s).");
       }
-    }, 20000);
+    }, 12000);
     
     // Instantly show recording UI (zero latency response)
     setIsRecording(true);
+    setIsWarmingUp(true);
     setStatus('ready');
+    
+    setTimeout(() => {
+      setIsWarmingUp(false);
+    }, 500);
     
     // Live Volume Meter setup: Taps into the microphone's live AudioStream 
     // to render a pulsing red ring around the button that expands dynamically 
@@ -556,6 +565,7 @@ export const VoiceJump = ({ onBack }) => {
   const stopRecording = (cancelSubmit = false) => {
     isRecordingRef.current = false; // Signal onend NOT to restart
     setIsRecording(false);
+    setIsWarmingUp(false);
     cleanupVolumeMeter();
     
     if (maxRecordingTimerRef.current) clearTimeout(maxRecordingTimerRef.current);
@@ -1144,10 +1154,10 @@ export const VoiceJump = ({ onBack }) => {
              disabled={status === 'loading' || gameState !== 'playing'}
              className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center transition-all ${
                isRecording 
-                 ? 'bg-green-500 text-white animate-pulse shadow-[0_0_60px_rgba(34,197,94,0.8)] scale-110' 
+                 ? isWarmingUp ? 'bg-amber-400 text-white shadow-[0_0_60px_rgba(251,191,36,0.8)] scale-110' : 'bg-green-500 text-white animate-pulse shadow-[0_0_60px_rgba(34,197,94,0.8)] scale-110' 
                  : status === 'loading'
                    ? 'bg-slate-300 text-slate-500'
-                   : 'bg-indigo-500 text-white hover:bg-indigo-600 shadow-[0_8px_0_rgb(79,70,229)] active:shadow-none active:translate-y-2'
+                   : 'bg-indigo-500 text-white hover:bg-indigo-600 hover:scale-105 shadow-[0_10px_20px_rgba(99,102,241,0.4)]'
              }`}
            >
              <Mic size={48} />
@@ -1156,13 +1166,13 @@ export const VoiceJump = ({ onBack }) => {
            <div className="flex flex-col items-center justify-center gap-2 mt-6">
              {isRecording && (
                 <div className="flex flex-col items-center">
-                  <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">
-                    🔴 MIC ON - SPEAK NOW
+                  <p className={`text-sm font-bold uppercase tracking-widest mb-2 ${isWarmingUp ? 'text-amber-400' : 'text-green-500'}`}>
+                    {isWarmingUp ? "WARMING UP..." : "MIC ON - SPEAK NOW"}
                   </p>
-                  <div className="w-64 h-4 bg-slate-200 rounded-full overflow-hidden border border-slate-300 relative">
+                  <div className="w-48 h-3 bg-slate-200 rounded-full overflow-hidden">
                      <div 
-                       className={`absolute left-0 top-0 bottom-0 transition-all duration-75 ${micVolume > 15 ? 'bg-green-500' : 'bg-amber-400'}`} 
-                       style={{ width: `${Math.max(5, micVolume)}%` }}
+                        className={`h-full transition-all duration-75 rounded-full ${isWarmingUp ? 'bg-amber-400' : 'bg-green-500'}`}
+                        style={{ width: `${Math.max(5, micVolume)}%` }}
                      ></div>
                   </div>
                   <span className="text-xs font-bold mt-1 text-slate-400">{micVolume > 15 ? "Loud & Clear!" : "Too quiet..."}</span>
