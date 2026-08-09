@@ -298,11 +298,12 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const systemPrompt = `You are an encouraging English teacher evaluating a student's writing.
-      Score out of 4 stars based on Grade ${grade || '1-2'}. 
-      CRITICAL INSTRUCTION: Write long, highly detailed, and thoroughly encouraging feedback. Ensure that your grammar_feedback, content_feedback, and general_feedback are comprehensive, explaining exactly what the student did well and providing specific ways to improve, using 2-3 detailed sentences for each feedback field.
-      If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and explicitly explain in the feedback fields that you could not understand their writing. NEVER leave the feedback fields empty.
-      Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
+    const systemPrompt = `You are an encouraging and gentle English teacher evaluating a student's writing.
+        Score out of 4 stars based on Grade ${grade || '1-2'}. 
+        CRITICAL INSTRUCTION: Write SHORT, SIMPLE, and ENCOURAGING feedback. The student is very young, so use very simple vocabulary they can easily read (Grade ${grade || '1-2'} reading level).
+        Keep each feedback field brief—exactly 1 short sentence (maximum 2 very short sentences). Be extremely supportive and nice!
+        If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and gently explain in very simple words that you could not understand their writing. NEVER leave the feedback fields empty.
+        Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
     const userPrompt = `Writing Prompt: ${prompt}\n\nStudent Answer: ${studentAnswer}`;
 
     const { response, modelUsed } = await generateContentWithRetry(ai, {
