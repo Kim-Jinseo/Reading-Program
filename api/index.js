@@ -357,15 +357,22 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
   }
 
   try {
+    // Strip trailing codec info (e.g., 'audio/webm;codecs=opus' -> 'audio/webm') 
+    // because Deepgram can sometimes reject strict codec strings in headers.
+    const cleanMimeType = mimeType ? mimeType.split(';')[0] : 'audio/webm';
+    
+    // Ensure body is a standard Uint8Array which is supported universally by Web Fetch API (Vercel Edge/Node)
+    const bodyData = new Uint8Array(audioBuffer);
+
     const response = await fetch(
       'https://api.deepgram.com/v1/listen?model=nova-3&language=en&smart_format=true',
       {
         method: 'POST',
         headers: {
           'Authorization': `Token ${apiKey}`,
-          'Content-Type': mimeType,
+          'Content-Type': cleanMimeType,
         },
-        body: audioBuffer,
+        body: bodyData,
       }
     );
 
@@ -375,8 +382,14 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
     }
 
     const result = await response.json();
-    const transcript = result?.results?.channels?.[0]?.alternatives?.[0]?.transcript;
-    return transcript && transcript.trim().length > 0 ? transcript.trim() : null;
+    const alternative = result?.results?.channels?.[0]?.alternatives?.[0];
+    if (alternative && alternative.transcript && alternative.transcript.trim().length > 0) {
+      return {
+        transcript: alternative.transcript.trim(),
+        confidence: alternative.confidence || 1.0
+      };
+    }
+    return null;
   } catch (error) {
     console.error('[STT] Deepgram request failed:', error.message);
     return null;
@@ -435,7 +448,7 @@ app.post('/audio/stt', async (c) => {
     // Tier 1: Deepgram
     const deepgramResult = await transcribeWithDeepgram(audioBuffer, mimeType);
     if (deepgramResult) {
-      return c.json({ success: true, transcript: deepgramResult, provider: 'deepgram' });
+      return c.json({ success: true, transcript: deepgramResult.transcript, provider: 'deepgram' });
     }
 
     // Tier 2: Gemini transcription
@@ -472,9 +485,11 @@ app.post('/audio/evaluate', async (c) => {
     const audioBuffer = Buffer.from(base64Audio, 'base64');
 
     // Tier 1: Deepgram STT
-    const deepgramTranscript = await transcribeWithDeepgram(audioBuffer, mimeType);
+    const deepgramResult = await transcribeWithDeepgram(audioBuffer, mimeType);
     
-    if (deepgramTranscript !== null) {
+    if (deepgramResult !== null) {
+      const { transcript: deepgramTranscript, confidence } = deepgramResult;
+
       // Evaluate Deepgram transcript
       const h = deepgramTranscript.toLowerCase().replace(/[.,!?]/g, "").trim();
       const t = targetSentence.toLowerCase().replace(/[.,!?]/g, "").trim();
@@ -484,7 +499,11 @@ app.post('/audio/evaluate', async (c) => {
       
       // Basic includes matching for scoring
       if (h.includes(t) && t.length > 0) {
-        finalScore = 4;
+        if (confidence >= 0.95) finalScore = 4;
+        else if (confidence >= 0.85) finalScore = 3;
+        else if (confidence >= 0.65) finalScore = 2;
+        else finalScore = 1; // It matched, but Deepgram wasn't very sure
+        
         finalFeedback = `Hit! (${deepgramTranscript})`;
       } else if (h.length > 0) {
         // Simple word overlap for partial credit (business standard simple matching)
@@ -498,9 +517,13 @@ app.post('/audio/evaluate', async (c) => {
         
         const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
         
-        if (matchRatio >= 0.8) finalScore = 3;
-        else if (matchRatio >= 0.5) finalScore = 2;
-        else if (matchRatio > 0) finalScore = 1;
+        if (matchRatio >= 0.8) {
+           finalScore = confidence >= 0.85 ? 3 : 2;
+        } else if (matchRatio >= 0.5) {
+           finalScore = confidence >= 0.70 ? 2 : 1;
+        } else if (matchRatio > 0) {
+           finalScore = 1;
+        }
       }
       
       return c.json({ 
