@@ -509,10 +509,12 @@ export const VoiceJump = ({ onBack }) => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // WeChat, Chrome iOS, Firefox iOS etc all expose webkitSpeechRecognition but it instantly fails/loops
-    const isIOSWebView = isIOS && /CriOS|FxiOS|MicroMessenger|WeChat|Line/i.test(navigator.userAgent);
+    // WeChat, Line, QQ, and iOS alternative browsers have notoriously broken SpeechRecognition
+    const isWebViewOrBuggyBrowser = /MicroMessenger|WeChat|Line|QQ/i.test(navigator.userAgent) || (isIOS && /CriOS|FxiOS/i.test(navigator.userAgent));
+    
+    const isNativeBroken = sessionStorage.getItem('nativeSTT_broken') === 'true';
 
-    if (SpeechRecognition && !isIOSWebView) {
+    if (SpeechRecognition && !isWebViewOrBuggyBrowser && !isNativeBroken) {
       const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
       try {
         const recognition = new SpeechRecognition();
@@ -633,7 +635,17 @@ export const VoiceJump = ({ onBack }) => {
             isRecordingRef.current = false;
             setIsRecording(false);
             setStatus('ready');
-            setFeedback(err.error === 'network' ? "Network STT error." : "Mic access denied.");
+            
+            if (err.error === 'network') {
+              // Google STT blocked (e.g., China). Disable native STT for future clicks.
+              sessionStorage.setItem('nativeSTT_broken', 'true');
+              setFeedback("Switching to backup STT...");
+              setTimeout(() => {
+                startRecording(); // Automatically restart using Deepgram tier
+              }, 150);
+            } else {
+              setFeedback("Mic access denied.");
+            }
           }
         };
 
