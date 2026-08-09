@@ -107,7 +107,7 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['glm-5.1', 'glm-5.2', 'glm-4.5', 'glm-4.6v', 'glm-4-plus', 'glm-4.5v', 'glm-4-32b-0414-128k', 'glm-4.5-air', 'glm-4.5-airx'];
+const ZHIPU_MODELS = ['GLM-5.1', 'GLM-5.2', 'GLM-4.5', 'GLM-4.6V', 'GLM-4-Plus', 'GLM-4.5V', 'GLM-4-32B-0414-128K', 'GLM-4.5-Air', 'GLM-4.5-AirX', 'glm-4-plus'];
 
 async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
   const apiKey = process.env.ZHIPU_API_KEY;
@@ -135,14 +135,14 @@ async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
       if (!response.ok || data.error) {
         if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
           console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
-          continue;
+        } else {
+          console.warn(`Zhipu model ${model} failed: ${data.error?.message || response.statusText}. Trying next model...`);
         }
-        throw new Error(`Zhipu Error: ${data.error?.message || response.statusText}`);
+        continue;
       }
 
       return { text: data.choices[0].message.content, modelUsed: model };
     } catch (error) {
-      if (error.message.includes('Zhipu Error')) throw error;
       console.warn(`Zhipu fetch failed for ${model}:`, error.message);
     }
   }
@@ -322,8 +322,14 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
 
     const { text, modelUsed } = await generateZhipuContentWithRetry(systemPrompt, userPrompt);
     
-    const cleanJsonStr = text ? text.replace(/```json/g, '').replace(/```/g, '').trim() : "{}";
-    if (cleanJsonStr.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
+    let cleanJsonStr = "{}";
+    if (text) {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (match) {
+        cleanJsonStr = match[0];
+      }
+    }
+    if (text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
     const evaluation = JSON.parse(cleanJsonStr);
     return c.json({ 
@@ -335,6 +341,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       modelUsed
     });
   } catch (error) {
+    console.error('[Zhipu Grading Error]:', error);
     return c.json({
       success: true,
       stars: 1,
