@@ -774,6 +774,9 @@ app.get('/audio/tts', async (c) => {
   }
 
   c.header('Content-Type', mimeType);
+  c.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+  c.header('Pragma', 'no-cache');
+  c.header('Expires', '0');
   return c.body(audioBuffer);
 });
 
