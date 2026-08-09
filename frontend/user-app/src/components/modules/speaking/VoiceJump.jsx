@@ -741,7 +741,7 @@ export const VoiceJump = ({ onBack }) => {
 
       recorder.start();
       setIsRecording(true);
-      setFeedback("Listening (Gemini Backup)...");
+      setFeedback("Listening (Deepgram Backup)...");
     } catch (err) {
       console.error("Mic fallback error:", err);
       setFeedback("Mic error. Check permissions.");
