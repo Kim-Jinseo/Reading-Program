@@ -631,9 +631,19 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
  * Accepts: { text }
  * Returns: { success, audioBase64, mimeType }
  */
-app.post('/audio/tts', requireAuth, async (c) => {
-  const { text } = await c.req.json();
+app.get('/audio/tts', async (c) => {
+  const text = c.req.query('text');
+  const token = c.req.query('token');
+
   if (!text) return c.json({ success: false, error: 'Missing text' }, 400);
+  if (!token) return c.json({ success: false, error: 'Unauthorized' }, 401);
+
+  try {
+    const decoded = await verify(token, process.env.JWT_SECRET);
+    c.set('user', decoded);
+  } catch (err) {
+    return c.json({ success: false, error: 'Invalid or expired token' }, 401);
+  }
 
   const ttsKey = process.env.TEXT_TO_SPEECH;
   if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
@@ -653,10 +663,10 @@ app.post('/audio/tts', requireAuth, async (c) => {
     }
 
     const audioBuffer = await deepgramRes.arrayBuffer();
-    const audioBase64 = Buffer.from(audioBuffer).toString('base64');
     const mimeType = deepgramRes.headers.get('content-type') || 'audio/mp3';
 
-    return c.json({ success: true, audioBase64, mimeType });
+    c.header('Content-Type', mimeType);
+    return c.body(audioBuffer);
   } catch (error) {
     console.error('[TTS]', error);
     return c.json({ success: false, error: 'TTS failed: ' + (error.message || 'Unknown error') }, 500);

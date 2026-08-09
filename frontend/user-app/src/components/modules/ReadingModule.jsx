@@ -116,44 +116,37 @@ export const ReadingModule = () => {
     };
   };
 
-  const toggleAudio = async (textToRead) => {
-    if (isPlayingAudio) {
-      if (window.currentAudioInstance) {
-        window.currentAudioInstance.pause();
-        window.currentAudioInstance.currentTime = 0;
-      }
+  const toggleAudio = (textToRead) => {
+    if (isPlayingAudio && window.currentAudioInstance) {
+      window.currentAudioInstance.pause();
+      window.currentAudioInstance = null;
       setIsPlayingAudio(false);
       return;
     }
 
+    if (!textToRead) return;
+
     setIsPlayingAudio(true);
     try {
-      const response = await fetch('/api/audio/tts', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ text: textToRead })
-      });
+      const text = encodeURIComponent(textToRead);
+      const token = localStorage.getItem('token');
+      const audioUrl = `/api/audio/tts?text=${text}&token=${token}`;
       
-      const data = await response.json();
-      if (!data.success) {
-        console.error("TTS failed:", data.error);
-        setIsPlayingAudio(false);
-        return;
-      }
-      
-      const audioUrl = `data:${data.mimeType};base64,${data.audioBase64}`;
       const audio = new Audio(audioUrl);
       window.currentAudioInstance = audio;
       
-      audio.onended = () => setIsPlayingAudio(false);
-      audio.onerror = () => setIsPlayingAudio(false);
+      audio.onended = () => {
+        setIsPlayingAudio(false);
+        window.currentAudioInstance = null;
+      };
+      audio.onerror = () => {
+        setIsPlayingAudio(false);
+        window.currentAudioInstance = null;
+      };
       
       audio.play();
     } catch (e) {
-      console.error("Error playing audio:", e);
+      console.error("Audio error:", e);
       setIsPlayingAudio(false);
     }
   };

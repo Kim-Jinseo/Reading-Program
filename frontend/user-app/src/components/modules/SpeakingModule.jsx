@@ -330,24 +330,12 @@ export const SpeakingModule = () => {
 
   if (mode === 'voice_jump') return <VoiceJump onBack={() => setMode('menu')} />;
 
-  const handlePlayAudio = async () => {
+  const handlePlayAudio = () => {
     try {
-      const response = await fetch('/api/audio/tts', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ text: prompt.en })
-      });
+      const text = encodeURIComponent(prompt.en);
+      const token = localStorage.getItem('token');
+      const audioUrl = `/api/audio/tts?text=${text}&token=${token}`;
       
-      const data = await response.json();
-      if (!data.success) {
-        console.error("TTS failed:", data.error);
-        return;
-      }
-      
-      const audioUrl = `data:${data.mimeType};base64,${data.audioBase64}`;
       const audio = new Audio(audioUrl);
       audio.play();
     } catch (e) {
