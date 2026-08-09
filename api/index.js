@@ -327,6 +327,8 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
     }
     cleanText = cleanText.trim();
 
+    const evaluation = JSON.parse(cleanText);
+
     const stars = Math.max(0, Math.min(4, Math.round(evaluation.stars)));
     return c.json({ 
       success: true, 
