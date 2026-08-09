@@ -309,7 +309,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       }
     });
 
-    const text = response.text();
+    const text = response.text;
     if (text && text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
     // Strip markdown code blocks before parsing
@@ -681,29 +681,82 @@ app.get('/audio/tts', async (c) => {
   const ttsKey = process.env.TEXT_TO_SPEECH;
   if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
 
-  try {
-    const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${ttsKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ text })
-    });
+  let audioBuffer = null;
+  let mimeType = 'audio/mp3';
 
-    if (!deepgramRes.ok) {
-      throw new Error(`Deepgram TTS failed: ${deepgramRes.status}`);
-    }
-
-    const audioBuffer = await deepgramRes.arrayBuffer();
-    const mimeType = deepgramRes.headers.get('content-type') || 'audio/mp3';
-
-    c.header('Content-Type', mimeType);
-    return c.body(audioBuffer);
-  } catch (error) {
-    console.error('[TTS]', error);
-    return c.json({ success: false, error: 'TTS failed: ' + (error.message || 'Unknown error') }, 500);
+  // 1. Try OneAPI / OpenAI compatible endpoint (if GEMINI_BASE_URL is set)
+  if (process.env.GEMINI_BASE_URL) {
+    try {
+      const baseUrl = process.env.GEMINI_BASE_URL.replace(/\/+$/, '');
+      const audioUrl = baseUrl.endsWith('/v1') ? `${baseUrl}/audio/speech` : `${baseUrl}/v1/audio/speech`;
+      
+      const ttsRes = await fetch(audioUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${ttsKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'tts-1', // Default OneAPI generic TTS model mapping
+          input: text,
+          voice: 'alloy'
+        })
+      });
+      if (ttsRes.ok) {
+        audioBuffer = await ttsRes.arrayBuffer();
+        mimeType = ttsRes.headers.get('content-type') || 'audio/mp3';
+      }
+    } catch (e) { console.warn('[TTS Proxy]', e.message); }
   }
+
+  // 2. Try Google Cloud TTS (if not resolved)
+  if (!audioBuffer) {
+    try {
+      const googleTtsRes = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input: { text },
+          voice: { languageCode: 'en-US', name: 'en-US-Journey-F' },
+          audioConfig: { audioEncoding: 'MP3' }
+        })
+      });
+      if (googleTtsRes.ok) {
+        const data = await googleTtsRes.json();
+        if (data.audioContent) {
+           audioBuffer = Buffer.from(data.audioContent, 'base64');
+           mimeType = 'audio/mp3';
+        }
+      }
+    } catch (e) { console.warn('[TTS Google]', e.message); }
+  }
+
+  // 3. Fallback to Deepgram (what was there originally)
+  if (!audioBuffer) {
+    try {
+      const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${ttsKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text })
+      });
+
+      if (deepgramRes.ok) {
+        audioBuffer = await deepgramRes.arrayBuffer();
+        mimeType = deepgramRes.headers.get('content-type') || 'audio/mp3';
+      } else {
+        throw new Error(`Deepgram TTS failed: ${deepgramRes.status}`);
+      }
+    } catch (error) {
+      console.error('[TTS]', error);
+      return c.json({ success: false, error: 'TTS failed on all providers' }, 500);
+    }
+  }
+
+  c.header('Content-Type', mimeType);
+  return c.body(audioBuffer);
 });
 
 /**
