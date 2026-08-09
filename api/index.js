@@ -654,21 +654,7 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
     console.error('[Roleplay]', error);
     return c.json({ success: false, error: 'Roleplay failed: ' + (error.message || 'Unknown error') }, 500);
   }
-});
 
-app.get('/test/deepgram', async (c) => {
-  try {
-    const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
-    const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
-      method: 'POST',
-      headers: { 'Authorization': `Token ${ttsKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: 'Hello' })
-    });
-    return c.json({ status: res.status, text: await res.text() });
-  } catch (error) {
-    return c.json({ error: error.message, stack: error.stack }, 500);
-  }
-});
 
 /**
  * POST /api/audio/tts
