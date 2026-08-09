@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Mic, CheckCircle2, ChevronLeft, Volume2, Sparkles, Star, Gamepad2, Zap, Layers } from 'lucide-react';
+import { Mic, CheckCircle2, ChevronLeft, Volume2, Sparkles, Star, Gamepad2, Zap, Layers, Square, Loader2 } from 'lucide-react';
 import { VoiceJump } from './speaking/VoiceJump';
 
 import { useAppContext } from '../../context/AppContext';
@@ -587,17 +587,33 @@ export const SpeakingModule = () => {
             
             {/* Mic Button */}
             <div className="relative flex items-center justify-center w-48 h-48 mb-6">
-              {isRecording && (
-                <div 
-                  className="absolute inset-0 bg-rose-400 rounded-full opacity-30 transition-all duration-75 blur-md"
-                  style={{ transform: `scale(${1 + (micVolume / 100)})` }}
-                ></div>
+              {isRecording && !isWarmingUp && (
+                <>
+                  <div 
+                    className="absolute inset-0 bg-rose-400 rounded-full opacity-30 transition-all duration-75 blur-md"
+                    style={{ transform: `scale(${1 + (micVolume / 100)})` }}
+                  ></div>
+                  <div className="absolute inset-0 border-4 border-rose-500 rounded-full animate-ping opacity-30"></div>
+                </>
               )}
               <button 
                 onClick={handleRecord}
-                className={`relative z-10 w-32 h-32 rounded-full flex items-center justify-center transition-all ${isRecording ? 'bg-rose-500 text-white shadow-[0_0_40px_rgba(244,63,94,0.6)]' : 'bg-rose-500 text-white hover:bg-rose-600 shadow-[0_8px_0_rgb(225,29,72)] active:shadow-none active:translate-y-2'}`}
+                disabled={status === 'loading'}
+                className={`relative z-10 w-32 h-32 rounded-full flex items-center justify-center transition-all ${
+                  isRecording 
+                    ? isWarmingUp
+                      ? 'bg-amber-400 text-white shadow-[0_0_60px_rgba(251,191,36,0.8)] scale-110'
+                      : 'bg-rose-500 text-white shadow-[0_0_60px_rgba(244,63,94,0.8)] scale-110' 
+                    : status === 'loading'
+                      ? 'bg-slate-300 text-slate-500'
+                      : 'bg-rose-500 text-white hover:bg-rose-600 hover:scale-105 shadow-[0_8px_0_rgb(225,29,72)] active:shadow-none active:translate-y-2'
+                }`}
               >
-                <Mic size={48} />
+                {isRecording ? (
+                  isWarmingUp ? <Loader2 size={48} className="animate-spin" /> : <Square size={40} className="fill-white" />
+                ) : (
+                  <Mic size={48} />
+                )}
               </button>
             </div>
             

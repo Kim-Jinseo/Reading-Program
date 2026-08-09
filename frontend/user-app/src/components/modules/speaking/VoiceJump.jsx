@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock } from 'lucide-react';
+import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock, Square, Loader2 } from 'lucide-react';
 import { useAppContext } from '../../../context/AppContext';
 
 
@@ -1149,19 +1149,34 @@ export const VoiceJump = ({ onBack }) => {
            </div>
            <p className="text-xl text-slate-500 font-bold h-8 mb-8">{status === 'loading' ? 'Analyzing...' : feedback}</p>
 
-           <button 
-             onClick={toggleRecording}
-             disabled={status === 'loading' || gameState !== 'playing'}
-             className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center transition-all ${
-               isRecording 
-                 ? isWarmingUp ? 'bg-amber-400 text-white shadow-[0_0_60px_rgba(251,191,36,0.8)] scale-110' : 'bg-green-500 text-white animate-pulse shadow-[0_0_60px_rgba(34,197,94,0.8)] scale-110' 
-                 : status === 'loading'
-                   ? 'bg-slate-300 text-slate-500'
-                   : 'bg-indigo-500 text-white hover:bg-indigo-600 hover:scale-105 shadow-[0_10px_20px_rgba(99,102,241,0.4)]'
-             }`}
-           >
-             <Mic size={48} />
-           </button>
+            <div className="relative flex items-center justify-center w-48 h-48 mx-auto">
+              {isRecording && !isWarmingUp && (
+                <>
+                  <div 
+                    className="absolute inset-0 bg-green-400 rounded-full opacity-30 transition-all duration-75 blur-md"
+                    style={{ transform: `scale(${1 + (micVolume / 100)})` }}
+                  ></div>
+                  <div className="absolute inset-0 border-4 border-green-500 rounded-full animate-ping opacity-30"></div>
+                </>
+              )}
+              <button 
+                onClick={toggleRecording}
+                disabled={status === 'loading' || gameState !== 'playing'}
+                className={`relative z-10 w-32 h-32 mx-auto rounded-full flex items-center justify-center transition-all ${
+                  isRecording 
+                    ? isWarmingUp ? 'bg-amber-400 text-white shadow-[0_0_60px_rgba(251,191,36,0.8)] scale-110' : 'bg-green-500 text-white shadow-[0_0_60px_rgba(34,197,94,0.8)] scale-110' 
+                    : status === 'loading'
+                      ? 'bg-slate-300 text-slate-500'
+                      : 'bg-indigo-500 text-white hover:bg-indigo-600 hover:scale-105 shadow-[0_10px_20px_rgba(99,102,241,0.4)]'
+                }`}
+              >
+                {isRecording ? (
+                  isWarmingUp ? <Loader2 size={48} className="animate-spin" /> : <Square size={40} className="fill-white" />
+                ) : (
+                  <Mic size={48} />
+                )}
+              </button>
+            </div>
            
            <div className="flex flex-col items-center justify-center gap-2 mt-6">
              {isRecording && (
