@@ -410,7 +410,7 @@ export const VoiceJump = ({ onBack }) => {
     let rawDamage = Math.round(baseDamage * multiplier);
     
     let isCrit = false;
-    if (evalResult?.stars >= 2 && Math.random() < 0.20) {
+    if (evalResult?.stars === 3 && Math.random() < 0.30) {
         isCrit = true;
         rawDamage *= 2;
     }
@@ -423,15 +423,16 @@ export const VoiceJump = ({ onBack }) => {
     const shield = isGolemActive ? 0 : baseShield;
     const finalDamage = Math.max(1, Math.floor(rawDamage * (1 - (shield / 100))));
     
-    let msg = evalResult?.feedback || "Hit!";
+    let accuracyStr = '⭐'.repeat(evalResult?.stars || 1);
+    let msg = `Accuracy: ${accuracyStr} | Damage: ${finalDamage}`;
     if (isCrit) msg = `💥 CRITICAL! ${msg}`;
     
     if (isGolemActive && baseShield > 0) {
-      setFeedback(`${msg} ${finalDamage} DMG! 🗿 GOLEM SHIELD BREAKER (Bypassed ${baseShield}% Shield)`);
+      setFeedback(`${msg} 🗿 GOLEM SHIELD BREAKER (Bypassed ${baseShield}% Shield)`);
     } else if (shield > 0) {
-      setFeedback(`${msg} ${finalDamage} DMG (-${shield}% Shield)`);
+      setFeedback(`${msg} (-${shield}% Shield)`);
     } else {
-      setFeedback(`${msg} ${finalDamage} DMG!`);
+      setFeedback(msg);
     }
     triggerAttack(finalDamage, true, false, isCrit);
   };
@@ -629,8 +630,7 @@ export const VoiceJump = ({ onBack }) => {
       if (data.success) {
         const score = data.score;
         if (score > 0) {
-          const mult = score === 3 ? 1.0 : score === 2 ? 0.8 : 0.6;
-          setFeedback(data.feedback || 'Hit!');
+          const mult = score === 3 ? 1.0 : score === 2 ? 0.8 : 0.5;
           executeAttackSuccess({ stars: score, multiplier: mult, feedback: data.feedback || 'Hit!' }, false);
         } else {
           setFeedback(data.feedback || "Missed! Try to speak clearer!");
@@ -1194,17 +1194,6 @@ export const VoiceJump = ({ onBack }) => {
                 </div>
              )}
 
-             {!isRecording && (
-               <button 
-                 onClick={() => {
-                   pickNewWord(stage);
-                   if (!isRecording) startRecording();
-                 }}
-                 className="mt-4 text-sm font-bold text-indigo-500 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-6 py-3 rounded-full transition-colors shadow-sm"
-               >
-                 Skip Word ⏭️
-               </button>
-             )}
            </div>
         </div>
       </div>
