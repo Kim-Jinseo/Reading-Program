@@ -684,17 +684,8 @@ app.get('/test/tts', async (c) => {
 
 app.get('/audio/tts', async (c) => {
   const text = c.req.query('text');
-  const token = c.req.query('token');
-
+  
   if (!text) return c.json({ success: false, error: 'Missing text' }, 400);
-  if (!token) return c.json({ success: false, error: 'Unauthorized' }, 401);
-
-  try {
-    const decoded = await verify(token, process.env.JWT_SECRET);
-    c.set('user', decoded);
-  } catch (err) {
-    return c.json({ success: false, error: 'Invalid or expired token' }, 401);
-  }
 
   const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
   if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
