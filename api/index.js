@@ -671,7 +671,7 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
 app.get('/test/tts', async (c) => {
   const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
   const text = 'hello world';
-  const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
+  const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en&encoding=mp3', {
     method: 'POST',
     headers: {
       'Authorization': `Token ${ttsKey}`,
@@ -752,7 +752,7 @@ app.get('/audio/tts', async (c) => {
   // 3. Fallback to Deepgram (what was there originally)
   if (!audioBuffer) {
     try {
-      const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
+      const deepgramRes = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en&encoding=mp3', {
         method: 'POST',
         headers: {
           'Authorization': `Token ${ttsKey}`,
