@@ -668,6 +668,20 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
  * Accepts: { text }
  * Returns: { success, audioBase64, mimeType }
  */
+app.get('/test/tts', async (c) => {
+  const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
+  const text = 'hello world';
+  const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${ttsKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ text })
+  });
+  return c.json({ status: res.status, ok: res.ok, statusText: res.statusText });
+});
+
 app.get('/audio/tts', async (c) => {
   const text = c.req.query('text');
   const token = c.req.query('token');
