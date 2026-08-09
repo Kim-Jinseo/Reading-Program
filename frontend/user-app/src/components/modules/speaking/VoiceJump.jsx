@@ -633,8 +633,10 @@ export const VoiceJump = ({ onBack }) => {
           const mult = score === 3 ? 1.0 : score === 2 ? 0.8 : 0.5;
           executeAttackSuccess({ stars: score, multiplier: mult, feedback: data.feedback || 'Hit!' }, false);
         } else {
-          setFeedback(data.feedback || "Missed! Try to speak clearer!");
-          pickNewWord(stage);
+          setFeedback(`Accuracy: ☆☆☆ | Damage: 0 (${data.feedback || "Missed!"})`);
+          setTimeout(() => {
+            if (gameStateRef.current === 'playing') pickNewWord(stage);
+          }, 1500);
         }
       } else {
         setFeedback(data.error || "Didn't hear you clearly. Try again!");

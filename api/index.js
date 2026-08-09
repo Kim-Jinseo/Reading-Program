@@ -547,13 +547,10 @@ app.post('/audio/evaluate', async (c) => {
       
       // Basic includes matching for scoring
       if (h.includes(t) && t.length > 0) {
-        if (confidence >= 0.70) finalScore = 3;
-        else if (confidence >= 0.40) finalScore = 2;
-        else finalScore = 1; // It matched, but Deepgram wasn't very sure
-        
+        finalScore = 3; // Any exact match = 3 stars, ignore confidence since kids have low STT confidence
         finalFeedback = `Hit! (${deepgramTranscript})`;
       } else if (h.length > 0) {
-        // Simple word overlap for partial credit (business standard simple matching)
+        // Simple word overlap for partial credit
         const heardWords = h.split(/\s+/);
         const targetWords = t.split(/\s+/);
         let matchCount = 0;
@@ -564,8 +561,8 @@ app.post('/audio/evaluate', async (c) => {
         
         const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
         
-        if (matchRatio >= 0.6) {
-           finalScore = confidence >= 0.60 ? 2 : 1;
+        if (matchRatio >= 0.4) {
+           finalScore = 2;
         } else if (matchRatio > 0) {
            finalScore = 1;
         }
