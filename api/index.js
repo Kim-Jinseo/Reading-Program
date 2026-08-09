@@ -654,6 +654,7 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
     console.error('[Roleplay]', error);
     return c.json({ success: false, error: 'Roleplay failed: ' + (error.message || 'Unknown error') }, 500);
   }
+});
 
 
 /**
