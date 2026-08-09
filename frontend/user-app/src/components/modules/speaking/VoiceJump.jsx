@@ -508,17 +508,11 @@ export const VoiceJump = ({ onBack }) => {
     // 1. Check for Native SpeechRecognition (Chrome, Safari, Edge, Android, iOS)
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     
-    // Detect ecosystems where the exposed webkitSpeechRecognition API is present but fatally broken
-    // iOS WebViews (WeChat iOS, Chrome iOS, Firefox iOS) instantly fail or loop
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // WeChat, Chrome iOS, Firefox iOS etc all expose webkitSpeechRecognition but it instantly fails/loops
     const isIOSWebView = isIOS && /CriOS|FxiOS|MicroMessenger|WeChat|Line/i.test(navigator.userAgent);
-    
-    // Chinese Android/AOSP and HarmonyOS lack Google STT, causing immediate failure loops
-    const isChineseAndroid = /MicroMessenger|WeChat|HarmonyOS|OpenHarmony|HuaweiBrowser|HeyTapBrowser|VivoBrowser/i.test(navigator.userAgent);
 
-    const isBrokenSpeechAPI = isIOSWebView || isChineseAndroid;
-
-    if (SpeechRecognition && !isBrokenSpeechAPI) {
+    if (SpeechRecognition && !isIOSWebView) {
       const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
       try {
         const recognition = new SpeechRecognition();
@@ -756,8 +750,14 @@ export const VoiceJump = ({ onBack }) => {
     }
   };
 
+  /**
+   * Two-tier audio evaluation pipeline:
+   *   Tier 1: Native SpeechRecognition (handled in startRecording, not here)
+   *   Tier 2: Backend evaluation fallback (/api/audio/evaluate) -> Deepgram -> Gemini
+   */
   const handleAudioSubmit = async (blob, ext = 'webm') => {
     try {
+      // Convert audio blob to base64 for JSON transport (bypasses WeChat multipart bugs)
       const arrayBuffer = await blob.arrayBuffer();
       const bytes = new Uint8Array(arrayBuffer);
       let binary = '';
@@ -766,41 +766,35 @@ export const VoiceJump = ({ onBack }) => {
         binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
       }
       const base64Audio = btoa(binary);
+      const audioMimeType = blob.type || `audio/${ext}`;
+      const authHeader = `Bearer ${localStorage.getItem('token')}`;
 
-      const res = await fetch(`/api/audio/evaluate`, {
+      // ── Tier 2: Backend Unified Evaluation (Deepgram -> Gemini) ─────────────
+      const res = await fetch('/api/audio/evaluate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
+        headers: { 'Content-Type': 'application/json', 'Authorization': authHeader },
         body: JSON.stringify({
           audioBase64: base64Audio,
-          mimeType: blob.type || `audio/${ext}`,
+          mimeType: audioMimeType,
           targetSentence: word,
-          grade: grade || '3rd Grade'
-        })
+          grade: grade || '3rd Grade',
+        }),
       });
       const data = await res.json();
       setStatus('ready');
       isRecordingRef.current = false;
       setIsRecording(false);
-      
-      if (gameStateRef.current !== 'playing') {
-        return; // Game over or stage cleared while waiting for AI
-      }
+
+      if (gameStateRef.current !== 'playing') return;
 
       if (data.success) {
         const score = data.score;
         if (score > 0) {
           const mult = score === 4 ? 1.0 : score === 3 ? 0.85 : score === 2 ? 0.7 : 0.5;
-          const evalRes = {
-            stars: score,
-            multiplier: mult,
-            feedback: "Hit!"
-          };
-          executeAttackSuccess(evalRes, false);
+          setFeedback(data.feedback || 'Hit!');
+          executeAttackSuccess({ stars: score, multiplier: mult, feedback: data.feedback || 'Hit!' }, false);
         } else {
-          setFeedback("Missed! Try to speak clearer!");
+          setFeedback(data.feedback || "Missed! Try to speak clearer!");
           pickNewWord(stage);
         }
       } else {
@@ -808,9 +802,11 @@ export const VoiceJump = ({ onBack }) => {
         pickNewWord(stage);
       }
     } catch (err) {
-      console.error(err);
+      console.error('[VoiceJump] handleAudioSubmit error:', err);
       setStatus('ready');
-      setFeedback("Network error.");
+      setFeedback('Network error.');
+      isRecordingRef.current = false;
+      setIsRecording(false);
       pickNewWord(stage);
     }
   };

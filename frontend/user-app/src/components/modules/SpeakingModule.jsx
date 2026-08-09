@@ -6,8 +6,6 @@ import { useAppContext } from '../../context/AppContext';
 import { getDailyItem } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
 import Pagination from '../common/Pagination';
-import { ConfettiCanvas } from '../common/ConfettiCanvas';
-import { playRobustTTS, stopRobustTTS } from '../../utils/audioTTS';
 
 export const SpeakingModule = () => {
   const { t, curriculumDb, grade, user, handleEarnStars, updateCompletion, markDailyComplete, getDailyStatus } = useAppContext();
@@ -97,7 +95,6 @@ export const SpeakingModule = () => {
         try { recognitionRef.current.stop(); } catch(e){}
       }
       stopMeter();
-      stopRobustTTS();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -197,11 +194,8 @@ export const SpeakingModule = () => {
               <h3 className="text-3xl font-black text-slate-800 mb-3">{t('keep_practicing_speaking_title')}</h3>
               <p className="text-base text-slate-600 mb-8 font-medium leading-relaxed max-w-sm">{t('keep_practicing_speaking_desc')}</p>
               <button 
-                onClick={() => {
-                  stopRobustTTS();
-                  setMenuView('list');
-                }} 
-                className="w-full mt-10 py-5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-extrabold text-2xl rounded-2xl shadow-[0_8px_0_rgb(67,56,202)] active:shadow-none active:translate-y-2 transition-all"
+                onClick={() => setMenuView('list')} 
+                className="w-full py-4 bg-slate-800 hover:bg-slate-900 text-white font-black text-xl rounded-2xl shadow-[0_6px_0_rgb(15,23,42)] active:shadow-none active:translate-y-1 transition-all mt-auto"
               >
                 {t('btn_browse_all')}
               </button>
@@ -334,12 +328,40 @@ export const SpeakingModule = () => {
   if (mode === 'voice_jump') return <VoiceJump onBack={() => setMode('menu')} />;
 
   const handlePlayNative = () => {
-    // Some minor string replacements to make TTS sound slightly better
-    const textToSpeak = " " + prompt.en
-      .replace(/<[^>]+>/g, '') // remove HTML tags
-      .replace(/([.?!])\s*(?=[A-Z])/g, "$1  "); // add slight pause between sentences
+    if ('speechSynthesis' in window) {
+      try { window.speechSynthesis.cancel(); } catch(e){}
+      try { window.speechSynthesis.resume(); } catch(e){}
+
+      // Pre-roll a gentle pause/comma so Chrome audio hardware wakes up without truncating the first 1-2 words
+      const textToSpeak = `, ${prompt.en}`;
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = 'en-US';
       
-    playRobustTTS(textToSpeak);
+      const setVoiceAndSpeak = () => {
+        const voices = window.speechSynthesis.getVoices();
+        
+        const premiumVoice = voices.find(v => v.name.includes('Natural') && v.lang.includes('en'))
+                          || voices.find(v => v.name.includes('Online') && v.name.includes('English'))
+                          || voices.find(v => v.name.includes('Google') && v.lang.includes('en')) 
+                          || voices.find(v => v.lang === 'en-US' || v.lang === 'en-GB');
+        
+        if (premiumVoice) {
+          utterance.voice = premiumVoice;
+        }
+        
+        setTimeout(() => {
+          try { window.speechSynthesis.resume(); } catch(e){}
+          window.speechSynthesis.speak(utterance);
+        }, 50);
+      };
+
+      if (window.speechSynthesis.getVoices().length === 0) {
+        window.speechSynthesis.addEventListener('voiceschanged', setVoiceAndSpeak, { once: true });
+        setTimeout(setVoiceAndSpeak, 200);
+      } else {
+        setVoiceAndSpeak();
+      }
+    }
   };
 
   const handleRecord = () => {

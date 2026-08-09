@@ -305,145 +305,355 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   }
 });
 
-app.post('/audio/evaluate', async (c) => {
-  try {
-    const contentType = c.req.header('content-type') || '';
-    let base64Audio, mimeType, targetSentence;
+// ─────────────────────────────────────────────────────────────────────────────
+// AUDIO UTILITIES
+// ─────────────────────────────────────────────────────────────────────────────
 
-    if (contentType.includes('application/json')) {
-      const body = await c.req.json();
-      base64Audio = body.audioBase64;
-      mimeType = body.mimeType;
-      targetSentence = body.targetSentence;
-    } else {
-      const formData = await c.req.parseBody();
-      const file = formData['voiceRecord'];
-      targetSentence = formData['targetSentence'];
-      if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
-      const arrayBuffer = await file.arrayBuffer();
-      base64Audio = Buffer.from(arrayBuffer).toString('base64');
-      mimeType = file.type;
+/**
+ * Extracts base64 audio data from either JSON or multipart request bodies.
+ * Supports both `application/json` (base64 payload) and `multipart/form-data` (file upload).
+ *
+ * @param {object} c - Hono context
+ * @returns {{ base64Audio: string, mimeType: string, extras: object }}
+ */
+async function parseAudioRequest(c) {
+  const contentType = c.req.header('content-type') || '';
+
+  if (contentType.includes('application/json')) {
+    const body = await c.req.json();
+    return {
+      base64Audio: body.audioBase64 || null,
+      mimeType: body.mimeType || 'audio/webm',
+      extras: body,
+    };
+  }
+
+  // Multipart form-data (legacy browser uploads)
+  const formData = await c.req.parseBody();
+  const file = formData['voiceRecord'];
+  if (!file) return { base64Audio: null, mimeType: null, extras: formData };
+
+  const arrayBuffer = await file.arrayBuffer();
+  return {
+    base64Audio: Buffer.from(arrayBuffer).toString('base64'),
+    mimeType: file.type || 'audio/webm',
+    extras: formData,
+  };
+}
+
+/**
+ * Transcribes audio using the Deepgram Nova-3 STT API.
+ * Deepgram's REST endpoint accepts raw audio bytes and returns a JSON transcript.
+ *
+ * @param {Buffer} audioBuffer - Raw audio bytes
+ * @param {string} mimeType    - MIME type (e.g. 'audio/webm', 'audio/mp4')
+ * @returns {string|null}       - Transcribed text, or null on failure
+ */
+async function transcribeWithDeepgram(audioBuffer, mimeType) {
+  const apiKey = process.env.DEEPGRAM_API_KEY;
+  if (!apiKey) {
+    console.warn('[STT] DEEPGRAM_API_KEY not set, skipping Deepgram tier.');
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      'https://api.deepgram.com/v1/listen?model=nova-3&language=en&smart_format=true',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${apiKey}`,
+          'Content-Type': mimeType,
+        },
+        body: audioBuffer,
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`[STT] Deepgram returned ${response.status}: ${await response.text()}`);
+      return null;
     }
 
-    if (!base64Audio) return c.json({ success: false, error: "No audio detected." }, 400);
+    const result = await response.json();
+    const transcript = result?.results?.channels?.[0]?.alternatives?.[0]?.transcript;
+    return transcript && transcript.trim().length > 0 ? transcript.trim() : null;
+  } catch (error) {
+    console.error('[STT] Deepgram request failed:', error.message);
+    return null;
+  }
+}
 
+/**
+ * Transcribes audio using Google Gemini's multimodal capabilities.
+ * Used as a fallback when Deepgram is unavailable or returns no results.
+ *
+ * @param {string} base64Audio - Base64-encoded audio data
+ * @param {string} mimeType    - MIME type
+ * @returns {string|null}       - Transcribed text, or null on failure
+ */
+async function transcribeWithGemini(base64Audio, mimeType) {
+  try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
     const { response } = await generateContentWithRetry(ai, {
       contents: [
-        { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4}` },
-        { inlineData: { data: base64Audio, mimeType: mimeType } }
+        { text: 'Transcribe the English words spoken in this audio accurately. If no English speech is detected, return an empty string. Return ONLY the transcribed text, with no extra commentary.' },
+        { inlineData: { data: base64Audio, mimeType } },
       ],
-      config: { responseMimeType: "application/json" }
     }, true);
 
-    const evaluation = JSON.parse(response.text.replace(/```json/g, '').replace(/```/g, '').trim());
-    const speechDetected = evaluation.speech_detected === true || evaluation.speech_detected === "true";
-    let finalScore = speechDetected ? Math.max(0, Math.min(4, Math.round(evaluation.stars))) : 0;
-    let finalFeedback = speechDetected ? (evaluation.feedback || "Good effort!") : "I couldn't hear your voice!";
-    
-    return c.json({ success: true, score: finalScore, feedback: finalFeedback, targetSentence });
+    const text = response.text?.trim();
+    return text && text.length > 0 ? text : null;
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Audio analysis failed: " + (error.message || "Unknown error") }, 500);
+    console.error('[STT] Gemini transcription failed:', error.message);
+    return null;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AUDIO ENDPOINTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * POST /api/audio/stt
+ *
+ * Three-tier speech-to-text endpoint:
+ *   Tier 1: Deepgram Nova-3 (fast, reliable, works without VPN in China)
+ *   Tier 2: Gemini multimodal transcription (fallback)
+ *
+ * Accepts: { audioBase64, mimeType }
+ * Returns: { success, transcript, provider }
+ */
+app.post('/audio/stt', async (c) => {
+  try {
+    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    if (!base64Audio) {
+      return c.json({ success: false, error: 'No audio detected.' }, 400);
+    }
+
+    const audioBuffer = Buffer.from(base64Audio, 'base64');
+
+    // Tier 1: Deepgram
+    const deepgramResult = await transcribeWithDeepgram(audioBuffer, mimeType);
+    if (deepgramResult) {
+      return c.json({ success: true, transcript: deepgramResult, provider: 'deepgram' });
+    }
+
+    // Tier 2: Gemini transcription
+    const geminiResult = await transcribeWithGemini(base64Audio, mimeType);
+    if (geminiResult) {
+      return c.json({ success: true, transcript: geminiResult, provider: 'gemini' });
+    }
+
+    return c.json({ success: false, error: 'No speech detected in audio.' }, 200);
+  } catch (error) {
+    console.error('[STT] Endpoint error:', error);
+    return c.json({ success: false, error: 'STT failed: ' + (error.message || 'Unknown error') }, 500);
   }
 });
 
-app.post('/audio/roleplay', requireAuth, async (c) => {
+/**
+ * POST /api/audio/evaluate
+ *
+ * Evaluates pronunciation quality using Gemini multimodal.
+ * Used as the final fallback when both native STT and Deepgram are unavailable.
+ *
+ * Accepts: { audioBase64, mimeType, targetSentence }
+ * Returns: { success, score (0-4), feedback, targetSentence }
+ */
+app.post('/audio/evaluate', async (c) => {
   try {
-    const contentType = c.req.header('content-type') || '';
-    let base64Audio, mimeType;
+    const { base64Audio, mimeType, extras } = await parseAudioRequest(c);
+    const targetSentence = extras.targetSentence || '';
 
-    if (contentType.includes('application/json')) {
-      const body = await c.req.json();
-      base64Audio = body.audioBase64;
-      mimeType = body.mimeType;
-    } else {
-      const formData = await c.req.parseBody();
-      const file = formData['voiceRecord'];
-      if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
-      base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
-      mimeType = file.type;
+    if (!base64Audio) {
+      return c.json({ success: false, error: 'No audio detected.' }, 400);
     }
 
-    if (!base64Audio) return c.json({ success: false, error: "No audio detected." }, 400);
+    const audioBuffer = Buffer.from(base64Audio, 'base64');
+
+    // Tier 1: Deepgram STT
+    const deepgramTranscript = await transcribeWithDeepgram(audioBuffer, mimeType);
+    
+    if (deepgramTranscript !== null) {
+      // Evaluate Deepgram transcript
+      const h = deepgramTranscript.toLowerCase().replace(/[.,!?]/g, "").trim();
+      const t = targetSentence.toLowerCase().replace(/[.,!?]/g, "").trim();
+      
+      let finalScore = 0;
+      let finalFeedback = `Heard: "${deepgramTranscript}"`;
+      
+      // Basic includes matching for scoring
+      if (h.includes(t) && t.length > 0) {
+        finalScore = 4;
+        finalFeedback = `Hit! (${deepgramTranscript})`;
+      } else if (h.length > 0) {
+        // Simple word overlap for partial credit (business standard simple matching)
+        const heardWords = h.split(/\s+/);
+        const targetWords = t.split(/\s+/);
+        let matchCount = 0;
+        
+        targetWords.forEach(word => {
+          if (heardWords.includes(word)) matchCount++;
+        });
+        
+        const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
+        
+        if (matchRatio >= 0.8) finalScore = 3;
+        else if (matchRatio >= 0.5) finalScore = 2;
+        else if (matchRatio > 0) finalScore = 1;
+      }
+      
+      return c.json({ 
+        success: true, 
+        score: finalScore, 
+        feedback: finalFeedback, 
+        targetSentence,
+        provider: 'deepgram',
+        transcript: deepgramTranscript
+      });
+    }
+
+    // Tier 2: Gemini Audio Evaluation Fallback
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const { response } = await generateContentWithRetry(ai, {
+      contents: [
+        { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON {"speech_detected": true, "stars": 4, "feedback": "Good effort"}` },
+        { inlineData: { data: base64Audio, mimeType } },
+      ],
+      config: { responseMimeType: 'application/json' },
+    }, true);
+
+    const evaluation = JSON.parse(response.text.replace(/```json/g, '').replace(/```/g, '').trim());
+    const speechDetected = evaluation.speech_detected === true || evaluation.speech_detected === 'true';
+    const finalScore = speechDetected ? Math.max(0, Math.min(4, Math.round(evaluation.stars))) : 0;
+    const finalFeedback = speechDetected ? (evaluation.feedback || 'Good effort!') : "I couldn't hear your voice!";
+
+    return c.json({ 
+      success: true, 
+      score: finalScore, 
+      feedback: finalFeedback, 
+      targetSentence,
+      provider: 'gemini' 
+    });
+  } catch (error) {
+    console.error('[Audio Evaluate]', error);
+    return c.json({ success: false, error: 'Audio analysis failed: ' + (error.message || 'Unknown error') }, 500);
+  }
+});
+
+/**
+ * POST /api/audio/roleplay
+ *
+ * AI-powered voice conversation: transcribes student audio, generates a reply,
+ * and optionally returns TTS audio of the reply.
+ *
+ * Accepts: { audioBase64, mimeType }
+ * Returns: { success, text, audioBase64, mimeType }
+ */
+app.post('/audio/roleplay', requireAuth, async (c) => {
+  try {
+    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    if (!base64Audio) {
+      return c.json({ success: false, error: 'No audio detected.' }, 400);
+    }
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
     const textResponse = await generateContentWithRetry(ai, {
       contents: [
-        { text: `You are a friendly alien pen-pal. Reply to the student in 1-2 very short English sentences.` },
-        { inlineData: { data: base64Audio, mimeType: mimeType } }
+        { text: 'You are a friendly alien pen-pal. Reply to the student in 1-2 very short English sentences.' },
+        { inlineData: { data: base64Audio, mimeType } },
       ],
     }, true);
 
     const replyText = textResponse.response.text.trim();
 
+    // Generate TTS audio for the reply (non-blocking — failure is acceptable)
     let audioBase64 = null;
     let audioMimeType = null;
     try {
       const ttsRes = await ai.models.generateContent({
         model: 'gemini-3.1-flash-tts',
         contents: `Please read the following aloud in a very cute, friendly, enthusiastic voice:\n\n${replyText}`,
-        config: { responseModalities: ["AUDIO"] }
+        config: { responseModalities: ['AUDIO'] },
       });
       const audioPart = ttsRes?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
       if (audioPart) {
         audioBase64 = audioPart.inlineData.data;
         audioMimeType = audioPart.inlineData.mimeType;
       }
-    } catch(e) { console.error("TTS generation failed:", e); }
+    } catch (e) {
+      console.error('[Roleplay TTS]', e.message);
+    }
 
     return c.json({ success: true, text: replyText, audioBase64, mimeType: audioMimeType });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Roleplay failed: " + (error.message || "Unknown error") }, 500);
+    console.error('[Roleplay]', error);
+    return c.json({ success: false, error: 'Roleplay failed: ' + (error.message || 'Unknown error') }, 500);
   }
 });
 
+/**
+ * POST /api/audio/tts
+ *
+ * Text-to-speech endpoint using Gemini Flash TTS.
+ *
+ * Accepts: { text }
+ * Returns: { success, audioBase64, mimeType }
+ */
 app.post('/audio/tts', requireAuth, async (c) => {
   const { text } = await c.req.json();
-  if (!text) return c.json({ success: false, error: "Missing text" }, 400);
+  if (!text) return c.json({ success: false, error: 'Missing text' }, 400);
+
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3.1-flash-tts',
       contents: `Please read aloud enthusiastically:\n\n${text}`,
-      config: { responseModalities: ["AUDIO"] }
+      config: { responseModalities: ['AUDIO'] },
     });
+
     const audioPart = response?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
     if (audioPart) {
       return c.json({ success: true, audioBase64: audioPart.inlineData.data, mimeType: audioPart.inlineData.mimeType });
     }
-    return c.json({ success: false, error: "No audio returned" }, 500);
-  } catch(error) {
-    console.error(error);
-    return c.json({ success: false, error: "TTS failed: " + (error.message || "Unknown error") }, 500);
+    return c.json({ success: false, error: 'No audio returned' }, 500);
+  } catch (error) {
+    console.error('[TTS]', error);
+    return c.json({ success: false, error: 'TTS failed: ' + (error.message || 'Unknown error') }, 500);
   }
 });
 
+/**
+ * POST /api/audio/transcribe
+ *
+ * Legacy transcription endpoint (multipart only). Kept for backward compatibility.
+ * New code should use /api/audio/stt instead.
+ */
 app.post('/audio/transcribe', async (c) => {
   try {
-    const formData = await c.req.parseBody();
-    const file = formData['voiceRecord'];
-    if (!file) return c.json({ success: false, error: "No audio detected." }, 400);
+    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    if (!base64Audio) {
+      return c.json({ success: false, error: 'No audio detected.' }, 400);
+    }
 
-    const base64Audio = Buffer.from(await file.arrayBuffer()).toString('base64');
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    // Try Deepgram first, then Gemini
+    const audioBuffer = Buffer.from(base64Audio, 'base64');
+    const transcript = await transcribeWithDeepgram(audioBuffer, mimeType)
+      || await transcribeWithGemini(base64Audio, mimeType);
 
-    const response = await generateContentWithRetry(ai, {
-      contents: [
-        { text: `Transcribe the English words spoken in this audio accurately. If no English speech is detected, return an empty string. Return ONLY the transcribed text, with no extra commentary.` },
-        { inlineData: { data: base64Audio, mimeType: file.type } }
-      ]
-    }, true);
-
-    return c.json({ success: true, text: response.response.text.trim() });
+    if (transcript) {
+      return c.json({ success: true, text: transcript });
+    }
+    return c.json({ success: false, error: 'No speech detected.' }, 200);
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Transcription failed: " + (error.message || "Unknown error") }, 500);
+    console.error('[Transcribe]', error);
+    return c.json({ success: false, error: 'Transcription failed: ' + (error.message || 'Unknown error') }, 500);
   }
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SERVER EXPORTS
+// ─────────────────────────────────────────────────────────────────────────────
 
 export const GET = handle(app);
 export const POST = handle(app);
