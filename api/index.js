@@ -303,12 +303,12 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       CRITICAL INSTRUCTION: Write long, highly detailed, and thoroughly encouraging feedback. Ensure that your grammar_feedback, content_feedback, and general_feedback are comprehensive, explaining exactly what the student did well and providing specific ways to improve, using 2-3 detailed sentences for each feedback field.
       If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and explicitly explain in the feedback fields that you could not understand their writing. NEVER leave the feedback fields empty.
       Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
-    const userPrompt = `Student Answer: ${studentAnswer}`;
+    const userPrompt = `Writing Prompt: ${prompt}\n\nStudent Answer: ${studentAnswer}`;
 
     const { response, modelUsed } = await generateContentWithRetry(ai, {
-      systemInstruction: systemPrompt,
       contents: userPrompt,
       config: {
+        systemInstruction: systemPrompt,
         responseMimeType: "application/json",
       }
     });
