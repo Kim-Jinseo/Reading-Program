@@ -107,57 +107,6 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
   throw new Error("All fallback models exhausted or failed.");
 }
 
-const ZHIPU_MODELS = ['glm-5.1', 'GLM-5.1', 'glm-4-plus', 'GLM-4-Plus', 'glm-5.2', 'GLM-5.2', 'glm-4.5', 'GLM-4.5', 'glm-4.6v', 'GLM-4.6V', 'glm-4-flash', 'GLM-4-Flash'];
-
-async function generateZhipuContentWithRetry(systemPrompt, userPrompt) {
-  const apiKey = process.env.ZHIPU_API_KEY;
-  if (!apiKey) throw new Error("ZHIPU_API_KEY is missing!");
-
-  let errorLogs = [];
-
-  for (const model of ZHIPU_MODELS) {
-    try {
-      const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: "user", content: `${systemPrompt}\n\n${userPrompt}` }
-          ]
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || data.error) {
-        if (response.status === 401 || (data.error && String(data.error.code) === '1000')) {
-          throw new Error("Zhipu API Key is invalid or expired (401/1000). Please check ZHIPU_API_KEY in Vercel!");
-        }
-
-        if (response.status === 429 || response.status === 503 || (data.error && ['1302', '1301'].includes(String(data.error.code)))) {
-          console.warn(`Zhipu model ${model} hit concurrency limit. Trying next model...`);
-          errorLogs.push(`${model}: Concurrency Limit (Code ${data.error?.code || response.status})`);
-        } else {
-          const errMsg = data.error?.message || response.statusText || JSON.stringify(data);
-          console.warn(`Zhipu model ${model} failed: ${errMsg}. Trying next model...`);
-          errorLogs.push(`${model}: ${errMsg}`);
-        }
-        continue;
-      }
-
-      return { text: data.choices[0].message.content, modelUsed: model };
-    } catch (error) {
-      console.warn(`Zhipu fetch failed for ${model}:`, error.message);
-      if (error.message.includes('API Key is invalid')) throw error;
-      errorLogs.push(`${model}: Fetch error - ${error.message}`);
-    }
-  }
-  throw new Error(`All Zhipu models failed. Errors: ${errorLogs.join(' | ')}`);
-}
 
 // Health Check
 app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
@@ -324,24 +273,25 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   const { prompt, studentAnswer, grade } = await c.req.json();
   if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
   try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const systemPrompt = `You are an encouraging English teacher evaluating a student's writing.
       Score out of 4 stars based on Grade ${grade || '1-2'}. 
       CRITICAL INSTRUCTION: Write long, highly detailed, and thoroughly encouraging feedback. Ensure that your grammar_feedback, content_feedback, and general_feedback are comprehensive, explaining exactly what the student did well and providing specific ways to improve, using 2-3 detailed sentences for each feedback field.
       Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
     const userPrompt = `Student Answer: ${studentAnswer}`;
 
-    const { text, modelUsed } = await generateZhipuContentWithRetry(systemPrompt, userPrompt);
-    
-    let cleanJsonStr = "{}";
-    if (text) {
-      const match = text.match(/\{[\s\S]*\}/);
-      if (match) {
-        cleanJsonStr = match[0];
+    const { response, modelUsed } = await generateContentWithRetry(ai, {
+      systemInstruction: systemPrompt,
+      contents: userPrompt,
+      config: {
+        responseMimeType: "application/json",
       }
-    }
+    });
+
+    const text = response.text();
     if (text && text.toLowerCase().includes("system prompt")) throw new Error("Safety Check Failed");
 
-    const evaluation = JSON.parse(cleanJsonStr);
+    const evaluation = JSON.parse(text);
     return c.json({ 
       success: true, 
       stars: Math.max(0, Math.min(4, Math.round(evaluation.stars))), 
@@ -351,13 +301,13 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       modelUsed
     });
   } catch (error) {
-    console.error('[Zhipu Grading Error]:', error);
+    console.error('[Gemini Grading Error]:', error);
     return c.json({
       success: true,
       stars: 1,
       grammar: "Please write complete sentences.",
       content: "Nice effort answering the writing prompt!",
-      general: `DEBUG ERROR: ${error.message}`,
+      general: `Keep practicing! (Error: ${error.message})`,
       modelUsed: "heuristic-fallback"
     });
   }
