@@ -314,8 +314,10 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   const { prompt, studentAnswer, grade } = await c.req.json();
   if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
   try {
-    const systemPrompt = `You are an encouraging English teacher evaluating a student's writing... (rules omitted for brevity, but same spirit as Express)
-      Score out of 4 stars based on Grade ${grade || '1-2'}. Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
+    const systemPrompt = `You are an encouraging English teacher evaluating a student's writing.
+      Score out of 4 stars based on Grade ${grade || '1-2'}. 
+      CRITICAL INSTRUCTION: Write long, highly detailed, and thoroughly encouraging feedback. Ensure that your grammar_feedback, content_feedback, and general_feedback are comprehensive, explaining exactly what the student did well and providing specific ways to improve, using 2-3 detailed sentences for each feedback field.
+      Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "content_feedback":"", "general_feedback":""}`;
     const userPrompt = `Student Answer: ${studentAnswer}`;
 
     const { text, modelUsed } = await generateZhipuContentWithRetry(systemPrompt, userPrompt);
