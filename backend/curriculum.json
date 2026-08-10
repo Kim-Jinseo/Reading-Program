@@ -6520,34 +6520,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Cat'?",
+            "q": "What pet is described in 'My Cat'?",
             "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Tim Has Small",
-              "Baking warm sweet treats"
+              "Has a small white",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Cat'? (Question 2)",
+            "q": "What second detail is mentioned in 'My Cat'?",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Cat Likes Sleep"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Cat likes to sleep"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'My Cat'? (Question 3)",
+            "q": "What pet is described in 'My Cat'? (Part 2)",
             "options": [
-              "Browsing exciting books",
-              "Tim Has Small",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Has a small white"
             ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -6565,34 +6565,34 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'The Red Ball'?",
+            "q": "What toy or item is used in 'The Red Ball'?",
             "options": [
-              "Three mystery storybooks",
-              "Sam Has Big",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "Has a big red",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What second detail is mentioned in 'The Red Ball'?",
+            "options": [
+              "A friendly brown puppy",
+              "Plays with his ball",
+              "A shiny new red ball",
+              "A small white pet cat"
             ],
             "correct": 1
           },
           {
-            "q": "Where do the characters play in 'The Red Ball'?",
+            "q": "What toy or item is used in 'The Red Ball'? (Part 2)",
             "options": [
-              "The city park playground",
-              "Plays His Ball",
-              "The local art museum",
-              "The public library"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Has a big red",
+              "A small white pet cat"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What main item is described in 'The Red Ball'? (Question 2)",
-            "options": [
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Sam Has Big"
-            ],
-            "correct": 3
+            "correct": 2
           }
         ]
       },
@@ -6610,34 +6610,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Dog'?",
+            "q": "What pet is described in 'My Dog'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Ben Has Brown",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'My Dog'? (Question 2)",
-            "options": [
-              "Dog Can Run",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Has a brown dog",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Dog'? (Question 3)",
+            "q": "What second detail is mentioned in 'My Dog'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Ben Has Brown"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Dog can run very"
             ],
             "correct": 3
+          },
+          {
+            "q": "What pet is described in 'My Dog'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "Has a brown dog",
+              "A friendly brown puppy",
+              "A small white pet cat"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -6655,32 +6655,32 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Sun'?",
+            "q": "What main action happens in 'The Sun'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Sun Big Yellow",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Sun'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Shines Bright Blue"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Sun is big"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Sun'? (Question 3)",
+            "q": "What else takes place in 'The Sun'?",
             "options": [
-              "Browsing exciting books",
-              "Sun Big Yellow",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "It shines bright",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'The Sun'? (Part 2)",
+            "options": [
+              "Playing fun outdoor games",
+              "Sun is big",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           }
@@ -6700,34 +6700,34 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Apples'?",
+            "q": "What key item is featured in 'Apples'?",
             "options": [
-              "Three mystery storybooks",
-              "Mia Likes Eat",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Likes to eat red"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'Apples'?",
+            "q": "What main action happens in 'Apples'?",
             "options": [
-              "Baking warm sweet treats",
-              "Taste Sweet Fresh",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Taste sweet and fresh"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What main item is described in 'Apples'? (Question 2)",
+            "q": "What second detail is mentioned in 'Apples'?",
             "options": [
-              "Mia Likes Eat",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Three mystery storybooks"
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "Likes to eat red"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -6745,34 +6745,34 @@
         },
         "questions": [
           {
-            "q": "What vehicle is ridden in 'My Bicycle'?",
+            "q": "What main action happens in 'My Bicycle'?",
             "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Leo Has New",
-              "A wooden toy sailboat"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Has a new blue",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What location is described in 'My Bicycle'?",
+            "q": "What toy or item is used in 'My Bicycle'?",
             "options": [
-              "The city park playground",
-              "The local art museum",
-              "Rides His Bike",
-              "The public library"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What vehicle is ridden in 'My Bicycle'? (Question 2)",
-            "options": [
-              "A wooden toy sailboat",
-              "Leo Has New",
-              "Three mystery storybooks",
-              "A set of drawing pens"
+              "A shiny new red ball",
+              "Rides his bike",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 1
+          },
+          {
+            "q": "What else takes place in 'My Bicycle'?",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Has a new blue",
+              "Reading short storybooks"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -6790,34 +6790,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Fish'?",
+            "q": "What key item is featured in 'The Fish'?",
             "options": [
-              "Browsing exciting books",
-              "Little Orange Fish",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Little orange fish swims",
+              "A small white pet cat"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Fish'? (Question 2)",
+            "q": "What main action happens in 'The Fish'?",
             "options": [
-              "Baking warm sweet treats",
-              "Moves Its Tail",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "It moves its tail",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Fish'? (Question 3)",
+            "q": "What second detail is mentioned in 'The Fish'?",
             "options": [
-              "Browsing exciting books",
-              "Little Orange Fish",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Little orange fish swims",
+              "A shiny new red ball"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -6835,34 +6835,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Hot Milk'?",
+            "q": "What main action happens in 'Hot Milk'?",
             "options": [
-              "Baking warm sweet treats",
-              "Anna Drinks Warm",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Anna drinks warm milk",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'Hot Milk' take place?",
+            "options": [
+              "Inside the cozy house",
+              "Drinks it before bed",
+              "At the sunny garden yard",
+              "Under the big oak tree"
             ],
             "correct": 1
           },
           {
-            "q": "What location is described in 'Hot Milk'?",
+            "q": "What else takes place in 'Hot Milk'?",
             "options": [
-              "The public library",
-              "The city park playground",
-              "She Drinks Before",
-              "The local art museum"
+              "Anna drinks warm milk",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Hot Milk'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Anna Drinks Warm",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -6880,34 +6880,34 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Hat'?",
+            "q": "What key item is featured in 'My Hat'?",
             "options": [
-              "Three mystery storybooks",
-              "Tom Wears Bright",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Wears a bright yellow"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main action happens in 'My Hat'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Wears it on sunny",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'My Hat'?",
+            "q": "What second detail is mentioned in 'My Hat'?",
             "options": [
-              "Baking warm sweet treats",
-              "Wears Sunny Days",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "A small white pet cat",
+              "Wears a bright yellow",
+              "A shiny new red ball",
+              "A friendly brown puppy"
             ],
             "correct": 1
-          },
-          {
-            "q": "What main item is described in 'My Hat'? (Question 2)",
-            "options": [
-              "Tom Wears Bright",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
-            ],
-            "correct": 0
           }
         ]
       },
@@ -6925,34 +6925,34 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'The Big Tree'?",
+            "q": "Where does the story 'The Big Tree' take place?",
             "options": [
-              "The city park playground",
-              "The local art museum",
-              "Big Green Tree",
-              "The public library"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Big Tree'?",
-            "options": [
-              "Playing fun yard games",
-              "Birds Sing Its",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where do the characters play in 'The Big Tree'? (Question 2)",
-            "options": [
-              "Big Green Tree",
-              "The public library",
-              "The city park playground",
-              "The local art museum"
+              "Big green tree grows",
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Inside the cozy house"
             ],
             "correct": 0
+          },
+          {
+            "q": "What key item is featured in 'The Big Tree'?",
+            "options": [
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "Birds sing"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'The Big Tree'?",
+            "options": [
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Big green tree grows",
+              "Under the big oak tree"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -6970,34 +6970,34 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Toy Car'?",
+            "q": "What toy or item is used in 'My Toy Car'?",
             "options": [
-              "Dan Plays Fast",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "A friendly brown puppy",
+              "Dan plays",
+              "A shiny new red ball",
+              "A small white pet cat"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main action happens in 'My Toy Car'?",
+            "options": [
+              "Rolls it",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Toy Car'?",
+            "q": "What second detail is mentioned in 'My Toy Car'?",
             "options": [
-              "A story detail",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "A small white pet cat",
+              "Dan plays",
+              "A shiny new red ball",
+              "A friendly brown puppy"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'My Toy Car'? (Question 2)",
-            "options": [
-              "Dan Plays Fast",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
-            ],
-            "correct": 0
+            "correct": 1
           }
         ]
       },
@@ -7015,32 +7015,32 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Sweet Cake'?",
+            "q": "What key item is featured in 'Sweet Cake'?",
             "options": [
-              "Lily Eats Slice",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Sweet Cake'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Has Red Cherry",
-              "Browsing exciting books"
+              "A small white pet cat",
+              "A shiny new red ball",
+              "Eats a slice",
+              "A friendly brown puppy"
             ],
             "correct": 2
           },
           {
-            "q": "What main item is described in 'Sweet Cake'? (Question 2)",
+            "q": "What main action happens in 'Sweet Cake'?",
             "options": [
-              "A set of drawing pens",
-              "Lily Eats Slice",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "It has a red",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What second detail is mentioned in 'Sweet Cake'?",
+            "options": [
+              "A shiny new red ball",
+              "Eats a slice",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 1
           }
@@ -7060,34 +7060,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Little Bird'?",
+            "q": "What key item is featured in 'The Little Bird'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Blue Bird Sits"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The Little Bird'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Sings Happy Song"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The Little Bird'? (Question 3)",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Blue Bird Sits",
-              "Baking warm sweet treats"
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Blue bird sits",
+              "A small white pet cat"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main action happens in 'The Little Bird'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "It sings a happy",
+              "Reading short storybooks"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What second detail is mentioned in 'The Little Bird'?",
+            "options": [
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Blue bird sits"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -7105,34 +7105,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Green Frog'?",
+            "q": "What key item is featured in 'My Green Frog'?",
             "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Small Green Frog",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'My Green Frog'? (Question 2)",
-            "options": [
-              "Catches Flies Its",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'My Green Frog'? (Question 3)",
-            "options": [
-              "Baking warm sweet treats",
-              "Small Green Frog",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "A friendly brown puppy",
+              "Small green frog jumps",
+              "A shiny new red ball",
+              "A small white pet cat"
             ],
             "correct": 1
+          },
+          {
+            "q": "What pet is described in 'My Green Frog'?",
+            "options": [
+              "A friendly brown puppy",
+              "It catches flies",
+              "A shiny new red ball",
+              "A small white pet cat"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What second detail is mentioned in 'My Green Frog'?",
+            "options": [
+              "Small green frog jumps",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -7150,34 +7150,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Cold Snow'?",
+            "q": "What main action happens in 'The Cold Snow'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Soft White Snow"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Soft white snow falls"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Cold Snow'? (Question 2)",
+            "q": "What else takes place in 'The Cold Snow'?",
             "options": [
-              "Browsing exciting books",
-              "Children Play Cold",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Children play",
+              "Reading short storybooks"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Cold Snow'? (Question 3)",
+            "q": "What main action happens in 'The Cold Snow'? (Part 2)",
             "options": [
-              "Soft White Snow",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Soft white snow falls"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -7195,44 +7195,44 @@
         },
         "questions": [
           {
-            "q": "Where does the action happen in 'The Red Bus'?",
+            "q": "What main action happens in 'The Red Bus'?",
             "options": [
-              "Big Red Bus",
-              "The local art museum",
-              "The public library",
-              "The city park playground"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Big red bus stops",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'The Red Bus' take place?",
+            "options": [
+              "Many children get",
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Inside the cozy house"
             ],
             "correct": 0
           },
           {
-            "q": "What location is described in 'The Red Bus'?",
+            "q": "What else takes place in 'The Red Bus'?",
             "options": [
-              "The city park playground",
-              "Many Children Get",
-              "The public library",
-              "The local art museum"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Big red bus stops"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "Where does the action happen in 'The Red Bus'? (Question 2)",
+            "q": "Where is another detail located in 'The Red Bus'?",
             "options": [
-              "Big Red Bus",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Inside the cozy house",
+              "Many children get"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'The Red Bus'? (Question 2)",
-            "options": [
-              "Many Children Get",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
-            ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -7250,44 +7250,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Yellow Duck'?",
+            "q": "What main action happens in 'My Yellow Duck'?",
             "options": [
-              "Browsing exciting books",
-              "Tiny Yellow Duck",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Playing fun outdoor games",
+              "Tiny yellow duck swims",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'My Yellow Duck'? (Question 2)",
+            "q": "What else takes place in 'My Yellow Duck'?",
             "options": [
-              "Browsing exciting books",
-              "Quacks Happily Splashes",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "It quacks happily as",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Yellow Duck'? (Question 3)",
+            "q": "What main action happens in 'My Yellow Duck'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Tiny Yellow Duck",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Tiny yellow duck swims"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'My Yellow Duck'? (Question 4)",
+            "q": "What main action happens in 'My Yellow Duck'? (Part 3)",
             "options": [
-              "Browsing exciting books",
-              "Quacks Happily Splashes",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "It quacks happily as",
+              "Baking warm sweet cookies"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -7305,44 +7305,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Sweet Orange'?",
+            "q": "What main action happens in 'The Sweet Orange'?",
             "options": [
-              "Playing fun yard games",
-              "Kim Peels Sweet",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'The Sweet Orange'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "She Shares Half",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Kim peels a sweet",
+              "Playing fun outdoor games"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Sweet Orange'? (Question 3)",
+            "q": "What else takes place in 'The Sweet Orange'?",
             "options": [
-              "Browsing exciting books",
-              "Kim Peels Sweet",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Playing fun outdoor games",
+              "Shares half",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Sweet Orange'? (Question 4)",
+            "q": "What main action happens in 'The Sweet Orange'? (Part 2)",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "She Shares Half",
-              "Browsing exciting books"
+              "Kim peels a sweet",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
-            "correct": 2
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'The Sweet Orange'? (Part 3)",
+            "options": [
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Shares half"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -7360,44 +7360,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Blue Shoes'?",
+            "q": "What main action happens in 'My Blue Shoes'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Ben Wears His"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Wears his brand new"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'My Blue Shoes'?",
+            "q": "Where does the story 'My Blue Shoes' take place?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "Runs Fast Grass",
-              "The local art museum"
+              "Runs fast",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'My Blue Shoes'?",
+            "options": [
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Wears his brand new",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'My Blue Shoes'? (Question 2)",
+            "q": "Where is another detail located in 'My Blue Shoes'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Ben Wears His",
-              "Baking warm sweet treats"
+              "Runs fast",
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "At the sunny garden yard"
             ],
-            "correct": 2
-          },
-          {
-            "q": "What location is described in 'My Blue Shoes'? (Question 2)",
-            "options": [
-              "The public library",
-              "The local art museum",
-              "Runs Fast Grass",
-              "The city park playground"
-            ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -7415,44 +7415,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Cute Puppy'?",
+            "q": "What main action happens in 'The Cute Puppy'?",
             "options": [
-              "Browsing exciting books",
-              "Fluffy Brown Puppy",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Fluffy brown puppy wags"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Cute Puppy'? (Question 2)",
+            "q": "What else takes place in 'The Cute Puppy'?",
             "options": [
-              "Drinks Fresh Milk",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "It drinks fresh milk"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Cute Puppy'? (Question 3)",
+            "q": "What main action happens in 'The Cute Puppy'? (Part 2)",
             "options": [
-              "Fluffy Brown Puppy",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Fluffy brown puppy wags",
+              "Reading short storybooks"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Cute Puppy'? (Question 4)",
+            "q": "What main action happens in 'The Cute Puppy'? (Part 3)",
             "options": [
-              "Drinks Fresh Milk",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "It drinks fresh milk"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -7470,44 +7470,44 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Sunny Beach'?",
+            "q": "What main action happens in 'Sunny Beach'?",
             "options": [
-              "Warm Yellow Sand",
-              "The public library",
-              "The city park playground",
-              "The local art museum"
+              "Warm yellow sand covers",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Sunny Beach'?",
+            "q": "What else takes place in 'Sunny Beach'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Children Build Big",
-              "Playing fun yard games"
+              "Children build a big",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What location is described in 'Sunny Beach'? (Question 2)",
+            "q": "What main action happens in 'Sunny Beach'? (Part 2)",
             "options": [
-              "The local art museum",
-              "The city park playground",
-              "The public library",
-              "Warm Yellow Sand"
+              "Playing fun outdoor games",
+              "Warm yellow sand covers",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Sunny Beach'? (Question 2)",
+            "q": "What main action happens in 'Sunny Beach'? (Part 3)",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Children Build Big"
+              "Children build a big",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -7525,44 +7525,44 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Red Strawberries'?",
+            "q": "Where does the story 'Red Strawberries' take place?",
             "options": [
-              "Amy Picks Fresh",
-              "The city park playground",
-              "The local art museum",
-              "The public library"
+              "Amy picks fresh red",
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Under the big oak tree"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Red Strawberries'?",
+            "q": "What main action happens in 'Red Strawberries'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "She Puts Into",
-              "Browsing exciting books"
+              "Puts them into",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What location is described in 'Red Strawberries'? (Question 2)",
+            "q": "Where is another detail located in 'Red Strawberries'?",
             "options": [
-              "The public library",
-              "Amy Picks Fresh",
-              "The local art museum",
-              "The city park playground"
+              "Amy picks fresh red",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'Red Strawberries'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Puts them into",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
             "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Red Strawberries'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "She Puts Into",
-              "Playing fun yard games"
-            ],
-            "correct": 2
           }
         ]
       },
@@ -7580,44 +7580,44 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Toy Robot'?",
+            "q": "What toy or item is used in 'My Toy Robot'?",
             "options": [
-              "Leo Plays Silver",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "A set of drawing pens"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'My Toy Robot'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Robot Walks Flashes",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "A friendly brown puppy",
+              "Plays with a silver",
+              "A shiny new red ball",
+              "A small white pet cat"
             ],
             "correct": 1
           },
           {
-            "q": "What main item is described in 'My Toy Robot'? (Question 2)",
+            "q": "What main action happens in 'My Toy Robot'?",
             "options": [
-              "A wooden toy sailboat",
-              "Leo Plays Silver",
-              "Three mystery storybooks",
-              "A set of drawing pens"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Robot walks and flashes",
+              "Reading short storybooks"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What second detail is mentioned in 'My Toy Robot'?",
+            "options": [
+              "A shiny new red ball",
+              "Plays with a silver",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'My Toy Robot'? (Question 2)",
+            "q": "What else takes place in 'My Toy Robot'?",
             "options": [
-              "Robot Walks Flashes",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Robot walks and flashes"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -7635,42 +7635,42 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Fresh Juice'?",
+            "q": "What main action happens in 'Fresh Juice'?",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Mom Pours Cold"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Mom pours cold orange"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Fresh Juice'? (Question 2)",
+            "q": "What else takes place in 'Fresh Juice'?",
             "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Drink Fresh Juice"
+              "Baking warm sweet cookies",
+              "We drink the fresh",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main action happens in 'Fresh Juice'? (Part 2)",
+            "options": [
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Mom pours cold orange"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Fresh Juice'? (Question 3)",
+            "q": "What main action happens in 'Fresh Juice'? (Part 3)",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Mom Pours Cold"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Fresh Juice'? (Question 4)",
-            "options": [
-              "Browsing exciting books",
-              "Drink Fresh Juice",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Playing fun outdoor games",
+              "We drink the fresh",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
             "correct": 1
           }
@@ -7690,44 +7690,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Green Turtle'?",
+            "q": "What main action happens in 'The Green Turtle'?",
             "options": [
-              "Browsing exciting books",
-              "Slow Green Turtle",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Slow green turtle walks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Green Turtle'? (Question 2)",
+            "q": "What else takes place in 'The Green Turtle'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Swims Into Ocean",
-              "Baking warm sweet treats"
+              "It swims into",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Green Turtle'? (Question 3)",
+            "q": "What main action happens in 'The Green Turtle'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Slow Green Turtle",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Slow green turtle walks"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Green Turtle'? (Question 4)",
+            "q": "What main action happens in 'The Green Turtle'? (Part 3)",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Swims Into Ocean",
-              "Baking warm sweet treats"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "It swims into"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -7745,42 +7745,42 @@
         },
         "questions": [
           {
-            "q": "Where inside the house does 'Baking Bread' take place?",
+            "q": "Where does the story 'Baking Bread' take place?",
             "options": [
-              "The local art museum",
-              "The public library",
-              "Dad Bakes Warm",
-              "The city park playground"
+              "Dad bakes warm wheat",
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Inside the cozy house"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where inside the house does 'Baking Bread' take place? (Question 2)",
+            "q": "Where is another detail located in 'Baking Bread'?",
             "options": [
-              "The public library",
-              "The city park playground",
-              "The local art museum",
-              "House Smells Wonderful"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where inside the house does 'Baking Bread' take place? (Question 3)",
-            "options": [
-              "The local art museum",
-              "Dad Bakes Warm",
-              "The public library",
-              "The city park playground"
+              "At the sunny garden yard",
+              "House smells wonderful all",
+              "Under the big oak tree",
+              "Inside the cozy house"
             ],
             "correct": 1
           },
           {
-            "q": "Where inside the house does 'Baking Bread' take place? (Question 4)",
+            "q": "Where does the story 'Baking Bread' take place? (Part 2)",
             "options": [
-              "The city park playground",
-              "The local art museum",
-              "House Smells Wonderful",
-              "The public library"
+              "Under the big oak tree",
+              "Dad bakes warm wheat",
+              "Inside the cozy house",
+              "At the sunny garden yard"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where does the story 'Baking Bread' take place? (Part 3)",
+            "options": [
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "House smells wonderful all",
+              "At the sunny garden yard"
             ],
             "correct": 2
           }
@@ -7800,44 +7800,44 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'My Pink Ball'?",
+            "q": "What toy or item is used in 'My Pink Ball'?",
             "options": [
-              "Mia Bounces Her",
-              "The public library",
-              "The city park playground",
-              "The local art museum"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'My Pink Ball'?",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "Ball Bounces Down"
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "Bounces her soft pink"
             ],
             "correct": 3
           },
           {
-            "q": "Where do the characters play in 'My Pink Ball'? (Question 2)",
+            "q": "What second detail is mentioned in 'My Pink Ball'?",
             "options": [
-              "Mia Bounces Her",
-              "The local art museum",
-              "The city park playground",
-              "The public library"
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Ball bounces up"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main item is described in 'My Pink Ball'? (Question 2)",
+            "q": "What toy or item is used in 'My Pink Ball'? (Part 2)",
             "options": [
-              "Ball Bounces Down",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "A friendly brown puppy",
+              "Bounces her soft pink",
+              "A small white pet cat",
+              "A shiny new red ball"
             ],
-            "correct": 0
+            "correct": 1
+          },
+          {
+            "q": "What other object is in 'My Pink Ball'?",
+            "options": [
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Ball bounces up"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -7855,42 +7855,42 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The White Rabbit'?",
+            "q": "What pet is described in 'The White Rabbit'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Cute White Rabbit"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The White Rabbit'? (Question 2)",
-            "options": [
-              "Twitches Its Nose",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Cute white rabbit munches",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'The White Rabbit'? (Question 3)",
+            "q": "What main action happens in 'The White Rabbit'?",
             "options": [
-              "Baking warm sweet treats",
-              "Cute White Rabbit",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "It twitches its nose"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What second detail is mentioned in 'The White Rabbit'?",
+            "options": [
+              "A friendly brown puppy",
+              "Cute white rabbit munches",
+              "A small white pet cat",
+              "A shiny new red ball"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The White Rabbit'? (Question 4)",
+            "q": "What else takes place in 'The White Rabbit'?",
             "options": [
-              "Baking warm sweet treats",
-              "Twitches Its Nose",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Reading short storybooks",
+              "It twitches its nose",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
             ],
             "correct": 1
           }
@@ -7910,44 +7910,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Rainy Day'?",
+            "q": "Where does the story 'Rainy Day' take place?",
             "options": [
-              "Baking warm sweet treats",
-              "Heavy Rain Falls",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Heavy rain falls",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'Rainy Day'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "We stay inside",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Rainy Day'? (Question 2)",
+            "q": "Where is another detail located in 'Rainy Day'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Stay Inside Play",
-              "Playing fun yard games"
+              "Heavy rain falls",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Rainy Day'? (Question 3)",
+            "q": "What else takes place in 'Rainy Day'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Heavy Rain Falls",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "We stay inside",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Rainy Day'? (Question 4)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Stay Inside Play"
-            ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -7965,44 +7965,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Night Sky'?",
+            "q": "What main action happens in 'Night Sky'?",
             "options": [
-              "Bright Yellow Stars",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Night Sky'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Round Moon Lights",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Playing fun outdoor games",
+              "Bright yellow stars shine",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Night Sky'? (Question 3)",
+            "q": "What else takes place in 'Night Sky'?",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Bright Yellow Stars",
-              "Playing fun yard games"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Round moon lights up",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Night Sky'? (Question 4)",
+            "q": "What main action happens in 'Night Sky'? (Part 2)",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Round Moon Lights"
+              "Bright yellow stars shine",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
             ],
-            "correct": 3
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'Night Sky'? (Part 3)",
+            "options": [
+              "Reading short storybooks",
+              "Round moon lights up",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -8020,54 +8020,54 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'The Red Apple'?",
+            "q": "What key item is featured in 'The Red Apple'?",
             "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Sam Picked Large",
-              "A wooden toy sailboat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Red Apple'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Washed Fruit Clean",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main item is described in 'The Red Apple'? (Question 2)",
-            "options": [
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Sam Picked Large",
-              "A set of drawing pens"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Red Apple'? (Question 2)",
-            "options": [
-              "Washed Fruit Clean",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Picked a large red",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat"
             ],
             "correct": 0
           },
           {
-            "q": "What main item is described in 'The Red Apple'? (Question 3)",
+            "q": "What main action happens in 'The Red Apple'?",
             "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Sam Picked Large",
-              "A wooden toy sailboat"
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Washed the fruit clean"
             ],
-            "correct": 2
+            "correct": 3
+          },
+          {
+            "q": "What second detail is mentioned in 'The Red Apple'?",
+            "options": [
+              "Picked a large red",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The Red Apple'?",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Washed the fruit clean"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key item is featured in 'The Red Apple'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Picked a large red"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -8085,54 +8085,54 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'My New Shoes'?",
+            "q": "Where does the story 'My New Shoes' take place?",
             "options": [
-              "The city park playground",
-              "The local art museum",
-              "The public library",
-              "Emma Wore Her"
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Inside the cozy house",
+              "Emma wore her clean"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'My New Shoes'?",
+            "q": "Where is another detail located in 'My New Shoes'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "She Ran Fast",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'My New Shoes'? (Question 2)",
-            "options": [
-              "The city park playground",
-              "Emma Wore Her",
-              "The public library",
-              "The local art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'My New Shoes'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "She Ran Fast",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'My New Shoes'? (Question 3)",
-            "options": [
-              "Emma Wore Her",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Ran fast across",
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "At the sunny garden yard"
             ],
             "correct": 0
+          },
+          {
+            "q": "Where does the story 'My New Shoes' take place? (Part 2)",
+            "options": [
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Emma wore her clean",
+              "Under the big oak tree"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'My New Shoes' take place? (Part 3)",
+            "options": [
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "Ran fast across",
+              "At the sunny garden yard"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'My New Shoes' take place? (Part 4)",
+            "options": [
+              "At the sunny garden yard",
+              "Emma wore her clean",
+              "Inside the cozy house",
+              "Under the big oak tree"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -8150,52 +8150,52 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'The Little Bird'?",
+            "q": "What key item is featured in 'The Little Bird'?",
             "options": [
-              "Yellow Bird Built",
-              "The city park playground",
-              "The public library",
-              "The local art museum"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Little Bird'?",
-            "options": [
-              "Laid Three Small",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'The Little Bird'? (Question 2)",
-            "options": [
-              "The city park playground",
-              "The local art museum",
-              "The public library",
-              "Yellow Bird Built"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Yellow bird built"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Little Bird'? (Question 2)",
+            "q": "What main action happens in 'The Little Bird'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Laid Three Small"
+              "It laid three small",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What second detail is mentioned in 'The Little Bird'?",
+            "options": [
+              "Yellow bird built",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The Little Bird'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "It laid three small"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'The Little Bird'? (Question 3)",
+            "q": "What key item is featured in 'The Little Bird'? (Part 2)",
             "options": [
-              "The local art museum",
-              "Yellow Bird Built",
-              "The public library",
-              "The city park playground"
+              "A small white pet cat",
+              "Yellow bird built",
+              "A shiny new red ball",
+              "A friendly brown puppy"
             ],
             "correct": 1
           }
@@ -8215,54 +8215,54 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Cooking Soup'?",
+            "q": "What main action happens in 'Cooking Soup'?",
             "options": [
-              "The local art museum",
-              "Mom Cooked Hot",
-              "The public library",
-              "The city park playground"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main activity is enjoyed in 'Cooking Soup'?",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Ate Warm Soup",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Mom cooked hot vegetable",
+              "Reading short storybooks"
             ],
             "correct": 2
           },
           {
-            "q": "What location is described in 'Cooking Soup'? (Question 2)",
+            "q": "What else takes place in 'Cooking Soup'?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "The local art museum",
-              "Mom Cooked Hot"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main activity is enjoyed in 'Cooking Soup'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Ate Warm Soup"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What location is described in 'Cooking Soup'? (Question 3)",
-            "options": [
-              "The local art museum",
-              "The city park playground",
-              "Mom Cooked Hot",
-              "The public library"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "We ate warm soup",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main action happens in 'Cooking Soup'? (Part 2)",
+            "options": [
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Mom cooked hot vegetable"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main action happens in 'Cooking Soup'? (Part 3)",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "We ate warm soup"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main action happens in 'Cooking Soup'? (Part 4)",
+            "options": [
+              "Mom cooked hot vegetable",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -8280,54 +8280,54 @@
         },
         "questions": [
           {
-            "q": "What flying object is featured in 'The Flying Kite'?",
+            "q": "What toy or item is used in 'The Flying Kite'?",
             "options": [
-              "A set of drawing pens",
-              "Dan Flew His",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "Dan flew his bright"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What flying object is featured in 'The Flying Kite'? (Question 2)",
+            "q": "What second detail is mentioned in 'The Flying Kite'?",
             "options": [
-              "Kite Flew High",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "A set of drawing pens"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Kite flew high near",
+              "A shiny new red ball"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What toy or item is used in 'The Flying Kite'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Dan flew his bright",
+              "A small white pet cat"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What other object is in 'The Flying Kite'?",
+            "options": [
+              "Kite flew high near",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 0
           },
           {
-            "q": "What flying object is featured in 'The Flying Kite'? (Question 3)",
+            "q": "What toy or item is used in 'The Flying Kite'? (Part 3)",
             "options": [
-              "Dan Flew His",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Three mystery storybooks"
+              "Dan flew his bright",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 0
-          },
-          {
-            "q": "What flying object is featured in 'The Flying Kite'? (Question 4)",
-            "options": [
-              "A set of drawing pens",
-              "Kite Flew High",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What flying object is featured in 'The Flying Kite'? (Question 5)",
-            "options": [
-              "Three mystery storybooks",
-              "Dan Flew His",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -8345,54 +8345,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Black Dog'?",
+            "q": "What pet is described in 'My Black Dog'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Max Has Friendly"
+              "Max has a friendly",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Where do the characters play in 'My Black Dog'?",
+            "q": "Where does the story 'My Black Dog' take place?",
             "options": [
-              "The local art museum",
-              "The city park playground",
-              "Shadow Loves Fetching",
-              "The public library"
+              "Shadow loves fetching wooden",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Black Dog'? (Question 2)",
+            "q": "What second detail is mentioned in 'My Black Dog'?",
             "options": [
-              "Browsing exciting books",
-              "Max Has Friendly",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "A shiny new red ball",
+              "Max has a friendly",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 1
           },
           {
-            "q": "Where do the characters play in 'My Black Dog'? (Question 2)",
+            "q": "Where is another detail located in 'My Black Dog'?",
             "options": [
-              "The local art museum",
-              "The city park playground",
-              "Shadow Loves Fetching",
-              "The public library"
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Shadow loves fetching wooden",
+              "Inside the cozy house"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'My Black Dog'? (Question 3)",
+            "q": "What pet is described in 'My Black Dog'? (Part 2)",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Max Has Friendly",
-              "Browsing exciting books"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Max has a friendly"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -8410,52 +8410,52 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Sweet Strawberries'?",
+            "q": "What main action happens in 'Sweet Strawberries'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Lily Picked Ripe"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Sweet Strawberries'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "She Washed Carefully",
-              "Browsing exciting books"
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Picked ripe red strawberries",
+              "Reading short storybooks"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Sweet Strawberries'? (Question 3)",
+            "q": "What else takes place in 'Sweet Strawberries'?",
             "options": [
-              "Lily Picked Ripe",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Washed them carefully",
+              "Baking warm sweet cookies"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'Sweet Strawberries'? (Question 4)",
+            "q": "What main action happens in 'Sweet Strawberries'? (Part 2)",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "She Washed Carefully"
+              "Playing fun outdoor games",
+              "Picked ripe red strawberries",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main action happens in 'Sweet Strawberries'? (Part 3)",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Washed them carefully"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Sweet Strawberries'? (Question 5)",
+            "q": "What main action happens in 'Sweet Strawberries'? (Part 4)",
             "options": [
-              "Lily Picked Ripe",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Picked ripe red strawberries",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 0
           }
@@ -8475,54 +8475,54 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'The Toy Train'?",
+            "q": "What toy or item is used in 'The Toy Train'?",
             "options": [
-              "Ben Set Blue",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Set up a blue"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where inside the house does 'The Toy Train' take place?",
+            "q": "Where does the story 'The Toy Train' take place?",
             "options": [
-              "Train Chugged Round",
-              "The city park playground",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'The Toy Train'? (Question 2)",
-            "options": [
-              "Ben Set Blue",
-              "Three mystery storybooks",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where inside the house does 'The Toy Train' take place? (Question 2)",
-            "options": [
-              "The public library",
-              "The city park playground",
-              "Train Chugged Round",
-              "The local art museum"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main item is described in 'The Toy Train'? (Question 3)",
-            "options": [
-              "A set of drawing pens",
-              "Ben Set Blue",
-              "A wooden toy sailboat",
-              "Three mystery storybooks"
+              "At the sunny garden yard",
+              "Train chugged round",
+              "Inside the cozy house",
+              "Under the big oak tree"
             ],
             "correct": 1
+          },
+          {
+            "q": "What second detail is mentioned in 'The Toy Train'?",
+            "options": [
+              "A shiny new red ball",
+              "Set up a blue",
+              "A small white pet cat",
+              "A friendly brown puppy"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'The Toy Train'?",
+            "options": [
+              "Train chugged round",
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Inside the cozy house"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What toy or item is used in 'The Toy Train'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Set up a blue"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -8540,52 +8540,52 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Hot Summer'?",
+            "q": "What main action happens in 'Hot Summer'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Hot Sun Shines"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Hot Summer'? (Question 2)",
-            "options": [
-              "Children Splash Cool",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Hot Summer'? (Question 3)",
-            "options": [
-              "Baking warm sweet treats",
-              "Hot Sun Shines",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Hot Summer'? (Question 4)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Children Splash Cool",
-              "Baking warm sweet treats"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Hot sun shines bright",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Hot Summer'? (Question 5)",
+            "q": "What else takes place in 'Hot Summer'?",
             "options": [
-              "Hot Sun Shines",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Children splash in cool",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'Hot Summer'? (Part 2)",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Hot sun shines bright",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'Hot Summer'? (Part 3)",
+            "options": [
+              "Playing fun outdoor games",
+              "Children splash in cool",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main action happens in 'Hot Summer'? (Part 4)",
+            "options": [
+              "Hot sun shines bright",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
             "correct": 0
           }
@@ -8605,54 +8605,54 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'The Red Rose'?",
+            "q": "Where does the story 'The Red Rose' take place?",
             "options": [
-              "The public library",
-              "The local art museum",
-              "The city park playground",
-              "Beautiful Red Rose"
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Beautiful red rose bloomed"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Red Rose'?",
+            "q": "What main action happens in 'The Red Rose'?",
             "options": [
-              "Baking warm sweet treats",
-              "Smelled Sweet Morning",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What location is described in 'The Red Rose'? (Question 2)",
-            "options": [
-              "The public library",
-              "The local art museum",
-              "The city park playground",
-              "Beautiful Red Rose"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The Red Rose'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Smelled Sweet Morning"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What location is described in 'The Red Rose'? (Question 3)",
-            "options": [
-              "The city park playground",
-              "The public library",
-              "Beautiful Red Rose",
-              "The local art museum"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "It smelled sweet",
+              "Playing fun outdoor games"
             ],
             "correct": 2
+          },
+          {
+            "q": "Where is another detail located in 'The Red Rose'?",
+            "options": [
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Beautiful red rose bloomed"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'The Red Rose'?",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "It smelled sweet",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'The Red Rose' take place? (Part 2)",
+            "options": [
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Beautiful red rose bloomed"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -8670,54 +8670,54 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Toy Bus'?",
+            "q": "What pet is described in 'My Toy Bus'?",
             "options": [
-              "A wooden toy sailboat",
-              "Tom Pushed His",
-              "A set of drawing pens",
-              "Three mystery storybooks"
+              "A shiny new red ball",
+              "Pushed his long yellow",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'My Toy Bus'?",
+            "q": "What main action happens in 'My Toy Bus'?",
             "options": [
-              "Playing fun yard games",
-              "Loaded Small Plastic",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Loaded small plastic figures",
+              "Baking warm sweet cookies"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What main item is described in 'My Toy Bus'? (Question 2)",
+            "q": "What second detail is mentioned in 'My Toy Bus'?",
             "options": [
-              "A wooden toy sailboat",
-              "Tom Pushed His",
-              "Three mystery storybooks",
-              "A set of drawing pens"
+              "Pushed his long yellow",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Toy Bus'? (Question 2)",
+            "q": "What else takes place in 'My Toy Bus'?",
             "options": [
-              "Browsing exciting books",
-              "Loaded Small Plastic",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Loaded small plastic figures",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main item is described in 'My Toy Bus'? (Question 3)",
+            "q": "What pet is described in 'My Toy Bus'? (Part 2)",
             "options": [
-              "Three mystery storybooks",
-              "Tom Pushed His",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Pushed his long yellow",
+              "A shiny new red ball"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -8735,54 +8735,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Cold Ice Cream'?",
+            "q": "What main action happens in 'Cold Ice Cream'?",
             "options": [
-              "Anna Ate Cone",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Anna ate a cone"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Cold Ice Cream'?",
+            "options": [
+              "It melted slowly under",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Cold Ice Cream'? (Question 2)",
+            "q": "What main action happens in 'Cold Ice Cream'? (Part 2)",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Melted Slowly Under"
+              "Anna ate a cone",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'Cold Ice Cream'? (Part 3)",
+            "options": [
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "It melted slowly under"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Cold Ice Cream'? (Question 3)",
+            "q": "What main action happens in 'Cold Ice Cream'? (Part 4)",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Anna Ate Cone"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Anna ate a cone"
             ],
             "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Cold Ice Cream'? (Question 4)",
-            "options": [
-              "Browsing exciting books",
-              "Melted Slowly Under",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Cold Ice Cream'? (Question 5)",
-            "options": [
-              "Baking warm sweet treats",
-              "Anna Ate Cone",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -8800,54 +8800,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Green Grass'?",
+            "q": "Where does the story 'The Green Grass' take place?",
             "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Fresh Green Grass"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The Green Grass'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Children Played Tag",
-              "Browsing exciting books"
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Fresh green grass grew",
+              "Under the big oak tree"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Green Grass'? (Question 3)",
+            "q": "What main action happens in 'The Green Grass'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Fresh Green Grass"
+              "Children played tag",
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'The Green Grass'?",
+            "options": [
+              "At the sunny garden yard",
+              "Inside the cozy house",
+              "Under the big oak tree",
+              "Fresh green grass grew"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Green Grass'? (Question 4)",
+            "q": "What else takes place in 'The Green Grass'?",
             "options": [
-              "Baking warm sweet treats",
-              "Children Played Tag",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Children played tag",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the story 'The Green Grass' take place? (Part 2)",
+            "options": [
+              "At the sunny garden yard",
+              "Fresh green grass grew",
+              "Under the big oak tree",
+              "Inside the cozy house"
             ],
             "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'The Green Grass'? (Question 5)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Fresh Green Grass",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
           }
         ]
       },
@@ -8865,54 +8865,54 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Blue Hat'?",
+            "q": "What key item is featured in 'My Blue Hat'?",
             "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Leo Wore Warm"
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Wore a warm blue"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'My Blue Hat'?",
+            "q": "What main action happens in 'My Blue Hat'?",
             "options": [
-              "Kept His Ears",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'My Blue Hat'? (Question 2)",
-            "options": [
-              "Leo Wore Warm",
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'My Blue Hat'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Kept His Ears",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "It kept his ears",
+              "Playing fun outdoor games"
             ],
             "correct": 2
           },
           {
-            "q": "What main item is described in 'My Blue Hat'? (Question 3)",
+            "q": "What second detail is mentioned in 'My Blue Hat'?",
             "options": [
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Leo Wore Warm"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Wore a warm blue",
+              "A small white pet cat"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "What else takes place in 'My Blue Hat'?",
+            "options": [
+              "Playing fun outdoor games",
+              "It kept his ears",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What key item is featured in 'My Blue Hat'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "Wore a warm blue",
+              "A friendly brown puppy",
+              "A small white pet cat"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -8930,54 +8930,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Yellow Bee'?",
+            "q": "What main action happens in 'The Yellow Bee'?",
             "options": [
-              "Baking warm sweet treats",
-              "Fuzzy Yellow Bee",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Fuzzy yellow bee buzzed"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'The Yellow Bee'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "It collected sweet nectar"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main action happens in 'The Yellow Bee'? (Part 2)",
+            "options": [
+              "Reading short storybooks",
+              "Fuzzy yellow bee buzzed",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Yellow Bee'? (Question 2)",
+            "q": "What main action happens in 'The Yellow Bee'? (Part 3)",
             "options": [
-              "Collected Sweet Nectar",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "It collected sweet nectar",
+              "Playing fun outdoor games"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Yellow Bee'? (Question 3)",
+            "q": "What main action happens in 'The Yellow Bee'? (Part 4)",
             "options": [
-              "Fuzzy Yellow Bee",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Fuzzy yellow bee buzzed"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Yellow Bee'? (Question 4)",
-            "options": [
-              "Collected Sweet Nectar",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Yellow Bee'? (Question 5)",
-            "options": [
-              "Browsing exciting books",
-              "Fuzzy Yellow Bee",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -8995,62 +8995,62 @@
         },
         "questions": [
           {
-            "q": "What vehicle is ridden in 'The Red Bicycle'?",
+            "q": "What main action happens in 'The Red Bicycle'?",
             "options": [
-              "Sam Got New",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where do the characters play in 'The Red Bicycle'?",
-            "options": [
-              "The city park playground",
-              "Loves Riding His",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main item is described in 'The Red Bicycle'?",
-            "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "Sam Wears Safe",
-              "A set of drawing pens"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What vehicle is ridden in 'The Red Bicycle'? (Question 2)",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Sam Got New",
-              "A wooden toy sailboat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'The Red Bicycle'? (Question 2)",
-            "options": [
-              "The public library",
-              "The local art museum",
-              "The city park playground",
-              "Loves Riding His"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Got a new red"
             ],
             "correct": 3
           },
           {
-            "q": "What main item is described in 'The Red Bicycle'? (Question 2)",
+            "q": "What toy or item is used in 'The Red Bicycle'?",
             "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Sam Wears Safe"
+              "Loves riding his bike",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The Red Bicycle'?",
+            "options": [
+              "Wears a safe blue",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'The Red Bicycle'? (Part 2)",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Got a new red"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What second detail is mentioned in 'The Red Bicycle'?",
+            "options": [
+              "A small white pet cat",
+              "A shiny new red ball",
+              "Loves riding his bike",
+              "A friendly brown puppy"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'The Red Bicycle'? (Part 3)",
+            "options": [
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Wears a safe blue"
             ],
             "correct": 3
           }
@@ -9070,62 +9070,62 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Baking Cupcakes'?",
+            "q": "What key item is featured in 'Baking Cupcakes'?",
             "options": [
-              "Three mystery storybooks",
-              "Mom Emma Baked",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Baking Cupcakes'?",
-            "options": [
-              "Browsing exciting books",
-              "Put Soft Pink",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main item is described in 'Baking Cupcakes'? (Question 2)",
-            "options": [
-              "Everyone Family Enjoyed",
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'Baking Cupcakes'? (Question 3)",
-            "options": [
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Mom Emma Baked"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Mom and emma baked"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Baking Cupcakes'? (Question 2)",
+            "q": "What main action happens in 'Baking Cupcakes'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Put Soft Pink"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Put soft pink icing"
             ],
             "correct": 3
           },
           {
-            "q": "What main item is described in 'Baking Cupcakes'? (Question 4)",
+            "q": "What second detail is mentioned in 'Baking Cupcakes'?",
             "options": [
-              "Everyone Family Enjoyed",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Everyone in the family"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key item is featured in 'Baking Cupcakes'? (Part 2)",
+            "options": [
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Mom and emma baked",
+              "A shiny new red ball"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What else takes place in 'Baking Cupcakes'?",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Put soft pink icing"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What other object is in 'Baking Cupcakes'?",
+            "options": [
+              "Everyone in the family",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "A shiny new red ball"
             ],
             "correct": 0
           }
@@ -9145,62 +9145,62 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Playing Soccer'?",
+            "q": "What main action happens in 'Playing Soccer'?",
             "options": [
-              "Lucas Plays Soccer",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Lucas plays soccer"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What location is described in 'Playing Soccer'?",
+            "q": "What toy or item is used in 'Playing Soccer'?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "Kicks Black White",
-              "The local art museum"
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Kicks the black"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Playing Soccer'?",
+            "options": [
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Lucas scored two goals",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Playing Soccer'? (Question 2)",
+            "q": "What main action happens in 'Playing Soccer'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Lucas Scored Two"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Lucas plays soccer",
+              "Baking warm sweet cookies"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'Playing Soccer'? (Question 3)",
+            "q": "What second detail is mentioned in 'Playing Soccer'?",
             "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Lucas Plays Soccer"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Kicks the black",
+              "A shiny new red ball"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What location is described in 'Playing Soccer'? (Question 2)",
+            "q": "What main action happens in 'Playing Soccer'? (Part 3)",
             "options": [
-              "The city park playground",
-              "The public library",
-              "The local art museum",
-              "Kicks Black White"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Playing Soccer'? (Question 4)",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Lucas Scored Two"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Lucas scored two goals"
             ],
             "correct": 3
           }
@@ -9220,64 +9220,64 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Pet Rabbit'?",
+            "q": "What pet is described in 'My Pet Rabbit'?",
             "options": [
-              "Maya Has Fluffy",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "A set of drawing pens"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'My Pet Rabbit'? (Question 2)",
-            "options": [
-              "Snowball Loves Eating",
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'My Pet Rabbit'?",
-            "options": [
-              "The local art museum",
-              "The public library",
-              "The city park playground",
-              "Maya Pets His"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "A shiny new red ball",
+              "Maya has a fluffy"
             ],
             "correct": 3
           },
           {
-            "q": "What main item is described in 'My Pet Rabbit'? (Question 3)",
+            "q": "What toy or item is used in 'My Pet Rabbit'?",
             "options": [
-              "Three mystery storybooks",
-              "Maya Has Fluffy",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Snowball loves eating crunchy",
+              "A shiny new red ball"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What main item is described in 'My Pet Rabbit'? (Question 4)",
+            "q": "What second detail is mentioned in 'My Pet Rabbit'?",
             "options": [
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "A set of drawing pens",
-              "Snowball Loves Eating"
+              "Maya pets his soft",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "A shiny new red ball"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What pet is described in 'My Pet Rabbit'? (Part 2)",
+            "options": [
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "Maya has a fluffy"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'My Pet Rabbit'? (Question 2)",
+            "q": "What toy or item is used in 'My Pet Rabbit'? (Part 2)",
             "options": [
-              "The city park playground",
-              "Maya Pets His",
-              "The local art museum",
-              "The public library"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Snowball loves eating crunchy",
+              "A small white pet cat"
             ],
-            "correct": 1
+            "correct": 2
+          },
+          {
+            "q": "What other object is in 'My Pet Rabbit'?",
+            "options": [
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Maya pets his soft"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -9295,64 +9295,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Sunny Picnic'?",
+            "q": "Where does the story 'The Sunny Picnic' take place?",
             "options": [
-              "Taylor Family Went",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'The Sunny Picnic'?",
-            "options": [
-              "A set of drawing pens",
-              "Ate Ham Sandwiches",
-              "A wooden toy sailboat",
-              "Three mystery storybooks"
+              "At the sunny garden yard",
+              "Taylor family went",
+              "Inside the cozy house",
+              "Under the big oak tree"
             ],
             "correct": 1
           },
           {
-            "q": "What main activity is enjoyed in 'The Sunny Picnic'?",
+            "q": "What key item is featured in 'The Sunny Picnic'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "After Lunch Fed",
-              "Browsing exciting books"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "A shiny new red ball",
+              "Ate ham sandwiches, sweet"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main action happens in 'The Sunny Picnic'?",
+            "options": [
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Lunch, they fed bread"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'The Sunny Picnic'?",
+            "options": [
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Taylor family went",
+              "Inside the cozy house"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'The Sunny Picnic'? (Question 2)",
+            "q": "What second detail is mentioned in 'The Sunny Picnic'?",
             "options": [
-              "Baking warm sweet treats",
-              "Taylor Family Went",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Ate ham sandwiches, sweet",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main item is described in 'The Sunny Picnic'? (Question 2)",
+            "q": "What else takes place in 'The Sunny Picnic'?",
             "options": [
-              "A wooden toy sailboat",
-              "Ate Ham Sandwiches",
-              "Three mystery storybooks",
-              "A set of drawing pens"
+              "Playing fun outdoor games",
+              "Lunch, they fed bread",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
             "correct": 1
-          },
-          {
-            "q": "What main activity is enjoyed in 'The Sunny Picnic'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "After Lunch Fed"
-            ],
-            "correct": 3
           }
         ]
       },
@@ -9370,64 +9370,64 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'A Day at the Beach'?",
+            "q": "What main action happens in 'A Day at the Beach'?",
             "options": [
-              "Noah Visited Sunny",
-              "The city park playground",
-              "The local art museum",
-              "The public library"
+              "Noah visited the sunny",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'A Day at the Beach'?",
+            "q": "What else takes place in 'A Day at the Beach'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Built Tall Sandcastle"
+              "Built a tall sandcastle",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'A Day at the Beach'? (Part 2)",
+            "options": [
+              "Noah jumped over cool",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'A Day at the Beach'? (Part 3)",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Noah visited the sunny"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'A Day at the Beach'? (Question 2)",
+            "q": "What main action happens in 'A Day at the Beach'? (Part 4)",
             "options": [
-              "Playing fun yard games",
-              "Noah Jumped Over",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Reading short storybooks",
+              "Built a tall sandcastle",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           },
           {
-            "q": "What location is described in 'A Day at the Beach'? (Question 2)",
+            "q": "What main action happens in 'A Day at the Beach'? (Part 5)",
             "options": [
-              "Noah Visited Sunny",
-              "The local art museum",
-              "The city park playground",
-              "The public library"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Noah jumped over cool",
+              "Playing fun outdoor games"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'A Day at the Beach'? (Question 3)",
-            "options": [
-              "Browsing exciting books",
-              "Built Tall Sandcastle",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'A Day at the Beach'? (Question 4)",
-            "options": [
-              "Browsing exciting books",
-              "Noah Jumped Over",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -9445,64 +9445,64 @@
         },
         "questions": [
           {
-            "q": "Where inside the house does 'The School Garden' take place?",
+            "q": "What key item is featured in 'The School Garden'?",
             "options": [
-              "The city park playground",
-              "Students Room Planted",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'The School Garden'?",
-            "options": [
-              "Watered Green Plants",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Students in room 2",
+              "A shiny new red ball",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
             "correct": 0
           },
           {
-            "q": "What main activity is enjoyed in 'The School Garden'?",
+            "q": "What main action happens in 'The School Garden'?",
             "options": [
-              "Browsing exciting books",
-              "Summer Big Red",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Watered the green plants",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where inside the house does 'The School Garden' take place? (Question 2)",
+            "q": "What second detail is mentioned in 'The School Garden'?",
             "options": [
-              "The city park playground",
-              "The local art museum",
-              "Students Room Planted",
-              "The public library"
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Summer, big red tomatoes"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key item is featured in 'The School Garden'? (Part 2)",
+            "options": [
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Students in room 2",
+              "A small white pet cat"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'The School Garden'? (Question 2)",
+            "q": "What else takes place in 'The School Garden'?",
             "options": [
-              "Baking warm sweet treats",
-              "Watered Green Plants",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Watered the green plants",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main activity is enjoyed in 'The School Garden'? (Question 2)",
+            "q": "What other object is in 'The School Garden'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Summer Big Red",
-              "Browsing exciting books"
+              "A shiny new red ball",
+              "Summer, big red tomatoes",
+              "A small white pet cat",
+              "A friendly brown puppy"
             ],
-            "correct": 2
+            "correct": 1
           }
         ]
       },
@@ -9520,64 +9520,64 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'My Toy Airplane'?",
+            "q": "What toy or item is used in 'My Toy Airplane'?",
             "options": [
-              "A set of drawing pens",
-              "Dan Received Silver",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main item is described in 'My Toy Airplane'? (Question 2)",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "Toy Plane Makes"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where inside the house does 'My Toy Airplane' take place?",
-            "options": [
-              "Dan Flies His",
-              "The city park playground",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'My Toy Airplane'? (Question 3)",
-            "options": [
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Dan Received Silver",
-              "Three mystery storybooks"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Dan received a silver",
+              "A shiny new red ball"
             ],
             "correct": 2
           },
           {
-            "q": "What main item is described in 'My Toy Airplane'? (Question 4)",
+            "q": "What second detail is mentioned in 'My Toy Airplane'?",
             "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Toy Plane Makes"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "A shiny new red ball",
+              "Toy plane makes"
             ],
             "correct": 3
           },
           {
-            "q": "Where inside the house does 'My Toy Airplane' take place? (Question 2)",
+            "q": "Where does the story 'My Toy Airplane' take place?",
             "options": [
-              "Dan Flies His",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Under the big oak tree",
+              "Dan flies his plane",
+              "At the sunny garden yard",
+              "Inside the cozy house"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What toy or item is used in 'My Toy Airplane'? (Part 2)",
+            "options": [
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Dan received a silver",
+              "A small white pet cat"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What other object is in 'My Toy Airplane'?",
+            "options": [
+              "Toy plane makes",
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy"
             ],
             "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'My Toy Airplane'?",
+            "options": [
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Dan flies his plane"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -9595,64 +9595,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Smart Dog'?",
+            "q": "What pet is described in 'The Smart Dog'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Jake Has Clever",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Smart Dog'? (Question 2)",
-            "options": [
-              "Buster Can Sit",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Jake has a clever",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "A small white pet cat"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Smart Dog'? (Question 3)",
+            "q": "Where does the story 'The Smart Dog' take place?",
             "options": [
-              "Browsing exciting books",
-              "Jake Gives Buster",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "Buster can sit, shake",
+              "At the sunny garden yard"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'The Smart Dog'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Jake gives buster",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Smart Dog'? (Question 4)",
+            "q": "What second detail is mentioned in 'The Smart Dog'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Jake Has Clever",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Smart Dog'? (Question 5)",
-            "options": [
-              "Buster Can Sit",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Jake has a clever",
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Smart Dog'? (Question 6)",
+            "q": "Where is another detail located in 'The Smart Dog'?",
             "options": [
-              "Jake Gives Buster",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Under the big oak tree",
+              "Buster can sit, shake",
+              "At the sunny garden yard",
+              "Inside the cozy house"
             ],
-            "correct": 0
+            "correct": 1
+          },
+          {
+            "q": "What else takes place in 'The Smart Dog'?",
+            "options": [
+              "Baking warm sweet cookies",
+              "Jake gives buster",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -9670,64 +9670,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'A Cold Winter Day'?",
+            "q": "What main action happens in 'A Cold Winter Day'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Snow Covers Ground"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'A Cold Winter Day'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Lily Wears Thick",
-              "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'A Cold Winter Day'? (Question 3)",
-            "options": [
-              "She Builds Smiling",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Snow covers the ground",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'A Cold Winter Day'? (Question 4)",
+            "q": "What else takes place in 'A Cold Winter Day'?",
             "options": [
-              "Playing fun yard games",
-              "Snow Covers Ground",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Reading short storybooks",
+              "Wears a thick red",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'A Cold Winter Day'? (Question 5)",
+            "q": "What main action happens in 'A Cold Winter Day'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Lily Wears Thick",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Builds a smiling snowman",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'A Cold Winter Day'? (Question 6)",
+            "q": "What main action happens in 'A Cold Winter Day'? (Part 3)",
             "options": [
-              "Playing fun yard games",
-              "She Builds Smiling",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Snow covers the ground",
+              "Baking warm sweet cookies"
             ],
-            "correct": 1
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'A Cold Winter Day'? (Part 4)",
+            "options": [
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Wears a thick red",
+              "Reading short storybooks"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'A Cold Winter Day'? (Part 5)",
+            "options": [
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Builds a smiling snowman",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -9745,64 +9745,64 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Making Lemonade'?",
+            "q": "What main action happens in 'Making Lemonade'?",
             "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Mom Sophia Made",
-              "A wooden toy sailboat"
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Mom and sophia made",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
           },
           {
-            "q": "What main item is described in 'Making Lemonade'? (Question 2)",
+            "q": "What else takes place in 'Making Lemonade'?",
             "options": [
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Squeezed Yellow Lemons"
+              "Squeezed yellow lemons",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Making Lemonade'?",
+            "q": "What main action happens in 'Making Lemonade'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Drank Two Cold",
-              "Browsing exciting books"
+              "Drank two cold glasses",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main action happens in 'Making Lemonade'? (Part 3)",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Mom and sophia made",
+              "Reading short storybooks"
             ],
             "correct": 2
           },
           {
-            "q": "What main item is described in 'Making Lemonade'? (Question 3)",
+            "q": "What main action happens in 'Making Lemonade'? (Part 4)",
             "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Mom Sophia Made"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main item is described in 'Making Lemonade'? (Question 4)",
-            "options": [
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Squeezed Yellow Lemons"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Making Lemonade'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Drank Two Cold",
-              "Playing fun yard games"
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Squeezed yellow lemons",
+              "Baking warm sweet cookies"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main action happens in 'Making Lemonade'? (Part 5)",
+            "options": [
+              "Reading short storybooks",
+              "Drank two cold glasses",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -9820,64 +9820,64 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'The Flying Kite'?",
+            "q": "What toy or item is used in 'The Flying Kite'?",
             "options": [
-              "The city park playground",
-              "Tom Flew Big",
-              "The local art museum",
-              "The public library"
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Flew a big diamond-shaped",
+              "A shiny new red ball"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What flying object is featured in 'The Flying Kite'?",
+            "q": "What second detail is mentioned in 'The Flying Kite'?",
             "options": [
-              "Spring Wind Pushed",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Flying Kite'?",
-            "options": [
-              "Tom Held String",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where do the characters play in 'The Flying Kite'? (Question 2)",
-            "options": [
-              "The city park playground",
-              "The local art museum",
-              "The public library",
-              "Tom Flew Big"
+              "A small white pet cat",
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Spring wind pushed"
             ],
             "correct": 3
           },
           {
-            "q": "What flying object is featured in 'The Flying Kite'? (Question 2)",
+            "q": "What main action happens in 'The Flying Kite'?",
             "options": [
-              "Spring Wind Pushed",
-              "Three mystery storybooks",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "Held the string tight",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Flying Kite'? (Question 2)",
+            "q": "What toy or item is used in 'The Flying Kite'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Tom Held String",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "A small white pet cat",
+              "Flew a big diamond-shaped",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
             "correct": 1
+          },
+          {
+            "q": "What other object is in 'The Flying Kite'?",
+            "options": [
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "A shiny new red ball",
+              "Spring wind pushed"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'The Flying Kite'?",
+            "options": [
+              "Held the string tight",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -9895,64 +9895,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'My Cute Kitten'?",
+            "q": "What main action happens in 'My Cute Kitten'?",
             "options": [
-              "Baking warm sweet treats",
-              "Amy Has Little",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Amy has a little",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
             "correct": 1
           },
           {
-            "q": "What main item is described in 'My Cute Kitten'?",
+            "q": "What toy or item is used in 'My Cute Kitten'?",
             "options": [
-              "Three mystery storybooks",
-              "Mittens Loves Chasing",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
+              "A small white pet cat",
+              "Mittens loves chasing",
+              "A friendly brown puppy",
+              "A shiny new red ball"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'My Cute Kitten'? (Question 2)",
+            "q": "What else takes place in 'My Cute Kitten'?",
             "options": [
-              "Evening She Sleeps",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "The evening, she sleeps",
+              "Playing fun outdoor games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main action happens in 'My Cute Kitten'? (Part 2)",
+            "options": [
+              "Amy has a little",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'My Cute Kitten'? (Question 3)",
+            "q": "What second detail is mentioned in 'My Cute Kitten'?",
             "options": [
-              "Amy Has Little",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "A shiny new red ball",
+              "A friendly brown puppy",
+              "Mittens loves chasing",
+              "A small white pet cat"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What main item is described in 'My Cute Kitten'? (Question 2)",
+            "q": "What main action happens in 'My Cute Kitten'? (Part 3)",
             "options": [
-              "Mittens Loves Chasing",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "The evening, she sleeps"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'My Cute Kitten'? (Question 4)",
-            "options": [
-              "Playing fun yard games",
-              "Evening She Sleeps",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -9970,62 +9970,62 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Farm Animals'?",
+            "q": "What main action happens in 'The Farm Animals'?",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Jack Visited His",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'The Farm Animals'?",
-            "options": [
-              "The city park playground",
-              "Fed Dry Corn",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'The Farm Animals'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Jack Also Pet",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'The Farm Animals'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Jack Visited His"
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games",
+              "Jack visited his uncle's"
             ],
             "correct": 3
           },
           {
-            "q": "Where do the characters play in 'The Farm Animals'? (Question 2)",
+            "q": "Where does the story 'The Farm Animals' take place?",
             "options": [
-              "The city park playground",
-              "Fed Dry Corn",
-              "The local art museum",
-              "The public library"
+              "Fed dry corn",
+              "Under the big oak tree",
+              "At the sunny garden yard",
+              "Inside the cozy house"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What pet is described in 'The Farm Animals'?",
+            "options": [
+              "A friendly brown puppy",
+              "A small white pet cat",
+              "Jack also pet",
+              "A shiny new red ball"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What else takes place in 'The Farm Animals'?",
+            "options": [
+              "Playing fun outdoor games",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Jack visited his uncle's"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'The Farm Animals'?",
+            "options": [
+              "At the sunny garden yard",
+              "Fed dry corn",
+              "Under the big oak tree",
+              "Inside the cozy house"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Farm Animals'? (Question 4)",
+            "q": "What second detail is mentioned in 'The Farm Animals'?",
             "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Jack Also Pet",
-              "Browsing exciting books"
+              "A small white pet cat",
+              "A friendly brown puppy",
+              "Jack also pet",
+              "A shiny new red ball"
             ],
             "correct": 2
           }
@@ -10045,64 +10045,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Autumn Leaves'?",
+            "q": "Where does the story 'Autumn Leaves' take place?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Red Yellow Leaves"
+              "At the sunny garden yard",
+              "Under the big oak tree",
+              "Inside the cozy house",
+              "Red and yellow leaves"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Autumn Leaves'? (Question 2)",
+            "q": "What main action happens in 'Autumn Leaves'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Children Rake Leaves",
-              "Baking warm sweet treats"
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Reading short storybooks",
+              "Children rake the leaves"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Autumn Leaves'?",
+            "options": [
+              "Jump into the leaves",
+              "Baking warm sweet cookies",
+              "Reading short storybooks",
+              "Playing fun outdoor games"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'Autumn Leaves'?",
+            "options": [
+              "Inside the cozy house",
+              "At the sunny garden yard",
+              "Red and yellow leaves",
+              "Under the big oak tree"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Autumn Leaves'? (Question 3)",
+            "q": "What main action happens in 'Autumn Leaves'? (Part 2)",
             "options": [
-              "Jump Into Leaves",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Autumn Leaves'? (Question 4)",
-            "options": [
-              "Baking warm sweet treats",
-              "Red Yellow Leaves",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Baking warm sweet cookies",
+              "Children rake the leaves",
+              "Playing fun outdoor games",
+              "Reading short storybooks"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Autumn Leaves'? (Question 5)",
+            "q": "What main action happens in 'Autumn Leaves'? (Part 3)",
             "options": [
-              "Children Rake Leaves",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Reading short storybooks",
+              "Baking warm sweet cookies",
+              "Playing fun outdoor games",
+              "Jump into the leaves"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Autumn Leaves'? (Question 6)",
-            "options": [
-              "Playing fun yard games",
-              "Jump Into Leaves",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
+            "correct": 3
           }
         ]
       }
