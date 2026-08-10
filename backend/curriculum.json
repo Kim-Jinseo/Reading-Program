@@ -31276,34 +31276,34 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'The School Science Fair'?",
+            "q": "Where does the action happen in 'The School Science Fair'?",
             "options": [
-              "The city park playground",
-              "Leo Made Simple",
               "The public library",
+              "Made a simple lemon",
+              "The city park playground",
               "The local art museum"
             ],
             "correct": 1
           },
           {
-            "q": "What main item is described in 'The School Science Fair'?",
+            "q": "What main item or object is described in 'The School Science Fair'?",
             "options": [
-              "A wooden toy sailboat",
-              "Joined Thin Wires",
+              "A set of drawing pens",
               "Three mystery storybooks",
-              "A set of drawing pens"
+              "Joined thin wires",
+              "A wooden toy sailboat"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What location is described in 'The School Science Fair'? (Question 2)",
+            "q": "Where is another detail located in 'The School Science Fair'?",
             "options": [
-              "Small Red Light",
               "The local art museum",
               "The public library",
+              "Small red light bulb",
               "The city park playground"
             ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -31321,34 +31321,34 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Gardening at School'?",
+            "q": "Where does the action happen in 'Gardening at School'?",
             "options": [
-              "Students Fifth Grade",
+              "The city park playground",
+              "Students in fifth grade",
               "The local art museum",
-              "The public library",
-              "The city park playground"
+              "The public library"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Gardening at School'?",
+            "q": "What main activity is enjoyed in 'Gardening at School'?",
             "options": [
-              "Watered Green Plants",
               "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Watered green plants"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Gardening at School'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Lunch time, the children",
               "Playing fun yard games",
               "Browsing exciting books"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Gardening at School'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Lunch Time Children"
-            ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -31366,34 +31366,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Making Pizza at Home'?",
+            "q": "What main activity is enjoyed in 'Making Pizza at Home'?",
             "options": [
-              "Mia Her Brother",
-              "Browsing exciting books",
+              "Playing fun yard games",
               "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Browsing exciting books",
+              "And her brother loved"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Making Pizza at Home'?",
+            "options": [
+              "Put red tomato sauce",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Making Pizza at Home'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Making Pizza at Home'? (Part 2)",
             "options": [
-              "Baking warm sweet treats",
-              "Put Red Tomato",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main activity is enjoyed in 'Making Pizza at Home'?",
-            "options": [
+              "Cooking in the oven,",
               "Browsing exciting books",
-              "After Cooking Oven",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Playing fun yard games",
+              "Baking warm sweet treats"
             ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -31411,34 +31411,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'A Trip to the Zoo'?",
+            "q": "What main activity is enjoyed in 'A Trip to the Zoo'?",
             "options": [
-              "Sam Went Zoo",
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Went to the zoo"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'A Trip to the Zoo'?",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Saw tall giraffes eat",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'A Trip to the Zoo'? (Part 2)",
+            "options": [
+              "Later, sam gave nuts",
               "Playing fun yard games",
               "Browsing exciting books",
               "Baking warm sweet treats"
             ],
             "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'A Trip to the Zoo'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Saw Tall Giraffes"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'A Trip to the Zoo'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Later Sam Gave"
-            ],
-            "correct": 3
           }
         ]
       },
@@ -31456,32 +31456,32 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Backyard Camping'?",
+            "q": "Where does the action happen in 'Backyard Camping'?",
             "options": [
               "The city park playground",
               "The local art museum",
-              "Jake Set Blue",
-              "The public library"
+              "The public library",
+              "Jake set up"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'Backyard Camping'?",
+            "q": "What main activity is enjoyed in 'Backyard Camping'?",
             "options": [
-              "Sat His Friends",
-              "Baking warm sweet treats",
               "Browsing exciting books",
-              "Playing fun yard games"
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Sat with his friends"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main item is described in 'Backyard Camping'?",
+            "q": "What main item or object is described in 'Backyard Camping'?",
             "options": [
-              "Morning Ate Warm",
+              "The morning, they ate",
               "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens"
+              "A set of drawing pens",
+              "A wooden toy sailboat"
             ],
             "correct": 0
           }
@@ -31501,34 +31501,34 @@
         },
         "questions": [
           {
-            "q": "Where inside the house does 'Building a Birdhouse' take place?",
-            "options": [
-              "The city park playground",
-              "Emma Built Small",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Building a Birdhouse'?",
-            "options": [
-              "Joined Wood Boards",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where inside the house does 'Building a Birdhouse' take place? (Question 2)",
+            "q": "Where does the action happen in 'Building a Birdhouse'?",
             "options": [
               "The local art museum",
               "The public library",
-              "The city park playground",
-              "Soon Three Blue"
+              "Emma built a small",
+              "The city park playground"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Building a Birdhouse'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Joined wood boards",
+              "Playing fun yard games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where is another detail located in 'Building a Birdhouse'?",
+            "options": [
+              "The public library",
+              "The local art museum",
+              "Soon, three blue birds",
+              "The city park playground"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -31546,34 +31546,34 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Soccer Practice'?",
+            "q": "Where does the action happen in 'Soccer Practice'?",
             "options": [
+              "Lucas played soccer",
+              "The city park playground",
               "The public library",
-              "Lucas Played Soccer",
-              "The local art museum",
-              "The city park playground"
+              "The local art museum"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main item is described in 'Soccer Practice'?",
+            "q": "What main item or object is described in 'Soccer Practice'?",
             "options": [
+              "Worked hard to kick",
               "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Worked Hard Kick",
-              "A set of drawing pens"
+              "A set of drawing pens",
+              "Three mystery storybooks"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Soccer Practice'?",
+            "q": "What main activity is enjoyed in 'Soccer Practice'?",
             "options": [
               "Baking warm sweet treats",
               "Browsing exciting books",
-              "Reading library books",
-              "Playing fun yard games"
+              "Playing fun yard games",
+              "The weekend game, lucas"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -31591,34 +31591,34 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Learning Guitar'?",
+            "q": "Where does the action happen in 'Learning Guitar'?",
             "options": [
               "The public library",
-              "Chloe Took Guitar",
-              "The city park playground",
-              "The local art museum"
+              "Chloe took guitar lessons",
+              "The local art museum",
+              "The city park playground"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Learning Guitar'?",
-            "options": [
-              "She Pressed Strings",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Learning Guitar'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Learning Guitar'?",
             "options": [
               "Playing fun yard games",
-              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Soon Chloe Played"
+              "Browsing exciting books",
+              "Pressed strings carefully"
             ],
             "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Learning Guitar'?",
+            "options": [
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Soon, chloe played",
+              "Playing fun yard games"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -31638,32 +31638,32 @@
           {
             "q": "Where does the action happen in 'The Library Visit'?",
             "options": [
+              "The local art museum",
               "The city park playground",
               "The public library",
-              "The town library",
-              "The local art museum"
+              "Went to the town"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main item or object is described in 'The Library Visit'?",
+            "options": [
+              "A set of drawing pens",
+              "Sat near a window",
+              "A wooden toy sailboat",
+              "Three mystery storybooks"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What second object is mentioned in 'The Library Visit'?",
+            "options": [
+              "A wooden toy sailboat",
+              "A set of drawing pens",
+              "Borrowed three books",
+              "Three mystery storybooks"
             ],
             "correct": 2
-          },
-          {
-            "q": "What reading item is selected in 'The Library Visit'?",
-            "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Sat Near Window"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What reading item is selected in 'The Library Visit'? (Question 2)",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "David Borrowed Three"
-            ],
-            "correct": 3
           }
         ]
       },
@@ -31681,34 +31681,34 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Baking Apple Pie'?",
-            "options": [
-              "Sophia Baked Fresh",
-              "A wooden toy sailboat",
-              "A set of drawing pens",
-              "Three mystery storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main item is described in 'Baking Apple Pie'? (Question 2)",
+            "q": "What main item or object is described in 'Baking Apple Pie'?",
             "options": [
               "A wooden toy sailboat",
               "Three mystery storybooks",
-              "Cut Sweet Red",
+              "Baked a fresh apple",
               "A set of drawing pens"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Baking Apple Pie'?",
+            "q": "What second object is mentioned in 'Baking Apple Pie'?",
             "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Warm Pie Tasted"
+              "Three mystery storybooks",
+              "A wooden toy sailboat",
+              "A set of drawing pens",
+              "Cut sweet red apples"
             ],
             "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Baking Apple Pie'?",
+            "options": [
+              "Warm pie tasted good",
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -31726,34 +31726,34 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Riding a Bike'?",
+            "q": "Where does the action happen in 'Riding a Bike'?",
             "options": [
-              "The local art museum",
-              "Jack Rode His",
+              "The public library",
+              "Jack rode his new",
               "The city park playground",
-              "The public library"
+              "The local art museum"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Riding a Bike'?",
+            "q": "What main activity is enjoyed in 'Riding a Bike'?",
             "options": [
-              "Browsing exciting books",
+              "Playing fun yard games",
               "Baking warm sweet treats",
-              "Cool Wind Blew",
-              "Playing fun yard games"
+              "Cool wind blew through",
+              "Browsing exciting books"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Riding a Bike'? (Question 2)",
+            "q": "What else takes place in 'Riding a Bike'?",
             "options": [
-              "Jack Stopped Near",
-              "Baking warm sweet treats",
               "Browsing exciting books",
-              "Playing fun yard games"
+              "Playing fun yard games",
+              "Jack stopped near",
+              "Baking warm sweet treats"
             ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -31771,34 +31771,34 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Class Hamster'?",
+            "q": "What main activity is enjoyed in 'The Class Hamster'?",
             "options": [
               "Browsing exciting books",
-              "Class Had Small",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Class 5 had",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Class Hamster'? (Question 2)",
+            "q": "What else takes place in 'The Class Hamster'?",
             "options": [
               "Playing fun yard games",
               "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Children Gave Peanut"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'The Class Hamster'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Little Hamster Loved",
-              "Browsing exciting books"
+              "Children gave peanut fresh",
+              "Baking warm sweet treats"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'The Class Hamster'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Little hamster loved running"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -31816,19 +31816,19 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Ice Cream Treats'?",
+            "q": "What main activity is enjoyed in 'Ice Cream Treats'?",
             "options": [
-              "Lily Made Ice",
-              "Browsing exciting books",
+              "Made ice cream cups",
               "Playing fun yard games",
+              "Browsing exciting books",
               "Baking warm sweet treats"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Ice Cream Treats'? (Question 2)",
+            "q": "What else takes place in 'Ice Cream Treats'?",
             "options": [
-              "She Put Chocolate",
+              "Put chocolate ice cream",
               "Browsing exciting books",
               "Baking warm sweet treats",
               "Playing fun yard games"
@@ -31836,14 +31836,14 @@
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Ice Cream Treats'? (Question 3)",
+            "q": "What main activity is enjoyed in 'Ice Cream Treats'? (Part 2)",
             "options": [
+              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Lily Put Red",
               "Playing fun yard games",
-              "Browsing exciting books"
+              "Put a red cherry"
             ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -31861,9 +31861,9 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Fun at the Beach'?",
+            "q": "Where does the action happen in 'Fun at the Beach'?",
             "options": [
-              "Noah Visited Sunny",
+              "Noah visited the sunny",
               "The public library",
               "The city park playground",
               "The local art museum"
@@ -31871,21 +31871,21 @@
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Fun at the Beach'?",
+            "q": "What main activity is enjoyed in 'Fun at the Beach'?",
             "options": [
-              "Browsing exciting books",
-              "Built Big Sand",
+              "Built a big sand",
+              "Baking warm sweet treats",
               "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Browsing exciting books"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Fun at the Beach'? (Question 2)",
+            "q": "What else takes place in 'Fun at the Beach'?",
             "options": [
-              "Noah Jumped Over",
-              "Browsing exciting books",
+              "Noah jumped over cool",
               "Baking warm sweet treats",
+              "Browsing exciting books",
               "Playing fun yard games"
             ],
             "correct": 0
@@ -31906,34 +31906,34 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Cleaning the Park'?",
+            "q": "Where does the action happen in 'Cleaning the Park'?",
             "options": [
               "The local art museum",
-              "The public library",
-              "Children Picked Trash",
-              "The city park playground"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What tool or container is used in 'Cleaning the Park'?",
-            "options": [
-              "Three mystery storybooks",
-              "A set of drawing pens",
-              "A self-checkout card",
-              "A wooden toy sailboat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'Cleaning the Park'? (Question 2)",
-            "options": [
               "The city park playground",
               "The public library",
-              "Soon Park Clean",
-              "The local art museum"
+              "Children picked up trash"
             ],
-            "correct": 2
+            "correct": 3
+          },
+          {
+            "q": "What main item or object is described in 'Cleaning the Park'?",
+            "options": [
+              "Three mystery storybooks",
+              "Wore gloves and put",
+              "A set of drawing pens",
+              "A wooden toy sailboat"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'Cleaning the Park'?",
+            "options": [
+              "The local art museum",
+              "The city park playground",
+              "The public library",
+              "Soon, the park"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -31951,44 +31951,44 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'The School News'?",
+            "q": "Where does the action happen in 'The School News'?",
             "options": [
-              "Students Fifth Grade",
+              "The city park playground",
               "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Students in fifth grade",
+              "The local art museum"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The School News'?",
-            "options": [
-              "Playing fun yard games",
-              "Wrote Short Stories",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'The School News'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Ethan Took Nice",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
+            "correct": 2
           },
           {
             "q": "What main activity is enjoyed in 'The School News'?",
             "options": [
-              "Everyone Liked Reading",
+              "Wrote short stories about",
+              "Playing fun yard games",
               "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Baking warm sweet treats"
             ],
             "correct": 0
+          },
+          {
+            "q": "What main item or object is described in 'The School News'?",
+            "options": [
+              "Ethan took nice photos",
+              "A set of drawing pens",
+              "A wooden toy sailboat",
+              "Three mystery storybooks"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The School News'?",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Everyone liked reading",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -32006,44 +32006,44 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Recycling Plastic'?",
+            "q": "Where does the action happen in 'Recycling Plastic'?",
             "options": [
-              "Our School Started",
               "The city park playground",
-              "The public library",
-              "The local art museum"
+              "Our school started",
+              "The local art museum",
+              "The public library"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Recycling Plastic'?",
+            "q": "What main activity is enjoyed in 'Recycling Plastic'?",
             "options": [
-              "Children Put Empty",
-              "Browsing exciting books",
               "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Recycling Plastic'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Every Day Student",
-              "Playing fun yard games"
+              "Children put empty juice",
+              "Browsing exciting books"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Recycling Plastic'? (Question 3)",
+            "q": "What else takes place in 'Recycling Plastic'?",
             "options": [
-              "Playing fun yard games",
+              "Every day, student helpers",
               "Browsing exciting books",
               "Baking warm sweet treats",
-              "Saving Plastic Helps"
+              "Playing fun yard games"
             ],
-            "correct": 3
+            "correct": 0
+          },
+          {
+            "q": "What main activity is enjoyed in 'Recycling Plastic'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
+              "Saving plastic helps keep",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -32061,42 +32061,42 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Learning Photography'?",
+            "q": "What main item or object is described in 'Learning Photography'?",
             "options": [
-              "Three mystery books",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Learning Photography'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Her Teacher Showed",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What location is described in 'Learning Photography'?",
-            "options": [
-              "The local art museum",
-              "Maya Took Pretty",
-              "The public library",
-              "The city park playground"
+              "Three mystery storybooks",
+              "Joined a photo club",
+              "A wooden toy sailboat",
+              "A set of drawing pens"
             ],
             "correct": 1
           },
           {
-            "q": "What location is described in 'Learning Photography'? (Question 2)",
+            "q": "What second object is mentioned in 'Learning Photography'?",
+            "options": [
+              "Her teacher showed how",
+              "Three mystery storybooks",
+              "A wooden toy sailboat",
+              "A set of drawing pens"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'Learning Photography'?",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "The local art museum",
+              "Took pretty photos"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'Learning Photography'?",
             "options": [
               "The city park playground",
-              "She Showed Her",
-              "The local art museum",
-              "The public library"
+              "Showed her favorite photos",
+              "The public library",
+              "The local art museum"
             ],
             "correct": 1
           }
@@ -32116,44 +32116,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Lemonade Stand'?",
+            "q": "What main activity is enjoyed in 'The Lemonade Stand'?",
             "options": [
+              "And his sister set",
               "Playing fun yard games",
-              "Baking warm sweet treats",
               "Browsing exciting books",
-              "Oliver His Sister"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main item is described in 'The Lemonade Stand'?",
-            "options": [
-              "Squeezed Fresh Lemons",
-              "Three mystery storybooks",
-              "A set of drawing pens",
-              "A wooden toy sailboat"
+              "Baking warm sweet treats"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'The Lemonade Stand'? (Question 2)",
+            "q": "What main item or object is described in 'The Lemonade Stand'?",
             "options": [
-              "Browsing exciting books",
-              "Neighbors Stopped Buy",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Three mystery storybooks",
+              "Squeezed fresh lemons",
+              "A set of drawing pens",
+              "A wooden toy sailboat"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'The Lemonade Stand'? (Question 3)",
+            "q": "What else takes place in 'The Lemonade Stand'?",
             "options": [
-              "Playing fun yard games",
               "Baking warm sweet treats",
-              "Children Gave All",
+              "Playing fun yard games",
+              "Neighbors stopped",
               "Browsing exciting books"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'The Lemonade Stand'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Children gave all"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -32171,44 +32171,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Surprise Birthday Party'?",
+            "q": "What main activity is enjoyed in 'Surprise Birthday Party'?",
             "options": [
               "Playing fun yard games",
-              "Ben His Family",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where inside the house does 'Surprise Birthday Party' take place?",
-            "options": [
-              "The local art museum",
-              "The public library",
-              "Put Colorful Balloons",
-              "The city park playground"
+              "Browsing exciting books",
+              "And his family planned",
+              "Baking warm sweet treats"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Surprise Birthday Party'? (Question 2)",
+            "q": "Where does the action happen in 'Surprise Birthday Party'?",
+            "options": [
+              "The local art museum",
+              "The city park playground",
+              "The public library",
+              "Put colorful balloons"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Surprise Birthday Party'?",
             "options": [
               "Browsing exciting books",
-              "When Mom Walked",
+              "Mom walked in, everyone",
               "Playing fun yard games",
               "Baking warm sweet treats"
             ],
             "correct": 1
           },
           {
-            "q": "What main item is described in 'Surprise Birthday Party'?",
+            "q": "What main item or object is described in 'Surprise Birthday Party'?",
             "options": [
-              "Three mystery storybooks",
-              "She Smiled Blew",
               "A wooden toy sailboat",
-              "A set of drawing pens"
+              "A set of drawing pens",
+              "Smiled and blew out",
+              "Three mystery storybooks"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -32226,41 +32226,41 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Science Museum'?",
+            "q": "What main activity is enjoyed in 'The Science Museum'?",
             "options": [
               "Baking warm sweet treats",
-              "Class Took Bus",
               "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main item is described in 'The Science Museum'?",
-            "options": [
-              "A set of drawing pens",
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Watched Fun Tests"
+              "Playing fun yard games",
+              "Class 5b took"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'The Science Museum'? (Question 2)",
+            "q": "What main item or object is described in 'The Science Museum'?",
+            "options": [
+              "Watched fun tests",
+              "A wooden toy sailboat",
+              "A set of drawing pens",
+              "Three mystery storybooks"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The Science Museum'?",
             "options": [
               "Baking warm sweet treats",
               "Playing fun yard games",
-              "Students Also Saw",
+              "Students also saw big",
               "Browsing exciting books"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'The Science Museum'?",
+            "q": "Where does the action happen in 'The Science Museum'?",
             "options": [
-              "The public library",
-              "Everyone Ate Boxed",
               "The city park playground",
+              "Everyone ate boxed lunch",
+              "The public library",
               "The local art museum"
             ],
             "correct": 1
@@ -32281,44 +32281,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Learning to Ice Skate'?",
+            "q": "What main activity is enjoyed in 'Learning to Ice Skate'?",
             "options": [
-              "Zloe Went Ice",
               "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Learning to Ice Skate'? (Question 2)",
-            "options": [
+              "Zloe went",
               "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "She Tied Her"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Learning to Ice Skate'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Her Teacher Helped",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Playing fun yard games"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Learning to Ice Skate'? (Question 4)",
+            "q": "What else takes place in 'Learning to Ice Skate'?",
             "options": [
-              "End Class Zloe",
+              "Browsing exciting books",
               "Baking warm sweet treats",
+              "Tied her white skates",
+              "Playing fun yard games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Learning to Ice Skate'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
               "Playing fun yard games",
+              "Her teacher helped",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Learning to Ice Skate'? (Part 3)",
+            "options": [
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "The end of class,",
               "Browsing exciting books"
             ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -32336,44 +32336,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Family Camping Trip'?",
+            "q": "Where does the action happen in 'Family Camping Trip'?",
             "options": [
-              "Harrison Family Packed",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'Family Camping Trip'?",
-            "options": [
-              "Walked Mountain Paths",
-              "The public library",
               "The local art museum",
-              "The city park playground"
+              "The city park playground",
+              "Harrison family packed",
+              "The public library"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where is another detail located in 'Family Camping Trip'?",
+            "options": [
+              "Walked on mountain paths",
+              "The public library",
+              "The city park playground",
+              "The local art museum"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Family Camping Trip'? (Question 2)",
+            "q": "Where does the action happen in 'Family Camping Trip'? (Part 2)",
             "options": [
-              "Night Cooked Sweet",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "Night, they cooked sweet",
+              "The city park playground",
+              "The public library",
+              "The local art museum"
             ],
             "correct": 0
           },
           {
-            "q": "What tool or container is used in 'Family Camping Trip'?",
+            "q": "What main item or object is described in 'Family Camping Trip'?",
             "options": [
-              "A self-checkout card",
-              "Three mystery storybooks",
               "A set of drawing pens",
-              "A wooden toy sailboat"
+              "Sleeping in warm bags",
+              "A wooden toy sailboat",
+              "Three mystery storybooks"
             ],
-            "correct": 0
+            "correct": 1
           }
         ]
       },
@@ -32391,44 +32391,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Making Homemade Pasta'?",
+            "q": "What main activity is enjoyed in 'Making Homemade Pasta'?",
             "options": [
-              "Gabriel His Dad",
+              "Browsing exciting books",
               "Baking warm sweet treats",
               "Playing fun yard games",
+              "Gabriel and his dad"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Making Homemade Pasta'?",
+            "options": [
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Rolled wheat dough"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Making Homemade Pasta'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Gabriel boiled the noodles",
+              "Browsing exciting books"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Making Homemade Pasta'? (Part 3)",
+            "options": [
+              "Whole family sat together",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
               "Browsing exciting books"
             ],
             "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Making Homemade Pasta'? (Question 2)",
-            "options": [
-              "Rolled Wheat Dough",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Making Homemade Pasta'? (Question 3)",
-            "options": [
-              "Browsing exciting books",
-              "Gabriel Boiled Noodles",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Making Homemade Pasta'? (Question 4)",
-            "options": [
-              "Baking warm sweet treats",
-              "Whole Family Sat",
-              "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -32446,44 +32446,44 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'The School Talent Show'?",
+            "q": "Where does the action happen in 'The School Talent Show'?",
             "options": [
-              "Our School Held",
               "The city park playground",
               "The local art museum",
+              "Our school held",
               "The public library"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The School Talent Show'?",
-            "options": [
-              "Students Played Piano",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
+            "correct": 2
           },
           {
             "q": "What main activity is enjoyed in 'The School Talent Show'?",
             "options": [
-              "Playing fun yard games",
               "Browsing exciting books",
-              "Ava Sang Pretty",
+              "Playing fun yard games",
+              "Students played piano tunes,",
               "Baking warm sweet treats"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'The School Talent Show'? (Question 2)",
+            "q": "What else takes place in 'The School Talent Show'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
               "Browsing exciting books",
-              "Audience Clapped Loudly"
+              "Playing fun yard games",
+              "Ava sang a pretty",
+              "Baking warm sweet treats"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'The School Talent Show'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
+              "Audience clapped loudly",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -32501,44 +32501,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Helping Animals'?",
+            "q": "What main activity is enjoyed in 'Helping Animals'?",
             "options": [
-              "Browsing exciting books",
-              "Hannah Helped Local",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Helping Animals'? (Question 2)",
-            "options": [
-              "She Brushed Soft",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where do the characters play in 'Helping Animals'?",
-            "options": [
-              "The local art museum",
-              "The public library",
-              "The city park playground",
-              "Hannah Also Walked"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Helping Animals'? (Question 3)",
-            "options": [
-              "Seeing Homeless Animals",
+              "Hannah helped",
               "Browsing exciting books",
               "Playing fun yard games",
               "Baking warm sweet treats"
             ],
             "correct": 0
+          },
+          {
+            "q": "What else takes place in 'Helping Animals'?",
+            "options": [
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Brushed soft fur",
+              "Playing fun yard games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the action happen in 'Helping Animals'?",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "Hannah also walked small",
+              "The local art museum"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Helping Animals'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Seeing homeless animals find",
+              "Playing fun yard games"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -32556,42 +32556,42 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Sandcastles at the Beach'?",
+            "q": "What main item or object is described in 'Sandcastles at the Beach'?",
             "options": [
-              "A set of drawing pens",
+              "Nathan and his cousin",
               "Three mystery storybooks",
               "A wooden toy sailboat",
-              "Nathan His Cousin"
+              "A set of drawing pens"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Sandcastles at the Beach'?",
+            "q": "What main activity is enjoyed in 'Sandcastles at the Beach'?",
             "options": [
+              "Baking warm sweet treats",
               "Browsing exciting books",
               "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Dug Deep Ring"
+              "Dug a deep ring"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Sandcastles at the Beach'? (Question 2)",
+            "q": "What else takes place in 'Sandcastles at the Beach'?",
             "options": [
+              "Nathan placed smooth white",
               "Baking warm sweet treats",
-              "Nathan Placed Smooth",
               "Playing fun yard games",
               "Browsing exciting books"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Sandcastles at the Beach'? (Question 3)",
+            "q": "What second object is mentioned in 'Sandcastles at the Beach'?",
             "options": [
-              "Playing fun yard games",
-              "Before Going Home",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Three mystery storybooks",
+              "Going home, they took",
+              "A wooden toy sailboat",
+              "A set of drawing pens"
             ],
             "correct": 1
           }
@@ -32611,44 +32611,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Playing Chess with Grandpa'?",
+            "q": "What main activity is enjoyed in 'Playing Chess with Grandpa'?",
             "options": [
               "Baking warm sweet treats",
+              "Henry visited his grandpa",
               "Browsing exciting books",
-              "Henry Visited His",
               "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Playing Chess with Grandpa'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "His Grandpa Showed",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Playing Chess with Grandpa'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Henry Thought Carefully",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Playing Chess with Grandpa'? (Question 4)",
-            "options": [
-              "Browsing exciting books",
-              "Winning His First",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
             ],
             "correct": 1
+          },
+          {
+            "q": "What else takes place in 'Playing Chess with Grandpa'?",
+            "options": [
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "His grandpa showed how"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Playing Chess with Grandpa'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Henry thought carefully before",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Playing Chess with Grandpa'? (Part 3)",
+            "options": [
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Winning his first game"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -32666,44 +32666,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Flying Kites in Spring'?",
+            "q": "What main activity is enjoyed in 'Flying Kites in Spring'?",
             "options": [
-              "Spring Winds Blew",
-              "Baking warm sweet treats",
+              "Spring winds blew gently",
+              "Playing fun yard games",
               "Browsing exciting books",
-              "Playing fun yard games"
+              "Baking warm sweet treats"
             ],
             "correct": 0
           },
           {
-            "q": "What flying object is featured in 'Flying Kites in Spring'?",
+            "q": "What main item or object is described in 'Flying Kites in Spring'?",
             "options": [
-              "A set of drawing pens",
               "Three mystery storybooks",
+              "Ella brought her bright",
               "A wooden toy sailboat",
-              "Ella Brought Her"
+              "A set of drawing pens"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What second object is mentioned in 'Flying Kites in Spring'?",
+            "options": [
+              "A wooden toy sailboat",
+              "Three mystery storybooks",
+              "A set of drawing pens",
+              "As she let out"
             ],
             "correct": 3
           },
           {
-            "q": "What flying object is featured in 'Flying Kites in Spring'? (Question 2)",
+            "q": "What main item or object is described in 'Flying Kites in Spring'? (Part 2)",
             "options": [
-              "She Let Out",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What flying object is featured in 'Flying Kites in Spring'? (Question 3)",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
               "A wooden toy sailboat",
-              "Ella Watched Her"
+              "Ella watched her kite",
+              "A set of drawing pens",
+              "Three mystery storybooks"
             ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -32721,44 +32721,44 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Painting a Wall Mural'?",
+            "q": "What main activity is enjoyed in 'Painting a Wall Mural'?",
             "options": [
-              "Playing fun yard games",
-              "Three mystery books",
               "Browsing exciting books",
-              "Baking warm sweet treats"
+              "Baking warm sweet treats",
+              "Art students worked together",
+              "Playing fun yard games"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What main item is described in 'Painting a Wall Mural'?",
+            "q": "What main item or object is described in 'Painting a Wall Mural'?",
             "options": [
               "A wooden toy sailboat",
               "Three mystery storybooks",
-              "Drew Blue Whales",
-              "A set of drawing pens"
+              "A set of drawing pens",
+              "Drew blue whales, dolphins,"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'Painting a Wall Mural'? (Question 2)",
+            "q": "What else takes place in 'Painting a Wall Mural'?",
             "options": [
-              "Baking warm sweet treats",
-              "Next Students Painted",
               "Browsing exciting books",
-              "Playing fun yard games"
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Next, students painted bright"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What location is described in 'Painting a Wall Mural'?",
+            "q": "Where does the action happen in 'Painting a Wall Mural'?",
             "options": [
               "The city park playground",
-              "The public library",
-              "Three mystery books",
-              "The local art museum"
+              "Finished picture made",
+              "The local art museum",
+              "The public library"
             ],
-            "correct": 2
+            "correct": 1
           }
         ]
       },
@@ -32776,52 +32776,52 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Basketball Game'?",
+            "q": "What main item or object is described in 'Basketball Game'?",
             "options": [
-              "Fifth Grade Basketball",
+              "Three mystery storybooks",
               "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "A set of drawing pens"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Basketball Game'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Both Teams Played",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main item is described in 'Basketball Game'? (Question 2)",
-            "options": [
-              "Three mystery storybooks",
-              "Ryan Passed Ball",
               "A set of drawing pens",
-              "A wooden toy sailboat"
+              "Fifth grade basketball team"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Basketball Game'?",
+            "options": [
+              "Browsing exciting books",
+              "Both teams played hard",
+              "Playing fun yard games",
+              "Baking warm sweet treats"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Basketball Game'? (Question 2)",
+            "q": "What second object is mentioned in 'Basketball Game'?",
             "options": [
-              "Their Team Won",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "A set of drawing pens",
+              "A wooden toy sailboat",
+              "Three mystery storybooks",
+              "Ryan passed the ball"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main item is described in 'Basketball Game'? (Question 3)",
+            "q": "What else takes place in 'Basketball Game'?",
             "options": [
-              "Fifth Grade Basketball",
+              "Browsing exciting books",
+              "Their team won",
+              "Playing fun yard games",
+              "Baking warm sweet treats"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main item or object is described in 'Basketball Game'? (Part 2)",
+            "options": [
+              "Fifth grade basketball team",
+              "A wooden toy sailboat",
               "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "Three mystery storybooks"
             ],
             "correct": 0
           }
@@ -32841,39 +32841,9 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Saving Water at Home'?",
+            "q": "What main activity is enjoyed in 'Saving Water at Home'?",
             "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Our Family Started"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Saving Water at Home'? (Question 2)",
-            "options": [
-              "Turned Off Tap",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'Saving Water at Home'?",
-            "options": [
-              "Papay Fors Also",
-              "The local art museum",
-              "The public library",
-              "The city park playground"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Saving Water at Home'? (Question 3)",
-            "options": [
-              "Taking These Small",
+              "Our family started",
               "Playing fun yard games",
               "Browsing exciting books",
               "Baking warm sweet treats"
@@ -32881,14 +32851,44 @@
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Saving Water at Home'? (Question 4)",
+            "q": "What else takes place in 'Saving Water at Home'?",
             "options": [
-              "Baking warm sweet treats",
+              "Playing fun yard games",
               "Browsing exciting books",
-              "Our Family Started",
-              "Playing fun yard games"
+              "Baking warm sweet treats",
+              "We turned off"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where does the action happen in 'Saving Water at Home'?",
+            "options": [
+              "The city park playground",
+              "The local art museum",
+              "My papay fors also",
+              "The public library"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Saving Water at Home'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Taking these small steps",
+              "Playing fun yard games",
+              "Browsing exciting books"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main activity is enjoyed in 'Saving Water at Home'? (Part 3)",
+            "options": [
+              "Baking warm sweet treats",
+              "Our family started",
+              "Playing fun yard games",
+              "Browsing exciting books"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -32906,51 +32906,51 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'The Farmers Market'?",
+            "q": "What main activity is enjoyed in 'The Farmers Market'?",
             "options": [
               "Baking warm sweet treats",
               "Browsing exciting books",
-              "Every Sunday Morning",
-              "Playing fun yard games"
+              "Playing fun yard games",
+              "Every sunday morning, local"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where does the action happen in 'The Farmers Market'?",
+            "options": [
+              "Families walked past tables",
+              "The local art museum",
+              "The public library",
+              "The city park playground"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main item or object is described in 'The Farmers Market'?",
+            "options": [
+              "My mother bought two",
+              "A set of drawing pens",
+              "A wooden toy sailboat",
+              "Three mystery storybooks"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What else takes place in 'The Farmers Market'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Buying local food helps",
+              "Browsing exciting books"
             ],
             "correct": 2
           },
           {
-            "q": "What location is described in 'The Farmers Market'?",
-            "options": [
-              "Families Walked Past",
-              "The city park playground",
-              "The public library",
-              "The local art museum"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What tool or container is used in 'The Farmers Market'?",
-            "options": [
-              "A self-checkout card",
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Farmers Market'? (Question 2)",
-            "options": [
-              "Buying Local Food",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'The Farmers Market'? (Question 3)",
+            "q": "What main activity is enjoyed in 'The Farmers Market'? (Part 2)",
             "options": [
               "Playing fun yard games",
               "Browsing exciting books",
-              "Every Sunday Morning",
+              "Every sunday morning, local",
               "Baking warm sweet treats"
             ],
             "correct": 2
@@ -32974,51 +32974,51 @@
             "q": "What main activity is enjoyed in 'Cooking Family Dinner'?",
             "options": [
               "Baking warm sweet treats",
-              "Playing fun yard games",
+              "James wanted to surprise",
               "Browsing exciting books",
-              "James Wanted Surprise"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Cooking Family Dinner'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Washed Fresh Greens",
               "Playing fun yard games"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Cooking Family Dinner'? (Question 2)",
-            "options": [
-              "James Watched Hot",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Cooking Family Dinner'? (Question 3)",
+            "q": "What else takes place in 'Cooking Family Dinner'?",
             "options": [
               "Baking warm sweet treats",
-              "Playing fun yard games",
-              "When His Papay",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main activity is enjoyed in 'Cooking Family Dinner'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
               "Browsing exciting books",
-              "James Wanted Surprise"
+              "Playing fun yard games",
+              "Washed fresh greens, cut"
             ],
             "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Cooking Family Dinner'? (Part 2)",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "James watched the hot",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Cooking Family Dinner'? (Part 3)",
+            "options": [
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "His papay fors came"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Cooking Family Dinner'? (Part 4)",
+            "options": [
+              "Baking warm sweet treats",
+              "James wanted to surprise",
+              "Browsing exciting books",
+              "Playing fun yard games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -33036,54 +33036,54 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Planting New Trees'?",
+            "q": "Where does the action happen in 'Planting New Trees'?",
             "options": [
               "The local art museum",
-              "Students Teachers Gathered",
-              "The city park playground",
-              "The public library"
+              "Students and teachers gathered",
+              "The public library",
+              "The city park playground"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Planting New Trees'?",
+            "q": "What main activity is enjoyed in 'Planting New Trees'?",
             "options": [
+              "Each team dug",
+              "Baking warm sweet treats",
               "Playing fun yard games",
-              "Browsing exciting books",
-              "Each Team Dug",
-              "Baking warm sweet treats"
+              "Browsing exciting books"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Planting New Trees'? (Question 2)",
+            "q": "What else takes place in 'Planting New Trees'?",
             "options": [
               "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Packed Rich Brown",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'Planting New Trees'? (Question 3)",
-            "options": [
               "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Planting New Trees",
+              "Packed rich brown dirt",
               "Browsing exciting books"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'Planting New Trees'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Planting New Trees'? (Part 2)",
             "options": [
-              "Students Teachers Gathered",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Planting new trees gives"
             ],
-            "correct": 0
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'Planting New Trees'?",
+            "options": [
+              "The city park playground",
+              "The public library",
+              "Students and teachers gathered",
+              "The local art museum"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -33101,54 +33101,54 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Forest Hike'?",
+            "q": "Where does the action happen in 'Forest Hike'?",
             "options": [
-              "The local art museum",
-              "Our Group Went",
               "The public library",
+              "The local art museum",
+              "Our group went",
               "The city park playground"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Forest Hike'?",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Guide Showed Animal"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Forest Hike'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Stopped Near Clear",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 1
+            "correct": 2
           },
           {
             "q": "What main activity is enjoyed in 'Forest Hike'?",
             "options": [
+              "Guide showed animal tracks",
               "Baking warm sweet treats",
               "Playing fun yard games",
-              "Walking Through Quiet",
               "Browsing exciting books"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What location is described in 'Forest Hike'? (Question 2)",
+            "q": "What main item or object is described in 'Forest Hike'?",
+            "options": [
+              "Three mystery storybooks",
+              "We stopped near",
+              "A wooden toy sailboat",
+              "A set of drawing pens"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What else takes place in 'Forest Hike'?",
+            "options": [
+              "Playing fun yard games",
+              "Walking through quiet nature",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'Forest Hike'?",
             "options": [
               "The public library",
               "The city park playground",
-              "Our Group Went",
-              "The local art museum"
+              "The local art museum",
+              "Our group went"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -33166,54 +33166,54 @@
         },
         "questions": [
           {
-            "q": "What reading item is selected in 'Book Drive'?",
+            "q": "What main item or object is described in 'Book Drive'?",
             "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
               "A set of drawing pens",
-              "Student Team Ran"
+              "A wooden toy sailboat",
+              "Student team ran",
+              "Three mystery storybooks"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the action happen in 'Book Drive'?",
+            "options": [
+              "The city park playground",
+              "The local art museum",
+              "The public library",
+              "Members placed decorated boxes"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'Book Drive'?",
+            "q": "What second object is mentioned in 'Book Drive'?",
             "options": [
-              "The city park playground",
-              "Members Placed Decorated",
-              "The public library",
-              "The local art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What reading item is selected in 'Book Drive'? (Question 2)",
-            "options": [
-              "A set of drawing pens",
-              "Three mystery storybooks",
-              "Three mystery books",
-              "A wooden toy sailboat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What reading item is selected in 'Book Drive'? (Question 3)",
-            "options": [
-              "A wooden toy sailboat",
-              "Three mystery storybooks",
-              "Helpers Sorted Books",
-              "A set of drawing pens"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What reading item is selected in 'Book Drive'? (Question 4)",
-            "options": [
-              "Student Team Ran",
+              "Kind families gave hundreds",
               "A wooden toy sailboat",
               "A set of drawing pens",
               "Three mystery storybooks"
             ],
             "correct": 0
+          },
+          {
+            "q": "What main item or object is described in 'Book Drive'? (Part 2)",
+            "options": [
+              "Three mystery storybooks",
+              "Helpers sorted the books",
+              "A set of drawing pens",
+              "A wooden toy sailboat"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What other detail is in 'Book Drive'?",
+            "options": [
+              "A set of drawing pens",
+              "Three mystery storybooks",
+              "A wooden toy sailboat",
+              "Student team ran"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -33231,54 +33231,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Training a Puppy'?",
+            "q": "What main activity is enjoyed in 'Training a Puppy'?",
             "options": [
-              "Ethan Adopted Playful",
               "Baking warm sweet treats",
               "Playing fun yard games",
+              "Ethan adopted a playful",
               "Browsing exciting books"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What main item is described in 'Training a Puppy'?",
+            "q": "What main item or object is described in 'Training a Puppy'?",
             "options": [
               "Three mystery storybooks",
               "A wooden toy sailboat",
               "A set of drawing pens",
-              "Spent Twenty Minutes"
+              "Spent twenty minutes every"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Training a Puppy'? (Question 2)",
+            "q": "What else takes place in 'Training a Puppy'?",
             "options": [
-              "Ethan Gave Max",
-              "Browsing exciting books",
               "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Training a Puppy'? (Question 3)",
-            "options": [
-              "Browsing exciting books",
-              "Through Patient Training",
               "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Training a Puppy'? (Question 4)",
-            "options": [
-              "Ethan Adopted Playful",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
+              "Ethan gave max small",
               "Browsing exciting books"
             ],
-            "correct": 0
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Training a Puppy'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Through patient training, max",
+              "Browsing exciting books"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Training a Puppy'? (Part 3)",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Ethan adopted a playful",
+              "Browsing exciting books"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -33296,54 +33296,54 @@
         },
         "questions": [
           {
-            "q": "What main item is described in 'Strawberry Picking'?",
+            "q": "What main item or object is described in 'Strawberry Picking'?",
             "options": [
+              "A wooden toy sailboat",
               "Three mystery storybooks",
-              "Sophia Her Cousins",
               "A set of drawing pens",
-              "A wooden toy sailboat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Strawberry Picking'?",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Walked Down Green"
+              "And her cousins spent"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Strawberry Picking'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Strawberry Picking'?",
             "options": [
-              "Sophia Filled Her",
               "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
+              "Walked down green rows",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Strawberry Picking'? (Question 3)",
+            "q": "What else takes place in 'Strawberry Picking'?",
             "options": [
               "Browsing exciting books",
+              "Playing fun yard games",
               "Baking warm sweet treats",
-              "Before Leaving Family",
-              "Playing fun yard games"
+              "Filled her basket fast"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What main item is described in 'Strawberry Picking'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Strawberry Picking'? (Part 2)",
             "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Leaving, the family bought"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What second object is mentioned in 'Strawberry Picking'?",
+            "options": [
+              "And her cousins spent",
               "Three mystery storybooks",
               "A set of drawing pens",
-              "Sophia Her Cousins",
               "A wooden toy sailboat"
             ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -33361,54 +33361,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Building a Model Rocket'?",
+            "q": "What main activity is enjoyed in 'Building a Model Rocket'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
               "Browsing exciting books",
-              "Alex Joined Youth"
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Alex joined a youth"
             ],
             "correct": 3
           },
           {
-            "q": "What tool or container is used in 'Building a Model Rocket'?",
+            "q": "What main item or object is described in 'Building a Model Rocket'?",
             "options": [
-              "A set of drawing pens",
-              "A self-checkout card",
+              "Glued wood fins",
               "A wooden toy sailboat",
+              "A set of drawing pens",
               "Three mystery storybooks"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Building a Model Rocket'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Alex Painted His",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What location is described in 'Building a Model Rocket'?",
-            "options": [
-              "Field His Rocket",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Building a Model Rocket'? (Question 3)",
+            "q": "What else takes place in 'Building a Model Rocket'?",
             "options": [
-              "Baking warm sweet treats",
               "Playing fun yard games",
-              "Alex Joined Youth",
+              "Alex painted his rocket",
+              "Baking warm sweet treats",
               "Browsing exciting books"
             ],
+            "correct": 1
+          },
+          {
+            "q": "Where does the action happen in 'Building a Model Rocket'?",
+            "options": [
+              "The public library",
+              "The local art museum",
+              "The field, his rocket",
+              "The city park playground"
+            ],
             "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Building a Model Rocket'? (Part 2)",
+            "options": [
+              "Alex joined a youth",
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -33426,54 +33426,54 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Amusement Park Day'?",
+            "q": "Where does the action happen in 'Amusement Park Day'?",
             "options": [
-              "The city park playground",
+              "Miller family visited",
+              "The local art museum",
               "The public library",
-              "Miller Family Visited",
+              "The city park playground"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'Amusement Park Day'?",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "Rode fun roller coasters,",
               "The local art museum"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'Amusement Park Day'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Amusement Park Day'?",
             "options": [
-              "The local art museum",
-              "The public library",
-              "The city park playground",
-              "Rode Fun Roller"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Amusement Park Day'?",
-            "options": [
-              "Playing fun yard games",
               "Browsing exciting books",
-              "Dylan Won Big",
+              "Playing fun yard games",
+              "Dylan won a big",
               "Baking warm sweet treats"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Amusement Park Day'? (Question 2)",
+            "q": "What else takes place in 'Amusement Park Day'?",
             "options": [
               "Browsing exciting books",
-              "Eating Sweet Pink",
               "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where do the characters play in 'Amusement Park Day'? (Question 3)",
-            "options": [
-              "The city park playground",
-              "The local art museum",
-              "The public library",
-              "Miller Family Visited"
+              "Playing fun yard games",
+              "Eating sweet pink cotton"
             ],
             "correct": 3
+          },
+          {
+            "q": "Where does the action happen in 'Amusement Park Day'? (Part 2)",
+            "options": [
+              "The city park playground",
+              "Miller family visited",
+              "The local art museum",
+              "The public library"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -33491,54 +33491,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Learning First Aid'?",
+            "q": "What main activity is enjoyed in 'Learning First Aid'?",
             "options": [
-              "Playing fun yard games",
               "Browsing exciting books",
+              "Playing fun yard games",
               "Baking warm sweet treats",
-              "Fifth Grade Students"
+              "Fifth grade students took"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Learning First Aid'? (Question 2)",
+            "q": "What else takes place in 'Learning First Aid'?",
             "options": [
-              "Learned How Clean",
               "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Learned how to clean"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Learning First Aid'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Nurses showed how",
+              "Playing fun yard games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Learning First Aid'? (Part 3)",
+            "options": [
+              "Baking warm sweet treats",
+              "Knowing these skills helped",
               "Browsing exciting books",
               "Playing fun yard games"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Learning First Aid'? (Question 3)",
+            "q": "What main activity is enjoyed in 'Learning First Aid'? (Part 4)",
             "options": [
+              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Nurses Showed How"
+              "Fifth grade students took",
+              "Playing fun yard games"
             ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Learning First Aid'? (Question 4)",
-            "options": [
-              "Knowing These Skills",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Learning First Aid'? (Question 5)",
-            "options": [
-              "Fifth Grade Students",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -33556,54 +33556,54 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Aquarium Field Trip'?",
+            "q": "Where does the action happen in 'Aquarium Field Trip'?",
             "options": [
-              "The local art museum",
-              "The public library",
+              "Class 5a took",
               "The city park playground",
-              "Class Took Fun"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Aquarium Field Trip'?",
-            "options": [
-              "Playing fun yard games",
-              "Students Walked Through",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Aquarium Field Trip'? (Question 2)",
-            "options": [
-              "Expert Explained How",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "The public library",
+              "The local art museum"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Aquarium Field Trip'? (Question 3)",
+            "q": "What main activity is enjoyed in 'Aquarium Field Trip'?",
             "options": [
+              "Playing fun yard games",
               "Baking warm sweet treats",
               "Browsing exciting books",
-              "Everyone Touched Soft",
-              "Playing fun yard games"
+              "Students walked through"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Aquarium Field Trip'?",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Expert explained how coral",
+              "Baking warm sweet treats"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'Aquarium Field Trip'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Aquarium Field Trip'? (Part 2)",
             "options": [
-              "The local art museum",
-              "The public library",
-              "Class Took Fun",
-              "The city park playground"
+              "Everyone touched soft starfish",
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
             ],
-            "correct": 2
+            "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'Aquarium Field Trip'?",
+            "options": [
+              "Class 5a took",
+              "The public library",
+              "The city park playground",
+              "The local art museum"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -33621,54 +33621,54 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Making Fruit Smoothies'?",
+            "q": "What main activity is enjoyed in 'Making Fruit Smoothies'?",
             "options": [
-              "Browsing exciting books",
-              "Grace Loved Making",
+              "Grace loved making cold",
               "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Making Fruit Smoothies'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "She Poured Fresh",
-              "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'Making Fruit Smoothies'? (Question 3)",
-            "options": [
-              "Baking warm sweet treats",
-              "Grace Blended Fruit",
               "Playing fun yard games",
               "Browsing exciting books"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Making Fruit Smoothies'? (Question 4)",
+            "q": "What else takes place in 'Making Fruit Smoothies'?",
             "options": [
+              "Poured fresh orange juice",
               "Baking warm sweet treats",
               "Playing fun yard games",
-              "Her Brother Drank",
               "Browsing exciting books"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main activity is enjoyed in 'Making Fruit Smoothies'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Grace blended the fruit",
+              "Playing fun yard games"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Making Fruit Smoothies'? (Question 5)",
+            "q": "What main activity is enjoyed in 'Making Fruit Smoothies'? (Part 3)",
             "options": [
-              "Grace Loved Making",
-              "Baking warm sweet treats",
+              "Her brother drank two",
               "Browsing exciting books",
+              "Baking warm sweet treats",
               "Playing fun yard games"
             ],
             "correct": 0
+          },
+          {
+            "q": "What main activity is enjoyed in 'Making Fruit Smoothies'? (Part 4)",
+            "options": [
+              "Baking warm sweet treats",
+              "Grace loved making cold",
+              "Browsing exciting books",
+              "Playing fun yard games"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -33686,52 +33686,52 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Community Compost Bin'?",
+            "q": "Where does the action happen in 'Community Compost Bin'?",
             "options": [
-              "The local art museum",
               "The public library",
-              "Our Town Put",
-              "The city park playground"
+              "The city park playground",
+              "Our town put",
+              "The local art museum"
             ],
             "correct": 2
           },
           {
-            "q": "What location is described in 'Community Compost Bin'? (Question 2)",
+            "q": "Where is another detail located in 'Community Compost Bin'?",
             "options": [
-              "The local art museum",
               "The public library",
-              "Neighbors Threw Vegetable",
-              "The city park playground"
+              "Neighbors threw vegetable skins,",
+              "The city park playground",
+              "The local art museum"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What key story detail is in 'Community Compost Bin'?",
+            "q": "What main activity is enjoyed in 'Community Compost Bin'?",
             "options": [
-              "Baking warm sweet treats",
               "Playing fun yard games",
               "Browsing exciting books",
-              "Worms Small Bugs"
+              "Baking warm sweet treats",
+              "Worms and small bugs"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'Community Compost Bin'? (Question 3)",
+            "q": "Where does the action happen in 'Community Compost Bin'? (Part 2)",
             "options": [
-              "Using Rich Dirt",
-              "The local art museum",
               "The public library",
-              "The city park playground"
+              "Using rich dirt box",
+              "The city park playground",
+              "The local art museum"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What location is described in 'Community Compost Bin'? (Question 4)",
+            "q": "Where does the action happen in 'Community Compost Bin'? (Part 3)",
             "options": [
-              "The city park playground",
               "The local art museum",
-              "Our Town Put",
-              "The public library"
+              "The public library",
+              "Our town put",
+              "The city park playground"
             ],
             "correct": 2
           }
@@ -33751,62 +33751,62 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Neighborhood Block Party'?",
+            "q": "What main activity is enjoyed in 'Neighborhood Block Party'?",
             "options": [
-              "Neighbors Elm Street",
+              "Neighbors on elm street",
               "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Baking warm sweet treats",
+              "Playing fun yard games"
             ],
             "correct": 0
           },
           {
-            "q": "What location is described in 'Neighborhood Block Party'?",
+            "q": "Where does the action happen in 'Neighborhood Block Party'?",
             "options": [
-              "The public library",
-              "The local art museum",
               "The city park playground",
-              "Helpers Closed Off"
+              "Helpers closed off",
+              "The local art museum",
+              "The public library"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What main item is described in 'Neighborhood Block Party'?",
+            "q": "What main item or object is described in 'Neighborhood Block Party'?",
             "options": [
-              "A wooden toy sailboat",
-              "Families Shared Grilled",
+              "Three mystery storybooks",
+              "Families shared grilled burgers,",
               "A set of drawing pens",
-              "Three mystery storybooks"
+              "A wooden toy sailboat"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Neighborhood Block Party'? (Question 2)",
+            "q": "What else takes place in 'Neighborhood Block Party'?",
             "options": [
               "Playing fun yard games",
               "Browsing exciting books",
               "Baking warm sweet treats",
-              "Children Played Sack"
+              "Children played sack race"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Neighborhood Block Party'? (Question 3)",
+            "q": "What main activity is enjoyed in 'Neighborhood Block Party'? (Part 2)",
             "options": [
-              "Browsing exciting books",
-              "Friendly Party Brought",
+              "Friendly party brought happy",
               "Baking warm sweet treats",
-              "Playing fun yard games"
+              "Playing fun yard games",
+              "Browsing exciting books"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Neighborhood Block Party'? (Question 4)",
+            "q": "What main activity is enjoyed in 'Neighborhood Block Party'? (Part 3)",
             "options": [
-              "Browsing exciting books",
-              "Neighbors Elm Street",
+              "Baking warm sweet treats",
+              "Neighbors on elm street",
               "Playing fun yard games",
-              "Baking warm sweet treats"
+              "Browsing exciting books"
             ],
             "correct": 1
           }
@@ -33826,64 +33826,64 @@
         },
         "questions": [
           {
-            "q": "Where inside the house does 'Building a Treehouse' take place?",
+            "q": "Where does the action happen in 'Building a Treehouse'?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "The local art museum",
-              "Reading library books"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Building a Treehouse'?",
-            "options": [
-              "Used Tape Measure",
-              "Baking warm sweet treats",
-              "Browsing exciting books",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Building a Treehouse'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Ben Helped Hold",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where inside the house does 'Building a Treehouse' take place? (Question 2)",
-            "options": [
+              "And his dad worked",
               "The public library",
               "The city park playground",
-              "The local art museum",
-              "Painted Treehouse Green"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where inside the house does 'Building a Treehouse' take place? (Question 3)",
-            "options": [
-              "Sitting Inside Finished",
-              "The city park playground",
-              "The public library",
               "The local art museum"
             ],
             "correct": 0
           },
           {
-            "q": "Where inside the house does 'Building a Treehouse' take place? (Question 4)",
+            "q": "What main activity is enjoyed in 'Building a Treehouse'?",
             "options": [
-              "The public library",
-              "The city park playground",
-              "The local art museum",
-              "Reading library books"
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Used a tape measure"
             ],
             "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Building a Treehouse'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Helped hold smooth pine",
+              "Browsing exciting books",
+              "Playing fun yard games"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'Building a Treehouse'?",
+            "options": [
+              "Painted the treehouse green",
+              "The public library",
+              "The city park playground",
+              "The local art museum"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'Building a Treehouse'? (Part 2)",
+            "options": [
+              "The city park playground",
+              "Sitting inside the finished",
+              "The public library",
+              "The local art museum"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where does the action happen in 'Building a Treehouse'? (Part 3)",
+            "options": [
+              "And his dad worked",
+              "The local art museum",
+              "The city park playground",
+              "The public library"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -33901,64 +33901,64 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Mountain Hiking Trail'?",
+            "q": "Where does the action happen in 'Mountain Hiking Trail'?",
             "options": [
-              "The local art museum",
-              "The city park playground",
               "The public library",
-              "Reading library books"
+              "The city park playground",
+              "Outdoor club went",
+              "The local art museum"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'Mountain Hiking Trail'?",
+            "q": "What main item or object is described in 'Mountain Hiking Trail'?",
             "options": [
-              "Browsing exciting books",
-              "Carried Light Backpacks",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
+              "A wooden toy sailboat",
+              "Three mystery storybooks",
+              "A set of drawing pens",
+              "Carried light backpacks"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
             "q": "What main activity is enjoyed in 'Mountain Hiking Trail'?",
             "options": [
+              "Hikers saw wild mountain",
               "Playing fun yard games",
               "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Hikers Saw Wild"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Mountain Hiking Trail'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Group Rested Lookout",
-              "Playing fun yard games",
               "Baking warm sweet treats"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Mountain Hiking Trail'? (Question 3)",
+            "q": "What else takes place in 'Mountain Hiking Trail'?",
             "options": [
               "Playing fun yard games",
-              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Finishing Ten Mile"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What location is described in 'Mountain Hiking Trail'? (Question 2)",
-            "options": [
-              "The local art museum",
-              "The public library",
-              "Reading library books",
-              "The city park playground"
+              "Group rested",
+              "Browsing exciting books"
             ],
             "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Mountain Hiking Trail'? (Part 2)",
+            "options": [
+              "Finishing the ten-mile trail",
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where is another detail located in 'Mountain Hiking Trail'?",
+            "options": [
+              "Outdoor club went",
+              "The city park playground",
+              "The public library",
+              "The local art museum"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -33976,9 +33976,9 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'School Music Concert'?",
+            "q": "Where does the action happen in 'School Music Concert'?",
             "options": [
-              "School Music Group",
+              "School music group gave",
               "The public library",
               "The local art museum",
               "The city park playground"
@@ -33986,54 +33986,54 @@
             "correct": 0
           },
           {
-            "q": "What main item is described in 'School Music Concert'?",
+            "q": "What main item or object is described in 'School Music Concert'?",
             "options": [
-              "Players Spent Three",
               "A wooden toy sailboat",
+              "A set of drawing pens",
               "Three mystery storybooks",
-              "A set of drawing pens"
+              "Players spent three months"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Music Concert'?",
+            "options": [
+              "Violins played smooth music",
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
             ],
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'School Music Concert'?",
+            "q": "What else takes place in 'School Music Concert'?",
             "options": [
-              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Violins Played Smooth",
+              "Singers joined together",
+              "Browsing exciting books",
+              "Playing fun yard games"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Music Concert'? (Part 2)",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Audience clapped loudly",
               "Playing fun yard games"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'School Music Concert'? (Question 2)",
+            "q": "Where is another detail located in 'School Music Concert'?",
             "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Singers Joined Together",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'School Music Concert'? (Question 3)",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Audience Clapped Loudly",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What location is described in 'School Music Concert'? (Question 2)",
-            "options": [
+              "School music group gave",
               "The local art museum",
-              "School Music Group",
-              "The public library",
-              "The city park playground"
+              "The city park playground",
+              "The public library"
             ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -34051,62 +34051,62 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'Coding for Kids'?",
+            "q": "Where does the action happen in 'Coding for Kids'?",
             "options": [
-              "Fifth Grade Students",
-              "The city park playground",
+              "The local art museum",
               "The public library",
-              "The local art museum"
+              "The city park playground",
+              "Fifth grade students attended"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'Coding for Kids'?",
+            "q": "What main activity is enjoyed in 'Coding for Kids'?",
+            "options": [
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Learned how block commands"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Coding for Kids'?",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Putting blocks in order,",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Coding for Kids'? (Part 2)",
             "options": [
               "Browsing exciting books",
-              "Learned How Block",
+              "Teachers helped students fix",
               "Playing fun yard games",
               "Baking warm sweet treats"
             ],
             "correct": 1
           },
           {
-            "q": "What key story detail is in 'Coding for Kids'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Coding for Kids'? (Part 3)",
             "options": [
-              "Putting Blocks Order",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Coding for Kids'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
               "Browsing exciting books",
-              "Teachers Helped Students",
-              "Baking warm sweet treats"
+              "Baking warm sweet treats",
+              "Learning basic coding steps",
+              "Playing fun yard games"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Coding for Kids'? (Question 4)",
+            "q": "Where is another detail located in 'Coding for Kids'?",
             "options": [
-              "Learning Basic Coding",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'Coding for Kids'? (Question 2)",
-            "options": [
-              "The city park playground",
               "The local art museum",
               "The public library",
-              "Fifth Grade Students"
+              "The city park playground",
+              "Fifth grade students attended"
             ],
             "correct": 3
           }
@@ -34126,64 +34126,64 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Visiting the Fire Station'?",
+            "q": "What main activity is enjoyed in 'Visiting the Fire Station'?",
             "options": [
-              "Class Visited City",
-              "Browsing exciting books",
               "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Visiting the Fire Station'? (Question 2)",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Friendly Firefighters Showed"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Visiting the Fire Station'? (Question 3)",
-            "options": [
-              "Students Looked Fire",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Visiting the Fire Station'? (Question 4)",
-            "options": [
-              "Firefighters Told Why",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'Visiting the Fire Station'?",
-            "options": [
-              "Wearing Gift Plastic",
-              "The local art museum",
-              "The city park playground",
-              "The public library"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Visiting the Fire Station'? (Question 5)",
-            "options": [
-              "Class Visited City",
-              "Playing fun yard games",
+              "Class 5c visited",
               "Baking warm sweet treats",
               "Browsing exciting books"
             ],
+            "correct": 1
+          },
+          {
+            "q": "What else takes place in 'Visiting the Fire Station'?",
+            "options": [
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Friendly firefighters showed students",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Visiting the Fire Station'? (Part 2)",
+            "options": [
+              "Students looked at fire",
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books"
+            ],
             "correct": 0
+          },
+          {
+            "q": "What main activity is enjoyed in 'Visiting the Fire Station'? (Part 3)",
+            "options": [
+              "Firefighters told why smoke",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'Visiting the Fire Station'?",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "Wearing gift plastic helmets",
+              "The local art museum"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Visiting the Fire Station'? (Part 4)",
+            "options": [
+              "Playing fun yard games",
+              "Class 5c visited",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -34201,64 +34201,64 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'School Chess Games'?",
+            "q": "Where does the action happen in 'School Chess Games'?",
             "options": [
+              "The city park playground",
               "The local art museum",
-              "The public library",
-              "Our School Hosted",
-              "The city park playground"
+              "Our school hosted",
+              "The public library"
             ],
             "correct": 2
           },
           {
-            "q": "What location is described in 'School Chess Games'? (Question 2)",
+            "q": "Where is another detail located in 'School Chess Games'?",
             "options": [
               "The city park playground",
-              "The public library",
+              "Players sat in quiet",
               "The local art museum",
-              "Players Sat Quiet"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'School Chess Games'?",
-            "options": [
-              "Players Looked Board",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'School Chess Games'? (Question 2)",
-            "options": [
-              "Judges Kept Score",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main activity is enjoyed in 'School Chess Games'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Winning Shiny Medals",
-              "Browsing exciting books",
-              "Playing fun yard games"
+              "The public library"
             ],
             "correct": 1
           },
           {
-            "q": "What location is described in 'School Chess Games'? (Question 3)",
+            "q": "What main activity is enjoyed in 'School Chess Games'?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "The local art museum",
-              "Our School Hosted"
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Players looked at board"
             ],
             "correct": 3
+          },
+          {
+            "q": "What else takes place in 'School Chess Games'?",
+            "options": [
+              "Judges kept score while",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Chess Games'? (Part 2)",
+            "options": [
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Winning shiny medals made",
+              "Baking warm sweet treats"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the action happen in 'School Chess Games'? (Part 2)",
+            "options": [
+              "The city park playground",
+              "Our school hosted",
+              "The local art museum",
+              "The public library"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -34276,9 +34276,9 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Summer Garden Patch'?",
+            "q": "Where does the action happen in 'Summer Garden Patch'?",
             "options": [
-              "Lucas His Sister",
+              "Lucas and his sister",
               "The city park playground",
               "The local art museum",
               "The public library"
@@ -34286,19 +34286,9 @@
             "correct": 0
           },
           {
-            "q": "What key story detail is in 'Summer Garden Patch'?",
+            "q": "What main activity is enjoyed in 'Summer Garden Patch'?",
             "options": [
-              "Pulled Weeds Daily",
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Summer Garden Patch'? (Question 2)",
-            "options": [
-              "Natural Sun Watering",
+              "Pulled weeds daily",
               "Baking warm sweet treats",
               "Browsing exciting books",
               "Playing fun yard games"
@@ -34306,34 +34296,44 @@
             "correct": 0
           },
           {
-            "q": "What location is described in 'Summer Garden Patch'?",
+            "q": "What else takes place in 'Summer Garden Patch'?",
             "options": [
-              "The city park playground",
-              "Picked Fresh Vegetables",
-              "The public library",
-              "The local art museum"
+              "Natural sun and watering",
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Playing fun yard games"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What location is described in 'Summer Garden Patch'? (Question 2)",
+            "q": "Where is another detail located in 'Summer Garden Patch'?",
             "options": [
-              "The city park playground",
-              "Working Garden Taught",
-              "The public library",
-              "The local art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where do the characters play in 'Summer Garden Patch'? (Question 2)",
-            "options": [
-              "Lucas His Sister",
-              "The city park playground",
+              "Picked fresh vegetables every",
               "The local art museum",
+              "The city park playground",
               "The public library"
             ],
             "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'Summer Garden Patch'? (Part 2)",
+            "options": [
+              "The public library",
+              "The local art museum",
+              "Working in the garden",
+              "The city park playground"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where does the action happen in 'Summer Garden Patch'? (Part 3)",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "Lucas and his sister",
+              "The local art museum"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -34351,64 +34351,64 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'National Park Trip'?",
+            "q": "Where does the action happen in 'National Park Trip'?",
             "options": [
-              "Miller Family Took",
               "The city park playground",
-              "The local art museum",
-              "The public library"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'National Park Trip'?",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Drove Through Mountain"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What reading item is selected in 'National Park Trip'?",
-            "options": [
-              "Three mystery storybooks",
-              "A wooden toy sailboat",
-              "Children Got Stamps",
-              "A set of drawing pens"
+              "The public library",
+              "Miller family took",
+              "The local art museum"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'National Park Trip'? (Question 2)",
+            "q": "What main activity is enjoyed in 'National Park Trip'?",
             "options": [
-              "Saw Wild Buffalo",
-              "Baking warm sweet treats",
               "Browsing exciting books",
+              "Drove through mountain passes",
+              "Baking warm sweet treats",
               "Playing fun yard games"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What main item is described in 'National Park Trip'?",
+            "q": "What main item or object is described in 'National Park Trip'?",
             "options": [
-              "A wooden toy sailboat",
               "Three mystery storybooks",
-              "Camping Under Starry",
-              "A set of drawing pens"
+              "A set of drawing pens",
+              "Children got stamps",
+              "A wooden toy sailboat"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'National Park Trip'? (Question 2)",
+            "q": "What second object is mentioned in 'National Park Trip'?",
             "options": [
-              "The local art museum",
-              "Miller Family Took",
-              "The public library",
-              "The city park playground"
+              "A wooden toy sailboat",
+              "Saw wild buffalo eating",
+              "A set of drawing pens",
+              "Three mystery storybooks"
             ],
             "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'National Park Trip'?",
+            "options": [
+              "Camping under starry skies",
+              "The city park playground",
+              "The public library",
+              "The local art museum"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'National Park Trip'? (Part 2)",
+            "options": [
+              "The local art museum",
+              "The city park playground",
+              "Miller family took",
+              "The public library"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -34426,61 +34426,61 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Yard Sale Day'?",
+            "q": "Where does the action happen in 'Yard Sale Day'?",
             "options": [
-              "Reading library books",
+              "Martinez family had",
+              "The city park playground",
               "The public library",
-              "The local art museum",
-              "The city park playground"
+              "The local art museum"
             ],
             "correct": 0
           },
           {
-            "q": "What reading item is selected in 'Yard Sale Day'?",
+            "q": "What main item or object is described in 'Yard Sale Day'?",
             "options": [
-              "Cleaned Old Toys",
+              "Three mystery storybooks",
               "A set of drawing pens",
               "A wooden toy sailboat",
-              "Three mystery storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'Yard Sale Day'?",
-            "options": [
-              "The local art museum",
-              "The public library",
-              "The city park playground",
-              "Family Members Set"
+              "Cleaned old toys"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Yard Sale Day'?",
-            "options": [
-              "Neighbors Came All",
-              "Browsing exciting books",
-              "Playing fun yard games",
-              "Baking warm sweet treats"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Yard Sale Day'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Giving Earned Money",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where do the characters play in 'Yard Sale Day'? (Question 2)",
+            "q": "Where is another detail located in 'Yard Sale Day'?",
             "options": [
               "The city park playground",
+              "The local art museum",
               "The public library",
-              "Reading library books",
+              "Family members set out"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Yard Sale Day'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Neighbors came by all"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'Yard Sale Day'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Playing fun yard games",
+              "Giving earned money"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where does the action happen in 'Yard Sale Day'? (Part 2)",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "Martinez family had",
               "The local art museum"
             ],
             "correct": 2
@@ -34501,61 +34501,61 @@
         },
         "questions": [
           {
-            "q": "What key story detail is in 'Deep Water Swimming'?",
+            "q": "What main activity is enjoyed in 'Deep Water Swimming'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Chloe took a swim",
+              "Playing fun yard games"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What else takes place in 'Deep Water Swimming'?",
             "options": [
               "Browsing exciting books",
               "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Chloe Took Swim"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key story detail is in 'Deep Water Swimming'? (Question 2)",
-            "options": [
-              "Her Teacher Showed",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Deep Water Swimming'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Students Practiced Diving",
+              "Her teacher showed how",
               "Baking warm sweet treats"
             ],
             "correct": 2
           },
           {
-            "q": "What key story detail is in 'Deep Water Swimming'? (Question 4)",
+            "q": "What main activity is enjoyed in 'Deep Water Swimming'? (Part 2)",
             "options": [
+              "Playing fun yard games",
               "Baking warm sweet treats",
               "Browsing exciting books",
-              "Playing fun yard games",
-              "Chloe Built Strong"
+              "Students practiced diving safely"
             ],
             "correct": 3
           },
           {
-            "q": "What key story detail is in 'Deep Water Swimming'? (Question 5)",
+            "q": "What main activity is enjoyed in 'Deep Water Swimming'? (Part 3)",
             "options": [
+              "Browsing exciting books",
               "Baking warm sweet treats",
-              "Passing Final Test",
-              "Playing fun yard games",
-              "Browsing exciting books"
+              "Chloe built strong arms",
+              "Playing fun yard games"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What key story detail is in 'Deep Water Swimming'? (Question 6)",
+            "q": "What main activity is enjoyed in 'Deep Water Swimming'? (Part 4)",
             "options": [
               "Baking warm sweet treats",
               "Playing fun yard games",
-              "Chloe Took Swim",
+              "Browsing exciting books",
+              "Passing the final test"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'Deep Water Swimming'? (Part 5)",
+            "options": [
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Chloe took a swim",
               "Browsing exciting books"
             ],
             "correct": 2
@@ -34576,64 +34576,64 @@
         },
         "questions": [
           {
-            "q": "Where inside the house does 'Clay Pottery Class' take place?",
+            "q": "Where does the action happen in 'Clay Pottery Class'?",
             "options": [
-              "Students Room Went",
-              "The public library",
+              "The city park playground",
+              "Students in room 4",
               "The local art museum",
-              "The city park playground"
+              "The public library"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Clay Pottery Class'?",
-            "options": [
-              "Pressed Soft Wet",
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Browsing exciting books"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Clay Pottery Class'? (Question 2)",
-            "options": [
-              "Baking warm sweet treats",
-              "Playing fun yard games",
-              "Teachers Showed How",
-              "Browsing exciting books"
-            ],
-            "correct": 2
+            "correct": 1
           },
           {
             "q": "What main activity is enjoyed in 'Clay Pottery Class'?",
             "options": [
+              "Pressed soft wet clay",
               "Playing fun yard games",
               "Browsing exciting books",
-              "After Drying Students",
               "Baking warm sweet treats"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What key story detail is in 'Clay Pottery Class'? (Question 3)",
+            "q": "What else takes place in 'Clay Pottery Class'?",
             "options": [
-              "Baking warm sweet treats",
               "Browsing exciting books",
               "Playing fun yard games",
-              "Bringing Home Shiny"
+              "Baking warm sweet treats",
+              "Teachers showed how"
             ],
             "correct": 3
           },
           {
-            "q": "Where inside the house does 'Clay Pottery Class' take place? (Question 2)",
+            "q": "What main activity is enjoyed in 'Clay Pottery Class'? (Part 2)",
             "options": [
-              "The city park playground",
-              "Students Room Went",
-              "The public library",
-              "The local art museum"
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Drying, students painted colors",
+              "Browsing exciting books"
             ],
-            "correct": 1
+            "correct": 2
+          },
+          {
+            "q": "What main activity is enjoyed in 'Clay Pottery Class'? (Part 3)",
+            "options": [
+              "Browsing exciting books",
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Bringing home shiny finished"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'Clay Pottery Class'?",
+            "options": [
+              "The public library",
+              "The city park playground",
+              "The local art museum",
+              "Students in room 4"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -34651,64 +34651,64 @@
         },
         "questions": [
           {
-            "q": "Where do the characters play in 'Bird Watching Trail'?",
+            "q": "Where does the action happen in 'Bird Watching Trail'?",
             "options": [
-              "The local art museum",
               "The public library",
-              "Nature Club Spent",
+              "Nature club spent saturday",
+              "The local art museum",
               "The city park playground"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What reading item is selected in 'Bird Watching Trail'?",
+            "q": "What main item or object is described in 'Bird Watching Trail'?",
             "options": [
-              "Members Brought Glasses",
               "A set of drawing pens",
-              "Three mystery storybooks",
-              "A wooden toy sailboat"
+              "Members brought glasses",
+              "A wooden toy sailboat",
+              "Three mystery storybooks"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What location is described in 'Bird Watching Trail'?",
+            "q": "Where is another detail located in 'Bird Watching Trail'?",
             "options": [
               "The public library",
               "The local art museum",
               "The city park playground",
-              "Saw Red Birds"
+              "Saw red birds, blue"
             ],
             "correct": 3
           },
           {
-            "q": "What reading item is selected in 'Bird Watching Trail'? (Question 2)",
+            "q": "What second object is mentioned in 'Bird Watching Trail'?",
             "options": [
-              "Group Wrote Bird",
-              "A set of drawing pens",
+              "A wooden toy sailboat",
               "Three mystery storybooks",
-              "A wooden toy sailboat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key story detail is in 'Bird Watching Trail'?",
-            "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Learning How Birds",
-              "Playing fun yard games"
+              "Group wrote bird names",
+              "A set of drawing pens"
             ],
             "correct": 2
           },
           {
-            "q": "Where do the characters play in 'Bird Watching Trail'? (Question 2)",
+            "q": "What main activity is enjoyed in 'Bird Watching Trail'?",
             "options": [
-              "Nature Club Spent",
-              "The public library",
-              "The local art museum",
-              "The city park playground"
+              "Playing fun yard games",
+              "Learning how birds fly",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
             ],
-            "correct": 0
+            "correct": 1
+          },
+          {
+            "q": "Where does the action happen in 'Bird Watching Trail'? (Part 2)",
+            "options": [
+              "The city park playground",
+              "The local art museum",
+              "The public library",
+              "Nature club spent saturday"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -34726,64 +34726,64 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'School Sports Day'?",
+            "q": "Where does the action happen in 'School Sports Day'?",
             "options": [
-              "The city park playground",
-              "The public library",
-              "Our School Held",
-              "The local art museum"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'School Sports Day'?",
-            "options": [
-              "Playing fun yard games",
-              "Baking warm sweet treats",
-              "Students Joined Team",
-              "Browsing exciting books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'School Sports Day'? (Question 2)",
-            "options": [
-              "Playing fun yard games",
-              "Teachers Timed Races",
-              "Browsing exciting books",
-              "Baking warm sweet treats"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key story detail is in 'School Sports Day'? (Question 3)",
-            "options": [
-              "Playing fun yard games",
-              "Browsing exciting books",
-              "Blue Team Played",
-              "Baking warm sweet treats"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What key story detail is in 'School Sports Day'? (Question 4)",
-            "options": [
-              "Browsing exciting books",
-              "Head Teacher Adams",
-              "Baking warm sweet treats",
-              "Playing fun yard games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What location is described in 'School Sports Day'? (Question 2)",
-            "options": [
-              "Our School Held",
-              "The public library",
               "The local art museum",
-              "The city park playground"
+              "The public library",
+              "The city park playground",
+              "Our school held"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Sports Day'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Students joined team races,"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What else takes place in 'School Sports Day'?",
+            "options": [
+              "Baking warm sweet treats",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Teachers timed races"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where is another detail located in 'School Sports Day'?",
+            "options": [
+              "The local art museum",
+              "The public library",
+              "The city park playground",
+              "Blue team played fair"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Sports Day'? (Part 2)",
+            "options": [
+              "Head teacher adams gave",
+              "Playing fun yard games",
+              "Browsing exciting books",
+              "Baking warm sweet treats"
             ],
             "correct": 0
+          },
+          {
+            "q": "Where does the action happen in 'School Sports Day'? (Part 2)",
+            "options": [
+              "The local art museum",
+              "Our school held",
+              "The city park playground",
+              "The public library"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -34801,62 +34801,62 @@
         },
         "questions": [
           {
-            "q": "What location is described in 'School Memory Box'?",
+            "q": "Where does the action happen in 'School Memory Box'?",
             "options": [
               "The public library",
-              "The city park playground",
+              "Fifth grade class made",
               "The local art museum",
-              "Fifth Grade Class"
+              "The city park playground"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where is another detail located in 'School Memory Box'?",
+            "options": [
+              "The public library",
+              "Students put in written",
+              "The city park playground",
+              "The local art museum"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What main activity is enjoyed in 'School Memory Box'?",
+            "options": [
+              "Playing fun yard games",
+              "Baking warm sweet treats",
+              "Browsing exciting books",
+              "Packed items carefully inside"
             ],
             "correct": 3
           },
           {
-            "q": "What location is described in 'School Memory Box'? (Question 2)",
+            "q": "Where does the action happen in 'School Memory Box'? (Part 2)",
             "options": [
+              "The local art museum",
               "The city park playground",
               "The public library",
-              "Students Put Written",
-              "The local art museum"
+              "Head teacher helped bury"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What key story detail is in 'School Memory Box'?",
+            "q": "Where does the action happen in 'School Memory Box'? (Part 3)",
             "options": [
-              "Browsing exciting books",
-              "Baking warm sweet treats",
-              "Packed Items Carefully",
-              "Playing fun yard games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What location is described in 'School Memory Box'? (Question 3)",
-            "options": [
-              "Head Teacher Helped",
               "The public library",
+              "Future students will dig",
               "The city park playground",
               "The local art museum"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What location is described in 'School Memory Box'? (Question 4)",
+            "q": "Where does the action happen in 'School Memory Box'? (Part 4)",
             "options": [
-              "Future Students Will",
-              "The local art museum",
+              "The city park playground",
               "The public library",
-              "The city park playground"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What location is described in 'School Memory Box'? (Question 5)",
-            "options": [
-              "The public library",
-              "The local art museum",
-              "Fifth Grade Class",
-              "The city park playground"
+              "Fifth grade class made",
+              "The local art museum"
             ],
             "correct": 2
           }
