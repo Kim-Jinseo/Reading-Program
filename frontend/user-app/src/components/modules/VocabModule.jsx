@@ -364,13 +364,6 @@ export const VocabModule = () => {
         <p className="text-slate-400 font-bold mb-6 uppercase tracking-wider text-sm">Question {idx + 1} of {quizData.length}</p>
         <div className="flex items-center justify-center gap-3 mb-12">
           <h2 className="text-4xl font-extrabold text-slate-800 leading-relaxed">{q.prompt}</h2>
-          <button 
-            onClick={(e) => playWordAudio(q.word || q.prompt, e)}
-            className="p-3 bg-sky-100 hover:bg-sky-200 text-sky-700 rounded-full transition-transform active:scale-95 shadow-sm"
-            title="Listen to pronunciation"
-          >
-            <Volume2 size={24} />
-          </button>
         </div>
         <div className="grid grid-cols-1 gap-4">
           {q.options.map(opt => (
