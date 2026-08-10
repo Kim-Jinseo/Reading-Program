@@ -345,35 +345,35 @@ export const ReadingModule = () => {
     const theme = getDifficultyTheme(lesson.difficulty);
 
     return (
-      <div className="max-w-4xl mx-auto pt-4 pb-12 flex flex-col min-h-full animate-in fade-in zoom-in-95 duration-200">
+      <div className="max-w-4xl mx-auto pt-2 sm:pt-4 pb-8 sm:pb-12 flex flex-col min-h-full animate-in fade-in zoom-in-95 duration-200">
         {/* Top Controls */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4 sm:mb-6">
           <button 
             onClick={() => { stopAudio(); setMode('menu'); }} 
-            className="text-slate-500 hover:text-slate-800 flex items-center gap-2 font-bold bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm transition-all"
+            className="text-slate-500 hover:text-slate-800 flex items-center gap-1.5 font-bold bg-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-slate-200 shadow-sm transition-all text-xs sm:text-sm self-start sm:self-auto"
           >
-            <ChevronLeft size={20}/> Back to Stories
+            <ChevronLeft size={16}/> <span className="hidden sm:inline">Back to Stories</span><span className="sm:hidden">Back</span>
           </button>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-3">
             {/* Audio Listen Button */}
             <button 
               onClick={() => toggleAudio(lesson.text?.en || lesson.text)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-5 sm:py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm shrink-0 ${
                 isPlayingAudio 
                   ? 'bg-rose-500 text-white animate-pulse shadow-rose-200' 
                   : theme.btnBg
               }`}
             >
-              {isPlayingAudio ? <VolumeX size={18} /> : <Volume2 size={18} />}
-              <span>{isPlayingAudio ? 'Stop Listening' : 'Listen Story 🔊'}</span>
+              {isPlayingAudio ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              <span>{isPlayingAudio ? 'Stop' : 'Listen Story 🔊'}</span>
             </button>
 
             {/* Language Selector */}
-            <div className="flex bg-slate-100/90 p-1 rounded-full border border-slate-200 shadow-inner">
+            <div className="flex bg-slate-100/90 p-0.5 sm:p-1 rounded-full border border-slate-200 shadow-inner shrink-0">
               <button 
                 onClick={() => setActiveStoryTab('english')} 
-                className={`px-3 py-1 rounded-full font-bold text-xs transition-all ${
+                className={`px-2.5 py-1 rounded-full font-bold text-[11px] sm:text-xs transition-all ${
                   activeStoryTab === 'english' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
                 }`}
               >
@@ -381,7 +381,7 @@ export const ReadingModule = () => {
               </button>
               <button 
                 onClick={() => setActiveStoryTab('side_by_side')} 
-                className={`px-3 py-1 rounded-full font-bold text-xs transition-all ${
+                className={`px-2.5 py-1 rounded-full font-bold text-[11px] sm:text-xs transition-all ${
                   activeStoryTab === 'side_by_side' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
                 }`}
               >
@@ -389,7 +389,7 @@ export const ReadingModule = () => {
               </button>
               <button 
                 onClick={() => setActiveStoryTab('chinese')} 
-                className={`px-3 py-1 rounded-full font-bold text-xs transition-all ${
+                className={`px-2.5 py-1 rounded-full font-bold text-[11px] sm:text-xs transition-all ${
                   activeStoryTab === 'chinese' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
                 }`}
               >
@@ -400,7 +400,7 @@ export const ReadingModule = () => {
         </div>
 
         {/* Story Book Layout with Clean High-Legibility Styling */}
-        <div className={`p-8 sm:p-12 rounded-[3rem] mb-8 ${theme.readerBg}`}>
+        <div className={`p-5 sm:p-12 rounded-3xl sm:rounded-[3rem] mb-6 sm:mb-8 ${theme.readerBg}`}>
           <div className="flex items-center gap-3 mb-4 relative z-10">
             <span className={`px-3.5 py-1 rounded-full text-xs uppercase tracking-wider ${theme.badgeClass}`}>
               {theme.badgeText}
@@ -410,12 +410,12 @@ export const ReadingModule = () => {
             </span>
           </div>
 
-          <h2 className={`text-3xl sm:text-4xl mb-8 leading-tight tracking-tight relative z-10 ${theme.readerTitle}`}>
+          <h2 className={`text-2xl sm:text-4xl mb-6 sm:mb-8 leading-tight tracking-tight relative z-10 ${theme.readerTitle}`}>
             {lesson.title?.en || lesson.title}
           </h2>
 
           {(activeStoryTab === 'english' || activeStoryTab === 'side_by_side') && (
-            <div className={`text-xl sm:text-2xl mb-8 space-y-4 tracking-wide relative z-10 ${theme.readerText}`}>
+            <div className={`text-lg sm:text-2xl mb-6 sm:mb-8 space-y-4 tracking-wide relative z-10 ${theme.readerText}`}>
               {(lesson.text?.en || lesson.text).split('\n').map((paragraph, pIdx) => (
                 <p key={pIdx}>{paragraph}</p>
               ))}
@@ -423,14 +423,14 @@ export const ReadingModule = () => {
           )}
 
           {activeStoryTab === 'side_by_side' && lesson.text?.zh && (
-            <hr className="border-slate-500/20 my-8 relative z-10" />
+            <hr className="border-slate-500/20 my-6 sm:my-8 relative z-10" />
           )}
 
           {(activeStoryTab === 'chinese' || activeStoryTab === 'side_by_side') && lesson.text?.zh && (
-            <div className={`p-6 rounded-2xl relative z-10 ${theme.chineseBg}`}>
+            <div className={`p-4 sm:p-6 rounded-2xl relative z-10 ${theme.chineseBg}`}>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Chinese Translation / 中文翻译</h4>
-              <h3 className="text-xl font-bold mb-3">{lesson.title?.zh}</h3>
-              <p className="text-lg leading-relaxed font-sans opacity-90">{lesson.text.zh}</p>
+              <h3 className="text-lg sm:text-xl font-bold mb-3">{lesson.title?.zh}</h3>
+              <p className="text-base sm:text-lg leading-relaxed font-sans opacity-90">{lesson.text.zh}</p>
             </div>
           )}
         </div>
@@ -438,10 +438,10 @@ export const ReadingModule = () => {
         {/* Start Quiz Action */}
         <button 
           onClick={() => { stopAudio(); setMode('quiz'); }} 
-          className={`w-full py-5 font-extrabold text-2xl rounded-2xl transition-all flex items-center justify-center gap-3 ${theme.btnBg}`}
+          className={`w-full py-3.5 sm:py-5 px-4 font-black text-lg sm:text-2xl rounded-2xl transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-lg active:scale-95 ${theme.btnBg}`}
         >
           <span>Start Quiz & Test Comprehension</span>
-          <BookOpen size={24} />
+          <BookOpen size={22} className="shrink-0" />
         </button>
       </div>
     );
