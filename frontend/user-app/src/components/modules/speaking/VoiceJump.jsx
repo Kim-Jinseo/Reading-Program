@@ -1107,7 +1107,7 @@ export const VoiceJump = ({ onBack }) => {
 
            {/* FX */}
            {animTrigger === 'monster_hit' && (
-              <div className="absolute right-1/4 bottom-1/2 text-5xl text-yellow-400 animate-ping z-40">
+             <div className="absolute right-1/4 bottom-1/2 text-5xl text-yellow-400 animate-ping z-40">
                  <Zap size={64} fill="currentColor" />
               </div>
            )}
@@ -1119,22 +1119,22 @@ export const VoiceJump = ({ onBack }) => {
 
            {/* Overlays */}
            {gameState === 'stage_clear' && (
-              <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100]">
-                 <div className="text-6xl mb-2 animate-bounce">🎉</div>
-                 <h3 className="text-5xl font-black text-amber-400 mb-2 drop-shadow-md">STAGE CLEAR!</h3>
-                 <p className="text-slate-300 font-bold text-lg mb-6">Great job! You defeated the monster!</p>
-                 <button onClick={() => setView('levels')} className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-2xl rounded-full shadow-[0_8px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-2 transition-all">
+              <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-4 text-center">
+                 <div className="text-5xl sm:text-6xl mb-1 sm:mb-2 animate-bounce">🎉</div>
+                 <h3 className="text-4xl sm:text-5xl font-black text-amber-400 mb-1 sm:mb-2 drop-shadow-md leading-tight">STAGE CLEAR!</h3>
+                 <p className="text-slate-300 font-bold text-sm sm:text-lg mb-4 sm:mb-6">Great job! You defeated the monster!</p>
+                 <button onClick={() => setView('levels')} className="px-6 py-3 sm:px-8 sm:py-4 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-lg sm:text-2xl rounded-full shadow-[0_6px_0_rgba(202,138,4,1)] sm:shadow-[0_8px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-2 transition-all">
                    Back to Levels
                  </button>
               </div>
            )}
 
            {gameState === 'game_over' && (
-              <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100]">
-                 <div className="text-6xl mb-2 animate-bounce">⏰</div>
-                 <h3 className="text-5xl font-black text-rose-500 mb-2 drop-shadow-md">TIME'S UP!</h3>
-                 <p className="text-slate-300 font-bold text-lg mb-6">Don't give up! Try speaking faster next time!</p>
-                 <button onClick={resetGame} className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-2xl rounded-full shadow-[0_8px_0_rgb(225,29,72)] active:shadow-none active:translate-y-2 transition-all">
+              <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-4 text-center">
+                 <div className="text-5xl sm:text-6xl mb-1 sm:mb-2 animate-bounce">⏰</div>
+                 <h3 className="text-4xl sm:text-5xl font-black text-rose-500 mb-1 sm:mb-2 drop-shadow-md leading-tight">TIME'S UP!</h3>
+                 <p className="text-slate-300 font-bold text-sm sm:text-lg mb-4 sm:mb-6">Don't give up! Try speaking faster next time!</p>
+                 <button onClick={resetGame} className="px-6 py-3 sm:px-8 sm:py-4 bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg sm:text-2xl rounded-full shadow-[0_6px_0_rgb(225,29,72)] sm:shadow-[0_8px_0_rgb(225,29,72)] active:shadow-none active:translate-y-2 transition-all">
                    Try Again
                  </button>
               </div>
