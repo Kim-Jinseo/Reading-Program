@@ -53,7 +53,7 @@ const AppContent = () => {
       <Sidebar isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col h-screen h-[100dvh] overflow-hidden relative w-full">
+      <main className="flex-1 flex flex-col h-[100dvh] overflow-hidden relative min-w-0">
         {/* TOPBAR */}
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 

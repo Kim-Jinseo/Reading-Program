@@ -740,7 +740,7 @@ export const VoiceJump = ({ onBack }) => {
           </div>
 
           {/* Character and Pet Selection */}
-          <div className="flex flex-col md:flex-row justify-center gap-8 mb-12">
+          <div className="flex flex-col xl:flex-row justify-center gap-8 mb-12">
             <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200">
                <p className="text-xl text-slate-500 font-bold mb-4">{t('choose_hero')}</p>
                <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
@@ -827,7 +827,7 @@ export const VoiceJump = ({ onBack }) => {
           
           <p className="text-xl text-slate-500 font-bold mb-10">{t('select_monster')}</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {MONSTERS.map((monster, idx) => {
               // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared (bypassed for teacher2026/admin)
               const isLocked = !isAdmin && idx > 0 && Array.from({ length: idx }, (_, i) => i).some(prevIdx => !clearedStages.includes(prevIdx));
