@@ -186,8 +186,8 @@ export const CourtroomView = ({ onBack }) => {
             const isUnlocked = isAdmin || idx === 0 || Array.from({ length: idx }, (_, i) => i).every(prevIdx => (user?.starsTracker?.[`courtroom_level_${grade}_${prevIdx}`] || 0) > 0);
             const starsEarned = user?.starsTracker?.[`courtroom_level_${grade}_${idx}`] || 0;
             const baseStarsEarned = hasGavel ? Math.floor(starsEarned / 2) : starsEarned;
-            const heartsEarned = starsEarned > 0 ? Math.floor(baseStarsEarned / 2) : 0;
-            const isPurple = heartsEarned > 3;
+            const heartsEarned = starsEarned > 0 ? Math.min(3, Math.max(1, Math.floor(baseStarsEarned / 2))) : 0;
+            const isPurple = starsEarned > 6;
             const isCompleted = starsEarned > 0;
             
             return (
@@ -199,8 +199,8 @@ export const CourtroomView = ({ onBack }) => {
                   isUnlocked 
                     ? isCompleted
                       ? isPurple
-                        ? 'bg-purple-50 border-purple-300 hover:border-purple-500 shadow-md hover:shadow-purple-200 cursor-pointer group'
-                        : 'bg-emerald-50 border-emerald-200 hover:border-emerald-400 shadow-sm hover:shadow-md cursor-pointer group' 
+                        ? 'bg-white border-purple-400 hover:border-purple-600 shadow-md shadow-purple-100/50 cursor-pointer group'
+                        : 'bg-white border-emerald-300 hover:border-emerald-500 shadow-sm cursor-pointer group' 
                       : 'bg-white border-slate-200 hover:border-indigo-400 shadow-md hover:shadow-lg hover:-translate-y-1 cursor-pointer group'
                     : 'bg-slate-100 border-slate-200 opacity-60 cursor-not-allowed grayscale'
                 }`}
@@ -213,34 +213,25 @@ export const CourtroomView = ({ onBack }) => {
                 ) : (
                   <>
                     <div className={`w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-sm mb-3 group-hover:scale-110 transition-transform flex items-center justify-center font-black text-2xl ${
-                      isPurple ? 'bg-purple-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.4)]' : 'bg-indigo-100 text-indigo-500'
+                      isPurple ? 'bg-purple-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.4)]' : isCompleted ? 'bg-emerald-100 text-emerald-600' : 'bg-indigo-100 text-indigo-500'
                     }`}>
                       {idx + 1}
                     </div>
-                    <span className={`font-black text-lg mb-1 ${isPurple ? 'text-purple-900' : isCompleted ? 'text-emerald-700' : 'text-slate-700'}`}>
+                    <span className={`font-black text-lg mb-2 ${isPurple ? 'text-purple-900' : isCompleted ? 'text-emerald-700' : 'text-slate-700'}`}>
                       Level {idx + 1}
                     </span>
-                    {isCompleted ? (
-                      isPurple ? (
-                        <div className="flex items-center gap-1 bg-purple-100 border border-purple-200 px-2.5 py-1 rounded-full text-purple-700 font-black text-xs">
-                          <Star size={12} className="fill-purple-500 text-purple-500 animate-pulse" />
-                          <span>{starsEarned} Stars</span>
-                        </div>
-                      ) : (
-                        <div className="flex gap-1">
-                          {Array.from({ length: 3 }).map((_, i) => (
-                            <Heart 
-                              key={i} 
-                              size={14} 
-                              className={i < heartsEarned ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
-                            />
-                          ))}
-                        </div>
-                      )
-                    ) : (
+                    {isCompleted && (
                       <div className="flex gap-1">
                         {Array.from({ length: 3 }).map((_, i) => (
-                          <Heart key={i} size={14} className="text-slate-300 fill-slate-200" />
+                          <Heart 
+                            key={i} 
+                            size={16} 
+                            className={
+                              i < (heartsEarned || 3) 
+                                ? isPurple ? 'text-purple-500 fill-purple-500 drop-shadow-[0_0_6px_rgba(168,85,247,0.6)]' : 'text-rose-500 fill-rose-500' 
+                                : 'text-slate-200 fill-slate-100'
+                            } 
+                          />
                         ))}
                       </div>
                     )}
