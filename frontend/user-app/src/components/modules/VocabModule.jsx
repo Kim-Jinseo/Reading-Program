@@ -14,26 +14,32 @@ export const VocabModule = () => {
   const [activeTab, setActiveTab] = useState('learn'); // 'learn' or 'list'
   const dailyStatus = getDailyStatus('vocab');
 
+  const audioCache = useMemo(() => new Map(), []);
+
   const playWordAudio = (wordText, e) => {
     if (e) e.stopPropagation();
     if (!wordText) return;
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(wordText);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.85;
-      window.speechSynthesis.speak(utterance);
-    } else {
-      try {
-        const text = encodeURIComponent(wordText);
-        const token = localStorage.getItem('token');
+    
+    try {
+      const cleanWord = wordText.trim();
+      let audio = audioCache.get(cleanWord);
+      
+      if (!audio) {
+        const text = encodeURIComponent(cleanWord);
+        const token = localStorage.getItem('token') || '';
         const timestamp = Date.now();
         const audioUrl = `/api/audio/tts?text=${text}&token=${token}&t=${timestamp}`;
-        const audio = new Audio(audioUrl);
-        audio.play();
-      } catch (err) {
-        console.error('Audio play error:', err);
+        audio = new Audio(audioUrl);
+        audioCache.set(cleanWord, audio);
+      } else {
+        audio.currentTime = 0;
       }
+      
+      audio.play().catch(err => {
+        console.error('Deepgram TTS audio play error:', err);
+      });
+    } catch (err) {
+      console.error('Deepgram TTS audio error:', err);
     }
   };
   
