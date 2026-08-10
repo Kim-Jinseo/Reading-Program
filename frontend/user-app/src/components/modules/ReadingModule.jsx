@@ -38,6 +38,20 @@ export const ReadingModule = () => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [showPeekModal, setShowPeekModal] = useState(false);
 
+  // Dynamic random shuffling of choices for current question every time it loads
+  const currentOptions = useMemo(() => {
+    if (mode !== 'quiz' || !lesson || !lesson.questions || !lesson.questions[idx]) return [];
+    const currentQ = lesson.questions[idx];
+    const raw = currentQ.options ? [...currentQ.options] : [currentQ.a, currentQ.b, currentQ.a2, currentQ.b2].filter(Boolean);
+    
+    const arr = [...raw];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [mode, lesson, idx]);
+
   // Dynamic Theme System based on Story Difficulty
   const getDifficultyTheme = (diff) => {
     if (diff === 'super_hard') {
@@ -436,20 +450,6 @@ export const ReadingModule = () => {
   if (mode === 'quiz') {
     const q = lesson.questions[idx];
     const theme = getDifficultyTheme(lesson.difficulty);
-
-    // Dynamic random shuffling of choices for current question every time it loads
-    const currentOptions = useMemo(() => {
-      if (!lesson || !lesson.questions || !lesson.questions[idx]) return [];
-      const currentQ = lesson.questions[idx];
-      const raw = currentQ.options ? [...currentQ.options] : [currentQ.a, currentQ.b, currentQ.a2, currentQ.b2].filter(Boolean);
-      
-      const arr = [...raw];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }, [lesson, idx]);
 
     const handleAnswer = (ans) => {
       const correctAnswerText = q.options ? q.options[q.correct] : q.a;
