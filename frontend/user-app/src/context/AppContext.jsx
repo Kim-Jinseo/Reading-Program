@@ -199,7 +199,28 @@ export const AppProvider = ({ children }) => {
     fetch(`/api/curriculum`)
       .then(res => res.json())
       .then(data => {
-        if (data.success) setCurriculumDb(data.data);
+        if (data.success && data.data) {
+          const sanitizedDb = { ...data.data };
+          ['1-2', '3-4', '5-6'].forEach(gradeKey => {
+            const localGrade = localCurriculum[gradeKey];
+            if (!sanitizedDb[gradeKey]) {
+              sanitizedDb[gradeKey] = localGrade;
+            } else if (localGrade && localGrade.vocab) {
+              const localMap = new Map(localGrade.vocab.map(v => [v.id, v]));
+              if (Array.isArray(sanitizedDb[gradeKey].vocab)) {
+                sanitizedDb[gradeKey].vocab = sanitizedDb[gradeKey].vocab.map(v => {
+                  if (!v.def || v.def.includes('翻译') || v.answer === '翻译' || v.def === '翻译 (fān yì)') {
+                    return localMap.get(v.id) || v;
+                  }
+                  return v;
+                });
+              } else {
+                sanitizedDb[gradeKey].vocab = localGrade.vocab;
+              }
+            }
+          });
+          setCurriculumDb(sanitizedDb);
+        }
       })
       .catch(console.error);
   }, []);

@@ -291,6 +291,27 @@ app.get('/curriculum', async (c) => {
     const allData = await curriculum.find({}).toArray();
     const formattedData = {};
     allData.forEach(doc => { formattedData[doc.grade] = doc.content; });
+
+    // Clean up any remaining '翻译' placeholder items in DB responses
+    for (const g in formattedData) {
+      if (Array.isArray(formattedData[g]?.vocab)) {
+        formattedData[g].vocab.forEach(v => {
+          if (v.def && (v.def.includes('翻译') || v.answer === '翻译')) {
+            if (v.word === 'minute') { v.def = '分钟 (fēn zhōng)'; v.answer = '分钟'; }
+            else if (v.word === 'nature') { v.def = '自然 (zì rán)'; v.answer = '自然'; }
+            else if (v.word === 'numbers') { v.def = '数字 (shù zì)'; v.answer = '数字'; }
+            else if (v.word === 'quick') { v.def = '快速的 (kuài sù de)'; v.answer = '快速的'; }
+            else if (v.word === 'sell') { v.def = '卖 (mài)'; v.answer = '卖'; }
+            else if (v.word === 'work') { v.def = '工作 (gōng zuò)'; v.answer = '工作'; }
+            else if (v.word === 'year') { v.def = '年 (nián)'; v.answer = '年'; }
+            else if (v.word === 'years') { v.def = '年份 (nián fèn)'; v.answer = '年份'; }
+            else if (v.word === 'people') { v.def = '人们 (rén men)'; v.answer = '人们'; }
+            else if (v.word === 'day') { v.def = '一天 (yì tiān)'; v.answer = '一天'; }
+          }
+        });
+      }
+    }
+
     return c.json({ success: true, data: formattedData });
   } catch (error) {
     console.error(error);
