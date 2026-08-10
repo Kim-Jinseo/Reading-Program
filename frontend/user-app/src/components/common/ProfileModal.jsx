@@ -92,8 +92,8 @@ export const ProfileModal = ({ onClose }) => {
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex gap-3 items-center mb-6">
             <Key size={20} className="text-slate-400 shrink-0 ml-1" />
             <input 
-              type="password"
-              autoComplete="off"
+              type="text"
+              style={{ WebkitTextSecurity: 'disc' }}
               placeholder="Enter Teacher Code..." 
               value={secretCode}
               onChange={(e) => setSecretCode(e.target.value)}
