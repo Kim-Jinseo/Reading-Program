@@ -40,7 +40,7 @@ export const TRANSLATIONS = {
     leaderboard_title: "Top Scholars",
     profile_title: "My Profile",
     stat_vocab: "Words Learned",
-    stat_grammar: "Grammar Rules Mastered",
+    stat_grammar: "Grammar Questions Mastered",
     stat_writing: "Writings Completed",
     stat_speaking: "Speaking Practices",
     stat_reading: "Readings Completed",

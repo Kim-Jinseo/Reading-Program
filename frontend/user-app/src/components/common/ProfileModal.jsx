@@ -74,28 +74,28 @@ export const ProfileModal = ({ onClose }) => {
               <BarChart2 size={16}/> Learning Statistics
             </h3>
             <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="bg-sky-50 p-5 rounded-2xl border border-sky-100">
-                <p className="text-sky-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_vocab') || 'Words Learned'}</p>
+              <div className="bg-sky-50 p-5 rounded-2xl border border-sky-100 flex flex-col justify-between h-full">
+                <p className="text-sky-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_vocab') || 'Words Learned'}</p>
                 <p className="text-3xl font-extrabold text-sky-700">{Object.values(user.vocabStats || {}).filter(s => s === 'correct').length}</p>
               </div>
-              <div className="bg-violet-50 p-5 rounded-2xl border border-violet-100">
-                <p className="text-violet-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_grammar') || 'Grammar Rules'}</p>
+              <div className="bg-violet-50 p-5 rounded-2xl border border-violet-100 flex flex-col justify-between h-full">
+                <p className="text-violet-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_grammar') || 'Grammar Questions'}</p>
                 <p className="text-3xl font-extrabold text-violet-700">{Object.values(user.grammarStats || {}).filter(s => s.solved).length}</p>
               </div>
-              <div className="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
-                <p className="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_writing') || 'Writings'}</p>
+              <div className="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 flex flex-col justify-between h-full">
+                <p className="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_writing') || 'Writings'}</p>
                 <p className="text-3xl font-extrabold text-indigo-700">{(user.completedWriting || []).length}</p>
               </div>
-              <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-100">
-                <p className="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_reading') || 'Readings'}</p>
+              <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex flex-col justify-between h-full">
+                <p className="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_reading') || 'Readings'}</p>
                 <p className="text-3xl font-extrabold text-emerald-700">{(user.completedReading || []).length}</p>
               </div>
-              <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100">
-                <p className="text-rose-500 font-bold text-xs uppercase tracking-wider mb-1">Speaking Done</p>
+              <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100 flex flex-col justify-between h-full">
+                <p className="text-rose-500 font-bold text-xs uppercase tracking-wider mb-2">Speaking Done</p>
                 <p className="text-3xl font-extrabold text-rose-700">{(user.completedSpeaking || []).length}</p>
               </div>
-              <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100">
-                <p className="text-amber-500 font-bold text-xs uppercase tracking-wider mb-1">Voice Battle Lvl</p>
+              <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex flex-col justify-between h-full">
+                <p className="text-amber-500 font-bold text-xs uppercase tracking-wider mb-2">Voice Battle Lvl</p>
                 <p className="text-3xl font-extrabold text-amber-700">
                   {user.clearedVoiceStages && Object.keys(user.clearedVoiceStages).length > 0 
                     ? Math.max(0, ...Object.values(user.clearedVoiceStages).map(arr => arr.length ? Math.max(...arr) + 1 : 0)) + 1 
