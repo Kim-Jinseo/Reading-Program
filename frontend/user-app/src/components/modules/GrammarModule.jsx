@@ -370,6 +370,7 @@ export const GrammarModule = () => {
             <div className="flex flex-col gap-4 mb-10">
               {paginatedLearn.map(c => {
                 const isCompleted = completedLearn.includes(c.id);
+                const starsEarned = user?.starsTracker?.[c.id] || user?.grammarStats?.[c.id]?.earned || (isCompleted ? 3 : 0);
                 return (
                   <button 
                     key={c.id}
@@ -384,9 +385,16 @@ export const GrammarModule = () => {
                         <h3 className={`text-xl font-extrabold transition-colors ${isCompleted ? 'text-indigo-800' : 'text-slate-800 group-hover:text-indigo-700'}`}>
                           {c.name} {c.nameZh && <span className="text-sm font-medium text-slate-400 ml-2 font-normal">{c.nameZh}</span>}
                         </h3>
-                        <p className={`font-medium mt-1 ${isCompleted ? 'text-indigo-500' : 'text-slate-500'}`}>
-                          {isCompleted ? 'Mastered' : c.descEn}
-                        </p>
+                        <div className="flex items-center gap-3 mt-1">
+                          <p className={`font-medium ${isCompleted ? 'text-indigo-500' : 'text-slate-500'}`}>
+                            {isCompleted ? 'Mastered' : c.descEn}
+                          </p>
+                          {isCompleted && (
+                            <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full font-black text-xs shadow-xs">
+                              ⭐ {starsEarned} Star{starsEarned === 1 ? '' : 's'}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <ChevronRight size={24} className={isCompleted ? 'text-indigo-300' : 'text-slate-300 group-hover:text-indigo-400'} />
@@ -453,7 +461,10 @@ export const GrammarModule = () => {
                         <div className="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-2 shadow-inner">
                           <CheckCircle2 size={32} />
                         </div>
-                        <span className="font-extrabold text-emerald-600 uppercase tracking-wider text-sm">Mastered</span>
+                        <span className="font-extrabold text-emerald-600 uppercase tracking-wider text-sm block mb-1">Mastered</span>
+                        <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full font-black text-xs shadow-xs">
+                          ⭐ {user?.starsTracker?.[c.id] || c.stats.earnedStars || 3} Star{(user?.starsTracker?.[c.id] || c.stats.earnedStars || 3) === 1 ? '' : 's'}
+                        </div>
                       </div>
                     ) : (
                       <button 
