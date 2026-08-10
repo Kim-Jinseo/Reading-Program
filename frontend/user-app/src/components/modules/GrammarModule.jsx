@@ -583,16 +583,17 @@ export const GrammarModule = () => {
 
     return (
       <div className="max-w-3xl mx-auto pt-6 flex flex-col h-[90vh] animate-in fade-in">
-        <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-          <button onClick={leaveEarly} className="flex items-center gap-2 text-slate-500 hover:text-slate-800 font-bold transition-colors">
-            <ChevronLeft size={20}/> Exit Practice
+        <div className="flex justify-between items-center gap-2 mb-4 sm:mb-6 bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-slate-200">
+          <button onClick={leaveEarly} className="flex flex-1 items-center gap-1 text-slate-500 hover:text-slate-800 font-bold transition-colors text-xs sm:text-base">
+            <ChevronLeft size={20}/><span className="hidden sm:inline">Exit Practice</span><span className="sm:hidden">Exit</span>
           </button>
-          <div className="font-extrabold text-slate-800 flex items-center gap-2">
-            Question {activeQIndex + 1} of {activeQueue.length}
+          <div className="flex-1 text-center font-extrabold text-slate-800 text-sm sm:text-base whitespace-nowrap">
+            <span className="hidden sm:inline">Question {activeQIndex + 1} of {activeQueue.length}</span>
+            <span className="sm:hidden">Q. {activeQIndex + 1} / {activeQueue.length}</span>
           </div>
-          <div className="w-auto text-right flex justify-end">
-             <button onClick={() => setShowConceptModal(true)} className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-extrabold bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-full transition-colors">
-               <BookOpen size={16} /> Grammar Rule
+          <div className="flex-1 flex justify-end">
+             <button onClick={() => setShowConceptModal(true)} className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-extrabold bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-colors text-xs sm:text-base whitespace-nowrap">
+               <BookOpen size={16} /> <span className="hidden sm:inline">Grammar Rule</span><span className="sm:hidden">Rule</span>
              </button>
           </div>
         </div>
@@ -633,7 +634,7 @@ export const GrammarModule = () => {
               let icon = null;
 
               if (selectedOpt) {
-                if (opt === activeQ.answer) {
+                if (opt === selectedOpt && opt === activeQ.answer) {
                   btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm";
                   letterClass = "border-emerald-500 bg-emerald-500 text-white";
                   icon = <CheckCircle2 className="text-emerald-600" size={28} />;
