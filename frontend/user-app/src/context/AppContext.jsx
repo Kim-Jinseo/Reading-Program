@@ -206,23 +206,12 @@ export const AppProvider = ({ children }) => {
             if (!sanitizedDb[gradeKey]) {
               sanitizedDb[gradeKey] = localGrade;
             } else {
-              // Always use updated local reading passages so both new and completed stories show the updated versions
+              // Always use updated local reading passages and vocabulary so old database records never override clean content
               if (localGrade && localGrade.reading) {
                 sanitizedDb[gradeKey].reading = localGrade.reading;
               }
-              // Sanitize vocab to ensure no '翻译' placeholders remain
               if (localGrade && localGrade.vocab) {
-                const localMap = new Map(localGrade.vocab.map(v => [v.id, v]));
-                if (Array.isArray(sanitizedDb[gradeKey].vocab)) {
-                  sanitizedDb[gradeKey].vocab = sanitizedDb[gradeKey].vocab.map(v => {
-                    if (!v.def || v.def.includes('翻译') || v.answer === '翻译' || v.def === '翻译 (fān yì)') {
-                      return localMap.get(v.id) || v;
-                    }
-                    return v;
-                  });
-                } else {
-                  sanitizedDb[gradeKey].vocab = localGrade.vocab;
-                }
+                sanitizedDb[gradeKey].vocab = localGrade.vocab;
               }
             }
           });
