@@ -90,17 +90,17 @@ export const ProfileModal = ({ onClose }) => {
 
         {/* ADMIN UNLOCK INPUT (Hidden for existing Admins and Guests) */}
         {user.role !== 'admin' && !user.isGuest && (
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex gap-3 items-center mb-6">
-            <Key size={20} className="text-slate-400 shrink-0 ml-1" />
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-4 flex gap-2 sm:gap-3 items-center mb-6">
+            <Key size={20} className="text-slate-400 shrink-0 ml-1 hidden sm:block" />
             <input 
               type="text"
               style={{ WebkitTextSecurity: 'disc' }}
-              placeholder="Enter Teacher Code..." 
+              placeholder="Teacher Code..." 
               value={secretCode}
               onChange={(e) => setSecretCode(e.target.value)}
-              className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold focus:outline-none focus:border-indigo-400 transition-colors"
+              className="flex-1 min-w-0 bg-white border border-slate-200 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm font-bold focus:outline-none focus:border-indigo-400 transition-colors"
             />
-            <button onClick={handleUnlockAdmin} className="bg-slate-800 text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-slate-900 transition-colors">
+            <button onClick={handleUnlockAdmin} className="bg-slate-800 text-white font-bold text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:bg-slate-900 transition-colors shrink-0">
               Unlock
             </button>
           </div>
