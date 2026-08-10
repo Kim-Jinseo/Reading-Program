@@ -77,9 +77,17 @@ export const AppProvider = ({ children }) => {
     fetch('/api/auth/me', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
-      .then(res => res.json())
+      .then(async (res) => {
+        if (res.status === 401) {
+          localStorage.removeItem('token');
+          setIsAuthLoading(false);
+          return;
+        }
+        if (!res.ok) throw new Error('Server error');
+        return res.json();
+      })
       .then(data => {
-        if (data.success && data.user) {
+        if (data && data.success && data.user) {
           const isTeacher = data.user.role === 'admin' || data.user.username?.toLowerCase() === 'teacher2026';
           const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
           setUser({
@@ -94,12 +102,11 @@ export const AppProvider = ({ children }) => {
               ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
               : (data.user.clearedVoiceStages || {})
           });
-        } else {
-          localStorage.removeItem('token');
         }
       })
-      .catch(() => {
-        localStorage.removeItem('token');
+      .catch((err) => {
+        console.warn('Auto-login fetch failed:', err);
+        // Do NOT remove token on network/server errors so they can try again later
       })
       .finally(() => setIsAuthLoading(false));
   }, []);
