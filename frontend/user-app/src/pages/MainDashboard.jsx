@@ -103,15 +103,15 @@ export const MainDashboard = () => {
                   : 'bg-white border-2 border-slate-100 ' + mod.border + ' ' + mod.shadow
               }`}
             >
-              <div className="flex justify-between items-start">
-                <div className={`w-20 h-20 rounded-3xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300 ${
+              <div className="flex justify-between items-start gap-2">
+                <div className={`w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-3xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300 ${
                   isDone ? mod.doneStyle.icon : mod.bg + ' ' + mod.color
                 }`}>
                   {mod.icon}
                 </div>
                 {isDone ? (
-                  <div className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-extrabold text-sm shadow-2xs ${mod.doneStyle.badge}`}>
-                    <CheckCircle2 size={16} /> Daily Done
+                  <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-extrabold text-xs md:text-sm shadow-2xs whitespace-nowrap shrink-0 ${mod.doneStyle.badge}`}>
+                    <CheckCircle2 size={16} className="shrink-0" /> Daily Done
                   </div>
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-slate-800 group-hover:text-white transition-colors">
