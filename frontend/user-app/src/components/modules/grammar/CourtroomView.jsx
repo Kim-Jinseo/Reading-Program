@@ -266,36 +266,36 @@ export const CourtroomView = ({ onBack }) => {
   const currentCaseInLevel = caseInLevel + 1;
 
   return (
-    <div className="max-w-4xl mx-auto pt-4 pb-12">
+    <div className="max-w-4xl mx-auto pt-2 sm:pt-4 pb-8 sm:pb-12">
       {/* Top Header Controls */}
-      <div className="flex items-center justify-between mb-8">
-        <button onClick={returnToMenu} className="flex items-center gap-2 text-slate-500 hover:text-slate-800 font-bold transition-colors">
-          <ChevronLeft size={20}/> Leave Level
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-8">
+        <button onClick={returnToMenu} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 font-bold transition-colors text-xs sm:text-base self-start sm:self-auto">
+          <ChevronLeft size={18}/><span className="hidden sm:inline">Leave Level</span><span className="sm:hidden">Leave</span>
         </button>
 
-        <div className="flex items-center gap-6 bg-white px-6 py-2.5 rounded-full border border-slate-200 shadow-sm relative overflow-hidden">
+        <div className="flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-6 bg-white px-3 py-2 sm:px-6 sm:py-2.5 rounded-2xl sm:rounded-full border border-slate-200 shadow-sm relative overflow-hidden">
           {/* Damage Flash Effect over Health Bar */}
           {damageFlash && <div className="absolute inset-0 bg-rose-500/20 animate-pulse"></div>}
           
-          <div className="flex items-center gap-1.5 relative z-10">
-            <span className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mr-1">Level:</span>
-            <span className="text-lg font-black text-indigo-600">{levelIndex + 1}</span>
+          <div className="flex items-center gap-1 relative z-10">
+            <span className="text-[10px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider">Lvl:</span>
+            <span className="text-sm sm:text-lg font-black text-indigo-600">{levelIndex + 1}</span>
           </div>
 
           <div className="h-4 w-px bg-slate-200 relative z-10"></div>
           
-          <div className="flex items-center gap-1.5 relative z-10">
-            <span className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mr-1">Case:</span>
-            <span className="text-lg font-black text-indigo-600">{currentCaseInLevel} / 5</span>
+          <div className="flex items-center gap-1 relative z-10">
+            <span className="text-[10px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider">Case:</span>
+            <span className="text-sm sm:text-lg font-black text-indigo-600">{currentCaseInLevel}/5</span>
           </div>
 
           <div className="h-4 w-px bg-slate-200 relative z-10"></div>
 
-          <div className="flex items-center gap-1.5 relative z-10">
-            <span className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mr-1">Health:</span>
+          <div className="flex items-center gap-1 relative z-10">
+            <span className="text-[10px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider hidden sm:inline">Health:</span>
             
             {/* Per-Heart Armored Shield Coverage */}
-            <div className={`flex items-center gap-2.5 transition-transform ${damageFlash ? 'scale-125' : ''}`}>
+            <div className={`flex items-center gap-1 sm:gap-2.5 transition-transform ${damageFlash ? 'scale-125' : ''}`}>
               {Array.from({ length: 3 }).map((_, i) => {
                 const maxCovered = equippedShield === 'shield_gold' ? 3 : equippedShield === 'shield_silver' ? 2 : equippedShield === 'shield_bronze' ? 1 : 0;
                 const isHeartCovered = i < maxCovered;
@@ -304,11 +304,11 @@ export const CourtroomView = ({ onBack }) => {
                 const isHeartAlive = i < strikes;
 
                 return (
-                  <div key={i} className="relative flex items-center justify-center p-1.5">
+                  <div key={i} className="relative flex items-center justify-center p-1 sm:p-1.5">
                     {/* Metallic Armor Frame around Heart */}
                     {isHeartCovered && (
                       <div 
-                        className={`absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none ${
+                        className={`absolute inset-0 rounded-xl sm:rounded-2xl transition-all duration-300 pointer-events-none ${
                           isShattering 
                             ? 'animate-ping border-4 border-amber-300 bg-amber-400/80 scale-150 opacity-0 z-30' 
                             : isShieldActive 
@@ -325,7 +325,7 @@ export const CourtroomView = ({ onBack }) => {
                     {/* Armored Shield Crest Icon at top corner */}
                     {isHeartCovered && isShieldActive && !isShattering && (
                       <Shield 
-                        size={13} 
+                        size={11} 
                         className={`absolute -top-1 -right-1 z-20 transition-all ${
                           equippedShield === 'shield_gold' 
                             ? 'text-amber-700 fill-amber-400 drop-shadow-[0_2px_4px_rgba(245,158,11,0.8)] animate-pulse' 
@@ -338,8 +338,8 @@ export const CourtroomView = ({ onBack }) => {
 
                     {/* Heart Icon */}
                     <Heart 
-                      size={22} 
-                      className={`relative z-10 transition-all duration-300 ${
+                      size={18} 
+                      className={`relative z-10 transition-all duration-300 sm:w-[22px] sm:h-[22px] ${
                         isHeartAlive 
                           ? 'text-rose-500 fill-rose-500 drop-shadow-[0_2px_4px_rgba(244,63,94,0.4)]' 
                           : 'text-slate-300 fill-slate-200 opacity-40 scale-90'
@@ -354,7 +354,7 @@ export const CourtroomView = ({ onBack }) => {
       </div>
 
       {/* Main Workspace */}
-      <div className={`relative bg-white rounded-[3rem] border-4 shadow-xl overflow-hidden p-10 transition-all duration-300 ${
+      <div className={`relative bg-white rounded-2xl sm:rounded-[3rem] border-2 sm:border-4 shadow-xl overflow-hidden p-4 sm:p-8 lg:p-10 transition-all duration-300 ${
         shake 
           ? 'animate-shake border-rose-500 shadow-rose-200 bg-rose-50/30' 
           : correctFlash 
@@ -364,35 +364,35 @@ export const CourtroomView = ({ onBack }) => {
         
         {/* Shield Absorb Mistake Floating Toast Banner */}
         {shieldAbsorbFlash && (
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-white font-black px-6 py-2.5 rounded-full shadow-2xl border-2 border-yellow-200 flex items-center gap-2.5 animate-in slide-in-from-top-4 duration-300 text-sm whitespace-nowrap">
-            <Shield size={20} className="text-yellow-100 fill-yellow-200 animate-bounce shrink-0" />
+          <div className="absolute top-2 sm:top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-white font-black px-4 py-2 sm:px-6 sm:py-2.5 rounded-full shadow-2xl border-2 border-yellow-200 flex items-center gap-2 sm:gap-2.5 animate-in slide-in-from-top-4 duration-300 text-xs sm:text-sm whitespace-nowrap">
+            <Shield size={18} className="text-yellow-100 fill-yellow-200 animate-bounce shrink-0" />
             <span>🛡️ SHIELD ABSORBED THE MISTAKE! (+1 Heart Saved)</span>
           </div>
         )}
         
         {/* The Dialogue Area (Always visible unless case cleared or lost) */}
         {gameState !== 'verdict_lost' && gameState !== 'verdict_won' && (
-          <div className="flex flex-col items-center mb-10">
-            <div className="flex items-end gap-6 w-full max-w-2xl">
+          <div className="flex flex-col items-center mb-6 sm:mb-10">
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-3 sm:gap-6 w-full max-w-2xl">
               <div className="flex flex-col items-center shrink-0">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-indigo-50 border-4 border-indigo-100 rounded-full flex items-center justify-center overflow-hidden shadow-sm mb-2">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-indigo-50 border-2 sm:border-4 border-indigo-100 rounded-full flex items-center justify-center overflow-hidden shadow-sm mb-1 sm:mb-2">
                   <img src={currentCase.witnessImage} alt={currentCase.witnessName} className="w-full h-full object-cover" />
                 </div>
-                <span className="font-extrabold text-slate-700 text-lg text-center max-w-[120px] leading-tight">{currentCase.witnessName}</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase text-center max-w-[120px]">{currentCase.witnessTitle}</span>
+                <span className="font-extrabold text-slate-700 text-sm sm:text-lg text-center max-w-[120px] leading-tight">{currentCase.witnessName}</span>
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase text-center max-w-[120px]">{currentCase.witnessTitle}</span>
               </div>
               
-              <div className="flex-1 relative">
+              <div className="flex-1 relative w-full">
                 {/* Speech Bubble Arrow */}
-                <div className="absolute -left-4 bottom-10 w-0 h-0 border-t-[15px] border-t-transparent border-r-[20px] border-r-slate-100 border-b-[15px] border-b-transparent"></div>
+                <div className="hidden sm:block absolute -left-4 bottom-10 w-0 h-0 border-t-[15px] border-t-transparent border-r-[20px] border-r-slate-100 border-b-[15px] border-b-transparent"></div>
                 
-                <div className={`rounded-3xl p-8 shadow-inner border transition-all relative ${correctFlash ? 'bg-emerald-100/90 border-emerald-400 text-emerald-950 scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-800'}`}>
-                  <p className="text-2xl font-bold leading-relaxed">
+                <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-inner border transition-all relative ${correctFlash ? 'bg-emerald-100/90 border-emerald-400 text-emerald-950 scale-[1.02]' : 'bg-slate-100 border-slate-200 text-slate-800'}`}>
+                  <p className="text-lg sm:text-2xl font-bold leading-relaxed text-center sm:text-left">
                     "{displayedTestimony}"
                   </p>
                   {correctFlash && (
-                    <div className="absolute top-4 right-4 bg-emerald-500 text-white rounded-full p-1 shadow-md animate-bounce">
-                      <CheckCircle2 size={24} />
+                    <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-emerald-500 text-white rounded-full p-1 shadow-md animate-bounce">
+                      <CheckCircle2 size={20} className="sm:w-6 sm:h-6" />
                     </div>
                   )}
                 </div>
@@ -403,22 +403,22 @@ export const CourtroomView = ({ onBack }) => {
 
         {/* STATE 1: JUDGMENT */}
         {gameState === 'judgment' && (
-          <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4">
-            <p className="text-slate-500 font-bold text-xl mb-6">
+          <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 w-full">
+            <p className="text-slate-500 font-bold text-base sm:text-xl mb-4 sm:mb-6 text-center">
               {t('courtroom_examine_statement')}
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 w-full max-w-xl">
               <button 
                 onClick={() => handleJudgment('correct')}
-                className="px-10 py-5 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 border-2 border-emerald-300 font-black text-2xl rounded-2xl shadow-sm active:translate-y-1 transition-all flex items-center gap-2"
+                className="w-full flex-1 px-4 py-3.5 sm:px-10 sm:py-5 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 border-2 border-emerald-300 font-black text-lg sm:text-2xl rounded-xl sm:rounded-2xl shadow-sm active:translate-y-1 transition-all flex items-center justify-center gap-2"
               >
-                <CheckCircle2 size={28} /> {t('courtroom_statement_correct')}
+                <CheckCircle2 size={24} className="shrink-0" /> <span>{t('courtroom_statement_correct')}</span>
               </button>
               <button 
                 onClick={() => handleJudgment('wrong')}
-                className="px-10 py-5 bg-rose-100 hover:bg-rose-200 text-rose-700 border-2 border-rose-300 font-black text-2xl rounded-2xl shadow-sm active:translate-y-1 transition-all flex items-center gap-2"
+                className="w-full flex-1 px-4 py-3.5 sm:px-10 sm:py-5 bg-rose-100 hover:bg-rose-200 text-rose-700 border-2 border-rose-300 font-black text-lg sm:text-2xl rounded-xl sm:rounded-2xl shadow-sm active:translate-y-1 transition-all flex items-center justify-center gap-2"
               >
-                <XCircle size={28} /> {t('courtroom_statement_flawed')}
+                <XCircle size={24} className="shrink-0" /> <span>{t('courtroom_statement_flawed')}</span>
               </button>
             </div>
           </div>
@@ -426,27 +426,27 @@ export const CourtroomView = ({ onBack }) => {
 
         {/* STATE 2: PRESENT EVIDENCE */}
         {gameState === 'present_evidence' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4">
-            <div className="flex flex-col items-center mb-6">
-              <h3 className="text-2xl font-black text-indigo-600 flex items-center gap-2">
+          <div className="animate-in fade-in slide-in-from-bottom-4 w-full">
+            <div className="flex flex-col items-center mb-4 sm:mb-6">
+              <h3 className="text-xl sm:text-2xl font-black text-indigo-600 flex items-center gap-2">
                 Identify the Correction
               </h3>
-              <span className="text-sm font-bold text-slate-500">Select the correct version of the sentence:</span>
+              <span className="text-xs sm:text-sm font-bold text-slate-500 text-center">Select the correct version of the sentence:</span>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 max-w-2xl mx-auto w-full">
               {(currentEvidenceOptions.length ? currentEvidenceOptions : currentCase.evidenceOptions).map((option, idx) => (
                 <button
                   key={option.id}
                   onClick={() => handlePresentEvidence(option)}
-                  className="p-6 rounded-3xl bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-left transition-all group shadow-sm flex items-start gap-5"
+                  className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-left transition-all group shadow-sm flex items-start gap-3 sm:gap-5"
                 >
-                  <span className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center font-black text-lg shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-colors">
+                  <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center font-black text-sm sm:text-lg shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-colors">
                     {String.fromCharCode(65 + idx)}
                   </span>
 
-                  <div className="flex-1">
-                    <p className="text-lg font-bold text-slate-700 mb-2 group-hover:text-indigo-900 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base sm:text-lg font-bold text-slate-700 mb-1 sm:mb-2 group-hover:text-indigo-900 transition-colors break-words">
                       "{option.text}"
                     </p>
                   </div>
@@ -464,28 +464,28 @@ export const CourtroomView = ({ onBack }) => {
           const isPurple = heartsLeft > 3;
 
           return (
-            <div className="animate-in zoom-in-95 duration-300 text-center py-6">
-              <div className={`mx-auto w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full flex items-center justify-center mb-6 shadow-md ${
+            <div className="animate-in zoom-in-95 duration-300 text-center py-4 sm:py-6">
+              <div className={`mx-auto w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-md ${
                 isPurple 
                   ? 'bg-purple-100 border-4 border-purple-500 text-purple-600 animate-pulse shadow-[0_0_25px_rgba(168,85,247,0.5)]' 
                   : 'bg-emerald-100 border-4 border-emerald-400 text-emerald-500 animate-bounce shadow-sm'
               }`}>
-                {isPurple ? <Star size={64} className="fill-purple-500 text-purple-600" /> : <CheckCircle2 size={64} />}
+                {isPurple ? <Star size={48} className="fill-purple-500 text-purple-600 sm:w-16 sm:h-16" /> : <CheckCircle2 size={48} className="sm:w-16 sm:h-16" />}
               </div>
 
-              <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+              <h2 className={`text-3xl sm:text-5xl font-black mb-3 sm:mb-4 tracking-tight ${
                 isPurple ? 'text-purple-600 drop-shadow-sm' : 'text-emerald-500'
               }`}>
                 LEVEL {levelIndex + 1} CLEARED!
               </h2>
 
               {isPurple ? (
-                <div className="flex flex-col items-center gap-2 mb-8">
-                  <div className="inline-flex items-center gap-3 bg-purple-100 border-2 border-purple-300 px-6 py-3 rounded-full text-purple-700 font-black text-2xl shadow-md">
-                    <Star size={32} className="fill-purple-500 text-purple-600 animate-bounce" />
+                <div className="flex flex-col items-center gap-2 mb-6 sm:mb-8">
+                  <div className="inline-flex items-center gap-2 sm:gap-3 bg-purple-100 border-2 border-purple-300 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-purple-700 font-black text-lg sm:text-2xl shadow-md">
+                    <Star size={24} className="fill-purple-500 text-purple-600 animate-bounce sm:w-8 sm:h-8" />
                     <span>+{starsWon} Stars Earned!</span>
                   </div>
-                  <span className="text-sm font-extrabold text-purple-500">
+                  <span className="text-xs sm:text-sm font-extrabold text-purple-500">
                     💜 PURPLE OVERCHARGE ({heartsLeft} Hearts Left)
                   </span>
                   {hasGavel && (
@@ -500,25 +500,25 @@ export const CourtroomView = ({ onBack }) => {
                      {Array.from({ length: 3 }).map((_, i) => (
                        <Heart 
                          key={i} 
-                         size={48} 
-                         className={i < strikes ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
+                         size={36} 
+                         className={`sm:w-12 sm:h-12 ${i < strikes ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'}`} 
                        />
                      ))}
                   </div>
 
-                  <div className="flex items-center justify-center gap-2 text-xl font-black text-amber-500 mb-8">
-                    <Star size={24} className="fill-amber-500 text-amber-500" /> +{starsWon} Stars Earned! {hasGavel && <span className="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">⚖️ 2x Gavel Bonus</span>}
+                  <div className="flex items-center justify-center gap-2 text-lg sm:text-xl font-black text-amber-500 mb-6 sm:mb-8">
+                    <Star size={20} className="fill-amber-500 text-amber-500 sm:w-6 sm:h-6" /> +{starsWon} Stars Earned! {hasGavel && <span className="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">⚖️ 2x Gavel Bonus</span>}
                   </div>
                 </>
               )}
 
               <button
                 onClick={returnToMenu}
-                className={`px-10 py-5 font-black text-2xl rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center gap-2 text-white ${
+                className={`w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 font-black text-lg sm:text-2xl rounded-xl sm:rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center justify-center gap-2 text-white ${
                   isPurple ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-200' : 'bg-indigo-500 hover:bg-indigo-600'
                 }`}
               >
-                Return to Level Select <ArrowRight size={24} />
+                Return to Level Select <ArrowRight size={20} className="sm:w-6 sm:h-6" />
               </button>
             </div>
           );
