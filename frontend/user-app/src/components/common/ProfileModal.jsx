@@ -71,19 +71,19 @@ export const ProfileModal = ({ onClose }) => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-sky-50 p-5 rounded-2xl border border-sky-100">
                 <p className="text-sky-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_vocab')}</p>
-                <p className="text-3xl font-extrabold text-sky-700">{user.stats?.vocab || 0}</p>
+                <p className="text-3xl font-extrabold text-sky-700">{Object.values(user.vocabStats || {}).filter(s => s === 'correct').length}</p>
               </div>
               <div className="bg-violet-50 p-5 rounded-2xl border border-violet-100">
                 <p className="text-violet-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_grammar')}</p>
-                <p className="text-3xl font-extrabold text-violet-700">{user.stats?.grammar || 0}</p>
+                <p className="text-3xl font-extrabold text-violet-700">{Object.values(user.grammarStats || {}).filter(s => s.solved).length}</p>
               </div>
               <div className="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
                 <p className="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_writing')}</p>
-                <p className="text-3xl font-extrabold text-indigo-700">{user.stats?.writing || 0}</p>
+                <p className="text-3xl font-extrabold text-indigo-700">{(user.completedWriting || []).length}</p>
               </div>
               <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-100">
                 <p className="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-1">{t('stat_reading')}</p>
-                <p className="text-3xl font-extrabold text-emerald-700">{user.stats?.reading || 0}</p>
+                <p className="text-3xl font-extrabold text-emerald-700">{(user.completedReading || []).length}</p>
               </div>
             </div>
           </>
