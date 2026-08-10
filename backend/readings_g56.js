@@ -1,4 +1,6 @@
-export const readingsG56 = [
+import { reviewReadingPack } from './reading_review.js';
+
+const rawReadingsG56 = [
   {
     "id": 301,
     "difficulty": "easy",
@@ -3350,3 +3352,5 @@ export const readingsG56 = [
     ]
   }
 ];
+
+export const readingsG56 = reviewReadingPack(rawReadingsG56);
