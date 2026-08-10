@@ -139,7 +139,6 @@ export const LeaderboardView = () => {
                       </span>
                     )}
                   </p>
-                  {student.grade && <span className="text-xs font-semibold text-slate-400">Grade {student.grade}</span>}
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -163,7 +162,6 @@ export const LeaderboardView = () => {
                       You
                     </span>
                   </p>
-                  <span className="text-xs font-semibold text-indigo-100">Grade {currentUserObj.grade || user.grade || '3-4'}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
