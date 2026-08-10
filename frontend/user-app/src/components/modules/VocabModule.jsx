@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, Activity, CheckCircle2, List, X, RotateCcw, Layers, Sparkles } from 'lucide-react';
+import { BookOpen, Activity, CheckCircle2, List, X, RotateCcw, Layers, Sparkles, Volume2 } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { getTodayString, getDailyIndexForDate } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
@@ -13,6 +13,29 @@ export const VocabModule = () => {
   // States for Tabs
   const [activeTab, setActiveTab] = useState('learn'); // 'learn' or 'list'
   const dailyStatus = getDailyStatus('vocab');
+
+  const playWordAudio = (wordText, e) => {
+    if (e) e.stopPropagation();
+    if (!wordText) return;
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(wordText);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      try {
+        const text = encodeURIComponent(wordText);
+        const token = localStorage.getItem('token');
+        const timestamp = Date.now();
+        const audioUrl = `/api/audio/tts?text=${text}&token=${token}&t=${timestamp}`;
+        const audio = new Audio(audioUrl);
+        audio.play();
+      } catch (err) {
+        console.error('Audio play error:', err);
+      }
+    }
+  };
   
   // Learn Modes
   const [mode, setMode] = useState('menu'); // 'menu', 'flash_learn', 'flash_quiz', 'flash_done', 'matching', 'matching_done'
@@ -156,6 +179,8 @@ export const VocabModule = () => {
     if (matchedIds.includes(id)) return;
     
     if (side === 'left') {
+      const matchObj = matchingData.left.find(item => item.id === id);
+      if (matchObj) playWordAudio(matchObj.word);
       setSelectedLeft(id);
       if (selectedRight) verifyMatch(id, selectedRight);
     } else {
@@ -287,6 +312,16 @@ export const VocabModule = () => {
           className="w-full aspect-[3/2] bg-white rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center justify-center cursor-pointer relative group hover:scale-[1.02] transition-transform duration-300 p-8"
         >
           <RotateCcw className="absolute top-8 right-8 text-slate-300 group-hover:text-amber-400 transition-colors" />
+          
+          <button 
+            onClick={(e) => playWordAudio(frontText, e)} 
+            className="absolute top-8 left-8 p-3 bg-sky-50 hover:bg-sky-100 text-sky-600 rounded-2xl transition-transform active:scale-95 shadow-sm flex items-center gap-2 font-extrabold text-sm border border-sky-200/70 z-10"
+            title="Listen to pronunciation"
+          >
+            <Volume2 size={22} />
+            <span className="hidden sm:inline">Listen 🔊</span>
+          </button>
+
           {!isFlipped[idx] ? (
              <h2 className="text-5xl md:text-7xl font-extrabold text-slate-800 tracking-tight text-center animate-in zoom-in-95">{frontText}</h2>
           ) : (
@@ -322,8 +357,17 @@ export const VocabModule = () => {
         <button onClick={leaveEarly} className="absolute top-0 right-0 p-4 text-slate-400 hover:text-rose-500 transition-colors">
            <X size={32} />
         </button>
-        <p className="text-slate-400 font-bold mb-8 uppercase tracking-wider text-sm">Question {idx + 1} of {quizData.length}</p>
-        <h2 className="text-4xl font-extrabold text-slate-800 mb-14 leading-relaxed">{q.prompt}</h2>
+        <p className="text-slate-400 font-bold mb-6 uppercase tracking-wider text-sm">Question {idx + 1} of {quizData.length}</p>
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <h2 className="text-4xl font-extrabold text-slate-800 leading-relaxed">{q.prompt}</h2>
+          <button 
+            onClick={(e) => playWordAudio(q.word || q.prompt, e)}
+            className="p-3 bg-sky-100 hover:bg-sky-200 text-sky-700 rounded-full transition-transform active:scale-95 shadow-sm"
+            title="Listen to pronunciation"
+          >
+            <Volume2 size={24} />
+          </button>
+        </div>
         <div className="grid grid-cols-1 gap-4">
           {q.options.map(opt => (
             <button 
@@ -552,6 +596,14 @@ export const VocabModule = () => {
                   onClick={() => toggleFlip(word.id)}
                   className={`bg-white p-6 rounded-2xl border-2 shadow-sm cursor-pointer aspect-video flex flex-col justify-center items-center relative group transition-all hover:-translate-y-1 ${borderColor}`}
                 >
+                  <button 
+                    onClick={(e) => playWordAudio(word.word, e)}
+                    className="absolute top-2.5 right-2.5 p-1.5 text-slate-400 hover:text-sky-600 hover:bg-sky-50 rounded-full transition-colors z-10"
+                    title="Listen to pronunciation"
+                  >
+                    <Volume2 size={18} />
+                  </button>
+
                   {!isFlipped[word.id] ? (
                     <span className={`font-extrabold text-lg text-slate-800 ${textColor}`}>{word.word}</span>
                   ) : (
