@@ -733,16 +733,10 @@ export const GrammarModule = () => {
 
   // BANK - DONE SCREEN
   if (mode === 'done') {
-    const totalPotentialStars = activeQueue.reduce((acc, q) => acc + q.difficulty, 0);
-    const starRatio = totalPotentialStars > 0 ? sessionScore / totalPotentialStars : 1;
-    let earnedStars = 3;
-    if (starRatio < 0.5) earnedStars = 1;
-    else if (starRatio < 0.9) earnedStars = 2;
-
     return (
       <ScoreScreen 
-        stars={earnedStars} 
-        customMessage={`Great practice session! You earned ${sessionScore} stars.`} 
+        stars={sessionScore} 
+        customMessage="Great practice session! Keep up the good work." 
         onContinue={resetToMenu} 
         onRetry={wrongQueue.length > 0 ? handleBankTryAgain : undefined}
       />

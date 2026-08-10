@@ -84,7 +84,7 @@ export const ScoreScreen = ({ stars, onRetry, onContinue, customMessage }) => {
       
       {/* Prominent Star Earnings Badge */}
       {(() => {
-        const actualStars = stars >= 4 ? 5 : (stars || 0);
+        const actualStars = stars || 0;
         return (
           <div className={`inline-flex items-center gap-2 border-2 px-6 py-2 rounded-full font-black text-lg shadow-md mb-6 transition-all duration-500 ${
             isPurplePhase 
