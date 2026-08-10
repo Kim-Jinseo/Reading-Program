@@ -618,6 +618,7 @@ export const VoiceJump = ({ onBack }) => {
           mimeType: audioMimeType,
           targetSentence: word,
           grade: grade || '3rd Grade',
+          isVoiceBattle: true
         }),
       });
       const data = await res.json();

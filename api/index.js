@@ -599,59 +599,92 @@ app.post('/audio/evaluate', async (c) => {
       
       const heardWords = h.split(/\s+/).filter(w => w.length > 0);
       const targetWords = t.split(/\s+/).filter(w => w.length > 0);
+      const isVoiceBattle = extras.isVoiceBattle === true;
 
       const sim = calculateLevenshteinSimilarity(h, t);
 
-      // Soundex check for single word targets (Ultra Lenient for Accents)
-      let soundexMatch = false;
-      if (targetWords.length === 1 && heardWords.length > 0) {
-        const targetSoundex = getSoundex(t).substring(0, 2);
-        for (const hw of heardWords) {
-           if (getSoundex(hw).substring(0, 2) === targetSoundex && hw.length > 1) {
-              soundexMatch = true;
-              break;
-           }
-        }
-      }
+      if (isVoiceBattle) {
+         // Voice Battle Logic: Handle single words transcribed as multiple (e.g. "st re am")
+         const hMerged = h.replace(/\s+/g, '');
+         const simMerged = calculateLevenshteinSimilarity(hMerged, t);
+         
+         let soundexMatch = false;
+         if (targetWords.length === 1 && heardWords.length > 0) {
+            const targetSoundex = getSoundex(t).substring(0, 2);
+            for (const hw of heardWords) {
+               if (getSoundex(hw).substring(0, 2) === targetSoundex && hw.length > 1) {
+                  soundexMatch = true;
+                  break;
+               }
+            }
+            if (!soundexMatch && hMerged.length > 1) {
+               if (getSoundex(hMerged).substring(0, 2) === targetSoundex) {
+                  soundexMatch = true;
+               }
+            }
+         }
 
-      if (soundexMatch) {
-        finalScore = 3;
-        finalFeedback = `Hit! (${deepgramTranscript})`;
-      } else if (sim >= 0.75 || h.includes(t)) {
-        finalScore = 3;
-        finalFeedback = `Hit! (${deepgramTranscript})`;
-      } else if (sim >= 0.55) {
-        finalScore = 2;
-        finalFeedback = `Good! (${deepgramTranscript})`;
-      } else if (sim >= 0.20) {
-        finalScore = 1;
-        finalFeedback = `Close! (${deepgramTranscript})`;
-      } else if (h.length > 0) {
-        // Fallback for multi-word phrases if full phrase similarity fails but individual words match well
-        let bestMatchScore = 0;
-        targetWords.forEach(tw => {
-          let wordScore = 0;
-          heardWords.forEach(hw => {
-             const s = calculateLevenshteinSimilarity(hw, tw);
-             if (s >= 0.75) wordScore = Math.max(wordScore, 3);
-             else if (s >= 0.55) wordScore = Math.max(wordScore, 2);
-             else if (s >= 0.20) wordScore = Math.max(wordScore, 1);
-          });
-          bestMatchScore += wordScore;
-        });
-        
-        const avgScore = targetWords.length > 0 ? bestMatchScore / targetWords.length : 0;
-        
-        if (avgScore >= 2.5) {
+         if (simMerged >= 0.75 || soundexMatch) {
+            finalScore = 3;
+            finalFeedback = `Hit! (${deepgramTranscript})`;
+         } else if (simMerged >= 0.40 || hMerged.includes(t)) {
+            finalScore = 2;
+            finalFeedback = `Good! (${deepgramTranscript})`;
+         } else if (hMerged.length > 0) {
+            finalScore = 1; // Extremely easy 1-star (just need to speak something)
+            finalFeedback = `Close! (${deepgramTranscript})`;
+         }
+      } else {
+         // Original Keep Practicing (SpeakingModule) Logic
+         let soundexMatch = false;
+         if (targetWords.length === 1 && heardWords.length > 0) {
+           const targetSoundex = getSoundex(t).substring(0, 2);
+           for (const hw of heardWords) {
+              if (getSoundex(hw).substring(0, 2) === targetSoundex && hw.length > 1) {
+                 soundexMatch = true;
+                 break;
+              }
+           }
+         }
+
+         if (soundexMatch) {
            finalScore = 3;
            finalFeedback = `Hit! (${deepgramTranscript})`;
-        } else if (avgScore >= 1.5) {
+         } else if (sim >= 0.75 || h.includes(t)) {
+           finalScore = 3;
+           finalFeedback = `Hit! (${deepgramTranscript})`;
+         } else if (sim >= 0.55) {
            finalScore = 2;
            finalFeedback = `Good! (${deepgramTranscript})`;
-        } else if (avgScore > 0) {
+         } else if (sim >= 0.20) {
            finalScore = 1;
            finalFeedback = `Close! (${deepgramTranscript})`;
-        }
+         } else if (h.length > 0) {
+           let bestMatchScore = 0;
+           targetWords.forEach(tw => {
+             let wordScore = 0;
+             heardWords.forEach(hw => {
+                const s = calculateLevenshteinSimilarity(hw, tw);
+                if (s >= 0.75) wordScore = Math.max(wordScore, 3);
+                else if (s >= 0.55) wordScore = Math.max(wordScore, 2);
+                else if (s >= 0.20) wordScore = Math.max(wordScore, 1);
+             });
+             bestMatchScore += wordScore;
+           });
+           
+           const avgScore = targetWords.length > 0 ? bestMatchScore / targetWords.length : 0;
+           
+           if (avgScore >= 2.5) {
+              finalScore = 3;
+              finalFeedback = `Hit! (${deepgramTranscript})`;
+           } else if (avgScore >= 1.5) {
+              finalScore = 2;
+              finalFeedback = `Good! (${deepgramTranscript})`;
+           } else if (avgScore > 0) {
+              finalScore = 1;
+              finalFeedback = `Close! (${deepgramTranscript})`;
+           }
+         }
       }
       
       return c.json({ 
@@ -664,13 +697,13 @@ app.post('/audio/evaluate', async (c) => {
       });
     }
 
-    // Tier 2: Gemini Audio Evaluation Fallback
+    const isVoiceBattleGemini = extras.isVoiceBattle === true;
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const { response } = await generateContentWithRetry(ai, {
       contents: [{
         role: "user",
         parts: [
-          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON using this schema: {"speech_detected": boolean, "stars": number (0-3), "feedback": string}. If you do NOT hear any clear speech, you MUST return {"speech_detected": false, "stars": 0, "feedback": "No speech detected"}. Be very lenient and generous if you do hear speech, grade out of a maximum of 3 stars.` },
+          { text: `Analyze the audio pronunciation for: "${targetSentence}". Return ONLY JSON using this schema: {"speech_detected": boolean, "stars": number (0-3), "feedback": string}. If you do NOT hear any clear speech, you MUST return {"speech_detected": false, "stars": 0, "feedback": "No speech detected"}. ${isVoiceBattleGemini ? "This is a Voice Battle game, so make 1 star extremely easy to get (even if it's very badly pronounced), 2 stars for moderate, and 3 stars for highly accurate." : "Be very lenient and generous if you do hear speech, grade out of a maximum of 3 stars."}` },
           { inlineData: { data: base64Audio, mimeType } }
         ]
       }],
@@ -679,7 +712,13 @@ app.post('/audio/evaluate', async (c) => {
 
     const evaluation = JSON.parse(response.text.replace(/```json/g, '').replace(/```/g, '').trim());
     const speechDetected = evaluation.speech_detected === true || evaluation.speech_detected === 'true';
-    const finalScore = speechDetected ? Math.max(0, Math.min(3, Math.round(evaluation.stars))) : 0;
+    let finalScore = speechDetected ? Math.max(0, Math.min(3, Math.round(evaluation.stars))) : 0;
+    
+    // Force 1 star if speech was detected in Voice Battle to make it very easy to get 1 star
+    if (isVoiceBattleGemini && speechDetected && finalScore === 0) {
+       finalScore = 1;
+    }
+    
     const finalFeedback = speechDetected ? (evaluation.feedback || 'Good effort!') : "I couldn't hear your voice!";
 
     return c.json({ 
