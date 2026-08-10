@@ -106,11 +106,9 @@ export const AppProvider = ({ children }) => {
             })
               .then(res => {
                 if (res.status === 401) {
-                  // Token expired — clear everything and force re-login
-                  localStorage.removeItem('token');
-                  localStorage.removeItem('savedUserData');
-                  localStorage.removeItem('isGuest');
-                  setUser(null);
+                  // The backend sometimes throws spurious 401s for valid tokens.
+                  // Since tokens don't expire in this app, we trust the cached data 
+                  // and avoid aggressively logging the user out here.
                   return null;
                 }
                 if (!res.ok) return null; // Server error — keep using cached data
