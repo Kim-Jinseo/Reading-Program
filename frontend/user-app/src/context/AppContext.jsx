@@ -229,6 +229,7 @@ export const AppProvider = ({ children }) => {
 
   const handleEarnStars = (amount, moduleName, itemId) => {
     if (user && itemId) {
+      if (user.role === 'admin') return;
       setUser(prev => {
         const tracker = prev.starsTracker || {};
         const currentStarsForId = tracker[itemId] || 0;
@@ -260,6 +261,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const saveEssay = (promptId, text) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const newEssays = { ...(prev.essays || {}), [promptId]: text };
       const newState = { ...prev, essays: newEssays };
@@ -277,6 +279,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateCompletion = (moduleKey, id) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const arr = prev[moduleKey] || [];
       if (!arr.includes(id)) {
@@ -290,6 +293,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const unmasterVocab = (id) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const arr = prev.masteredVocab || [];
       const newArr = arr.filter(wId => wId !== id);
@@ -300,6 +304,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateVocabStat = (wordId, status) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const currentStats = prev.vocabStats || {};
       const newStats = { ...currentStats, [wordId]: status };
@@ -310,6 +315,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateGrammarStat = (questionId, data) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const currentStats = prev.grammarStats || {};
       const newStats = { ...currentStats, [questionId]: { ...(currentStats[questionId] || {}), ...data } };
@@ -320,6 +326,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const markDailyComplete = (moduleName, starsEarned, itemId = null, targetGrade = null) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const today = getTodayString();
       const currentDaily = prev.dailyProgress || {};
@@ -363,6 +370,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const handlePurchase = (cost, itemId) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       if ((prev.stars || 0) >= cost) {
         const newStars = prev.stars - cost;
@@ -376,6 +384,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const handleEarnBattleStars = (amount) => {
+    if (user?.role === 'admin') return;
     setUser(prev => {
       const newStars = (prev.stars || 0) + amount;
       const newTrophies = (prev.trophies !== undefined ? prev.trophies : (prev.stars || 0)) + amount;
