@@ -270,11 +270,17 @@ export const VocabModule = () => {
   };
 
   const handleFlashTryAgain = () => {
-    setQuizData(buildQuiz(learningQueue));
     setWrongQueue([]);
     setScore(0);
     setIdx(0);
-    setMode('flash_quiz');
+    setIsFlipped({});
+    setMode('flash_learn');
+  };
+
+  const handleMatchingTryAgain = () => {
+    setIdx(0);
+    setIsFlipped({});
+    setMode('flash_learn');
   };
 
   const leaveEarly = () => {
@@ -367,7 +373,7 @@ export const VocabModule = () => {
     else if (mistakeCount === 2) stars = 1;
     else if (mistakeCount === 1) stars = 2;
     const msg = stars === 3 ? "Perfect Match!" : "Good job, but keep practicing!";
-    return <ScoreScreen stars={stars} customMessage={msg} onContinue={() => setMode('menu')} hideRetry={stars === 3} onRetry={startMatching} />;
+    return <ScoreScreen stars={stars} customMessage={msg} onContinue={() => setMode('menu')} hideRetry={stars === 3} onRetry={handleMatchingTryAgain} />;
   }
 
   if (mode === 'matching') {
