@@ -448,13 +448,13 @@ export const VocabModule = () => {
             onClick={() => setActiveTab('learn')} 
             className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'learn' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
-            <Layers size={18}/> 学习模式
+            <Layers size={18}/> {t('tab_learn_mode')}
           </button>
           <button 
             onClick={() => { setActiveTab('list'); setPage(1); }} 
             className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'list' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
-            <List size={18}/> 单词表
+            <List size={18}/> {t('tab_vocab_list')}
           </button>
         </div>
         <div className="w-24"></div>

@@ -265,7 +265,7 @@ export const GrammarModule = () => {
               onClick={() => { setActiveTab('bank'); setPage(1); }}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold transition-all duration-300 ${activeTab === 'bank' ? 'bg-white text-indigo-600 shadow-md scale-105' : 'text-slate-500 hover:text-slate-700'}`}
             >
-              <List size={18}/> 题库
+              <List size={18}/> {t('tab_question_bank')}
             </button>
             <button 
               onClick={() => setMode('courtroom')}
