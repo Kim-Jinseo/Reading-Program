@@ -1,977 +1,3352 @@
-// Grade 5-6 Reading Passages (60 passages total)
-// IDs 301 to 360
-
 export const readingsG56 = [
-  // EASY (25 passages, 3 questions each, IDs 301-325)
   {
-    id: 301,
-    difficulty: "easy",
-    dayIndex: 0,
-    title: { en: "The Ancient Banyan Tree", zh: "古老榕树" },
-    text: {
-      en: "In the central square of a coastal town stands a ancient banyan tree over three hundred years old. Its aerial roots hang down from heavy branches, taking root in the fertile soil to support the massive canopy. Elderly residents gather in its cool shade to play chess.",
-      zh: "在一个沿海小镇的中央广场上，站立着一棵有着三百年以上历史的古老榕树。它的气根从重树枝上下垂，在肥沃的土壤中扎根，以支撑巨大的树冠。年老的居民聚集在它凉爽的树荫下下棋。"
+    "id": 301,
+    "difficulty": "easy",
+    "dayIndex": 0,
+    "title": {
+      "en": "The Planet Mars",
+      "zh": "火星"
     },
-    questions: [
-      { q: "How old is the ancient banyan tree in the town square?", options: ["One hundred years old", "Over three hundred years old", "Fifty years old", "Five hundred years old"], correct: 1 },
-      { q: "What grows downward from the heavy branches into the soil?", options: ["Green vines", "Aerial roots", "Wooden stakes", "Flower vines"], correct: 1 },
-      { q: "What activity do elderly residents enjoy under the banyan tree shade?", options: ["Singing songs", "Playing chess", "Drinking tea", "Reading books"], correct: 1 }
+    "text": {
+      "en": "Mars is the fourth planet from our sun in space. It looks red because there is a lot of iron dust on its rocky ground. Scientists use robotic cameras to take clear pictures of its mountains.",
+      "zh": "火星是太空里距离太阳第四近的行星。它看起来是红色的，因为它的岩石地面上有大量的铁尘。科学家使用机器人相机拍摄其山脉的清晰照片。"
+    },
+    "questions": [
+      {
+        "q": "Which position is Mars from the sun?",
+        "options": [
+          "Fourth planet",
+          "First planet",
+          "Second planet",
+          "Fifth planet"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why does Mars look red?",
+        "options": [
+          "Because of iron dust on ground",
+          "Because of red flowers",
+          "Because of hot fire",
+          "Because of red paint"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do scientists use to take pictures?",
+        "options": [
+          "Robotic cameras",
+          "Small mirrors",
+          "Big flashlights",
+          "Paper maps"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 302,
-    difficulty: "easy",
-    dayIndex: 1,
-    title: { en: "How Rainbows Form", zh: "彩虹形成原理" },
-    text: {
-      en: "Rainbows are natural optical spectacles created when sunlight interacts with suspended water droplets after rain. Each spherical raindrop acts like a microscopic glass prism, refracting and reflecting white light into a vibrant seven-color spectrum across the sky.",
-      zh: "彩虹是雨后阳光与悬浮水滴相互作用产生的天然光学奇观。每个球形雨滴就像一个微小的玻璃棱镜，在空中将白光折射和反射成鲜艳的七色光谱。"
+    "id": 302,
+    "difficulty": "easy",
+    "dayIndex": 1,
+    "title": {
+      "en": "Deep Ocean Fish",
+      "zh": "深海鱼类"
     },
-    questions: [
-      { q: "What two elements interact in the atmosphere to create a rainbow?", options: ["Wind and clouds", "Sunlight and suspended water droplets", "Dust and lightning", "Air and ozone"], correct: 1 },
-      { q: "What object does a spherical raindrop act like when sunlight hits it?", options: ["A convex mirror", "A microscopic glass prism", "A flat lens", "A dark filter"], correct: 1 },
-      { q: "How many colors make up the visible rainbow spectrum?", options: ["Five", "Seven-color spectrum", "Six", "Eight"], correct: 1 }
+    "text": {
+      "en": "Deep ocean fish live in dark waters far below the surface. Many of these fish make their own soft blue light to find food. They have large eyes to help them see in the dark sea.",
+      "zh": "深海鱼生活在水面以下深处的黑暗水域中。这些鱼中的许多鱼能发出自己的柔和蓝光来寻找食物。它们有大眼睛来帮助它们在黑暗的大海中看清东西。"
+    },
+    "questions": [
+      {
+        "q": "Where do deep ocean fish live?",
+        "options": [
+          "In dark waters far below surface",
+          "In sunny ponds",
+          "In warm rivers",
+          "On sandy beaches"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What color light do many deep fish make?",
+        "options": [
+          "Soft blue light",
+          "Bright red light",
+          "Yellow light",
+          "Green light"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do they have large eyes?",
+        "options": [
+          "To see in the dark sea",
+          "To look scary",
+          "To swim fast",
+          "To sleep better"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 303,
-    difficulty: "easy",
-    dayIndex: 2,
-    title: { en: "The Arctic Fox", zh: "北极狐" },
-    text: {
-      en: "The Arctic fox is uniquely adapted to survive extreme sub-zero temperatures in the polar tundra. Its dense fur coat changes color with seasons, turning pure white in winter for camouflage on snow and brownish-grey in summer to blend with rocks.",
-      zh: "北极狐具有独特的适应能力，可在极地苔原的极度零下温度中生存。它浓密的毛皮随季节改变颜色，冬天变成纯白色以在雪地里伪装，夏天变成棕灰色以融入岩石。"
+    "id": 303,
+    "difficulty": "easy",
+    "dayIndex": 2,
+    "title": {
+      "en": "Solar Energy",
+      "zh": "太阳能"
     },
-    questions: [
-      { q: "What extreme habitat is home to the Arctic fox?", options: ["Hot deserts", "Polar tundra with sub-zero temperatures", "Tropical forests", "Coastal marshes"], correct: 1 },
-      { q: "What color is the Arctic fox's fur during winter?", options: ["Brownish-grey", "Pure white for snow camouflage", "Dark black", "Silver grey"], correct: 1 },
-      { q: "Why does the fox's fur color change to brownish-grey in summer?", options: ["To stay cool", "To blend with tundra rocks", "To attract prey", "To shed old fur"], correct: 1 }
+    "text": {
+      "en": "Solar panels turn clean sunlight into electric power for homes. They work best on warm sunny days when the sky is clear. Using solar energy helps keep our air clean and fresh.",
+      "zh": "太阳能电池板将干净的阳光转化为供家庭使用的电能。在天空晴朗的温暖晴天，它们工作得最好。使用太阳能有助于保持我们的空气干净清新。"
+    },
+    "questions": [
+      {
+        "q": "What do solar panels turn into electric power?",
+        "options": [
+          "Clean sunlight",
+          "Wind power",
+          "Raindrops",
+          "Cold air"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do solar panels work best?",
+        "options": [
+          "On warm sunny days",
+          "On rainy nights",
+          "In snowy winter",
+          "During storms"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does solar energy help our environment?",
+        "options": [
+          "Keeps air clean and fresh",
+          "Makes weather cold",
+          "Creates rain",
+          "Stops wind"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 304,
-    difficulty: "easy",
-    dayIndex: 3,
-    title: { en: "The History of Chess", zh: "象棋历史" },
-    text: {
-      en: "Chess is an ancient strategic board game that originated in India during the 6th century under the name Chaturanga. Played on an 8x8 checkered board, two players command sixteen pieces each to outmaneuver the opponent's king.",
-      zh: "国际象棋是一种古老的战略棋盘游戏，起源于公元6世纪的印度，当时名为恰图兰卡。在一个8x8的棋盘上，两名玩家各自指挥十六个棋子，以击败对手的国王。"
+    "id": 304,
+    "difficulty": "easy",
+    "dayIndex": 3,
+    "title": {
+      "en": "The Honeybee Hive",
+      "zh": "蜜蜂蜂巢"
     },
-    questions: [
-      { q: "In which country did the game of chess originate in the 6th century?", options: ["Ancient China", "India", "Persia", "Egypt"], correct: 1 },
-      { q: "What was the ancient name of chess in India?", options: ["Shogi", "Chaturanga", "Xiangqi", "Senet"], correct: 1 },
-      { q: "How many pieces does each player command in a chess game?", options: ["Twelve", "Sixteen pieces", "Eighteen", "Twenty"], correct: 1 }
+    "text": {
+      "en": "Thousands of worker bees live together inside a large wooden hive. They fly to colorful flowers every morning to collect sweet nectar. Then they bring the nectar back home to make delicious honey.",
+      "zh": "数以千计的工蜂共同生活在一个大木蜂巢里。它们每天早上飞向五彩缤纷的花朵收集甜美的花蜜。然后它们把花蜜带回家制作美味的蜂蜜。"
+    },
+    "questions": [
+      {
+        "q": "Where do worker bees live together?",
+        "options": [
+          "Inside a large wooden hive",
+          "In tree hollows",
+          "Under rocks",
+          "In underground caves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do worker bees fly to flowers?",
+        "options": [
+          "To collect sweet nectar",
+          "To drink water",
+          "To sleep",
+          "To play games"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do bees make with the nectar?",
+        "options": [
+          "Delicious honey",
+          "Fruit juice",
+          "Flower oil",
+          "Sweet tea"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 305,
-    difficulty: "easy",
-    dayIndex: 4,
-    title: { en: "The Solar System Planets", zh: "太阳系八大行星" },
-    text: {
-      en: "Our solar system comprises eight distinct planets orbiting a central star, the Sun. The inner four rocky planets—Mercury, Venus, Earth, and Mars—are smaller, while the outer four—Jupiter, Saturn, Uranus, and Neptune—are massive gas giants.",
-      zh: "我们的太阳系包含八颗独特的行星，围绕中心恒星太阳运行。内部的四颗岩石行星——水星、金星、地球和火星——较小，而外部的四颗——木星、土星、天王星和海王星——是巨大的气体巨星。"
+    "id": 305,
+    "difficulty": "easy",
+    "dayIndex": 4,
+    "title": {
+      "en": "Wind Turbines",
+      "zh": "风力发电机"
     },
-    questions: [
-      { q: "How many distinct planets orbit the Sun in our solar system?", options: ["Seven", "Eight distinct planets", "Nine", "Ten"], correct: 1 },
-      { q: "Which planet group includes Mercury, Venus, Earth, and Mars?", options: ["Outer gas giants", "Inner four rocky planets", "Icy dwarf planets", "Asteroid belt worlds"], correct: 1 },
-      { q: "What type of planets are Jupiter, Saturn, Uranus, and Neptune?", options: ["Rocky terrestrial worlds", "Massive gas giants", "Ice moons", "Lava planets"], correct: 1 }
+    "text": {
+      "en": "Tall wind turbines stand on open grassy hills where the wind is strong. Their huge white blades turn slowly as the wind blows past. This movement drives generators to create clean electricity for towns.",
+      "zh": "高大的风力发电机立在风力强劲的开阔草丘上。当风吹过时，它们巨大的白叶片缓慢旋转。这种运动驱动发电机为城镇创造清洁电力。"
+    },
+    "questions": [
+      {
+        "q": "Where do wind turbines stand?",
+        "options": [
+          "On open grassy hills",
+          "Inside deep forests",
+          "In river valleys",
+          "On city roofs"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What color are the turbine blades?",
+        "options": [
+          "White",
+          "Red",
+          "Blue",
+          "Black"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do wind turbines create for towns?",
+        "options": [
+          "Clean electricity",
+          "Fresh water",
+          "Warm air",
+          "Rain clouds"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 306,
-    difficulty: "easy",
-    dayIndex: 5,
-    title: { en: "The Secrets of Coral Reefs", zh: "珊瑚礁的秘密" },
-    text: {
-      en: "Coral reefs are extraordinary marine ecosystems built by tiny organisms called coral polyps. Although covering less than one percent of ocean floors, reefs shelter twenty-five percent of all ocean species.",
-      zh: "珊瑚礁是由被称为珊瑚虫的微小生物建造的非凡海洋生态系统。尽管占海底面积不到百分之一，珊瑚礁却合为百分之二十五的海洋物种提供庇护。"
+    "id": 306,
+    "difficulty": "easy",
+    "dayIndex": 5,
+    "title": {
+      "en": "Ancient Pyramids",
+      "zh": "古代金字塔"
     },
-    questions: [
-      { q: "What tiny marine organisms construct coral reefs?", options: ["Sea sponges", "Coral polyps", "Algae", "Mussels"], correct: 1 },
-      { q: "What percentage of ocean floor area do coral reefs cover?", options: ["Less than one percent", "Ten percent", "Five percent", "Twenty percent"], correct: 0 },
-      { q: "What proportion of marine species find shelter in coral reefs?", options: ["Ten percent", "Twenty-five percent", "Fifty percent", "Eighty percent"], correct: 1 }
+    "text": {
+      "en": "The ancient pyramids of Egypt were built using heavy stone blocks. Thousands of workers helped move the giant stones across the dry sand. Today visitors travel from all over the world to see these historic wonders.",
+      "zh": "埃及的古代金字塔是用沉重的石块建造的。数千名工人帮助将巨石搬过干燥的沙子。今天，游客从世界各地赶来看这些历史奇迹。"
+    },
+    "questions": [
+      {
+        "q": "What were ancient pyramids built with?",
+        "options": [
+          "Heavy stone blocks",
+          "Wood logs",
+          "Clay bricks",
+          "Metal beams"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where were the giant stones moved across?",
+        "options": [
+          "Across the dry sand",
+          "Over a big river",
+          "Through mountains",
+          "Across grass"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do visitors travel from around the world?",
+        "options": [
+          "To see these historic wonders",
+          "To buy stones",
+          "To go swimming",
+          "To work there"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 307,
-    difficulty: "easy",
-    dayIndex: 6,
-    title: { en: "The Great Wall of China", zh: "万里长城" },
-    text: {
-      en: "Stretching over 13,000 miles across northern mountain ridges, the Great Wall of China is a historical landmark. Originally built during the Qin Dynasty to protect borders, it features stone watchtowers used to signal warnings.",
-      zh: "万里长城跨越北方山脊绵延一万三千多英里，是一处历史地标。最初建于秦朝以保护边境，其特征是用以发出警示信号的石制烽火台。"
+    "id": 307,
+    "difficulty": "easy",
+    "dayIndex": 6,
+    "title": {
+      "en": "The Rainforest Canopy",
+      "zh": "雨林树冠"
     },
-    questions: [
-      { q: "How long is the Great Wall of China?", options: ["5,000 miles", "Over 13,000 miles", "8,000 miles", "20,000 miles"], correct: 1 },
-      { q: "During which dynasty was the unified wall first built?", options: ["Han Dynasty", "Qin Dynasty", "Tang Dynasty", "Ming Dynasty"], correct: 1 },
-      { q: "What structures along the wall were used to send warning signals?", options: ["Fortress gates", "Stone watchtowers", "Lighthouses", "Wooden bridges"], correct: 1 }
+    "text": {
+      "en": "The rainforest canopy is the top layer formed by tall tree branches. Many colorful parrots and playful monkeys spend their lives up in these leaves. They find plenty of sweet fruits and fresh water in the high trees.",
+      "zh": "雨林树冠是由高大的树枝构成的顶层。许多色彩斑斓的鹦鹉和淘气的猴子在这些树叶里度过一生。它们在耸立的树上找到了丰富的甜水果和新鲜水。"
+    },
+    "questions": [
+      {
+        "q": "What forms the rainforest canopy?",
+        "options": [
+          "Tall tree branches",
+          "River banks",
+          "Low bushes",
+          "Underground roots"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which animals spend their lives up in the canopy?",
+        "options": [
+          "Parrots and monkeys",
+          "Bears and wolves",
+          "Fish and frogs",
+          "Lions and tigers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What food do animals find in the high trees?",
+        "options": [
+          "Sweet fruits and water",
+          "Seeds and nuts",
+          "Fish",
+          "Grass"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 308,
-    difficulty: "easy",
-    dayIndex: 7,
-    title: { en: "How Honeybees Communicate", zh: "蜜蜂如何交流" },
-    text: {
-      en: "Honeybees use a unique series of movement patterns known as the waggle dance to communicate. When a scout bee discovers rich nectar, it returns to the hive and performs figure-eight movements to indicate direction and distance.",
-      zh: "蜜蜂使用一系列被称为摇摆舞的独特运动模式来进行交流。当侦察蜂发现丰富的花蜜时，它回到蜂巢并表演字形运动以指示方向和距离。"
+    "id": 308,
+    "difficulty": "easy",
+    "dayIndex": 7,
+    "title": {
+      "en": "Great Wall of China",
+      "zh": "中国长城"
     },
-    questions: [
-      { q: "What is the unique dance honeybees use to communicate food location?", options: ["Circular spin", "Waggle dance", "Flutter hop", "Wing clap"], correct: 1 },
-      { q: "Which bee performs the communication dance inside the hive?", options: ["Queen bee", "Scout bee", "Drone bee", "Guard bee"], correct: 1 },
-      { q: "What information does the waggle dance reveal to other bees?", options: ["Weather changes", "Direction and distance to nectar", "Hive temperature", "Danger level"], correct: 1 }
+    "text": {
+      "en": "The Great Wall of China is a very famous structure built long ago. It stretches over high mountains and wide valleys for thousands of miles. Ancient soldiers built watchtowers along the wall to protect their country.",
+      "zh": "中国长城是很久以前建造的非常有名的建筑。它穿过高山和宽阔的山谷，绵延数千英里。古代士兵在长城沿线建造了烽火台来保护他们的国家。"
+    },
+    "questions": [
+      {
+        "q": "What is the Great Wall of China?",
+        "options": [
+          "A famous historic structure",
+          "A modern highway",
+          "A tall bridge",
+          "A castle"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where does the Great Wall stretch?",
+        "options": [
+          "Over high mountains and valleys",
+          "Across the ocean",
+          "Inside cities",
+          "Underground"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why did ancient soldiers build watchtowers?",
+        "options": [
+          "To protect their country",
+          "To store food",
+          "To rest",
+          "To trade goods"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 309,
-    difficulty: "easy",
-    dayIndex: 8,
-    title: { en: "The Invention of Paper", zh: "造纸术的发明" },
-    text: {
-      en: "Paper was invented in ancient China during the Han Dynasty by a court official named Cai Lun in 105 AD. He mixed tree bark, hemp, and old rags with water into a pulp, pressing it flat into lightweight writing sheets.",
-      zh: "纸张是由一位名叫蔡伦的官员于公元105年在中国汉朝发明的。他将树皮、麻和旧布与水混合成纸浆，将其平压成轻便的书写页。"
+    "id": 309,
+    "difficulty": "easy",
+    "dayIndex": 8,
+    "title": {
+      "en": "How Paper Is Made",
+      "zh": "纸张是如何制作的"
     },
-    questions: [
-      { q: "Who invented paper in ancient China in 105 AD?", options: ["Bi Sheng", "Cai Lun", "Zhang Heng", "Zu Chongzhi"], correct: 1 },
-      { q: "Which Chinese dynasty did Cai Lun serve during his invention?", options: ["Qin Dynasty", "Han Dynasty", "Tang Dynasty", "Song Dynasty"], correct: 1 },
-      { q: "What ingredients did Cai Lun mix to create pulp?", options: ["Cotton and silk", "Tree bark, hemp, and old rags", "Bamboo and leaves", "Straw and mud"], correct: 1 }
+    "text": {
+      "en": "Paper was first invented in ancient China using wood bark and water. Workers mashed materials into a wet pulp and pressed it into thin sheets. Today modern machines make paper quickly so people can write and learn.",
+      "zh": "纸最早是在中国古代用树木外皮和水发明的。工人将材料压碎成湿浆，然后将其压成薄片。今天，现代机器快速造纸，以便人们能够写作和学习。"
+    },
+    "questions": [
+      {
+        "q": "Where was paper first invented?",
+        "options": [
+          "Ancient China",
+          "Ancient Rome",
+          "Egypt",
+          "Greece"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did workers mash materials into?",
+        "options": [
+          "A wet pulp",
+          "Dry powder",
+          "Small blocks",
+          "Long threads"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do modern machines make paper quickly today?",
+        "options": [
+          "So people can write and learn",
+          "To make toys",
+          "To burn it",
+          "To build houses"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 310,
-    difficulty: "easy",
-    dayIndex: 9,
-    title: { en: "Exploring Mars", zh: "探索火星" },
-    text: {
-      en: "Mars is often called the Red Planet due to iron oxide dust coating its surface. Robotic rovers like Curiosity explore Martian craters, analyzing soil samples to search for evidence of ancient liquid water.",
-      zh: "火星由于其表面覆盖着氧化铁粉尘而常被称为红行星。像好奇号这样的机器人漫游车探索火星陨石坑，分析土壤样品以寻找古代液体水存留在迹象。"
+    "id": 310,
+    "difficulty": "easy",
+    "dayIndex": 9,
+    "title": {
+      "en": "Electric Bicycles",
+      "zh": "电动自行车"
     },
-    questions: [
-      { q: "Why does planet Mars appear reddish in color?", options: ["Hot copper lava", "Iron oxide dust coating its surface", "Red clouds", "Solar glare"], correct: 1 },
-      { q: "What type of scientific vehicles explore Martian craters?", options: ["Submarines", "Robotic rovers like Curiosity", "Space stations", "Hot air balloons"], correct: 1 },
-      { q: "What evidence are scientists searching for in Martian soil?", options: ["Gold deposits", "Evidence of ancient liquid water", "Fossil bones", "Plant roots"], correct: 1 }
+    "text": {
+      "en": "Electric bicycles use small rechargeable batteries to power a quiet motor. Riders can pedal easily up steep hills without getting too tired. They are a great way to travel around cities without polluting the air.",
+      "zh": "电动自行车使用小型可充电电池为安静的电机提供动力。骑手可以轻松骑车上陡坡，而不会太累。它们是在城市里出行而又不污染空气的好方法。"
+    },
+    "questions": [
+      {
+        "q": "What powers the quiet motor on electric bicycles?",
+        "options": [
+          "Small rechargeable batteries",
+          "Gasoline fuel",
+          "Solar panels",
+          "Wind power"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do electric bikes help riders on steep hills?",
+        "options": [
+          "Allow pedaling easily without getting tired",
+          "Make bike fly",
+          "Stop bike",
+          "Run backward"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why are electric bikes good for cities?",
+        "options": [
+          "Travel without polluting the air",
+          "Go faster than cars",
+          "Are free",
+          "Are very big"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 311,
-    difficulty: "easy",
-    dayIndex: 10,
-    title: { en: "The Life of Hummingbirds", zh: "蜂鸟的生命" },
-    text: {
-      en: "Hummingbirds are the smallest birds on Earth, capable of flapping their wings up to eighty times per second. They can hover in place and even fly backward while sipping nectar from deep flowers.",
-      zh: "蜂鸟是地球上最小的鸟类，翅膀每秒可拍打高达八十次。它们可以悬停在空中，甚至可以在从深花中吸取花蜜时倒退飞行。"
+    "id": 311,
+    "difficulty": "easy",
+    "dayIndex": 10,
+    "title": {
+      "en": "The Life of Coral",
+      "zh": "珊瑚的生命"
     },
-    questions: [
-      { q: "What record do hummingbirds hold among bird species?", options: ["Fastest swimmers", "Smallest birds on Earth", "Highest fliers", "Loudest singers"], correct: 1 },
-      { q: "How many times per second can a hummingbird flap its wings?", options: ["Twenty", "Up to eighty times", "Fifty", "One hundred"], correct: 1 },
-      { q: "What unique flight maneuver can hummingbirds perform?", options: ["Gliding for miles", "Hovering and flying backward", "Diving underwater", "Flying at night"], correct: 1 }
+    "text": {
+      "en": "Coral reefs are colorful ocean habitats built by tiny living sea creatures. Thousands of bright tropical fish find shelter and food among the coral branches. Keeping ocean waters clean helps protect these delicate marine ecosystems for the future.",
+      "zh": "珊瑚礁是由微小的海洋生物建造的色彩斑斓的海洋栖息地。成千上万鲜艳的热带鱼在珊瑚枝中寻找到庇护所和食物。保持海洋水质干净有助于为未来保护这些脆弱的海洋生态系统。"
+    },
+    "questions": [
+      {
+        "q": "What builds colorful coral reefs?",
+        "options": [
+          "Tiny living sea creatures",
+          "Big whales",
+          "Dolphins",
+          "Sea birds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What finds shelter among coral branches?",
+        "options": [
+          "Bright tropical fish",
+          "Sharks",
+          "Bears",
+          "Eagles"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How can we protect delicate marine ecosystems?",
+        "options": [
+          "Keeping ocean waters clean",
+          "Fishing more",
+          "Building boats",
+          "Making noise"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 312,
-    difficulty: "easy",
-    dayIndex: 11,
-    title: { en: "The Water Cycle", zh: "水循环概览" },
-    text: {
-      en: "Water continuously cycles through Earth's atmosphere through three primary stages: evaporation, condensation, and precipitation. Heat from the Sun evaporates liquid ocean water into gas, forming clouds.",
-      zh: "水通过三个主要阶段在地球大气中不断循环：蒸发、凝结和降水。来自太阳的热量将液体海水蒸发成气体，形成云层。"
+    "id": 312,
+    "difficulty": "easy",
+    "dayIndex": 11,
+    "title": {
+      "en": "Exploring Space",
+      "zh": "探索太空"
     },
-    questions: [
-      { q: "What three main stages make up the global water cycle?", options: ["Melting, freezing, boiling", "Evaporation, condensation, precipitation", "Flowing, sinking, rising", "Heating, cooling, drying"], correct: 1 },
-      { q: "What provides the heat energy to evaporate ocean water?", options: ["Earth's core", "Heat from the Sun", "Wind friction", "Volcanic vents"], correct: 1 },
-      { q: "What forms when water vapor cools high in the atmosphere?", options: ["Ocean waves", "Clouds", "Raindrops immediately", "Wind storms"], correct: 1 }
+    "text": {
+      "en": "Astronauts travel to space aboard advanced rockets to conduct scientific experiments. They live inside a space station that orbits high above our Earth every day. Looking out the window, astronauts see our bright blue planet surrounded by black space.",
+      "zh": "宇航员乘坐先进的火箭前往太空进行科学实验。他们住在每天绕我们地球高高运行的空间站里。透过窗户看出去，宇航员能看到我们明亮的蓝色星球被黑色的太空包围着。"
+    },
+    "questions": [
+      {
+        "q": "How do astronauts travel to space?",
+        "options": [
+          "Aboard advanced rockets",
+          "In airplanes",
+          "In hot air balloons",
+          "In submarines"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do astronauts live while in space?",
+        "options": [
+          "Inside a space station",
+          "On the moon",
+          "On Mars",
+          "In a satellite"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What does Earth look like from space?",
+        "options": [
+          "Bright blue planet in black space",
+          "Red ball",
+          "Green circle",
+          "White square"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 313,
-    difficulty: "easy",
-    dayIndex: 12,
-    title: { en: "Wind Energy Turbines", zh: "风能发电机" },
-    text: {
-      en: "Wind energy is a clean, renewable resource harnessed by giant wind turbines. Atmospheric wind spins massive turbine blades, turning an electrical generator inside to produce pollution-free power.",
-      zh: "风能是一种由巨型风力发电机利用的清洁可再生资源。大气风旋转巨大的发电机叶片，转动内部的发电机以产生无污染的电力。"
+    "id": 313,
+    "difficulty": "easy",
+    "dayIndex": 12,
+    "title": {
+      "en": "The History of Trains",
+      "zh": "火车的历史"
     },
-    questions: [
-      { q: "What type of energy resource is wind power?", options: ["Fossil fuel", "Clean, renewable resource", "Non-renewable gas", "Nuclear power"], correct: 1 },
-      { q: "What part of a wind turbine is spun by atmospheric wind?", options: ["Foundation base", "Massive turbine blades", "Solar panel", "Tower pole"], correct: 1 },
-      { q: "What device inside the turbine produces electricity?", options: ["Transformer", "Electrical generator", "Battery cell", "Motor"], correct: 1 }
+    "text": {
+      "en": "The first trains were powered by steam engines that burned coal to heat water. Today modern trains run silently on fast electric tracks across long distances. They carry passengers and heavy cargo safely between busy cities every day.",
+      "zh": "第一批火车由燃烧煤炭加热水的蒸汽机提供动力。今天，现代火车在快速的电力轨道上安静地长途运行。它们每天在繁忙的城市之间安全地运送乘客和重货物。"
+    },
+    "questions": [
+      {
+        "q": "What powered the first trains?",
+        "options": [
+          "Steam engines burning coal",
+          "Electric batteries",
+          "Gasoline",
+          "Wind power"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do modern trains run today?",
+        "options": [
+          "Silently on fast electric tracks",
+          "Loudly on dirt roads",
+          "On water",
+          "Slowly on wood"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do modern trains carry between cities?",
+        "options": [
+          "Passengers and heavy cargo",
+          "Mail only",
+          "Cars only",
+          "Food only"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 314,
-    difficulty: "easy",
-    dayIndex: 13,
-    title: { en: "The Blue Whale", zh: "蓝鲸" },
-    text: {
-      en: "The blue whale is the largest animal ever known to have lived on Earth, reaching lengths of up to one hundred feet. Despite their colossal size, blue whales feed primarily on tiny ocean shrimp called krill.",
-      zh: "蓝鲸是已知地球上生活过的最大的动物，体长可达一百英尺。尽管体型庞大，蓝鲸主要以被称为磷虾的微小海洋虾类为食。"
+    "id": 314,
+    "difficulty": "easy",
+    "dayIndex": 13,
+    "title": {
+      "en": "Ocean Dolphins",
+      "zh": "海洋海豚"
     },
-    questions: [
-      { q: "What distinction does the blue whale hold among all animals?", options: ["Deepest diver", "Largest animal ever known on Earth", "Fastest swimmer", "Oldest living species"], correct: 1 },
-      { q: "How long can a mature blue whale grow?", options: ["Fifty feet", "Up to one hundred feet", "Two hundred feet", "Seventy feet"], correct: 1 },
-      { q: "What tiny sea creatures serve as the main food source for blue whales?", options: ["Small fish", "Tiny ocean shrimp called krill", "Squid", "Jellyfish"], correct: 1 }
+    "text": {
+      "en": "Dolphins are playful ocean mammals that communicate using whistles and clicks underwater. They swim together in groups called pods to hunt for small fish. Sometimes they leap high out of the blue water to show off their speed.",
+      "zh": "海豚是顽皮的海洋哺乳动物，在水下利用哨声和嗒嗒声进行交流。它们在一个叫作“豆荚”的群体里一起游泳来捕食小鱼。有时它们跃出蓝色的水面展示速度。"
+    },
+    "questions": [
+      {
+        "q": "How do dolphins communicate underwater?",
+        "options": [
+          "Using whistles and clicks",
+          "By splashing water",
+          "With light",
+          "By changing color"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is a group of dolphins called?",
+        "options": [
+          "A pod",
+          "A herd",
+          "A flock",
+          "A pack"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do dolphins swim together in pods?",
+        "options": [
+          "To hunt for small fish",
+          "To sleep",
+          "To hide",
+          "To race boats"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 315,
-    difficulty: "easy",
-    dayIndex: 14,
-    title: { en: "Ancient Egyptian Pyramids", zh: "古埃及金字塔" },
-    text: {
-      en: "Ancient Egyptians constructed giant stone pyramids as royal tombs for their pharaohs over 4,000 years ago. The Great Pyramid of Giza was built using more than two million heavy limestone blocks.",
-      zh: "四千多年前，古埃及人造了巨型石金字塔作为法老的皇家陵墓。吉萨大金字塔是用两百万多块沉重的石灰石块建造的。"
+    "id": 315,
+    "difficulty": "easy",
+    "dayIndex": 14,
+    "title": {
+      "en": "The Power of Wind",
+      "zh": "风的力量"
     },
-    questions: [
-      { q: "What was the original purpose of ancient Egyptian pyramids?", options: ["Fortresses", "Royal tombs for pharaohs", "Granaries", "Temples of sun"], correct: 1 },
-      { q: "Which famous monument was built using over two million limestone blocks?", options: ["Sphinx", "Great Pyramid of Giza", "Temple of Luxor", "Valley of Kings"], correct: 1 },
-      { q: "How many years ago were the Egyptian pyramids constructed?", options: ["2,000 years ago", "Over 4,000 years ago", "1,000 years ago", "6,000 years ago"], correct: 1 }
+    "text": {
+      "en": "Wind is created when the sun heats different parts of the Earth unevenly. Warm air rises into the sky while cooler air moves in to take its place. We can use this moving air to generate clean power for our cities.",
+      "zh": "当太阳对地球不同部位加热不均匀时，就形成了风。暖空气上升到空中，而冷空气移动进来取而代之。我们可以利用这种流动的空气为我们的城市产生清洁的电力。"
+    },
+    "questions": [
+      {
+        "q": "What creates wind on Earth?",
+        "options": [
+          "Sun heating different parts unevenly",
+          "Ocean waves",
+          "Rainfall",
+          "Trees waving"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happens when warm air rises?",
+        "options": [
+          "Cooler air moves in to take its place",
+          "Rain falls",
+          "Sun stops",
+          "Wind dies"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How can we use moving air?",
+        "options": [
+          "Generate clean power for cities",
+          "Make weather hot",
+          "Fly kites only",
+          "Cool ocean"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 316,
-    difficulty: "easy",
-    dayIndex: 15,
-    title: { en: "How Monarchs Migrate", zh: "黑脉金斑蝶的迁徙" },
-    text: {
-      en: "Every autumn, millions of monarch butterflies travel over two thousand miles from Canada to Mexico. They cluster on fir trees in Mexican mountain forests to stay warm throughout the winter.",
-      zh: "每年秋天，数以百万计的黑脉金斑蝶从加拿大飞行两千多英里前往墨西哥。它们聚集在墨西哥山区森林的杉树上，在整个冬季保持温暖。"
+    "id": 316,
+    "difficulty": "easy",
+    "dayIndex": 15,
+    "title": {
+      "en": "The Giant Sequoia",
+      "zh": "巨杉"
     },
-    questions: [
-      { q: "Where do monarch butterflies travel every autumn?", options: ["From Brazil to Florida", "From Canada to Mexico", "From Texas to California", "From Alaska to Hawaii"], correct: 1 },
-      { q: "How far is the migration journey of monarch butterflies?", options: ["Five hundred miles", "Over two thousand miles", "One thousand miles", "Five thousand miles"], correct: 1 },
-      { q: "Where do monarchs cluster during winter in Mexico?", options: ["In underground caves", "On fir trees in mountain forests", "On coastal palms", "Inside barns"], correct: 1 }
+    "text": {
+      "en": "Giant sequoia trees are among the largest and oldest living things on Earth. Their thick reddish bark protects them from forest fires and small insects. Some of these ancient trees have been growing in California for thousands of years.",
+      "zh": "巨杉树是地球上最大和最古老的大型生物之一。它们厚厚的红棕色树皮保护它们免受森林火灾和小昆虫的侵害。其中一些古老的树木已经在加利福尼亚生长的数千年。"
+    },
+    "questions": [
+      {
+        "q": "How are giant sequoia trees described?",
+        "options": [
+          "Largest and oldest living things",
+          "Smallest plants",
+          "Young trees",
+          "Fastest growing bushes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What protects sequoia trees from fires?",
+        "options": [
+          "Their thick reddish bark",
+          "Green leaves",
+          "Deep roots",
+          "Cold water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where have some ancient sequoias grown for thousands of years?",
+        "options": [
+          "In California",
+          "In Alaska",
+          "In Florida",
+          "In Texas"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 317,
-    difficulty: "easy",
-    dayIndex: 16,
-    title: { en: "The Discovery of Penicillin", zh: "青霉素的发明" },
-    text: {
-      en: "In 1928, Scottish scientist Alexander Fleming accidentally discovered penicillin when mold grew in a petri dish of bacteria. Penicillin became the world's first life-saving antibiotic medicine.",
-      zh: "1928年，苏格兰科学家亚历山大·弗莱明在培养皿细菌中长出霉菌时意外发现了青霉素。青霉素成为世界上第一种救命的抗生素药物。"
+    "id": 317,
+    "difficulty": "easy",
+    "dayIndex": 16,
+    "title": {
+      "en": "How Bridges Stand",
+      "zh": "桥梁是如何立稳的"
     },
-    questions: [
-      { q: "Who discovered penicillin in 1928?", options: ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Edward Jenner"], correct: 1 },
-      { q: "How was penicillin discovered in the laboratory?", options: ["By heating chemicals", "Accidentally when mold grew in a petri dish", "Through plant extraction", "By testing soil"], correct: 1 },
-      { q: "What medical milestone did penicillin achieve?", options: ["First vaccine", "World's first life-saving antibiotic medicine", "First painkiller", "First vitamin"], correct: 1 }
+    "text": {
+      "en": "Suspension bridges use strong steel cables to support heavy roads over wide rivers. The cables stretch between tall towers anchored firmly into solid ground. Engineers design these long bridges to flex safely when strong winds blow across the water.",
+      "zh": "悬索桥使用坚固的钢缆在宽阔的河流上支撑沉重的道路。钢缆在坚固固定在沉重地面上的高塔之间延伸。工程师将这些长桥设计成在强风吹过水面时能够安全地弯曲。"
+    },
+    "questions": [
+      {
+        "q": "What supports heavy roads on suspension bridges?",
+        "options": [
+          "Strong steel cables",
+          "Wooden posts",
+          "Ropes",
+          "Plastic beams"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where are the tall bridge towers anchored?",
+        "options": [
+          "Firmly into solid ground",
+          "In water only",
+          "On boats",
+          "On trees"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do engineers design bridges to flex?",
+        "options": [
+          "To flex safely during strong winds",
+          "To look pretty",
+          "To make noise",
+          "To catch fish"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 318,
-    difficulty: "easy",
-    dayIndex: 17,
-    title: { en: "Deep Ocean Hydrothermal Vents", zh: "深海热液喷口" },
-    text: {
-      en: "Hydrothermal vents on deep ocean floors spew superheated mineral-rich water from Earth's crust. Unique tubeworms and blind crabs live near these vents, deriving energy without sunlight.",
-      zh: "深海海底的热液喷口从地壳喷出超热的富含矿物质的水。独特的管虫和盲蟹生活在这些喷口附近，在没有阳光的情况下获取能量。"
+    "id": 318,
+    "difficulty": "easy",
+    "dayIndex": 17,
+    "title": {
+      "en": "The Arctic Fox",
+      "zh": "北极狐"
     },
-    questions: [
-      { q: "What do deep ocean hydrothermal vents spew into the water?", options: ["Cold fresh water", "Superheated mineral-rich water", "Gas bubbles", "Lava rocks"], correct: 1 },
-      { q: "Where are hydrothermal vents located?", options: ["Near river mouths", "On deep ocean floors", "In coral reefs", "On island shores"], correct: 1 },
-      { q: "How do tubeworms and crabs survive near dark hydrothermal vents?", options: ["They swim up for light", "They derive energy without sunlight", "They eat floating plants", "They sleep constantly"], correct: 1 }
+    "text": {
+      "en": "The Arctic fox has thick white fur that matches the surrounding winter snow. This warm fur coat helps the small animal hide from danger and stay warm in freezing cold. In summer, its fur turns brown to blend in with rocks and dirt.",
+      "zh": "北极狐有着厚厚的白皮毛，与周围冬天的雪相匹配。这件温暖的皮毛外套有助于这种小动物躲避危险，并在严寒中保持温暖。夏天，它的皮毛变成棕色，与岩石和泥土融为一体。"
+    },
+    "questions": [
+      {
+        "q": "What color is the Arctic fox's fur in winter?",
+        "options": [
+          "White",
+          "Brown",
+          "Grey",
+          "Black"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does thick white fur help the fox?",
+        "options": [
+          "Hides from danger and stays warm",
+          "Helps it swim",
+          "Makes it run fast",
+          "Helps it climb"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What color does its fur turn in summer?",
+        "options": [
+          "Brown",
+          "White",
+          "Yellow",
+          "Red"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 319,
-    difficulty: "easy",
-    dayIndex: 18,
-    title: { en: "The History of Bicycles", zh: "自行车的历史" },
-    text: {
-      en: "The earliest bicycle prototype was invented in 1817 by Baron Karl von Drais in Germany. Lacking pedals or chains, riders moved by pushing their feet against the ground while steering.",
-      zh: "最早的自行车原型于1817年由德国的卡尔·冯·德赖斯男爵发明。由于没有脚踏板或链条，骑行者通过用脚抵住地面推前来进行方向操纵。"
+    "id": 319,
+    "difficulty": "easy",
+    "dayIndex": 18,
+    "title": {
+      "en": "Invention of the Light Bulb",
+      "zh": "灯泡的发明"
     },
-    questions: [
-      { q: "Who invented the earliest wooden bicycle running machine in 1817?", options: ["John Starley", "Baron Karl von Drais", "Henry Ford", "Kirkpatrick Macmillan"], correct: 1 },
-      { q: "What components were missing from the 1817 bicycle design?", options: ["Wheels", "Pedals or chains", "Seat", "Handlebars"], correct: 1 },
-      { q: "How did riders propel the earliest 1817 machine forward?", options: ["By hand crank", "By pushing feet against the ground", "By steam engine", "By pulling a rope"], correct: 1 }
+    "text": {
+      "en": "Thomas Edison invented a long-lasting electric light bulb in eighteen seventy-nine. Before his invention, people used wax candles and oil lamps to light their homes at night. Today electric light bulbs brighten houses, schools, and streets all around the world.",
+      "zh": "托马斯·爱迪生于一八七九年发明的耐用的白炽灯泡。在他的发明之前，人们在晚上使用蜡烛和油灯给家里照明。今天，电灯泡照亮了世界各地的房屋、学校和街道。"
+    },
+    "questions": [
+      {
+        "q": "Who invented a long-lasting electric light bulb?",
+        "options": [
+          "Thomas Edison",
+          "Benjamin Franklin",
+          "Alexander Bell",
+          "James Watt"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did people use before the light bulb was invented?",
+        "options": [
+          "Wax candles and oil lamps",
+          "Torches only",
+          "Solar lights",
+          "Flashlights"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was the light bulb invented?",
+        "options": [
+          "In 1879",
+          "In 1900",
+          "In 1850",
+          "In 1920"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 320,
-    difficulty: "easy",
-    dayIndex: 19,
-    title: { en: "How Volcanoes Form", zh: "火山形成" },
-    text: {
-      en: "Volcanoes form when molten rock called magma forces its way up from Earth's deep mantle. When magma breaks through surface vents, it is called lava, cooling into new volcanic landforms.",
-      zh: "当被称为岩浆的融化岩石从地球深处地幔向上冲时，火山就形成了。当岩浆破表喷口而出时，它被称为熔岩，冷却成新的火山地形。"
+    "id": 320,
+    "difficulty": "easy",
+    "dayIndex": 19,
+    "title": {
+      "en": "Hydroelectric Dams",
+      "zh": "水力发电坝"
     },
-    questions: [
-      { q: "What is underground molten rock called before eruption?", options: ["Lava", "Magma", "Basalt", "Ash"], correct: 1 },
-      { q: "What is molten rock called once it flows out onto Earth's surface?", options: ["Magma", "Lava", "Pumice", "Granite"], correct: 1 },
-      { q: "Where does magma originate inside planet Earth?", options: ["Ocean crust", "Deep mantle", "Atmosphere", "Core center"], correct: 1 }
+    "text": {
+      "en": "Hydroelectric dams use the power of flowing river water to create clean electricity. Water rushes through giant pipes and turns heavy turbine wheels fast. This reliable green energy powers thousands of nearby homes without burning coal.",
+      "zh": "水力发电坝利用流动的河水动力来创造清洁的电力。水流过巨型管道，快速转动沉重的水轮机轮。这种可靠的绿色能源为附近的数千户家庭提供动力，而无需烧煤。"
+    },
+    "questions": [
+      {
+        "q": "What do hydroelectric dams use to create electricity?",
+        "options": [
+          "Power of flowing river water",
+          "Wind energy",
+          "Solar light",
+          "Coal burning"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What turns heavy turbine wheels inside the dam?",
+        "options": [
+          "Water rushing through giant pipes",
+          "Wind currents",
+          "Steam",
+          "Motors"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is an advantage of hydroelectric energy?",
+        "options": [
+          "Powers homes without burning coal",
+          "Makes water hot",
+          "Stops river flow",
+          "Is free"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 321,
-    difficulty: "easy",
-    dayIndex: 20,
-    title: { en: "Sea Turtle Nesting", zh: "海龟产卵" },
-    text: {
-      en: "Female sea turtles swim thousands of miles to nest on the exact sandy beach where they hatched. Under moonlight, a mother turtle digs a sandy hole, lays 100 eggs, and returns to the ocean.",
-      zh: "雌海龟游泳数千英里，在它们孵化的确切沙滩上产卵。在月光下，母海龟挖一个沙坑，产下100个蛋，然后返回大海。"
+    "id": 321,
+    "difficulty": "easy",
+    "dayIndex": 20,
+    "title": {
+      "en": "The Desert Camel",
+      "zh": "沙漠骆驼"
     },
-    questions: [
-      { q: "Where do female sea turtles migrate to lay their eggs?", options: ["Any ocean reef", "To the exact sandy beach where they hatched", "In deep caves", "On river banks"], correct: 1 },
-      { q: "About how many eggs does a female sea turtle lay in her nest?", options: ["Ten", "100 eggs", "Twenty", "Five hundred"], correct: 1 },
-      { q: "When do mother sea turtles usually dig their nests?", options: ["At noon", "Under moonlight at night", "At early sunrise", "During storms"], correct: 1 }
+    "text": {
+      "en": "Camels are tough animals well suited for living in dry hot desert environments. They store fat in their back humps to use for energy when food is scarce. Their wide padded feet help them walk across soft sand without sinking.",
+      "zh": "骆驼是强壮的动物，非常适合生活在干燥炎热的沙漠环境中。当食物匮乏时，它们在背部的驼峰里储存脂肪作为能量。它们宽大的有垫脚掌有助于它们在软沙上行走而不会下沉。"
+    },
+    "questions": [
+      {
+        "q": "Where do camels live?",
+        "options": [
+          "Dry hot desert environments",
+          "Cold snowy mountains",
+          "Rainforests",
+          "Grassy wetlands"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do camels store in their back humps?",
+        "options": [
+          "Fat for energy",
+          "Water",
+          "Food",
+          "Sand"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do wide padded feet help camels?",
+        "options": [
+          "Help them walk on sand without sinking",
+          "Make them swim",
+          "Help them jump high",
+          "Keep them cold"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 322,
-    difficulty: "easy",
-    dayIndex: 21,
-    title: { en: "The Chameleon's Camouflage", zh: "变色龙的伪装" },
-    text: {
-      en: "Chameleons change skin color using specialized pigment cells that expand or contract. Temperature, sunlight, and emotion influence color shifts to help them camouflage from predators.",
-      zh: "变色龙利用膨胀或收缩的专用色素细胞改变皮肤颜色。温度、阳光和情绪影响颜色转变，帮助它们在捕食者面前伪装。"
+    "id": 322,
+    "difficulty": "easy",
+    "dayIndex": 21,
+    "title": {
+      "en": "The Great Barrier Reef",
+      "zh": "大堡礁"
     },
-    questions: [
-      { q: "How do chameleons change their skin color?", options: ["By shedding skin", "Using specialized pigment cells that expand or contract", "By absorbing dye", "Through water spray"], correct: 1 },
-      { q: "What environmental factor influences chameleon color shifts?", options: ["Air pressure", "Temperature and sunlight", "Noise level", "Wind speed"], correct: 1 },
-      { q: "What primary benefit does color change provide chameleons?", options: ["Faster movement", "Camouflage from predators", "Better vision", "Attracting insects"], correct: 1 }
+    "text": {
+      "en": "The Great Barrier Reef is the world's largest coral reef system located off Australia. It can be seen from space because of its huge size and bright colors. Protecting this marine wonder ensures hundreds of ocean species remain safe.",
+      "zh": "大堡礁是位于澳大利亚海岸的世界上最大的珊瑚礁系统。从太空都可以看到它，因为它庞大的规模和鲜艳的色彩。保护这一海洋奇观可以确保数百种海洋物种保持安全。"
+    },
+    "questions": [
+      {
+        "q": "Where is the Great Barrier Reef located?",
+        "options": [
+          "Off Australia",
+          "Off America",
+          "Near Africa",
+          "In Asia"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why can the reef be seen from space?",
+        "options": [
+          "Huge size and bright colors",
+          "It glows in dark",
+          "It has lights",
+          "It is on land"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting the reef important?",
+        "options": [
+          "Ensures ocean species remain safe",
+          "Makes boats fast",
+          "Helps fishing",
+          "Creates islands"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 323,
-    difficulty: "easy",
-    dayIndex: 22,
-    title: { en: "How Owls Hunt at Night", zh: "猫头鹰夜间捕食" },
-    text: {
-      en: "Owls possess large fixed eyes and acute hearing to locate prey in total night darkness. Soft serrated feathers on their wing edges muffle airflow, allowing completely silent flight.",
-      zh: "猫头鹰拥有固定的大眼睛和敏锐的听觉，能在全黑夜中定位猎物。翅膀边缘柔软的锯齿状羽毛缓和气流，实现完全静音飞行。"
+    "id": 323,
+    "difficulty": "easy",
+    "dayIndex": 22,
+    "title": {
+      "en": "Telescopes in Astronomy",
+      "zh": "天文学中的望远镜"
     },
-    questions: [
-      { q: "Why are owls effective nighttime hunters?", options: ["Bright feathers", "Large fixed eyes and acute hearing", "Fast diving speed", "Strong beaks"], correct: 1 },
-      { q: "What special feather feature allows owls to fly silently?", options: ["Oil coating", "Soft serrated feathers on wing edges", "Short quills", "Heavy down"], correct: 1 },
-      { q: "Can an owl roll its eyes inside its eye sockets?", options: ["Yes", "No, their large eyes are fixed", "Only at night", "When sleeping"], correct: 1 }
+    "text": {
+      "en": "Telescopes help astronomers look deep into distant space to discover new stars. They use curved glass lenses and mirrors to make dim objects look bright and clear. Space telescopes like Hubble take amazing photos of galaxies far away.",
+      "zh": "望远镜帮助天文学家深入遥远的太空发现新恒星。它们使用弯曲的玻璃镜头和镜子使暗淡的物体看起来明亮清晰。像哈勃这样的空间望远镜拍摄了遥远星系的惊人照片。"
+    },
+    "questions": [
+      {
+        "q": "How do telescopes help astronomers?",
+        "options": [
+          "Look deep into space to discover stars",
+          "Predict weather",
+          "Measure temperature",
+          "Fly to space"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do telescopes use to make dim objects look clear?",
+        "options": [
+          "Curved glass lenses and mirrors",
+          "Bright flashlights",
+          "Lasers",
+          "Prisms"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What famous space telescope takes photos of galaxies?",
+        "options": [
+          "Hubble",
+          "Apollo",
+          "Voyager",
+          "Rover"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 324,
-    difficulty: "easy",
-    dayIndex: 23,
-    title: { en: "The Amazon Rainforest", zh: "亚马逊热带雨林" },
-    text: {
-      en: "The Amazon Rainforest in South America is the largest tropical forest, generating 20% of Earth's oxygen. It shelters over one million plant and animal species across nine countries.",
-      zh: "南美洲的亚马逊雨林是最大的热带森林，创造了地球20%的氧气。它在九个国家庇护着超过一百万种动植物物种。"
+    "id": 324,
+    "difficulty": "easy",
+    "dayIndex": 23,
+    "title": {
+      "en": "The Honeybee Dance",
+      "zh": "蜜蜂之舞"
     },
-    questions: [
-      { q: "What percentage of Earth's oxygen is produced by the Amazon Rainforest?", options: ["5%", "20%", "50%", "35%"], correct: 1 },
-      { q: "On which continent is the Amazon Rainforest located?", options: ["Africa", "South America", "Asia", "North America"], correct: 1 },
-      { q: "Across how many South American countries does the Amazon stretch?", options: ["Five", "Nine countries", "Twelve", "Seven"], correct: 1 }
+    "text": {
+      "en": "When a worker bee finds fresh flowers, it returns to the hive to share news. It performs a figure-eight waggle dance to show other bees the exact direction. This clever communication helps the colony find food quickly without getting lost.",
+      "zh": "当工蜂找到新鲜的花朵时，它会返回蜂巢分享消息。它表演八字形摆尾舞，向其他蜜蜂展示确切的方向。这种聪明的交流有助于蜂群快速找到食物而不迷路。"
+    },
+    "questions": [
+      {
+        "q": "What does a worker bee do after finding fresh flowers?",
+        "options": [
+          "Returns to hive to share news",
+          "Eats all nectar alone",
+          "Sleeps",
+          "Flies away"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What shape is the waggle dance?",
+        "options": [
+          "Figure-eight",
+          "Circle",
+          "Square",
+          "Straight line"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does the dance help the colony?",
+        "options": [
+          "Find food quickly without getting lost",
+          "Scare enemies",
+          "Keep warm",
+          "Make honey fast"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 325,
-    difficulty: "easy",
-    dayIndex: 24,
-    title: { en: "How Bicycles Stay Balanced", zh: "自行车平衡原理" },
-    text: {
-      en: "Bicycles maintain stability through a combination of forward momentum, steering geometry, and gyroscopic forces from rotating wheels. As a rider pedals, slight steering corrections keep the bike upright.",
-      zh: "自行车通过向前冲力、转向几何学和旋转车轮的陀螺仪力的结合保持稳定性。当骑行者踩踏板时，微小的转向纠正使自行车保持直立。"
+    "id": 325,
+    "difficulty": "easy",
+    "dayIndex": 24,
+    "title": {
+      "en": "The Monarch Butterfly",
+      "zh": "帝王蝶"
     },
-    questions: [
-      { q: "What force from rotating wheels helps keep a moving bicycle balanced?", options: ["Magnetic force", "Gyroscopic forces", "Friction force", "Gravity force"], correct: 1 },
-      { q: "What action by the rider keeps the bike upright while pedaling?", options: ["Braking hard", "Slight steering corrections", "Leaning backward", "Riding fast"], correct: 1 },
-      { q: "What creates initial stability for a moving bicycle?", options: ["Heavy frame", "Forward momentum", "Wide tires", "Leather seat"], correct: 1 }
-    ]
-  },
-
-  // MEDIUM (15 passages, 4 questions each, IDs 326-340)
-  {
-    id: 326,
-    difficulty: "medium",
-    dayIndex: 25,
-    title: { en: "The Invention of Printing", zh: "活字印刷术的发明" },
-    text: {
-      en: "Printing technology revolutionized human communication by making written knowledge accessible to millions. In 1040 AD, Chinese artisan Bi Sheng invented movable clay type, where individual Chinese characters were carved into reusable ceramic blocks. Four centuries later in Germany, Johannes Gutenberg developed a metal printing press with movable lead type and oil-based ink, sparking the European Renaissance.",
-      zh: "印刷技术通过使数以百万计的人获得书面知识，彻底改变了人类交流。公元1040年，中国工匠毕昇发明了活字泥版，其中单个汉字被雕刻在可重复使用的陶瓷块上。四个世纪后在德国，约翰内斯·谷登堡开发了带有可移动铅字和油基墨水的金属印刷机，引发了欧洲文艺复兴。"
+    "text": {
+      "en": "Monarch butterflies travel thousands of miles every autumn from Canada to Mexico. They migrate in huge orange flocks to escape freezing cold northern winters. After resting in warm mountain forests, they fly back north when spring arrives.",
+      "zh": "帝王蝶每年秋天从加拿大飞到墨西哥，飞行数千英里。它们成群结队地迁移，以躲避北方寒冷的冬天。在温暖的高山森林里休息后，当春天到来时，它们飞回北方。"
     },
-    questions: [
-      { q: "Who invented movable clay type printing in China in 1040 AD?", options: ["Cai Lun", "Bi Sheng", "Shen Kuo", "Wang Anshi"], correct: 1 },
-      { q: "What material did Bi Sheng use to carve reusable character blocks?", options: ["Wood", "Ceramic clay", "Lead metal", "Stone"], correct: 1 },
-      { q: "What metal alloy did Johannes Gutenberg use for movable type in Germany?", options: ["Iron", "Lead metal", "Copper", "Bronze"], correct: 1 },
-      { q: "What historical era in Europe was sparked by the widespread printing press?", options: ["Industrial Revolution", "European Renaissance", "Middle Ages", "Enlightenment"], correct: 1 }
-    ]
-  },
-  {
-    id: 327,
-    difficulty: "medium",
-    dayIndex: 26,
-    title: { en: "The Secrets of Coral Reefs", zh: "珊瑚礁的生态机制" },
-    text: {
-      en: "Coral reefs are among the most biodiversity-dense habitats on Earth, sheltering a quarter of all marine species despite occupying less than 0.1% of the ocean surface. Reef structures are formed by colonies of microscopic coral polyps that secrete hard calcium carbonate exoskeletons. These living structures protect coastlines from storm waves, absorb carbon, and provide nursery grounds for commercial fish species.",
-      zh: "珊瑚礁是地球上生物多样性最密集的栖息地之一，尽管占海洋表面的不到0.1%，却庇护着所有海洋物种的四分之一。珊瑚礁结构是由微小的珊瑚虫群落形成的，它们分泌坚硬的碳酸钙外骨骼。这些活体结构保护海岸线免受风暴潮袭击，吸收碳，并为商业鱼类提供育儿场所。"
-    },
-    questions: [
-      { q: "What proportion of marine species depend on coral reefs for survival?", options: ["Five percent", "One quarter (25%)", "Half", "Ten percent"], correct: 1 },
-      { q: "What mineral compound forms the protective exoskeletons of coral polyps?", options: ["Silicon dioxide", "Calcium carbonate", "Sodium chloride", "Magnesium oxide"], correct: 1 },
-      { q: "What physical protection do coral reefs provide to coastal communities?", options: ["Block cold winds", "Protect coastlines from storm waves", "Prevent erosion only", "Stop tsunamis entirely"], correct: 1 },
-      { q: "What economic benefit do coral reefs offer to marine industries?", options: ["Provide mining gold", "Nursery grounds for commercial fish species", "Filter sea salt", "Produce oil"], correct: 1 }
+    "questions": [
+      {
+        "q": "Where do monarch butterflies travel every autumn?",
+        "options": [
+          "From Canada to Mexico",
+          "From China to India",
+          "From Europe to Africa",
+          "Across Asia"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do monarch butterflies migrate in flocks?",
+        "options": [
+          "To escape freezing northern winters",
+          "To find water",
+          "To play",
+          "To lay eggs"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do they fly back north?",
+        "options": [
+          "When spring arrives",
+          "In middle of winter",
+          "In late autumn",
+          "Never"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 328,
-    difficulty: "medium",
-    dayIndex: 27,
-    title: { en: "How Solar Panels Generate Power", zh: "太阳能电池板发电机理" },
-    text: {
-      en: "Photovoltaic solar panels convert radiant sunlight directly into usable electricity through the photoelectric effect. Each panel contains multiple dark silicon wafer cells. When solar photons strike silicon atoms, they dislodge electrons, forcing them into a directional electrical flow. Inverters then convert the direct current (DC) into alternating current (AC) electricity for home appliances.",
-      zh: "光伏太阳能电池板通过光电效应将辐射阳光直接转化为可用电力。每块电池板包含多个暗色硅晶圆电池。当太阳光子击中硅原子时，它们打散电子，迫使它们形成定向电流。然后逆变器将直流电（DC）转化为交流电（AC），供家用电器使用。"
+    "id": 326,
+    "difficulty": "medium",
+    "dayIndex": 25,
+    "title": {
+      "en": "The Invention of the Telephone",
+      "zh": "电话的发明"
     },
-    questions: [
-      { q: "What scientific effect allows solar panels to turn light into electricity?", options: ["Thermodynamic effect", "Photoelectric effect", "Electromagnetic induction", "Chemical oxidation"], correct: 1 },
-      { q: "What element forms the semiconductor wafer cells inside solar panels?", options: ["Germanium", "Dark silicon", "Gallium", "Carbon"], correct: 1 },
-      { q: "What happens when solar photons strike silicon atoms in the cell?", options: ["Atoms melt", "Electrons are dislodged into electrical flow", "Photons turn to heat", "Silicon expands"], correct: 1 },
-      { q: "What device converts direct current (DC) to alternating current (AC)?", options: ["Transformer", "Inverter", "Generator", "Capacitor"], correct: 1 }
+    "text": {
+      "en": "Alexander Graham Bell invented the first practical telephone in eighteen seventy-six. He discovered how to convert human voice sounds into electrical signals across copper wires. His famous first words on the telephone were spoken to his assistant Thomas Watson. This groundbreaking invention changed global communication forever by connecting people instantly.",
+      "zh": "亚历山大·格雷厄姆·贝尔于一八七六年发明了第一部实用的电话。他发现了如何通过铜线将人声转化为电信号。他在电话里的第一句名言是向他的助手托马斯·沃特森说的。这项突破性的发明通过实现即时联系，永远改变了全球通信。"
+    },
+    "questions": [
+      {
+        "q": "Who invented the first practical telephone?",
+        "options": [
+          "Alexander Graham Bell",
+          "Thomas Edison",
+          "Nikola Tesla",
+          "Samuel Morse"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was the telephone invented?",
+        "options": [
+          "In 1876",
+          "In 1900",
+          "In 1850",
+          "In 1920"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did the telephone send voice sounds?",
+        "options": [
+          "Converted voice into electrical signals across wires",
+          "Using radio waves",
+          "Through light beams",
+          "With sound pipes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who was Bell's assistant that heard his first words?",
+        "options": [
+          "Thomas Watson",
+          "Thomas Edison",
+          "John Smith",
+          "Robert Brown"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 329,
-    difficulty: "medium",
-    dayIndex: 28,
-    title: { en: "The Discovery of Penicillin", zh: "青霉素的历史突破" },
-    text: {
-      en: "The discovery of penicillin in 1928 by Scottish biologist Alexander Fleming transformed medicine forever. Returning to his cluttered laboratory after vacation, Fleming noticed a green mold named Penicillium notatum had contaminated a petri dish of staphylococcus bacteria. Surprisingly, a clear zone surrounded the mold where bacterial colonies had been destroyed, proving mold secreted an antibacterial chemical.",
-      zh: "1928年苏格兰生物学家亚历山大·弗莱明发现青霉素永远改变了医学。假期归来回到凌乱的实验室后，弗莱明注意到一种名为点青霉的绿霉菌污染了一盘葡萄球菌培养皿。令人惊讶的是，霉菌周围出现了一个清晰的区域，那里的细菌群落已被破坏，证明霉菌分泌了一种抗菌化学物质。"
+    "id": 327,
+    "difficulty": "medium",
+    "dayIndex": 26,
+    "title": {
+      "en": "The Renewable Wind Power",
+      "zh": "可再生风力能源"
     },
-    questions: [
-      { q: "Who discovered penicillin in his London laboratory in 1928?", options: ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Joseph Lister"], correct: 1 },
-      { q: "What specific mold species contaminated Fleming's petri dish?", options: ["Aspergillus niger", "Penicillium notatum", "Rhizopus stolonifer", "Mucor mucedo"], correct: 1 },
-      { q: "What type of bacteria was destroyed around the green mold zone?", options: ["E. coli", "Staphylococcus bacteria", "Streptococcus", "Salmonella"], correct: 1 },
-      { q: "What did the clear zone around the mold colony demonstrate to Fleming?", options: ["Mold produces heat", "Mold secreted an antibacterial chemical", "Bacteria ate mold", "Dish dried out"], correct: 1 }
+    "text": {
+      "en": "Wind is a clean renewable source of energy that never runs out over time. Giant wind turbines are placed on open breezy plains to capture strong air currents. As the wind turns the huge white blades, internal generators create electric power. This green energy powers thousands of homes without releasing harmful carbon smoke.",
+      "zh": "风是一种清洁的可再生能源，随着时间的推移永远不会耗尽。巨型风力发电机被放置在开阔有风的平原上，捕捉强劲的气流。当风转动巨大的白叶片时，内部发电机产生电能。这种绿色能源为数千户家庭提供动力，而不会释放有害的碳烟。"
+    },
+    "questions": [
+      {
+        "q": "What type of energy source is wind?",
+        "options": [
+          "Clean renewable source that never runs out",
+          "Fossil fuel",
+          "Chemical energy",
+          "Gasoline power"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where are giant wind turbines placed?",
+        "options": [
+          "On open breezy plains",
+          "Deep in valleys",
+          "Inside forests",
+          "In dark caves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What generates electric power inside wind turbines?",
+        "options": [
+          "Internal generators turned by blades",
+          "Solar cells",
+          "Batteries",
+          "Water pumps"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What environmental advantage does wind energy provide?",
+        "options": [
+          "Powers homes without releasing carbon smoke",
+          "Makes rain fall",
+          "Cools cities",
+          "Cleans water"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 330,
-    difficulty: "medium",
-    dayIndex: 29,
-    title: { en: "The Deep Ocean Mariana Trench", zh: "马里亚纳海沟深处" },
-    text: {
-      en: "The Mariana Trench in the western Pacific Ocean is the deepest oceanic trench on Earth, plunging nearly 36,000 feet (11,000 meters) below sea level at Challenger Deep. At the ocean bottom, water pressure exceeds 1,000 atmospheres—equivalent to placing an elephant on your thumb! Despite total darkness and freezing temperatures, extreme specialized organisms like giant amphipods and snailfish thrive there.",
-      zh: "西太平洋的马里亚纳海沟是地球上最深的海洋海沟，在挑战者深处陡降至海平面以下近36000英里（11000米）。在海底，水压超过1000个大气压——相当于把一只大象放在你的大拇指上！尽管全黑且温度冰冻，巨型端足类和狮子鱼等极度专门的生物仍在那里繁衍。"
+    "id": 328,
+    "difficulty": "medium",
+    "dayIndex": 27,
+    "title": {
+      "en": "The Secrets of Coral Reefs",
+      "zh": "珊瑚礁的秘密"
     },
-    questions: [
-      { q: "What is the deepest point in the Mariana Trench called?", options: ["Abyssal Plain", "Challenger Deep", "Puerto Rico Hole", "Java Deep"], correct: 1 },
-      { q: "How deep does Challenger Deep plunge below sea level?", options: ["20,000 feet", "Nearly 36,000 feet (11,000 meters)", "50,000 feet", "15,000 feet"], correct: 1 },
-      { q: "How great is the atmospheric water pressure at the trench floor?", options: ["100 atmospheres", "Exceeds 1,000 atmospheres", "500 atmospheres", "2,000 atmospheres"], correct: 1 },
-      { q: "Name a specialized creature that survives in the deep trench abyss.", options: ["Blue whale", "Giant amphipod and snailfish", "Sea otter", "Great white shark"], correct: 1 }
+    "text": {
+      "en": "Coral reefs are diverse marine ecosystems built by tiny living coral polyps. They cover less than one percent of the ocean floor but support twenty-five percent of marine life. Bright corals provide shelter, breeding grounds, and food for fish, turtles, and crabs. Protecting coral reefs from pollution is essential for maintaining ocean health.",
+      "zh": "珊瑚礁是由微小的活珊瑚虫建造的多样化海洋生态系统。它们覆盖了不到百分之一的海底，但支持着百分之二十五的海洋生物。鲜艳的珊瑚为鱼类、海龟和螃蟹提供庇护所、繁殖地和食物。保护珊瑚礁免受污染对于维护海洋健康至关重要。"
+    },
+    "questions": [
+      {
+        "q": "What builds diverse coral reef ecosystems?",
+        "options": [
+          "Tiny living coral polyps",
+          "Giant sea whales",
+          "Ocean currents",
+          "Volcanoes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What percentage of marine life do coral reefs support?",
+        "options": [
+          "Twenty-five percent",
+          "Ten percent",
+          "Fifty percent",
+          "Eighty percent"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What benefits do bright corals offer ocean animals?",
+        "options": [
+          "Shelter, breeding grounds, food",
+          "Fresh air",
+          "Warm sunlight",
+          "Fresh water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting coral reefs from pollution essential?",
+        "options": [
+          "Maintaining ocean health",
+          "Making water salty",
+          "Helping ships sail",
+          "Creating beaches"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 331,
-    difficulty: "medium",
-    dayIndex: 30,
-    title: { en: "The History of Aviation", zh: "飞行的开拓史" },
-    text: {
-      en: "On December 17, 1903, American aviation pioneers Orville and Wilbur Wright achieved the first controlled, powered, heavier-than-air flight at Kitty Hawk, North Carolina. Their biplane, the Wright Flyer, featured a custom 12-horsepower engine driving twin wooden propellers. Orville piloted the maiden flight, remaining airborne for 12 seconds and traveling 120 feet over sandy dunes.",
-      zh: "1903年12月17日，美国航空开拓者奥维尔和威尔伯·莱特在北卡罗来纳州基蒂霍克实现了第一次受控的、动力重于空气的飞行。他们的双翼飞机莱特飞行者号配备了一个定制的12马力发动机，驱动双木螺旋桨。奥维尔驾驶了首飞，在空中悬停了12秒，在沙丘上行进120英尺。"
+    "id": 329,
+    "difficulty": "medium",
+    "dayIndex": 28,
+    "title": {
+      "en": "Volcanic Eruptions",
+      "zh": "火山爆发"
     },
-    questions: [
-      { q: "On what date did the Wright brothers make their historic first powered flight?", options: ["July 4, 1776", "December 17, 1903", "May 20, 1927", "October 12, 1492"], correct: 1 },
-      { q: "Where did the Wright Flyer take off for its inaugural test flight?", options: ["Dayton, Ohio", "Kitty Hawk, North Carolina", "Richmond, Virginia", "Chicago, Illinois"], correct: 1 },
-      { q: "Who piloted the first successful 12-second powered flight?", options: ["Wilbur Wright", "Orville Wright", "Charles Lindbergh", "Glenn Curtiss"], correct: 1 },
-      { q: "What horsepower rating did the custom engine on the Wright Flyer possess?", options: ["5 horsepower", "12-horsepower engine", "50 horsepower", "100 horsepower"], correct: 1 }
+    "text": {
+      "en": "A volcano is an opening in the Earth's crust where melted rock erupts. Deep beneath the surface, intense heat creates liquid rock called magma. When pressure builds up, magma bursts through the top vent as glowing lava. Over time, cooled lava layers form steep volcanic mountains around the vent.",
+      "zh": "火山是地壳上的一个口子，融化的岩石从这里喷发出来。在地表深处，剧烈的热量创造出被称为岩浆的液体岩石。当压力聚集时，岩浆作为发光的熔岩从顶部喷气孔喷出。随着时间的推移，冷却的熔岩层在喷气孔周围形成陡峭的火山山脉。"
+    },
+    "questions": [
+      {
+        "q": "What is a volcano?",
+        "options": [
+          "An opening in Earth's crust where melted rock erupts",
+          "A deep lake",
+          "A tall cave",
+          "A mountain of ice"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is liquid rock beneath Earth's surface called?",
+        "options": [
+          "Magma",
+          "Lava",
+          "Ash",
+          "Granite"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happens when pressure builds up inside a volcano?",
+        "options": [
+          "Magma bursts through top vent as lava",
+          "It cools down",
+          "It becomes water",
+          "It shrinks"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do steep volcanic mountains form over time?",
+        "options": [
+          "From layers of cooled lava around the vent",
+          "From wind blown sand",
+          "From rain water",
+          "From earthquake shocks"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 332,
-    difficulty: "medium",
-    dayIndex: 31,
-    title: { en: "How Photosynthesis Sustains Life", zh: "光合作用维护生态" },
-    text: {
-      en: "Photosynthesis is the fundamental bio-process whereby plants, algae, and cyanobacteria convert light energy into chemical energy stored in carbohydrate sugars. Using green chlorophyll pigments inside leaf chloroplasts, plants capture solar photons to synthesize glucose from carbon dioxide and water. Oxygen is released as a vital byproduct, supplying the gas required for animal respiration worldwide.",
-      zh: "光合作用是植物、藻类和蓝细菌将光能转化为储存在碳水化合物糖中的化学能的基本生物学过程。利用叶片叶绿体内部的绿色叶绿素色素，植物捕获太阳光子，从二氧化碳和水中合成葡萄糖。氧气作为至关重要的副产品释放出来，为全球动物呼吸提供所需的气体。"
+    "id": 330,
+    "difficulty": "medium",
+    "dayIndex": 29,
+    "title": {
+      "en": "The Story of Steam Trains",
+      "zh": "蒸汽火车的故事"
     },
-    questions: [
-      { q: "What chemical form of energy do plants store after converting solar light?", options: ["Protein chains", "Carbohydrate sugars (glucose)", "Lipid fats", "Mineral salts"], correct: 1 },
-      { q: "What organelle inside plant leaf cells houses chlorophyll pigments?", options: ["Mitochondria", "Chloroplasts", "Ribosomes", "Nucleus"], correct: 1 },
-      { q: "What atmospheric gas is consumed by plants during photosynthesis?", options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Methane"], correct: 1 },
-      { q: "Why is the oxygen byproduct of photosynthesis vital to life on Earth?", options: ["Cools global air", "Supplies gas required for animal respiration", "Creates rain", "Builds ozone layer only"], correct: 1 }
+    "text": {
+      "en": "Steam locomotives revolutionized land transport during the nineteenth century industrial revolution. Firemen burned heavy coal in a furnace to heat water inside a big boiler. High pressure steam expanded to drive heavy metal pistons and turn locomotive wheels. Trains connected distant towns and made transporting heavy trade goods fast and easy.",
+      "zh": "在十九世纪工业革命时期，蒸汽机车彻底改变了陆路交通。消防员在炉子里烧重煤，加热大锅炉里的水。高压蒸汽膨胀驱动重金属活塞，转动机车车轮。火车连接了遥远的城镇，使运输重工业商品变得快速而简单。"
+    },
+    "questions": [
+      {
+        "q": "When did steam locomotives revolutionize land transport?",
+        "options": [
+          "Nineteenth century",
+          "Eighteenth century",
+          "Twentieth century",
+          "Seventeenth century"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How was water heated inside the locomotive boiler?",
+        "options": [
+          "Burning heavy coal in a furnace",
+          "Using solar energy",
+          "With wood fires",
+          "Using electricity"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What drove the heavy metal pistons in steam trains?",
+        "options": [
+          "High pressure steam",
+          "Electric motors",
+          "Wind energy",
+          "Oil pumps"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What impact did steam trains have on towns?",
+        "options": [
+          "Connected towns and made transport fast",
+          "Caused traffic",
+          "Stopped trade",
+          "Closed roads"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 333,
-    difficulty: "medium",
-    dayIndex: 32,
-    title: { en: "The Monarch Butterfly Migration", zh: "黑脉金斑蝶跨国迁徙" },
-    text: {
-      en: "Monarch butterflies complete an extraordinary multi-generational migration spanning up to 3,000 miles across North America. Every autumn, millions fly south to overwinter in oyamel fir forests in central Mexico. Surprisingly, no single butterfly completes the entire round trip; instead, four successive generations accomplish distinct legs of the migratory journey.",
-      zh: "黑脉金斑蝶完成了跨越北美洲高达3000英里的非凡多代迁徙。每年秋天，数以百万计的黑脉金斑蝶向南飞往墨西哥中部的圣杉林过冬。令人惊讶的是，没有一只单独的蝴蝶完成整个往返航程；相反，四个连续的世代完成了迁徙旅程的不同航段。"
+    "id": 331,
+    "difficulty": "medium",
+    "dayIndex": 30,
+    "title": {
+      "en": "The Life of Honeybees",
+      "zh": "蜜蜂的一生"
     },
-    questions: [
-      { q: "How far can the multi-generational migration of monarch butterflies span?", options: ["500 miles", "Up to 3,000 miles", "1,000 miles", "10,000 miles"], correct: 1 },
-      { q: "In what forest tree species do monarchs overwinter in central Mexico?", options: ["Pine trees", "Oyamel fir forests", "Oak groves", "Eucalyptus trees"], correct: 1 },
-      { q: "How many generations complete the full annual migration cycle?", options: ["One single generation", "Four successive generations", "Ten generations", "Two generations"], correct: 1 },
-      { q: "What season triggers the southward migration of monarchs?", options: ["Spring", "Every autumn", "Mid-summer", "Late winter"], correct: 1 }
+    "text": {
+      "en": "Honeybees are social insects that live together in highly organized colonies. Each colony has one egg-laying queen, thousands of female workers, and male drones. Worker bees build wax honeycomb cells to store sweet honey and nurse young larvae. Their hard work pollinating crops contributes significantly to human food production.",
+      "zh": "蜜蜂是群居昆虫，生活在高度组织化的群体中。每个蜂群都有一只产卵的女王、数千只雌性工蜂和雄性雄蜂。工蜂建立蜡质蜂巢细胞来储存甜蜂蜜和护理幼虫。它们为农作物传粉的努力工作对人类粮食生产作出了重大贡献。"
+    },
+    "questions": [
+      {
+        "q": "What structure defines a honeybee colony?",
+        "options": [
+          "Highly organized social insect colony",
+          "Random group",
+          "Solitary nest",
+          "Temporary swarm"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What role does the queen bee perform?",
+        "options": [
+          "Laying eggs",
+          "Gathering nectar",
+          "Building comb",
+          "Guarding hive"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do worker bees build honeycomb cells out of?",
+        "options": [
+          "Wax",
+          "Clay",
+          "Leaves",
+          "Paper"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does bee pollination help humans?",
+        "options": [
+          "Contributes significantly to food production",
+          "Makes water clean",
+          "Cools cities",
+          "Stops weeds"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 334,
-    difficulty: "medium",
-    dayIndex: 33,
-    title: { en: "The Physics of Sound Waves", zh: "声波物理学" },
-    text: {
-      en: "Sound is mechanical wave energy transmitted through a medium via vibrating molecules. Unlike light waves, sound cannot travel through the vacuum of outer space because it requires physical matter to propagate. Sound travels fastest through dense solids like steel (12,000 mph), slower through liquids like water (3,300 mph), and slowest through atmospheric gases like air (767 mph).",
-      zh: "声音是通过振动分子在介质中传输的机械波能量。与光波不同，声音不能在外层空间的真空中传播，因为它需要物理物质来传播。声音在像钢这样的稠密固体中传播最快（每小时12000英里），在像水这样的液体中较慢（每小时3300英里），在像空气这样的大气气体中最慢（每小时767英里）。"
+    "id": 332,
+    "difficulty": "medium",
+    "dayIndex": 31,
+    "title": {
+      "en": "Photosynthesis in Plants",
+      "zh": "植物的光合作用"
     },
-    questions: [
-      { q: "What type of wave energy is sound classified as?", options: ["Electromagnetic wave", "Mechanical wave energy", "Gravitational wave", "Nuclear wave"], correct: 1 },
-      { q: "Why can sound NOT propagate through outer space?", options: ["Space is too cold", "Space is a vacuum lacking physical matter", "Light blocks sound", "Gravity stops it"], correct: 1 },
-      { q: "Through which state of matter does sound travel fastest?", options: ["Atmospheric gases", "Dense solids like steel", "Liquids like water", "Vacuums"], correct: 1 },
-      { q: "What is the speed of sound through atmospheric air in miles per hour?", options: ["3,300 mph", "About 767 mph", "12,000 mph", "186,000 mph"], correct: 1 }
+    "text": {
+      "en": "Photosynthesis is the natural chemical process green plants use to create food. Plant leaves absorb sunlight energy and take in carbon dioxide gas from the air. Roots pull fresh water and vital minerals up from the dark soil. This process converts sunlight into glucose sugar for plant growth and releases oxygen.",
+      "zh": "光合作用是绿色植物用来制造食物的自然化学过程。植物叶子吸收阳光能，并从空气中吸收二氧化碳气体。根部从黑土中向上吸收新鲜水分和至关重要的矿物质。这个过程将阳光转化为供植物生长的葡萄糖并释放氧气。"
+    },
+    "questions": [
+      {
+        "q": "What is photosynthesis?",
+        "options": [
+          "Natural chemical process plants use to create food",
+          "Plant water loss",
+          "Root growth",
+          "Leaf fall"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What gas do leaves absorb from air during photosynthesis?",
+        "options": [
+          "Carbon dioxide",
+          "Oxygen",
+          "Nitrogen",
+          "Hydrogen"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do plant roots pull up from dark soil?",
+        "options": [
+          "Fresh water and vital minerals",
+          "Sunlight",
+          "Sugar",
+          "Air"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What two products are generated by photosynthesis?",
+        "options": [
+          "Glucose sugar and oxygen",
+          "Water and carbon dioxide",
+          "Starch and salt",
+          "Sunlight and rain"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 335,
-    difficulty: "medium",
-    dayIndex: 34,
-    title: { en: "The History of Bicycles", zh: "自行车演变史" },
-    text: {
-      en: "The modern bicycle evolved through several inventive iterations over the 19th century. In 1817, Karl Drais built the wooden 'running machine' propelled by foot pushing. By the 1870s, the High-Wheel 'Penny-Farthing' boasted a massive front wheel for high speed, though it was notoriously unstable. Finally, John Kemp Starley's 1885 'Safety Bicycle' introduced equal-sized wheels, chain drives, and pneumatic rubber tires.",
-      zh: "现代自行车在19世纪经历了数次发明迭代。1817年，卡尔·德赖斯建造了靠脚推前行的木制“跑步机”。到了19世纪70年代，高轮“便士法新”自行车拥有一个追求高速的巨型前轮，尽管它出了名的不稳定。最后，约翰·凯姆普·斯塔利1885年的“安全自行车”引入了等大车轮、链条驱动和充气橡胶轮胎。"
+    "id": 333,
+    "difficulty": "medium",
+    "dayIndex": 32,
+    "title": {
+      "en": "The Deep Ocean Zone",
+      "zh": "深海带"
     },
-    questions: [
-      { q: "What nickname was given to the high-front-wheel bicycle of the 1870s?", options: ["Running machine", "Penny-Farthing", "Safety Bicycle", "Velocipede"], correct: 1 },
-      { q: "Who invented the wooden walking machine prototype in 1817?", options: ["John Starley", "Karl Drais", "Kirkpatrick Macmillan", "Michaux"], correct: 1 },
-      { q: "Why was the Penny-Farthing bicycle dangerous for general riders?", options: ["It had no frame", "It was notoriously unstable due to high seating", "It broke easily", "Tires leaked"], correct: 1 },
-      { q: "What key innovations featured in Starley's 1885 Safety Bicycle?", options: ["Wooden pedals", "Equal-sized wheels, chain drive, pneumatic tires", "Three big wheels", "Iron belts"], correct: 1 }
+    "text": {
+      "en": "The deep ocean zone begins two hundred meters below the sunlit surface. Sunlight cannot penetrate this depth, leaving the environment in total pitch darkness. Animals here adapt to freezing water temperatures and tremendous water pressure. Some fish use bioluminescent light organs to attract prey and find mates.",
+      "zh": "深海带始于阳光照射的海平面以下二百米处。阳光无法穿透这个深度，使得环境处于完全漆黑的状态。这里的动物适应冰冷的水温和巨大的水压。一些鱼使用生物发光器官来吸引猎物和寻找配偶。"
+    },
+    "questions": [
+      {
+        "q": "At what depth does the deep ocean zone begin?",
+        "options": [
+          "Two hundred meters below surface",
+          "One hundred meters",
+          "Fifty meters",
+          "Five hundred meters"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is the deep ocean zone in pitch darkness?",
+        "options": [
+          "Sunlight cannot penetrate this depth",
+          "Water is muddy",
+          "Clouds block light",
+          "Seaweed is thick"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What extreme conditions must deep ocean animals adapt to?",
+        "options": [
+          "Freezing temperatures and high pressure",
+          "Hot water",
+          "Strong waves",
+          "High salt"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do some deep ocean fish use bioluminescent light organs?",
+        "options": [
+          "Attract prey and find mates",
+          "Warm water",
+          "Swim fast",
+          "Scare boats"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 336,
-    difficulty: "medium",
-    dayIndex: 35,
-    title: { en: "Exploring Mars Rovers", zh: "火星漫游车探索" },
-    text: {
-      en: "Robotic exploration of Mars has revolutionized planetary science. Rovers like NASA's Perseverance are sophisticated laboratories on wheels, equipped with laser spectrometers, drill rigs, and sample cache tubes. In 2021, Perseverance deployed Ingenuity, a tiny 4-pound rotorcraft that achieved the first powered atmospheric flight on another planet.",
-      zh: "对火星的机器人探索彻底改变了行星科学。像美国国家航空航天局的毅力号这样的漫游车是高科技轮式实验室，配备有激光光谱仪、钻机和样品缓存管。2021年，毅力号部署了巧号，这是一架微型4磅重的旋翼飞机，实现了在另一个行星上的首次动力大气飞行。"
+    "id": 334,
+    "difficulty": "medium",
+    "dayIndex": 33,
+    "title": {
+      "en": "The Invention of Printing",
+      "zh": "印刷术的发明"
     },
-    questions: [
-      { q: "What robotic laboratory rover landed on Mars to collect rock cores in 2021?", options: ["Curiosity", "Perseverance", "Opportunity", "Spirit"], correct: 1 },
-      { q: "What nickname is given to planet Mars due to iron dust on its surface?", options: ["Blue Planet", "Red Planet", "Golden World", "Rusty Sphere"], correct: 1 },
-      { q: "What historic aviation milestone did the tiny Ingenuity helicopter achieve?", options: ["First satellite orbit", "First powered atmospheric flight on another planet", "Deepest drill", "Fastest rover speed"], correct: 1 },
-      { q: "How much did the experimental Ingenuity rotorcraft weigh?", options: ["20 pounds", "Tiny 4-pound rotorcraft", "50 pounds", "100 pounds"], correct: 1 }
+    "text": {
+      "en": "Bi Sheng invented movable clay type printing in China during the eleventh century. He carved individual Chinese characters on small clay blocks and baked them hard. Centuries later, Johannes Gutenberg invented a metal mechanical printing press in Germany. This revolutionary technology made books affordable and spread knowledge rapidly across the world.",
+      "zh": "十一世纪，毕昇在中国发明的粘土活字印刷术。他在小粘土块上雕刻单独的汉字，并将其烧硬。几个世纪后，约翰内斯·谷登堡在德国发明了金属机械印刷机。这项革命性的技术使书籍变得负担得起，并在世界各地迅速传播了知识。"
+    },
+    "questions": [
+      {
+        "q": "Who invented movable clay type printing in China?",
+        "options": [
+          "Bi Sheng",
+          "Cai Lun",
+          "Shen Kuo",
+          "Li Bai"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Bi Sheng carve characters on?",
+        "options": [
+          "Small clay blocks baked hard",
+          "Wood boards",
+          "Stone slabs",
+          "Metal sheets"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What invention did Johannes Gutenberg create in Germany?",
+        "options": [
+          "Metal mechanical printing press",
+          "Steam engine",
+          "Telephone",
+          "Paper"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did printing technology affect books and knowledge?",
+        "options": [
+          "Made books affordable and spread knowledge",
+          "Made books rare",
+          "Stopped reading",
+          "Used more ink"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 337,
-    difficulty: "medium",
-    dayIndex: 36,
-    title: { en: "How Volcanoes Erupt", zh: "火山喷发机制" },
-    text: {
-      en: "Volcanoes are natural pressure release valves for molten subterranean rock. Deep within Earth's mantle, extreme heat melts rock into magma. Buoyant magma ascends through crustal faults, pooling in magma chambers. When dissolved gas pressure exceeds surrounding rock strength, explosive eruptions blast lava, pyroclastic ash, and volcanic bombs into the sky.",
-      zh: "火山是地下熔岩的天然压力释放阀。在地球地幔深处，极度热量将岩石熔化成岩浆。有浮力的岩浆沿着地壳断层上升，在岩浆房中汇集。当溶解气体压力超过周围岩石强度时，爆炸性喷发将熔岩、火山碎屑灰和火山弹炸飞到空中。"
+    "id": 335,
+    "difficulty": "medium",
+    "dayIndex": 34,
+    "title": {
+      "en": "The Giant Sequoias",
+      "zh": "巨杉"
     },
-    questions: [
-      { q: "What role do volcanoes play for Earth's subterranean heat?", options: ["Absorb cold air", "Natural pressure release valves for molten rock", "Create magnetic fields", "Store ocean water"], correct: 1 },
-      { q: "Where does magma accumulate before a volcanic eruption occurs?", options: ["Surface crater", "Magma chambers beneath crustal faults", "Atmospheric clouds", "Ocean trenches"], correct: 1 },
-      { q: "What triggers an explosive volcanic eruption?", options: ["Wind storms", "Dissolved gas pressure exceeding rock strength", "Rainfall", "Tides"], correct: 1 },
-      { q: "What solid rocky debris is blasted into the sky during eruptions?", options: ["Granite tiles", "Pyroclastic ash and volcanic bombs", "Coal dust", "Basalt blocks"], correct: 1 }
+    "text": {
+      "en": "Giant sequoias are massive trees growing in the foggy Sierra Nevada mountains. They can live for over three thousand years and grow as tall as skyscrapers. Their thick fire-resistant bark contains tannin that protects against wood-rotting fungi. These ancient forest giants play an important role in forest carbon storage.",
+      "zh": "巨杉生长在多雾的内华达山脉中，是巨大的树木。它们可以活三千多年，长得像摩天大楼一样高。它们厚厚的耐火树皮含有丹宁酸，可以防止木材腐烂真菌。这些古代森林巨人在森林碳储存中发挥着重要作用。"
+    },
+    "questions": [
+      {
+        "q": "Where do giant sequoias grow?",
+        "options": [
+          "Foggy Sierra Nevada mountains",
+          "Tropical islands",
+          "Desert valleys",
+          "Coastal plains"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How long can giant sequoias live?",
+        "options": [
+          "Over three thousand years",
+          "One hundred years",
+          "Five hundred years",
+          "One thousand years"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What substance in their bark protects against fungi?",
+        "options": [
+          "Tannin",
+          "Resin",
+          "Sap",
+          "Sugar"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What ecological role do sequoias perform for forests?",
+        "options": [
+          "Forest carbon storage",
+          "Making rain",
+          "Cooling soil",
+          "Producing fruit"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 338,
-    difficulty: "medium",
-    dayIndex: 37,
-    title: { en: "The Science of Tides", zh: "海洋潮汐的科学" },
-    text: {
-      en: "Ocean tides are periodic rises and falls of ocean waters caused primarily by the gravitational pull of the Moon and the Sun. As Earth rotates daily, gravitational attraction creates two high tide bulges on opposite sides of the globe. When the Sun, Earth, and Moon align during full and new moons, combined gravity produces extreme spring tides.",
-      zh: "海洋潮汐是主要由月球和太阳的万有引力引起的海洋水域的周期性升降。随着地球每天旋转，引力吸引在地球相对的两侧创造出两个高潮凸起。当太阳、地球和月球在满月和新月期间排成一线时，组合引力会产生极端的盲潮。"
+    "id": 336,
+    "difficulty": "medium",
+    "dayIndex": 35,
+    "title": {
+      "en": "The Robotic Space Rovers",
+      "zh": "机器人太空漫游车"
     },
-    questions: [
-      { q: "What celestial body exerts the primary gravitational pull causing ocean tides?", options: ["Mars", "The Moon", "Jupiter", "Venus"], correct: 1 },
-      { q: "How many high tide bulges exist simultaneously on Earth as it rotates?", options: ["One", "Two high tide bulges on opposite sides", "Three", "Four"], correct: 1 },
-      { q: "During which moon phases do extreme spring tides occur?", options: ["Quarter moons", "Full and new moons", "Crescent moons", "Eclipses only"], correct: 1 },
-      { q: "What creates the combined gravity during spring tides?", options: ["Wind storms", "Alignment of the Sun, Earth, and Moon", "Ocean currents", "Underwater earthquakes"], correct: 1 }
+    "text": {
+      "en": "Robotic space rovers explore the dry rocky terrain of the planet Mars. Scientists control these wheeled robots from Earth using long-distance radio signals. Rovers feature high resolution cameras, laser tools, and drills to analyze Martian soil. They search for ancient chemical clues that suggest water once flowed on Mars.",
+      "zh": "机器人太空漫游车探索火星干燥的岩石地形。科学家使用长途无线电信号从地球控制这些带轮子的机器人。漫游车配备高分辨率相机、激光工具和钻头，以分析火星土壤。它们寻找表明火星上曾经流过水的古老化学线索。"
+    },
+    "questions": [
+      {
+        "q": "What terrain do robotic rovers explore on Mars?",
+        "options": [
+          "Dry rocky terrain",
+          "Icy oceans",
+          "Green valleys",
+          "Sandy dunes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do scientists control rovers from Earth?",
+        "options": [
+          "Long-distance radio signals",
+          "Satellite cables",
+          "Laser beams",
+          "Sound waves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What tools do rovers feature to analyze Martian soil?",
+        "options": [
+          "Cameras, laser tools, drills",
+          "Microscopes only",
+          "Sensors only",
+          "Hammers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What chemical clues do rovers search for on Mars?",
+        "options": [
+          "Suggest water once flowed on Mars",
+          "Proof of alien cities",
+          "Gold deposits",
+          "Oil fields"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 339,
-    difficulty: "medium",
-    dayIndex: 38,
-    title: { en: "Bioluminescence in Marine Life", zh: "深海生物发光机制" },
-    text: {
-      en: "Bioluminescence is light production by living organisms via internal biochemical reactions. In dark ocean depths below 200 meters, over 80% of species utilize photophore cells containing luciferin and luciferase enzymes to emit light. Creatures use glowing lures for hunting prey, startling predators, or communicating in pitch-black waters.",
-      zh: "生物发光是生物体通过内部生物化学反应产生光的过程。在200米以下的漆黑海洋深处，超过80%的物种利用包含萤光素和萤光素酶的发光器细胞来发光。生物体使用发光诱饵进行猎食、惊吓捕食者或在漆黑的水域中交流。"
+    "id": 337,
+    "difficulty": "medium",
+    "dayIndex": 36,
+    "title": {
+      "en": "The Electric Car Revolution",
+      "zh": "电动汽车革命"
     },
-    questions: [
-      { q: "What depth marks the start of widespread marine bioluminescence?", options: ["10 meters", "Below 200 meters in dark ocean depths", "50 meters", "1,000 meters"], correct: 1 },
-      { q: "What percentage of deep-sea species possess bioluminescent capabilities?", options: ["20%", "Over 80% of deep-sea species", "50%", "100%"], correct: 1 },
-      { q: "What two chemical components react inside photophores to produce light?", options: ["Chlorophyll and glucose", "Luciferin and luciferase enzymes", "Melanin and oxygen", "Calcium and sodium"], correct: 1 },
-      { q: "Name one evolutionary purpose of marine bioluminescence.", options: ["Stay warm", "Hunting prey or startling predators", "Speeding up swimming", "Filtering salt"], correct: 1 }
+    "text": {
+      "en": "Electric cars use rechargeable lithium batteries instead of gasoline engines for power. Electric motors drive the wheels smoothly with zero direct tailpipe carbon emissions. Charging stations are popping up along highways to allow long distance travel. Switching to electric transportation helps reduce city air pollution and noise.",
+      "zh": "电动汽车使用可充电锂电池替代汽油发动机提供动力。电动机平稳地驱动车轮，零直接尾气碳排放。充电站在公路沿线涌现，允许长途旅行。转向电动交通工具有助于减少城市空气污染和噪音。"
+    },
+    "questions": [
+      {
+        "q": "What powers electric cars instead of gasoline engines?",
+        "options": [
+          "Rechargeable lithium batteries",
+          "Solar power",
+          "Hydrogen tanks",
+          "Steam boilers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What environmental advantage do electric motors offer?",
+        "options": [
+          "Zero direct tailpipe carbon emissions",
+          "Make roads smooth",
+          "Cool the air",
+          "Use no tires"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What infrastructure allows long distance electric travel?",
+        "options": [
+          "Charging stations along highways",
+          "Gas stations",
+          "Power lines",
+          "Battery shops"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does electric transportation benefit city residents?",
+        "options": [
+          "Reduces city air pollution and noise",
+          "Makes cars free",
+          "Increases speed",
+          "Eliminates traffic"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 340,
-    difficulty: "medium",
-    dayIndex: 39,
-    title: { en: "The History of the Olympic Games", zh: "奥林匹克运动会演变" },
-    text: {
-      en: "The Olympic Games originated in 776 BC in ancient Olympia, Greece, as a religious festival honoring Zeus. During the games, a sacred truce was enforced across Greek city-states, halting wars so competitors could travel safely. Revived in 1896 in Athens by Pierre de Coubertin, the modern Olympics now unite over 200 nations in athletic competition.",
-      zh: "奥林匹克运动会起源于公元前776年古希腊的奥林匹亚，是一项敬奉宙斯的宗教节日。在比赛期间，希腊各城邦执行神圣停战，停止战争，以便参赛者安全出行。1896年由皮埃尔·德·顾拜旦在雅典复兴，现代奥运会如今联合了200多个国家进行体育竞技。"
+    "id": 338,
+    "difficulty": "medium",
+    "dayIndex": 37,
+    "title": {
+      "en": "The Science of Hurricanes",
+      "zh": "台风的科学"
     },
-    questions: [
-      { q: "In what year and location did the ancient Olympic Games begin?", options: ["100 BC in Rome", "776 BC in ancient Olympia, Greece", "1896 in Athens", "500 BC in Sparta"], correct: 1 },
-      { q: "Which Greek deity was honored by the ancient Olympic festival?", options: ["Apollo", "Zeus", "Poseidon", "Athena"], correct: 1 },
-      { q: "What political agreement was enforced across Greece during ancient games?", options: ["Trade pact", "Sacred truce halting all wars", "Tax exemption", "Alliance treaty"], correct: 1 },
-      { q: "Who organized the revival of the modern Olympic Games in 1896?", options: ["Baron Pierre de Coubertin", "King George I", "Thomas Arnold", "Demetrius Vikelas"], correct: 0 }
-    ]
-  },
-
-  // HARD (10 passages, 5 questions each, IDs 341-350)
-  {
-    id: 341,
-    difficulty: "hard",
-    dayIndex: 40,
-    title: { en: "Renewable Energy Transition", zh: "可再生能源转型" },
-    text: {
-      en: "The transition from fossil fuels to renewable energy sources is one of the most critical challenges facing modern technology. Fossil fuels—coal, petroleum, and natural gas—release greenhouse gases like carbon dioxide when burned, accelerating global warming. Renewable energy harnesses naturally replenishing forces: solar panels capture photovoltaic light, wind turbines convert atmospheric kinetic energy, and hydroelectric dams utilize gravitational water flow. Implementing smart grid storage batteries ensures reliable power even when the sun sets or winds calm.",
-      zh: "从化石燃料向可再生能源的转型是现代技术面临的最关键挑战之一。化石燃料——煤炭、石油和天然气——在燃烧时释放出像二氧化碳这样的温室气体，加速了全球变暖。可再生能源利用自然补充的力量：太阳能电池板捕获光伏光，风力发电机转化大气动能，水力发电坝利用重力水流。实施智能电网储能电池可确保即使在太阳落山或风平浪静时也能提供可靠的电力。"
+    "text": {
+      "en": "Hurricanes are massive rotating tropical storms that form over warm ocean waters. Evaporating warm water feeds moisture into the rising air, creating strong winds. As the storm spins, a calm area called the eye forms at its center. Meterologists track hurricane paths using satellites to warn coastal towns in advance.",
+      "zh": "飓风是在温暖的海洋水域上形成的巨大的旋转热带风暴。蒸发的热水将水分馈送到上升的空气中，产生强风。随着风暴的旋转，一个被称为眼区的平静区域在其中心形成。气象学家使用卫星跟踪飓风路径，提前警告沿海城镇。"
     },
-    questions: [
-      { q: "Why is transitioning away from fossil fuels necessary for planetary health?", options: ["Fossil fuels cost too much", "Burning fossil fuels releases greenhouse gases accelerating global warming", "Fossil fuels leak water", "Fossil fuels destroy machinery"], correct: 1 },
-      { q: "Name the three primary non-renewable fossil fuels mentioned.", options: ["Wood, peat, charcoal", "Coal, petroleum, and natural gas", "Uranium, plutonium, thorium", "Methane, propane, butane"], correct: 1 },
-      { q: "What type of energy do wind turbine blades capture from air currents?", options: ["Thermal energy", "Atmospheric kinetic energy", "Potential energy", "Chemical energy"], correct: 1 },
-      { q: "How do hydroelectric dams generate electrical power?", options: ["By heating water", "Utilizing gravitational water flow through turbines", "Using ocean tides", "Pumping water up"], correct: 1 },
-      { q: "What technology solves the intermittency problem of solar and wind power?", options: ["Fossil backup", "Smart grid storage batteries", "Nuclear reactors", "Diesel generators"], correct: 1 }
-    ]
-  },
-  {
-    id: 342,
-    difficulty: "hard",
-    dayIndex: 41,
-    title: { en: "Plate Tectonics and Earthquakes", zh: "板块构造与地震" },
-    text: {
-      en: "Earth's lithosphere is fragmented into seven major tectonic plates and dozens of minor plates that float upon the semi-fluid asthenosphere beneath. Driven by mantle convection currents, these plates move at speeds of 1 to 10 centimeters per year. Where plates grind past each other at transform faults, friction prevents smooth motion, storing elastic strain energy. When stress exceeds rock strength, sudden fault slip releases seismic waves that vibrate Earth's crust, recorded globally by seismometers.",
-      zh: "地球的岩石圈分裂成七个主要板块和几十个次要板块，漂浮在下方半流体软流圈上。在地幔对流的推动下，这些板块以每年1到10厘米的速度移动。在板块沿着转换断层相互磨擦的地方，摩擦力阻止了平滑的运动，储存了弹性应变能。当应力超过岩石强度时，突然的断层滑移释放出震波，使地壳振动，被全球地震仪记录下来。"
-    },
-    questions: [
-      { q: "What layer of Earth floats upon the semi-fluid asthenosphere?", options: ["Inner core", "Lithosphere broken into tectonic plates", "Atmosphere", "Ocean hydrosphere"], correct: 1 },
-      { q: "What deep planetary mechanism drives the movement of tectonic plates?", options: ["Ocean currents", "Mantle convection currents", "Gravitational pull of Moon", "Earth's rotation speed"], correct: 1 },
-      { q: "At what average rate do tectonic plates slide across Earth's surface?", options: ["1 to 10 meters per year", "1 to 10 centimeters per year", "50 kilometers per year", "1 millimeter per year"], correct: 1 },
-      { q: "What type of energy accumulates when rough plate boundaries lock together?", options: ["Thermal heat", "Elastic strain energy", "Chemical potential", "Nuclear energy"], correct: 1 },
-      { q: "What instrument records seismic waves traveling through Earth's crust?", options: ["Barometer", "Seismometer", "Magnetometer", "Spectrometer"], correct: 1 }
-    ]
-  },
-  {
-    id: 343,
-    difficulty: "hard",
-    dayIndex: 42,
-    title: { en: "The History of Space Exploration", zh: "太空探索发展史" },
-    text: {
-      en: "The Space Age began on October 4, 1957, when the Soviet Union launched Sputnik 1, the first artificial satellite, into Earth orbit. Four years later in 1961, cosmonaut Yuri Gagarin became the first human in space. The Space Race reached its climax on July 20, 1969, when NASA's Apollo 11 mission landed astronauts Neil Armstrong and Buzz Aldrin on the Moon. Today, the International Space Station serves as a joint orbital laboratory for global space agencies.",
-      zh: "太空时代始于1957年10月4日，当时苏联将第一颗人造卫星斯普特尼克1号发射到地球轨道。四年后的1961年，宇航员尤里·加加林成为进入太空的第一人。太空竞赛在1969年7月20日达到高潮，当时美国国家航空航天局的阿波罗11号任务将宇航员尼尔·阿姆斯特朗和巴兹·奥尔德林降落在月球上。如今，国际空间站充当全球太空机构的联合轨道实验室。"
-    },
-    questions: [
-      { q: "What satellite launch marked the beginning of the Space Age in 1957?", options: ["Explorer 1", "Sputnik 1 by Soviet Union", "Vanguard 1", "Apollo 1"], correct: 1 },
-      { q: "Who was the first human to travel into outer space in 1961?", options: ["Neil Armstrong", "Yuri Gagarin", "John Glenn", "Buzz Aldrin"], correct: 1 },
-      { q: "On what exact date did Apollo 11 land the first humans on the Moon?", options: ["July 4, 1776", "July 20, 1969", "October 4, 1957", "December 17, 1903"], correct: 1 },
-      { q: "Name the two NASA astronauts who walked on the lunar surface during Apollo 11.", options: ["Gagarin and Glenn", "Neil Armstrong and Buzz Aldrin", "Collins and Lovell", "Shepard and Bean"], correct: 1 },
-      { q: "What international facility currently operates as a joint orbital research lab?", options: ["Mir 2", "International Space Station (ISS)", "Skylab", "Lunar Gateway"], correct: 1 }
+    "questions": [
+      {
+        "q": "Where do massive rotating hurricanes form?",
+        "options": [
+          "Over warm ocean waters",
+          "On icy mountains",
+          "In cold deserts",
+          "Over dry land"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What feeds moisture into the rising air of a hurricane?",
+        "options": [
+          "Evaporating warm water",
+          "Rain drops",
+          "Ocean currents",
+          "Cold wind"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the calm central area of a hurricane called?",
+        "options": [
+          "The eye",
+          "The core",
+          "The hub",
+          "The peak"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do meteorologists track hurricane paths to warn towns?",
+        "options": [
+          "Using satellites",
+          "Using airplanes",
+          "With weather balloons",
+          "Using ships"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 344,
-    difficulty: "hard",
-    dayIndex: 43,
-    title: { en: "Deep Sea Creature Adaptations", zh: "深海生物适应演化" },
-    text: {
-      en: "Life in the bathypelagic ocean zone (1,000 to 4,000 meters deep) faces daunting environmental challenges: total lightlessness, near-freezing temperatures, and crushing pressures exceeding 400 atmospheres. Creatures have evolved astonishing survival features. The gulper eel has unhinging jaws capable of swallowing prey larger than itself. The barreleye fish possesses transparent fluid-filled head dome housing tubular eyes that rotate upward to spot silhouette shadows against faint surface light.",
-      zh: "生活在深海渐层带（1000至4000米深）面临着令人畏惧的环境挑战：完全无光、接近冰冻的温度和超过400个大气压的摧毁性压力。生物演化出了令人惊叹的生存特征。吞噬鳗拥有脱钩的颌骨，能够吞下比自身还大的猎物。管眼鱼拥有透明的充满液体的头顶圆顶，里面装有可向上旋转的管状眼睛，以在微弱的表面光线下发现剪影影子。"
+    "id": 339,
+    "difficulty": "medium",
+    "dayIndex": 38,
+    "title": {
+      "en": "The Amazon Rainforest",
+      "zh": "亚马逊雨林"
     },
-    questions: [
-      { q: "What depth range defines the bathypelagic ocean zone?", options: ["200 to 500 meters", "1,000 to 4,000 meters deep", "5,000 to 10,000 meters", "100 to 200 meters"], correct: 1 },
-      { q: "How great is the water pressure in the bathypelagic zone?", options: ["50 atmospheres", "Exceeding 400 atmospheres", "100 atmospheres", "1,000 atmospheres"], correct: 1 },
-      { q: "What unique jaw adaptation allows the gulper eel to eat large food?", options: ["Sharp fangs", "Unhinging jaws to swallow prey larger than itself", "Crushing plates", "Suction mouth"], correct: 1 },
-      { q: "What unusual feature characterizes the head of the barreleye fish?", options: ["Bioluminescent horn", "Transparent fluid-filled head dome with rotating tubular eyes", "Armor plates", "No eyes"], correct: 1 },
-      { q: "Why do barreleye fish eyes rotate upward inside their transparent dome?", options: ["To look for rocks", "To spot silhouette shadows against surface light", "To see behind them", "To focus on seafloor"], correct: 1 }
+    "text": {
+      "en": "The Amazon rainforest is the largest tropical wilderness area on planet Earth. It spans nine South American countries and produces huge amounts of global oxygen. Millions of unique plant and animal species thrive under the dense forest canopy. Protecting the Amazon is vital for absorbing carbon dioxide and stabilizing global climate.",
+      "zh": "亚马逊雨林是地球上最大的热带荒野地区。它横跨九个南美洲国家，产生大量的全球氧气。数以百万计的独特植物和动物物种在稠密的森林树冠下茁壮成长。保护亚马逊对于吸收二氧化碳和稳定全球气候至关重要。"
+    },
+    "questions": [
+      {
+        "q": "What is the Amazon rainforest known as?",
+        "options": [
+          "Largest tropical wilderness on Earth",
+          "Smallest forest",
+          "Oldest desert",
+          "Coldest park"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many South American countries does the Amazon span?",
+        "options": [
+          "Nine countries",
+          "Five countries",
+          "Seven countries",
+          "Twelve countries"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do millions of plant and animal species thrive?",
+        "options": [
+          "Under the dense forest canopy",
+          "In rivers",
+          "On mountains",
+          "In desert"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting the Amazon vital for Earth's climate?",
+        "options": [
+          "Absorbs carbon dioxide and stabilizes climate",
+          "Stops rain",
+          "Makes weather hot",
+          "Cools oceans"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 345,
-    difficulty: "hard",
-    dayIndex: 44,
-    title: { en: "The Science of Hurricanes", zh: "飓风动力学" },
-    text: {
-      en: "Hurricanes are thermodynamic engines powered by heat released when moist warm ocean air rises and condenses. Forming over tropical oceans exceeding 26.5°C (80°F), low-pressure centers draw in surrounding air, which is spun into spiraling rainbands by the Coriolis effect of Earth's rotation. At the center sits the eye, a calm low-pressure cylinder of descending air, surrounded by the eyewall—a ring of towering thunderstorms producing peak wind speeds.",
-      zh: "飓风是由湿热海洋空气上升和凝结时释放的热量驱动的热力学发动机。形成于超过26.5°C（80°F）的热带海洋上，低压中心吸入周围空气，被地球旋转的科里奥利效应旋转成螺旋状降雨带。中心是风暴眼，这是一个由下沉空气组成的平静低压圆柱体，周围环绕着眼墙——一圈产生峰值风速的高耸雷暴。"
+    "id": 340,
+    "difficulty": "medium",
+    "dayIndex": 39,
+    "title": {
+      "en": "The Hubble Space Telescope",
+      "zh": "哈勃空间望远镜"
     },
-    questions: [
-      { q: "What minimal ocean surface temperature is required for hurricane formation?", options: ["20°C (68°F)", "Exceeding 26.5°C (80°F)", "30°C (86°F)", "15°C (59°F)"], correct: 1 },
-      { q: "What planetary force causes hurricane rainbands to spin in a spiral?", options: ["Gravitational pull", "Coriolis effect of Earth's rotation", "Magnetic polarity", "Solar wind"], correct: 1 },
-      { q: "What atmospheric condition exists inside the central eye of a hurricane?", options: ["High wind speeds", "Calm low-pressure cylinder of descending air", "Torrential rain", "Freezing hail"], correct: 1 },
-      { q: "Which section of a hurricane contains the most dangerous peak winds?", options: ["Outer bands", "Eyewall ring of towering thunderstorms", "Central eye floor", "Trailing edge"], correct: 1 },
-      { q: "What process releases the thermal energy that fuels hurricane growth?", options: ["Evaporation", "Condensation of rising warm moist air", "Ocean freezing", "Friction"], correct: 1 }
+    "text": {
+      "en": "The Hubble Space Telescope was launched into Earth orbit in nineteen ninety. Positioned high above atmospheric distortion, it captures crystal clear images of deep space. Hubble has helped astronomers determine the precise age of our universe. Its breathtaking photos of colorful nebulae and galaxies continue to inspire scientists.",
+      "zh": "哈勃空间望远镜于一九九〇年发射进入地球轨道。它被安置在大气干扰的高空，捕捉深空水晶般清晰的图像。哈勃帮助天文学家确定了我们宇宙的精确年龄。它拍摄的五彩斑斓星云和星系的令人惊叹的照片继续激励着科学家。"
+    },
+    "questions": [
+      {
+        "q": "When was the Hubble Space Telescope launched?",
+        "options": [
+          "In 1990",
+          "In 1980",
+          "In 2000",
+          "In 1975"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why can Hubble capture crystal clear images of deep space?",
+        "options": [
+          "Positioned high above atmospheric distortion",
+          "It has big lights",
+          "It is near stars",
+          "It moves fast"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What important discovery did Hubble help astronomers make?",
+        "options": [
+          "Determine precise age of universe",
+          "Find water on moon",
+          "Discover new sun",
+          "Measure Earth"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What photos taken by Hubble continue to inspire scientists?",
+        "options": [
+          "Colorful nebulae and galaxies",
+          "Moon craters",
+          "Earth cities",
+          "Sun spots"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 346,
-    difficulty: "hard",
-    dayIndex: 45,
-    title: { en: "The Ancient Great Pyramid of Giza", zh: "吉萨大金字塔建造技术" },
-    text: {
-      en: "Constructed around 2560 BC for Pharaoh Khufu, the Great Pyramid of Giza was the tallest human-made structure for over 3,800 years. Standing 146.6 meters (481 feet) tall, it comprises an estimated 2.3 million granite and limestone blocks weighing up to 15 tons each. Stonemasons quarrying limestone used copper chisels and wooden wedges soaked in water to split rock along natural fault lines, transporting blocks via Nile barges.",
-      zh: "建造于约公元前2560年，为法老胡夫建造的吉萨大金字塔在3800多年里一直是最高的人造建筑。高146.6米（481英尺），它由估计230万块重达15吨的花岗岩和石灰石块组成。采石场石匠使用铜凿子和浸水的木楔沿着天然断层线切割岩石，通过尼罗河驳船运输石块。"
+    "id": 341,
+    "difficulty": "hard",
+    "dayIndex": 40,
+    "title": {
+      "en": "Wind Energy Physics",
+      "zh": "风能物理学"
     },
-    questions: [
-      { q: "For which Egyptian pharaoh was the Great Pyramid of Giza constructed?", options: ["Ramses II", "Pharaoh Khufu", "Tutankhamun", "Akhenaten"], correct: 1 },
-      { q: "How many blocks of granite and limestone make up the Great Pyramid?", options: ["1 million", "Estimated 2.3 million blocks", "5 million", "500,000"], correct: 1 },
-      { q: "What maximum weight could individual stone blocks reach?", options: ["2 tons", "Up to 15 tons each", "50 tons", "5 tons"], correct: 1 },
-      { q: "What technique did quarry stonemasons use to split limestone along fault lines?", options: ["Iron saws", "Copper chisels and soaked wooden wedges", "Explosives", "Fire heating"], correct: 1 },
-      { q: "How were giant stone blocks transported from distant quarries to Giza?", options: ["Wooden carts", "Nile barges", "Sledges on sand only", "Rope pulleys"], correct: 1 }
+    "text": {
+      "en": "Wind power utilizes the kinetic energy of moving air masses across Earth's surface. Solar radiation heats land and ocean surfaces unevenly, causing atmospheric pressure differences. As air flows from high to low pressure zones, giant wind turbine blades spin. Generators convert this mechanical motion into clean electrical current without carbon emissions.",
+      "zh": "风力发电利用跨越地球表面的流动气团的动能。太阳辐射对陆地和海洋表面的加热不均匀，造成大气压力差异。当空气从高压区流向低压区时，巨型风力发电机叶片旋转。发电机将这种机械运动转化为干净的电流，而不会产生碳排放。"
+    },
+    "questions": [
+      {
+        "q": "What type of energy from air masses does wind power utilize?",
+        "options": [
+          "Kinetic energy",
+          "Heat energy",
+          "Chemical energy",
+          "Potential energy"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What causes atmospheric pressure differences across Earth?",
+        "options": [
+          "Uneven solar radiation heating surfaces",
+          "Ocean tides",
+          "Earth's rotation",
+          "Rainfall"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does air flow between pressure zones?",
+        "options": [
+          "From high to low pressure zones",
+          "From low to high",
+          "In circles only",
+          "Upwards only"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What converts turbine mechanical motion into electrical current?",
+        "options": [
+          "Generators",
+          "Silicon cells",
+          "Transformers",
+          "Batteries"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What environmental advantage does wind power possess?",
+        "options": [
+          "Generates electricity without carbon emissions",
+          "Cools atmosphere",
+          "Makes rain",
+          "Stops wind"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 347,
-    difficulty: "hard",
-    dayIndex: 46,
-    title: { en: "Plant Pollination Ecology", zh: "植物授粉生态学" },
-    text: {
-      en: "Pollination is the essential reproductive transfer of pollen grains from a flower's male anther to the female stigma. Animal pollinators—including bees, butterflies, hummingbirds, and fruit bats—are drawn by floral rewards like sugary nectar and fragrant scented petals. During feeding, sticky pollen adheres to the pollinator's body, transferring to the next bloom to fertilize ovules, which develop into seed-bearing fruits. Over 75% of global food crops rely on animal pollination.",
-      zh: "授粉是花朵雄性花药的花粉粒向雌性柱头传输的重要生殖过程。动物授粉者——包括蜜蜂、蝴蝶、蜂鸟和果蝠——被含糖花蜜和芳香花瓣等花卉奖赏所吸引。在进食期间，粘性花粉粘在授粉者的身体上，传输到下一朵花上使胚珠受精，进而发育为含种子的果实。全球超过75%的粮食作物依赖动物授粉。"
+    "id": 342,
+    "difficulty": "hard",
+    "dayIndex": 41,
+    "title": {
+      "en": "The Ocean Tides",
+      "zh": "海洋潮汐"
     },
-    questions: [
-      { q: "What exact transfer defines the biological process of pollination?", options: ["Seed to soil", "Pollen from male anther to female stigma", "Water to root", "Nectar to leaf"], correct: 1 },
-      { q: "Name two floral rewards flowers produce to attract animal pollinators.", options: ["Thorns and leaves", "Sugary nectar and fragrant scented petals", "Pollen and seeds", "Water and shade"], correct: 1 },
-      { q: "How does pollen travel from one blossom to another on a bee?", options: ["In stomach sac", "Adheres to sticky fuzzy body", "Carried by feet", "Blown by wings"], correct: 1 },
-      { q: "What plant structure develops after successful fertilization of flower ovules?", options: ["Green leaf", "Seed-bearing fruits", "New stem", "Root hair"], correct: 1 },
-      { q: "What percentage of human agricultural food crops depend on animal pollinators?", options: ["25%", "Over 75% of global food crops", "50%", "90%"], correct: 1 }
+    "text": {
+      "en": "Ocean tides are the periodic rising and falling of sea levels worldwide. They are caused primarily by the gravitational pull of the moon and sun. High tides occur on coastal shores aligned with the moon's position. Tidal power stations capture this predictable water movement to generate green electricity.",
+      "zh": "海洋潮汐是全世界海平面定期升降的现象。它们主要是由月球和太阳的万有引力引起的。高潮发生在与月球位置对齐的沿海海岸上。潮汐发电站捕捉这种可预测的水流运动来产生绿色电力。"
+    },
+    "questions": [
+      {
+        "q": "What are ocean tides?",
+        "options": [
+          "Periodic rising and falling of sea levels",
+          "Underwater earthquakes",
+          "Big storm waves",
+          "Ocean currents"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What primarily causes ocean tides?",
+        "options": [
+          "Gravitational pull of moon and sun",
+          "Wind blowing",
+          "Earth rotation",
+          "Hot water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do high tides occur on Earth?",
+        "options": [
+          "Coastal shores aligned with moon's position",
+          "Equator only",
+          "Poles only",
+          "In lakes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do tidal power stations capture to generate green electricity?",
+        "options": [
+          "Predictable water movement",
+          "Wave splashing",
+          "Sunlight on water",
+          "Wind over sea"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is tidal water movement described?",
+        "options": [
+          "Predictable",
+          "Random",
+          "Dangerous",
+          "Slow"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 348,
-    difficulty: "hard",
-    dayIndex: 47,
-    title: { en: "Polar Bear Arctic Survival", zh: "北极熊极地生存特征" },
-    text: {
-      en: "Polar bears (Ursus maritimus) are hyper-carnivorous marine mammals adapted to sub-zero Arctic sea ice habitats. Their dense coat appears white for camouflage, but individual guard hairs are transparent hollow keratin tubes that channel solar heat directly to their underlying black skin. Beneath the skin, a 10-centimeter (4-inch) layer of blubber provides thermal insulation and energy storage. Massive 30-centimeter (12-inch) wide paws act as snowshoes and powerful paddles while hunting ringed seals.",
-      zh: "北极熊是适应零下北极海冰栖息地的超级肉食性海洋哺乳动物。它们浓密的毛发显现白色以供伪装，但单独的护毛实际上是透明的空心角蛋白管，将太阳热量直接引到下方的黑色皮肤上。在皮肤下方，一层10厘米（4英寸）厚的脂肪提供热绝缘和能量储存。巨大的30厘米（12英寸）宽的脚掌在猎食环斑海豹时充当雪鞋和强大的划桨。"
+    "id": 343,
+    "difficulty": "hard",
+    "dayIndex": 42,
+    "title": {
+      "en": "Bioluminescence in Nature",
+      "zh": "自然界中的生物发光"
     },
-    questions: [
-      { q: "What material makes up the transparent hollow guard hairs of a polar bear?", options: ["Chitin", "Keratin tubes that channel solar heat", "Collagen", "Silica"], correct: 1 },
-      { q: "What color is a polar bear's skin under its fur coat to absorb heat?", options: ["White", "Pitch-black skin", "Pink", "Grey"], correct: 1 },
-      { q: "How thick is the subcutaneous blubber layer providing thermal insulation?", options: ["2 centimeters", "10 centimeters (4 inches)", "20 centimeters", "5 centimeters"], correct: 1 },
-      { q: "How wide are a mature polar bear's front paws?", options: ["15 cm", "30 centimeters (12 inches) wide", "50 cm", "20 cm"], correct: 1 },
-      { q: "What marine mammal species serves as the primary prey for polar bears?", options: ["Sea otters", "Ringed seals", "Walruses", "Beluga whales"], correct: 1 }
+    "text": {
+      "en": "Bioluminescence is light produced by living organisms through chemical reactions. Fireflies use rhythmic light flashes to attract mates on warm summer nights. Deep sea anglerfish dangle glowing lures in pitch darkness to catch unsuspecting prey. Scientists study these natural cold light reactions to develop advanced medical imaging.",
+      "zh": "生物发光是生物通过化学反应产生的光。萤火虫在温暖的夏夜利用有节奏的闪光来吸引配偶。深海鮟鱇鱼在漆黑的夜里悬挂发光的诱饵来捕捉毫无防备的猎物。科学家研究这些自然冷光反应，以开发先进的医学成像。"
+    },
+    "questions": [
+      {
+        "q": "How do living organisms produce bioluminescent light?",
+        "options": [
+          "Through chemical reactions inside body",
+          "Absorbing sunlight",
+          "Electric shocks",
+          "Reflecting moon"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do fireflies use rhythmic light flashes on summer nights?",
+        "options": [
+          "To attract mates",
+          "To scare predators",
+          "To find food",
+          "To keep warm"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do anglerfish hunt in the pitch dark deep sea?",
+        "options": [
+          "Dangle glowing lures to catch prey",
+          "Swim fast",
+          "Use echolocation",
+          "Wait in mud"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What type of light reaction is bioluminescence?",
+        "options": [
+          "Natural cold light reaction",
+          "Hot thermal light",
+          "Laser light",
+          "Solar beam"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do scientists apply studies of bioluminescence?",
+        "options": [
+          "Develop advanced medical imaging",
+          "Make lamps",
+          "Build solar panels",
+          "Light cities"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 349,
-    difficulty: "hard",
-    dayIndex: 48,
-    title: { en: "The History of Bicycles", zh: "自行车技术演化史" },
-    text: {
-      en: "The evolution of bicycles reshaped personal transportation throughout the 19th century. In 1817, Baron Karl von Drais created the wooden 'Laufmaschine' (running machine) without pedals or brakes. By 1870, the High-Wheel 'Penny-Farthing' featured a massive 1.5-meter front wheel attached to pedals, offering high speed but dangerous instability. John Kemp Starley's 1885 'Rover Safety Bicycle' revolutionized design by combining equal-sized wheels, a rear-wheel chain drive, and John Dunlop's pneumatic rubber tires.",
-      zh: "自行车的演变改变了整个19世纪的个人交通。1817年，卡尔·冯·德赖斯男爵创造了没有脚踏板或刹车的木制“跑步机”。到了1870年，高轮“便士法新”自行车的特点是一个连接到脚踏板上的1.5米巨型前轮，提供高速但危险的不稳定性。约翰·凯姆普·斯塔利1885年的“罗孚安全自行车”通过结合等大车轮、后轮链条驱动和约翰·邓禄普的充气橡胶轮胎，彻底改变了设计。"
+    "id": 344,
+    "difficulty": "hard",
+    "dayIndex": 43,
+    "title": {
+      "en": "The History of Aviation",
+      "zh": "航空的历史"
     },
-    questions: [
-      { q: "What German inventor created the pedal-less wooden Laufmaschine in 1817?", options: ["Gutenberg", "Baron Karl von Drais", "Starley", "Dunlop"], correct: 1 },
-      { q: "What was the front wheel diameter size on the 1870 High-Wheel Penny-Farthing?", options: ["0.5 meters", "Massive 1.5-meter front wheel", "2.0 meters", "1.0 meter"], correct: 1 },
-      { q: "Why was the High-Wheel Penny-Farthing considered dangerous for riders?", options: ["No handlebars", "Dangerous instability from high seating", "Chain snapped", "Frame cracked"], correct: 1 },
-      { q: "Who invented pneumatic rubber air-filled tires used on the Rover Safety Bicycle?", options: ["John Kemp Starley", "John Dunlop", "Karl Drais", "Goodyear"], correct: 1 },
-      { q: "What mechanical innovation connected the pedals to the rear wheel on the Safety Bicycle?", options: ["Leather belt", "Rear-wheel chain drive", "Wooden shaft", "Rope gear"], correct: 1 }
+    "text": {
+      "en": "Humans dreamed of soaring like birds throughout centuries of historic aviation development. In nineteen hundred and three, the Wright brothers achieved the first powered flight. Their motorized aircraft flew twelve seconds over the windswept dunes of Kitty Hawk. Today modern jet liners carry hundreds of passengers across oceans in hours.",
+      "zh": "在几个世纪的历史航空发展中，人类梦想着像鸟儿一样翱翔。一九〇三年，莱特兄弟实现了第一次动力飞行。他们的机动飞机在基蒂霍克被风吹拂的沙丘上飞了十二秒。今天，现代喷气客机在几个小时内将数百名乘客送过大洋。"
+    },
+    "questions": [
+      {
+        "q": "What long-held dream did humans pursue in aviation?",
+        "options": [
+          "Soaring like birds",
+          "Traveling to moon",
+          "Swimming underwater",
+          "Building towers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who achieved the first powered aircraft flight in 1903?",
+        "options": [
+          "The Wright brothers",
+          "Alexander Bell",
+          "Thomas Edison",
+          "Henry Ford"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How long did the Wright brothers' first motorized flight last?",
+        "options": [
+          "Twelve seconds",
+          "One hour",
+          "Five minutes",
+          "Ten minutes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did the historic first flight take place?",
+        "options": [
+          "Windswept dunes of Kitty Hawk",
+          "In Chicago",
+          "In London",
+          "On mountain peak"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do modern jet liners impact transoceanic travel today?",
+        "options": [
+          "Carry hundreds of passengers across oceans in hours",
+          "Take weeks",
+          "Are dangerous",
+          "Carry cargo only"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 350,
-    difficulty: "hard",
-    dayIndex: 49,
-    title: { en: "The Human Circadian Rhythm", zh: "人体昼夜节律" },
-    text: {
-      en: "Circadian rhythms are internal 24-hour biological cycles that regulate sleepiness, alertness, body temperature, and hormone release. Controlled by a master clock in the brain called the suprachiasmatic nucleus (SCN), these rhythms respond to environmental light cues. Morning sunlight triggers the brain to stop producing melatonin and release cortisol to boost alertness. At night, darkness signals the pineal gland to secrete melatonin, inducing drowsiness and deep restorative sleep.",
-      zh: "昼夜节律是内部24小时生物循环，调节嗜睡、警觉性、体温和激素释放。由大脑中被称为视交叉上核（SCN）的主钟控制，这些节律对环境光线线索作出反应。早晨的阳光触发大脑停止产生褪黑素并释放皮质醇以提高警觉性。在夜间，黑暗向松果体发出信号以分泌褪黑素，诱发嗜睡和深度恢复性睡眠。"
+    "id": 345,
+    "difficulty": "hard",
+    "dayIndex": 44,
+    "title": {
+      "en": "The Physics of Rainbows",
+      "zh": "彩虹的物理学"
     },
-    questions: [
-      { q: "What internal cycle length governs human sleepiness and body temperature?", options: ["12-hour cycle", "Internal 24-hour biological cycle", "48-hour cycle", "7-day cycle"], correct: 1 },
-      { q: "What master clock structure inside the brain regulates circadian rhythms?", options: ["Cerebellum", "Suprachiasmatic nucleus (SCN)", "Hippocampus", "Brainstem"], correct: 1 },
-      { q: "What hormone is released in the morning to boost human alertness?", options: ["Melatonin", "Cortisol", "Insulin", "Adrenaline"], correct: 1 },
-      { q: "What gland secretes melatonin when nighttime darkness arrives?", options: ["Thyroid gland", "Pineal gland", "Adrenal gland", "Pituitary gland"], correct: 1 },
-      { q: "How does melatonin affect the body at night?", options: ["Increases heart rate", "Induces drowsiness and deep restorative sleep", "Raises temperature", "Boosts hunger"], correct: 1 }
-    ]
-  },
-
-  // SUPER_HARD (10 passages, 6 questions each, IDs 351-360)
-  {
-    id: 351,
-    difficulty: "super_hard",
-    dayIndex: 50,
-    title: { en: "The Physics of Renewable Energy", zh: "可再生能源物理学" },
-    text: {
-      en: "The worldwide transition from finite fossil fuel reserves to sustainable energy systems represents a monumental shift in technological infrastructure. Fossil fuels—coal, crude oil, and natural gas—are hydrocarbon deposits formed millions of years ago through intense heat and subterranean pressure acting on ancient organic matter. When combusted, these fuels release greenhouse gases such as carbon dioxide and nitrous oxide, driving global climate disruption. Modern renewable technologies harness naturally replenishing planetary forces. Photovoltaic solar panels utilize silicon semiconductor junctions to convert incident light photons directly into electric current via the photoelectric effect. Wind turbines harness atmospheric kinetic energy, using aerodynamic rotor blades to turn electromagnetic generators rated at several megawatts. Hydroelectric facilities channel high-pressure water from reservoirs through Francis or Kaplan water turbines, achieving mechanical conversion efficiencies exceeding 90 percent. Developing utility-scale grid battery storage using lithium-ion or flow chemistry is critical to overcoming output variability when solar or wind resources fluctuate.",
-      zh: "全球从有限的化石燃料储备向可持续能源系统的过渡代表了技术基础设施的重大转变。化石燃料——煤炭、原油和天然气——是数百万年前在作用于古代有机物的剧烈热量和地下压力下形成的碳氢化合物沉积。燃烧时，这些燃料释放出二氧化碳和氧化亚氮等温室气体，推了全球气候破坏。现代可再生技术利用自然补充的地球力量。光伏太阳能电池板利用硅半导体结通过光电效应将入射光子直接转化为电流。风力发电机利用大气动能，使用空气动力学转子叶片转动额定功率为数兆瓦的电磁发电机。水力发电设施通过弗朗西斯或卡普兰水轮机引导来自水库的高压水，实现超过90%的机械转化效率。使用锂离子或液流化学开发电网级电池储存对于在太阳能或风能资源波动时克服输出可变性至关重要。"
+    "text": {
+      "en": "Rainbows are optical phenomena caused by sunlight refracting through airborne water droplets. As sunlight enters a raindrop, white light bends and splits into spectral colors. Reflection inside the droplet bounces colored rays back toward the observer's eyes. This creates a spectacular multi-colored circular arch across the rain-cleared sky.",
+      "zh": "彩虹是由阳光在空气中的水滴中折射而引起的显光学现象。当阳光进入雨滴时，白光弯曲并分解成光谱颜色。水滴内部的反射将彩色光线弹回观察者的眼睛。这在雨过天晴的天空上创造了一个壮观的色彩斑斓的圆形拱门。"
     },
-    questions: [
-      { q: "What geological elements formed non-renewable fossil fuels millions of years ago?", options: ["Volcanic ash", "Subterranean pressure and heat acting on ancient organic matter", "Meteorite impacts", "Ocean sea salt"], correct: 1 },
-      { q: "What greenhouse gases are released into the atmosphere when fossil fuels combust?", options: ["Oxygen and argon", "Carbon dioxide and nitrous oxide", "Helium and neon", "Methane only"], correct: 1 },
-      { q: "What semiconductor material is used in photovoltaic solar panels to absorb photons?", options: ["Copper", "Silicon semiconductor junctions", "Germanium", "Gallium"], correct: 1 },
-      { q: "What type of energy do aerodynamic wind turbine rotor blades capture from air currents?", options: ["Thermal heat", "Atmospheric kinetic energy", "Potential energy", "Static electric"], correct: 1 },
-      { q: "What conversion efficiency percentage can modern hydroelectric water turbines exceed?", options: ["50 percent", "Exceeding 90 percent", "75 percent", "60 percent"], correct: 1 },
-      { q: "Why is utility-scale grid battery storage essential for renewable energy systems?", options: ["To lower voltage", "To overcome output variability when solar or wind resources fluctuate", "To cool turbines", "To clean panels"], correct: 1 }
-    ]
-  },
-  {
-    id: 352,
-    difficulty: "super_hard",
-    dayIndex: 51,
-    title: { en: "Plate Tectonics and Seismology", zh: "板块构造与地震学" },
-    text: {
-      en: "Earth's outer shell, the lithosphere, is divided into rigid tectonic plates that move dynamically across the ductile asthenosphere. Plate motions are driven by mantle convection, gravitational ridge push, and subduction slab pull. At transform plate boundaries, such as California's San Andreas Fault, plates grind past one another horizontally. As frictional resistance prevents continuous motion, enormous elastic strain energy accumulates within locked fault zones over decades or centuries. When accumulated stress finally exceeds the shear strength of the subterranean rock, the fault ruptures catastrophically along a focal plane. This sudden release converts stored strain into seismic waves—including compressional Primary (P) waves and shear Secondary (S) waves—that radiate through Earth's interior. Seismologists analyze arrival time differences between P and S waves at global recording stations to pinpoint the earthquake epicenter and calculate its moment magnitude.",
-      zh: "地球的外壳岩石圈分为硬质板块，在延展性软流圈上动态移动。板块运动由地幔对流、重力脊推和俯冲板块拉力驱动。在转换板块边界，例如加利福尼亚的圣安德烈斯断层，板块在水平方向上相互磨擦。由于摩擦阻力阻止了连续运动，巨大的弹性应变能在封锁的断层带内积累数十年或数百年。当积累的应力最终超过地下岩石的剪切强度时，断层沿着焦点平面发生灾难性破裂。这种突然释放将储存的应变转化为地震波——包括压缩初波（P波）和剪切次波（S波）——穿过地球内部辐射。地震学家分析全球记录站P波和S波的到达时间差，以精确确定地震震中并计算其矩震级。"
-    },
-    questions: [
-      { q: "What ductile mantle layer underlies Earth's rigid lithospheric tectonic plates?", options: ["Outer core", "Ductile asthenosphere", "Inner core", "Mesosphere"], correct: 1 },
-      { q: "What famous transform fault boundary in California features plates grinding horizontally?", options: ["Alpine Fault", "San Andreas Fault", "Anatolian Fault", "Cascadia Subduction"], correct: 1 },
-      { q: "What energy form accumulates within locked fault zones over decades of plate motion?", options: ["Thermal heat", "Enormous elastic strain energy", "Chemical energy", "Magnetic charge"], correct: 1 },
-      { q: "What event occurs when subterranean stress exceeds the shear strength of fault rock?", options: ["Magma cooling", "Catastrophic fault rupture releasing seismic waves", "Mountain sinking", "Geyser explosion"], correct: 1 },
-      { q: "What two main types of body waves travel through Earth during an earthquake?", options: ["Radio and light", "Compressional Primary (P) and shear Secondary (S) waves", "Sound and shock", "Tidal and wind"], correct: 1 },
-      { q: "How do seismologists pinpoint the epicenter of an earthquake using seismic data?", options: ["Measuring cloud cover", "Analyzing arrival time differences between P and S waves", "Checking ocean tides", "Measuring surface temperature"], correct: 1 }
-    ]
-  },
-  {
-    id: 353,
-    difficulty: "super_hard",
-    dayIndex: 52,
-    title: { en: "The History of Lunar Exploration", zh: "月球探索历史" },
-    text: {
-      en: "Humanity's exploration of the Moon represents one of the most audacious scientific endeavors in history. During the height of the Cold War Space Race, NASA initiated the Apollo program to fulfill President John F. Kennedy's 1961 goal of landing a man on the Moon before the decade ended. On July 16, 1969, the colossal Saturn V rocket launched Apollo 11 carrying astronauts Neil Armstrong, Buzz Aldrin, and Michael Collins. Four days later on July 20, the Lunar Module Eagle touched down in the Sea of Tranquility. Stepping onto the lunar dust, Armstrong declared: 'That's one small step for man, one giant leap for mankind.' Armstrong and Aldrin spent 21.5 hours on the lunar surface, collecting 47.5 pounds of lunar rock and soil samples, deploying scientific experiment packages, and planting the American flag. Between 1969 and 1972, six successful Apollo missions landed twelve astronauts on the Moon, providing invaluable geological data that transformed our understanding of planetary formation.",
-      zh: "人类对月球的探索代表了历史上最具有雄心的科学尝试之一。在冷战太空竞赛的高峰期，美国国家航空航天局发起了阿波罗计划，以实现总统约翰·F·肯尼迪1961年设定的在十年结束前将人类降落在月球上的目标。1969年7月16日，巨型土星5号火箭发射了载有宇航员尼尔·阿姆斯特朗、巴兹·奥尔德林和迈克尔·柯林斯的阿波罗11号。四天后的7月20日，登月舱鹰号降落在静海。踏上月球尘埃，阿姆斯特朗宣布：“这是个人的一小步，却是人类的一大步。”阿姆斯特朗和奥尔德林在月球表面度过了21.5个小时，收集了47.5磅的月球岩石和土壤样品，部署了科学实验包，并插上了美国国旗。在1969年至1972年之间，六次成功的阿波罗任务将十二名宇航员送上月球，提供了宝贵的地质数据，彻底改变了我们对行星形成的理解。"
-    },
-    questions: [
-      { q: "Which U.S. President set the goal in 1961 to land a man on the Moon before 1970?", options: ["Dwight Eisenhower", "President John F. Kennedy", "Lyndon Johnson", "Richard Nixon"], correct: 1 },
-      { q: "What colossal rocket launch vehicle propelled the Apollo 11 spacecraft into space?", options: ["Atlas V", "Saturn V rocket", "Titan II", "Falcon Heavy"], correct: 1 },
-      { q: "Where on the Moon's surface did the Lunar Module Eagle land on July 20, 1969?", options: ["Ocean of Storms", "Sea of Tranquility", "Crater Tycho", "Sea of Serenity"], correct: 1 },
-      { q: "What famous statement did Neil Armstrong make as he stepped onto the Moon?", options: ["The Eagle has landed", "That's one small step for man, one giant leap for mankind", "We came in peace", "Houston, we are here"], correct: 1 },
-      { q: "How many pounds of lunar rock and soil samples did Apollo 11 collect?", options: ["10 pounds", "47.5 pounds of samples", "100 pounds", "25 pounds"], correct: 1 },
-      { q: "How many total astronauts walked on the Moon across all six successful Apollo landings?", options: ["Eight", "Twelve astronauts", "Sixteen", "Ten"], correct: 1 }
+    "questions": [
+      {
+        "q": "What optical process causes rainbows in the sky?",
+        "options": [
+          "Sunlight refracting through airborne water droplets",
+          "Sun reflecting off clouds",
+          "Moon light",
+          "Wind friction"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happens when white sunlight enters a raindrop?",
+        "options": [
+          "Bends and splits into spectral colors",
+          "Turns black",
+          "Disappears",
+          "Heats up"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What role does internal reflection inside the droplet play?",
+        "options": [
+          "Bounces colored rays toward observer's eyes",
+          "Absorbs light",
+          "Makes rain fall",
+          "Cools air"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What shape does a rainbow form across the sky?",
+        "options": [
+          "Spectacular multi-colored circular arch",
+          "Straight line",
+          "Square",
+          "Spiral"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When are rainbows visible in nature?",
+        "options": [
+          "Across rain-cleared sky with sun",
+          "At midnight",
+          "In heavy fog",
+          "During snowstorms"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 354,
-    difficulty: "super_hard",
-    dayIndex: 53,
-    title: { en: "Ocean Trench Bioluminescence", zh: "深海海沟生物发光" },
-    text: {
-      en: "Deep oceanic trenches like the Mariana Trench descend into the hadal zone below 6,000 meters, representing Earth's most extreme marine environment. Shrouded in total darkness and subjected to hydrostatic pressures exceeding 1,000 atmospheres, marine life in this abyss relies heavily on bioluminescence for survival. Bioluminescent light is produced inside photophore organ cells when the enzyme luciferase catalyzes the oxidation of the substrate luciferin. Deep-sea anglerfish possess a modified dorsal fin spine tipped with a glowing esca (lure) containing symbiotic bioluminescent bacteria. The anglerfish dangles this glowing esca in front of its mouth to attract curious prey in pitch-black waters. Other abyssal species, such as viperfish and hatchetfish, feature rows of ventral photophores that emit downward-directed blue light. This mechanism, known as counterillumination, matches faint downwelling sunlight from above, camouflaging the fish's silhouette against predators searching from below.",
-      zh: "像马里亚纳海沟这样的深海海沟下降到6000米以下的超深渊带，代表着地球上最极端的海洋环境。笼罩在完全的黑暗中，承受着超过1000个大气压的水静压，这个深渊中的海洋生物严重依赖生物发光来生存。当萤光素酶催化底物萤光素的氧化时，生物发光在发光器器官细胞内部产生。深海鮟鱇鱼拥有一个修改过的背鳍棘，其末端带有含有共生发光细菌的发出光亮的拟饵。鮟鱇鱼在漆黑的水域中在嘴前悬挂这个发光拟饵吸引好奇的猎物。其他深渊物种，如毒蛇鱼和斧头鱼，其特征是腹侧发光器排发射向下的蓝光。这种被称为反照明的机制与来自上方微弱的下射阳光相匹配，使鱼的剪影在下方搜索的捕食者面前伪装。"
+    "id": 346,
+    "difficulty": "hard",
+    "dayIndex": 45,
+    "title": {
+      "en": "The Antarctic Continent",
+      "zh": "南极大陆"
     },
-    questions: [
-      { q: "What deep ocean zone lies below 6,000 meters depth in oceanic trenches?", options: ["Bathypelagic zone", "Hadal zone", "Abyssopelagic zone", "Mesopelagic zone"], correct: 1 },
-      { q: "What chemical catalyst oxidizes luciferin inside photophore cells to produce light?", options: ["Chlorophyll", "Enzyme luciferase", "Hemoglobin", "Amylase"], correct: 1 },
-      { q: "What structure on the anglerfish contains glowing symbiotic bacteria?", options: ["Teeth", "Modified dorsal fin spine tipped with a glowing esca", "Tail fin", "Gill slit"], correct: 1 },
-      { q: "How does the glowing esca help the anglerfish hunt in total darkness?", options: ["Blinds predators", "Attracts curious prey toward its mouth", "Heats surrounding water", "Sends radio signals"], correct: 1 },
-      { q: "What camouflage technique involves emitting downward light to match surface sun?", options: ["Bioluminescent flash", "Counterillumination", "Thermal masking", "Pigment shift"], correct: 1 },
-      { q: "Which fish species utilize rows of ventral photophores for counterillumination?", options: ["Salmon and trout", "Viperfish and hatchetfish", "Tuna and cod", "Sharks and rays"], correct: 1 }
+    "text": {
+      "en": "Antarctica is the coldest, driest, and windiest continent on planet Earth. Over ninety-eight percent of its land surface is buried under thick ice sheets. Despite harsh conditions, emperor penguins and Weddell seals thrive along coastal margins. International treaties protect Antarctica as a scientific preserve dedicated to peace.",
+      "zh": "南极洲是地球上最冷、最干燥、风最大的大陆。其超过百分之九十八的陆地表面埋在厚厚的冰盖之下。尽管条件恶劣，帝企鹅和韦德尔氏海豹仍沿着海岸边缘茁壮成长。国际条约保护南极洲作为一个致力于和平的科学保护区。"
+    },
+    "questions": [
+      {
+        "q": "How is the climate of Antarctica described?",
+        "options": [
+          "Coldest, driest, windiest continent",
+          "Warm and rainy",
+          "Tropical jungle",
+          "Hot desert"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What percentage of Antarctica's land is buried under ice?",
+        "options": [
+          "Over ninety-eight percent",
+          "Fifty percent",
+          "Seventy percent",
+          "Thirty percent"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which animals thrive along Antarctic coastal margins?",
+        "options": [
+          "Emperor penguins and Weddell seals",
+          "Polar bears and foxes",
+          "Whales only",
+          "Sea gulls"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do international treaties protect Antarctica today?",
+        "options": [
+          "As a scientific preserve dedicated to peace",
+          "As a mining site",
+          "As a tourist city",
+          "As a military base"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What covers almost the entire Antarctic land surface?",
+        "options": [
+          "Thick ice sheets",
+          "Rock deserts",
+          "Volcanic ash",
+          "Deep water"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 355,
-    difficulty: "super_hard",
-    dayIndex: 54,
-    title: { en: "The Dynamics of Tropical Cyclones", zh: "热带气旋动力学" },
-    text: {
-      en: "Tropical cyclones—variously designated as hurricanes in the Atlantic, typhoons in the western Pacific, and cyclones in the Indian Ocean—are powerful thermodynamic storm systems that transfer heat from tropical oceans to the upper atmosphere. Formation requires ocean sea-surface temperatures of at least 26.5°C (80°F) extending through a depth of 50 meters, along with low vertical wind shear and high atmospheric moisture. Solar radiation heats ocean water, driving rapid evaporation. As warm, moist air ascends, it cools and condenses into torrential rainbands, releasing vast amounts of latent heat of condensation. This latent heat release warms the upper air column, lowering surface pressure further and drawing in surrounding surface winds. Earth's Coriolis force causes incoming air to deflect, establishing a rapid counterclockwise rotation in the Northern Hemisphere. The storm center develops a calm, low-pressure eye surrounded by the eyewall, a ring of intense convective thunderstorms where peak wind speeds and storm surges are generated.",
-      zh: "热带气旋——在大西洋中被称为飓风，在西太平洋中被称为台风，在印度洋中被称为气旋——是强大的热力学风暴系统，将热量从热带海洋传输到上层大气。形成需要至少26.5°C（80°F）延伸至50米深度的海洋海面温度，以及低垂直风切变和高大气湿度。太阳辐射加热海水，驱动快速蒸发。随着温热湿润的空气上升，它冷却并凝结成暴雨带，释放出大量凝结潜热。这种潜热释放使上层气柱变热，进一步降低地面气压，并吸入周围的表面风。地球的科里奥利力导致流入的空气偏转，在北半球建立起快速的逆时针旋转。风暴中心形成一个平静的低压眼，周围环绕着眼墙——一圈强烈的对流雷暴，在那里产生峰值风速和风暴潮。"
+    "id": 347,
+    "difficulty": "hard",
+    "dayIndex": 46,
+    "title": {
+      "en": "The Solar System Formation",
+      "zh": "太阳系的形成"
     },
-    questions: [
-      { q: "What are tropical cyclones called when they develop in the western Pacific Ocean?", options: ["Hurricanes", "Typhoons", "Cyclones", "Willy-willies"], correct: 1 },
-      { q: "What ocean water depth must reach at least 26.5°C (80°F) for cyclone formation?", options: ["10 meters", "Extending through a depth of 50 meters", "100 meters", "5 meters"], correct: 1 },
-      { q: "What energy form is released when rising water vapor condenses into rainbands?", options: ["Kinetic energy", "Latent heat of condensation", "Radiant energy", "Geothermal energy"], correct: 1 },
-      { q: "In which direction does a tropical cyclone rotate in the Northern Hemisphere?", options: ["Clockwise", "Counterclockwise rotation", "Vertical spin", "Static wobble"], correct: 1 },
-      { q: "What atmospheric planetary force causes incoming surface winds to deflect into a spin?", options: ["Gravitational force", "Coriolis force of Earth's rotation", "Magnetic force", "Friction force"], correct: 1 },
-      { q: "What severe coastal hazards do tropical cyclones generate upon making landfall?", options: ["Tsunamis and blizzards", "Peak wind speeds and dangerous storm surges", "Volcanic ash", "Droughts"], correct: 1 }
+    "text": {
+      "en": "Our solar system formed four point six billion years ago from gas and dust. A giant rotating interstellar cloud collapsed under its own gravitational force. Most matter pulled into the center to ignite our glowing sun. Remaining dust collided over millions of years to form the orbiting planets.",
+      "zh": "我们的太阳系形成于四十 point 六亿年前的气体和尘埃。巨大旋转的星际云在其自身万有引力作用下坍缩。大部分物质被拉入中心，点燃了我们发光的太阳。剩余的尘埃在数百万年中碰撞，形成了运行的行星。"
+    },
+    "questions": [
+      {
+        "q": "When did our solar system form?",
+        "options": [
+          "4.6 billion years ago",
+          "1 million years ago",
+          "100 billion years ago",
+          "10,000 years ago"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What collapsed under gravitational force to form the solar system?",
+        "options": [
+          "Giant rotating interstellar cloud of gas and dust",
+          "A dying star",
+          "A black hole",
+          "A comet"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What formed when most matter pulled into the center?",
+        "options": [
+          "Our glowing sun",
+          "Jupiter",
+          "Earth",
+          "The moon"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did orbiting planets form over millions of years?",
+        "options": [
+          "Remaining dust collided and clumped together",
+          "Sun split apart",
+          "Comets exploded",
+          "Gases cooled"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What force pulled matter into the center of the cloud?",
+        "options": [
+          "Gravitational force",
+          "Magnetic force",
+          "Nuclear force",
+          "Wind power"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 356,
-    difficulty: "super_hard",
-    dayIndex: 55,
-    title: { en: "Architecture of Ancient Egypt", zh: "古埃及建筑工程" },
-    text: {
-      en: "The architectural monuments of ancient Egypt reflect incredible engineering ingenuity, astronomical alignment, and religious devotion. Constructed during the Old Kingdom (c. 2686–2181 BC), pyramids served as eternal resting places for pharaohs, who were revered as divine intermediaries between gods and humans. The Great Pyramid of Giza, built for Pharaoh Khufu under the supervision of royal architect Hemiunu, was the world's tallest structure for over 3,800 years. Overseeing the quarrying of 2.3 million limestone and granite blocks, Egyptian builders employed copper chisels, wooden mallets, and wet wooden wedges that expanded to fracture stone along natural fault seams. Workers transported stone blocks weighing between 2.5 and 15 tons using wooden sledges over lubricated mud tracks, dragging them up massive earthen ramps built around the pyramid structure. The monument's four base sides align almost perfectly with the cardinal compass directions (North, South, East, West) with an error margin of less than one-fifteenth of a degree.",
-      zh: "古埃及的建筑纪念物反映了难以置信的工程独创性、天文学对齐和宗教虔诚。建造于古王国时期（约公元前2686-2181年），金字塔作为法老的永恒安息之地，法老被奉为神与人类之间的神圣中介。在皇家建筑师黑米乌努的监督下为法老胡夫建造的吉萨大金字塔在3800多年里一直是世界上最高的建筑物。监督采伐230万块石灰石和花岗岩块，埃及建设者使用了铜凿子、木槌和浸水的木楔，木楔膨胀沿着天然断层缝切割石头。工人使用木雪橇在润滑的泥土轨道上运输重达2.5至15吨的石块，将它们拉上围绕金字塔结构建造的巨型土坡。纪念物的四个底边与基本指南针方向（东、南、西、北）几乎完美对齐，误差幅度小于十五分之一度。"
+    "id": 348,
+    "difficulty": "hard",
+    "dayIndex": 47,
+    "title": {
+      "en": "The Invention of Paper",
+      "zh": "造纸术的发明"
     },
-    questions: [
-      { q: "Who served as the royal architect supervising construction of Khufu's Great Pyramid?", options: ["Imhotep", "Hemiunu", "Senenmut", "Khafre"], correct: 1 },
-      { q: "During which historical kingdom period were the Giza pyramids constructed?", options: ["New Kingdom", "Old Kingdom (c. 2686–2181 BC)", "Middle Kingdom", "Ptolemaic Period"], correct: 1 },
-      { q: "How did wooden wedges split heavy limestone blocks in ancient quarries?", options: ["By burning", "Expanding when soaked in water to fracture stone", "By freezing", "By chemical acid"], correct: 1 },
-      { q: "How did workers transport 15-ton stone blocks across the desert sand to Giza?", options: ["Iron wheeled carts", "Wooden sledges over lubricated mud tracks", "River canoes", "Bronze rollers"], correct: 1 },
-      { q: "What earth structures were built around the pyramid to drag heavy blocks upward?", options: ["Stone stairs", "Massive earthen ramps", "Wooden cranes", "Rope elevators"], correct: 1 },
-      { q: "With what degree of accuracy do the four sides of the Great Pyramid align to cardinal directions?", options: ["Within five degrees", "Error margin of less than one-fifteenth of a degree", "Within two degrees", "One degree exact"], correct: 1 }
+    "text": {
+      "en": "Cai Lun invented paper making in China during the Han Dynasty around AD 105. He combined mulberry bark, hemp fibers, and old fishing nets in water. The mixture was mashed into pulp, spread on bamboo screens, and dried. This cheap durable material revolutionized record keeping and spread literacy worldwide.",
+      "zh": "蔡伦在公元105年前后的汉朝在中国发明的造纸术。他在水里结合了桑树皮、麻纤维和旧鱼网。将混合物捣成浆，摊在竹筛上，晒干。这种便宜耐用的材料彻底改变了记录保持，并在全世界传播了识字率。"
+    },
+    "questions": [
+      {
+        "q": "Who invented paper making in China during the Han Dynasty?",
+        "options": [
+          "Cai Lun",
+          "Bi Sheng",
+          "Zhang Heng",
+          "Shen Kuo"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What raw materials did Cai Lun combine in water?",
+        "options": [
+          "Mulberry bark, hemp fibers, old fishing nets",
+          "Wood pulp and glue",
+          "Cotton and silk",
+          "Straw and mud"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How was the mashed pulp dried into paper sheets?",
+        "options": [
+          "Spread on bamboo screens and dried",
+          "Baked in oven",
+          "Pressed with iron",
+          "Sun-dried in water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What historical impact did the invention of paper have?",
+        "options": [
+          "Revolutionized record keeping and spread literacy",
+          "Made clothes cheaper",
+          "Ended writing",
+          "Built houses"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was paper making invented in ancient China?",
+        "options": [
+          "Around AD 105",
+          "AD 1000",
+          "500 BC",
+          "AD 1500"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 357,
-    difficulty: "super_hard",
-    dayIndex: 56,
-    title: { en: "Plant Biochemistry and Photosynthesis", zh: "植物生物化学与光合作用" },
-    text: {
-      en: "Photosynthesis is the fundamental biochemical pathway that sustains terrestrial life by converting solar electromagnetic radiation into chemical energy bound within organic molecules. The process occurs in two primary stages within plant leaf chloroplasts: the light-dependent reactions and the light-independent Calvin cycle. During light-dependent reactions, chlorophyll pigments embedded in thylakoid membranes absorb solar photons, energizing electrons and splitting water molecules (photolysis) into protons, electrons, and oxygen gas. The energized electrons generate ATP and NADPH energy molecules. In the stroma during the Calvin cycle, the enzyme RuBisCO catalyzes carbon fixation, combining atmospheric carbon dioxide with ribulose 1,5-bisphosphate to synthesize three-carbon sugars that coalesce into glucose. Through this bio-process, plants synthesize over 100 billion tons of dry biomass annually, maintaining oxygen-carbon balances across the biosphere.",
-      zh: "光合作用是基本的生物化学途径，通过将太阳电磁辐射转化为结合在有机分子内的化学能来维持陆地生命。这一过程在植物叶片叶绿体内部的两个主要阶段发生：光反应和暗反应（卡尔文循环）。在光反应期间，嵌入类囊体膜的叶绿素色素吸收太阳光子，激发电子并将水分子分解（光解）为质子、电子和氧气。被激发的电子产生ATP和NADPH能量分子。在卡尔文循环期间的基质中，RuBisCO酶催化碳固定，将大气中的二氧化碳与1,5-二磷酸核酮糖结合，合成结合成葡萄糖的三碳糖。通过这一生物过程，植物每年合成超过1000亿吨干生物量，维持整个生物圈的氧碳平衡。"
+    "id": 349,
+    "difficulty": "hard",
+    "dayIndex": 48,
+    "title": {
+      "en": "Plant Adaptation in Deserts",
+      "zh": "沙漠中植物的适应性"
     },
-    questions: [
-      { q: "What two primary stages comprise the full biochemical pathway of photosynthesis?", options: ["Fermentation and respiration", "Light-dependent reactions and Calvin cycle", "Glycolysis and Krebs cycle", "Fixation and oxidation"], correct: 1 },
-      { q: "In what thylakoid-embedded pigment molecules does photon absorption occur?", options: ["Carotene", "Chlorophyll pigments", "Xanthophyll", "Anthocyanin"], correct: 1 },
-      { q: "What process splits water molecules into protons, electrons, and oxygen during light reactions?", options: ["Hydrolysis", "Photolysis", "Electrolysis", "Osmosis"], correct: 1 },
-      { q: "What key enzyme catalyzes carbon fixation during the light-independent Calvin cycle?", options: ["Amylase", "RuBisCO", "DNA polymerase", "Lipase"], correct: 1 },
-      { q: "Where within the chloroplast do the light-independent Calvin cycle reactions take place?", options: ["Thylakoid membrane", "Stroma fluid", "Outer membrane", "Cell wall"], correct: 1 },
-      { q: "Roughly how many tons of dry biomass do photosynthetic plants produce globally per year?", options: ["1 billion tons", "Over 100 billion tons", "50 billion tons", "500 billion tons"], correct: 1 }
+    "text": {
+      "en": "Desert plants develop specialized adaptations to survive extreme heat and drought. Cacti feature thick waxy stems that store water and sharp spines instead of leaves. Their shallow widespread root systems collect surface rainwater before it evaporates quickly. These unique features allow cacti to thrive in arid desert regions.",
+      "zh": "沙漠植物开发出专门的适应性，以在酷热和干旱中生存。仙人掌的特点是厚厚的蜡质茎储存水，针状刺代替了叶子。它们浅而广泛的根系在地表雨水快速蒸发前进行收集。这些独特的特征使仙人掌能够在干旱的沙漠地区茁壮成长。"
+    },
+    "questions": [
+      {
+        "q": "Why do desert plants develop specialized adaptations?",
+        "options": [
+          "Survive extreme heat and drought",
+          "Grow tall",
+          "Attract insects",
+          "Produce fruit fast"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What features help cacti store water in deserts?",
+        "options": [
+          "Thick waxy stems and sharp spines",
+          "Broad green leaves",
+          "Deep taproots",
+          "Flowers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do shallow widespread root systems help cacti?",
+        "options": [
+          "Collect surface rainwater before it evaporates",
+          "Anchor in deep mud",
+          "Reach groundwater",
+          "Store food"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What replaced traditional leaves on cacti to reduce water loss?",
+        "options": [
+          "Sharp spines",
+          "Waxy scales",
+          "Needles",
+          "Bark"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "In what environment do cacti thrive due to their unique features?",
+        "options": [
+          "Arid desert regions",
+          "Tropical jungles",
+          "Cold tundras",
+          "Swamps"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 358,
-    difficulty: "super_hard",
-    dayIndex: 57,
-    title: { en: "Polar Bear Evolutionary Adaptations", zh: "北极熊演化适应" },
-    text: {
-      en: "The polar bear (Ursus maritimus) evolved from brown bear ancestors approximately 500,000 years ago, acquiring specialized morphological and physiological adaptations for hyper-carnivorous life on Arctic sea ice. Their thick pelt comprises a dense insulating underfur topped by transparent, hollow guard hairs that scatter visible light—making the bear appear white—while channeling infrared solar radiation toward their underlying pitch-black skin. Beneath the dermis lies a subcutaneous blubber layer up to 10 centimeters (4 inches) thick, providing buoyancy while swimming and insulation against -40°C temperatures. Polar bears possess enlarged paws measuring up to 30 centimeters (12 inches) across with papillae (dermal bumps) on footpads that create friction against slick sea ice. Their primary hunting strategy, termed still-hunting, involves waiting motionless beside seal breathing holes (aglus) in sea ice for hours until a ringed or bearded seal surfaces for oxygen.",
-      zh: "北极熊（Ursus maritimus）大约在50万年前由棕熊祖先演化而来，获得了适应在北极海冰上超级肉食性生活的专门形态学和生理学适应。它们浓密的毛皮由一层密集的绝缘下层绒毛和顶部透明的空心护毛组成，护毛散射可见光——使熊显现白色——同时将红外太阳辐射引向其下方的漆黑皮肤。在真皮下方是一层长达10厘米（4英寸）厚的皮下脂肪层，在游泳时提供浮力，并防止-40°C的温度。北极熊拥有宽达30厘米（12英寸）的放大脚掌，脚垫上有乳突（真皮凸起），在滑冰上创造摩擦力。它们的主要捕食策略，被称为守株待兔捕食，包括在海冰上的海豹呼吸孔（aglus）旁静止不动地等待数小时，直到环斑海豹或胡子海豹浮出水面获取氧气。"
+    "id": 350,
+    "difficulty": "hard",
+    "dayIndex": 49,
+    "title": {
+      "en": "The Science of Hurricanes",
+      "zh": "飓风的科学"
     },
-    questions: [
-      { q: "Approximately how many years ago did polar bears diverge from brown bear ancestors?", options: ["50,000 years ago", "Approximately 500,000 years ago", "2 million years ago", "100,000 years ago"], correct: 1 },
-      { q: "Why does a polar bear's fur coat appear white to the human eye?", options: ["White pigment", "Transparent hollow guard hairs scatter visible light", "Bleached by snow", "Reflects ice"], correct: 1 },
-      { q: "What function does the black skin underneath a polar bear's pelt serve?", options: ["Camouflage", "Absorbs solar infrared radiation for warmth", "Waterproofing", "Repels insects"], correct: 1 },
-      { q: "What physical role does the 10-cm thick subcutaneous blubber layer play during swimming?", options: ["Increases speed", "Provides thermal insulation and buoyancy", "Stores oxygen", "Protects muscles"], correct: 1 },
-      { q: "What are the friction-creating dermal bumps on a polar bear's footpads called?", options: ["Spines", "Papillae", "Calluses", "Claws"], correct: 1 },
-      { q: "What is the specialized hunting technique where a polar bear waits quietly at seal breathing holes?", options: ["Stalking", "Still-hunting at breathing holes (aglus)", "Pack hunting", "Ambush leaping"], correct: 1 }
+    "text": {
+      "en": "Hurricanes are violent rotating tropical cyclones that form over warm ocean waters. Evaporating seawater feeds moisture into air currents, driving winds up to high speeds. As storms spin, a calm circular center called the eye develops. Satellite radar tracks hurricane paths to issue early evacuation warnings.",
+      "zh": "飓风是在温暖的海洋水域上形成的剧烈旋转的热带气旋。蒸发的海水将水分馈送到气流中，驱使风速达到极高速度。随着风暴的旋转，一个被称为眼区的平静圆形中心显现出来。卫星雷达跟踪飓风路径，以发布早期疏散警告。"
+    },
+    "questions": [
+      {
+        "q": "What are hurricanes?",
+        "options": [
+          "Violent rotating tropical cyclones over warm oceans",
+          "Tornadoes on land",
+          "Winter snowstorms",
+          "Earthquake waves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What fuels the strong winds of a hurricane?",
+        "options": [
+          "Evaporating seawater feeding moisture into air",
+          "Cold air from poles",
+          "Volcanic heat",
+          "Ocean tides"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the calm circular center of a hurricane called?",
+        "options": [
+          "The eye",
+          "The core",
+          "The vortex",
+          "The peak"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do meteorologists issue early evacuation warnings?",
+        "options": [
+          "Satellite radar tracking hurricane paths",
+          "Listening to wind",
+          "Using ships",
+          "Weather balloons"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Over what type of water do hurricanes form?",
+        "options": [
+          "Warm ocean waters",
+          "Cold polar seas",
+          "Freshwater lakes",
+          "Rivers"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 359,
-    difficulty: "super_hard",
-    dayIndex: 58,
-    title: { en: "The Evolution of Aviation Engineering", zh: "航空工程演变史" },
-    text: {
-      en: "The history of aviation engineering reflects a century of unprecedented technological progress in fluid dynamics, propulsion systems, and materials science. On December 17, 1903, Orville and Wilbur Wright achieved the first controlled, sustained powered flight in a heavier-than-air aircraft at Kitty Hawk, North Carolina. Their biplane, the Wright Flyer, utilized a lightweight 12-horsepower aluminum-block engine and a wing-warping system for roll control. Aircraft technology accelerated rapidly through World War I, transitioning from wooden frames and fabric wings to all-metal monocoque aluminum structures. In 1927, Charles Lindbergh completed the first solo non-stop transatlantic flight from New York to Paris aboard the Spirit of St. Louis, covering 3,610 miles in 33.5 hours. The jet engine, developed independently by Frank Whittle and Hans von Ohain in the late 1930s, replaced piston propellers with gas turbines, enabling commercial jetliners like the Boeing 707 and Concorde to fly at high altitudes at near-supersonic speeds.",
-      zh: "航空工程的历史反映了一个世纪以来在流体动力学、推进系统和材料科学方面前所未有的技术进步。1903年12月17日，奥维尔和威尔伯·莱特在北卡罗来纳州基蒂霍克实现了重于空气的航空器中的第一次受控、持续的动力飞行。他们的双翼飞机莱特飞行者号利用了一个轻量级12马力铝缸体发电机和一个用于滚转控制的翼弯系统。飞机技术在第一次世界大战期间迅速加速，从木制框架和布制机翼过渡到全金属单壳铝结构。1927年，查尔斯·林德伯格驾驶圣路易斯精神号完成了从纽约到巴黎的第一次单人跨大西洋不间断飞行，在33.5小时内飞越了3610英里。喷气式发电机由法兰克·惠特尔和汉斯·冯·奥海因在20世纪30年代末独立开发，用燃气轮机取代了活塞螺旋桨，使波音707和协和式等商用喷气式客机能在高空以接近超音速的速度飞行。"
+    "id": 351,
+    "difficulty": "super_hard",
+    "dayIndex": 50,
+    "title": {
+      "en": "Renewable Energy Technology",
+      "zh": "可再生能源技术"
     },
-    questions: [
-      { q: "What control mechanism did the Wright brothers use on their 1903 biplane for roll control?", options: ["Ailerons", "Wing-warping system", "Flaps", "Rudders"], correct: 1 },
-      { q: "What engine block material was custom-cast for the Wright Flyer's 12-hp engine?", options: ["Cast iron", "Aluminum-block engine", "Steel", "Bronze"], correct: 1 },
-      { q: "What structural design replaced wooden frames and fabric wings after WWI?", options: ["Steel tubing", "All-metal monocoque aluminum structures", "Carbon fiber", "Plywood shells"], correct: 1 },
-      { q: "What was the name of Charles Lindbergh's monoplane for his 1927 transatlantic flight?", options: ["Wright Flyer", "Spirit of St. Louis", "Glamorous Glennis", "Concorde 1"], correct: 1 },
-      { q: "Who independently co-invented the jet turbine engine in the late 1930s?", options: ["Wright brothers", "Frank Whittle and Hans von Ohain", "Lindbergh and Curtiss", "Boeing and Douglas"], correct: 1 },
-      { q: "What propulsion component did gas turbine jet engines replace in high-speed aircraft?", options: ["Glider wings", "Piston propellers", "Steam boilers", "Rocket pods"], correct: 1 }
+    "text": {
+      "en": "Renewable energy technologies harness continuous natural processes to generate clean electricity. Solar photovoltaic panels convert sunlight photons directly into direct electric current using silicon. Wind turbines capture moving atmospheric kinetic energy with large aerodynamic blades to drive generators. Hydroelectric facilities utilize gravitational water flow through turbines to produce reliable green power. Transitioning to renewable energy mitigates global climate change and reduces environmental pollution.",
+      "zh": "可再生能源技术利用连续的自然过程产生清洁电力。太阳能光伏电池板利用硅将阳光光子直接转化为直流电。风力发电机利用大型空气动力学叶片捕捉流动的重大气动能来驱动发电机。水力发电设施利用通过水轮机的重力水流来产生可靠的绿色电力。转向可再生能源可以缓解全球气候变化并减少环境污染。"
+    },
+    "questions": [
+      {
+        "q": "What do renewable energy technologies harness to generate electricity?",
+        "options": [
+          "Continuous natural processes",
+          "Fossil fuels",
+          "Nuclear materials",
+          "Coal reserves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What material in solar panels converts photons into direct electric current?",
+        "options": [
+          "Silicon",
+          "Copper",
+          "Aluminum",
+          "Silver"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do wind turbines capture atmospheric kinetic energy?",
+        "options": [
+          "Large aerodynamic blades driving generators",
+          "Solar reflectors",
+          "Heat sinks",
+          "Water wheels"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What force powers hydroelectric facilities through turbines?",
+        "options": [
+          "Gravitational water flow",
+          "Wind pressure",
+          "Solar radiation",
+          "Geothermal heat"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What global environmental benefit results from transitioning to renewable energy?",
+        "options": [
+          "Mitigates climate change and reduces pollution",
+          "Makes weather cold",
+          "Stops rainfall",
+          "Creates fossil fuels"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What type of electrical current do solar panels produce directly?",
+        "options": [
+          "Direct electric current",
+          "Alternating current",
+          "Static charge",
+          "Magnetic field"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 360,
-    difficulty: "super_hard",
-    dayIndex: 59,
-    title: { en: "The Circadian Rhythm and Sleep Science", zh: "昼夜节律与睡眠科学" },
-    text: {
-      en: "Human physiology is governed by circadian rhythms—endogenous 24-hour biological oscillations that orchestrate sleep-wake cycles, body temperature, metabolism, and immune function. The master pacemaker controlling these rhythms is the suprachiasmatic nucleus (SCN), a paired structure of roughly 20,000 neurons located within the brain's hypothalamus. The SCN synchronizes internal biological clocks with external solar time using environmental light signals received via intrinsically photosensitive retinal ganglion cells (ipRGCs) in the eyes. In response to morning blue sunlight, the SCN suppresses production of the sleep-inducing hormone melatonin while stimulating adrenal secretion of cortisol to elevate metabolic alertness. Conversely, as darkness falls at dusk, reduced ipRGC stimulation prompts the pineal gland to secrete melatonin into the bloodstream, initiating drowsiness and preparing the body for restorative slow-wave and REM sleep phases. Disruptions to circadian alignment, such as shift work or chronic sleep deprivation, impair cognitive focus, compromise immune defense, and elevate long-term health risks.",
-      zh: "人体生理学受昼夜节律支配——内源性24小时生物振荡，编排睡眠-觉醒循环、体温、新陈代谢和免疫功能。控制这些节律的主控起搏器是视交叉上核（SCN），这是位于大脑下丘脑内的约20000个神经元组成的对结构。SCN利用通过眼睛中内在光敏视网膜神经节细胞（ipRGCs）接收的环境光信号，将内部生物钟与外部太阳时间同步。针对早晨的蓝色阳光，SCN抑制诱发睡眠的褪黑素的产生，同时刺激肾上腺分泌皮质醇以提高代谢警觉性。相反，随着黄昏降临，ipRGC刺激减少促使松果体将褪黑素分泌到血液中，引发嗜睡并为身体进入恢复性慢波和快速眼动睡眠阶段做好准备。对昼夜节律对齐的破坏，例如轮班工作或长期睡眠不足，会损害认知注意力、损害免疫防御并增加长期健康风险。"
+    "id": 352,
+    "difficulty": "super_hard",
+    "dayIndex": 51,
+    "title": {
+      "en": "The Great Barrier Reef Ecosystem",
+      "zh": "大堡礁生态系统"
     },
-    questions: [
-      { q: "Where within the human brain is the master circadian pacemaker SCN located?", options: ["Cerebellum", "Hypothalamus", "Hippocampus", "Pituitary gland"], correct: 1 },
-      { q: "How many neurons comprise the suprachiasmatic nucleus (SCN) master clock?", options: ["1,000", "Roughly 20,000 neurons", "1 million", "500"], correct: 1 },
-      { q: "What specialized eye cells detect light signals to synchronize the SCN clock?", options: ["Rods", "Intrinsically photosensitive retinal ganglion cells (ipRGCs)", "Cones", "Cornea cells"], correct: 1 },
-      { q: "Which hormone is suppressed by morning blue light to promote wakefulness?", options: ["Cortisol", "Melatonin", "Insulin", "Adrenaline"], correct: 1 },
-      { q: "What hormone is secreted by the pineal gland at dusk to induce drowsiness?", options: ["Cortisol", "Melatonin", "Thyroxine", "Dopamine"], correct: 1 },
-      { q: "What are two severe consequences of chronic circadian rhythm disruption?", options: ["Faster reflexes", "Impaired cognitive focus and compromised immune defense", "Improved memory", "Stronger bones"], correct: 1 }
+    "text": {
+      "en": "The Great Barrier Reef off Australia is the largest living structure on Earth. Thousands of individual coral reefs are constructed by tiny reef-building coral polyps. This vibrant marine habitat supports over fifteen hundred fish species, sea turtles, and whales. Coral polyps live in symbiotic harmony with microscopic algae that produce food through photosynthesis. Protecting the reef from climate warming and ocean acidification is critical for global marine biodiversity.",
+      "zh": "澳大利亚海岸的大堡礁是地球上最大的活体建筑。数以千计的独立珊瑚礁是由微小的造礁珊瑚虫建造的。这个充满生机的海洋栖息地支持着一千五百多种鱼类、海龟和鲸鱼。珊瑚虫与通过光合作用产生食物的微小藻类共生和谐地生活在一起。保护珊瑚礁免受气候变暖和海洋酸化的影响，对全球海洋生物多样性至关重要。"
+    },
+    "questions": [
+      {
+        "q": "What distinction does the Great Barrier Reef hold on Earth?",
+        "options": [
+          "Largest living structure on Earth",
+          "Oldest desert",
+          "Highest mountain",
+          "Deepest trench"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What organisms construct the individual coral reefs?",
+        "options": [
+          "Tiny reef-building coral polyps",
+          "Giant whales",
+          "Sea turtles",
+          "Sharks"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many fish species does this vibrant marine habitat support?",
+        "options": [
+          "Over fifteen hundred fish species",
+          "Five hundred",
+          "One hundred",
+          "Ten thousand"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "With what organism do coral polyps live in symbiotic harmony?",
+        "options": [
+          "Microscopic algae producing food by photosynthesis",
+          "Seaweed",
+          "Bacteria",
+          "Plankton"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting the reef critical for our planet?",
+        "options": [
+          "Preserving global marine biodiversity",
+          "Helping trade ships",
+          "Increasing fishing",
+          "Creating islands"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What threats jeopardize the Great Barrier Reef?",
+        "options": [
+          "Climate warming and ocean acidification",
+          "Overcrowding",
+          "Tides",
+          "Rainfall"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "difficulty": "super_hard",
+    "dayIndex": 52,
+    "title": {
+      "en": "The History of Printing Press",
+      "zh": "印刷机的历史"
+    },
+    "text": {
+      "en": "Movable type printing was pioneered by Bi Sheng in eleventh century Song Dynasty China. He fashioned durable individual Chinese characters out of baked ceramic clay blocks. In the 1440s, Johannes Gutenberg developed the European mechanical printing press using metal type. This groundbreaking innovation allowed mass production of uniform books and accelerated the Renaissance. The printing press democratized access to information and laid the foundation for modern education.",
+      "zh": "活字印刷术由毕昇于十一世纪中国宋朝开创。他用烧制好的陶瓷粘土块制作了耐用的单个汉字。在15世纪40年代，约翰内斯·谷登堡利用金属活字发明了欧洲机械印刷机。这一突破性的创新允许大批量生产统一的书籍，并加速了文艺复兴。印刷机使获取信息的途径民主化，并为现代教育奠定了基础。"
+    },
+    "questions": [
+      {
+        "q": "Who pioneered movable type printing during Song Dynasty China?",
+        "options": [
+          "Bi Sheng",
+          "Cai Lun",
+          "Shen Kuo",
+          "Wang Anshi"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What material did Bi Sheng use to fashion durable character blocks?",
+        "options": [
+          "Baked ceramic clay blocks",
+          "Hard wood",
+          "Carved stone",
+          "Cast iron"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What innovation did Johannes Gutenberg develop in the 1440s?",
+        "options": [
+          "European mechanical printing press with metal type",
+          "Paper making",
+          "Steam engine",
+          "Telegraph"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What major European historical movement was accelerated by the printing press?",
+        "options": [
+          "The Renaissance",
+          "The Industrial Revolution",
+          "The Middle Ages",
+          "The Space Age"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did the printing press transform human society?",
+        "options": [
+          "Democratized access to information and education",
+          "Stopped writing",
+          "Made books expensive",
+          "Ended schooling"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "In what century did Bi Sheng invent clay movable type?",
+        "options": [
+          "Eleventh century",
+          "Fifteenth century",
+          "Ninth century",
+          "Seventh century"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "difficulty": "super_hard",
+    "dayIndex": 53,
+    "title": {
+      "en": "The Science of Photosynthesis",
+      "zh": "光合作用的科学"
+    },
+    "text": {
+      "en": "Photosynthesis is the biochemical mechanism by which green plants synthesize organic nutrients. Chlorophyll pigments inside leaf chloroplasts absorb solar energy from incoming sunlight. Plant roots draw water and dissolved mineral ions up from the surrounding soil matrix. Solar energy drives reactions that convert carbon dioxide and water into glucose and oxygen gas. This essential process forms the primary foundation of food chains and atmospheric oxygen.",
+      "zh": "光合作用是绿色植物合成有机营养素的生物化学机制。叶肉叶绿体内部的叶绿素色素吸收来自入射阳光的太阳能。植物根部从周围的土壤基质中吸取水和溶解的矿物质离子。太阳能驱动反应，将二氧化碳和水转化为葡萄糖和氧气。这一至关重要的过程构成了食物链和大气氧气的主要基础。"
+    },
+    "questions": [
+      {
+        "q": "What is photosynthesis defined as in plant biology?",
+        "options": [
+          "Biochemical mechanism synthesizing organic nutrients",
+          "Water loss process",
+          "Cell division",
+          "Root expansion"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What pigment inside leaf chloroplasts absorbs solar energy?",
+        "options": [
+          "Chlorophyll pigments",
+          "Carotenoids",
+          "Melanin",
+          "Hemoglobin"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do plant roots draw up from the surrounding soil matrix?",
+        "options": [
+          "Water and dissolved mineral ions",
+          "Carbon dioxide",
+          "Oxygen",
+          "Glucose"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What chemical products result from solar energy driven reactions?",
+        "options": [
+          "Glucose sugar and oxygen gas",
+          "Water and nitrogen",
+          "Starch and carbon",
+          "Salt and water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is photosynthesis considered the primary foundation of nature?",
+        "options": [
+          "Sustains food chains and atmospheric oxygen",
+          "Creates weather",
+          "Forms soil",
+          "Makes rain"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where in plant cells do chlorophyll pigments reside?",
+        "options": [
+          "Inside leaf chloroplasts",
+          "In cell wall",
+          "In root hairs",
+          "In stem bark"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "difficulty": "super_hard",
+    "dayIndex": 54,
+    "title": {
+      "en": "Robotic Exploration of Mars",
+      "zh": "火星的机器人探索"
+    },
+    "text": {
+      "en": "Mars has been the target of extensive interplanetary robotic exploration for decades. Space agencies deploy advanced autonomous rovers like Perseverance to traverse its barren landscape. Equipped with sophisticated spectrometers and drills, rovers analyze ancient Martian rock strata. Scientists seek biosignature evidence of past microbial life in dried river deltas and craters. Discoveries from robotic missions pave the way for eventual crewed human missions to Mars.",
+      "zh": "几十年来，火星一直是广泛的际机器人探索的目标。太空机构部署了像“毅力号”这样的先进自主漫游车来穿越其贫瘠的景观。配备先进光谱仪和钻头的漫游车分析古老的火星岩层。科学家在干涸的河流三角洲和环形山中寻找过去微小生命的存在生物标志迹象。机器人任务的发现为最终的人类载人火星任务铺平了道路。"
+    },
+    "questions": [
+      {
+        "q": "What target has been explored by autonomous rovers for decades?",
+        "options": [
+          "The planet Mars",
+          "The moon",
+          "Venus",
+          "Jupiter"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What autonomous rover is deployed to traverse Mars' barren landscape?",
+        "options": [
+          "Perseverance",
+          "Voyager",
+          "Hubble",
+          "Apollo"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What scientific instruments do rovers carry to analyze rock strata?",
+        "options": [
+          "Sophisticated spectrometers and drills",
+          "Telescopes",
+          "Radars only",
+          "Cameras only"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do scientists seek biosignature evidence of past life?",
+        "options": [
+          "Dried river deltas and craters",
+          "High mountains",
+          "Ice caps",
+          "Atmosphere"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What eventual milestone do robotic Mars discoveries pave the way for?",
+        "options": [
+          "Crewed human missions to Mars",
+          "Space tourist flights",
+          "Mining asteroids",
+          "Building moon base"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What type of ancient life evidence are scientists seeking?",
+        "options": [
+          "Microbial life biosignatures",
+          "Plant fossils",
+          "Animal bones",
+          "Civilization artifacts"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "difficulty": "super_hard",
+    "dayIndex": 55,
+    "title": {
+      "en": "Deep Sea Bioluminescence",
+      "zh": "深海生物发光"
+    },
+    "text": {
+      "en": "Deep ocean environments beyond two hundred meters exist in total perpetual darkness. Organisms inhabiting this high pressure zone evolved bioluminescence through specialized enzymatic reactions. Luciferin proteins react with oxygen catalyzed by luciferase enzymes to emit cold light. Marine animals utilize luminescent flashes for camouflage, defense, and luring prey. Studying bioluminescent chemistry aids scientific innovation in medical imaging and biotechnology.",
+      "zh": "二百米以外的深海环境处于完全永久的黑暗中。居住在这个高压区里的生物通过专门的酶反应演化出生物发光。荧光素蛋白在荧光素酶催化下与氧气反应发出冷光。海洋动物利用发光闪烁来进行伪装、防御和诱捕猎物。研究生物发光化学有助于医学成像和生物技术方面的科学创新。"
+    },
+    "questions": [
+      {
+        "q": "Beyond what depth do ocean environments exist in perpetual darkness?",
+        "options": [
+          "Beyond two hundred meters",
+          "Fifty meters",
+          "One hundred meters",
+          "Five hundred meters"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What enzymatic reaction produces bioluminescent light in marine organisms?",
+        "options": [
+          "Luciferin reacting with oxygen via luciferase",
+          "Photosynthesis",
+          "Cellular respiration",
+          "Fermentation"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What type of light energy is emitted by bioluminescent reactions?",
+        "options": [
+          "Cold light",
+          "Thermal radiation",
+          "Ultraviolet light",
+          "Infrared heat"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "For what survival purposes do marine animals utilize light flashes?",
+        "options": [
+          "Camouflage, defense, luring prey",
+          "Swimming faster",
+          "Communication with birds",
+          "Heating water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does studying bioluminescent chemistry aid human science?",
+        "options": [
+          "Innovations in medical imaging and biotechnology",
+          "Building lasers",
+          "Solar panel design",
+          "Lighting cities"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What key enzyme catalyzes the bioluminescent oxidation reaction?",
+        "options": [
+          "Luciferase",
+          "Amylase",
+          "Polymerase",
+          "Protease"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 357,
+    "difficulty": "super_hard",
+    "dayIndex": 56,
+    "title": {
+      "en": "The Physics of Aviation Flight",
+      "zh": "航空飞行物理学"
+    },
+    "text": {
+      "en": "Modern airplane flight relies on fundamental aerodynamic principles governed by physics. Aircraft wings are engineered with a curved airfoil cross-section that generates lift. As engines push the plane forward, air flows faster over the curved top surface. According to Bernoulli's principle, faster airflow creates lower pressure above the wing, lifting the aircraft. Balancing lift, weight, thrust, and drag enables stable controlled flight across long distances.",
+      "zh": "现代飞机飞行依赖于受物理学支配的基本空气动力学原理。飞机机翼被设计成弯曲的翼型截面，产生升力。当发动机推动飞机向前时，空气在弯曲的顶表面流动得更快。根据伯努利原理，较快的空气流在机翼上方创造出较小的压力，从而抬升飞机。平衡升力、重力、推力和阻力能够实现跨越长距离的稳定受控飞行。"
+    },
+    "questions": [
+      {
+        "q": "What physical principles govern modern aircraft flight?",
+        "options": [
+          "Aerodynamic principles",
+          "Thermodynamics",
+          "Chemical kinetics",
+          "Quantum mechanics"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What wing cross-section shape is engineered to generate flight lift?",
+        "options": [
+          "Curved airfoil cross-section",
+          "Flat rectangle",
+          "Sharp triangle",
+          "Circle"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "According to Bernoulli's principle, what creates lower pressure above the wing?",
+        "options": [
+          "Faster airflow over curved top surface",
+          "Hot air",
+          "Engine exhaust",
+          "Slow airflow below"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What four physical forces must be balanced during controlled flight?",
+        "options": [
+          "Lift, weight, thrust, drag",
+          "Speed, height, mass, gravity",
+          "Power, fuel, wind, friction",
+          "Length, width, height, weight"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does lower pressure above the wing affect the aircraft?",
+        "options": [
+          "Lifts the aircraft into air",
+          "Pushes aircraft down",
+          "Slows aircraft",
+          "Stops engines"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What pushes the airplane forward through air to create airflow?",
+        "options": [
+          "Aircraft engines",
+          "Rudder",
+          "Flaps",
+          "Tail fin"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "difficulty": "super_hard",
+    "dayIndex": 57,
+    "title": {
+      "en": "The Amazon Basin Ecosystem",
+      "zh": "亚马逊流域生态系统"
+    },
+    "text": {
+      "en": "The Amazon Basin encompasses the world's largest tropical rainforest and river network. Its vast rainforest canopy acts as a critical global carbon sink, regulating climate. Over one-tenth of all known species on Earth inhabit this rich biodiversity hotspot. Indigenous communities have lived in harmony with the rainforest environment for centuries. Combating deforestation in the Amazon is essential for preserving planetary climate stability.",
+      "zh": "亚马逊流域包含世界上最大的热带雨林和河流网络。其辽阔的雨林树冠充当着至关重要的全球碳汇，调节着气候。地球上超过十分之一的已知物种居住在这个丰富的生物多样性热点地区。几个世纪以来，土著社区一直与雨林环境和谐相处。在亚马逊打击森林砍伐对于保持地球气候稳定至关重要。"
+    },
+    "questions": [
+      {
+        "q": "What natural features does the Amazon Basin encompass?",
+        "options": [
+          "World's largest tropical rainforest and river network",
+          "Desert and mountains",
+          "Grassy savannas",
+          "Icy tundra"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What crucial climate function does the Amazon canopy perform?",
+        "options": [
+          "Acts as a critical global carbon sink",
+          "Produces rain clouds",
+          "Cools oceans",
+          "Reflects sunlight"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What fraction of all known Earth species inhabit the Amazon Basin?",
+        "options": [
+          "Over one-tenth of all species",
+          "One-half",
+          "One-fourth",
+          "One-hundredth"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who has lived in harmony with the Amazon rainforest for centuries?",
+        "options": [
+          "Indigenous communities",
+          "Modern miners",
+          "Loggers",
+          "Tourists"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is combating deforestation in the Amazon essential?",
+        "options": [
+          "Preserving planetary climate stability",
+          "Increasing farmland",
+          "Building highways",
+          "Mining gold"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does the Amazon rainforest help regulate Earth's climate?",
+        "options": [
+          "By absorbing atmospheric carbon",
+          "By making wind",
+          "By melting ice",
+          "By shading land"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "difficulty": "super_hard",
+    "dayIndex": 58,
+    "title": {
+      "en": "The Architecture of Pyramids",
+      "zh": "金字塔的建筑学"
+    },
+    "text": {
+      "en": "The Great Pyramid of Giza stands as a monumental masterpiece of ancient structural engineering. Constructed during the reign of Pharaoh Khufu, it required over two million stone blocks. Ancient Egyptian builders aligned the pyramid's base precisely with true cardinal compass points. Ramps, levers, and massive workforce coordination enabled the placement of granite blocks weighing tons. Today architectural historians continue studying the precise construction techniques of these ancient monuments.",
+      "zh": "吉萨大金字塔是古代结构工程的巨作。它是在法老夫统治时期建造的，需要二百多万块石块。古埃及建筑工人将金字塔的底部精确地与真正的基准指南针方位对齐。斜坡、杠杆和大规模的劳动力协调使得放置重达几吨的花岗岩石块成为可能。今天，建筑历史学家继续研究这些古代遗迹的精确建造技术。"
+    },
+    "questions": [
+      {
+        "q": "Which ancient structure stands as a masterpiece of structural engineering?",
+        "options": [
+          "The Great Pyramid of Giza",
+          "The Parthenon",
+          "Colosseum",
+          "Stonehenge"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "During whose reign was the Great Pyramid constructed?",
+        "options": [
+          "Pharaoh Khufu",
+          "Tutankhamun",
+          "Ramses II",
+          "Cleopatra"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many stone blocks were required to construct the Great Pyramid?",
+        "options": [
+          "Over two million stone blocks",
+          "One hundred thousand",
+          "Fifty thousand",
+          "Ten million"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "With what did ancient Egyptian builders precisely align the pyramid's base?",
+        "options": [
+          "True cardinal compass points",
+          "The moon",
+          "The river flow",
+          "Sunset angle"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What tools and coordination enabled moving multi-ton granite blocks?",
+        "options": [
+          "Ramps, levers, massive workforce coordination",
+          "Cranes and trucks",
+          "Elephants",
+          "Steam engines"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What aspect of ancient pyramids do architectural historians continue studying?",
+        "options": [
+          "Precise construction techniques",
+          "Secret gold rooms",
+          "Alien myths",
+          "Paint colors"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "difficulty": "super_hard",
+    "dayIndex": 59,
+    "title": {
+      "en": "The Science of Hurricanes",
+      "zh": "台风的科学"
+    },
+    "text": {
+      "en": "Hurricanes are immense thermodynamic storm systems generated over warm tropical ocean waters. Solar heating causes massive sea water evaporation, fueling humid rising air currents. High altitude winds and Earth's Coriolis rotation force the storm into a spinning vortex. The hurricane's central eye remains remarkably calm while surrounding eyewall winds reach extreme speeds. Advanced satellite meteorology allows scientists to model hurricane trajectories and issue life-saving evacuation advisories.",
+      "zh": "飓风是在温暖的热带海洋水域上产生的巨大的热动力风暴系统。太阳加热引起大量海水蒸发，为潮湿的上升气流提供燃料。高空风和地球的科里奥利旋转迫使风暴形成旋转涡流。飓风的中心眼保持着非凡的平静，而周围的眼墙风速达到了极高速度。先进的卫星气象学允许科学家对飓风轨迹进行建模，并发布救命的疏散建议。"
+    },
+    "questions": [
+      {
+        "q": "What type of storm systems are hurricanes in thermodynamics?",
+        "options": [
+          "Immense thermodynamic storm systems over warm oceans",
+          "Local rain showers",
+          "Cold winter blizzards",
+          "Sandstorms"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What fuels the humid rising air currents of a hurricane?",
+        "options": [
+          "Massive sea water evaporation from solar heating",
+          "Wind from land",
+          "Ice melting",
+          "Volcano smoke"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What force together with high altitude winds causes the storm to spin?",
+        "options": [
+          "Earth's Coriolis rotation",
+          "Gravity",
+          "Ocean tides",
+          "Magnetic fields"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which part of the hurricane remains remarkably calm?",
+        "options": [
+          "The central eye",
+          "The eyewall",
+          "Outer bands",
+          "Ocean surface"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do advanced satellite meteorology systems save lives?",
+        "options": [
+          "Model trajectories and issue evacuation advisories",
+          "Stop storms",
+          "Cool water",
+          "Block wind"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do surrounding eyewall winds reach extreme speeds?",
+        "options": [
+          "Around the central eye",
+          "In upper atmosphere",
+          "Miles away",
+          "Underwater"
+        ],
+        "correct": 0
+      }
     ]
   }
 ];

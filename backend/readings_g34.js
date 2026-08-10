@@ -1,978 +1,3352 @@
-// Grade 3-4 Reading Passages (60 passages total)
-// IDs 201 to 260
-
 export const readingsG34 = [
-  // EASY (25 passages, 3 questions each, IDs 201-225)
   {
-    id: 201,
-    difficulty: "easy",
-    dayIndex: 0,
-    title: { en: "The Giant Panda", zh: "大熊猫" },
-    text: {
-      en: "Giant pandas live in the bamboo forests of central China. They have thick black-and-white fur that keeps them warm in cold mountain air. Pandas spend up to twelve hours a day chewing fresh green bamboo leaves.",
-      zh: "大熊猫生活在中国中部的竹林里。它们有着厚厚的黑白相间的毛发，在寒冷的山区空气中保持温暖。熊猫一天花长达十二个小时咀嚼新鲜的绿竹叶。"
+    "id": 201,
+    "difficulty": "easy",
+    "dayIndex": 0,
+    "title": {
+      "en": "The School Garden",
+      "zh": "学校花园"
     },
-    questions: [
-      { q: "Where do giant pandas live?", options: ["In tropical rainforests", "In the bamboo forests of central China", "In grassy savannahs", "On icy islands"], correct: 1 },
-      { q: "What helps pandas stay warm in cold mountain air?", options: ["Thick black-and-white fur", "A hollow nest", "Hot springs", "Heavy blankets"], correct: 0 },
-      { q: "How many hours a day can pandas spend eating bamboo?", options: ["Five hours", "Up to twelve hours", "Eight hours", "Two hours"], correct: 1 }
+    "text": {
+      "en": "Students in Class Three planted a small garden behind their school. They grew bright red tomatoes and sweet green peas together. Everyone took turns watering the vegetables after lunch.",
+      "zh": "三年级的学生在学校后面种了一个小花园。他们一起种了鲜红的番茄和甜甜的青豆。午饭后，每个人轮流给蔬菜浇水。"
+    },
+    "questions": [
+      {
+        "q": "Where is the school garden located?",
+        "options": [
+          "Behind their school",
+          "In front of park",
+          "On the roof",
+          "Inside auditorium"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What vegetables did they grow?",
+        "options": [
+          "Red tomatoes and green peas",
+          "Carrots and potatoes",
+          "Cabbage and corn",
+          "Beans and onions"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When did students water the garden?",
+        "options": [
+          "After lunch",
+          "Before breakfast",
+          "At night",
+          "During recess"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 202,
-    difficulty: "easy",
-    dayIndex: 1,
-    title: { en: "How Plants Grow", zh: "植物如何生长" },
-    text: {
-      en: "Every green plant needs three basic things to grow: sunlight, water, and rich soil. Roots absorb water from the ground, while green leaves capture energy from the sun to make nutritious food.",
-      zh: "每株绿色植物都需要三种基本的东西才能生长：阳光、水和肥沃的土壤。根部从地下吸收水分，而绿叶则捕捉来自太阳的能量来制造营养食物。"
+    "id": 202,
+    "difficulty": "easy",
+    "dayIndex": 1,
+    "title": {
+      "en": "A Visit to the Farm",
+      "zh": "参观农场"
     },
-    questions: [
-      { q: "What three basic things do green plants need to grow?", options: ["Sunlight, water, and rich soil", "Wind, sand, and shade", "Fertilizer, rocks, and rain", "Cold air, ice, and seeds"], correct: 0 },
-      { q: "What part of the plant absorbs water from the ground?", options: ["The flower petals", "The roots", "The green stem", "The leaves"], correct: 1 },
-      { q: "What do green leaves capture from the sun?", options: ["Heat only", "Energy to make food", "Color pigments", "Water drops"], correct: 1 }
+    "text": {
+      "en": "Leo went to his uncle's dairy farm during the sunny spring break. He helped feed the small calves with bottles of warm milk. He also watched how fresh milk was gathered in large metal buckets.",
+      "zh": "在阳光明媚的春假期间，里奥去了他叔叔的奶牛场。他帮忙用温牛奶瓶喂小牛。他还观察了如何用大金属桶收集新鲜牛奶。"
+    },
+    "questions": [
+      {
+        "q": "Whose farm did Leo visit?",
+        "options": [
+          "His uncle's dairy farm",
+          "His friend's farm",
+          "His teacher's farm",
+          "A public park"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did Leo feed the calves?",
+        "options": [
+          "With bottles of warm milk",
+          "With fresh grass",
+          "With bread",
+          "With dry corn"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where was fresh milk gathered?",
+        "options": [
+          "In large metal buckets",
+          "In plastic cups",
+          "In glass bottles",
+          "In wooden boxes"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 203,
-    difficulty: "easy",
-    dayIndex: 2,
-    title: { en: "The Clever Octopus", zh: "聪明的章鱼" },
-    text: {
-      en: "The octopus is one of the smartest creatures in the sea. It has eight flexible arms lined with sensitive suction cups. When an octopus feels danger, it squirts a cloud of dark ink and swims away.",
-      zh: "章鱼是海洋中最聪明的生物之一。它有八条灵活的喷有敏感吸盘的触手。当章鱼感受到危险时，它会喷出一云暗墨水并游走。"
+    "id": 203,
+    "difficulty": "easy",
+    "dayIndex": 2,
+    "title": {
+      "en": "Building a Birdhouse",
+      "zh": "制作鸟窝"
     },
-    questions: [
-      { q: "How many flexible arms does an octopus have?", options: ["Six", "Eight flexible arms", "Ten", "Twelve"], correct: 1 },
-      { q: "What lines the arms of an octopus?", options: ["Sharp hooks", "Sensitive suction cups", "Hard scales", "Soft feathers"], correct: 1 },
-      { q: "What does an octopus squirt when it feels danger?", options: ["Clear water", "A cloud of dark ink", "Air bubbles", "Yellow slime"], correct: 1 }
+    "text": {
+      "en": "Sam and his father built a wooden birdhouse on Saturday afternoon. They painted the outer walls light blue and added a small round roof. Then they hung it high up on a thick oak branch.",
+      "zh": "萨姆和他的父亲在星期六下午建了一个木制鸟窝。他们把外墙刷成浅蓝色，并添加了一个圆形小屋顶。然后他们把它高高地挂在粗壮的橡树枝上。"
+    },
+    "questions": [
+      {
+        "q": "When did Sam build the birdhouse?",
+        "options": [
+          "Saturday afternoon",
+          "Sunday morning",
+          "Friday night",
+          "Monday noon"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What color did they paint the walls?",
+        "options": [
+          "Light blue",
+          "Bright red",
+          "Dark green",
+          "Yellow"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did they hang the birdhouse?",
+        "options": [
+          "High up on an oak branch",
+          "On a wooden fence",
+          "Under the porch",
+          "Inside the garage"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 204,
-    difficulty: "easy",
-    dayIndex: 3,
-    title: { en: "Camping by the Lake", zh: "湖边露营" },
-    text: {
-      en: "Leo and his family pitched their green tent near a quiet blue lake. During the day, they rowed a wooden canoe and caught two silvery fish. At night, they sat by a warm campfire and told stories.",
-      zh: "里奥和家人在平静的蓝湖附近搭起了他们的绿帐篷。白天，他们划着木划艇，捕到了两条银色的鱼。晚上，他们坐在温暖的营火旁讲故事。"
+    "id": 204,
+    "difficulty": "easy",
+    "dayIndex": 3,
+    "title": {
+      "en": "The Clever Honeybee",
+      "zh": "聪明的小蜜蜂"
     },
-    questions: [
-      { q: "Where did Leo and his family pitch their tent?", options: ["On top of a hill", "Near a quiet blue lake", "In a forest clearing", "Beside a waterfall"], correct: 1 },
-      { q: "What activity did they do during the day?", options: ["Rowed a wooden canoe", "Rode bicycles", "Climbed rocks", "Built a cabin"], correct: 0 },
-      { q: "What did they do at night by the campfire?", options: ["Sang songs", "Told stories", "Played cards", "Danced"], correct: 1 }
+    "text": {
+      "en": "Honeybees travel miles across green fields to find sweet flower nectar. They dance in special patterns to tell other bees where to look. By working as a team, their hive stays full of sweet honey.",
+      "zh": "蜜蜂穿过绿色的田野飞翔数英里去寻找甜美的花蜜。它们通过特殊的舞蹈图案告诉其他蜜蜂去哪里寻找。通过团队合作，它们的蜂巢里装满了甜甜的蜂蜜。"
+    },
+    "questions": [
+      {
+        "q": "Why do honeybees travel across fields?",
+        "options": [
+          "To find sweet flower nectar",
+          "To look for water",
+          "To play with butterflies",
+          "To escape rain"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do bees communicate with others?",
+        "options": [
+          "They dance in special patterns",
+          "They make loud noise",
+          "They fly in circle",
+          "They leave scents"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What stays full in their hive?",
+        "options": [
+          "Sweet honey",
+          "Fresh water",
+          "Green leaves",
+          "Dry pollen"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 205,
-    difficulty: "easy",
-    dayIndex: 4,
-    title: { en: "The Invention of Basketball", zh: "篮球的发明" },
-    text: {
-      en: "In 1891, a gym teacher named James Naismith invented basketball in Massachusetts. He nailed two peach baskets onto indoor balcony railings. Players scored points by throwing a heavy ball into the baskets.",
-      zh: "1891年，一位名叫詹姆斯·奈史密斯的体育老师在马萨诸塞州发明了篮球。他把两个桃子筐钉在室内阳台栏杆上。球员们通过把重球扔进筐里来得分。"
+    "id": 205,
+    "difficulty": "easy",
+    "dayIndex": 4,
+    "title": {
+      "en": "The Sunny Beach",
+      "zh": "阳光沙滩"
     },
-    questions: [
-      { q: "Who invented the game of basketball in 1891?", options: ["Michael Jordan", "James Naismith", "Abner Doubleday", "Walter Camp"], correct: 1 },
-      { q: "What target did Naismith nail onto the balcony railings?", options: ["Metal hoops", "Two peach baskets", "Wooden boxes", "Net bags"], correct: 1 },
-      { q: "How did players score points in the early game?", options: ["By kicking a ball", "By throwing a heavy ball into the baskets", "By hitting a puck", "By running across a line"], correct: 1 }
+    "text": {
+      "en": "Maya spent a hot summer afternoon playing near the ocean waves. She collected smooth colorful seashells and put them into a yellow bucket. Before leaving, she built a big sandcastle with a red flag.",
+      "zh": "玛雅在一个炎热的夏天下午在海浪附近玩耍。她收集了光滑的彩色海贝壳，放进了一个黄色的桶里。离开前，她建了一座带着红旗的大沙堡。"
+    },
+    "questions": [
+      {
+        "q": "Where did Maya spend her afternoon?",
+        "options": [
+          "Near the ocean waves",
+          "In a city park",
+          "At a swimming pool",
+          "In her backyard"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Maya collect?",
+        "options": [
+          "Smooth colorful seashells",
+          "Small river stones",
+          "Pretty flowers",
+          "Driftwood"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did she build before leaving?",
+        "options": [
+          "A big sandcastle",
+          "A wooden boat",
+          "A fort",
+          "A kite"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 206,
-    difficulty: "easy",
-    dayIndex: 5,
-    title: { en: "The Life of Hummingbirds", zh: "蜂鸟的生活" },
-    text: {
-      en: "Hummingbirds are the smallest birds in the world. Their tiny wings beat up to eighty times per second, making a soft humming noise. They hover in mid-air to drink sweet nectar from colorful flowers.",
-      zh: "蜂鸟是世界上最小的鸟类。它们微小的翅膀每秒拍打高达八十次，发出柔和的嗡嗡声。它们悬停在半空中，从彩色的花朵中饮用甜美花蜜。"
+    "id": 206,
+    "difficulty": "easy",
+    "dayIndex": 5,
+    "title": {
+      "en": "Learning to Swim",
+      "zh": "学习游泳"
     },
-    questions: [
-      { q: "What makes hummingbirds unique among birds?", options: ["They are the smallest birds in the world", "They swim deep in water", "They eat only seeds", "They nest in caves"], correct: 0 },
-      { q: "How fast do a hummingbird's wings beat per second?", options: ["Twenty times", "Fifty times", "Up to eighty times", "One hundred times"], correct: 2 },
-      { q: "What do hummingbirds drink from flowers?", options: ["Rainwater", "Sweet nectar", "Dew drops", "Fruit juice"], correct: 1 }
+    "text": {
+      "en": "Ben joined a beginner swimming class at the local community center. His coach taught him how to kick his legs and float on his back. By the third week, Ben could swim across the shallow pool safely.",
+      "zh": "本参加了当地社区中心的初学者游泳班。他的教练教他如何踢腿和仰泳漂浮。到了第三周，本就可以安全地游过浅水池了。"
+    },
+    "questions": [
+      {
+        "q": "Where did Ben join the swimming class?",
+        "options": [
+          "Local community center",
+          "School gym",
+          "Beach resort",
+          "Friend's house"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did his coach teach him first?",
+        "options": [
+          "To kick legs and float",
+          "To dive deep",
+          "To hold breath",
+          "To jump off board"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When could Ben swim across the pool?",
+        "options": [
+          "By the third week",
+          "On the first day",
+          "After one year",
+          "In two days"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 207,
-    difficulty: "easy",
-    dayIndex: 6,
-    title: { en: "Recycling Paper", zh: "回收纸张" },
-    text: {
-      en: "Recycling paper helps protect forests and save valuable natural trees. Used notebooks and newspapers are taken to a factory, shredded, and mixed with water to make new clean paper sheets.",
-      zh: "回收纸张有助于保护森林和节约宝贵的天然树木。用过的笔记本和报纸被送到工厂，碎，并与水混合，制成崭新的干净纸页。"
+    "id": 207,
+    "difficulty": "easy",
+    "dayIndex": 6,
+    "title": {
+      "en": "The Friendly Dolphin",
+      "zh": "友好的海豚"
     },
-    questions: [
-      { q: "Why is recycling paper beneficial for the environment?", options: ["It creates electricity", "It helps protect forests and save natural trees", "It cleans river water", "It reduces noise"], correct: 1 },
-      { q: "What items are taken to the factory for recycling?", options: ["Plastic bottles", "Used notebooks and newspapers", "Glass jars", "Metal cans"], correct: 1 },
-      { q: "What is shredded paper mixed with to form new paper?", options: ["Glue", "Water", "Oil", "Bleach"], correct: 1 }
+    "text": {
+      "en": "Dolphins are smart mammals that live together in warm ocean waters. They use high clicks and whistles to talk with each other underwater. Sometimes they leap high into the air to play with passing boats.",
+      "zh": "海豚是生活在温暖海洋水域的聪明哺乳动物。它们用高频的嗒嗒声和哨声在水下互相交流。有时它们跃入空中，与路过的船只玩耍。"
+    },
+    "questions": [
+      {
+        "q": "What kind of animals are dolphins?",
+        "options": [
+          "Smart mammals",
+          "Fish",
+          "Reptiles",
+          "Birds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do dolphins talk underwater?",
+        "options": [
+          "High clicks and whistles",
+          "Tail slaps",
+          "Bubbles",
+          "Color changes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do dolphins leap into the air?",
+        "options": [
+          "To play with passing boats",
+          "To find food",
+          "To escape sharks",
+          "To sleep"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 208,
-    difficulty: "easy",
-    dayIndex: 7,
-    title: { en: "The Red Fox", zh: "红狐" },
-    text: {
-      en: "Red foxes have bushy reddish fur, pointed ears, and a long fluffy tail with a white tip. They use their keen sense of hearing to hunt small mice under deep winter snow.",
-      zh: "红狐有着浓密的红褐色毛发、尖尖的耳朵和一条带有白尖的漫长蓬松尾巴。它们利用敏锐的听觉在冬天深雪下猎食小老鼠。"
+    "id": 208,
+    "difficulty": "easy",
+    "dayIndex": 7,
+    "title": {
+      "en": "A Trip to the Library",
+      "zh": "图书馆之旅"
     },
-    questions: [
-      { q: "What color tip does a red fox's fluffy tail have?", options: ["Black tip", "White tip", "Red tip", "Brown tip"], correct: 1 },
-      { q: "What sense does the red fox rely on to hunt under snow?", options: ["Keen sense of hearing", "Sharp vision", "Strong sense of smell", "Sense of touch"], correct: 0 },
-      { q: "What prey does the red fox hunt under winter snow?", options: ["Fish", "Small mice", "Rabbits", "Birds"], correct: 1 }
+    "text": {
+      "en": "Emma likes visiting the public library near her house every Friday afternoon. She borrows storybooks about magic castles and ancient rainforest animals. The quiet environment helps her read smoothly without distraction.",
+      "zh": "艾玛喜欢每周五下午去她家附近的公共图书馆。她借阅关于神奇城堡和古代雨林动物的故事书。安静的环境有助于她顺利阅读而不受干扰。"
+    },
+    "questions": [
+      {
+        "q": "How often does Emma visit the library?",
+        "options": [
+          "Every Friday afternoon",
+          "Every day",
+          "Once a month",
+          "On weekends"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What topics are her storybooks about?",
+        "options": [
+          "Magic castles and animals",
+          "Sports and cars",
+          "Math and science",
+          "Cooking"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does the quiet environment help her?",
+        "options": [
+          "Helps her read smoothly",
+          "Makes her sleep",
+          "Helps her draw",
+          "Makes her write"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 209,
-    difficulty: "easy",
-    dayIndex: 8,
-    title: { en: "Exploring the Moon", zh: "探索月球" },
-    text: {
-      en: "The Moon is Earth's only natural satellite. In 1969, astronaut Neil Armstrong became the first human to walk on the Moon's dusty surface. The Moon has no air or liquid water.",
-      zh: "月球是地球唯一的天然卫星。1969年，宇航员尼尔·阿姆斯特朗成为第一个在月球满尘表面上步行的咸人类。月球上没有空气或液体水。"
+    "id": 209,
+    "difficulty": "easy",
+    "dayIndex": 8,
+    "title": {
+      "en": "Baking Apple Pie",
+      "zh": "烘焙苹果派"
     },
-    questions: [
-      { q: "What is the Moon to planet Earth?", options: ["An artificial satellite", "Earth's only natural satellite", "A small comet", "A distant star"], correct: 1 },
-      { q: "Who was the first human to walk on the Moon in 1969?", options: ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"], correct: 1 },
-      { q: "What is missing on the Moon's surface?", options: ["Rocks and dust", "Air or liquid water", "Sunlight", "Gravity"], correct: 1 }
+    "text": {
+      "en": "Grandma and Lucy prepared a warm apple pie for dinner dessert. They peeled sweet red apples and mixed them with cinnamon powder. The entire house smelled wonderful as the pie baked in the oven.",
+      "zh": "奶奶和露西准备了一个温暖的苹果派作为晚餐甜点。她们剥了甜红苹果，并把它们与肉桂粉混合在一起。当派在烤箱里烘烤时，整座房子都散发着香气。"
+    },
+    "questions": [
+      {
+        "q": "What dessert did Grandma and Lucy make?",
+        "options": [
+          "A warm apple pie",
+          "A chocolate cake",
+          "Berry muffins",
+          "Ice cream"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What spice did they mix with apples?",
+        "options": [
+          "Cinnamon powder",
+          "Vanilla extract",
+          "Sugar cane",
+          "Cocoa powder"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did the house smell while baking?",
+        "options": [
+          "Wonderful",
+          "Burnt",
+          "Sour",
+          "Smoky"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 210,
-    difficulty: "easy",
-    dayIndex: 9,
-    title: { en: "The Secrets of Honey", zh: "蜂蜜的秘密" },
-    text: {
-      en: "Honey is a natural food made by bees that never spoils. Scientists have found jars of honey inside ancient Egyptian tombs that are thousands of years old and still safe to eat.",
-      zh: "蜂蜜是由蜜蜂制作的天然食物，永不变质。科学家们在几千年前的古埃及墓穴中发现了装有蜂蜜的罐子，至今仍可安全食用。"
+    "id": 210,
+    "difficulty": "easy",
+    "dayIndex": 9,
+    "title": {
+      "en": "The Starry Night",
+      "zh": "星光熠熠的夜晚"
     },
-    questions: [
-      { q: "What special quality does natural honey possess?", options: ["It freezes easily", "It never spoils", "It changes color", "It turns to sugar"], correct: 1 },
-      { q: "Where did scientists find thousands-of-years-old honey jars?", options: ["In deep ocean caves", "Inside ancient Egyptian tombs", "Under glacier ice", "In mountain castles"], correct: 1 },
-      { q: "Who creates natural honey?", options: ["Butterflies", "Bees", "Ants", "Wasps"], correct: 1 }
+    "text": {
+      "en": "Oliver set up his small metal telescope on the grass behind his house. He observed craters on the bright surface of the moon during midnight. He was amazed to see shooting stars flash across the sky.",
+      "zh": "奥利弗在他房子后面的草地上架起了他的小金属望远镜。午夜时分，他观察到了明亮月球表面上的环形山。看到流星划过天空，他感到很惊奇。"
+    },
+    "questions": [
+      {
+        "q": "Where did Oliver set up his telescope?",
+        "options": [
+          "On the grass behind house",
+          "On the roof",
+          "At school",
+          "In his room"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Oliver observe on the moon?",
+        "options": [
+          "Craters on its surface",
+          "Aliens",
+          "Water lakes",
+          "Green trees"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What flashed across the sky?",
+        "options": [
+          "Shooting stars",
+          "Airplanes",
+          "Balloons",
+          "Birds"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 211,
-    difficulty: "easy",
-    dayIndex: 10,
-    title: { en: "A Hike in the Mountains", zh: "高山远足" },
-    text: {
-      en: "Clara and her older brother hiked up a steep rocky trail in the Rocky Mountains. They carried light backpacks containing drinking water and energy bars. At the summit, they saw a grand view.",
-      zh: "克拉拉和哥哥沿着洛杉矶山脉一条陡峭的岩石小径徒步登高。他们背着装有饮用水和能量棒的轻便背包。在顶峰，他们看到了壮观的景色。"
+    "id": 211,
+    "difficulty": "easy",
+    "dayIndex": 10,
+    "title": {
+      "en": "Making Fresh Juice",
+      "zh": "制作新鲜果汁"
     },
-    questions: [
-      { q: "Where did Clara and her brother hike?", options: ["In a tropical rainforest", "Up a trail in the Rocky Mountains", "Along a flat beach", "Through a desert canyon"], correct: 1 },
-      { q: "What supplies were in their backpacks?", options: ["Tents and ropes", "Drinking water and energy bars", "Cameras and books", "Warm blankets"], correct: 1 },
-      { q: "What did they see when they reached the summit?", options: ["A dark cave", "A grand view", "A mountain lake", "A historic cabin"], correct: 1 }
+    "text": {
+      "en": "Tom washed three sweet oranges and sliced them in half. He squeezed the fresh juice into a clean glass cup with ice. Drinking cold orange juice refreshed him after his long bike ride.",
+      "zh": "汤姆洗了三个甜橙子，切成两半。他把新鲜的果汁挤进一个干净的带有冰块的玻璃杯里。长途骑车后，喝冷橙汁让他神清气爽。"
+    },
+    "questions": [
+      {
+        "q": "How many oranges did Tom slice?",
+        "options": [
+          "Three",
+          "Two",
+          "Four",
+          "Five"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Tom put in the glass cup?",
+        "options": [
+          "Fresh juice with ice",
+          "Warm milk",
+          "Cold tea",
+          "Soda"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When did Tom drink the juice?",
+        "options": [
+          "After his long bike ride",
+          "Before sleeping",
+          "At school",
+          "During breakfast"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 212,
-    difficulty: "easy",
-    dayIndex: 11,
-    title: { en: "The Life of a Frog", zh: "青蛙的一生" },
-    text: {
-      en: "Frogs go through a process called metamorphosis. They start life as tiny eggs laid in water. Eggs hatch into swimming tadpoles with long tails before growing legs to become adult frogs.",
-      zh: "青蛙经历一个被称为变态发育的过程。它们从产在水里的微小卵开始生命。卵孵化成带有长尾巴的游水蝌蚪，然后长出腿变成成体青蛙。"
+    "id": 212,
+    "difficulty": "easy",
+    "dayIndex": 11,
+    "title": {
+      "en": "Autumn Leaves",
+      "zh": "秋天的树叶"
     },
-    questions: [
-      { q: "What is the transformation process of a frog called?", options: ["Photosynthesis", "Metamorphosis", "Hibernation", "Migration"], correct: 1 },
-      { q: "Where do mother frogs lay their tiny eggs?", options: ["In tree hollows", "In water", "Under dry leaves", "In sandy holes"], correct: 1 },
-      { q: "What do frog eggs hatch into before growing legs?", options: ["Tiny caterpillars", "Swimming tadpoles with long tails", "Small lizards", "Water bugs"], correct: 1 }
+    "text": {
+      "en": "Cool autumn winds blew colorful leaves off the old trees in the park. Children collected red and yellow leaves to make fun art craft projects. They piled them together and jumped into the soft leaf stack.",
+      "zh": "凉爽的秋风把公园老树上五彩缤纷的树叶吹落。孩子们收集红黄两色的树叶来制作有趣的手工艺术项目。他们把它们堆在一起，跳进柔软的叶堆里。"
+    },
+    "questions": [
+      {
+        "q": "What blew the leaves off the trees?",
+        "options": [
+          "Cool autumn winds",
+          "Heavy rain",
+          "Snowstorm",
+          "Animals"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did children make with the leaves?",
+        "options": [
+          "Fun art craft projects",
+          "Leaf tea",
+          "Firewood",
+          "Baskets"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did children jump into?",
+        "options": [
+          "The soft leaf stack",
+          "A deep puddle",
+          "A sand pit",
+          "A cold lake"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 213,
-    difficulty: "easy",
-    dayIndex: 12,
-    title: { en: "Learning to Play Violin", zh: "学习拉小提琴" },
-    text: {
-      en: "Julian practices playing the violin for twenty minutes every afternoon. He draws a wooden bow across four steel strings to produce sweet musical notes. Julian hopes to play in the school orchestra.",
-      zh: "朱利安每天下午练习拉二十分钟小提琴。他用木弓拉过四根钢弦，产生甜美的乐音。朱利安希望能在学校管弦乐队里演奏。"
+    "id": 213,
+    "difficulty": "easy",
+    "dayIndex": 12,
+    "title": {
+      "en": "The Little Kitten",
+      "zh": "小猫咪"
     },
-    questions: [
-      { q: "How long does Julian practice violin each afternoon?", options: ["Ten minutes", "Twenty minutes", "Thirty minutes", "One hour"], correct: 1 },
-      { q: "How many steel strings does a violin have?", options: ["Three", "Four steel strings", "Five", "Six"], correct: 1 },
-      { q: "What is Julian's musical goal?", options: ["To win a medal", "To play in the school orchestra", "To write a song", "To teach violin"], correct: 1 }
+    "text": {
+      "en": "Mia found a tiny grey kitten sitting alone under a wooden bench. She brought the kitten home and gave it a small dish of milk. The happy kitten purred softly and fell asleep in her lap.",
+      "zh": "米娅在一条木凳下发现了一只独自坐着的小灰猫。她把小猫带回家，给了它一小盘牛奶。高兴的小猫轻轻地发出咕噜声，在她腿上睡着了。"
+    },
+    "questions": [
+      {
+        "q": "Where did Mia find the kitten?",
+        "options": [
+          "Under a wooden bench",
+          "In a tree",
+          "On the street",
+          "At the park"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Mia give the kitten?",
+        "options": [
+          "A small dish of milk",
+          "Water",
+          "Fish",
+          "Cat food"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did the kitten fall asleep?",
+        "options": [
+          "In Mia's lap",
+          "On the sofa",
+          "In a basket",
+          "Under bed"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 14,
-    id: 214,
-    difficulty: "easy",
-    dayIndex: 13,
-    title: { en: "The Desert Camel", zh: "沙漠骆驼" },
-    text: {
-      en: "Camels are well adapted to survive in hot dry deserts. They store energy-rich fat in their back humps, allowing them to travel for days without eating food or drinking water.",
-      zh: "骆驼非常适应在炎热干燥的沙漠中生存。它们在后背驼峰里储存能量丰富的脂肪，使它们可以在不进食或饮水的情况下行走到数天。"
+    "id": 214,
+    "difficulty": "easy",
+    "dayIndex": 13,
+    "title": {
+      "en": "A Camping Trip",
+      "zh": "一次露营之旅"
     },
-    questions: [
-      { q: "What habitat are camels well adapted to live in?", options: ["Polar ice caps", "Hot dry deserts", "Dense rainforests", "Mountain peaks"], correct: 1 },
-      { q: "What do camels store inside their back humps?", options: ["Water liquid", "Energy-rich fat", "Air reserves", "Dry grains"], correct: 1 },
-      { q: "How does fat in humps help camels travel?", options: ["It keeps them cool", "Allows them to travel for days without food or water", "Helps them run fast", "Protects them from sand"], correct: 1 }
+    "text": {
+      "en": "David and his dad pitched a green tent near a quiet river bank. They roasted sweet marshmallows over a small crackling campfire at dusk. At night they listened to crickets chirping softly in the forest.",
+      "zh": "戴维和他的爸爸在一条安静的河岸附近搭起了绿色的帐篷。黄昏时分，他们在噼啪作响的小篝火上烤甜棉花糖。晚上，他们听着森林里蟋蟀柔和的鸣叫声。"
+    },
+    "questions": [
+      {
+        "q": "Where did David and his dad pitch the tent?",
+        "options": [
+          "Near a quiet river bank",
+          "On a mountain peak",
+          "In a backyard",
+          "By the beach"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What food did they roast over the campfire?",
+        "options": [
+          "Sweet marshmallows",
+          "Hot dogs",
+          "Corn",
+          "Potatoes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What sound did they listen to at night?",
+        "options": [
+          "Crickets chirping softly",
+          "Owls hooting",
+          "River flowing",
+          "Wind blowing"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 215,
-    difficulty: "easy",
-    dayIndex: 14,
-    title: { en: "Making Homemade Pizza", zh: "制作自制比萨" },
-    text: {
-      en: "On Friday night, Maya made personal pizzas with her family. She spread tomato sauce on flat wheat dough, sprinkled shredded mozzarella cheese, and added sliced mushrooms before baking in a hot oven.",
-      zh: "周五晚上，玛雅和家人一起制作了个人比萨。她在平坦的小麦面团上抹上番茄酱，撒上切碎的马苏里拉奶酪，并在放入热烤箱烘烤前加入了切片的蘑菇。"
+    "id": 215,
+    "difficulty": "easy",
+    "dayIndex": 14,
+    "title": {
+      "en": "The Giant Panda",
+      "zh": "大熊猫"
     },
-    questions: [
-      { q: "When did Maya make pizzas with her family?", options: ["On Thursday", "On Friday night", "On Saturday afternoon", "On Sunday morning"], correct: 1 },
-      { q: "What spread did Maya put on the wheat dough first?", options: ["Pesto sauce", "Tomato sauce", "Butter", "Olive oil"], correct: 1 },
-      { q: "What topping ingredients were added before baking?", options: ["Pepperoni and peppers", "Mozzarella cheese and sliced mushrooms", "Pineapples and ham", "Onions and olives"], correct: 1 }
+    "text": {
+      "en": "Giant pandas live in cool bamboo forests high up in mountain areas. They spend most of their day eating fresh green bamboo stalks. Their thick black and white fur keeps them warm during cold winter weather.",
+      "zh": "大熊猫生活在高山地区凉爽的竹林里。它们一天中的大部分时间都在吃新鲜的绿竹秆。它们厚厚的黑白皮毛使它们在寒冷的冬天保持温暖。"
+    },
+    "questions": [
+      {
+        "q": "Where do giant pandas live?",
+        "options": [
+          "Cool bamboo forests in mountains",
+          "Hot deserts",
+          "Tropical rainforests",
+          "Grassy plains"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do pandas spend most of their day eating?",
+        "options": [
+          "Fresh green bamboo stalks",
+          "Fruits",
+          "Fish",
+          "Grass"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does their thick fur help them?",
+        "options": [
+          "Keeps them warm in winter",
+          "Helps them swim",
+          "Helps them run fast",
+          "Hides them"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 216,
-    difficulty: "easy",
-    dayIndex: 15,
-    title: { en: "The Polar Bear", zh: "北极熊" },
-    text: {
-      en: "Polar bears live on the frozen sea ice of the Arctic Circle. Their thick white fur camouflage blends into the snow, and a thick layer of body blubber keeps them warm in freezing water.",
-      zh: "北极熊生活在北极圈结冰的海冰上。它们厚厚的白色毛发伪装融入雪地，一层厚厚的体内脂肪在冰水中保持温暖。"
+    "id": 216,
+    "difficulty": "easy",
+    "dayIndex": 15,
+    "title": {
+      "en": "The City Bus",
+      "zh": "城市公交车"
     },
-    questions: [
-      { q: "Where is the natural habitat of polar bears?", options: ["Antarctica", "Frozen sea ice of the Arctic Circle", "Greenland mountains", "Siberian forests"], correct: 1 },
-      { q: "How does their white fur help polar bears?", options: ["Reflects heat", "Camouflage that blends into the snow", "Keeps them dry", "Attracts fish"], correct: 1 },
-      { q: "What body feature keeps polar bears warm in freezing water?", options: ["Thick leather skin", "A thick layer of body blubber", "Air pockets in fur", "Fast swimming"], correct: 1 }
+    "text": {
+      "en": "The bright yellow city bus travels down Main Street every fifteen minutes. Passengers tap their plastic cards and sit near the clean glass windows. The friendly driver always announces upcoming stops clearly to everyone.",
+      "zh": "明亮的黄色城市公交车每十五分钟沿主街行驶一次。乘客刷塑料卡，坐在干净的玻璃窗旁。友好的司机总是向大家清楚地播报即将到来的站点。"
+    },
+    "questions": [
+      {
+        "q": "How often does the city bus travel?",
+        "options": [
+          "Every fifteen minutes",
+          "Every hour",
+          "Once a day",
+          "Every five minutes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do passengers pay for their ride?",
+        "options": [
+          "Tap their plastic cards",
+          "Pay cash",
+          "Show ticket",
+          "Use coins"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What does the driver announce clearly?",
+        "options": [
+          "Upcoming stops",
+          "Weather forecast",
+          "News headlines",
+          "Bus prices"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 217,
-    difficulty: "easy",
-    dayIndex: 16,
-    title: { en: "The Clever Raven", zh: "聪明的渡鸦" },
-    text: {
-      en: "Ravens are highly intelligent black birds known for solving complex puzzles. In laboratory tests, ravens can drop pebbles into a narrow water tube to raise the water level and reach a floating treat.",
-      zh: "渡鸦是高度聪明的黑鸟，以解决复杂的谜题而闻名。在实验室测试中，渡鸦可以将小石子掉进狭窄的水管里以提高水面，获得悬浮的奖赏食物。"
+    "id": 217,
+    "difficulty": "easy",
+    "dayIndex": 16,
+    "title": {
+      "en": "A Snowman in Winter",
+      "zh": "冬天的雪人"
     },
-    questions: [
-      { q: "What color are ravens?", options: ["Grey", "Black", "Dark brown", "Blue"], correct: 1 },
-      { q: "What ability makes ravens famous among scientists?", options: ["Flying long distances", "Solving complex puzzles", "Mimicking human voices", "Building big nests"], correct: 1 },
-      { q: "How do ravens raise the water level in a narrow tube?", options: ["By blowing air", "By dropping pebbles into the tube", "By tipping the tube", "By pouring water"], correct: 1 }
+    "text": {
+      "en": "Heavy white snow covered the entire yard on a chilly January morning. Toby and his sister built a tall snowman with a bright orange carrot. They wrapped a warm red wool scarf around the snowman's neck.",
+      "zh": "在寒冷的一月早上，大白雪覆盖了整个院子。托比和他的妹妹用鲜艳的橙色胡萝卜建了一个高大的雪人。他们在雪人的脖子上围了一条温暖的红羊毛围巾。"
+    },
+    "questions": [
+      {
+        "q": "What covered the yard in January?",
+        "options": [
+          "Heavy white snow",
+          "Green leaves",
+          "Rain puddles",
+          "Mud"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did they use for the snowman's nose?",
+        "options": [
+          "Bright orange carrot",
+          "Small stone",
+          "Button",
+          "Pinecone"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did they wrap the red wool scarf?",
+        "options": [
+          "Around the snowman's neck",
+          "On its head",
+          "Around its waist",
+          "On its arm"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 218,
-    difficulty: "easy",
-    dayIndex: 17,
-    title: { en: "Starry Night Constellations", zh: "夜空星群" },
-    text: {
-      en: "On clear dark nights, stargazers look up to spot constellations, which are imaginary patterns formed by bright stars. The Big Dipper is a famous constellation shaped like a long-handled water ladle.",
-      zh: "在晴朗黑暗的夜晚，观星者抬头寻找星座，这是由明亮的星星构成的想象中的图形。北斗七星是一个著名的星座，形状像一个长柄水勺。"
+    "id": 218,
+    "difficulty": "easy",
+    "dayIndex": 17,
+    "title": {
+      "en": "The School Bakery",
+      "zh": "学校烘焙坊"
     },
-    questions: [
-      { q: "What are constellations in the night sky?", options: ["Fast comets", "Imaginary patterns formed by bright stars", "Galaxies", "Passing satellites"], correct: 1 },
-      { q: "What famous pattern shape does the Big Dipper resemble?", options: ["A flying bird", "A long-handled water ladle", "A giant bear", "A diamond ring"], correct: 1 },
-      { q: "When is the best time to view constellations?", options: ["At dawn", "On clear dark nights", "During cloudy weather", "At sunset"], correct: 1 }
+    "text": {
+      "en": "The school bakery sells fresh warm rolls every morning before first class. Students line up quietly to buy honey bread and oat cookies. All money raised helps purchase new storybooks for the school library.",
+      "zh": "学校烘焙坊每天第一节课前卖新鲜的温卷面包。学生们安静地排队买蜂蜜面包和燕麦饼干。筹集到的所有资金都有助于为学校图书馆购买新的故事书。"
+    },
+    "questions": [
+      {
+        "q": "When does the school bakery sell rolls?",
+        "options": [
+          "Every morning before class",
+          "After school",
+          "At noon",
+          "On weekends"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What items do students buy?",
+        "options": [
+          "Honey bread and oat cookies",
+          "Cakes and pies",
+          "Juice and milk",
+          "Candy"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is the raised money used?",
+        "options": [
+          "Purchases storybooks for library",
+          "Buys sports gear",
+          "Pays for trips",
+          "Buys toys"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 219,
-    difficulty: "easy",
-    dayIndex: 18,
-    title: { en: "The Life of Ants", zh: "蚂蚁的生活" },
-    text: {
-      en: "Ants live in highly organized colonies with thousands of members. Worker ants search for food, guard the nest, and communicate with each other by leaving invisible chemical scent trails on the ground.",
-      zh: "蚂蚁生活在包含数千个成员的高度有组织的群体中。工蚁寻找食物，保卫巢穴，并通过在地面上留下无形的化学气味轨迹相互交流。"
+    "id": 219,
+    "difficulty": "easy",
+    "dayIndex": 18,
+    "title": {
+      "en": "Visiting the Aquarium",
+      "zh": "参观水族馆"
     },
-    questions: [
-      { q: "How are ant colonies structured?", options: ["Solitary living", "Highly organized colonies with thousands of members", "Small family pairs", "Temporary groups"], correct: 1 },
-      { q: "What duties do worker ants perform?", options: ["Laying eggs", "Search for food and guard the nest", "Sleeping all day", "Building wings"], correct: 1 },
-      { q: "How do ants communicate paths on the ground?", options: ["Making clicking sounds", "Leaving invisible chemical scent trails", "Waving antennae", "Tapping legs"], correct: 1 }
+    "text": {
+      "en": "Class Four visited the large city aquarium to learn about sea life. They watched colorful tropical fish swim through clear blue water tanks. The guide explained how sea turtles protect their eggs on sandy beaches.",
+      "zh": "四班参观了城市大型水族馆，了解海洋生物。他们看着色彩斑斓的热带鱼穿过清澈的蓝水箱。导游解释了海龟如何在沙滩上保护它们的蛋。"
+    },
+    "questions": [
+      {
+        "q": "Why did Class Four visit the aquarium?",
+        "options": [
+          "To learn about sea life",
+          "To go swimming",
+          "To buy fish",
+          "To watch movies"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What swam through the blue water tanks?",
+        "options": [
+          "Colorful tropical fish",
+          "Dolphins",
+          "Whales",
+          "Seals"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did the guide explain about sea turtles?",
+        "options": [
+          "How they protect their eggs",
+          "How fast they swim",
+          "What they eat",
+          "How big they get"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 220,
-    difficulty: "easy",
-    dayIndex: 19,
-    title: { en: "A Visit to the Dentist", zh: "看牙医" },
-    text: {
-      en: "Leo went to the dental clinic for his annual checkup. Dr. Evans examined Leo's teeth with a small round mirror and cleaned them with a gentle mint toothpaste. Leo received a blue toothbrush.",
-      zh: "里奥去了牙科诊所进行年度检查。埃文斯医生用一把小圆镜检查了里奥的牙齿，并用温和的薄荷牙膏清洗了它们。里奥得到了一把蓝色的新牙刷。"
+    "id": 220,
+    "difficulty": "easy",
+    "dayIndex": 19,
+    "title": {
+      "en": "A Sunny Picnic",
+      "zh": "阳光野餐"
     },
-    questions: [
-      { q: "Why did Leo visit Dr. Evans?", options: ["For an eye test", "For his annual dental checkup", "To fix a broken arm", "For a fever"], correct: 1 },
-      { q: "What tool did Dr. Evans use to examine Leo's teeth?", options: ["A flashlight", "A small round mirror", "A magnifying glass", "A camera"], correct: 1 },
-      { q: "What gift did Leo receive at the end of the visit?", options: ["A sticker", "A blue toothbrush", "A toy car", "A sugar-free candy"], correct: 1 }
+    "text": {
+      "en": "Sarah and her family laid a red checkered blanket on the grass. They enjoyed turkey sandwiches, sweet grapes, and cold apple juice under a tree. After eating, they played fun frisbee games near the pond.",
+      "zh": "萨拉和她的家人在草地上铺了一块红格毯子。他们在树下享用了火鸡三明治、甜葡萄和冷苹果汁。吃完饭后，他们在池塘附近玩了有趣的飞盘游戏。"
+    },
+    "questions": [
+      {
+        "q": "Where did Sarah's family lay their blanket?",
+        "options": [
+          "On the grass under a tree",
+          "On the sand",
+          "On a wooden table",
+          "Inside a tent"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What food and drinks did they enjoy?",
+        "options": [
+          "Sandwiches, grapes, apple juice",
+          "Pizza and soda",
+          "Burgers and milk",
+          "Hot dogs and tea"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What game did they play after eating?",
+        "options": [
+          "Fun frisbee games",
+          "Soccer",
+          "Volleyball",
+          "Badminton"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 221,
-    difficulty: "easy",
-    dayIndex: 20,
-    title: { en: "The Ocean Lighthouse", zh: "海岸灯塔" },
-    text: {
-      en: "A tall white lighthouse stands on a rocky cliff above the ocean waves. Its powerful rotating light beam shines through thick night fog, guiding ships safely away from dangerous hidden rocks.",
-      zh: "一座高大的白灯塔耸立在海浪之上的岩石悬崖上。它强大的旋转光束照亮浓浓的夜雾，引导船只安全远离危险的隐蔽岩石。"
+    "id": 221,
+    "difficulty": "easy",
+    "dayIndex": 20,
+    "title": {
+      "en": "The Little Robot",
+      "zh": "小机器人"
     },
-    questions: [
-      { q: "Where is the tall white lighthouse built?", options: ["On a sandy beach", "On a rocky cliff above ocean waves", "In a harbor bay", "On an island hill"], correct: 1 },
-      { q: "What does the rotating light beam do in thick fog?", options: ["Warming the air", "Guiding ships safely away from dangerous hidden rocks", "Attracting fish", "Lighting up the sky"], correct: 1 },
-      { q: "What color is the lighthouse tower?", options: ["Red and white", "Tall white", "Grey stone", "Dark blue"], correct: 1 }
+    "text": {
+      "en": "Alex built a small plastic toy robot using colorful snap blocks. The robot can roll across the wooden floor and flash yellow lights. Alex pressed a red button to make the robot turn in circles.",
+      "zh": "亚历克斯用彩色的扣合积木建造了一个小塑料玩具机器人。机器人可以在木地板上滚动并闪烁黄光。亚历克斯按下红按钮让机器人打转。"
+    },
+    "questions": [
+      {
+        "q": "What did Alex use to build the robot?",
+        "options": [
+          "Colorful snap blocks",
+          "Metal screws",
+          "Cardboard boxes",
+          "Clay"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where can the robot roll?",
+        "options": [
+          "Across the wooden floor",
+          "On the grass",
+          "In water",
+          "On table"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happens when Alex presses the red button?",
+        "options": [
+          "Robot turns in circles",
+          "Robot sings a song",
+          "Robot stops moving",
+          "Robot flies"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 222,
-    difficulty: "easy",
-    dayIndex: 21,
-    title: { en: "Planting a Tree", zh: "种树" },
-    text: {
-      en: "On Arbor Day, Sam and his classmates planted a young oak sapling in the school yard. They dug a deep hole, placed the roots gently inside, and packed fertile soil around the stem before watering.",
-      zh: "植树节那天，萨姆和同学们在校园里种下了一株幼小的橡树苗。他们挖了一个深坑，把根部轻轻放入其中，在填水前在茎周围填满肥沃的土壤。"
+    "id": 222,
+    "difficulty": "easy",
+    "dayIndex": 21,
+    "title": {
+      "en": "The Ocean Lighthouse",
+      "zh": "海洋灯塔"
     },
-    questions: [
-      { q: "What event took place on Arbor Day?", options: ["A school race", "Planting a young oak sapling in the school yard", "A garden contest", "A flower show"], correct: 1 },
-      { q: "What type of tree sapling did Sam plant?", options: ["A pine tree", "A young oak sapling", "A maple tree", "An apple tree"], correct: 1 },
-      { q: "What was the final step after packing fertile soil?", options: ["Adding fertilizer", "Watering the sapling", "Pruning leaves", "Tying a ribbon"], correct: 1 }
+    "text": {
+      "en": "A tall white lighthouse stands safely on the rocky ocean cliff. Its powerful beam of light guides nighttime ships safely away from sharp rocks. The keeper checks the giant light bulb every evening at sunset.",
+      "zh": "一座高高的白灯塔安全地伫立在多石的海洋崖顶上。它强有力的光束引导夜间航行的船只安全避开尖锐的岩石。管理员每天日落时分都会检查巨型灯泡。"
+    },
+    "questions": [
+      {
+        "q": "Where does the white lighthouse stand?",
+        "options": [
+          "On a rocky ocean cliff",
+          "On a sandy beach",
+          "In a harbor",
+          "On a mountain"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does the lighthouse beam help ships?",
+        "options": [
+          "Guides them away from rocks",
+          "Makes them sail fast",
+          "Signals for help",
+          "Warms them"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When does the keeper check the light bulb?",
+        "options": [
+          "Every evening at sunset",
+          "At noon",
+          "In morning",
+          "Every midnight"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 223,
-    difficulty: "easy",
-    dayIndex: 22,
-    title: { en: "The Solar System Planets", zh: "太阳系行星" },
-    text: {
-      en: "Eight major planets orbit around the massive hot Sun at the center of our solar system. Mercury is the closest planet to the Sun, while Jupiter is the largest gas giant planet of all.",
-      zh: "八大行星围绕我们太阳系中心巨大的热太阳运行。水星是距离太阳最近的行星，而木星是其中最大的气体巨星。"
+    "id": 223,
+    "difficulty": "easy",
+    "dayIndex": 22,
+    "title": {
+      "en": "Spring Rain",
+      "zh": "春雨"
     },
-    questions: [
-      { q: "How many major planets orbit the Sun?", options: ["Seven", "Eight major planets", "Nine", "Ten"], correct: 1 },
-      { q: "Which planet is closest to the Sun?", options: ["Venus", "Mercury", "Mars", "Earth"], correct: 1 },
-      { q: "Which planet is the largest in the solar system?", options: ["Saturn", "Jupiter", "Neptune", "Uranus"], correct: 1 }
+    "text": {
+      "en": "Soft rain fell gently on the thirsty green grass all morning. Flowers opened their colorful petals to catch the fresh raindrops. Soon a bright rainbow appeared across the clear blue sky.",
+      "zh": "整个早上柔和的雨水轻轻地落在口渴的绿草上。花儿张开色彩缤纷的花瓣去接新鲜的雨滴。很快，一条明彩虹出现在晴朗的蓝天上。"
+    },
+    "questions": [
+      {
+        "q": "How did the rain fall on the grass?",
+        "options": [
+          "Softly and gently",
+          "Hard and fast",
+          "Cold and icy",
+          "Not at all"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why did flowers open their petals?",
+        "options": [
+          "To catch fresh raindrops",
+          "To get sunshine",
+          "To attract bees",
+          "To grow roots"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What appeared across the sky after rain?",
+        "options": [
+          "A bright rainbow",
+          "Dark clouds",
+          "Bright stars",
+          "A full moon"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 224,
-    difficulty: "easy",
-    dayIndex: 23,
-    title: { en: "The Friendly Sea Otter", zh: "可爱的海獭" },
-    text: {
-      en: "Sea otters live in cool coastal kelp forests. They float on their backs in ocean water, using flat stones balanced on their bellies to crack open hard shellfish for a tasty lunch.",
-      zh: "海獭生活在凉爽的海岸海藻林里。它们在海水中仰泳，利用平衡在肚皮上的平石头砸开坚硬的贝类，享用美味的午餐。"
+    "id": 224,
+    "difficulty": "easy",
+    "dayIndex": 23,
+    "title": {
+      "en": "The Wooden Toy Train",
+      "zh": "木制玩具火车"
     },
-    questions: [
-      { q: "Where do sea otters live?", options: ["In deep ocean trenches", "In cool coastal kelp forests", "On sandy beaches", "Near river mouths"], correct: 1 },
-      { q: "How do sea otters float while eating?", options: ["On their bellies", "On their backs", "Standing up", "Diving underwater"], correct: 1 },
-      { q: "What tool do sea otters use to crack open hard shellfish?", options: ["Their sharp teeth", "Flat stones balanced on their bellies", "Thick claws", "Piece of wood"], correct: 1 }
+    "text": {
+      "en": "Grandpa carved a small wooden toy train for Jack's eighth birthday. The train has three dark red cars connected by tiny metal hooks. Jack rolls the train along a smooth track in his bedroom.",
+      "zh": "爷爷在杰克八岁生日时为他雕刻了一列小木制玩具火车。火车有三节由小金属钩连接的深红色车厢。杰克在卧室平滑的轨道上滚动火车。"
+    },
+    "questions": [
+      {
+        "q": "Who carved the wooden toy train?",
+        "options": [
+          "Grandpa",
+          "Dad",
+          "Jack's brother",
+          "A carpenter"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many cars does the train have?",
+        "options": [
+          "Three dark red cars",
+          "Two blue cars",
+          "Four yellow cars",
+          "Five green cars"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where does Jack roll the train?",
+        "options": [
+          "Along a smooth track in room",
+          "On the grass",
+          "On the table",
+          "Outside"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 225,
-    difficulty: "easy",
-    dayIndex: 24,
-    title: { en: "Making Apple Pie", zh: "制作苹果派" },
-    text: {
-      en: "Emma helped her grandfather bake a fresh apple pie. They sliced crisp green apples, tossed them with brown sugar and cinnamon, and wrapped them in a golden flaky pie crust.",
-      zh: "艾玛帮助爷爷烘烤新鲜的苹果派。他们把脆绿的苹果切片，加入红糖和肉桂粉翻拌，然后裹在金黄酥脆的派皮里。"
+    "id": 225,
+    "difficulty": "easy",
+    "dayIndex": 24,
+    "title": {
+      "en": "The Honey Pancake",
+      "zh": "蜂蜜煎饼"
     },
-    questions: [
-      { q: "Who baked an apple pie with Emma?", options: ["Her mother", "Her grandfather", "Her aunt", "Her brother"], correct: 1 },
-      { q: "What spices were tossed with the green apple slices?", options: ["Vanilla and nutmeg", "Brown sugar and cinnamon", "Honey and ginger", "Lemon juice"], correct: 1 },
-      { q: "What wrapped the sweet apple filling?", options: ["Puff pastry", "A golden flaky pie crust", "Bread dough", "Cookie dough"], correct: 1 }
-    ]
-  },
-
-  // MEDIUM (15 passages, 4 questions each, IDs 226-240)
-  {
-    id: 226,
-    difficulty: "medium",
-    dayIndex: 25,
-    title: { en: "The Life of Monarch Butterflies", zh: "黑脉金斑蝶的一生" },
-    text: {
-      en: "Monarch butterflies undergo a complete transformation called metamorphosis during their life cycle. A female butterfly lays a tiny pale egg on the leaf of a milkweed plant. A striped caterpillar hatches and eats milkweed leaves constantly for two weeks. Next, the caterpillar forms a smooth green chrysalis. Inside, it transforms into an adult orange-and-black butterfly.",
-      zh: "黑脉金斑蝶在它们的生命周期中经历了被称为完全变态的彻底转变。雌蝶在乳草植物的叶子上产下一个微小的苍白蛋。一条带有条纹的毛毛虫孵化出来，并连续两周不断吃乳草叶子。接下来，毛毛虫形成一个光滑的绿蛹。在内部，它转化为一只黑橙相间的成体蝴蝶。"
+    "text": {
+      "en": "Mom cooked round golden pancakes for Sunday morning family breakfast. She poured sweet yellow honey and added fresh strawberry slices on top. Everyone ate two delicious pancakes before going to the park.",
+      "zh": "妈妈在星期天早晨的家庭早餐中煎了金黄色的圆煎饼。她在上面淋上了甜黄蜂蜜，并加上了新鲜的草莓片。每个人在去公园前都吃了两个美味的煎饼。"
     },
-    questions: [
-      { q: "On which specific plant does a female monarch butterfly lay her egg?", options: ["Oak tree leaves", "Milkweed plant leaves", "Rose bushes", "Garden clover"], correct: 1 },
-      { q: "What hatches from the butterfly egg?", options: ["A tiny maggot", "A striped caterpillar", "A small beetle", "A winged moth"], correct: 1 },
-      { q: "What smooth protective shell does the caterpillar form?", options: ["A silk cocoon", "A smooth green chrysalis", "A wooden shell", "A mud nest"], correct: 1 },
-      { q: "What colors are the wings of an adult monarch butterfly?", options: ["Yellow and blue", "Orange and black", "Red and white", "Green and purple"], correct: 1 }
-    ]
-  },
-  {
-    id: 227,
-    difficulty: "medium",
-    dayIndex: 26,
-    title: { en: "How Ice Cream Was Invented", zh: "冰淇淋的发明历史" },
-    text: {
-      en: "Thousands of years ago, ancient rulers enjoyed frozen treats made by mixing mountain snow with sweet fruit juices and honey. In the 17th century, Italian chefs developed creamier recipes by churning fresh milk, sugar, and ice together. The modern ice cream cone was popularized at the 1904 World's Fair in St. Louis when a waffle vendor rolled hot waffles into cones to hold ice cream scoop balls.",
-      zh: "几千年前，古代统治者享用将高山积雪与甜果汁和蜂蜜混合制成的冷冻甜品。在17世纪，意大利厨师通过将鲜牛奶、糖和冰一起搅拌开发出了更细腻的食谱。现代冰淇淋蛋筒在1904年圣路易斯世博会上得以普及，当时一位华夫饼摊贩将热华夫饼卷成蛋筒来盛放冰淇淋球。"
-    },
-    questions: [
-      { q: "What ingredients did ancient rulers mix with mountain snow?", options: ["Milk and chocolate", "Sweet fruit juices and honey", "Vanilla and sugar", "Nuts and berries"], correct: 1 },
-      { q: "In which century did Italian chefs create creamier milk-based recipes?", options: ["15th century", "17th century", "19th century", "20th century"], correct: 1 },
-      { q: "Where was the modern ice cream cone popularized in 1904?", options: ["Paris Expo", "St. Louis World's Fair", "London Exhibition", "New York Fair"], correct: 1 },
-      { q: "What pastry item was rolled into cones to hold ice cream scoops?", options: ["Crisp cookies", "Hot waffles", "Pancakes", "Crepes"], correct: 1 }
+    "questions": [
+      {
+        "q": "When did Mom cook golden pancakes?",
+        "options": [
+          "Sunday morning family breakfast",
+          "Saturday night",
+          "Friday afternoon",
+          "Monday noon"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Mom add on top of pancakes?",
+        "options": [
+          "Sweet yellow honey and strawberries",
+          "Chocolate syrup",
+          "Butter and sugar",
+          "Jam"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did the family go after breakfast?",
+        "options": [
+          "To the park",
+          "To school",
+          "To the store",
+          "To the cinema"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 228,
-    difficulty: "medium",
-    dayIndex: 27,
-    title: { en: "The Rainforest Canopy", zh: "雨林树冠层" },
-    text: {
-      en: "Tropical rainforests are structured in four unique layers, with the canopy layer being the richest in wildlife. The canopy is formed by overlapping tree branches roughly one hundred feet above the ground. Bright toucans, playful spider monkeys, and colorful tree frogs live their whole lives high up in the sunny canopy without ever touching the forest floor.",
-      zh: "热带雨林分为四个独特的层次，其中树冠层包含最丰富的野生动物。树冠由离地面大约一百英尺高重叠的树枝组成。鲜艳的巨嘴鸟、活泼的蜘蛛猴和彩色的树蛙一生都生活在阳光明媚的高高树冠层里，从不触及森林地面。"
+    "id": 226,
+    "difficulty": "medium",
+    "dayIndex": 25,
+    "title": {
+      "en": "The Village Fire Station",
+      "zh": "村庄消防局"
     },
-    questions: [
-      { q: "How many layers do tropical rainforests have?", options: ["Three", "Four unique layers", "Five", "Six"], correct: 1 },
-      { q: "How high above the ground is the rainforest canopy layer?", options: ["Fifty feet", "Roughly one hundred feet", "Two hundred feet", "Three hundred feet"], correct: 1 },
-      { q: "Which bird lives high up in the sunny canopy?", options: ["Bald eagles", "Bright toucans", "Owls", "Flamingos"], correct: 1 },
-      { q: "What animal spends its life in the canopy without touching the ground?", options: ["Forest deer", "Playful spider monkeys", "River otters", "Wild boars"], correct: 1 }
+    "text": {
+      "en": "The local fire station stands in the middle of our small quiet town. Three brave firefighters wear thick yellow suits and red helmets every day. When the alarm sounds, they drive a large shiny fire truck to help people. They work hard to keep our neighborhood safe and happy.",
+      "zh": "当地的消防局站在我们安静的小镇中央。三位勇敢的消防员每天穿着厚厚的黄色衣服，戴着红色的头盔。当警报响起时，他们开着一辆闪亮的大消防车去帮助人们。他们努力工作，确保我们的社区安全和快乐。"
+    },
+    "questions": [
+      {
+        "q": "Where is the local fire station located?",
+        "options": [
+          "In the middle of our town",
+          "Near the highway",
+          "By the lake",
+          "At the airport"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What color suits do the firefighters wear?",
+        "options": [
+          "Thick yellow suits",
+          "Red suits",
+          "Blue suits",
+          "Black suits"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What vehicle do they drive when alarm sounds?",
+        "options": [
+          "Large shiny fire truck",
+          "Police car",
+          "Ambulance",
+          "Bus"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the main goal of firefighters?",
+        "options": [
+          "Keep neighborhood safe and happy",
+          "Paint houses",
+          "Clean streets",
+          "Build roads"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 229,
-    difficulty: "medium",
-    dayIndex: 28,
-    title: { en: "The Story of Paper Money", zh: "纸币的故事" },
-    text: {
-      en: "Before paper money existed, people traded heavy metal coins made of gold, silver, and copper. During the Song Dynasty in China, merchants found carrying thousands of heavy iron coins inconvenient for long business trips. They began depositing coins at official stores in exchange for paper receipts called Jiaozi. This marked the birth of the world's first paper currency.",
-      zh: "在纸币存在之前，人们交易由金、银、铜制成的重金属硬币。在中国宋朝时期，商人发现携带数千枚沉重的铁钱长途出差非常不便。他们开始将硬币存放在官方店铺中，换取被称为交子的纸质收据。这标志着世界上最早的纸币的诞生。"
+    "id": 227,
+    "difficulty": "medium",
+    "dayIndex": 26,
+    "title": {
+      "en": "Learning to Ride a Bike",
+      "zh": "学习骑自行车"
     },
-    questions: [
-      { q: "What kind of money did people use before paper money was created?", options: ["Wooden tokens", "Heavy metal coins made of gold, silver, and copper", "Shells", "Clay seals"], correct: 1 },
-      { q: "During which Chinese dynasty was the first paper money introduced?", options: ["Tang Dynasty", "Song Dynasty", "Ming Dynasty", "Han Dynasty"], correct: 1 },
-      { q: "Why did merchants prefer paper receipts over iron coins?", options: ["Iron coins rusted", "Carrying heavy iron coins was inconvenient", "Paper looked prettier", "Coins were stolen"], correct: 1 },
-      { q: "What was the name of the first paper currency receipt in Song Dynasty?", options: ["Yuanbao", "Jiaozi", "Huizi", "Feiqian"], correct: 1 }
+    "text": {
+      "en": "Lucas received a bright red bicycle for his eighth birthday. His older brother guided him carefully on the paved park path. At first, Lucas felt nervous and wobbly while holding the handles. After much practice, he could ride smoothly all by himself.",
+      "zh": "卢卡斯在八岁生日时收到了一辆鲜红色的自行车。他的哥哥在公园的小路上仔细地引导他。起初，卢卡斯在握住手把时感到紧张和摇晃。经过多次练习，他可以自己流畅地骑行了。"
+    },
+    "questions": [
+      {
+        "q": "What gift did Lucas receive for his birthday?",
+        "options": [
+          "Bright red bicycle",
+          "Skateboard",
+          "Roller skates",
+          "Toy train"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who guided Lucas while learning?",
+        "options": [
+          "His older brother",
+          "His father",
+          "His teacher",
+          "His friend"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did Lucas feel at first?",
+        "options": [
+          "Nervous and wobbly",
+          "Brave and excited",
+          "Sleepy",
+          "Angry"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happened after much practice?",
+        "options": [
+          "He rode smoothly by himself",
+          "He gave up",
+          "He sold the bike",
+          "He broke the bike"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 230,
-    difficulty: "medium",
-    dayIndex: 29,
-    title: { en: "How Coral Reefs Grow", zh: "珊瑚礁如何生长" },
-    text: {
-      en: "Coral reefs look like underwater rocks, but they are built by tiny soft animals called coral polyps. These polyps absorb calcium from ocean water to build hard stony skeletons around themselves. Over hundreds of years, millions of polyps grow on top of old skeletons, building giant reefs that provide homes for sea turtles, clownfish, and reef sharks.",
-      zh: "珊瑚礁看起来像水下岩石，但它们是由被称为珊瑚虫的微小软体动物建造的。这些珊瑚虫从海水中吸收钙，在自身周围建造坚硬的石质骨骼。数百年来，数以百万计的珊瑚虫在旧骨骼之上生长，建造出大型珊瑚礁，为海龟、小丑鱼和礁鲨提供家园。"
+    "id": 228,
+    "difficulty": "medium",
+    "dayIndex": 27,
+    "title": {
+      "en": "The School Science Fair",
+      "zh": "学校科学展览会"
     },
-    questions: [
-      { q: "What living creatures build coral reefs?", options: ["Sea sponges", "Tiny soft animals called coral polyps", "Algae", "Sea anemones"], correct: 1 },
-      { q: "What mineral do polyps absorb from sea water to build skeletons?", options: ["Iron", "Calcium", "Magnesium", "Sodium"], correct: 1 },
-      { q: "Where do new coral polyps grow over time?", options: ["In deep sand", "On top of old stony skeletons", "Near river mouths", "On floating wood"], correct: 1 },
-      { q: "Name one animal species that finds shelter in coral reefs.", options: ["Polar bears", "Clownfish", "River otters", "Penguins"], correct: 1 }
+    "text": {
+      "en": "Students gathered in the gymnasium for the annual science project show. Ella built a working volcano model using paper and brown clay. When she mixed vinegar and baking soda, red foam bubbled out. Everyone cheered and awarded her project a blue prize ribbon.",
+      "zh": "学生们聚集在体育馆参加一年一度的科学项目展示会。艾拉用纸和棕色粘土制作了一座会运转的火山模型。当她把醋和小苏打混合在一起时，红色的泡沫冒了出来。大家欢呼并给她的项目颁发了蓝色获奖丝带。"
+    },
+    "questions": [
+      {
+        "q": "Where was the science project show held?",
+        "options": [
+          "In the gymnasium",
+          "In classroom",
+          "In library",
+          "Outside"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What model did Ella build?",
+        "options": [
+          "A working volcano model",
+          "A rocket model",
+          "A solar system",
+          "A robot"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What caused red foam to bubble out?",
+        "options": [
+          "Mixing vinegar and baking soda",
+          "Adding water and salt",
+          "Heating clay",
+          "Blowing air"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What award did Ella receive?",
+        "options": [
+          "A blue prize ribbon",
+          "A gold medal",
+          "A trophy",
+          "A certificate"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 231,
-    difficulty: "medium",
-    dayIndex: 30,
-    title: { en: "The Invention of the Telephone", zh: "电话的发明" },
-    text: {
-      en: "In 1876, Scottish inventor Alexander Graham Bell made the first successful telephone call. He spoke through a transmitter wire to his assistant in another room, saying: 'Mr. Watson, come here, I want to see you.' This landmark invention allowed human voices to travel long distances through electrical wires for the first time.",
-      zh: "1876年，苏格兰发明家亚历山大·格雷厄姆·贝尔成功进行了第一次电话通线。他通过发报电线对另一间房里的助手说：“沃森先生，过来，我想见你。”这一划时代的发明首次使人类的声音能够通过电线长途传播。"
+    "id": 229,
+    "difficulty": "medium",
+    "dayIndex": 28,
+    "title": {
+      "en": "Life of a Sea Turtle",
+      "zh": "海龟的一生"
     },
-    questions: [
-      { q: "Who invented the first successful telephone in 1876?", options: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Benjamin Franklin"], correct: 1 },
-      { q: "Who was Bell's assistant on the receiving end of the call?", options: ["Mr. Smith", "Mr. Watson", "Mr. Johnson", "Mr. Davis"], correct: 1 },
-      { q: "What were the famous first words spoken on the telephone?", options: ["Hello World!", "Mr. Watson, come here, I want to see you", "Can you hear me?", "Testing one two three"], correct: 1 },
-      { q: "How did voices travel in Bell's early telephone system?", options: ["Through radio waves", "Through electrical wires", "Using sound tubes", "Via satellite"], correct: 1 }
+    "text": {
+      "en": "Sea turtles spend almost their entire lives swimming in ocean waters. Female turtles crawl onto sandy beaches at night to lay round eggs. They cover the nest with sand to protect eggs from predators. Weeks later, tiny baby turtles hatch and scramble into the sea.",
+      "zh": "海龟几乎一生都在海洋中游泳。雌龟夜间爬上沙滩产圆蛋。它们用沙子盖住巢穴，以保护蛋免受捕食者的伤害。几周后，微小的小海龟孵化出来，爬进海里。"
+    },
+    "questions": [
+      {
+        "q": "Where do sea turtles spend almost their entire lives?",
+        "options": [
+          "Swimming in ocean waters",
+          "On sandy beaches",
+          "In fresh rivers",
+          "In shallow ponds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do female turtles lay their eggs?",
+        "options": [
+          "At night on sandy beaches",
+          "During noon in ocean",
+          "In morning on rocks",
+          "In winter"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do turtles cover their nest with sand?",
+        "options": [
+          "Protect eggs from predators",
+          "Keep eggs cool",
+          "Hide from people",
+          "Make nest big"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do baby turtles do after hatching?",
+        "options": [
+          "Scramble into the sea",
+          "Stay in sand",
+          "Fly away",
+          "Climb trees"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 232,
-    difficulty: "medium",
-    dayIndex: 31,
-    title: { en: "The Great Barrier Reef", zh: "大堡礁" },
-    text: {
-      en: "Located off the northeastern coast of Australia, the Great Barrier Reef is the largest living structure on Earth. It is so vast that it can be seen by astronauts from outer space! Thousands of marine species, including green sea turtles, giant clams, and bright blue starfish, thrive in its warm tropical waters.",
-      zh: "大堡礁位于澳大利亚东北海岸附近，是地球上最大的活体结构。它如此巨大，以至于宇航员从外太空都能看到它！数以千计的海洋物种，包括绿海龟、巨砗磲和亮蓝海星，在温暖的热带水域中繁衍。"
+    "id": 230,
+    "difficulty": "medium",
+    "dayIndex": 29,
+    "title": {
+      "en": "A Visit to the Zoo",
+      "zh": "游览动物园"
     },
-    questions: [
-      { q: "Where is the Great Barrier Reef located?", options: ["Off the coast of Brazil", "Off the northeastern coast of Australia", "Near South Africa", "In the Mediterranean Sea"], correct: 1 },
-      { q: "What makes the Great Barrier Reef extraordinary in size?", options: ["It is the deepest reef", "It can be seen by astronauts from space", "It covers a continent", "It touches three oceans"], correct: 1 },
-      { q: "Name a sea creature mentioned that lives in the reef.", options: ["Green sea turtles", "Beluga whales", "Walruses", "Sea lions"], correct: 0 },
-      { q: "What type of water surrounds the Great Barrier Reef?", options: ["Freezing Arctic water", "Warm tropical waters", "Cold deep water", "Fresh river water"], correct: 1 }
+    "text": {
+      "en": "Class Three took a yellow school bus to the national zoo. They saw two giant pandas eating fresh bamboo leaves in the shade. Later they watched a trainer feed fish to energetic seals in a pool. Before going home, everyone bought animal bookmarks at the gift shop.",
+      "zh": "三年级坐着黄色的校车去了国家动物园。他们看到两只大熊猫在树荫下吃新鲜的竹叶。后来，他们看训导员在池塘里给精力充沛的海豹喂鱼。在回家之前，每个人都在礼品店买了动物书签。"
+    },
+    "questions": [
+      {
+        "q": "How did Class Three travel to the zoo?",
+        "options": [
+          "Yellow school bus",
+          "By train",
+          "By car",
+          "Walking"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What were giant pandas eating?",
+        "options": [
+          "Fresh bamboo leaves",
+          "Apples",
+          "Fish",
+          "Sugar cane"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What animal was fed fish by the trainer?",
+        "options": [
+          "Energetic seals",
+          "Penguins",
+          "Dolphins",
+          "Bears"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What souvenir did students buy before leaving?",
+        "options": [
+          "Animal bookmarks",
+          "Toy pandas",
+          "Postcards",
+          "Hats"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 233,
-    difficulty: "medium",
-    dayIndex: 32,
-    title: { en: "The Migration of Salmon", zh: "鲑鱼的洄游" },
-    text: {
-      en: "Salmon are remarkable fish that spend their adult lives in the ocean but return to the exact freshwater stream where they hatched to lay eggs. During their upstream journey, salmon leap over tall waterfalls and battle strong river currents. Guided by a keen sense of smell, they travel hundreds of miles back home.",
-      zh: "鲑鱼是了不起的鱼类，成年后生活在海洋中，但会回到它们孵化的确切淡水小溪产卵。在逆流而上的旅途中，鲑鱼越过高瀑布，与强劲的河水较量。在敏锐嗅觉的指引下，它们游行几百英里回到家园。"
+    "id": 231,
+    "difficulty": "medium",
+    "dayIndex": 30,
+    "title": {
+      "en": "The Apple Harvest",
+      "zh": "苹果丰收"
     },
-    questions: [
-      { q: "Where do adult salmon spend most of their grown lives?", options: ["In small ponds", "In the ocean", "In fast rivers", "In deep lakes"], correct: 1 },
-      { q: "Where do salmon return to lay their eggs?", options: ["In deep ocean trenches", "To the exact stream where they hatched", "In coastal bays", "On sandy shores"], correct: 1 },
-      { q: "What obstacle do salmon jump over during their upstream journey?", options: ["Wooden dams", "Tall waterfalls", "Rocky bridges", "Fallen logs"], correct: 1 },
-      { q: "What sense guides salmon back to their original freshwater birthplace?", options: ["Sharp vision", "Keen sense of smell", "Hearing", "Magnetic sense"], correct: 1 }
+    "text": {
+      "en": "Autumn is the harvest season for local fruit orchards across the valley. Farmers pick thousands of crisp red apples from tall trees each day. They pack the fresh apples neatly into sturdy wooden crates. Soon trucks carry the fruit crates to markets in the nearby city.",
+      "zh": "秋天是山谷地方果园的丰收季节。农夫们每天从高高的树上采摘成千上万脆嫩的红苹果。他们把新鲜的苹果整齐地装进坚固的木箱里。很快，卡车把水果箱运往附近城市的集市。"
+    },
+    "questions": [
+      {
+        "q": "What season is the apple harvest?",
+        "options": [
+          "Autumn",
+          "Spring",
+          "Summer",
+          "Winter"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do farmers store the picked apples?",
+        "options": [
+          "Pack neatly into wooden crates",
+          "Put in plastic bags",
+          "Pile on ground",
+          "Store in water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How are the apples described?",
+        "options": [
+          "Crisp red apples",
+          "Soft green apples",
+          "Small yellow apples",
+          "Sour apples"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do trucks take the crates?",
+        "options": [
+          "To markets in nearby city",
+          "To factories",
+          "To the farm",
+          "To port"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 234,
-    difficulty: "medium",
-    dayIndex: 33,
-    title: { en: "How Solar Panels Work", zh: "太阳能电池板工作原理" },
-    text: {
-      en: "Solar panels convert energy from sunlight into clean electricity for homes and schools. Each panel contains dark silicon solar cells that absorb light particles called photons. When photons hit the cells, they knock electrons free, creating a steady flow of electrical current without producing air pollution.",
-      zh: "太阳能电池板将来自阳光的能量转化为供家庭和学校使用的干净电力。每块电池板都包含暗色硅太阳能电池，吸收被称为光子的光粒子。当光子撞击电池时，它们打散自由电子，产生稳定的电流流动，而不产生空气污染。"
+    "id": 232,
+    "difficulty": "medium",
+    "dayIndex": 31,
+    "title": {
+      "en": "Baking Homemade Bread",
+      "zh": "烘焙自制面包"
     },
-    questions: [
-      { q: "What do solar panels convert sunlight into?", options: ["Heat gas", "Clean electricity", "Mechanical energy", "Light waves"], correct: 1 },
-      { q: "What material are solar cells made of?", options: ["Copper plates", "Dark silicon", "Glass sheets", "Aluminum foil"], correct: 1 },
-      { q: "What light particles do solar cells absorb?", options: ["Electrons", "Photons", "Protons", "Neutrons"], correct: 1 },
-      { q: "Why is solar energy environmentally friendly?", options: ["It uses no space", "It produces no air pollution", "It works at night", "It costs nothing to build"], correct: 1 }
+    "text": {
+      "en": "Mom mixed white flour, warm water, and yeast in a large bowl. She kneaded the soft dough on a wooden board until smooth. After letting it rise in a warm spot, she baked it in the oven. The fresh bread came out with a crispy crust and soft center.",
+      "zh": "妈妈在大碗里混合了白面粉、温水和酵母。她在木板上揉揉软的面团，直到它变得光滑。在温暖的地方让它发酵后，她在烤箱里烘烤。新鲜的面包出来了，带着酥脆的外壳和柔软的中心。"
+    },
+    "questions": [
+      {
+        "q": "What ingredients did Mom mix together?",
+        "options": [
+          "Flour, warm water, and yeast",
+          "Sugar, eggs, and milk",
+          "Butter, cocoa, and salt",
+          "Oats and honey"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did Mom knead the dough?",
+        "options": [
+          "On a wooden board",
+          "In a glass bowl",
+          "On counter",
+          "In pan"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Mom do before baking?",
+        "options": [
+          "Let dough rise in warm spot",
+          "Put dough in fridge",
+          "Added apples",
+          "Cut dough"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How was the baked bread described?",
+        "options": [
+          "Crispy crust and soft center",
+          "Hard and dry",
+          "Burnt and black",
+          "Salty and wet"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 235,
-    difficulty: "medium",
-    dayIndex: 34,
-    title: { en: "The History of Chocolate", zh: "巧克力历史" },
-    text: {
-      en: "Chocolate was first created over three thousand years ago by ancient Mesoamerican civilizations like the Mayans. They ground roasted cacao beans into a bitter spicy liquid drink used in special ceremonies. Later, European sugar makers added milk and sugar to transform chocolate into the sweet solid treats we enjoy today.",
-      zh: "巧克力最早于三千多年前由玛雅人等古代美洲文明所创造。他们将烘烤过的可可豆磨碎成用于特别仪式的苦辣液体饮料。后来，欧洲糖商加入牛奶和糖，将巧克力转化为我们今天享用的甜固态美食。"
+    "id": 233,
+    "difficulty": "medium",
+    "dayIndex": 32,
+    "title": {
+      "en": "The Little Penguin",
+      "zh": "小企鹅"
     },
-    questions: [
-      { q: "Which ancient civilization first created chocolate drinks?", options: ["Ancient Egyptians", "Ancient Mayans", "Ancient Romans", "Ancient Greeks"], correct: 1 },
-      { q: "What ingredient was roasted and ground to make early chocolate drinks?", options: ["Coffee beans", "Roasted cacao beans", "Vanilla pods", "Corn kernels"], correct: 1 },
-      { q: "How did early Mayan chocolate taste?", options: ["Sweet and creamy", "Bitter spicy liquid drink", "Salty and sour", "Hot and syrupy"], correct: 1 },
-      { q: "What ingredients did Europeans add to make chocolate sweet?", options: ["Honey and fruits", "Milk and sugar", "Vanilla and cinnamon", "Butter and eggs"], correct: 1 }
+    "text": {
+      "en": "Little penguins live in colonies along the cold coasts of Antarctica. They swim extremely fast in icy ocean water to hunt for small fish. Their thick oily feathers keep water out and trap body heat inside. At night they huddle closely together to stay warm against icy winds.",
+      "zh": "小企鹅生活在南极洲寒冷海岸的群体中。它们在冰冷的海洋水中游得极快，捕食小鱼。它们厚厚的油性羽毛可以防止水进入，并将体热留在体内。晚上，它们紧紧地挤在一起，在冰冷的风中保持温暖。"
+    },
+    "questions": [
+      {
+        "q": "Where do little penguins live?",
+        "options": [
+          "Cold coasts of Antarctica",
+          "Warm tropical islands",
+          "Grassy forests",
+          "Desert sand dunes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do penguins swim fast in icy water?",
+        "options": [
+          "To hunt for small fish",
+          "To escape boats",
+          "To play games",
+          "To travel north"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do oily feathers help penguins?",
+        "options": [
+          "Keep water out and trap heat",
+          "Help them fly",
+          "Make them heavy",
+          "Change color"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do penguins do at night against cold winds?",
+        "options": [
+          "Huddle closely together",
+          "Hide under rocks",
+          "Sleep underwater",
+          "Build nests"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 236,
-    difficulty: "medium",
-    dayIndex: 35,
-    title: { en: "The Life of Emperor Penguins", zh: "帝企鹅的生活" },
-    text: {
-      en: "Emperor penguins are the largest of all penguin species, living in the icy freezing continent of Antarctica. During winter, female penguins lay a single egg and travel to the sea to feed. Male penguins balance the egg on their feet under a warm flap of skin for two cold months until it hatches.",
-      zh: "帝企鹅是所有企鹅物种中最大的，生活在南极洲冰天雪地的陆地上。冬季期间，母企鹅产下一个蛋并前往大海捕食。公企鹅把蛋平衡在脚上，盖在温暖的皮肤褶皱下两个寒月的时光，直到孵化。"
+    "id": 234,
+    "difficulty": "medium",
+    "dayIndex": 33,
+    "title": {
+      "en": "A Camping Adventure",
+      "zh": "一次露营冒险"
     },
-    questions: [
-      { q: "Where do emperor penguins live?", options: ["The Arctic Circle", "Antarctica", "Iceland", "Alaska"], correct: 1 },
-      { q: "How many eggs does a female emperor penguin lay in winter?", options: ["Single egg", "Two eggs", "Three eggs", "Four eggs"], correct: 0 },
-      { q: "Who keeps the egg warm while the female goes to the ocean?", options: ["The grandmother", "Male penguins", "Older chicks", "Group guards"], correct: 1 },
-      { q: "Where is the egg held to stay warm?", options: ["In a snow nest", "On feet under a warm flap of skin", "Under a rock", "In a cave"], correct: 1 }
+    "text": {
+      "en": "Jack and his family pitched a green tent near a mountain stream. They spent the afternoon hiking along scenic trails surrounded by pine trees. At sunset they cooked fresh soup over a warm crackling campfire. After dark they pointed at bright constellation stars in the night sky.",
+      "zh": "杰克和他的家人在一条山溪附近搭起了绿色的帐篷。他们整个下午都在被松树环绕的景色宜人的小径上徒步旅行。日落时分，他们在温暖噼啪作响的篝火上煮新鲜的汤。天黑后，他们指着夜空中明亮的星座。"
+    },
+    "questions": [
+      {
+        "q": "Where did Jack's family pitch their tent?",
+        "options": [
+          "Near a mountain stream",
+          "On a sandy beach",
+          "In a city park",
+          "In backyard"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What activity did they do during the afternoon?",
+        "options": [
+          "Hiking along scenic trails",
+          "Swimming in lake",
+          "Fishing",
+          "Riding bikes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What food did they prepare over the campfire?",
+        "options": [
+          "Fresh soup",
+          "Roasted corn",
+          "Sandwiches",
+          "Grilled fish"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did they look at after dark?",
+        "options": [
+          "Bright constellation stars",
+          "Moonlight",
+          "Fireflies",
+          "Forest animals"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 237,
-    difficulty: "medium",
-    dayIndex: 36,
-    title: { en: "The Invention of Printing", zh: "印刷术的发明" },
-    text: {
-      en: "In 1040, a Chinese artisan named Bi Sheng invented movable clay type for printing books. Later in the 1440s, German goldsmith Johannes Gutenberg created a metal printing press with movable lead letters. This revolution enabled fast production of books, allowing knowledge and ideas to spread quickly worldwide.",
-      zh: "1040年，一位名叫毕昇的中国工匠发明了用于印刷书籍的活字泥版。后来在15世纪40年代，德国金匠约翰内斯·谷登堡发明了带有可移动铅字的金属印刷机。这一革命实现了书籍的快速生产，使知识和思想在世界范围内快速传播。"
+    "id": 235,
+    "difficulty": "medium",
+    "dayIndex": 34,
+    "title": {
+      "en": "The Honeybee Colony",
+      "zh": "蜜蜂群体"
     },
-    questions: [
-      { q: "Who invented movable clay type printing in 1040?", options: ["Cai Lun", "Bi Sheng", "Gutenberg", "Shen Kuo"], correct: 1 },
-      { q: "What material did Johannes Gutenberg use for his printing press letters?", options: ["Wood blocks", "Movable lead letters", "Clay tiles", "Stone stamps"], correct: 1 },
-      { q: "In which century did Gutenberg create his metal printing press?", options: ["12th century", "15th century (1440s)", "17th century", "19th century"], correct: 1 },
-      { q: "Why was the printing press a revolutionary invention?", options: ["Made books waterproof", "Allowed fast production of books and spread knowledge", "Created colored pictures", "Made paper cheap"], correct: 1 }
+    "text": {
+      "en": "A honeybee colony contains thousands of busy worker bees and one queen. Worker bees collect sweet nectar from colorful spring flowers in fields. They bring nectar back to the hive and make delicious honey. Honeybees help plants grow by carrying pollen from flower to flower.",
+      "zh": "一个蜜蜂群体包含数千只忙碌的工蜂和一只女王。工蜂从田野里五彩缤纷的春花中收集甜美的花蜜。它们把花蜜带回蜂巢，制作出美味的蜂蜜。蜜蜂通过将花粉从一朵花传到另一朵花来帮助植物生长。"
+    },
+    "questions": [
+      {
+        "q": "How many queens are in a honeybee colony?",
+        "options": [
+          "One queen",
+          "Two queens",
+          "Five queens",
+          "Ten queens"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do worker bees collect from flowers?",
+        "options": [
+          "Sweet nectar",
+          "Water drops",
+          "Leaves",
+          "Seeds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do worker bees make back at the hive?",
+        "options": [
+          "Delicious honey",
+          "Wax candles",
+          "Flower jam",
+          "Plant food"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do honeybees help plants grow?",
+        "options": [
+          "Carrying pollen from flower to flower",
+          "Watering roots",
+          "Eating weeds",
+          "Shading leaves"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 238,
-    difficulty: "medium",
-    dayIndex: 37,
-    title: { en: "The Chameleon's Colors", zh: "变色龙的色彩" },
-    text: {
-      en: "Chameleons are unique lizards famous for their ability to change skin color. Special skin cells containing tiny color pigments expand or contract based on temperature, mood, and sunlight. Color changes help chameleons communicate with other lizards and camouflage against predators in tree leaves.",
-      zh: "变色龙是独特的蜥蜴，以改变皮肤颜色的能力而闻名。包含微小色素的特殊皮肤细胞根据温度、情绪和阳光扩展或收缩。颜色变化有助于变色龙与其他蜥蜴交流，并在树叶中伪装避开捕食者。"
+    "id": 236,
+    "difficulty": "medium",
+    "dayIndex": 35,
+    "title": {
+      "en": "The City Public Park",
+      "zh": "城市公共公园"
     },
-    questions: [
-      { q: "What special ability makes chameleons famous?", options: ["Regrowing tails", "Changing skin color", "Flying between trees", "Running on water"], correct: 1 },
-      { q: "What inside chameleon skin cells causes color changes?", options: ["Tiny color pigments", "Water drops", "Air pockets", "Oil glands"], correct: 0 },
-      { q: "Which factors influence a chameleon's skin color change?", options: ["Age and weight", "Temperature, mood, and sunlight", "Food eaten", "Time of day only"], correct: 1 },
-      { q: "How do color changes benefit chameleons in the wild?", options: ["Helps them find water", "Helps communicate and camouflage against predators", "Keeps them dry", "Makes them move fast"], correct: 1 }
+    "text": {
+      "en": "Our city park is a green haven located right in the town center. Families come on weekends to picnic under tall shading maple trees. Children play happily on modern playground swings, slides, and climbing frames. A paved walking path loops around a quiet pond full of ducks.",
+      "zh": "我们的城市公园是一个绿色的避风港，位于城镇中心。家庭在周末来到高大的遮阴枫树下野餐。孩子们在现代化的游乐场秋千、滑梯和攀爬架上快乐地玩耍。一条铺平的步行道绕着一个满是鸭子的安静池塘。"
+    },
+    "questions": [
+      {
+        "q": "Where is the city park located?",
+        "options": [
+          "Right in the town center",
+          "On outskirts",
+          "Near harbor",
+          "On mountain top"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What kind of trees shade the picnic area?",
+        "options": [
+          "Tall maple trees",
+          "Pine trees",
+          "Oak trees",
+          "Palm trees"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What playground equipment do children use?",
+        "options": [
+          "Swings, slides, climbing frames",
+          "Bikes only",
+          "Kites",
+          "Sandbox"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What animal lives in the park pond?",
+        "options": [
+          "Ducks",
+          "Turtles",
+          "Frogs",
+          "Fish"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 239,
-    difficulty: "medium",
-    dayIndex: 38,
-    title: { en: "The Statue of Liberty", zh: "自由女神像" },
-    text: {
-      en: "Standing on Liberty Island in New York Harbor, the Statue of Liberty was a gift of friendship from the people of France to the United States in 1886. The giant copper statue holds a flaming torch in her right hand and a tablet dated July 4, 1776, in her left hand.",
-      zh: "自由女神像屹立在纽约港的自由岛上，是1886年法国人民送给美国的友谊礼物。这座巨大的铜像右手握着燃烧的火炬，左手拿着刻有1776年7月4日日期的板牌。"
+    "id": 237,
+    "difficulty": "medium",
+    "dayIndex": 36,
+    "title": {
+      "en": "The Busy Harbor",
+      "zh": "繁忙的港口"
     },
-    questions: [
-      { q: "Which country gifted the Statue of Liberty to the United States?", options: ["Great Britain", "France", "Spain", "Italy"], correct: 1 },
-      { q: "In what year was the Statue of Liberty dedicated?", options: ["1776", "1886", "1900", "1920"], correct: 1 },
-      { q: "What metal is the outer skin of the statue made of?", options: ["Iron", "Copper", "Bronze", "Steel"], correct: 1 },
-      { q: "What date is inscribed on the tablet held in the statue's left hand?", options: ["December 25, 1800", "July 4, 1776", "January 1, 1900", "October 12, 1492"], correct: 1 }
+    "text": {
+      "en": "Big cargo ships dock safely at the busy ocean harbor every morning. Giant cranes lift heavy metal containers off the wide ship decks. Dockworkers guide trucks as they carry goods to warehouses nearby. Seagulls fly high above the blue water searching for fish scraps.",
+      "zh": "每天早上大货船安全地停靠在繁忙的海洋港口。巨型起重机从宽阔的船板上吊起重金属集装箱。码头工人引导卡车将货物运往附近的仓库。海鸥在蓝色的水面上飞得高高的，寻找鱼屑。"
+    },
+    "questions": [
+      {
+        "q": "What ships dock at the harbor every morning?",
+        "options": [
+          "Big cargo ships",
+          "Fishing boats",
+          "Sailboats",
+          "Cruise ships"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What machinery lifts heavy metal containers?",
+        "options": [
+          "Giant cranes",
+          "Forklifts",
+          "Ropes",
+          "Tractors"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who guides the trucks carrying goods?",
+        "options": [
+          "Dockworkers",
+          "Captains",
+          "Sailors",
+          "Police"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What birds fly above searching for fish scraps?",
+        "options": [
+          "Seagulls",
+          "Pigeons",
+          "Eagles",
+          "Pelicans"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 240,
-    difficulty: "medium",
-    dayIndex: 39,
-    title: { en: "How Owls See at Night", zh: "猫头鹰如何夜视" },
-    text: {
-      en: "Owls are nocturnal birds of prey equipped with extraordinary night vision. Their large round eyes cannot turn in their sockets, so owls can rotate their necks up to 270 degrees to look around! Soft fringe feathers on their wings allow them to fly completely silently to catch prey.",
-      zh: "猫头鹰是夜行性猛禽，具备非凡的夜视能力。它们圆圆的大眼睛不能在眼窝里转动，所以猫头鹰可以将脖子旋转高达270度来环顾四周！翅膀上柔软的羽毛边缘使它们能完全静音飞行捕捉猎物。"
+    "id": 238,
+    "difficulty": "medium",
+    "dayIndex": 37,
+    "title": {
+      "en": "Making Pottery",
+      "zh": "制作陶器"
     },
-    questions: [
-      { q: "What word describes birds like owls that are active at night?", options: ["Diurnal", "Nocturnal", "Migratory", "Aquatic"], correct: 1 },
-      { q: "How far can an owl rotate its neck to look around?", options: ["90 degrees", "180 degrees", "Up to 270 degrees", "360 degrees"], correct: 2 },
-      { q: "Why can't owls roll their eyes inside their sockets?", options: ["They are too small", "Their large eyes are fixed in place", "They have no muscles", "They are covered by skin"], correct: 1 },
-      { q: "What feather feature allows owls to fly silently?", options: ["Stiff quills", "Soft fringe feathers on wing edges", "Oil coating", "Long tail feathers"], correct: 1 }
-    ]
-  },
-
-  // HARD (10 passages, 5 questions each, IDs 241-250)
-  {
-    id: 241,
-    difficulty: "hard",
-    dayIndex: 40,
-    title: { en: "The Amazon Rainforest", zh: "亚马逊雨林" },
-    text: {
-      en: "The Amazon Rainforest in South America is the largest tropical rainforest on planet Earth, spanning across nine different countries. It produces roughly twenty percent of the world's oxygen and is home to one in ten known species on Earth. Giant kapok trees stretch up to two hundred feet into the sky, while mysterious pink river dolphins swim in the winding Amazon River. Thousands of rare plant species growing in the Amazon contain compounds used to create modern lifesaving medicines.",
-      zh: "位于南美洲的亚马逊雨林是地球上最大的热带雨林，跨越九个不同的国家。它大约创造了世界百分之二十的氧气，是地球上已知物种中十分之一的家园。巨型的吉贝树高达两百英尺伸入天空，而神秘的粉红河豚在弯曲的亚马逊河中游泳。亚马逊地区生长的数千种稀有植物物种含有用于制造现代救命药物的化合物。"
+    "text": {
+      "en": "An artist places soft grey clay on a fast spinning wheel. She uses her wet fingers to shape the clay into a smooth bowl. After drying in the air, the bowl is baked in a very hot kiln. Finally she paints colorful patterns and glazes the pottery bowl.",
+      "zh": "一位艺术家把软灰色的粘土放在一个快速旋转的轮子上。她用湿手指把粘土揉成一个光滑的碗。在空气中干燥后，碗在非常烫的窑里烧制。最后，她画上彩色的图案，给陶碗上釉。"
     },
-    questions: [
-      { q: "On which continent is the Amazon Rainforest located?", options: ["North America", "South America", "Africa", "Asia"], correct: 1 },
-      { q: "Roughly what percentage of the world's oxygen does the Amazon produce?", options: ["Ten percent", "Twenty percent", "Thirty percent", "Fifty percent"], correct: 1 },
-      { q: "How tall can giant kapok trees grow in the Amazon?", options: ["One hundred feet", "Up to two hundred feet", "Three hundred feet", "Fifty feet"], correct: 1 },
-      { q: "What unique dolphin species lives in the Amazon River?", options: ["Bottlenose dolphin", "Pink river dolphin", "Grey spinner dolphin", "Blue ocean dolphin"], correct: 1 },
-      { q: "Why are Amazonian plant species valuable to medical science?", options: ["They grow without water", "They contain compounds used for modern medicines", "They produce sweet sugar", "They replace crops"], correct: 1 }
-    ]
-  },
-  {
-    id: 242,
-    difficulty: "hard",
-    dayIndex: 41,
-    title: { en: "The History of Bicycles", zh: "自行车的历史" },
-    text: {
-      en: "The earliest ancestor of the bicycle was invented in 1817 by German inventor Karl von Drais. Called a running machine, it was made entirely of wood and had no pedals; riders pushed their feet against the ground to move forward. In the 1870s, the High-Wheel bicycle became popular, featuring a giant front wheel and a small rear wheel. Finally, in 1885, John Kemp Starley introduced the Safety Bicycle with equal-sized wheels and a chain drive, creating the design we use today.",
-      zh: "自行车最早的祖先于1817年由德国发明家卡尔·冯·德赖斯发明。被称为跑步机，它完全由木头制成，没有脚踏板；骑行者用脚抵住地面向前推进。在19世纪70年代，高轮自行车流行起来，其特点是一个巨型前轮和一个小后轮。最后在1885年，约翰·凯姆普·斯塔利推出了带有等大车轮和链条驱动的安全自行车，创造了我们今天使用的设计。"
-    },
-    questions: [
-      { q: "Who invented the wooden running machine in 1817?", options: ["Henry Ford", "Karl von Drais", "John Starley", "James Watt"], correct: 1 },
-      { q: "How did riders move the 1817 running machine forward?", options: ["By pedaling", "Pushed their feet against the ground", "By hand cranks", "By steam engine"], correct: 1 },
-      { q: "What feature characterized the High-Wheel bicycle of the 1870s?", options: ["Three big wheels", "Giant front wheel and small rear wheel", "Wooden pedals", "Air tires"], correct: 1 },
-      { q: "Who invented the Safety Bicycle in 1885?", options: ["Karl von Drais", "John Kemp Starley", "Thomas Edison", "Orville Wright"], correct: 1 },
-      { q: "What innovation made the Safety Bicycle similar to modern bikes?", options: ["Steam motor", "Equal-sized wheels and a chain drive", "Wooden frame", "Leather belt"], correct: 1 }
-    ]
-  },
-  {
-    id: 243,
-    difficulty: "hard",
-    dayIndex: 42,
-    title: { en: "How Volcanoes Erupt", zh: "火山如何喷发" },
-    text: {
-      en: "Deep beneath Earth's solid crust, extreme heat melts rock into a thick glowing liquid called magma. Because magma is lighter than surrounding solid rock, it rises slowly through deep cracks in the Earth. When pressure builds up underground, the magma forces its way out through a volcanic vent. Once magma reaches Earth's surface, it is called lava. Volcanic eruptions also release clouds of ash, steam, and poisonous gases into the sky.",
-      zh: "在地球坚硬地壳深处，极度的热量将岩石熔化成称为岩浆的浓稠发光液体。因为岩浆比周围的固态岩石轻，它沿着地球深处的缝隙慢慢上升。当地下压力积聚时，岩浆通过火山喷口强行喷出。一旦岩浆到达地球表面，它就被称为熔岩。火山喷发还会向空中释放火山灰、蒸汽和有毒气体云。"
-    },
-    questions: [
-      { q: "What is molten rock called when it is deep underground?", options: ["Lava", "Magma", "Basalt", "Pumice"], correct: 1 },
-      { q: "Why does magma rise toward the surface of the Earth?", options: ["It is pushed by wind", "It is lighter than surrounding solid rock", "Gravity pulls it up", "Water lifts it"], correct: 1 },
-      { q: "What is molten rock called after it reaches Earth's surface?", options: ["Magma", "Lava", "Ash", "Granite"], correct: 1 },
-      { q: "What opening does magma pass through during an eruption?", options: ["A fault line", "A volcanic vent", "A cave mouth", "A canyon gap"], correct: 1 },
-      { q: "What else is released into the sky during a volcanic eruption?", options: ["Clouds of ash, steam, and gases", "Pure oxygen", "Rainwater", "Ice crystals"], correct: 0 }
+    "questions": [
+      {
+        "q": "What material does the artist place on the wheel?",
+        "options": [
+          "Soft grey clay",
+          "Hard wood",
+          "Glass",
+          "Plastic"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does she shape the clay bowl?",
+        "options": [
+          "With her wet fingers",
+          "With a knife",
+          "With a mold",
+          "With a hammer"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where is the bowl baked after drying?",
+        "options": [
+          "In a very hot kiln",
+          "In an oven",
+          "In sun",
+          "In microwave"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the final step in making pottery?",
+        "options": [
+          "Paints patterns and glazes",
+          "Dries in water",
+          "Breaks it",
+          "Washes it"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 244,
-    difficulty: "hard",
-    dayIndex: 43,
-    title: { en: "The Great Wall of China", zh: "中国长城" },
-    text: {
-      en: "The Great Wall of China is a massive series of stone and brick fortifications built across northern China over two thousand years. Construction began during the Qin Dynasty under Emperor Qin Shi Huang to protect the country from invading forces. Watchtowers were built at regular intervals so guards could send smoke signals by day and fire signals by night to warn of danger. Today, millions of tourists visit the Great Wall every year.",
-      zh: "中国长城是一系列横跨中国北部的巨型石砖防御工事，历时两千多年建成。建设始于秦朝秦始皇时期，旨在保护国家免受入侵势力的侵害。烽火台定期建设，以便卫兵白天发送烟雾信号，夜晚发送火光信号警示危险。如今，每年有数以百万计的游客参观长城。"
+    "id": 239,
+    "difficulty": "medium",
+    "dayIndex": 38,
+    "title": {
+      "en": "The Solar System",
+      "zh": "太阳系"
     },
-    questions: [
-      { q: "How long ago did construction of the Great Wall begin?", options: ["Five hundred years ago", "Over two thousand years ago", "One thousand years ago", "Three hundred years ago"], correct: 1 },
-      { q: "Which emperor unified and expanded the early Great Wall?", options: ["Emperor Han Wudi", "Emperor Qin Shi Huang", "Emperor Tang Taizong", "Emperor Kangxi"], correct: 1 },
-      { q: "Why was the Great Wall constructed across northern China?", options: ["To collect taxes", "To protect the country from invading forces", "To store grain", "To control rivers"], correct: 1 },
-      { q: "How did guards communicate danger from watchtowers during daytime?", options: ["By ringing bells", "Using smoke signals", "Waving flags", "Blowing trumpets"], correct: 1 },
-      { q: "What signal method was used on watchtowers at night?", options: ["Fire signals", "Drum beats", "Mirror flashes", "Lantern colors"], correct: 0 }
+    "text": {
+      "en": "Our solar system consists of the sun and eight orbiting planets. Earth is the third planet from the sun and has liquid water oceans. Mars is known as the red planet due to rusty iron dust on its surface. Scientists send space probes to explore distant planets and gather data.",
+      "zh": "我们的太阳系由太阳和八颗运行的行星组成。地球是距离太阳第三近的行星，拥有液态水海洋。火星因其表面生锈的铁尘被称为红行星。科学家派遣太空探测器探索遥远的行星并收集数据。"
+    },
+    "questions": [
+      {
+        "q": "How many planets orbit the sun in our solar system?",
+        "options": [
+          "Eight planets",
+          "Nine planets",
+          "Seven planets",
+          "Ten planets"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which position is Earth from the sun?",
+        "options": [
+          "Third planet",
+          "First planet",
+          "Second planet",
+          "Fourth planet"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is Mars known as the red planet?",
+        "options": [
+          "Rusty iron dust on its surface",
+          "Hot lava",
+          "Red flowers",
+          "Red gas"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do scientists send to explore distant planets?",
+        "options": [
+          "Space probes",
+          "Rockets with people",
+          "Telescopes only",
+          "Satellites"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 245,
-    difficulty: "hard",
-    dayIndex: 44,
-    title: { en: "Sea Turtles of the Ocean", zh: "海洋海龟" },
-    text: {
-      en: "Sea turtles are ancient marine reptiles that have swam in the world's oceans for over one hundred million years. Unlike land turtles, sea turtles cannot pull their heads or flippers inside their streamlined shells. Female sea turtles travel thousands of miles to return to the exact beach where they hatched to lay their eggs. They dig holes in warm sand, lay about one hundred eggs, and return to the sea.",
-      zh: "海龟是古老的海洋爬行动物，已经在世界海洋中游行了一亿多年。与陆龟不同，海龟不能把头或鳍肢缩进流线型的壳里。母海龟游行数千英里回到它们孵化的确切沙滩产卵。它们在温暖的沙滩上挖坑，产下大约一百个蛋，然后返回大海。"
+    "id": 240,
+    "difficulty": "medium",
+    "dayIndex": 39,
+    "title": {
+      "en": "The Public Library",
+      "zh": "公共图书馆"
     },
-    questions: [
-      { q: "For how many years have sea turtles swam in Earth's oceans?", options: ["Ten million years", "Over one hundred million years", "Fifty million years", "Five million years"], correct: 1 },
-      { q: "How do sea turtles differ from land turtles regarding their shells?", options: ["Their shells are soft", "They cannot pull heads or flippers inside shells", "They have no shells", "Their shells change color"], correct: 1 },
-      { q: "Where do female sea turtles return to lay their eggs?", options: ["Any sandy beach", "To the exact beach where they hatched", "In rocky caves", "On coral islands"], correct: 1 },
-      { q: "About how many eggs does a female sea turtle lay in her nest?", options: ["Ten", "Fifty", "About one hundred eggs", "Five hundred"], correct: 2 },
-      { q: "What shape are sea turtle shells adapted for swimming?", options: ["Round", "Streamlined shells", "Square", "Flat"], correct: 1 }
+    "text": {
+      "en": "The city library has thousands of interesting books organized neatly on shelves. Children visit after school to complete homework and read quiet storybooks. Friendly librarians guide students to find reference books for class projects. Special reading clubs meet every Saturday morning to share favorite stories.",
+      "zh": "城市图书馆有成千上万本有趣的书，整齐地安排在架子上。孩子们放学后拜访，完成作业，阅读安静的故事书。友好的图书管理员指导学生找到课堂项目的参考书。每周六早晨，特别的阅读俱乐部聚在一起分享最喜欢的故事。"
+    },
+    "questions": [
+      {
+        "q": "How are books organized in the library?",
+        "options": [
+          "Organized neatly on shelves",
+          "Piled on floor",
+          "Stored in boxes",
+          "In bags"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do children visit to do homework?",
+        "options": [
+          "After school",
+          "During midnight",
+          "Before breakfast",
+          "On holidays"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who guides students to find reference books?",
+        "options": [
+          "Friendly librarians",
+          "Teachers",
+          "Parents",
+          "Friends"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do special reading clubs meet?",
+        "options": [
+          "Every Saturday morning",
+          "Friday night",
+          "Sunday noon",
+          "Every day"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 246,
-    difficulty: "hard",
-    dayIndex: 45,
-    title: { en: "How Earthquakes Happen", zh: "地震如何发生" },
-    text: {
-      en: "Earth's outer crust is broken into large puzzle pieces called tectonic plates that float on hot mantle rock. As these giant plates slowly slide past one another, their rough edges often get stuck together. Energy builds up at the stuck boundary until the rock breaks, releasing sudden shockwaves through the ground. Scientists measure earthquake intensity using a sensitive instrument called a seismograph.",
-      zh: "地球的外壳分裂成称为板块的大拼图块，在热地幔岩石上漂浮。当这些巨型板块慢慢相互滑动时，它们的粗糙边缘往往卡在一起。能量在卡的边界处积聚，直到岩石断裂，通过地面释放出突然的冲击波。科学家使用被称为地表地震仪的敏感仪器测量地震强度。"
+    "id": 241,
+    "difficulty": "hard",
+    "dayIndex": 40,
+    "title": {
+      "en": "Life in the Desert",
+      "zh": "沙漠生活"
     },
-    questions: [
-      { q: "What are the large pieces of Earth's crust called?", options: ["Continental blocks", "Tectonic plates", "Mantle shells", "Crust tiles"], correct: 1 },
-      { q: "What happens when rough edges of tectonic plates get stuck?", options: ["Volcanoes form", "Energy builds up until rock breaks", "Mountains sink", "Oceans dry up"], correct: 1 },
-      { q: "What passes through the ground during an earthquake break?", options: ["Electrical currents", "Sudden shockwaves", "Hot steam", "Magnetic waves"], correct: 1 },
-      { q: "What instrument measures earthquake intensity?", options: ["Barometer", "Seismograph", "Thermometer", "Altimeter"], correct: 1 },
-      { q: "What material do tectonic plates float on?", options: ["Ocean water", "Hot mantle rock", "Underground rivers", "Liquid iron"], correct: 1 }
+    "text": {
+      "en": "Deserts are dry regions that receive very little rain throughout the year. Camels are famous desert animals that can travel long distances without drinking water. Their wide flat feet prevent them from sinking into deep soft sand dunes. Many desert plants store water in thick fleshy stems to survive hot sun.",
+      "zh": "沙漠是全年降雨很少的干燥地区。骆驼是著名的沙漠动物，不用喝水就能长途飞行。它们宽大的扁平脚防止它们沉入深深的软沙丘中。许多沙漠植物在厚厚的多肉茎里储存水，以在炎热的阳光下生存。"
+    },
+    "questions": [
+      {
+        "q": "How are desert regions described?",
+        "options": [
+          "Dry with very little rain",
+          "Wet and cold",
+          "Full of trees",
+          "Snowy"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why are camels famous desert animals?",
+        "options": [
+          "Travel far without drinking water",
+          "Run fast",
+          "Carry heavy loads",
+          "Swim well"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do wide flat feet help camels?",
+        "options": [
+          "Prevent sinking into sand dunes",
+          "Make them jump",
+          "Keep feet cool",
+          "Help them run"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do desert plants store water?",
+        "options": [
+          "In thick fleshy stems",
+          "In roots",
+          "In leaves",
+          "In flowers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What weather condition do desert plants survive?",
+        "options": [
+          "Hot sun",
+          "Freezing snow",
+          "Heavy rain",
+          "Strong wind"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 247,
-    difficulty: "hard",
-    dayIndex: 46,
-    title: { en: "The World of Ants", zh: "蚂蚁的世界" },
-    text: {
-      en: "Ants are social insects that live in structured underground colonies headed by a queen ant. Worker ants gather food, care for young larvae, and defend the nest from enemy insects. Ants communicate through chemical scent signals called pheromones. When a worker ant finds a sweet food source, it leaves a pheromone trail on the ground so other ants can follow the path easily.",
-      zh: "蚂蚁是社群性昆虫，生活在由蚁后领导的有组织的地下群体中。工蚁收集食物，照料幼小的幼虫，并保卫巢穴免受敌害昆虫的侵犯。蚂蚁通过称为信息素的化学气味信号交流。当工蚁找到甜食物源时，它会在地面上留下信息素轨迹，以便其他蚂蚁能轻松跟随路径。"
+    "id": 242,
+    "difficulty": "hard",
+    "dayIndex": 41,
+    "title": {
+      "en": "The History of Basketball",
+      "zh": "篮球的历史"
     },
-    questions: [
-      { q: "Who heads the structured colony in an ant nest?", options: ["The king ant", "A queen ant", "Soldier ants", "Worker group"], correct: 1 },
-      { q: "What duties do worker ants perform in the colony?", options: ["Lay eggs only", "Gather food, care for larvae, and defend nest", "Build wings", "Sleep during day"], correct: 1 },
-      { q: "What chemical scent signals do ants use to communicate?", options: ["Enzymes", "Pheromones", "Hormones", "Proteins"], correct: 1 },
-      { q: "Why does a worker ant leave a pheromone trail on the ground?", options: ["To mark territory", "So other ants can follow the food path easily", "To scare rivals", "To keep feet clean"], correct: 1 },
-      { q: "What are young baby ants called inside the nest?", options: ["Pupae", "Larvae", "Nymphs", "Chicks"], correct: 1 }
+    "text": {
+      "en": "Basketball was invented by Doctor James Naismith in December eighteen ninety-one. He nailed two peach baskets onto a gym balcony to create the first goals. Players threw a soccer ball into the baskets to earn game points. Today basketball is a popular global sport played by millions worldwide.",
+      "zh": "篮球是詹姆斯·奈史密斯博士于一八九一年十二月发明的。他把两个桃子筐钉在体育馆的阳台上，创造了最早的球门。球员们把足球投进篮筐里来赢得比赛积分。今天，篮球是一项广受欢迎的全球运动，全世界有数百万人参与。"
+    },
+    "questions": [
+      {
+        "q": "Who invented basketball?",
+        "options": [
+          "Dr. James Naismith",
+          "Michael Jordan",
+          "LeBron James",
+          "Dr. John Smith"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was basketball invented?",
+        "options": [
+          "December 1891",
+          "January 1900",
+          "July 1850",
+          "March 1920"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Naismith use for the first goals?",
+        "options": [
+          "Two peach baskets",
+          "Metal hoops",
+          "Wooden boxes",
+          "Nets"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What ball was used in the first basketball games?",
+        "options": [
+          "A soccer ball",
+          "A rubber ball",
+          "A leather ball",
+          "A tennis ball"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is basketball described today?",
+        "options": [
+          "Popular global sport",
+          "Local game",
+          "Rare sport",
+          "School game only"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 248,
-    difficulty: "hard",
-    dayIndex: 47,
-    title: { en: "The History of Flight", zh: "飞行历史" },
-    text: {
-      en: "For centuries, humans dreamed of flying like birds through the sky. In 1903, American brothers Orville and Wilbur Wright built the first successful powered airplane in Kitty Hawk, North Carolina. Their wooden aircraft, called the Wright Flyer, flew for twelve seconds and traveled 120 feet. This historic flight launched the modern age of aviation and space travel.",
-      zh: "几个世纪以来，人类梦想着像鸟儿一样在空中飞行。1903年，美国莱特兄弟奥维尔和威尔伯在北卡罗来纳州基蒂霍克建造了第一架成功的动力飞机。他们的木制飞机被称为莱特飞行者号，飞行了12秒，飞行距离为120英尺。这次历史性的飞行开创了现代航空和太空飞行的新时代。"
+    "id": 243,
+    "difficulty": "hard",
+    "dayIndex": 42,
+    "title": {
+      "en": "How Paper Was Invented",
+      "zh": "纸张是如何发明的"
     },
-    questions: [
-      { q: "Who built the first successful powered airplane in 1903?", options: ["Alexander Bell", "Orville and Wilbur Wright", "Henry Ford", "Charles Lindbergh"], correct: 1 },
-      { q: "Where did the historic first flight take place?", options: ["Dayton, Ohio", "Kitty Hawk, North Carolina", "Washington D.C.", "New York City"], correct: 1 },
-      { q: "What was the name of the Wright brothers' first aircraft?", options: ["The Birdman", "The Wright Flyer", "The Sky Arrow", "The Eagle 1"], correct: 1 },
-      { q: "How long did the first powered flight last in seconds?", options: ["Five seconds", "Twelve seconds", "Thirty seconds", "One minute"], correct: 1 },
-      { q: "How many feet did the Wright Flyer travel on its first flight?", options: ["50 feet", "120 feet", "200 feet", "500 feet"], correct: 1 }
+    "text": {
+      "en": "Paper was first invented in ancient China about two thousand years ago. An official named Cai Lun combined tree bark, hemp, and old rags with water. He mashed the mixture into a wet pulp and pressed it flat into sheets. This revolutionary invention allowed people to write books and record history easily.",
+      "zh": "纸最早于大约二千年前在中国古代发明。一位名叫蔡伦的官员把树皮、麻和旧布与水结合在一起。他把混合物捣成湿浆，并压平制成片。这项革命性的发明使人们能够容易地写书和记录历史。"
+    },
+    "questions": [
+      {
+        "q": "Where was paper first invented?",
+        "options": [
+          "Ancient China",
+          "Ancient Egypt",
+          "Greece",
+          "Rome"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who is credited with inventing paper?",
+        "options": [
+          "Cai Lun",
+          "Confucius",
+          "Li Bai",
+          "Zhang Heng"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What ingredients were combined to make paper pulp?",
+        "options": [
+          "Tree bark, hemp, old rags, water",
+          "Wood chips and glue",
+          "Cotton and silk",
+          "Straw and mud"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How did Cai Lun process the mixture into sheets?",
+        "options": [
+          "Mashed into pulp and pressed flat",
+          "Boiled and baked",
+          "Dried in sun",
+          "Wove like cloth"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why was the invention of paper important?",
+        "options": [
+          "Allowed writing books and recording history",
+          "Made clothes",
+          "Built houses",
+          "Wrapped food"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 249,
-    difficulty: "hard",
-    dayIndex: 48,
-    title: { en: "The Importance of Sleep", zh: "睡眠的重要性" },
-    text: {
-      en: "Getting enough quality sleep is essential for growing children to stay healthy and alert. During deep sleep, the brain processes memories from the day, and the body releases growth hormones to repair muscles and tissues. Children aged 8 to 12 need about 9 to 11 hours of sleep each night. Lack of sleep can cause poor concentration, moodiness, and weakened immunity.",
-      zh: "获得足够的优质睡眠对于成长中的儿童保持健康和警觉至关重要。在深度睡眠期间，大脑处理一天的记忆，身体释放生长激素来修复肌肉和组织。8至12岁的儿童每晚需要大约9至11个小时的睡眠。缺乏睡眠会导致注意力不集中、情绪化和免疫力下降。"
+    "id": 244,
+    "difficulty": "hard",
+    "dayIndex": 43,
+    "title": {
+      "en": "The Coral Reef",
+      "zh": "珊瑚礁"
     },
-    questions: [
-      { q: "What process does the brain perform during deep sleep?", options: ["Builds new cells", "Processes memories from the day", "Digests food", "Cools down temperature"], correct: 1 },
-      { q: "What hormone is released by the body during deep sleep?", options: ["Adrenaline", "Growth hormones to repair muscles and tissues", "Insulin", "Melatonin only"], correct: 1 },
-      { q: "How many hours of sleep do children aged 8 to 12 need per night?", options: ["6 to 7 hours", "9 to 11 hours", "12 to 14 hours", "8 hours exact"], correct: 1 },
-      { q: "What is one negative effect of lack of sleep in children?", options: ["Faster growth", "Poor concentration and moodiness", "Better memory", "Increased appetite"], correct: 1 },
-      { q: "Why is sleep vital for physical growth?", options: ["Body cleans water", "Releases growth hormones for muscle repair", "Stops dreams", "Burns calories"], correct: 1 }
+    "text": {
+      "en": "Coral reefs are vibrant underwater ecosystems built by tiny coral polyps. Thousands of marine creatures like sea turtles, clownfish, and crabs live here. The bright corals provide shelter and abundant food for small ocean fish. Protecting coral reefs helps maintain healthy ocean life for our planet.",
+      "zh": "珊瑚礁是由微小的珊瑚虫建造的充满生机的水下生态系统。成千上万的海洋生物，如海龟、小丑鱼和螃蟹都生活在这里。鲜艳的珊瑚为小海鱼提供了庇护所和丰富的食物。保护珊瑚礁有助于为我们的星球维持健康的海洋生物。"
+    },
+    "questions": [
+      {
+        "q": "What creatures build coral reefs?",
+        "options": [
+          "Tiny coral polyps",
+          "Giant whales",
+          "Sea turtles",
+          "Sharks"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What animals live in coral reef ecosystems?",
+        "options": [
+          "Turtles, clownfish, crabs",
+          "Lions and bears",
+          "Frogs and snakes",
+          "Birds and bats"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do bright corals provide for small fish?",
+        "options": [
+          "Shelter and abundant food",
+          "Warm water",
+          "Air",
+          "Light"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting coral reefs important?",
+        "options": [
+          "Maintains healthy ocean life",
+          "Keeps water warm",
+          "Stops waves",
+          "Makes salt"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How are coral reef ecosystems described?",
+        "options": [
+          "Vibrant underwater ecosystems",
+          "Dark caves",
+          "Empty sands",
+          "Cold lakes"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 250,
-    difficulty: "hard",
-    dayIndex: 49,
-    title: { en: "Life in the Desert", zh: "沙漠中的生活" },
-    text: {
-      en: "Deserts are dry biomes that receive less than ten inches of rainfall per year. Plants and animals living in deserts have unique adaptations to conserve water. Cacti store rainwater in thick fleshy stems and use sharp spines to protect against thirsty animals. Nocturnal animals like kangaroo rats stay underground in cool burrows during hot days and hunt at night.",
-      zh: "沙漠是每年降雨量少于十英寸的干燥生物群落。生活在沙漠中的植物和动物有着独特的适应机制来节约水分。仙人掌在厚厚的肉质茎中储存雨水，并用尖刺抵抗口渴的动物。像跳鼠这样的夜行性动物在炎热的白天待在凉爽的地下洞穴中，在夜间猎食。"
+    "id": 245,
+    "difficulty": "hard",
+    "dayIndex": 44,
+    "title": {
+      "en": "The Honeybee Life",
+      "zh": "蜜蜂的一生"
     },
-    questions: [
-      { q: "How much rainfall do desert biomes receive annually?", options: ["Less than ten inches", "Twenty inches", "Fifty inches", "Five inches exact"], correct: 0 },
-      { q: "Where do cacti store absorbed rainwater?", options: ["In deep roots", "In thick fleshy stems", "In broad leaves", "In flower buds"], correct: 1 },
-      { q: "What feature protects cacti from thirsty animals?", options: ["Thick bark", "Sharp spines", "Poisonous sap", "Bitter smell"], correct: 1 },
-      { q: "How do kangaroo rats avoid extreme daytime desert heat?", options: ["By swimming", "Stay underground in cool burrows", "By flying away", "By hiding under bushes"], correct: 1 },
-      { q: "When do nocturnal desert animals come out to hunt?", options: ["At noon", "At night", "At early dawn", "During rainy days"], correct: 1 }
-    ]
-  },
-
-  // SUPER_HARD (10 passages, 6 questions each, IDs 251-260)
-  {
-    id: 251,
-    difficulty: "super_hard",
-    dayIndex: 50,
-    title: { en: "The Wonders of Renewable Energy", zh: "可再生能源的奇迹" },
-    text: {
-      en: "As human populations expand worldwide, global demand for clean energy continues to rise rapidly. Traditional energy sources like coal, oil, and natural gas are fossil fuels formed millions of years ago from ancient plant and animal remains. Burning fossil fuels releases harmful carbon emissions into the atmosphere, contributing to global climate change. In response, scientists and engineers are developing renewable energy sources that never run out and produce zero pollution. Solar power uses photovoltaic panels to convert radiant sunlight directly into electric current. Wind power uses giant mechanical wind turbines with massive spinning blades to generate clean electricity from atmospheric air currents. Hydroelectric power harnesses the energy of rushing river water passing through giant dams to turn electric turbines. By transitioning to renewable energy, humanity can build a cleaner, sustainable future for generations to come.",
-      zh: "随着全球人口增加，全球对清洁能源的需求持续迅速上升。煤炭、石油和天然气等传统能源是数百万年前由古代动植物遗骸形成的化石燃料。燃烧化石燃料向大气中释放有害碳排放，加剧了全球气候变化。对此，科学家和工程师们正在开发永不枯竭且零污染的可再生能源。太阳能利用光伏电池板将辐射阳光直接转化为电流。风能利用带有巨大旋转叶片的巨型机械风力发电机从大气气流中产生清洁电力。水力发电利用穿过大型水坝的急流河水能量来转动发电机。通过向可再生能源过渡，人类可以为子孙后代建设一个更清洁、可持续的未来。"
+    "text": {
+      "en": "Honeybees play a vital role in pollinating flowers, fruits, and vegetables. A single hive can contain over fifty thousand bees working in total harmony. Worker bees fly miles to collect pollen and sweet nectar every day. Without honeybees, many crops and delicious fruits could not grow.",
+      "zh": "蜜蜂在给花朵、水果和蔬菜传粉方面发挥着至关重要的作用。一个蜂巢可以包含超过五万只完全和谐工作的蜜蜂。工蜂每天飞几英里去收集花粉和甜花蜜。没有蜜蜂，许多作物和美味的水果就无法生长。"
     },
-    questions: [
-      { q: "Why are coal, oil, and natural gas classified as fossil fuels?", options: ["They are made in factories", "Formed millions of years ago from ancient plant and animal remains", "They come from ocean water", "They are created by wind"], correct: 1 },
-      { q: "What negative impact does burning fossil fuels have on Earth?", options: ["Cools the planet", "Releases harmful carbon emissions into the atmosphere", "Creates too much oxygen", "Dries up rivers"], correct: 1 },
-      { q: "What is a major advantage of renewable energy sources?", options: ["They cost nothing", "They never run out and produce zero pollution", "They require no equipment", "They only work in summer"], correct: 1 },
-      { q: "What technology converts sunlight directly into electric current?", options: ["Steam turbines", "Photovoltaic solar panels", "Generators", "Silicon batteries"], correct: 1 },
-      { q: "How do wind turbines generate clean electrical power?", options: ["By heating air", "Using massive spinning blades turned by air currents", "By trapping lightning", "Using solar heat"], correct: 1 },
-      { q: "What natural force does hydroelectric power harness to turn turbines?", options: ["Ocean waves", "Energy of rushing river water passing through dams", "Underground steam", "Raindrops"], correct: 1 }
-    ]
-  },
-  {
-    id: 252,
-    difficulty: "super_hard",
-    dayIndex: 51,
-    title: { en: "The History of the Olympic Games", zh: "奥运会历史" },
-    text: {
-      en: "The historic tradition of the Olympic Games originated in ancient Greece over 2,700 years ago in 776 BC. Held in the sacred valley of Olympia every four years, the ancient games were dedicated to Zeus, the king of the Greek gods. Athletes from different city-states traveled to compete in foot races, wrestling, javelin throw, and chariot racing. During the games, a sacred truce was declared across Greece, stopping all wars so athletes and spectators could travel safely. Winners were awarded crowns woven from wild olive leaves, bringing great honor to their home cities. The ancient games ended in 393 AD but were revived as the modern Olympic Games in Athens in 1896 by French educator Baron Pierre de Coubertin. Today, thousands of international athletes compete in the Summer and Winter Olympic Games every four years, promoting international peace and sporting excellence.",
-      zh: "奥运会的历史传统源于公元前776年2700多年前的古希腊。古奥运会每四年在圣地奥林匹亚山谷举行一次，献给希腊众神之王宙斯。来自不同城邦的运动员前往参加赛跑、摔跤、标枪投掷和战车比赛。在比赛期间，希腊全境宣布神圣停战，停止所有战争，以便运动员和观众安全出行。获胜者被授予用野橄榄叶编织的皇冠，为他们的家乡城邦带来巨大的荣誉。古代奥运会于公元393年结束，但由法国教育家皮埃尔·德·顾拜旦男爵于1896年在雅典作为现代奥运会复兴。如今，数以千计的国际运动员每四年参加夏季和冬季奥运会，促进国际和平与体育卓越。"
-    },
-    questions: [
-      { q: "Where and when did the ancient Olympic Games originate?", options: ["Rome in 100 BC", "Ancient Greece in 776 BC at Olympia", "Athens in 1896", "Egypt in 500 BC"], correct: 1 },
-      { q: "Which Greek god were the ancient Olympic Games dedicated to?", options: ["Apollo", "Zeus, king of the gods", "Poseidon", "Ares"], correct: 1 },
-      { q: "What special rule was declared across Greece during the ancient games?", options: ["A tax freeze", "A sacred truce stopping all wars", "A religious fast", "Free food for all"], correct: 1 },
-      { q: "What reward did ancient Olympic winners receive?", options: ["Gold medals", "Crowns woven from wild olive leaves", "Silver trophies", "Land estates"], correct: 1 },
-      { q: "Who revived the modern Olympic Games in Athens in 1896?", options: ["Baron Pierre de Coubertin", "Alexander the Great", "King George", "James Naismith"], correct: 0 },
-      { q: "How often are the modern Summer and Winter Olympic Games celebrated?", options: ["Every two years", "Every four years", "Every five years", "Every year"], correct: 1 }
-    ]
-  },
-  {
-    id: 253,
-    difficulty: "super_hard",
-    dayIndex: 52,
-    title: { en: "How Photosynthesis Works", zh: "光合作用的原理" },
-    text: {
-      en: "Photosynthesis is the fundamental biological process that allows green plants, algae, and some bacteria to transform solar light energy into chemical energy. Leaves are the primary site of photosynthesis in plants. Inside specialized plant leaf cells, microscopic green organelles called chloroplasts absorb sunlight using a pigment named chlorophyll. The plant absorbs carbon dioxide gas from atmospheric air through tiny leaf pores called stomata and draws up fresh water from the soil through its root system. Using light energy, chloroplasts break apart water molecules and combine them with carbon dioxide to manufacture glucose, a rich sugar that nourishes the plant. Photosynthesis also produces oxygen gas as a byproduct, which is released through stomata back into the air. This vital process maintains Earth's oxygen levels and forms the foundation of nearly all ecological food chains.",
-      zh: "光合作用是允许绿色植物、藻类和一些细菌将太阳光能转化为化学能的基本生物学过程。叶片是植物进行光合作用的主要场所。在专门的植物叶片细胞内部，被称为叶绿体的微观绿色细胞器利用名为叶绿素的色素吸收阳光。植物通过被称为气孔的微小叶孔从大气中吸收二氧化碳气体，并从土壤中通过根系吸取新鲜水分。利用光能，叶绿体打散水分子，将其与二氧化碳结合制成葡萄糖，这是一种滋养植物的丰富糖分。光合作用还产生氧气作为副产品，通过气孔释放回空气中。这一至关重要的过程维持着地球的氧气水平，并构成几乎所有生态食物链的基础。"
-    },
-    questions: [
-      { q: "What type of energy do green plants convert into chemical energy during photosynthesis?", options: ["Heat energy", "Solar light energy", "Mechanical energy", "Electrical energy"], correct: 1 },
-      { q: "Where does the chemical process of photosynthesis primarily occur in plants?", options: ["In flower petals", "Inside chloroplasts in plant leaves", "In root tips", "Inside tree trunks"], correct: 1 },
-      { q: "What pigment inside chloroplasts is responsible for absorbing sunlight?", options: ["Carotene", "Chlorophyll", "Hemoglobin", "Melanin"], correct: 1 },
-      { q: "Through what leaf structures does the plant absorb atmospheric carbon dioxide?", options: ["Veins", "Stomata", "Cuticles", "Stems"], correct: 1 },
-      { q: "What sugar product is manufactured by plants for food during photosynthesis?", options: ["Fructose", "Glucose", "Sucrose", "Lactose"], correct: 1 },
-      { q: "What vital gas is released into the atmosphere as a byproduct of photosynthesis?", options: ["Nitrogen", "Oxygen gas", "Hydrogen", "Carbon monoxide"], correct: 1 }
+    "questions": [
+      {
+        "q": "What vital role do honeybees play?",
+        "options": [
+          "Pollinating flowers, fruits, vegetables",
+          "Making rain",
+          "Digging soil",
+          "Cleaning leaves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many bees can a single hive contain?",
+        "options": [
+          "Over fifty thousand bees",
+          "Ten thousand",
+          "One hundred",
+          "One million"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do worker bees collect every day?",
+        "options": [
+          "Pollen and sweet nectar",
+          "Water and mud",
+          "Leaves and seeds",
+          "Grass"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How far do worker bees fly to gather food?",
+        "options": [
+          "Miles away",
+          "A few inches",
+          "Inside hive only",
+          "To next tree only"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What would happen without honeybees?",
+        "options": [
+          "Many crops and fruits could not grow",
+          "Rain would stop",
+          "Trees would die",
+          "Nothing changes"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 254,
-    difficulty: "super_hard",
-    dayIndex: 53,
-    title: { en: "Exploring Mars Rovers", zh: "火星探测车" },
-    text: {
-      en: "Mars is the fourth planet from the Sun, often called the Red Planet because its surface is covered in reddish iron oxide dust. For decades, scientists at NASA and other space agencies have deployed sophisticated robotic vehicles called rovers to explore Mars. Rovers like Curiosity and Perseverance are high-tech mobile laboratories equipped with robotic arms, laser drills, cameras, and chemical analyzers. Powered by nuclear batteries or solar panels, these rovers navigate rocky Martian terrain, collect rock core samples, and search for signs of ancient microbial life. Perseverance carried a small experimental helicopter named Ingenuity, which achieved the first powered flight on another planet in 2021. Information gathered by Mars rovers helps scientists understand planetary evolution and prepares humanity for future human exploration missions to Mars.",
-      zh: "火星是距离太阳第四近的行星，常被称为红行星，因为其表面覆盖着红褐色的氧化铁粉尘。几十年来，美国国家航空航天局和其他太空机构的科学家部署了被称为漫游车的先进机器人车辆来探索火星。像好奇号和毅力号这样的漫游车是配备有机械臂、激光钻、摄像机和化学分析仪的高科技移动实验室。在核电池或太阳能电池板的驱动下，这些漫游车在崎岖的火星地形上行走，收集岩心样品，并寻找古代微观生命的迹象。毅力号携带了一架名叫做智号的小型实验直升机，它于2021年实现了在另一个行星上的首次动力飞行。火星漫游车收集的信息有助于科学家了解行星演化，并为人类未来对火星的人类探索任务做好准备。"
+    "id": 246,
+    "difficulty": "hard",
+    "dayIndex": 45,
+    "title": {
+      "en": "The Wind Energy",
+      "zh": "风能"
     },
-    questions: [
-      { q: "Why is Mars commonly referred to as the Red Planet?", options: ["It has red oceans", "Its surface is covered in reddish iron oxide dust", "It glows red at night", "It is near the Sun"], correct: 1 },
-      { q: "What names are given to NASA's sophisticated Mars exploration vehicles?", options: ["Satellites", "Robotic rovers like Curiosity and Perseverance", "Space shuttles", "Lunar landers"], correct: 1 },
-      { q: "How are modern Mars rovers powered during long missions?", options: ["Gasoline engines", "Nuclear batteries or solar panels", "Wind turbines", "Chemical fuels"], correct: 1 },
-      { q: "What evidence of past environments are Mars rovers searching for?", options: ["Alien cities", "Signs of ancient microbial life", "Fossil bones", "Volcanic gold"], correct: 1 },
-      { q: "What was the name of the experimental helicopter carried by Perseverance?", options: ["Voyager", "Ingenuity", "Discovery", "Spirit"], correct: 1 },
-      { q: "Why is data collected by Mars rovers important for future space travel?", options: ["It builds map roads", "It prepares humanity for future human exploration missions", "It finds diamonds", "It fixes telescopes"], correct: 1 }
+    "text": {
+      "en": "Wind is a renewable source of natural energy that never runs out. Giant wind turbines stand on windy hills to catch strong air currents. As the huge turbine blades spin, generators turn wind power into electricity. Clean wind energy powers homes and schools without polluting our environment.",
+      "zh": "风是一种永不枯竭的可再生自然能源。巨型风力发电机伫立在有风的山丘上，捕捉强劲的气流。当巨大的发电机叶片旋转时，发电机将风力转化为电力。干净的风能为家庭和学校提供动力，而不会污染我们的环境。"
+    },
+    "questions": [
+      {
+        "q": "What kind of energy source is wind?",
+        "options": [
+          "Renewable natural energy",
+          "Fossil fuel",
+          "Chemical power",
+          "Coal energy"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do giant wind turbines stand?",
+        "options": [
+          "On windy hills",
+          "In ocean caves",
+          "Underground",
+          "Inside factories"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What happens when turbine blades spin?",
+        "options": [
+          "Generators turn wind into electricity",
+          "Air gets cold",
+          "Rain falls",
+          "Noise stops"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What can clean wind energy power?",
+        "options": [
+          "Homes and schools",
+          "Cars only",
+          "Toys only",
+          "Planes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What benefit does wind energy offer?",
+        "options": [
+          "Powers homes without polluting environment",
+          "Cheap food",
+          "Makes rain",
+          "Stops wind"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 255,
-    difficulty: "super_hard",
-    dayIndex: 54,
-    title: { en: "The Ocean Bioluminescence", zh: "海洋生物发光" },
-    text: {
-      en: "Bioluminescence is the extraordinary ability of living organisms to produce cold light through chemical reactions within their bodies. While some land species like fireflies glow, bioluminescence is most widespread in the deep ocean, where over eighty percent of deep-sea creatures possess glowing capabilities. Inside specialized light-emitting cells called photophores, a compound called luciferin reacts with oxygen in the presence of an enzyme named luciferase to release blue or green light. Organisms use bioluminescence for survival in pitch-black waters. Anglerfish use glowing lures dangling above their jaws to attract prey. Comb jellies flash bright colorful lights to startle predators, while some squid species squirt glowing blue liquid clouds to escape danger. Studying marine bioluminescence has led to breakthroughs in medical research and cellular imaging technology.",
-      zh: "生物发光是生物体通过体内化学反应产生冷光的非凡能力。虽然像萤火虫这样的一些陆地物种会发光，但生物发光在深海中最广泛，超过百分之八十的深海生物具备发光能力。在称为发光器的专用发光细胞内部，一种被称为萤光素的化合物在被称为萤光素酶的酶的存在下与氧气反应，释放出蓝色或绿色的光。生物体在漆黑的水域中使用生物发光来生存。鮟鱇鱼使用悬挂在颌骨上方的发光诱饵吸引猎物。梳状水母闪烁鲜艳的彩色灯光使捕食者惊恐，而某些鱿鱼物种喷出发光的蓝色液体云以逃避危险。对海洋生物发光的研究导致了医学研究和细胞成像技术的突破。"
+    "id": 247,
+    "difficulty": "hard",
+    "dayIndex": 46,
+    "title": {
+      "en": "The Steam Engine",
+      "zh": "蒸汽机"
     },
-    questions: [
-      { q: "What is bioluminescence in living organisms?", options: ["Absorbing heat", "Producing cold light through body chemical reactions", "Changing skin texture", "Reflecting sunlight"], correct: 1 },
-      { q: "Where is bioluminescence most widespread on Earth?", options: ["In desert sands", "In the deep ocean among marine creatures", "In tropical forests", "In polar caves"], correct: 1 },
-      { q: "What light-emitting cells host the chemical reaction?", options: ["Chloroplasts", "Photophores", "Stomata", "Enzymes"], correct: 1 },
-      { q: "Which compound reacts with oxygen in the presence of luciferase?", options: ["Melanin", "Luciferin", "Chlorophyll", "Carotene"], correct: 1 },
-      { q: "How do squid species use bioluminescent liquid when threatened?", options: ["To blind rivals", "Squirt glowing blue liquid clouds to escape danger", "To mark rocks", "To warm water"], correct: 1 },
-      { q: "How has studying bioluminescence helped human science?", options: ["Created battery light", "Led to breakthroughs in medical research and imaging", "Made underwater sonar", "Helped deep diving"], correct: 1 }
+    "text": {
+      "en": "The steam engine was improved by James Watt in the eighteenth century. It used boiling water steam to move heavy pistons and turn big iron wheels. Steam engines powered early train locomotives and automated factory machinery. This invention triggered the rapid growth of modern industry worldwide.",
+      "zh": "蒸汽机在十八世纪由詹姆斯·瓦特进行了改进。它利用沸水的蒸汽移动重活塞并转动大铁轮。蒸汽机为早期的火车头和自动化工厂机械提供动力。这项发明引发了全世界现代工业的快速增长。"
+    },
+    "questions": [
+      {
+        "q": "Who improved the steam engine?",
+        "options": [
+          "James Watt",
+          "Thomas Edison",
+          "Benjamin Franklin",
+          "Isaac Newton"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was the steam engine improved?",
+        "options": [
+          "Eighteenth century",
+          "Twentieth century",
+          "Sixteenth century",
+          "Nineteenth century"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did the steam engine use to move pistons?",
+        "options": [
+          "Boiling water steam",
+          "Oil fuel",
+          "Electricity",
+          "Wind power"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What machinery did steam engines power?",
+        "options": [
+          "Early trains and factory machinery",
+          "Cars and trucks",
+          "Airplanes",
+          "Computers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What effect did the steam engine have?",
+        "options": [
+          "Triggered rapid growth of modern industry",
+          "Ended farming",
+          "Created internet",
+          "Stopped trade"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 256,
-    difficulty: "super_hard",
-    dayIndex: 55,
-    title: { en: "The Science of Hurricanes", zh: "飓风的科学" },
-    text: {
-      en: "Hurricanes, also known as tropical cyclones or typhoons, are massive rotating storm systems that form over warm tropical ocean waters near the equator. For a hurricane to develop, ocean water temperatures must be at least 80 degrees Fahrenheit (27 degrees Celsius). Warm moist air rises rapidly from the ocean surface, creating a low-pressure zone beneath. Surrounding air rushes into the low-pressure area, warms up, and rises as well. Fueled by thermal energy and Earth's rotation, the rising air spins into a giant swirling vortex with wind speeds exceeding 74 miles per hour. At the center of the spinning hurricane lies the eye, a calm circular region of clear skies and light winds. However, surrounding the eye is the eyewall, which contains the most violent winds and heaviest rainfall of the entire storm. When hurricanes hit land, they bring dangerous storm surges, heavy flooding, and high winds.",
-      zh: "飓风，也称为热带气旋或台风，是形成于赤道附近温暖热带海洋水域之上的巨型旋转风暴系统。要形成飓风，海水温度必须至少达到80华氏度（27摄氏度）。温热的湿润空气从海面迅速上升，在下方创造出一个低压区。周围的空气冲入低压区，变热并上升。在热能和地球旋转的推动下，上升的空气旋转成风速超过每小时74英里的巨型漩涡。在旋转的飓风中心是风暴眼，这是一个由晴空和微风组成的平静圆形区域。然而，环绕风暴眼的是眼墙，包含整个风暴中最猛烈的狂风和最重的降雨。当飓风登陆时，它们会带来危险的风暴潮、严重洪水和强风。"
+    "id": 248,
+    "difficulty": "hard",
+    "dayIndex": 47,
+    "title": {
+      "en": "The Solar Panels",
+      "zh": "太阳能电池板"
     },
-    questions: [
-      { q: "What ocean water temperature is required for a hurricane to develop?", options: ["60 degrees Fahrenheit", "At least 80 degrees Fahrenheit (27°C)", "100 degrees Fahrenheit", "40 degrees Fahrenheit"], correct: 1 },
-      { q: "What kind of pressure zone is created as warm moist air rises from the ocean?", options: ["High-pressure zone", "Low-pressure zone", "Neutral zone", "Static zone"], correct: 1 },
-      { q: "What minimum wind speed defines a hurricane storm system?", options: ["50 mph", "Exceeding 74 miles per hour", "100 mph", "30 mph"], correct: 1 },
-      { q: "What is the calm circular center of a hurricane called?", options: ["The core", "The eye", "The axis", "The vortex"], correct: 1 },
-      { q: "Which part of the hurricane storm contains the most violent winds?", options: ["The outer rain bands", "The eyewall surrounding the eye", "The center eye", "The ocean front"], correct: 1 },
-      { q: "What dangerous ocean effect occurs when hurricanes hit coastal land?", options: ["Tsunamis", "Dangerous storm surges and flooding", "Ice freezing", "Water evaporation"], correct: 1 }
+    "text": {
+      "en": "Solar panels capture clean sunlight and transform it into usable electrical power. Dark silicon cells on the panels absorb sun rays throughout sunny days. Inverters convert direct current into alternating current for household appliance use. Utilizing solar energy reduces electricity bills and protects planet Earth.",
+      "zh": "太阳能电池板捕捉干净的阳光并将其转化为可用的电能。电池板上的暗硅电池在阳光明媚的日子里吸收太阳光线。逆变器将直流电转换为交流电，供家用电器使用。利用太阳能可以减少电费支出并保护地球。"
+    },
+    "questions": [
+      {
+        "q": "What do solar panels capture?",
+        "options": [
+          "Clean sunlight",
+          "Wind currents",
+          "Raindrops",
+          "Heat waves"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What material absorbs sun rays on panels?",
+        "options": [
+          "Dark silicon cells",
+          "Glass sheets",
+          "Copper wires",
+          "Plastic films"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do inverters do to electrical current?",
+        "options": [
+          "Convert DC into AC for appliances",
+          "Store electricity",
+          "Cool the panels",
+          "Make light"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do silicon cells absorb sun rays?",
+        "options": [
+          "Throughout sunny days",
+          "At midnight",
+          "In rain",
+          "In winter"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What twin benefits does solar energy provide?",
+        "options": [
+          "Reduces electricity bills and protects Earth",
+          "Makes rain and wind",
+          "Cools house",
+          "Provides gas"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 257,
-    difficulty: "super_hard",
-    dayIndex: 56,
-    title: { en: "Ancient Egyptian Pyramids", zh: "古埃及金字塔" },
-    text: {
-      en: "The ancient pyramids of Egypt are among the most extraordinary engineering achievements in human history. Built over four thousand years ago as monumental tombs for powerful pharaohs, these stone structures were designed to protect the royal bodies and guide their spirits into the afterlife. The Great Pyramid of Giza, built for Pharaoh Khufu around 2560 BC, was constructed from more than two million massive limestone blocks, each weighing an average of two and a half tons. Thousands of skilled stonemasons, carpenters, and laborers worked for over twenty years to cut, transport, and stack the giant stones with astonishing mathematical precision. The interior of the Great Pyramid contains secret passages, ascending corridors, and burial chambers adorned with sacred hieroglyphic carvings. For over 3,800 years, the Great Pyramid remained the tallest man-made structure in the world.",
-      zh: "古埃及金字塔是人类历史上最非凡的工程成就之一。建造于四千多年前作为强大法老纪念性陵墓，这些石质结构旨在保护皇家遗体并指引他们的灵魂走向来世。为法老胡夫建造于约公元前2560年的吉萨大金字塔由两百万多块巨型石灰石块建成，每块平均重达二点五吨。数以千计的熟练石匠、木匠和工人工作了二十多年，以惊人的数学精确度切割、运输和堆叠这些巨石。大金字塔内部包含秘密通道、上升走廊和饰有神圣象形文字雕刻的墓室。在3800多年的时间里，大金字塔一直是世界上最高的无人工建筑物。"
+    "id": 249,
+    "difficulty": "hard",
+    "dayIndex": 48,
+    "title": {
+      "en": "The Rainforest Canopy",
+      "zh": "雨林树冠"
     },
-    questions: [
-      { q: "Why were ancient Egyptian pyramids constructed?", options: ["As astronomical observatories", "As monumental tombs for powerful pharaohs", "As fortress castles", "As grain stores"], correct: 1 },
-      { q: "For which Pharaoh was the Great Pyramid of Giza constructed around 2560 BC?", options: ["Pharaoh Tutankhamun", "Pharaoh Khufu", "Pharaoh Ramses II", "Pharaoh Akhenaten"], correct: 1 },
-      { q: "About how many limestone blocks were used to build the Great Pyramid?", options: ["500,000", "More than two million massive blocks", "One million", "Five million"], correct: 1 },
-      { q: "What was the average weight of a single limestone block used in construction?", options: ["One ton", "Two and a half tons", "Five tons", "Ten tons"], correct: 1 },
-      { q: "What decorative carvings adorn the interior burial chambers?", options: ["Greek letters", "Sacred hieroglyphic carvings", "Latin script", "Clay mosaics"], correct: 1 },
-      { q: "For roughly how many years was the Great Pyramid the tallest man-made structure?", options: ["1,000 years", "Over 3,800 years", "2,000 years", "500 years"], correct: 1 }
+    "text": {
+      "en": "The rainforest canopy is the dense upper layer formed by tall tree branches. Over eighty percent of all rainforest wildlife lives high up in this canopy. Toucans, monkeys, and tree frogs find shelter and fruits in the thick leaves. Sunlight shines brightly on top while the forest floor below stays dark.",
+      "zh": "雨林树冠是由高大的树枝密密麻麻构成的上层。超过百分之八十的雨林野生动物生活在这树冠的高处。巨嘴鸟、猴子和树蛙在厚厚的叶子里寻找庇护所和水果。阳光在顶部明亮地照射着，而下面的森林地面保持着黑暗。"
+    },
+    "questions": [
+      {
+        "q": "What forms the rainforest canopy?",
+        "options": [
+          "Dense upper layer of tall tree branches",
+          "Forest floor",
+          "River banks",
+          "Vines"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What percentage of rainforest wildlife lives in the canopy?",
+        "options": [
+          "Over eighty percent",
+          "Fifty percent",
+          "Ten percent",
+          "Twenty percent"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which animals live high up in the canopy?",
+        "options": [
+          "Toucans, monkeys, tree frogs",
+          "Fish and whales",
+          "Lions and wolves",
+          "Penguins"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do animals find in thick canopy leaves?",
+        "options": [
+          "Shelter and fruits",
+          "Fresh water",
+          "Ice",
+          "Dry seeds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is light described at the forest floor below?",
+        "options": [
+          "Forest floor stays dark",
+          "Very bright",
+          "Sunny",
+          "Blue light"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 258,
-    difficulty: "super_hard",
-    dayIndex: 57,
-    title: { en: "The Secrets of Plant Pollination", zh: "植物授粉的秘密" },
-    text: {
-      en: "Pollination is a vital process in the reproduction of flowering plants, enabling them to produce seeds and fruits. Flowers contain male reproductive structures called stamens, which produce powdery pollen grains, and female structures called pistils, which contain ovules. For fertilization to occur, pollen must be transferred from the stamen of a flower to the stigma of a pistil. Plants rely on various pollinators, including honeybees, butterflies, hummingbirds, bats, and wind currents. Brightly colored petals, sweet fragrances, and sugary nectar attract insects and birds to flowers. As a bee feeds on nectar, pollen grains stick to its fuzzy body and are carried to the next blossom. Once pollination occurs, the flower develops into a fruit containing seeds. Over seventy-five percent of the world's food crops depend on animal pollinators to reproduce.",
-      zh: "授粉是开花植物繁殖中至关重要的过程，使它们能够结出种子和果实。花朵包含称为雄蕊的雄性生殖结构，产生粉末状花粉粒，以及称为雌蕊的雌性结构，其中包含胚珠。要发生受精，花粉必须从花朵的雄蕊转移到雌蕊的柱头上。植物依赖各种授粉媒介，包括蜜蜂、蝴蝶、蜂鸟、蝙蝠和风流。鲜艳的花瓣、甜美的香味和含糖的花蜜吸引昆虫和鸟类来到花朵旁。当蜜蜂吃花蜜时，花粉粒粘在其毛茸茸的身体上并被带到下一朵花上。一旦发生授粉，花朵就会发育成含有种子的果实。世界上超过百分之七十五的粮食作物依赖动物授粉媒介进行繁殖。"
+    "id": 250,
+    "difficulty": "hard",
+    "dayIndex": 49,
+    "title": {
+      "en": "The Ancient Pyramids",
+      "zh": "古代金字塔"
     },
-    questions: [
-      { q: "What is the primary purpose of plant pollination?", options: ["To grow larger leaves", "Enabling flowering plants to produce seeds and fruits", "To change flower colors", "To absorb water"], correct: 1 },
-      { q: "Which male flower structure produces powdery pollen grains?", options: ["Pistil", "Stamen", "Petal", "Sepal"], correct: 1 },
-      { q: "What female flower part receives pollen during fertilization?", options: ["Stigma of a pistil", "Root tip", "Leaf blade", "Stem node"], correct: 0 },
-      { q: "What features do flowers use to attract animal pollinators?", options: ["Deep roots", "Brightly colored petals, sweet fragrances, and nectar", "Sharp thorns", "Green leaves"], correct: 1 },
-      { q: "How do pollen grains travel from flower to flower on a honeybee?", options: ["In its stomach", "Stick to its fuzzy body", "Carried in legs", "Blown by wings"], correct: 1 },
-      { q: "What percentage of world food crops depend on animal pollinators?", options: ["Twenty-five percent", "Over seventy-five percent", "Fifty percent", "Ten percent"], correct: 1 }
+    "text": {
+      "en": "The ancient pyramids of Egypt were built thousands of years ago as royal tombs. Skilled workers moved millions of heavy limestone blocks to construct these massive structures. The Great Pyramid of Giza was the tallest man-made structure for centuries. Today visitors from all over the world admire these historic stone wonders.",
+      "zh": "埃及的古代金字塔是几千年前作为皇家陵墓建造的。熟练的工人移动数百万重石灰石块来建造这些巨大的建筑物。吉萨大金字塔几个世纪以来一直是最高的人造建筑。今天，来自世界各地的游客都钦佩这些历史悠久的石头奇迹。"
+    },
+    "questions": [
+      {
+        "q": "Why were ancient pyramids built?",
+        "options": [
+          "As royal tombs",
+          "As fortresses",
+          "As schools",
+          "As markets"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What stone blocks were used to build pyramids?",
+        "options": [
+          "Heavy limestone blocks",
+          "Marble",
+          "Granite",
+          "Bricks"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which pyramid was the tallest man-made structure for centuries?",
+        "options": [
+          "Great Pyramid of Giza",
+          "Pyramid of Sun",
+          "Red Pyramid",
+          "Bent Pyramid"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who constructed these massive pyramid structures?",
+        "options": [
+          "Skilled workers",
+          "Soldiers",
+          "Sailors",
+          "Farmers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do visitors admire today?",
+        "options": [
+          "Historic stone wonders",
+          "Gold treasures",
+          "Secret rooms",
+          "Ancient gardens"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 259,
-    difficulty: "super_hard",
-    dayIndex: 58,
-    title: { en: "Polar Bear Survival Adaptations", zh: "北极熊的生存适应" },
-    text: {
-      en: "Polar bears are the apex predators of the Arctic, superbly adapted to thrive in sub-zero polar ice caps. Their dense fur coat appears white for camouflage in snow, but individual hair shafts are actually transparent and hollow, trapping heat from solar rays. Underneath their fur, polar bears have pitch-black skin that absorbs solar heat efficiently. A four-inch-thick layer of subcutaneous blubber insulates their bodies against freezing temperatures and icy seawater. Their massive front paws, measuring up to twelve inches wide, act like snowshoes to distribute weight across thin sea ice and function as powerful oars when swimming. Small bumps called papillae on their footpads provide traction against slippery ice. These physical adaptations enable polar bears to hunt seals across thousands of miles of frozen ocean.",
-      zh: "北极熊是北极的顶级捕食者，极好地适应了在零下极地冰盖上的生存。它们浓密的毛发在雪中显现白色以供伪装，但单独的毛发轴实际上是透明且空心的，捕获来自太阳光线的热量。在毛发下方，北极熊有着漆黑的皮肤，可以有效地吸收太阳热量。四英寸厚的皮下脂肪层能防止身体在冰点温度和冰海水中冻结。它们巨大的前掌宽达十二英寸，像雪鞋一样在薄海冰上分散体重，并在游泳时充当强大的划桨。脚垫上被称为乳突的小凸起在滑冰上提供摩擦力。这些身体适应使北极熊能够在数千英里的结冰海洋中猎食海豹。"
+    "id": 251,
+    "difficulty": "super_hard",
+    "dayIndex": 50,
+    "title": {
+      "en": "Deep Ocean Life",
+      "zh": "深海生物"
     },
-    questions: [
-      { q: "What are the individual hair shafts of a polar bear's fur actually like?", options: ["Solid white", "Transparent and hollow to trap heat", "Yellow and thick", "Grey and wirey"], correct: 1 },
-      { q: "What color is a polar bear's skin beneath its fur coat?", options: ["Pink", "Pitch-black to absorb solar heat", "Pure white", "Grey"], correct: 1 },
-      { q: "How thick is the subcutaneous fat layer that insulates a polar bear?", options: ["One inch", "Four-inch-thick layer", "Eight inches", "Two inches"], correct: 1 },
-      { q: "How wide can a polar bear's massive front paws measure?", options: ["Six inches", "Up to twelve inches wide", "Eighteen inches", "Twenty inches"], correct: 1 },
-      { q: "What do the small bumps (papillae) on a polar bear's footpads provide?", options: ["Warmth", "Traction against slippery ice", "Sensing prey", "Protection from water"], correct: 1 },
-      { q: "What primary prey do polar bears hunt across frozen ocean sea ice?", options: ["Fish", "Seals", "Penguins", "Arctic hares"], correct: 1 }
+    "text": {
+      "en": "The deep ocean is a cold dark environment located thousands of meters below sea level. No sunlight can reach this incredible depth, so creatures live in complete pitch darkness. Many deep sea fish have glowing body parts called bioluminescence to attract prey. Strange creatures like anglerfish and giant squids adapt to immense water pressure. Scientists use advanced robotic submarines to explore this fascinating underwater world.",
+      "zh": "深海是位于海平面以下几千米的寒冷黑暗环境。没有阳光能到达这个难以置信的深度，所以生物生活在完全漆黑的世界里。许多深海鱼有被称为生物发光的发光身体部位来吸引猎物。像鮟鱇鱼和巨型乌贼这样的奇怪生物适应了巨大的水压。科学家使用先进的机器人潜艇来探索这个迷人的水下世界。"
+    },
+    "questions": [
+      {
+        "q": "Where is the deep ocean environment located?",
+        "options": [
+          "Thousands of meters below sea level",
+          "On ocean surface",
+          "Near beach",
+          "In shallow bay"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do deep sea creatures live in darkness?",
+        "options": [
+          "No sunlight can reach the depth",
+          "Water is dirty",
+          "They close eyes",
+          "Clouds block sun"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What glowing feature do deep sea fish have?",
+        "options": [
+          "Bioluminescence",
+          "Fluorescence",
+          "Electric sparks",
+          "Solar glow"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which strange creatures adapt to high water pressure?",
+        "options": [
+          "Anglerfish and giant squids",
+          "Dolphins and seals",
+          "Turtles and crabs",
+          "Sharks and rays"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What tool do scientists use to explore deep ocean?",
+        "options": [
+          "Advanced robotic submarines",
+          "Diving suits",
+          "Rowboats",
+          "Sensors"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is the deep ocean world described?",
+        "options": [
+          "Fascinating underwater world",
+          "Boring desert",
+          "Warm pool",
+          "Sunny lake"
+        ],
+        "correct": 0
+      }
     ]
   },
   {
-    id: 260,
-    difficulty: "super_hard",
-    dayIndex: 59,
-    title: { en: "The History of Aviation", zh: "航空业的历史" },
-    text: {
-      en: "Humanity's journey into the skies spans centuries of scientific experimentation and daring bravery. Early pioneers observed bird flight and experimented with hot-air balloons and gliders. On December 17, 1903, American brothers Orville and Wilbur Wright achieved the first controlled, powered heavier-than-air flight at Kitty Hawk, North Carolina. Their wooden biplane, the Wright Flyer, flew for twelve seconds over 120 feet of sand. Just eleven years later, aviation technology advanced rapidly during World War I. In 1927, Charles Lindbergh captured world attention by completing the first solo non-stop transatlantic flight from New York to Paris in 33.5 hours. Today, modern jet aircraft carry millions of passengers across oceans at speeds exceeding five hundred miles per hour, making global travel fast and routine.",
-      zh: "人类飞向天空的旅程跨越了几世纪的科学实验和大胆的英勇姿态。早期的开创者观察鸟类飞行，并实验了热气球和滑翔机。1903年12月17日，美国莱特兄弟奥维尔和威尔伯在北卡罗来纳州基蒂霍克实现了第一次受控的、动力重于空气的飞行。他们的木制双翼飞机莱特飞行者号在120英尺的沙地上飞行了12秒。仅仅十一年后，航空技术在第一次世界大战期间迅速发展。1927年，查尔斯·林德伯格在33.5小时内完成了从纽约到巴黎的第一次单人跨大西洋不间断飞行，引起了全世界的关注。如今，现代喷气式飞机以每小时超过五百英里的速度跨越海洋运送数以百万计的乘客，使全球旅行变得快速而日常。"
+    "id": 252,
+    "difficulty": "super_hard",
+    "dayIndex": 51,
+    "title": {
+      "en": "The Great Wall of China",
+      "zh": "中国长城"
     },
-    questions: [
-      { q: "On what date did the Wright brothers achieve the first controlled powered flight?", options: ["July 4, 1776", "December 17, 1903", "May 20, 1927", "October 12, 1492"], correct: 1 },
-      { q: "Where did the Wright brothers' historic first flight take place?", options: ["Dayton, Ohio", "Kitty Hawk, North Carolina", "Paris, France", "London, England"], correct: 1 },
-      { q: "What was the name of the Wright brothers' wooden biplane?", options: ["The Spirit of St. Louis", "The Wright Flyer", "The Sky King", "The Falcon"], correct: 1 },
-      { q: "Who completed the first solo non-stop transatlantic flight in 1927?", options: ["Amelia Earhart", "Charles Lindbergh", "Wilbur Wright", "Chuck Yeager"], correct: 1 },
-      { q: "How long did Charles Lindbergh's flight from New York to Paris take?", options: ["12 hours", "33.5 hours", "50 hours", "24 hours"], correct: 1 },
-      { q: "What speeds do modern passenger jet aircraft exceed today?", options: ["200 mph", "Exceeding five hundred miles per hour", "1000 mph", "300 mph"], correct: 1 }
+    "text": {
+      "en": "The Great Wall of China is one of the most famous historic structures in the world. It stretches thousands of miles across steep mountains and wide northern deserts. Ancient soldiers built watchtowers along the wall to guard borders and send signal smoke. Millions of travelers visit restored sections like Badaling to walk along the historic stones. The wall stands today as a magnificent symbol of Chinese history and engineering.",
+      "zh": "中国长城是世界上最著名的历史建筑之一。它绵延几千英里，穿过陡峭的山脉和辽阔的北方沙漠。古代士兵在长城沿线建造了烽火台，以守卫边境并发送信号烟雾。数以百万计的游客游览八达岭等修复好的路段，在历史悠久的石头上行走。今天，长城是中国历史和工程的壮丽象征。"
+    },
+    "questions": [
+      {
+        "q": "How is the Great Wall of China described?",
+        "options": [
+          "Famous historic structure",
+          "Modern road",
+          "Tall tower",
+          "Wooden bridge"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Across what terrain does the wall stretch?",
+        "options": [
+          "Steep mountains and wide deserts",
+          "Deep oceans",
+          "Tropical forests",
+          "Grassy fields"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why did ancient soldiers build watchtowers?",
+        "options": [
+          "Guard borders and send signal smoke",
+          "Store food",
+          "Sleep",
+          "Cook meals"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Which restored wall section is mentioned for visitors?",
+        "options": [
+          "Badaling",
+          "Mutianyu",
+          "Simatai",
+          "Jiayuguan"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What does the Great Wall symbolize today?",
+        "options": [
+          "Chinese history and engineering",
+          "Modern trade",
+          "Space travel",
+          "War"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who visits the Great Wall today?",
+        "options": [
+          "Millions of travelers",
+          "Only local people",
+          "Soldiers",
+          "Scientists"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 253,
+    "difficulty": "super_hard",
+    "dayIndex": 52,
+    "title": {
+      "en": "The Invention of Printing",
+      "zh": "印刷术的发明"
+    },
+    "text": {
+      "en": "Movable type printing was invented by Bi Sheng in eleventh century China. He carved individual Chinese characters onto small durable clay blocks and baked them hard. Later in Germany Johannes Gutenberg created a metal printing press with movable letters. Books could be printed much faster and cheaper than writing by hand. This grand invention spread knowledge and literacy rapidly across the entire globe.",
+      "zh": "活字印刷术是由毕昇于十一世纪在中国发明的。他在小而耐用的粘土块上雕刻单独的汉字，并将其烧硬。后来在德国，约翰内斯·谷登堡发明了带有活字字母的金属印刷机。书籍的印刷速度和价格远快于手写。这项伟大的发明在全球范围内迅速传播了知识和识字率。"
+    },
+    "questions": [
+      {
+        "q": "Who invented movable type printing in China?",
+        "options": [
+          "Bi Sheng",
+          "Cai Lun",
+          "Shen Kuo",
+          "Zhang Heng"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What material did Bi Sheng carve characters on?",
+        "options": [
+          "Small durable clay blocks",
+          "Wood blocks",
+          "Metal plates",
+          "Stone slabs"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Who created a metal printing press in Germany?",
+        "options": [
+          "Johannes Gutenberg",
+          "James Watt",
+          "Alexander Bell",
+          "Galileo"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why was printing better than writing by hand?",
+        "options": [
+          "Printed faster and cheaper",
+          "Easier to burn",
+          "Looks prettier",
+          "Uses no ink"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What impact did printing have on the world?",
+        "options": [
+          "Spread knowledge and literacy rapidly",
+          "Ended schooling",
+          "Created newspapers only",
+          "Stopped trade"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was movable type invented in China?",
+        "options": [
+          "Eleventh century",
+          "Fifteenth century",
+          "Eighth century",
+          "First century"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 254,
+    "difficulty": "super_hard",
+    "dayIndex": 53,
+    "title": {
+      "en": "How Plants Make Food",
+      "zh": "植物如何制作食物"
+    },
+    "text": {
+      "en": "Green plants make their own food through a natural process called photosynthesis. Plant roots absorb fresh water and minerals from the surrounding dark soil. Green leaves collect carbon dioxide gas from the air and absorb sunlight. Sunlight energy converts water and gas into sweet glucose sugar and oxygen. This vital process provides fresh oxygen for humans and animals to breathe.",
+      "zh": "绿色植物通过一种叫做光合作用的自然过程自己制作食物。植物根部从周围的黑土中吸收新鲜的水分和矿物质。绿叶从空气中收集二氧化碳气体并吸收阳光。阳光能将水和气体转化为甜葡萄糖和氧气。这一至关重要的过程为人类和动物呼吸提供了新鲜的氧气。"
+    },
+    "questions": [
+      {
+        "q": "What is the natural process of plant food making called?",
+        "options": [
+          "Photosynthesis",
+          "Respiration",
+          "Evaporation",
+          "Digestion"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do plant roots absorb from soil?",
+        "options": [
+          "Fresh water and minerals",
+          "Sunlight",
+          "Carbon dioxide",
+          "Oxygen"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What gas do green leaves collect from air?",
+        "options": [
+          "Carbon dioxide",
+          "Oxygen",
+          "Nitrogen",
+          "Hydrogen"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What does sunlight energy convert water and gas into?",
+        "options": [
+          "Sweet glucose sugar and oxygen",
+          "Starch and water",
+          "Fruit juice",
+          "Salt"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is photosynthesis vital for humans and animals?",
+        "options": [
+          "Provides fresh oxygen to breathe",
+          "Makes rain",
+          "Cools earth",
+          "Creates soil"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What absorbs sunlight in plants?",
+        "options": [
+          "Green leaves",
+          "Roots",
+          "Stems",
+          "Flowers"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 255,
+    "difficulty": "super_hard",
+    "dayIndex": 54,
+    "title": {
+      "en": "The Exploration of Mars",
+      "zh": "探索火星"
+    },
+    "text": {
+      "en": "Mars is the fourth planet from the sun and our closest planetary neighbor. Scientists send robotic rovers like Perseverance to explore its dry rocky surface. These rovers take high resolution photos and drill rock samples for analysis. Robotic rovers search for ancient signs of microscopic water life in dried lakebeds. Future space missions aim to send human astronauts to land on Mars.",
+      "zh": "火星是距离太阳第四近的行星，也是我们最近的行星邻居。科学家派遣像“毅力号”这样的机器人漫游车去探索它干燥的岩石表面。这些漫游车拍摄高分辨率照片并钻取岩石样本进行分析。机器人漫游车在干涸的湖床中寻找古老的微小水生生命迹象。未来的太空任务旨在派遣人类宇航员登陆火星。"
+    },
+    "questions": [
+      {
+        "q": "Which position is Mars from the sun?",
+        "options": [
+          "Fourth planet",
+          "Third planet",
+          "Fifth planet",
+          "Second planet"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the name of the robotic rover mentioned?",
+        "options": [
+          "Perseverance",
+          "Curiosity",
+          "Spirit",
+          "Opportunity"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do robotic rovers do on Mars?",
+        "options": [
+          "Take photos and drill rock samples",
+          "Build houses",
+          "Plant trees",
+          "Fly airplanes"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do rovers search for ancient signs of water life?",
+        "options": [
+          "In dried lakebeds",
+          "On high mountains",
+          "Inside craters",
+          "In ice caps"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What is the future goal for Mars space missions?",
+        "options": [
+          "Send human astronauts to land on Mars",
+          "Build cities",
+          "Move Earth",
+          "Destroy rovers"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How is the surface of Mars described?",
+        "options": [
+          "Dry rocky surface",
+          "Wet muddy surface",
+          "Icy ocean",
+          "Grassy plain"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 256,
+    "difficulty": "super_hard",
+    "dayIndex": 55,
+    "title": {
+      "en": "Renewable Energy Physics",
+      "zh": "可再生能源物理学"
+    },
+    "text": {
+      "en": "Clean energy comes from natural sources that replenish themselves continuously over time. Solar panels turn sunlight photons into clean electric current using silicon cells. Wind turbines capture kinetic energy from moving air to spin heavy generators. Hydroelectric dams harness flowing water power to produce renewable electricity for cities. Using clean energy cuts carbon emissions and protects our global climate.",
+      "zh": "清洁能源来自于随时间不断自我补充的自然资源。太阳能电池板利用硅电池将阳光光子转化为干净的电流。风力发电机捕捉来自流动空气的动能来旋转重型发电机。水力发电坝利用流动的水力为城市产生可再生电力。使用清洁能源可以减少碳排放，保护我们的全球气候。"
+    },
+    "questions": [
+      {
+        "q": "What characterizes renewable clean energy?",
+        "options": [
+          "Replenishes itself continuously over time",
+          "Runs out quickly",
+          "Pollutes air",
+          "Is made from coal"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do solar panels use to turn photons into electric current?",
+        "options": [
+          "Silicon cells",
+          "Glass lenses",
+          "Copper rods",
+          "Mirrors"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What energy do wind turbines capture from moving air?",
+        "options": [
+          "Kinetic energy",
+          "Heat energy",
+          "Chemical energy",
+          "Nuclear energy"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do hydroelectric dams produce renewable electricity?",
+        "options": [
+          "Harness flowing water power",
+          "Burn wood",
+          "Boil oil",
+          "Trap steam"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What benefit does clean energy offer global climate?",
+        "options": [
+          "Cuts carbon emissions and protects climate",
+          "Increases heat",
+          "Makes rain",
+          "Stops wind"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do wind turbines spin to make electricity?",
+        "options": [
+          "Heavy generators",
+          "Water wheels",
+          "Solar panels",
+          "Batteries"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 257,
+    "difficulty": "super_hard",
+    "dayIndex": 56,
+    "title": {
+      "en": "The Honeybee Ecosystem",
+      "zh": "蜜蜂生态系统"
+    },
+    "text": {
+      "en": "Honeybees are essential pollinators that sustain wild habitats and agricultural crops worldwide. A worker bee visits over one thousand flowers a day to collect nectar. While feeding, pollen grains stick to its fuzzy body and transfer between flowers. This pollination process allows plants to produce seeds, nuts, and delicious fruits. Protecting honeybee populations is crucial for maintaining global food supplies.",
+      "zh": "蜜蜂是至关重要的传粉者，维持着世界各地的野生栖息地和农作物。一只工蜂一天拜访一千多朵花来收集花蜜。在取食时，花粉粒粘在其毛茸茸的身体上，并在花朵之间传递。这种授粉过程使植物能够产生种子、坚果和美味的水果。保护蜜蜂种群对于维持全球粮食供应至关重要。"
+    },
+    "questions": [
+      {
+        "q": "What essential role do honeybees perform worldwide?",
+        "options": [
+          "Essential pollinators for habitats and crops",
+          "Soil aerators",
+          "Pest controllers",
+          "Water collectors"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How many flowers can a single worker bee visit in one day?",
+        "options": [
+          "Over one thousand flowers",
+          "One hundred",
+          "Fifty",
+          "Ten"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do pollen grains stick on the bee's body?",
+        "options": [
+          "To its fuzzy body",
+          "To its wings",
+          "To its eyes",
+          "To its feet"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What does pollination allow plants to produce?",
+        "options": [
+          "Seeds, nuts, delicious fruits",
+          "Leaves and wood",
+          "Flowers only",
+          "Fresh water"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why is protecting honeybee populations crucial?",
+        "options": [
+          "Maintaining global food supplies",
+          "Making honey only",
+          "Keeping parks clean",
+          "Stopping rain"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What food do bees gather for energy?",
+        "options": [
+          "Nectar",
+          "Water",
+          "Leaves",
+          "Mud"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 258,
+    "difficulty": "super_hard",
+    "dayIndex": 57,
+    "title": {
+      "en": "The History of Aviation",
+      "zh": "航空的历史"
+    },
+    "text": {
+      "en": "Humans dreamed of flying high like birds for thousands of historic years. In nineteen hundred and three, Orville and Wilbur Wright built the first powered airplane. Their motorized glider flew for twelve seconds over the sandy dunes of Kitty Hawk. Today jet airplanes carry hundreds of passengers across oceans in a few hours. Modern aviation connects people, cultures, and trade across the entire world.",
+      "zh": "人类几千年来一直梦想着像鸟儿一样高飞。一九〇三年，奥维尔和威尔伯·莱特兄弟制造了第一架动力飞机。他们的机动滑翔机在基蒂霍克的沙丘上飞了十二秒。今天，喷气式飞机在几个小时内将数百名乘客送过大洋。现代航空将全世界的人们、文化和贸易联系在一起。"
+    },
+    "questions": [
+      {
+        "q": "Who built the first powered airplane in 1903?",
+        "options": [
+          "Orville and Wilbur Wright",
+          "James Watt",
+          "Henry Ford",
+          "Alexander Bell"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How long did their first motorized flight last?",
+        "options": [
+          "Twelve seconds",
+          "One hour",
+          "Five minutes",
+          "Ten seconds"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where did the Wright brothers make their historic flight?",
+        "options": [
+          "Sandy dunes of Kitty Hawk",
+          "In New York",
+          "In London",
+          "On a mountain peak"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do modern jet airplanes carry across oceans?",
+        "options": [
+          "Hundreds of passengers",
+          "Cargo only",
+          "Mail only",
+          "Soldiers only"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How does modern aviation impact our world?",
+        "options": [
+          "Connects people, cultures, trade",
+          "Slows travel",
+          "Pollutes only",
+          "Ends trade"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was the first powered airplane built?",
+        "options": [
+          "In 1903",
+          "In 1800",
+          "In 1950",
+          "In 1920"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 259,
+    "difficulty": "super_hard",
+    "dayIndex": 58,
+    "title": {
+      "en": "Ocean Bioluminescence",
+      "zh": "海洋生物发光"
+    },
+    "text": {
+      "en": "Bioluminescence is the production of light by living organisms in dark environments. Special chemical reactions inside ocean creatures produce glowing blue or green light. Tiny plankton glow brightly when ocean waves crash against night shores. Deep sea jellyfish use light flashes to scare away hungry predators. Scientists study bioluminescence to create new medical tools and glowing dyes.",
+      "zh": "生物发光是生物在黑暗环境中产生光的过程。海洋生物体内的特殊化学反应产生闪耀的蓝色或绿色光。当海浪在夜间海岸掀起时，微小的浮游生物发出亮光。深海水母利用闪光吓走饥饿的捕食者。科学家研究生物发光来创造新的医疗工具和发光染料。"
+    },
+    "questions": [
+      {
+        "q": "What is bioluminescence?",
+        "options": [
+          "Production of light by living organisms",
+          "Reflection of sunlight",
+          "Heat from rocks",
+          "Electric shocks"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What colors of light do ocean chemical reactions produce?",
+        "options": [
+          "Glowing blue or green light",
+          "Red or purple",
+          "Yellow or orange",
+          "White or black"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When do tiny ocean plankton glow brightly?",
+        "options": [
+          "When waves crash against night shores",
+          "During sunny noon",
+          "In rain",
+          "When eaten"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do deep sea jellyfish use light flashes?",
+        "options": [
+          "To scare away hungry predators",
+          "To find mates",
+          "To warm up",
+          "To sleep"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Why do scientists study bioluminescence?",
+        "options": [
+          "Create new medical tools and glowing dyes",
+          "Make toys",
+          "Light houses",
+          "Catch fish"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "Where do living organisms produce light?",
+        "options": [
+          "In dark environments",
+          "In bright sun",
+          "In desert sand",
+          "In air"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": 260,
+    "difficulty": "super_hard",
+    "dayIndex": 59,
+    "title": {
+      "en": "The Story of Invention",
+      "zh": "发明的故事"
+    },
+    "text": {
+      "en": "Great inventions shape human history and improve daily life for everyone. Thomas Edison invented the practical electric light bulb in eighteen seventy-nine. Alexander Graham Bell created the first telephone to send voices across wires. Modern inventors design smart computers and clean energy systems to solve problems. Curiosity and hard work inspire new discoveries that change our future world.",
+      "zh": "伟大的发明塑造了人类历史，改善了每个人的日常生活。托马斯·爱迪生于一八七九年发明的实用的白炽灯泡。亚历山大·格雷厄姆·贝尔创造了第一部通过电线传输声音的电话。现代发明家设计智能计算机和清洁能源系统来解决问题。好奇心和努力工作激发出改变我们未来世界的新发现。"
+    },
+    "questions": [
+      {
+        "q": "Who invented the practical electric light bulb in 1879?",
+        "options": [
+          "Thomas Edison",
+          "Alexander Bell",
+          "James Watt",
+          "Bi Sheng"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What did Alexander Graham Bell create?",
+        "options": [
+          "First telephone to send voices",
+          "Radio",
+          "Telegraph",
+          "Television"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What do modern inventors design to solve global problems?",
+        "options": [
+          "Smart computers and clean energy systems",
+          "Cars only",
+          "Toys",
+          "Paper books"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "What virtues inspire new discoveries that change the world?",
+        "options": [
+          "Curiosity and hard work",
+          "Luck and money",
+          "Speed and power",
+          "Rest and play"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "How do great inventions affect human life?",
+        "options": [
+          "Shape history and improve daily life",
+          "Make life harder",
+          "Stop progress",
+          "Cause wars"
+        ],
+        "correct": 0
+      },
+      {
+        "q": "When was the electric light bulb invented?",
+        "options": [
+          "In 1879",
+          "In 1900",
+          "In 1800",
+          "In 1950"
+        ],
+        "correct": 0
+      }
     ]
   }
 ];
