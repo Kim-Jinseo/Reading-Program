@@ -437,8 +437,23 @@ export const ReadingModule = () => {
     const q = lesson.questions[idx];
     const theme = getDifficultyTheme(lesson.difficulty);
 
+    // Dynamic random shuffling of choices for current question every time it loads
+    const currentOptions = useMemo(() => {
+      if (!lesson || !lesson.questions || !lesson.questions[idx]) return [];
+      const currentQ = lesson.questions[idx];
+      const raw = currentQ.options ? [...currentQ.options] : [currentQ.a, currentQ.b, currentQ.a2, currentQ.b2].filter(Boolean);
+      
+      const arr = [...raw];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }, [lesson, idx]);
+
     const handleAnswer = (ans) => {
-      const isCorrect = (q.options && q.options[q.correct] === ans) || ans === q.a;
+      const correctAnswerText = q.options ? q.options[q.correct] : q.a;
+      const isCorrect = ans === correctAnswerText;
       if (isCorrect) setScore(s => s + 1);
       if (idx < lesson.questions.length - 1) {
         setIdx(i => i + 1);
@@ -482,9 +497,9 @@ export const ReadingModule = () => {
           <h2 className="text-2xl sm:text-3xl font-extrabold leading-relaxed">{q.q}</h2>
         </div>
 
-        {/* Choice Buttons */}
+        {/* Choice Buttons - Shuffled dynamically */}
         <div className="grid grid-cols-1 gap-4">
-          {q.options.map((opt, optIdx) => {
+          {currentOptions.map((opt, optIdx) => {
             const letter = String.fromCharCode(65 + optIdx);
             return (
               <button 
