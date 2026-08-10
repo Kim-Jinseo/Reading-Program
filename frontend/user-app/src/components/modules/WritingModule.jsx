@@ -440,7 +440,7 @@ export const WritingModule = () => {
         </span>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_35%] gap-6 flex-1 pb-10 lg:pb-0 items-stretch">
+      <div className={`grid grid-cols-1 ${status === 'improving' ? 'lg:grid-cols-[1fr_35%]' : ''} gap-6 flex-1 pb-10 lg:pb-0 items-stretch`}>
         <div className="flex flex-col min-w-0 h-full">
           <div className="flex flex-col gap-6 flex-1">
             {/* Synchronized Indigo-Purple Prompt Card */}
