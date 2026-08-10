@@ -80,7 +80,7 @@ export const ProfileModal = ({ onClose }) => {
               </div>
               <div className="bg-violet-50 p-5 rounded-2xl border border-violet-100 flex flex-col justify-between h-full">
                 <p className="text-violet-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_grammar') || 'Grammar Questions'}</p>
-                <p className="text-3xl font-extrabold text-violet-700">{Object.values(user.grammarStats || {}).filter(s => s.solved).length}</p>
+                <p className="text-3xl font-extrabold text-violet-700">{Object.values(user.grammarStats || {}).filter(s => s.solved).length + (user.grammar || []).length * 3}</p>
               </div>
               <div className="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 flex flex-col justify-between h-full">
                 <p className="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-2">{t('stat_writing') || 'Writings'}</p>
@@ -91,7 +91,7 @@ export const ProfileModal = ({ onClose }) => {
                 <p className="text-3xl font-extrabold text-emerald-700">{(user.completedReading || []).length}</p>
               </div>
               <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100 flex flex-col justify-between h-full">
-                <p className="text-rose-500 font-bold text-xs uppercase tracking-wider mb-2">Speaking Done</p>
+                <p className="text-rose-500 font-bold text-xs uppercase tracking-wider mb-2">Speaking Completed</p>
                 <p className="text-3xl font-extrabold text-rose-700">{(user.completedSpeaking || []).length}</p>
               </div>
               <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex flex-col justify-between h-full">
