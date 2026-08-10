@@ -6520,34 +6520,34 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'My Cat'?",
+            "q": "What animal is featured in 'My Cat'?",
             "options": [
-              "Has a small white",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
+              "A cute pet cat",
+              "A noisy farm dog",
+              "A yellow canary bird",
+              "A small green frog"
             ],
             "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'My Cat'?",
+            "q": "Where does the cat sleep in the story?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Cat likes to sleep"
+              "Under a wooden table",
+              "Inside a cardboard box",
+              "On a soft red mat",
+              "On top of high roof"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What pet is described in 'My Cat'? (Part 2)",
+            "q": "What color is the cat's soft fur?",
             "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Has a small white"
+              "Bright yellow coat",
+              "Pure fluffy white",
+              "Dark brown spot",
+              "Shiny black fur"
             ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -6565,34 +6565,34 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'The Red Ball'?",
+            "q": "What main activity takes place in 'The Red Ball'?",
             "options": [
-              "Has a big red",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What second detail is mentioned in 'The Red Ball'?",
-            "options": [
-              "A friendly brown puppy",
-              "Plays with his ball",
-              "A shiny new red ball",
-              "A small white pet cat"
+              "A wrong story activity",
+              "Participating in Red Ball",
+              "An unmentioned event",
+              "The opposite activity"
             ],
             "correct": 1
           },
           {
-            "q": "What toy or item is used in 'The Red Ball'? (Part 2)",
+            "q": "Where do the main events happen in 'The Red Ball'?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Has a big red",
-              "A small white pet cat"
+              "In a wrong story place",
+              "At the site of Red Ball",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
-            "correct": 2
+            "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'The Red Ball'?",
+            "options": [
+              "A key detail about Red Ball",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -6610,34 +6610,34 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'My Dog'?",
+            "q": "What kind of pet is featured in '{title}'?",
             "options": [
-              "Has a brown dog",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat"
+              "A friendly dog pup",
+              "A quiet yellow bird",
+              "A small pet hamster",
+              "A slow green turtle"
             ],
             "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'My Dog'?",
+            "q": "What action does the puppy do when happy?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Dog can run very"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What pet is described in 'My Dog'? (Part 2)",
-            "options": [
-              "A shiny new red ball",
-              "Has a brown dog",
-              "A friendly brown puppy",
-              "A small white pet cat"
+              "Runs away from home",
+              "Wags its small tail",
+              "Barks at the window",
+              "Hides under a chair"
             ],
             "correct": 1
+          },
+          {
+            "q": "What drink is given to the puppy?",
+            "options": [
+              "Bowl of fresh milk",
+              "Glass of sweet tea",
+              "Cold orange juice",
+              "Hot cup of cocoa"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -6655,34 +6655,34 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Sun'?",
+            "q": "What main activity takes place in 'The Sun'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Sun is big"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What else takes place in 'The Sun'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "It shines bright",
-              "Playing fun outdoor games"
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in Sun",
+              "The opposite activity"
             ],
             "correct": 2
           },
           {
-            "q": "What main action happens in 'The Sun'? (Part 2)",
+            "q": "Where do the main events happen in 'The Sun'?",
             "options": [
-              "Playing fun outdoor games",
-              "Sun is big",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "At the site of Sun",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'The Sun'?",
+            "options": [
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Sun"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -6700,34 +6700,34 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'Apples'?",
+            "q": "What food is described in '{title}'?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Likes to eat red"
+              "Fried potato chips",
+              "Hot vegetable soup",
+              "Fresh delicious fruit",
+              "Warm chocolate cake"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What main action happens in 'Apples'?",
+            "q": "Where was the fruit picked or prepared?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Taste sweet and fresh"
+              "Inside a store box",
+              "In a city restaurant",
+              "In the sunny garden",
+              "Outside at school"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What second detail is mentioned in 'Apples'?",
+            "q": "What did they do before eating the fruit?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "Likes to eat red"
+              "Washed the fruit clean",
+              "Cooked it in a pot",
+              "Threw it in the trash",
+              "Painted it red color"
             ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -6745,34 +6745,34 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'My Bicycle'?",
+            "q": "What new item did Sam get for his birthday?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Has a new blue",
-              "Baking warm sweet cookies"
+              "A new red bicycle",
+              "A green toy train",
+              "A yellow school bag",
+              "A pair of blue shoes"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What toy or item is used in 'My Bicycle'?",
+            "q": "Where does Sam love riding his new bike?",
             "options": [
-              "A shiny new red ball",
-              "Rides his bike",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "On top of the roof",
+              "In the sunny park",
+              "Across a dark alley",
+              "Inside the library"
             ],
             "correct": 1
           },
           {
-            "q": "What else takes place in 'My Bicycle'?",
+            "q": "What safety item does Sam wear on his head?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Has a new blue",
-              "Reading short storybooks"
+              "A green straw hat",
+              "A safe blue helmet",
+              "A warm winter cap",
+              "A red party hat"
             ],
-            "correct": 2
+            "correct": 1
           }
         ]
       },
@@ -6790,34 +6790,34 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'The Fish'?",
+            "q": "What main activity takes place in 'The Fish'?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Little orange fish swims",
-              "A small white pet cat"
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Fish"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What main action happens in 'The Fish'?",
+            "q": "Where do the main events happen in 'The Fish'?",
             "options": [
-              "It moves its tail",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "At the site of Fish",
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
             "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'The Fish'?",
+            "q": "What key detail is highlighted in 'The Fish'?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Little orange fish swims",
-              "A shiny new red ball"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Fish"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -6835,32 +6835,32 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Hot Milk'?",
+            "q": "What main activity takes place in 'Hot Milk'?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Anna drinks warm milk",
-              "Baking warm sweet cookies"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Hot Milk"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "Where does the story 'Hot Milk' take place?",
+            "q": "Where do the main events happen in 'Hot Milk'?",
             "options": [
-              "Inside the cozy house",
-              "Drinks it before bed",
-              "At the sunny garden yard",
-              "Under the big oak tree"
+              "At the site of Hot Milk",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'Hot Milk'?",
+            "q": "What key detail is highlighted in 'Hot Milk'?",
             "options": [
-              "Anna drinks warm milk",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "A key detail about Hot Milk",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
             "correct": 0
           }
@@ -6880,34 +6880,34 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'My Hat'?",
+            "q": "What main activity takes place in 'My Hat'?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Wears a bright yellow"
+              "A wrong story activity",
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Hat"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'My Hat'?",
+            "q": "Where do the main events happen in 'My Hat'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Wears it on sunny",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Hat",
+              "At an unmentioned spot"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What second detail is mentioned in 'My Hat'?",
+            "q": "What key detail is highlighted in 'My Hat'?",
             "options": [
-              "A small white pet cat",
-              "Wears a bright yellow",
-              "A shiny new red ball",
-              "A friendly brown puppy"
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about Hat"
             ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -6925,34 +6925,34 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'The Big Tree' take place?",
+            "q": "What main activity takes place in 'The Big Tree'?",
             "options": [
-              "Big green tree grows",
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Inside the cozy house"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What key item is featured in 'The Big Tree'?",
-            "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "Birds sing"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where is another detail located in 'The Big Tree'?",
-            "options": [
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Big green tree grows",
-              "Under the big oak tree"
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Big Tree",
+              "A wrong story activity"
             ],
             "correct": 2
+          },
+          {
+            "q": "Where do the main events happen in 'The Big Tree'?",
+            "options": [
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Big Tree",
+              "At an unmentioned spot"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'The Big Tree'?",
+            "options": [
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Big Tree"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -6970,34 +6970,34 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'My Toy Car'?",
+            "q": "What main activity takes place in 'My Toy Car'?",
             "options": [
-              "A friendly brown puppy",
-              "Dan plays",
-              "A shiny new red ball",
-              "A small white pet cat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main action happens in 'My Toy Car'?",
-            "options": [
-              "Rolls it",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "Participating in Toy Car",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
             "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'My Toy Car'?",
+            "q": "Where do the main events happen in 'My Toy Car'?",
             "options": [
-              "A small white pet cat",
-              "Dan plays",
-              "A shiny new red ball",
-              "A friendly brown puppy"
+              "At the site of Toy Car",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'My Toy Car'?",
+            "options": [
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Toy Car",
+              "An unmentioned detail"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -7015,34 +7015,34 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'Sweet Cake'?",
+            "q": "What main activity takes place in 'Sweet Cake'?",
             "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "Eats a slice",
-              "A friendly brown puppy"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Sweet Cake'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "It has a red",
-              "Playing fun outdoor games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What second detail is mentioned in 'Sweet Cake'?",
-            "options": [
-              "A shiny new red ball",
-              "Eats a slice",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "An unmentioned event",
+              "Participating in Sweet Cake",
+              "A wrong story activity",
+              "The opposite activity"
             ],
             "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'Sweet Cake'?",
+            "options": [
+              "At the site of Sweet Cake",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'Sweet Cake'?",
+            "options": [
+              "A key detail about Sweet Cake",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -7060,32 +7060,32 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'The Little Bird'?",
+            "q": "What main activity takes place in 'The Little Bird'?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Blue bird sits",
-              "A small white pet cat"
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in Little Bird"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What main action happens in 'The Little Bird'?",
+            "q": "Where do the main events happen in 'The Little Bird'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "It sings a happy",
-              "Reading short storybooks"
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Little Bird"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What second detail is mentioned in 'The Little Bird'?",
+            "q": "What key detail is highlighted in 'The Little Bird'?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Blue bird sits"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Little Bird"
             ],
             "correct": 3
           }
@@ -7105,34 +7105,34 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'My Green Frog'?",
+            "q": "What main activity takes place in 'My Green Frog'?",
             "options": [
-              "A friendly brown puppy",
-              "Small green frog jumps",
-              "A shiny new red ball",
-              "A small white pet cat"
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in Green Frog"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What pet is described in 'My Green Frog'?",
+            "q": "Where do the main events happen in 'My Green Frog'?",
             "options": [
-              "A friendly brown puppy",
-              "It catches flies",
-              "A shiny new red ball",
-              "A small white pet cat"
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Green Frog",
+              "At an unmentioned spot"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What second detail is mentioned in 'My Green Frog'?",
+            "q": "What key detail is highlighted in 'My Green Frog'?",
             "options": [
-              "Small green frog jumps",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Green Frog"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -7150,34 +7150,34 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Cold Snow'?",
+            "q": "What main activity takes place in 'The Cold Snow'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Soft white snow falls"
+              "The opposite activity",
+              "Participating in Cold Snow",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What else takes place in 'The Cold Snow'?",
+            "q": "Where do the main events happen in 'The Cold Snow'?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Children play",
-              "Reading short storybooks"
+              "At an unmentioned spot",
+              "At the site of Cold Snow",
+              "In a wrong story place",
+              "Far away from story"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'The Cold Snow'? (Part 2)",
+            "q": "What key detail is highlighted in 'The Cold Snow'?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Soft white snow falls"
+              "An unmentioned detail",
+              "A key detail about Cold Snow",
+              "A wrong story fact",
+              "The opposite story fact"
             ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -7195,44 +7195,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Red Bus'?",
+            "q": "What main activity takes place in 'The Red Bus'?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Big red bus stops",
-              "Baking warm sweet cookies"
+              "The opposite activity",
+              "Participating in Red Bus",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "Where does the story 'The Red Bus' take place?",
+            "q": "Where do the main events happen in 'The Red Bus'?",
             "options": [
-              "Many children get",
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Inside the cozy house"
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Red Bus"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'The Red Bus'?",
+            "options": [
+              "A key detail about Red Bus",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'The Red Bus'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Big red bus stops"
+              "To achieve a great goal",
+              "To cause a big problem",
+              "Because they were forced",
+              "For an unmentioned reason"
             ],
-            "correct": 3
-          },
-          {
-            "q": "Where is another detail located in 'The Red Bus'?",
-            "options": [
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Inside the cozy house",
-              "Many children get"
-            ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -7250,42 +7250,42 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'My Yellow Duck'?",
+            "q": "What main activity takes place in 'My Yellow Duck'?",
             "options": [
-              "Playing fun outdoor games",
-              "Tiny yellow duck swims",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "The opposite activity",
+              "Participating in Yellow Duck",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
             "correct": 1
           },
           {
-            "q": "What else takes place in 'My Yellow Duck'?",
+            "q": "Where do the main events happen in 'My Yellow Duck'?",
             "options": [
-              "It quacks happily as",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'My Yellow Duck'? (Part 2)",
-            "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Tiny yellow duck swims"
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Yellow Duck"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'My Yellow Duck'? (Part 3)",
+            "q": "What key detail is highlighted in 'My Yellow Duck'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "It quacks happily as",
-              "Baking warm sweet cookies"
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Yellow Duck"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced"
             ],
             "correct": 2
           }
@@ -7305,44 +7305,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Sweet Orange'?",
+            "q": "What food is described in '{title}'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Kim peels a sweet",
-              "Playing fun outdoor games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What else takes place in 'The Sweet Orange'?",
-            "options": [
-              "Playing fun outdoor games",
-              "Shares half",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "Hot vegetable soup",
+              "Fresh delicious fruit",
+              "Fried potato chips",
+              "Warm chocolate cake"
             ],
             "correct": 1
           },
           {
-            "q": "What main action happens in 'The Sweet Orange'? (Part 2)",
+            "q": "Where was the fruit picked or prepared?",
             "options": [
-              "Kim peels a sweet",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
+              "In the sunny garden",
+              "In a city restaurant",
+              "Inside a store box",
+              "Outside at school"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'The Sweet Orange'? (Part 3)",
+            "q": "What did they do before eating the fruit?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Shares half"
+              "Threw it in the trash",
+              "Painted it red color",
+              "Cooked it in a pot",
+              "Washed the fruit clean"
             ],
             "correct": 3
+          },
+          {
+            "q": "Why did they share fruit with family?",
+            "options": [
+              "To sell it for money",
+              "Because it tasted sour",
+              "To share a sweet snack",
+              "Because they were forced"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -7360,44 +7360,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'My Blue Shoes'?",
+            "q": "What main activity takes place in 'My Blue Shoes'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Wears his brand new"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where does the story 'My Blue Shoes' take place?",
-            "options": [
-              "Runs fast",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What else takes place in 'My Blue Shoes'?",
-            "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Wears his brand new",
-              "Baking warm sweet cookies"
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Blue Shoes",
+              "The opposite activity"
             ],
             "correct": 2
           },
           {
-            "q": "Where is another detail located in 'My Blue Shoes'?",
+            "q": "Where do the main events happen in 'My Blue Shoes'?",
             "options": [
-              "Runs fast",
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "At the sunny garden yard"
+              "At the site of Blue Shoes",
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
             "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'My Blue Shoes'?",
+            "options": [
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Blue Shoes",
+              "The opposite story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "Because they were forced"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -7415,44 +7415,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Cute Puppy'?",
+            "q": "What kind of pet is featured in '{title}'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Fluffy brown puppy wags"
+              "A quiet yellow bird",
+              "A small pet hamster",
+              "A slow green turtle",
+              "A friendly dog pup"
             ],
             "correct": 3
           },
           {
-            "q": "What else takes place in 'The Cute Puppy'?",
+            "q": "What action does the puppy do when happy?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "It drinks fresh milk"
+              "Runs away from home",
+              "Wags its small tail",
+              "Barks at the window",
+              "Hides under a chair"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'The Cute Puppy'? (Part 2)",
+            "q": "What drink is given to the puppy?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Fluffy brown puppy wags",
-              "Reading short storybooks"
+              "Hot cup of cocoa",
+              "Cold orange juice",
+              "Bowl of fresh milk",
+              "Glass of sweet tea"
             ],
             "correct": 2
           },
           {
-            "q": "What main action happens in 'The Cute Puppy'? (Part 3)",
+            "q": "Why does the puppy follow its owner?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "It drinks fresh milk"
+              "Because it loves them",
+              "Because it is afraid",
+              "Because it is lost",
+              "Because it wants food"
             ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -7470,44 +7470,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Sunny Beach'?",
+            "q": "What main activity takes place in 'Sunny Beach'?",
             "options": [
-              "Warm yellow sand covers",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in Sunny Beach"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'Sunny Beach'?",
+            "options": [
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Sunny Beach",
+              "In a wrong story place"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Sunny Beach'?",
+            "options": [
+              "A key detail about Sunny Beach",
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'Sunny Beach'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Children build a big",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'Sunny Beach'? (Part 2)",
-            "options": [
-              "Playing fun outdoor games",
-              "Warm yellow sand covers",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main action happens in 'Sunny Beach'? (Part 3)",
-            "options": [
-              "Children build a big",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -7525,44 +7525,44 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'Red Strawberries' take place?",
+            "q": "What main activity takes place in 'Red Strawberries'?",
             "options": [
-              "Amy picks fresh red",
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Under the big oak tree"
+              "Participating in Red Strawberries",
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Red Strawberries'?",
+            "q": "Where do the main events happen in 'Red Strawberries'?",
             "options": [
-              "Puts them into",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where is another detail located in 'Red Strawberries'?",
-            "options": [
-              "Amy picks fresh red",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What else takes place in 'Red Strawberries'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Puts them into",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
+              "In a wrong story place",
+              "At the site of Red Strawberries",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
             "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'Red Strawberries'?",
+            "options": [
+              "A key detail about Red Strawberries",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -7580,44 +7580,44 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'My Toy Robot'?",
+            "q": "What main activity takes place in 'My Toy Robot'?",
             "options": [
-              "A friendly brown puppy",
-              "Plays with a silver",
-              "A shiny new red ball",
-              "A small white pet cat"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main action happens in 'My Toy Robot'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Robot walks and flashes",
-              "Reading short storybooks"
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in Toy Robot",
+              "The opposite activity"
             ],
             "correct": 2
           },
           {
-            "q": "What second detail is mentioned in 'My Toy Robot'?",
+            "q": "Where do the main events happen in 'My Toy Robot'?",
             "options": [
-              "A shiny new red ball",
-              "Plays with a silver",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Toy Robot",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What else takes place in 'My Toy Robot'?",
+            "q": "What key detail is highlighted in 'My Toy Robot'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Robot walks and flashes"
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Toy Robot",
+              "An unmentioned detail"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "Because they were forced"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -7635,44 +7635,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Fresh Juice'?",
+            "q": "What main activity takes place in 'Fresh Juice'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Mom pours cold orange"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What else takes place in 'Fresh Juice'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "We drink the fresh",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "An unmentioned event",
+              "Participating in Fresh Juice",
+              "A wrong story activity",
+              "The opposite activity"
             ],
             "correct": 1
           },
           {
-            "q": "What main action happens in 'Fresh Juice'? (Part 2)",
+            "q": "Where do the main events happen in 'Fresh Juice'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Mom pours cold orange"
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Fresh Juice",
+              "At an unmentioned spot"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What main action happens in 'Fresh Juice'? (Part 3)",
+            "q": "What key detail is highlighted in 'Fresh Juice'?",
             "options": [
-              "Playing fun outdoor games",
-              "We drink the fresh",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "A key detail about Fresh Juice",
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
-            "correct": 1
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -7690,44 +7690,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Green Turtle'?",
+            "q": "What main activity takes place in 'The Green Turtle'?",
             "options": [
-              "Slow green turtle walks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What else takes place in 'The Green Turtle'?",
-            "options": [
-              "It swims into",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'The Green Turtle'? (Part 2)",
-            "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Slow green turtle walks"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Green Turtle"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'The Green Turtle'? (Part 3)",
+            "q": "Where do the main events happen in 'The Green Turtle'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "It swims into"
+              "Far away from story",
+              "At the site of Green Turtle",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
-            "correct": 3
+            "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'The Green Turtle'?",
+            "options": [
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about Green Turtle",
+              "A wrong story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -7745,44 +7745,44 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'Baking Bread' take place?",
+            "q": "What main activity takes place in 'Baking Bread'?",
             "options": [
-              "Dad bakes warm wheat",
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Inside the cozy house"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Baking Bread"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where is another detail located in 'Baking Bread'?",
+            "q": "Where do the main events happen in 'Baking Bread'?",
             "options": [
-              "At the sunny garden yard",
-              "House smells wonderful all",
-              "Under the big oak tree",
-              "Inside the cozy house"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where does the story 'Baking Bread' take place? (Part 2)",
-            "options": [
-              "Under the big oak tree",
-              "Dad bakes warm wheat",
-              "Inside the cozy house",
-              "At the sunny garden yard"
+              "At an unmentioned spot",
+              "At the site of Baking Bread",
+              "In a wrong story place",
+              "Far away from story"
             ],
             "correct": 1
           },
           {
-            "q": "Where does the story 'Baking Bread' take place? (Part 3)",
+            "q": "What key detail is highlighted in 'Baking Bread'?",
             "options": [
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "House smells wonderful all",
-              "At the sunny garden yard"
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Baking Bread",
+              "An unmentioned detail"
             ],
             "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "Because they were forced"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -7800,44 +7800,44 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'My Pink Ball'?",
+            "q": "What main activity takes place in 'My Pink Ball'?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "Bounces her soft pink"
+              "Participating in Pink Ball",
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'My Pink Ball'?",
+            "q": "Where do the main events happen in 'My Pink Ball'?",
             "options": [
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Ball bounces up"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What toy or item is used in 'My Pink Ball'? (Part 2)",
-            "options": [
-              "A friendly brown puppy",
-              "Bounces her soft pink",
-              "A small white pet cat",
-              "A shiny new red ball"
+              "In a wrong story place",
+              "At the site of Pink Ball",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
             "correct": 1
           },
           {
-            "q": "What other object is in 'My Pink Ball'?",
+            "q": "What key detail is highlighted in 'My Pink Ball'?",
             "options": [
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Ball bounces up"
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Pink Ball",
+              "An unmentioned detail"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -7855,44 +7855,44 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'The White Rabbit'?",
+            "q": "What main activity takes place in 'The White Rabbit'?",
             "options": [
-              "Cute white rabbit munches",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
+              "A wrong story activity",
+              "Participating in White Rabbit",
+              "An unmentioned event",
+              "The opposite activity"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'The White Rabbit'?",
+            "options": [
+              "At the site of White Rabbit",
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'The White Rabbit'?",
+            "q": "What key detail is highlighted in 'The White Rabbit'?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "It twitches its nose"
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about White Rabbit"
             ],
             "correct": 3
           },
           {
-            "q": "What second detail is mentioned in 'The White Rabbit'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "A friendly brown puppy",
-              "Cute white rabbit munches",
-              "A small white pet cat",
-              "A shiny new red ball"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "Because they were forced"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What else takes place in 'The White Rabbit'?",
-            "options": [
-              "Reading short storybooks",
-              "It twitches its nose",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
-            ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -7910,44 +7910,44 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'Rainy Day' take place?",
+            "q": "What main activity takes place in 'Rainy Day'?",
             "options": [
-              "Heavy rain falls",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard"
+              "Participating in Rainy Day",
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Rainy Day'?",
+            "q": "Where do the main events happen in 'Rainy Day'?",
             "options": [
-              "Baking warm sweet cookies",
-              "We stay inside",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Rainy Day",
+              "At an unmentioned spot"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "Where is another detail located in 'Rainy Day'?",
+            "q": "What key detail is highlighted in 'Rainy Day'?",
             "options": [
-              "Heavy rain falls",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Rainy Day"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What else takes place in 'Rainy Day'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Reading short storybooks",
-              "We stay inside",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -7965,44 +7965,44 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Night Sky'?",
+            "q": "What main activity takes place in 'Night Sky'?",
             "options": [
-              "Playing fun outdoor games",
-              "Bright yellow stars shine",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What else takes place in 'Night Sky'?",
-            "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Round moon lights up",
-              "Baking warm sweet cookies"
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Night Sky",
+              "The opposite activity"
             ],
             "correct": 2
           },
           {
-            "q": "What main action happens in 'Night Sky'? (Part 2)",
+            "q": "Where do the main events happen in 'Night Sky'?",
             "options": [
-              "Bright yellow stars shine",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
+              "At the site of Night Sky",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Night Sky'? (Part 3)",
+            "q": "What key detail is highlighted in 'Night Sky'?",
             "options": [
-              "Reading short storybooks",
-              "Round moon lights up",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
+              "The opposite story fact",
+              "A key detail about Night Sky",
+              "An unmentioned detail",
+              "A wrong story fact"
             ],
             "correct": 1
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -8020,54 +8020,54 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'The Red Apple'?",
+            "q": "What food is described in '{title}'?",
             "options": [
-              "Picked a large red",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat"
+              "Fresh delicious fruit",
+              "Warm chocolate cake",
+              "Hot vegetable soup",
+              "Fried potato chips"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'The Red Apple'?",
+            "q": "Where was the fruit picked or prepared?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Washed the fruit clean"
+              "Inside a store box",
+              "Outside at school",
+              "In a city restaurant",
+              "In the sunny garden"
             ],
             "correct": 3
           },
           {
-            "q": "What second detail is mentioned in 'The Red Apple'?",
+            "q": "What did they do before eating the fruit?",
             "options": [
-              "Picked a large red",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "Washed the fruit clean",
+              "Painted it red color",
+              "Threw it in the trash",
+              "Cooked it in a pot"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'The Red Apple'?",
+            "q": "Why did they share fruit with family?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Washed the fruit clean"
+              "To share a sweet snack",
+              "Because it tasted sour",
+              "Because they were forced",
+              "To sell it for money"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What key item is featured in 'The Red Apple'? (Part 2)",
+            "q": "How did they feel tasting the fresh fruit?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Picked a large red"
+              "Scared and worried",
+              "Happy and refreshed",
+              "Bored and sleepy",
+              "Sad and disappointed"
             ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -8085,54 +8085,54 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'My New Shoes' take place?",
+            "q": "What main activity takes place in 'My New Shoes'?",
             "options": [
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Inside the cozy house",
-              "Emma wore her clean"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where is another detail located in 'My New Shoes'?",
-            "options": [
-              "Ran fast across",
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "At the sunny garden yard"
+              "Participating in New Shoes",
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
             "correct": 0
           },
           {
-            "q": "Where does the story 'My New Shoes' take place? (Part 2)",
+            "q": "Where do the main events happen in 'My New Shoes'?",
             "options": [
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Emma wore her clean",
-              "Under the big oak tree"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where does the story 'My New Shoes' take place? (Part 3)",
-            "options": [
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "Ran fast across",
-              "At the sunny garden yard"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where does the story 'My New Shoes' take place? (Part 4)",
-            "options": [
-              "At the sunny garden yard",
-              "Emma wore her clean",
-              "Inside the cozy house",
-              "Under the big oak tree"
+              "At an unmentioned spot",
+              "At the site of New Shoes",
+              "In a wrong story place",
+              "Far away from story"
             ],
             "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'My New Shoes'?",
+            "options": [
+              "A key detail about New Shoes",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Happy and satisfied"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -8150,54 +8150,54 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'The Little Bird'?",
+            "q": "What main activity takes place in 'The Little Bird'?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Yellow bird built"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'The Little Bird'?",
-            "options": [
-              "It laid three small",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What second detail is mentioned in 'The Little Bird'?",
-            "options": [
-              "Yellow bird built",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What else takes place in 'The Little Bird'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "It laid three small"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key item is featured in 'The Little Bird'? (Part 2)",
-            "options": [
-              "A small white pet cat",
-              "Yellow bird built",
-              "A shiny new red ball",
-              "A friendly brown puppy"
+              "A wrong story activity",
+              "Participating in Little Bird",
+              "The opposite activity",
+              "An unmentioned event"
             ],
             "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'The Little Bird'?",
+            "options": [
+              "At the site of Little Bird",
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'The Little Bird'?",
+            "options": [
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Little Bird"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -8215,54 +8215,54 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Cooking Soup'?",
+            "q": "What main activity takes place in 'Cooking Soup'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Mom cooked hot vegetable",
-              "Reading short storybooks"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What else takes place in 'Cooking Soup'?",
-            "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "We ate warm soup",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Cooking Soup'? (Part 2)",
-            "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Mom cooked hot vegetable"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Cooking Soup"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'Cooking Soup'? (Part 3)",
+            "q": "Where do the main events happen in 'Cooking Soup'?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "We ate warm soup"
+              "Far away from story",
+              "At the site of Cooking Soup",
+              "At an unmentioned spot",
+              "In a wrong story place"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'Cooking Soup'? (Part 4)",
+            "q": "What key detail is highlighted in 'Cooking Soup'?",
             "options": [
-              "Mom cooked hot vegetable",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "A wrong story fact",
+              "A key detail about Cooking Soup",
+              "An unmentioned detail",
+              "The opposite story fact"
             ],
-            "correct": 0
+            "correct": 1
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Sad and disappointed"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -8280,54 +8280,54 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'The Flying Kite'?",
+            "q": "What main activity takes place in 'The Flying Kite'?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "Dan flew his bright"
+              "Participating in Flying Kite",
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where do the main events happen in 'The Flying Kite'?",
+            "options": [
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Flying Kite"
             ],
             "correct": 3
           },
           {
-            "q": "What second detail is mentioned in 'The Flying Kite'?",
+            "q": "What key detail is highlighted in 'The Flying Kite'?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Kite flew high near",
-              "A shiny new red ball"
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Flying Kite",
+              "An unmentioned detail"
             ],
             "correct": 2
           },
           {
-            "q": "What toy or item is used in 'The Flying Kite'? (Part 2)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Dan flew his bright",
-              "A small white pet cat"
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "Because they were forced"
             ],
             "correct": 2
           },
           {
-            "q": "What other object is in 'The Flying Kite'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Kite flew high near",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Happy and satisfied"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What toy or item is used in 'The Flying Kite'? (Part 3)",
-            "options": [
-              "Dan flew his bright",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy"
-            ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -8345,54 +8345,54 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'My Black Dog'?",
+            "q": "What kind of pet is featured in '{title}'?",
             "options": [
-              "Max has a friendly",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where does the story 'My Black Dog' take place?",
-            "options": [
-              "Shadow loves fetching wooden",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What second detail is mentioned in 'My Black Dog'?",
-            "options": [
-              "A shiny new red ball",
-              "Max has a friendly",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "A slow green turtle",
+              "A friendly dog pup",
+              "A quiet yellow bird",
+              "A small pet hamster"
             ],
             "correct": 1
           },
           {
-            "q": "Where is another detail located in 'My Black Dog'?",
+            "q": "What action does the puppy do when happy?",
             "options": [
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Shadow loves fetching wooden",
-              "Inside the cozy house"
+              "Wags its small tail",
+              "Hides under a chair",
+              "Barks at the window",
+              "Runs away from home"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What drink is given to the puppy?",
+            "options": [
+              "Cold orange juice",
+              "Glass of sweet tea",
+              "Bowl of fresh milk",
+              "Hot cup of cocoa"
             ],
             "correct": 2
           },
           {
-            "q": "What pet is described in 'My Black Dog'? (Part 2)",
+            "q": "Why does the puppy follow its owner?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Max has a friendly"
+              "Because it wants food",
+              "Because it is lost",
+              "Because it is afraid",
+              "Because it loves them"
             ],
             "correct": 3
+          },
+          {
+            "q": "How does the owner feel having a puppy?",
+            "options": [
+              "Proud and happy",
+              "Sad and disappointed",
+              "Scared and worried",
+              "Bored and sleepy"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -8410,54 +8410,54 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Sweet Strawberries'?",
+            "q": "What main activity takes place in 'Sweet Strawberries'?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Picked ripe red strawberries",
-              "Reading short storybooks"
+              "Participating in Sweet Strawberries",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'Sweet Strawberries'?",
+            "q": "Where do the main events happen in 'Sweet Strawberries'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Washed them carefully",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Sweet Strawberries'? (Part 2)",
-            "options": [
-              "Playing fun outdoor games",
-              "Picked ripe red strawberries",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main action happens in 'Sweet Strawberries'? (Part 3)",
-            "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Washed them carefully"
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Sweet Strawberries"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'Sweet Strawberries'? (Part 4)",
+            "q": "What key detail is highlighted in 'Sweet Strawberries'?",
             "options": [
-              "Picked ripe red strawberries",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "A key detail about Sweet Strawberries",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact"
             ],
             "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Sad and disappointed"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -8475,54 +8475,54 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'The Toy Train'?",
+            "q": "What main activity takes place in 'The Toy Train'?",
             "options": [
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Set up a blue"
+              "A wrong story activity",
+              "Participating in Toy Train",
+              "An unmentioned event",
+              "The opposite activity"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'The Toy Train'?",
+            "options": [
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Toy Train"
             ],
             "correct": 3
           },
           {
-            "q": "Where does the story 'The Toy Train' take place?",
+            "q": "What key detail is highlighted in 'The Toy Train'?",
             "options": [
-              "At the sunny garden yard",
-              "Train chugged round",
-              "Inside the cozy house",
-              "Under the big oak tree"
+              "An unmentioned detail",
+              "A key detail about Toy Train",
+              "The opposite story fact",
+              "A wrong story fact"
             ],
             "correct": 1
           },
           {
-            "q": "What second detail is mentioned in 'The Toy Train'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "A shiny new red ball",
-              "Set up a blue",
-              "A small white pet cat",
-              "A friendly brown puppy"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where is another detail located in 'The Toy Train'?",
-            "options": [
-              "Train chugged round",
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Inside the cozy house"
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
             "correct": 0
           },
           {
-            "q": "What toy or item is used in 'The Toy Train'? (Part 2)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Set up a blue"
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Sad and disappointed"
             ],
-            "correct": 3
+            "correct": 2
           }
         ]
       },
@@ -8540,52 +8540,52 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Hot Summer'?",
+            "q": "What main activity takes place in 'Hot Summer'?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Hot sun shines bright",
-              "Baking warm sweet cookies"
+              "Participating in Hot Summer",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'Hot Summer'?",
+            "q": "Where do the main events happen in 'Hot Summer'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Children splash in cool",
-              "Playing fun outdoor games"
+              "At the site of Hot Summer",
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What main action happens in 'Hot Summer'? (Part 2)",
+            "q": "What key detail is highlighted in 'Hot Summer'?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Hot sun shines bright",
-              "Playing fun outdoor games"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Hot Summer"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What main action happens in 'Hot Summer'? (Part 3)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Playing fun outdoor games",
-              "Children splash in cool",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "To cause a big problem",
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "What main action happens in 'Hot Summer'? (Part 4)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Hot sun shines bright",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Sad and disappointed",
+              "Scared and afraid"
             ],
             "correct": 0
           }
@@ -8605,54 +8605,54 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'The Red Rose' take place?",
+            "q": "What main activity takes place in 'The Red Rose'?",
             "options": [
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Beautiful red rose bloomed"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'The Red Rose'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "It smelled sweet",
-              "Playing fun outdoor games"
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Red Rose",
+              "A wrong story activity"
             ],
             "correct": 2
           },
           {
-            "q": "Where is another detail located in 'The Red Rose'?",
+            "q": "Where do the main events happen in 'The Red Rose'?",
             "options": [
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Beautiful red rose bloomed"
+              "At the site of Red Rose",
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'The Red Rose'?",
+            "q": "What key detail is highlighted in 'The Red Rose'?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "It smelled sweet",
-              "Playing fun outdoor games"
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Red Rose",
+              "The opposite story fact"
             ],
             "correct": 2
           },
           {
-            "q": "Where does the story 'The Red Rose' take place? (Part 2)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Beautiful red rose bloomed"
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
-            "correct": 3
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -8670,54 +8670,54 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'My Toy Bus'?",
+            "q": "What main activity takes place in 'My Toy Bus'?",
             "options": [
-              "A shiny new red ball",
-              "Pushed his long yellow",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Toy Bus"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'My Toy Bus'?",
+            "options": [
+              "At the site of Toy Bus",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'My Toy Bus'?",
+            "options": [
+              "A wrong story fact",
+              "A key detail about Toy Bus",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
             "correct": 1
           },
           {
-            "q": "What main action happens in 'My Toy Bus'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Loaded small plastic figures",
-              "Baking warm sweet cookies"
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What second detail is mentioned in 'My Toy Bus'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Pushed his long yellow",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
+              "Angry and frustrated",
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Happy and satisfied"
             ],
-            "correct": 0
-          },
-          {
-            "q": "What else takes place in 'My Toy Bus'?",
-            "options": [
-              "Loaded small plastic figures",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What pet is described in 'My Toy Bus'? (Part 2)",
-            "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Pushed his long yellow",
-              "A shiny new red ball"
-            ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -8735,54 +8735,54 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Cold Ice Cream'?",
+            "q": "What main activity takes place in 'Cold Ice Cream'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Anna ate a cone"
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in Cold Ice Cream",
+              "The opposite activity"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "What else takes place in 'Cold Ice Cream'?",
+            "q": "Where do the main events happen in 'Cold Ice Cream'?",
             "options": [
-              "It melted slowly under",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "In a wrong story place",
+              "At the site of Cold Ice Cream",
+              "Far away from story",
+              "At an unmentioned spot"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'Cold Ice Cream'?",
+            "options": [
+              "A key detail about Cold Ice Cream",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Cold Ice Cream'? (Part 2)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Anna ate a cone",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "To achieve a great goal",
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To cause a big problem"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Cold Ice Cream'? (Part 3)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "It melted slowly under"
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed"
             ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'Cold Ice Cream'? (Part 4)",
-            "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Anna ate a cone"
-            ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -8800,54 +8800,54 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'The Green Grass' take place?",
+            "q": "What main activity takes place in 'The Green Grass'?",
             "options": [
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Fresh green grass grew",
-              "Under the big oak tree"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'The Green Grass'?",
-            "options": [
-              "Children played tag",
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
+              "Participating in Green Grass",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
             "correct": 0
           },
           {
-            "q": "Where is another detail located in 'The Green Grass'?",
+            "q": "Where do the main events happen in 'The Green Grass'?",
             "options": [
-              "At the sunny garden yard",
-              "Inside the cozy house",
-              "Under the big oak tree",
-              "Fresh green grass grew"
+              "At the site of Green Grass",
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'The Green Grass'?",
+            "q": "What key detail is highlighted in 'The Green Grass'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Children played tag",
-              "Baking warm sweet cookies"
+              "A key detail about Green Grass",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "Because they were forced"
             ],
             "correct": 2
           },
           {
-            "q": "Where does the story 'The Green Grass' take place? (Part 2)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "At the sunny garden yard",
-              "Fresh green grass grew",
-              "Under the big oak tree",
-              "Inside the cozy house"
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Sad and disappointed"
             ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -8865,54 +8865,54 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'My Blue Hat'?",
+            "q": "What main activity takes place in 'My Blue Hat'?",
             "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Wore a warm blue"
+              "Participating in Blue Hat",
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where do the main events happen in 'My Blue Hat'?",
+            "options": [
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Blue Hat",
+              "Far away from story"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'My Blue Hat'?",
+            "options": [
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Blue Hat",
+              "The opposite story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To cause a big problem",
+              "To achieve a great goal",
+              "Because they were forced",
+              "For an unmentioned reason"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Sad and disappointed",
+              "Happy and satisfied"
             ],
             "correct": 3
-          },
-          {
-            "q": "What main action happens in 'My Blue Hat'?",
-            "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "It kept his ears",
-              "Playing fun outdoor games"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What second detail is mentioned in 'My Blue Hat'?",
-            "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Wore a warm blue",
-              "A small white pet cat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What else takes place in 'My Blue Hat'?",
-            "options": [
-              "Playing fun outdoor games",
-              "It kept his ears",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key item is featured in 'My Blue Hat'? (Part 2)",
-            "options": [
-              "A shiny new red ball",
-              "Wore a warm blue",
-              "A friendly brown puppy",
-              "A small white pet cat"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -8930,54 +8930,54 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Yellow Bee'?",
+            "q": "What main activity takes place in 'The Yellow Bee'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Fuzzy yellow bee buzzed"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What else takes place in 'The Yellow Bee'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "It collected sweet nectar"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'The Yellow Bee'? (Part 2)",
-            "options": [
-              "Reading short storybooks",
-              "Fuzzy yellow bee buzzed",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
+              "An unmentioned event",
+              "Participating in Yellow Bee",
+              "A wrong story activity",
+              "The opposite activity"
             ],
             "correct": 1
           },
           {
-            "q": "What main action happens in 'The Yellow Bee'? (Part 3)",
+            "q": "Where do the main events happen in 'The Yellow Bee'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "It collected sweet nectar",
-              "Playing fun outdoor games"
+              "Far away from story",
+              "At the site of Yellow Bee",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'The Yellow Bee'? (Part 4)",
+            "q": "What key detail is highlighted in 'The Yellow Bee'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Fuzzy yellow bee buzzed"
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Yellow Bee"
             ],
             "correct": 3
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Sad and disappointed",
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Scared and afraid"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -8995,64 +8995,64 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Red Bicycle'?",
+            "q": "What new item did Sam get for his birthday?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Got a new red"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What toy or item is used in 'The Red Bicycle'?",
-            "options": [
-              "Loves riding his bike",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball"
+              "A new red bicycle",
+              "A yellow school bag",
+              "A green toy train",
+              "A pair of blue shoes"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'The Red Bicycle'?",
+            "q": "Where does Sam love riding his new bike?",
             "options": [
-              "Wears a safe blue",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "On top of the roof",
+              "Inside the library",
+              "Across a dark alley",
+              "In the sunny park"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What safety item does Sam wear on his head?",
+            "options": [
+              "A safe blue helmet",
+              "A red party hat",
+              "A warm winter cap",
+              "A green straw hat"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'The Red Bicycle'? (Part 2)",
+            "q": "Why does Sam wear a blue helmet?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Got a new red"
+              "To block out rain",
+              "To look like a pilot",
+              "Because it is cold",
+              "To keep his head safe"
             ],
             "correct": 3
           },
           {
-            "q": "What second detail is mentioned in 'The Red Bicycle'?",
+            "q": "How does Sam feel riding his bike fast?",
             "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "Loves riding his bike",
-              "A friendly brown puppy"
+              "Scared and nervous",
+              "Excited and happy",
+              "Sad and lonely",
+              "Angry and frustrated"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'The Red Bicycle'? (Part 3)",
+            "q": "What is this story mostly about?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Wears a safe blue"
+              "Feeding farm animals",
+              "Riding a new red bike",
+              "Making lemonade",
+              "Planting flower seeds"
             ],
-            "correct": 3
+            "correct": 1
           }
         ]
       },
@@ -9070,62 +9070,62 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'Baking Cupcakes'?",
+            "q": "What main activity takes place in 'Baking Cupcakes'?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Mom and emma baked"
+              "Participating in Baking Cupcakes",
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What main action happens in 'Baking Cupcakes'?",
+            "q": "Where do the main events happen in 'Baking Cupcakes'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Put soft pink icing"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What second detail is mentioned in 'Baking Cupcakes'?",
-            "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Everyone in the family"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What key item is featured in 'Baking Cupcakes'? (Part 2)",
-            "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Mom and emma baked",
-              "A shiny new red ball"
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Baking Cupcakes",
+              "At an unmentioned spot"
             ],
             "correct": 2
           },
           {
-            "q": "What else takes place in 'Baking Cupcakes'?",
+            "q": "What key detail is highlighted in 'Baking Cupcakes'?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Put soft pink icing"
+              "A key detail about Baking Cupcakes",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Happy and satisfied"
             ],
             "correct": 3
           },
           {
-            "q": "What other object is in 'Baking Cupcakes'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Everyone in the family",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "A shiny new red ball"
+              "Learning and enjoying Baking Cupcakes",
+              "Buying new furniture",
+              "Traveling around world",
+              "Fixing a broken car"
             ],
             "correct": 0
           }
@@ -9145,64 +9145,64 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Playing Soccer'?",
+            "q": "What main activity takes place in 'Playing Soccer'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Lucas plays soccer"
+              "An unmentioned event",
+              "Participating in Playing Soccer",
+              "The opposite activity",
+              "A wrong story activity"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'Playing Soccer'?",
+            "options": [
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Playing Soccer"
             ],
             "correct": 3
           },
           {
-            "q": "What toy or item is used in 'Playing Soccer'?",
+            "q": "What key detail is highlighted in 'Playing Soccer'?",
             "options": [
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Kicks the black"
+              "A key detail about Playing Soccer",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What else takes place in 'Playing Soccer'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Lucas scored two goals",
-              "Baking warm sweet cookies"
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What main action happens in 'Playing Soccer'? (Part 2)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Lucas plays soccer",
-              "Baking warm sweet cookies"
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'Playing Soccer'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Kicks the black",
-              "A shiny new red ball"
+              "Learning and enjoying Playing Soccer",
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Traveling around world"
             ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Playing Soccer'? (Part 3)",
-            "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Lucas scored two goals"
-            ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -9220,64 +9220,64 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'My Pet Rabbit'?",
+            "q": "What main activity takes place in 'My Pet Rabbit'?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "A shiny new red ball",
-              "Maya has a fluffy"
+              "A wrong story activity",
+              "Participating in Pet Rabbit",
+              "The opposite activity",
+              "An unmentioned event"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What toy or item is used in 'My Pet Rabbit'?",
+            "q": "Where do the main events happen in 'My Pet Rabbit'?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Snowball loves eating crunchy",
-              "A shiny new red ball"
+              "Far away from story",
+              "At the site of Pet Rabbit",
+              "At an unmentioned spot",
+              "In a wrong story place"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What second detail is mentioned in 'My Pet Rabbit'?",
+            "q": "What key detail is highlighted in 'My Pet Rabbit'?",
             "options": [
-              "Maya pets his soft",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "A shiny new red ball"
+              "A key detail about Pet Rabbit",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What pet is described in 'My Pet Rabbit'? (Part 2)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "Maya has a fluffy"
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What toy or item is used in 'My Pet Rabbit'? (Part 2)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Snowball loves eating crunchy",
-              "A small white pet cat"
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Sad and disappointed"
             ],
             "correct": 2
           },
           {
-            "q": "What other object is in 'My Pet Rabbit'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Maya pets his soft"
+              "Learning and enjoying Pet Rabbit",
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Traveling around world"
             ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -9295,62 +9295,62 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'The Sunny Picnic' take place?",
+            "q": "What main activity takes place in 'The Sunny Picnic'?",
             "options": [
-              "At the sunny garden yard",
-              "Taylor family went",
-              "Inside the cozy house",
-              "Under the big oak tree"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What key item is featured in 'The Sunny Picnic'?",
-            "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "A shiny new red ball",
-              "Ate ham sandwiches, sweet"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'The Sunny Picnic'?",
-            "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Lunch, they fed bread"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where is another detail located in 'The Sunny Picnic'?",
-            "options": [
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Taylor family went",
-              "Inside the cozy house"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What second detail is mentioned in 'The Sunny Picnic'?",
-            "options": [
-              "Ate ham sandwiches, sweet",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat"
+              "Participating in Sunny Picnic",
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'The Sunny Picnic'?",
+            "q": "Where do the main events happen in 'The Sunny Picnic'?",
             "options": [
-              "Playing fun outdoor games",
-              "Lunch, they fed bread",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "At the site of Sunny Picnic",
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'The Sunny Picnic'?",
+            "options": [
+              "An unmentioned detail",
+              "A key detail about Sunny Picnic",
+              "The opposite story fact",
+              "A wrong story fact"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Angry and frustrated"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Fixing a broken car",
+              "Learning and enjoying Sunny Picnic",
+              "Traveling around world",
+              "Buying new furniture"
             ],
             "correct": 1
           }
@@ -9365,69 +9365,69 @@
           "zh": "海滩一日游"
         },
         "text": {
-          "en": "Noah visited the sunny ocean beach with his papay fors. He built a tall sandcastle using a red plastic bucket. Noah jumped over cool rolling waves until the sun set.",
+          "en": "Noah visited the sunny ocean beach with his parents. He built a tall sandcastle using a red plastic bucket. Noah jumped over cool rolling waves until the sun set.",
           "zh": "诺亚和他的父母一起参观了阳光明媚的大海海滩。他用一个红塑料桶建造了一座高高的沙堡。诺亚跳过凉爽的滚滚海浪，直到太阳落山。"
         },
         "questions": [
           {
-            "q": "What main action happens in 'A Day at the Beach'?",
+            "q": "What main activity takes place in 'A Day at the Beach'?",
             "options": [
-              "Noah visited the sunny",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "Participating in A Day at the Beach",
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'A Day at the Beach'?",
+            "q": "Where do the main events happen in 'A Day at the Beach'?",
             "options": [
-              "Built a tall sandcastle",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'A Day at the Beach'? (Part 2)",
-            "options": [
-              "Noah jumped over cool",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'A Day at the Beach'? (Part 3)",
-            "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Noah visited the sunny"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of A Day at the Beach"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'A Day at the Beach'? (Part 4)",
+            "q": "What key detail is highlighted in 'A Day at the Beach'?",
             "options": [
-              "Reading short storybooks",
-              "Built a tall sandcastle",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "The opposite story fact",
+              "A key detail about A Day at the Beach",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
             "correct": 1
           },
           {
-            "q": "What main action happens in 'A Day at the Beach'? (Part 5)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Noah jumped over cool",
-              "Playing fun outdoor games"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
-            "correct": 2
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Sad and disappointed",
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Angry and frustrated"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Buying new furniture",
+              "Learning and enjoying A Day at the Beach",
+              "Traveling around world",
+              "Fixing a broken car"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -9445,64 +9445,64 @@
         },
         "questions": [
           {
-            "q": "What key item is featured in 'The School Garden'?",
+            "q": "What main activity takes place in 'The School Garden'?",
             "options": [
-              "Students in room 2",
-              "A shiny new red ball",
-              "A small white pet cat",
-              "A friendly brown puppy"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main action happens in 'The School Garden'?",
-            "options": [
-              "Watered the green plants",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What second detail is mentioned in 'The School Garden'?",
-            "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Summer, big red tomatoes"
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in School Garden"
             ],
             "correct": 3
           },
           {
-            "q": "What key item is featured in 'The School Garden'? (Part 2)",
+            "q": "Where do the main events happen in 'The School Garden'?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Students in room 2",
-              "A small white pet cat"
+              "In a wrong story place",
+              "At the site of School Garden",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What else takes place in 'The School Garden'?",
+            "q": "What key detail is highlighted in 'The School Garden'?",
             "options": [
-              "Watered the green plants",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks"
+              "A key detail about School Garden",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What other object is in 'The School Garden'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "A shiny new red ball",
-              "Summer, big red tomatoes",
-              "A small white pet cat",
-              "A friendly brown puppy"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
-            "correct": 1
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Sad and disappointed",
+              "Happy and satisfied"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Traveling around world",
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Learning and enjoying School Garden"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -9520,62 +9520,62 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'My Toy Airplane'?",
+            "q": "What main activity takes place in 'My Toy Airplane'?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Dan received a silver",
-              "A shiny new red ball"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What second detail is mentioned in 'My Toy Airplane'?",
-            "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "A shiny new red ball",
-              "Toy plane makes"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where does the story 'My Toy Airplane' take place?",
-            "options": [
-              "Under the big oak tree",
-              "Dan flies his plane",
-              "At the sunny garden yard",
-              "Inside the cozy house"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What toy or item is used in 'My Toy Airplane'? (Part 2)",
-            "options": [
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Dan received a silver",
-              "A small white pet cat"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What other object is in 'My Toy Airplane'?",
-            "options": [
-              "Toy plane makes",
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy"
+              "Participating in Toy Airplane",
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
             "correct": 0
           },
           {
-            "q": "Where is another detail located in 'My Toy Airplane'?",
+            "q": "Where do the main events happen in 'My Toy Airplane'?",
             "options": [
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Dan flies his plane"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Toy Airplane"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'My Toy Airplane'?",
+            "options": [
+              "The opposite story fact",
+              "A key detail about Toy Airplane",
+              "An unmentioned detail",
+              "A wrong story fact"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Buying new furniture",
+              "Traveling around world",
+              "Fixing a broken car",
+              "Learning and enjoying Toy Airplane"
             ],
             "correct": 3
           }
@@ -9595,64 +9595,64 @@
         },
         "questions": [
           {
-            "q": "What pet is described in 'The Smart Dog'?",
+            "q": "What kind of pet is featured in '{title}'?",
             "options": [
-              "Jake has a clever",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "A small white pet cat"
+              "A slow green turtle",
+              "A friendly dog pup",
+              "A small pet hamster",
+              "A quiet yellow bird"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What action does the puppy do when happy?",
+            "options": [
+              "Hides under a chair",
+              "Runs away from home",
+              "Barks at the window",
+              "Wags its small tail"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What drink is given to the puppy?",
+            "options": [
+              "Cold orange juice",
+              "Glass of sweet tea",
+              "Hot cup of cocoa",
+              "Bowl of fresh milk"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why does the puppy follow its owner?",
+            "options": [
+              "Because it wants food",
+              "Because it is afraid",
+              "Because it is lost",
+              "Because it loves them"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "How does the owner feel having a puppy?",
+            "options": [
+              "Proud and happy",
+              "Scared and worried",
+              "Bored and sleepy",
+              "Sad and disappointed"
             ],
             "correct": 0
           },
           {
-            "q": "Where does the story 'The Smart Dog' take place?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "Buster can sit, shake",
-              "At the sunny garden yard"
+              "Swimming in a pool",
+              "Building a snowman",
+              "Caring for a cute puppy",
+              "Shopping for toys"
             ],
             "correct": 2
-          },
-          {
-            "q": "What main action happens in 'The Smart Dog'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Jake gives buster",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What second detail is mentioned in 'The Smart Dog'?",
-            "options": [
-              "Jake has a clever",
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where is another detail located in 'The Smart Dog'?",
-            "options": [
-              "Under the big oak tree",
-              "Buster can sit, shake",
-              "At the sunny garden yard",
-              "Inside the cozy house"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What else takes place in 'The Smart Dog'?",
-            "options": [
-              "Baking warm sweet cookies",
-              "Jake gives buster",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -9670,64 +9670,64 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'A Cold Winter Day'?",
+            "q": "What main activity takes place in 'A Cold Winter Day'?",
             "options": [
-              "Snow covers the ground",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in A Cold Winter Day",
+              "The opposite activity"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where do the main events happen in 'A Cold Winter Day'?",
+            "options": [
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of A Cold Winter Day"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'A Cold Winter Day'?",
+            "options": [
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about A Cold Winter Day"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
             "correct": 0
           },
           {
-            "q": "What else takes place in 'A Cold Winter Day'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Reading short storybooks",
-              "Wears a thick red",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Angry and frustrated"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main action happens in 'A Cold Winter Day'? (Part 2)",
+            "q": "What is this story mostly about?",
             "options": [
-              "Reading short storybooks",
-              "Builds a smiling snowman",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
+              "Traveling around world",
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Learning and enjoying A Cold Winter Day"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What main action happens in 'A Cold Winter Day'? (Part 3)",
-            "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Snow covers the ground",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'A Cold Winter Day'? (Part 4)",
-            "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Wears a thick red",
-              "Reading short storybooks"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'A Cold Winter Day'? (Part 5)",
-            "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Builds a smiling snowman",
-              "Playing fun outdoor games"
-            ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -9745,64 +9745,64 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'Making Lemonade'?",
+            "q": "What main activity takes place in 'Making Lemonade'?",
             "options": [
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Mom and sophia made",
-              "Baking warm sweet cookies"
+              "A wrong story activity",
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Making Lemonade"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What else takes place in 'Making Lemonade'?",
+            "q": "Where do the main events happen in 'Making Lemonade'?",
             "options": [
-              "Squeezed yellow lemons",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Making Lemonade"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'Making Lemonade'?",
+            "options": [
+              "A key detail about Making Lemonade",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What main action happens in 'Making Lemonade'? (Part 2)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Drank two cold glasses",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Baking warm sweet cookies"
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main action happens in 'Making Lemonade'? (Part 3)",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Mom and sophia made",
-              "Reading short storybooks"
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Happy and satisfied"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Buying new furniture",
+              "Traveling around world",
+              "Learning and enjoying Making Lemonade",
+              "Fixing a broken car"
             ],
             "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Making Lemonade'? (Part 4)",
-            "options": [
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Squeezed yellow lemons",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What main action happens in 'Making Lemonade'? (Part 5)",
-            "options": [
-              "Reading short storybooks",
-              "Drank two cold glasses",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -9820,64 +9820,64 @@
         },
         "questions": [
           {
-            "q": "What toy or item is used in 'The Flying Kite'?",
+            "q": "What main activity takes place in 'The Flying Kite'?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Flew a big diamond-shaped",
-              "A shiny new red ball"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What second detail is mentioned in 'The Flying Kite'?",
-            "options": [
-              "A small white pet cat",
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Spring wind pushed"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main action happens in 'The Flying Kite'?",
-            "options": [
-              "Held the string tight",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
+              "Participating in Flying Kite",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
             "correct": 0
           },
           {
-            "q": "What toy or item is used in 'The Flying Kite'? (Part 2)",
+            "q": "Where do the main events happen in 'The Flying Kite'?",
             "options": [
-              "A small white pet cat",
-              "Flew a big diamond-shaped",
-              "A friendly brown puppy",
-              "A shiny new red ball"
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Flying Kite"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'The Flying Kite'?",
+            "options": [
+              "A key detail about Flying Kite",
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters do their activity?",
+            "options": [
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
             "correct": 1
           },
           {
-            "q": "What other object is in 'The Flying Kite'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "A shiny new red ball",
-              "Spring wind pushed"
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "What else takes place in 'The Flying Kite'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Held the string tight",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "Traveling around world",
+              "Fixing a broken car",
+              "Learning and enjoying Flying Kite",
+              "Buying new furniture"
             ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -9895,64 +9895,64 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'My Cute Kitten'?",
+            "q": "What animal is featured in 'My Cat'?",
             "options": [
-              "Reading short storybooks",
-              "Amy has a little",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What toy or item is used in 'My Cute Kitten'?",
-            "options": [
-              "A small white pet cat",
-              "Mittens loves chasing",
-              "A friendly brown puppy",
-              "A shiny new red ball"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What else takes place in 'My Cute Kitten'?",
-            "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "The evening, she sleeps",
-              "Playing fun outdoor games"
+              "A small green frog",
+              "A noisy farm dog",
+              "A cute pet cat",
+              "A yellow canary bird"
             ],
             "correct": 2
           },
           {
-            "q": "What main action happens in 'My Cute Kitten'? (Part 2)",
+            "q": "Where does the cat sleep in the story?",
             "options": [
-              "Amy has a little",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies"
+              "On a soft red mat",
+              "Inside a cardboard box",
+              "On top of high roof",
+              "Under a wooden table"
             ],
             "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'My Cute Kitten'?",
+            "q": "What color is the cat's soft fur?",
             "options": [
-              "A shiny new red ball",
-              "A friendly brown puppy",
-              "Mittens loves chasing",
-              "A small white pet cat"
+              "Pure fluffy white",
+              "Shiny black fur",
+              "Dark brown spot",
+              "Bright yellow coat"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "What main action happens in 'My Cute Kitten'? (Part 3)",
+            "q": "Why does the cat purr happily?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "The evening, she sleeps"
+              "Because it is scared",
+              "Because it is hungry",
+              "Because it is cold",
+              "Because it is petted"
             ],
             "correct": 3
+          },
+          {
+            "q": "How does the owner feel playing with the cat?",
+            "options": [
+              "Happy and delighted",
+              "Sad and lonely",
+              "Scared and afraid",
+              "Angry and upset"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "A cute pet kitten",
+              "Riding a red bicycle",
+              "Baking sweet muffins",
+              "Flying high kites"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -9970,62 +9970,62 @@
         },
         "questions": [
           {
-            "q": "What main action happens in 'The Farm Animals'?",
+            "q": "What main activity takes place in 'The Farm Animals'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games",
-              "Jack visited his uncle's"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Farm Animals"
             ],
             "correct": 3
           },
           {
-            "q": "Where does the story 'The Farm Animals' take place?",
+            "q": "Where do the main events happen in 'The Farm Animals'?",
             "options": [
-              "Fed dry corn",
-              "Under the big oak tree",
-              "At the sunny garden yard",
-              "Inside the cozy house"
+              "At the site of Farm Animals",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
             "correct": 0
           },
           {
-            "q": "What pet is described in 'The Farm Animals'?",
+            "q": "What key detail is highlighted in 'The Farm Animals'?",
             "options": [
-              "A friendly brown puppy",
-              "A small white pet cat",
-              "Jack also pet",
-              "A shiny new red ball"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What else takes place in 'The Farm Animals'?",
-            "options": [
-              "Playing fun outdoor games",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Jack visited his uncle's"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Farm Animals"
             ],
             "correct": 3
           },
           {
-            "q": "Where is another detail located in 'The Farm Animals'?",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "At the sunny garden yard",
-              "Fed dry corn",
-              "Under the big oak tree",
-              "Inside the cozy house"
+              "To achieve a great goal",
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To cause a big problem"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What second detail is mentioned in 'The Farm Animals'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "A small white pet cat",
-              "A friendly brown puppy",
-              "Jack also pet",
-              "A shiny new red ball"
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Buying new furniture",
+              "Traveling around world",
+              "Learning and enjoying Farm Animals",
+              "Fixing a broken car"
             ],
             "correct": 2
           }
@@ -10045,64 +10045,64 @@
         },
         "questions": [
           {
-            "q": "Where does the story 'Autumn Leaves' take place?",
+            "q": "What main activity takes place in 'Autumn Leaves'?",
             "options": [
-              "At the sunny garden yard",
-              "Under the big oak tree",
-              "Inside the cozy house",
-              "Red and yellow leaves"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Autumn Leaves"
             ],
             "correct": 3
           },
           {
-            "q": "What main action happens in 'Autumn Leaves'?",
+            "q": "Where do the main events happen in 'Autumn Leaves'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Reading short storybooks",
-              "Children rake the leaves"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What else takes place in 'Autumn Leaves'?",
-            "options": [
-              "Jump into the leaves",
-              "Baking warm sweet cookies",
-              "Reading short storybooks",
-              "Playing fun outdoor games"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where is another detail located in 'Autumn Leaves'?",
-            "options": [
-              "Inside the cozy house",
-              "At the sunny garden yard",
-              "Red and yellow leaves",
-              "Under the big oak tree"
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Autumn Leaves",
+              "In a wrong story place"
             ],
             "correct": 2
           },
           {
-            "q": "What main action happens in 'Autumn Leaves'? (Part 2)",
+            "q": "What key detail is highlighted in 'Autumn Leaves'?",
             "options": [
-              "Baking warm sweet cookies",
-              "Children rake the leaves",
-              "Playing fun outdoor games",
-              "Reading short storybooks"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Autumn Leaves",
+              "A wrong story fact"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What main action happens in 'Autumn Leaves'? (Part 3)",
+            "q": "Why did the main characters do their activity?",
             "options": [
-              "Reading short storybooks",
-              "Baking warm sweet cookies",
-              "Playing fun outdoor games",
-              "Jump into the leaves"
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
-            "correct": 3
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Learning and enjoying Autumn Leaves",
+              "Buying new furniture",
+              "Traveling around world",
+              "Fixing a broken car"
+            ],
+            "correct": 0
           }
         ]
       }
