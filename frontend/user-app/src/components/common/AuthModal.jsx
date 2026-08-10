@@ -43,6 +43,7 @@ export const AuthModal = () => {
         });
       } else if (isTeacherUser) {
         // Teacher offline fallback demo account
+        localStorage.setItem('token', 'offline_teacher_token');
         setUser({
           name: 'teacher2026',
           username: 'teacher2026',

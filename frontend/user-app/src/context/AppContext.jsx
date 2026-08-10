@@ -74,6 +74,26 @@ export const AppProvider = ({ children }) => {
       setIsAuthLoading(false);
       return;
     }
+
+    if (token === 'offline_teacher_token') {
+      setUser({
+        name: 'teacher2026',
+        username: 'teacher2026',
+        isGuest: false,
+        role: 'admin',
+        stars: 999,
+        inventory: ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'],
+        unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
+        unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
+        clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
+        masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
+        stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
+        starsTracker: {}
+      });
+      setIsAuthLoading(false);
+      return;
+    }
+
     fetch('/api/auth/me', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
