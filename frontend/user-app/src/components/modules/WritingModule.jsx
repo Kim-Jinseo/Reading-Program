@@ -440,9 +440,9 @@ export const WritingModule = () => {
         </span>
       </div>
       
-      <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-visible pb-10 lg:pb-0">
-        <div className="flex-1 flex flex-col min-w-0">
-          <div className="flex flex-col gap-6 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_35%] gap-6 flex-1 pb-10 lg:pb-0 items-stretch">
+        <div className="flex flex-col min-w-0 h-full">
+          <div className="flex flex-col gap-6 flex-1">
             {/* Synchronized Indigo-Purple Prompt Card */}
             <div className="bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm relative shrink-0">
               <div className="flex items-center gap-2 mb-2">
@@ -498,7 +498,7 @@ export const WritingModule = () => {
         </div>
 
         {status === 'improving' && feedback && (feedback.grammar || feedback.general) && (
-          <div className="w-full lg:w-[40%] bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
+          <div className="w-full bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col h-full shadow-lg animate-in slide-in-from-right-8">
              <div className="flex flex-col mb-6 gap-3">
                <div className="flex self-end bg-slate-100 p-1 rounded-full border border-slate-200 shadow-inner">
                  <button onClick={() => setFeedbackLang('en')} className={`px-4 py-1 text-sm font-bold rounded-full transition-all ${feedbackLang === 'en' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}>English</button>
