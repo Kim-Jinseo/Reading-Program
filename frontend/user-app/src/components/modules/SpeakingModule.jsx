@@ -486,7 +486,7 @@ export const SpeakingModule = () => {
             setStatus('ready');
             setIsRecording(false);
             setIsWarmingUp(false);
-            setFeedback({ stars: 0, text: "Recording stopped (Max 12s limit reached)." });
+            // setFeedback({ stars: 0, text: "Recording stopped (Max 12s limit reached)." });
             stopMeter();
          }
       }, 12000);

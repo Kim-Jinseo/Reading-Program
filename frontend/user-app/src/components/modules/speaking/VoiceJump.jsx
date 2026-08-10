@@ -449,7 +449,7 @@ export const VoiceJump = ({ onBack }) => {
     maxRecordingTimerRef.current = setTimeout(() => {
       if (isRecordingRef.current) {
         stopRecording(true);
-        setFeedback("Recording stopped (Max 12s).");
+        // setFeedback("Recording stopped (Max 12s).");
       }
     }, 12000);
     
@@ -554,7 +554,7 @@ export const VoiceJump = ({ onBack }) => {
 
       recorder.start();
       setIsRecording(true);
-      setFeedback("Listening (Deepgram Backup)...");
+      // setFeedback("Listening (Deepgram Backup)...");
     } catch (err) {
       console.error("Mic fallback error:", err);
       setFeedback("Mic error. Check permissions.");
