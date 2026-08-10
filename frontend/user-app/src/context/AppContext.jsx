@@ -459,7 +459,7 @@ export const AppProvider = ({ children }) => {
       view, setView,
       curriculumDb, setCurriculumDb,
       user, setUser, isAuthLoading,
-      t, handleEarnStars, handleEarnBattleStars, handlePurchase, handleEquipItem, handleEquipPet, handleEquipShield, calculateStars, updateCompletion, unmasterVocab, saveEssay, updateVocabStat, updateGrammarStat, getLeaderboard, fetchRealLeaderboard, markDailyComplete, getDailyStatus
+      t, handleEarnStars, handleEarnBattleStars, handlePurchase, handleEquipItem, handleEquipPet, handleEquipShield, calculateStars, updateCompletion, unmasterVocab, saveEssay, updateVocabStat, updateGrammarStat, getLeaderboard, fetchRealLeaderboard, markDailyComplete, getDailyStatus, syncProgress
     }}>
       {children}
     </AppContext.Provider>

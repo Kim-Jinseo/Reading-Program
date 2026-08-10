@@ -29,6 +29,7 @@ export const ProfileModal = ({ onClose }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('isGuest');
     localStorage.removeItem('savedUserData');
+    localStorage.removeItem('voiceBattleClearedByGrade');
     setUser(null); // Setting to null triggers AuthModal to appear
     onClose();
   };
