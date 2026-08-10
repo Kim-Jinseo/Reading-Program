@@ -112,7 +112,16 @@ export const ProfileModal = ({ onClose }) => {
           <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 text-center mb-6">
             <ShieldCheck size={40} className="mx-auto text-indigo-500 mb-3" />
             <h3 className="font-bold text-indigo-900 text-lg mb-1">Administrator Privileges Active</h3>
-            <p className="text-indigo-700 text-sm">You have full access to edit curriculum data.</p>
+            <p className="text-indigo-700 text-sm mb-4">You have full access to edit curriculum data.</p>
+            <button 
+              onClick={() => {
+                localStorage.removeItem('savedUserData');
+                window.location.reload();
+              }}
+              className="px-5 py-2 bg-white text-indigo-600 font-extrabold text-sm rounded-full border border-indigo-200 hover:bg-indigo-100 transition-colors shadow-sm"
+            >
+              Exit Teacher Mode
+            </button>
           </div>
         )}
 
