@@ -155,7 +155,7 @@ export const WritingModule = () => {
                   </div>
                   <h3 className="text-3xl font-black text-slate-800 mb-2">🎉 You have finished all Writing content!</h3>
                   <p className="text-slate-600 font-bold text-lg max-w-md mx-auto mb-6">
-                    You have written responses for all prompts in Grade {grade}! Outstanding creativity!
+                    You have written responses for all prompts in Level {grade === '1-2' ? '1' : grade === '3-4' ? '2' : '3'}! Outstanding creativity!
                   </p>
                   <button 
                     onClick={() => { setFilterResult('completed'); setPage(1); }}
@@ -451,7 +451,7 @@ export const WritingModule = () => {
         </button>
         
         <span className="px-4 py-1.5 rounded-full font-extrabold text-xs bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-sm flex items-center gap-1.5">
-          <PenTool size={14} className="text-indigo-600" /> Writing Practice • Grade {grade}
+          <PenTool size={14} className="text-indigo-600" /> Writing Practice • Level {grade === '1-2' ? '1' : grade === '3-4' ? '2' : '3'}
         </span>
       </div>
       

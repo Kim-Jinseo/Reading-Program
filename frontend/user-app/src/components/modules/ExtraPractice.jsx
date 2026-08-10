@@ -56,7 +56,7 @@ export const ExtraPractice = () => {
         </div>
         <h2 className="text-4xl font-extrabold text-slate-800 mb-6 tracking-tight">Infinite Extra Practice</h2>
         <p className="text-lg text-slate-500 font-medium mb-10 max-w-xl mx-auto">
-          Our AI teacher will instantly generate brand new, never-before-seen vocabulary words matching your exact grade level! You can practice as much as you want.
+          Our AI teacher will instantly generate brand new, never-before-seen vocabulary words matching your exact level! You can practice as much as you want.
         </p>
         <button 
           onClick={generatePractice} 

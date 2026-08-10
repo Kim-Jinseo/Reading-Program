@@ -10,9 +10,9 @@ export const TRANSLATIONS = {
     nav_leaderboard: "Leaderboard",
     nav_shop: "Shop",
     nav_admin: "Admin Panel",
-    grade_1_2: "Grades 1 & 2",
-    grade_3_4: "Grades 3 & 4",
-    grade_5_6: "Grades 5 & 6",
+    grade_1_2: "Level 1",
+    grade_3_4: "Level 2",
+    grade_5_6: "Level 3",
     tab_login: "Log In",
     tab_signup: "Sign Up",
     login_title: "Welcome Back",
@@ -68,7 +68,7 @@ export const TRANSLATIONS = {
     btn_browse_all: "Browse All 🚀",
     btn_keep_practicing: "Keep Practicing ✏️",
     all_mastered_title: "All Mastered! ✨",
-    all_mastered_desc: "You have successfully mastered every concept for this grade level.",
+    all_mastered_desc: "You have successfully mastered every concept for this level.",
 
     // Speaking Module
     daily_speaking_goal: "Daily Speaking Goal",
@@ -82,7 +82,7 @@ export const TRANSLATIONS = {
     daily_reading_title: "Daily Reading 📘",
     daily_reading_desc: "Read a new story and answer questions to test your comprehension!",
     keep_practicing_reading_title: "Keep Practicing 📚",
-    keep_practicing_reading_desc: "Browse the full list of stories in your grade to revisit or practice specific ones.",
+    keep_practicing_reading_desc: "Browse the full list of stories in your level to revisit or practice specific ones.",
 
     // Vocab Module
     daily_vocab_goal: "Daily Vocab Goal",
@@ -104,7 +104,7 @@ export const TRANSLATIONS = {
     daily_mission_title: "Today's Writing Mission",
     daily_mission_desc: "Complete today's writing prompt to earn stars!",
     keep_practicing_title: "Keep Practicing 📚",
-    keep_practicing_desc: "Browse the full list of writing prompts in your grade to practice or improve.",
+    keep_practicing_desc: "Browse the full list of writing prompts in your level to practice or improve.",
     start_writing_btn: "Start Writing 🚀",
     keep_practicing_btn: "Keep Practicing 🚀",
 
@@ -167,9 +167,9 @@ export const TRANSLATIONS = {
     nav_leaderboard: "排行榜",
     nav_shop: "商店",
     nav_admin: "管理面板",
-    grade_1_2: "1 - 2 年级",
-    grade_3_4: "3 - 4 年级",
-    grade_5_6: "5 - 6 年级",
+    grade_1_2: "Level 1",
+    grade_3_4: "Level 2",
+    grade_5_6: "Level 3",
     tab_login: "登录",
     tab_signup: "注册",
     login_title: "欢迎回来",
@@ -225,7 +225,7 @@ export const TRANSLATIONS = {
     btn_browse_all: "浏览全部 🚀",
     btn_keep_practicing: "继续练习 ✏️",
     all_mastered_title: "全部掌握！✨",
-    all_mastered_desc: "你已成功掌握该年级的所有学习概念。",
+    all_mastered_desc: "你已成功掌握该级别的所有学习概念。",
 
     // Speaking Module
     daily_speaking_goal: "每日口语目标",
@@ -239,7 +239,7 @@ export const TRANSLATIONS = {
     daily_reading_title: "每日阅读 📘",
     daily_reading_desc: "阅读一篇新故事并回答问题，检验你的阅读理解能力！",
     keep_practicing_reading_title: "继续练习 📚",
-    keep_practicing_reading_desc: "浏览当前年级的全部故事列表，复习或练习指定故事。",
+    keep_practicing_reading_desc: "浏览当前级别的全部故事列表，复习或练习指定故事。",
 
     // Vocab Module
     daily_vocab_goal: "每日词汇目标",
@@ -261,7 +261,7 @@ export const TRANSLATIONS = {
     daily_mission_title: "今日写作任务",
     daily_mission_desc: "完成今日写作题目以获得星星！",
     keep_practicing_title: "继续练习 📚",
-    keep_practicing_desc: "浏览当前年级的完整写作题目列表，随心练习与提高。",
+    keep_practicing_desc: "浏览当前级别的完整写作题目列表，随心练习与提高。",
     start_writing_btn: "开始写作 🚀",
     keep_practicing_btn: "继续练习 🚀",
 

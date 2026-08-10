@@ -101,9 +101,9 @@ export const AdminDashboardView = () => {
           value={adminGrade} onChange={(e) => setAdminGrade(e.target.value)}
           className="bg-white border-2 border-slate-200 text-slate-800 font-bold px-6 py-3 rounded-2xl focus:outline-none focus:border-indigo-500 shadow-sm cursor-pointer"
         >
-          <option value="1-2">Edit Grades 1-2</option>
-          <option value="3-4">Edit Grades 3-4</option>
-          <option value="5-6">Edit Grades 5-6</option>
+          <option value="1-2">Edit Level 1</option>
+          <option value="3-4">Edit Level 2</option>
+          <option value="5-6">Edit Level 3</option>
         </select>
       </div>
 
