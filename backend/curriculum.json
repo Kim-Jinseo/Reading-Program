@@ -18898,34 +18898,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'My New Bicycle'?",
+            "q": "What main activity takes place in 'My New Bicycle'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "Participating in My New Bicycle",
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'My New Bicycle'?",
+            "q": "Where do the main events happen in 'My New Bicycle'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'My New Bicycle'?",
-            "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of My New Bicycle"
             ],
             "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'My New Bicycle'?",
+            "options": [
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about My New Bicycle",
+              "The opposite story fact"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -18943,34 +18943,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Baking Cookies'?",
+            "q": "What main activity takes place in 'Baking Cookies'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum"
+              "An unmentioned event",
+              "Participating in Baking Cookies",
+              "The opposite activity",
+              "A wrong story activity"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Baking Cookies'?",
+            "q": "Where do the main events happen in 'Baking Cookies'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Baking Cookies"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Baking Cookies'?",
+            "q": "What key detail is highlighted in 'Baking Cookies'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Baking Cookies"
             ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -18988,34 +18988,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Playing in the Rain'?",
+            "q": "What main activity takes place in 'Playing in the Rain'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Playing in the Rain'?",
-            "options": [
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Playing in the Rain'?",
-            "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "A wrong story activity",
+              "Participating in Playing in the Rain",
+              "An unmentioned event",
+              "The opposite activity"
             ],
             "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'Playing in the Rain'?",
+            "options": [
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Playing in the Rain",
+              "In a wrong story place"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Playing in the Rain'?",
+            "options": [
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Playing in the Rain"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -19033,34 +19033,34 @@
         },
         "questions": [
           {
-            "q": "What kind of puppy was adopted in 'My Dog Max'?",
+            "q": "What kind of puppy was adopted in 'Training a New Puppy'?",
             "options": [
-              "A golden retriever",
-              "A brown beagle pup",
               "A fluffy poodle pup",
-              "A small spotted pug"
+              "A brown beagle pup",
+              "A small spotted pug",
+              "A golden retriever"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
             "q": "How long was spent training the puppy each day?",
             "options": [
-              "Sixty minutes time",
-              "Fifteen minutes time",
               "Thirty minutes time",
-              "Forty-five minutes"
+              "Sixty minutes time",
+              "Forty-five minutes",
+              "Fifteen minutes time"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
             "q": "What basic words did Barnaby learn to follow?",
             "options": [
-              "Fetch, heel, and stay",
               "Sit, stay, and come",
-              "Jump, roll, and bark",
-              "Stand, shake, and sit"
+              "Fetch, heel, and stay",
+              "Stand, shake, and sit",
+              "Jump, roll, and bark"
             ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -19078,34 +19078,34 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'The Playground'?",
+            "q": "What main activity takes place in 'The Playground'?",
             "options": [
-              "A nice family memory",
-              "A good learning step",
-              "A fun weekend trip",
-              "A successful project"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "When did the story events happen in 'The Playground'?",
-            "options": [
-              "Late in evening time",
-              "Early morning sunrise",
-              "During daytime hours",
-              "On a rainy afternoon"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did the main event take place in 'The Playground'?",
-            "options": [
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard"
+              "Participating in Playground",
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity"
             ],
             "correct": 0
+          },
+          {
+            "q": "Where do the main events happen in 'The Playground'?",
+            "options": [
+              "In a wrong story place",
+              "At the site of Playground",
+              "At an unmentioned spot",
+              "Far away from story"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'The Playground'?",
+            "options": [
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Playground",
+              "A wrong story fact"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -19123,34 +19123,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Eating Watermelon'?",
+            "q": "What main activity takes place in 'Eating Watermelon'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Eating Watermelon"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main outcome is described in 'Eating Watermelon'?",
+            "q": "Where do the main events happen in 'Eating Watermelon'?",
             "options": [
-              "A nice family memory",
-              "A good learning step",
-              "A successful project",
-              "A fun weekend trip"
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Eating Watermelon"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Eating Watermelon'?",
+            "q": "What key detail is highlighted in 'Eating Watermelon'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "A wrong story fact",
+              "A key detail about Eating Watermelon",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
-            "correct": 0
+            "correct": 1
           }
         ]
       },
@@ -19168,34 +19168,34 @@
         },
         "questions": [
           {
-            "q": "What color kite did Sam fly in 'Flying a Red Kite'?",
+            "q": "What color was Sam's kite in 'Flying a Red Kite'?",
             "options": [
-              "A bright red kite",
-              "A green star kite",
-              "A dark blue kite",
-              "A yellow paper kite"
+              "Shiny blue color",
+              "Dark green color",
+              "Bright yellow color",
+              "Bright red color"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where did Sam run while holding the string?",
+            "q": "Where did Sam run while holding the kite string?",
             "options": [
-              "Around the school yard",
-              "Up the wooden hill",
+              "Along the ocean beach",
               "Across the green park",
-              "Along the sandy beach"
+              "Up the wooden hill",
+              "Around the gym hall"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "What carried the kite high into the sky?",
+            "q": "What carried the kite high up into the sky?",
             "options": [
-              "A strong spring wind",
-              "A soft gentle draft",
-              "A warm summer gust",
-              "A cool morning breeze"
+              "Soft morning fog",
+              "A cool night breeze",
+              "A heavy rain storm",
+              "A strong spring wind"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -19213,34 +19213,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Building a Snowman'?",
+            "q": "What main activity takes place in 'Building a Snowman'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
+              "Participating in Building a Snowman",
+              "A wrong story activity",
+              "The opposite activity",
+              "An unmentioned event"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Building a Snowman'?",
+            "q": "Where do the main events happen in 'Building a Snowman'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Building a Snowman"
             ],
             "correct": 3
           },
           {
-            "q": "What main outcome is described in 'Building a Snowman'?",
+            "q": "What key detail is highlighted in 'Building a Snowman'?",
             "options": [
-              "A nice family memory",
-              "A fun weekend trip",
-              "A good learning step",
-              "A successful project"
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Building a Snowman",
+              "An unmentioned detail"
             ],
-            "correct": 3
+            "correct": 2
           }
         ]
       },
@@ -19258,34 +19258,34 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'The School Art Class'?",
+            "q": "What main activity takes place in 'The School Art Class'?",
             "options": [
-              "The main students",
-              "A friendly neighbor",
-              "The school librarian",
-              "An old family friend"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'The School Art Class'?",
-            "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in School Art Class"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'The School Art Class'?",
+            "q": "Where do the main events happen in 'The School Art Class'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of School Art Class",
+              "At an unmentioned spot"
             ],
             "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'The School Art Class'?",
+            "options": [
+              "A key detail about School Art Class",
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -19303,32 +19303,32 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Making Fruit Salad'?",
+            "q": "What main activity takes place in 'Making Fruit Salad'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Making Fruit Salad'?",
-            "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location"
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Making Fruit Salad"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Making Fruit Salad'?",
+            "q": "Where do the main events happen in 'Making Fruit Salad'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Making Fruit Salad",
+              "At an unmentioned spot"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Making Fruit Salad'?",
+            "options": [
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Making Fruit Salad",
+              "The opposite story fact"
             ],
             "correct": 2
           }
@@ -19348,34 +19348,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Playing Hide and Seek'?",
+            "q": "What main activity takes place in 'Playing Hide and Seek'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "Participating in Playing Hide and Seek",
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "What main outcome is described in 'Playing Hide and Seek'?",
+            "q": "Where do the main events happen in 'Playing Hide and Seek'?",
             "options": [
-              "A nice family memory",
-              "A successful project",
-              "A fun weekend trip",
-              "A good learning step"
+              "At the site of Playing Hide and Seek",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Playing Hide and Seek'?",
+            "q": "What key detail is highlighted in 'Playing Hide and Seek'?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
+              "A key detail about Playing Hide and Seek",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
-            "correct": 3
+            "correct": 0
           }
         ]
       },
@@ -19393,34 +19393,34 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'My Little Kitten'?",
+            "q": "What main activity takes place in 'My Little Kitten'?",
             "options": [
-              "A fun weekend trip",
-              "A good learning step",
-              "A nice family memory",
-              "A successful project"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'My Little Kitten'?",
-            "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'My Little Kitten'?",
-            "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "The opposite activity",
+              "Participating in My Little Kitten",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
             "correct": 1
+          },
+          {
+            "q": "Where do the main events happen in 'My Little Kitten'?",
+            "options": [
+              "Far away from story",
+              "At the site of My Little Kitten",
+              "At an unmentioned spot",
+              "In a wrong story place"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'My Little Kitten'?",
+            "options": [
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about My Little Kitten",
+              "An unmentioned detail"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -19438,34 +19438,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'A Sunny Picnic'?",
+            "q": "What main activity takes place in 'A Sunny Picnic'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
+              "A wrong story activity",
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Sunny Picnic"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'A Sunny Picnic'?",
+            "q": "Where do the main events happen in 'A Sunny Picnic'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Sunny Picnic",
+              "In a wrong story place"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What main outcome is described in 'A Sunny Picnic'?",
+            "q": "What key detail is highlighted in 'A Sunny Picnic'?",
             "options": [
-              "A nice family memory",
-              "A successful project",
-              "A good learning step",
-              "A fun weekend trip"
+              "A key detail about Sunny Picnic",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
             ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -19483,22 +19483,22 @@
         },
         "questions": [
           {
-            "q": "When did Maya visit the public library in 'Reading a Storybook'?",
+            "q": "When did Maya visit the public library in 'A Trip to the Library'?",
             "options": [
               "On Sunday evening",
-              "On Friday afternoon",
               "On Saturday morning",
+              "On Friday afternoon",
               "On Monday morning"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
             "q": "Which special area did Maya explore inside?",
             "options": [
+              "The quiet study hall",
               "The computer lab room",
-              "The outdoor park cafe",
               "The children's section",
-              "The quiet study hall"
+              "The outdoor park cafe"
             ],
             "correct": 2
           },
@@ -19528,34 +19528,34 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Swimming in the Pool'?",
+            "q": "What main activity takes place in 'Swimming in the Pool'?",
             "options": [
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard"
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Swimming in the Pool",
+              "A wrong story activity"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Swimming in the Pool'?",
+            "q": "Where do the main events happen in 'Swimming in the Pool'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Swimming in the Pool"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Swimming in the Pool'?",
+            "q": "What key detail is highlighted in 'Swimming in the Pool'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Swimming in the Pool"
             ],
-            "correct": 0
+            "correct": 3
           }
         ]
       },
@@ -19573,44 +19573,44 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'Mixing Colors in Art'?",
+            "q": "What main activity takes place in 'Mixing Colors in Art'?",
             "options": [
-              "A friendly neighbor",
-              "An old family friend",
-              "The school librarian",
-              "The main students"
+              "Participating in Mixing Colors in Art",
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Mixing Colors in Art'?",
+            "q": "Where do the main events happen in 'Mixing Colors in Art'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
+              "At the site of Mixing Colors in Art",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Mixing Colors in Art'?",
+            "q": "What key detail is highlighted in 'Mixing Colors in Art'?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
+              "A key detail about Mixing Colors in Art",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Who participated in the activity in 'Mixing Colors in Art'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "An old family friend",
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian"
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "Because they were forced"
             ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -19628,44 +19628,44 @@
         },
         "questions": [
           {
-            "q": "What plants did the class grow in 'Planting Sunflowers'?",
+            "q": "What main activity takes place in 'Planting Sunflowers'?",
             "options": [
-              "Purple petunias",
-              "Yellow sunflowers",
-              "Red rose bushes",
-              "White lily flowers"
+              "An unmentioned event",
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in Planting Sunflowers"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "Where did students plant their seeds?",
+            "q": "Where do the main events happen in 'Planting Sunflowers'?",
             "options": [
-              "In rich garden soil",
-              "In plastic water cups",
-              "In wooden window box",
-              "In small clay pots"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Planting Sunflowers",
+              "Far away from story"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Planting Sunflowers'?",
+            "options": [
+              "A key detail about Planting Sunflowers",
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
             "correct": 0
           },
           {
-            "q": "How often did children water the young sprouts?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Only on rainy days",
-              "Every single morning",
-              "Twice every week",
-              "Every afternoon time"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What helped the flowers grow tall and strong?",
-            "options": [
-              "Fresh morning dew",
-              "Soft garden shade",
-              "Bright warm sunlight",
-              "Cool night breeze"
-            ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -19683,42 +19683,42 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Riding a Scooter'?",
+            "q": "What main activity takes place in 'Riding a Scooter'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Riding a Scooter'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Riding a Scooter",
+              "A wrong story activity"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Riding a Scooter'?",
+            "q": "Where do the main events happen in 'Riding a Scooter'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Riding a Scooter",
+              "In a wrong story place"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Riding a Scooter'?",
+            "q": "What key detail is highlighted in 'Riding a Scooter'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
+              "A key detail about Riding a Scooter",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
             "correct": 2
           }
@@ -19738,42 +19738,42 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Visiting Grandma's Farm'?",
+            "q": "What main activity takes place in 'Visiting Grandma's Farm'?",
             "options": [
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Visiting Grandma's Farm"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Visiting Grandma's Farm'?",
+            "q": "Where do the main events happen in 'Visiting Grandma's Farm'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Visiting Grandma's Farm'?",
-            "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Visiting Grandma's Farm",
+              "Far away from story"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Visiting Grandma's Farm'?",
+            "q": "What key detail is highlighted in 'Visiting Grandma's Farm'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
+              "A key detail about Visiting Grandma's Farm",
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal"
             ],
             "correct": 3
           }
@@ -19793,44 +19793,44 @@
         },
         "questions": [
           {
-            "q": "When did the story events happen in 'Making a Birthday Card'?",
+            "q": "What main activity takes place in 'Making a Birthday Card'?",
             "options": [
-              "Early morning sunrise",
-              "On a rainy afternoon",
-              "Late in evening time",
-              "During daytime hours"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Making a Birthday Card'?",
-            "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Making a Birthday Card'?",
-            "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Making a Birthday Card",
+              "A wrong story activity"
             ],
             "correct": 2
           },
           {
-            "q": "What main outcome is described in 'Making a Birthday Card'?",
+            "q": "Where do the main events happen in 'Making a Birthday Card'?",
             "options": [
-              "A successful project",
-              "A nice family memory",
-              "A good learning step",
-              "A fun weekend trip"
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Making a Birthday Card",
+              "In a wrong story place"
             ],
-            "correct": 0
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Making a Birthday Card'?",
+            "options": [
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Making a Birthday Card",
+              "The opposite story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -19848,44 +19848,44 @@
         },
         "questions": [
           {
-            "q": "When did Maya visit the public library in 'The Class Library Corner'?",
+            "q": "When did Maya visit the public library in 'A Trip to the Library'?",
             "options": [
-              "On Sunday evening",
               "On Friday afternoon",
-              "On Saturday morning",
-              "On Monday morning"
+              "On Monday morning",
+              "On Sunday evening",
+              "On Saturday morning"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
             "q": "Which special area did Maya explore inside?",
             "options": [
-              "The children's section",
               "The computer lab room",
               "The quiet study hall",
-              "The outdoor park cafe"
+              "The outdoor park cafe",
+              "The children's section"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
             "q": "How many mystery chapter books did Maya select?",
             "options": [
+              "Five poetry books",
               "Three mystery books",
               "Four history books",
-              "Two science books",
-              "Five poetry books"
+              "Two science books"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "What item did Maya use to borrow her books?",
+            "q": "Why did Maya use her library card?",
             "options": [
-              "Her library card",
-              "Her student ID card",
-              "Her school bus pass",
-              "Her paper bus ticket"
+              "To pay for a lunch ticket",
+              "To play computer games",
+              "To borrow books to read",
+              "To buy new pencils"
             ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -19903,44 +19903,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Backyard Camping'?",
+            "q": "What main activity takes place in 'Backyard Camping'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Backyard Camping"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Backyard Camping'?",
+            "q": "Where do the main events happen in 'Backyard Camping'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard"
+              "At the site of Backyard Camping",
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Backyard Camping'?",
+            "q": "What key detail is highlighted in 'Backyard Camping'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Backyard Camping"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Backyard Camping'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab"
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -19958,44 +19958,44 @@
         },
         "questions": [
           {
-            "q": "What drink did Mia prepare in 'Making Lemonade'?",
+            "q": "What main activity takes place in 'Making Lemonade'?",
             "options": [
-              "Fresh cold lemonade",
-              "Fresh orange juice",
-              "Sweet apple juice",
-              "Hot berry tea cup"
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in Making Lemonade",
+              "An unmentioned event"
             ],
-            "correct": 0
+            "correct": 2
           },
           {
-            "q": "What fruit did Mia squeeze into the pitcher?",
+            "q": "Where do the main events happen in 'Making Lemonade'?",
             "options": [
-              "Sweet red apples",
-              "Sour grapefruits",
-              "Fresh green limes",
-              "Ripe yellow lemons"
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Making Lemonade",
+              "In a wrong story place"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Making Lemonade'?",
+            "options": [
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Making Lemonade"
             ],
             "correct": 3
           },
           {
-            "q": "What sweetener did Mia mix into the juice?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Brown maple syrup",
-              "White cane sugar",
-              "Natural sweet honey",
-              "Sweet fruit drops"
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "Because they were forced"
             ],
             "correct": 1
-          },
-          {
-            "q": "What did Mia add to make the drink cold?",
-            "options": [
-              "Chilled mint leaves",
-              "Cold spring water",
-              "Crushed ice cubes",
-              "Frozen berry fruits"
-            ],
-            "correct": 2
           }
         ]
       },
@@ -20013,44 +20013,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Family Board Game Night'?",
+            "q": "What main activity takes place in 'Family Board Game Night'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Family Board Game Night",
+              "The opposite activity"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where do the main events happen in 'Family Board Game Night'?",
+            "options": [
+              "At the site of Family Board Game Night",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Family Board Game Night'?",
+            "q": "What key detail is highlighted in 'Family Board Game Night'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Family Board Game Night",
+              "A wrong story fact"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Family Board Game Night'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Family Board Game Night'?",
-            "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
-            ],
-            "correct": 1
+            "correct": 0
           }
         ]
       },
@@ -20068,44 +20068,44 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'Collecting Autumn Leaves'?",
+            "q": "What main activity takes place in 'Collecting Autumn Leaves'?",
             "options": [
-              "A good learning step",
-              "A nice family memory",
-              "A fun weekend trip",
-              "A successful project"
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Collecting Autumn Leaves",
+              "A wrong story activity"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Collecting Autumn Leaves'?",
+            "q": "Where do the main events happen in 'Collecting Autumn Leaves'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Collecting Autumn Leaves'?",
-            "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "At an unmentioned spot",
+              "At the site of Collecting Autumn Leaves",
+              "Far away from story",
+              "In a wrong story place"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Collecting Autumn Leaves'?",
+            "q": "What key detail is highlighted in 'Collecting Autumn Leaves'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "A key detail about Collecting Autumn Leaves",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact"
             ],
             "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -20123,44 +20123,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Feeding Ducks at the Pond'?",
+            "q": "What main activity takes place in 'Feeding Ducks at the Pond'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
+              "Participating in Feeding Ducks at the Pond",
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Feeding Ducks at the Pond'?",
+            "q": "Where do the main events happen in 'Feeding Ducks at the Pond'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Feeding Ducks at the Pond'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Feeding Ducks at the Pond'?",
-            "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "At an unmentioned spot",
+              "At the site of Feeding Ducks at the Pond",
+              "In a wrong story place",
+              "Far away from story"
             ],
             "correct": 1
+          },
+          {
+            "q": "What key detail is highlighted in 'Feeding Ducks at the Pond'?",
+            "options": [
+              "A key detail about Feeding Ducks at the Pond",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "Because they were forced"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -20178,44 +20178,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Building Lego Houses'?",
+            "q": "What main activity takes place in 'Building Lego Houses'?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Building Lego Houses"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'Building Lego Houses'?",
+            "options": [
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Building Lego Houses",
+              "Far away from story"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Building Lego Houses'?",
+            "q": "What key detail is highlighted in 'Building Lego Houses'?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Building Lego Houses",
+              "The opposite story fact"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Building Lego Houses'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem"
             ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Building Lego Houses'?",
-            "options": [
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum"
-            ],
-            "correct": 0
+            "correct": 1
           }
         ]
       },
@@ -20233,44 +20233,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Sunday Pancakes'?",
+            "q": "What treat was prepared in '{title}'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "Fresh delicious food",
+              "Hot chocolate drinks",
+              "Cold ice cream cups",
+              "Warm sweet fruit pies"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Where was the food prepared?",
+            "options": [
+              "In a city restaurant",
+              "In the home kitchen",
+              "Inside a library hall",
+              "Outside at school park"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Sunday Pancakes'?",
+            "q": "What ingredients were used to make the food?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
+              "Fresh fruits and juice",
+              "Water, oil, and mustard",
+              "Rice, beans, and sauce",
+              "Salt, pepper, and vinegar"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Sunday Pancakes'?",
+            "q": "Why did the family share the meal together?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "Because they were forced",
+              "To sell to neighbors",
+              "To enjoy a nice treat",
+              "To win a cook contest"
             ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Sunday Pancakes'?",
-            "options": [
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum"
-            ],
-            "correct": 1
+            "correct": 2
           }
         ]
       },
@@ -20288,42 +20288,42 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'The Playground Swing'?",
+            "q": "What main activity takes place in 'The Playground Swing'?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
+              "The opposite activity",
+              "Participating in Playground Swing",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'The Playground Swing'?",
+            "q": "Where do the main events happen in 'The Playground Swing'?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location"
+              "At an unmentioned spot",
+              "Far away from story",
+              "In a wrong story place",
+              "At the site of Playground Swing"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'The Playground Swing'?",
+            "q": "What key detail is highlighted in 'The Playground Swing'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum"
+              "A wrong story fact",
+              "A key detail about Playground Swing",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'The Playground Swing'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab"
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
             ],
             "correct": 2
           }
@@ -20343,44 +20343,44 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'My Favorite Stuffed Bear'?",
+            "q": "What main activity takes place in 'My Favorite Stuffed Bear'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in My Favorite Stuffed Bear",
+              "An unmentioned event"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'My Favorite Stuffed Bear'?",
+            "q": "Where do the main events happen in 'My Favorite Stuffed Bear'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
+              "Far away from story",
+              "At the site of My Favorite Stuffed Bear",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
             "correct": 1
           },
           {
-            "q": "What main outcome is described in 'My Favorite Stuffed Bear'?",
+            "q": "What key detail is highlighted in 'My Favorite Stuffed Bear'?",
             "options": [
-              "A successful project",
-              "A nice family memory",
-              "A good learning step",
-              "A fun weekend trip"
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about My Favorite Stuffed Bear"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "What main outcome is described in 'My Favorite Stuffed Bear'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "A nice family memory",
-              "A fun weekend trip",
-              "A successful project",
-              "A good learning step"
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -20398,54 +20398,54 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'The School Relay Race'?",
+            "q": "What main activity takes place in 'The School Relay Race'?",
             "options": [
-              "The main students",
-              "A friendly neighbor",
-              "The school librarian",
-              "An old family friend"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'The School Relay Race'?",
-            "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in School Relay Race"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'The School Relay Race'?",
+            "q": "Where do the main events happen in 'The School Relay Race'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of School Relay Race",
+              "Far away from story"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'The School Relay Race'?",
+            "options": [
+              "A key detail about School Relay Race",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'The School Relay Race'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Who participated in the activity in 'The School Relay Race'?",
-            "options": [
-              "The school librarian",
-              "The main students",
-              "A friendly neighbor",
-              "An old family friend"
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem"
             ],
             "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -20463,54 +20463,54 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Visiting the Toy Store'?",
+            "q": "What main activity takes place in 'Visiting the Toy Store'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Visiting the Toy Store'?",
-            "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Visiting the Toy Store'?",
-            "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "An unmentioned event",
+              "Participating in Visiting the Toy Store",
+              "The opposite activity",
+              "A wrong story activity"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Visiting the Toy Store'?",
+            "q": "Where do the main events happen in 'Visiting the Toy Store'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Visiting the Toy Store"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Visiting the Toy Store'?",
+            "q": "What key detail is highlighted in 'Visiting the Toy Store'?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Visiting the Toy Store"
             ],
             "correct": 3
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "Because they were forced"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Angry and frustrated",
+              "Sad and disappointed",
+              "Happy and satisfied",
+              "Scared and afraid"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -20528,54 +20528,54 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Making Homemade Pizza'?",
+            "q": "What treat was prepared in '{title}'?",
             "options": [
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Making Homemade Pizza'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Making Homemade Pizza'?",
-            "options": [
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Making Homemade Pizza'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
+              "Hot chocolate drinks",
+              "Warm sweet fruit pies",
+              "Fresh delicious food",
+              "Cold ice cream cups"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Making Homemade Pizza'?",
+            "q": "Where was the food prepared?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum"
+              "In the home kitchen",
+              "In a city restaurant",
+              "Outside at school park",
+              "Inside a library hall"
             ],
             "correct": 0
+          },
+          {
+            "q": "What ingredients were used to make the food?",
+            "options": [
+              "Salt, pepper, and vinegar",
+              "Fresh fruits and juice",
+              "Water, oil, and mustard",
+              "Rice, beans, and sauce"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Why did the family share the meal together?",
+            "options": [
+              "To sell to neighbors",
+              "To win a cook contest",
+              "To enjoy a nice treat",
+              "Because they were forced"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did everyone feel eating the fresh food?",
+            "options": [
+              "Bored and sleepy",
+              "Delighted and full",
+              "Scared and worried",
+              "Sad and disappointed"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -20593,52 +20593,52 @@
         },
         "questions": [
           {
-            "q": "What plants did the class grow in 'Strawberry Gardening'?",
+            "q": "What main activity takes place in 'Strawberry Gardening'?",
             "options": [
-              "Yellow sunflowers",
-              "Red rose bushes",
-              "Purple petunias",
-              "White lily flowers"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Strawberry Gardening"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'Strawberry Gardening'?",
+            "options": [
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Strawberry Gardening"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'Strawberry Gardening'?",
+            "options": [
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about Strawberry Gardening",
+              "A wrong story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
             "correct": 0
           },
           {
-            "q": "Where did students plant their seeds?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "In rich garden soil",
-              "In plastic water cups",
-              "In wooden window box",
-              "In small clay pots"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "How often did children water the young sprouts?",
-            "options": [
-              "Twice every week",
-              "Every single morning",
-              "Only on rainy days",
-              "Every afternoon time"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What helped the flowers grow tall and strong?",
-            "options": [
-              "Soft garden shade",
-              "Bright warm sunlight",
-              "Fresh morning dew",
-              "Cool night breeze"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What insects visited the blooming flowers?",
-            "options": [
-              "Dragonflies and beetles",
-              "Moths and grasshoppers",
-              "Ladybugs and ants",
-              "Honeybees and butterflies"
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Happy and satisfied"
             ],
             "correct": 3
           }
@@ -20658,52 +20658,52 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'A Day at the Zoo'?",
+            "q": "What main activity takes place in 'A Day at the Zoo'?",
             "options": [
-              "A friendly neighbor",
-              "The school librarian",
-              "The main students",
-              "An old family friend"
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Day at the Zoo",
+              "An unmentioned event"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'A Day at the Zoo'?",
+            "q": "Where do the main events happen in 'A Day at the Zoo'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Who participated in the activity in 'A Day at the Zoo'?",
-            "options": [
-              "A friendly neighbor",
-              "An old family friend",
-              "The main students",
-              "The school librarian"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did the main event take place in 'A Day at the Zoo'?",
-            "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "In a wrong story place",
+              "At the site of Day at the Zoo",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
             "correct": 1
           },
           {
-            "q": "Who participated in the activity in 'A Day at the Zoo'?",
+            "q": "What key detail is highlighted in 'A Day at the Zoo'?",
             "options": [
-              "An old family friend",
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian"
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Day at the Zoo",
+              "An unmentioned detail"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To achieve a great goal",
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Angry and frustrated"
             ],
             "correct": 2
           }
@@ -20723,54 +20723,54 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Learning Piano Notes'?",
+            "q": "What main activity takes place in 'Learning Piano Notes'?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab"
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Learning Piano Notes"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'Learning Piano Notes'?",
+            "options": [
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Learning Piano Notes",
+              "In a wrong story place"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Learning Piano Notes'?",
+            "q": "What key detail is highlighted in 'Learning Piano Notes'?",
             "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab"
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about Learning Piano Notes",
+              "A wrong story fact"
             ],
             "correct": 2
           },
           {
-            "q": "Who participated in the activity in 'Learning Piano Notes'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "The main students",
-              "The school librarian",
-              "An old family friend",
-              "A friendly neighbor"
+              "Because they were forced",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Learning Piano Notes'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard"
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated"
             ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Learning Piano Notes'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
-            ],
-            "correct": 2
+            "correct": 1
           }
         ]
       },
@@ -20788,54 +20788,54 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Cleaning My Bedroom'?",
+            "q": "What main activity takes place in 'Cleaning My Bedroom'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "A wrong story activity",
+              "Participating in Cleaning My Bedroom",
+              "The opposite activity",
+              "An unmentioned event"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Cleaning My Bedroom'?",
+            "q": "Where do the main events happen in 'Cleaning My Bedroom'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Cleaning My Bedroom'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Cleaning My Bedroom"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Cleaning My Bedroom'?",
+            "q": "What key detail is highlighted in 'Cleaning My Bedroom'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
+              "An unmentioned detail",
+              "A key detail about Cleaning My Bedroom",
+              "The opposite story fact",
+              "A wrong story fact"
             ],
-            "correct": 0
+            "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Cleaning My Bedroom'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard"
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced"
             ],
-            "correct": 2
+            "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -20853,54 +20853,54 @@
         },
         "questions": [
           {
-            "q": "When did Maya visit the public library in 'The School Book Fair'?",
+            "q": "When did Maya visit the public library in 'A Trip to the Library'?",
             "options": [
-              "On Saturday morning",
-              "On Sunday evening",
+              "On Monday morning",
               "On Friday afternoon",
-              "On Monday morning"
+              "On Sunday evening",
+              "On Saturday morning"
             ],
-            "correct": 0
+            "correct": 3
           },
           {
             "q": "Which special area did Maya explore inside?",
             "options": [
-              "The outdoor park cafe",
               "The children's section",
+              "The outdoor park cafe",
               "The quiet study hall",
               "The computer lab room"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
             "q": "How many mystery chapter books did Maya select?",
             "options": [
               "Five poetry books",
-              "Four history books",
+              "Three mystery books",
               "Two science books",
-              "Three mystery books"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What item did Maya use to borrow her books?",
-            "options": [
-              "Her paper bus ticket",
-              "Her library card",
-              "Her school bus pass",
-              "Her student ID card"
+              "Four history books"
             ],
             "correct": 1
           },
           {
-            "q": "What type of bag did Maya put her books into?",
+            "q": "Why did Maya use her library card?",
             "options": [
-              "A soft cloth bag",
-              "A clear plastic bag",
-              "A heavy leather bag",
-              "A green paper bag"
+              "To play computer games",
+              "To borrow books to read",
+              "To buy new pencils",
+              "To pay for a lunch ticket"
             ],
-            "correct": 0
+            "correct": 1
+          },
+          {
+            "q": "How did Maya feel reading her new books at home?",
+            "options": [
+              "Angry and upset",
+              "Scared and worried",
+              "Happy and entertained",
+              "Sad and lonely"
+            ],
+            "correct": 2
           }
         ]
       },
@@ -20918,54 +20918,54 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'Cardboard Castle'?",
+            "q": "What main activity takes place in 'Cardboard Castle'?",
             "options": [
-              "A fun weekend trip",
-              "A nice family memory",
-              "A successful project",
-              "A good learning step"
+              "An unmentioned event",
+              "Participating in Cardboard Castle",
+              "A wrong story activity",
+              "The opposite activity"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Cardboard Castle'?",
+            "q": "Where do the main events happen in 'Cardboard Castle'?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Cardboard Castle'?",
-            "options": [
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard"
+              "At the site of Cardboard Castle",
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Cardboard Castle'?",
+            "q": "What key detail is highlighted in 'Cardboard Castle'?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact",
+              "A key detail about Cardboard Castle"
             ],
             "correct": 3
           },
           {
-            "q": "What main outcome is described in 'Cardboard Castle'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "A fun weekend trip",
-              "A good learning step",
-              "A successful project",
-              "A nice family memory"
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "To achieve a great goal"
             ],
-            "correct": 2
+            "correct": 3
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -20983,52 +20983,52 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'Flying a Toy Airplane'?",
+            "q": "What main activity takes place in 'Flying a Toy Airplane'?",
             "options": [
-              "A nice family memory",
-              "A good learning step",
-              "A fun weekend trip",
-              "A successful project"
+              "Participating in Flying a Toy Airplane",
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Flying a Toy Airplane'?",
+            "q": "Where do the main events happen in 'Flying a Toy Airplane'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
+              "At the site of Flying a Toy Airplane",
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Flying a Toy Airplane'?",
+            "q": "What key detail is highlighted in 'Flying a Toy Airplane'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "A key detail about Flying a Toy Airplane",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Flying a Toy Airplane'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Inside the school lab",
-              "Near the art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main outcome is described in 'Flying a Toy Airplane'?",
-            "options": [
-              "A fun weekend trip",
-              "A good learning step",
-              "A nice family memory",
-              "A successful project"
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Happy and satisfied"
             ],
             "correct": 3
           }
@@ -21048,54 +21048,54 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Hot Chocolate in Winter'?",
+            "q": "What main activity takes place in 'Hot Chocolate in Winter'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
+              "A wrong story activity",
+              "Participating in Hot Chocolate in Winter",
+              "The opposite activity",
+              "An unmentioned event"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Hot Chocolate in Winter'?",
+            "q": "Where do the main events happen in 'Hot Chocolate in Winter'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did the main event take place in 'Hot Chocolate in Winter'?",
-            "options": [
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Hot Chocolate in Winter'?",
-            "options": [
-              "Near the art museum",
-              "In the city park yard",
-              "Inside the school lab",
-              "At the story location"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story",
+              "At the site of Hot Chocolate in Winter"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Hot Chocolate in Winter'?",
+            "q": "What key detail is highlighted in 'Hot Chocolate in Winter'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum"
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Hot Chocolate in Winter"
             ],
-            "correct": 0
+            "correct": 3
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "Because they were forced"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -21113,52 +21113,52 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'Lake Picnic Adventure'?",
+            "q": "What main activity takes place in 'Lake Picnic Adventure'?",
             "options": [
-              "A nice family memory",
-              "A successful project",
-              "A good learning step",
-              "A fun weekend trip"
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Lake Picnic Adventure",
+              "A wrong story activity"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where do the main events happen in 'Lake Picnic Adventure'?",
+            "options": [
+              "At the site of Lake Picnic Adventure",
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'Lake Picnic Adventure'?",
+            "options": [
+              "A wrong story fact",
+              "A key detail about Lake Picnic Adventure",
+              "The opposite story fact",
+              "An unmentioned detail"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Lake Picnic Adventure'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Lake Picnic Adventure'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Lake Picnic Adventure'?",
-            "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What main outcome is described in 'Lake Picnic Adventure'?",
-            "options": [
-              "A successful project",
-              "A fun weekend trip",
-              "A good learning step",
-              "A nice family memory"
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Angry and frustrated",
+              "Sad and disappointed"
             ],
             "correct": 0
           }
@@ -21178,54 +21178,54 @@
         },
         "questions": [
           {
-            "q": "When did the story events happen in 'Caring for a Goldfish'?",
+            "q": "What main activity takes place in 'Caring for a Goldfish'?",
             "options": [
-              "Late in evening time",
-              "On a rainy afternoon",
-              "Early morning sunrise",
-              "During daytime hours"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Caring for a Goldfish"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Caring for a Goldfish'?",
+            "q": "Where do the main events happen in 'Caring for a Goldfish'?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
+              "At the site of Caring for a Goldfish",
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Caring for a Goldfish'?",
+            "q": "What key detail is highlighted in 'Caring for a Goldfish'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard"
+              "A key detail about Caring for a Goldfish",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Caring for a Goldfish'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
-            "correct": 2
+            "correct": 1
           },
           {
-            "q": "When did the story events happen in 'Caring for a Goldfish'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Early morning sunrise",
-              "Late in evening time",
-              "On a rainy afternoon",
-              "During daytime hours"
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid"
             ],
-            "correct": 3
+            "correct": 2
           }
         ]
       },
@@ -21243,54 +21243,54 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'Playing Tag at Recess'?",
+            "q": "What main activity takes place in 'Playing Tag at Recess'?",
             "options": [
-              "The main students",
-              "An old family friend",
-              "The school librarian",
-              "A friendly neighbor"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What main outcome is described in 'Playing Tag at Recess'?",
-            "options": [
-              "A fun weekend trip",
-              "A successful project",
-              "A nice family memory",
-              "A good learning step"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Playing Tag at Recess'?",
-            "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Who participated in the activity in 'Playing Tag at Recess'?",
-            "options": [
-              "The school librarian",
-              "A friendly neighbor",
-              "The main students",
-              "An old family friend"
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in Playing Tag at Recess",
+              "A wrong story activity"
             ],
             "correct": 2
           },
           {
-            "q": "Who participated in the activity in 'Playing Tag at Recess'?",
+            "q": "Where do the main events happen in 'Playing Tag at Recess'?",
             "options": [
-              "The school librarian",
-              "The main students",
-              "An old family friend",
-              "A friendly neighbor"
+              "At the site of Playing Tag at Recess",
+              "Far away from story",
+              "At an unmentioned spot",
+              "In a wrong story place"
             ],
-            "correct": 1
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'Playing Tag at Recess'?",
+            "options": [
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Playing Tag at Recess",
+              "The opposite story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "Because they were forced"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Happy and satisfied"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -21308,54 +21308,54 @@
         },
         "questions": [
           {
-            "q": "What main outcome is described in 'Drawing a Rainbow'?",
+            "q": "What main activity takes place in 'Drawing a Rainbow'?",
             "options": [
-              "A nice family memory",
-              "A successful project",
-              "A good learning step",
-              "A fun weekend trip"
+              "The opposite activity",
+              "An unmentioned event",
+              "Participating in Drawing a Rainbow",
+              "A wrong story activity"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Where do the main events happen in 'Drawing a Rainbow'?",
+            "options": [
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of Drawing a Rainbow"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'Drawing a Rainbow'?",
+            "options": [
+              "A key detail about Drawing a Rainbow",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A wrong story fact"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Drawing a Rainbow'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard"
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Angry and frustrated"
             ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Drawing a Rainbow'?",
-            "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Drawing a Rainbow'?",
-            "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "What main outcome is described in 'Drawing a Rainbow'?",
-            "options": [
-              "A successful project",
-              "A nice family memory",
-              "A fun weekend trip",
-              "A good learning step"
-            ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -21373,64 +21373,64 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
+            "q": "What main activity takes place in 'Building a Treehouse'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "Participating in Building a Treehouse",
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity"
             ],
-            "correct": 2
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
+            "q": "Where do the main events happen in 'Building a Treehouse'?",
             "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
+              "At the site of Building a Treehouse",
+              "Far away from story",
+              "In a wrong story place",
+              "At an unmentioned spot"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'Building a Treehouse'?",
+            "options": [
+              "A wrong story fact",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Building a Treehouse"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "Near the art museum",
-              "In the city park yard"
+              "Because they were forced",
+              "To cause a big problem",
+              "To achieve a great goal",
+              "For an unmentioned reason"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Sad and disappointed"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "Learning and enjoying Building a Treehouse",
+              "Traveling around world",
+              "Fixing a broken car",
+              "Buying new furniture"
             ],
             "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
-            "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "Where did the main event take place in 'Building a Treehouse'?",
-            "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
-            ],
-            "correct": 1
           }
         ]
       },
@@ -21448,64 +21448,64 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'School Science Project'?",
+            "q": "What main activity takes place in 'School Science Project'?",
             "options": [
-              "An old family friend",
-              "The school librarian",
-              "A friendly neighbor",
-              "The main students"
+              "An unmentioned event",
+              "Participating in School Science Project",
+              "A wrong story activity",
+              "The opposite activity"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "Who participated in the activity in 'School Science Project'?",
+            "q": "Where do the main events happen in 'School Science Project'?",
             "options": [
-              "The main students",
-              "A friendly neighbor",
-              "An old family friend",
-              "The school librarian"
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "At the site of School Science Project",
+              "Far away from story"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'School Science Project'?",
+            "options": [
+              "A key detail about School Science Project",
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'School Science Project'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Who participated in the activity in 'School Science Project'?",
-            "options": [
-              "A friendly neighbor",
-              "An old family friend",
-              "The main students",
-              "The school librarian"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did the main event take place in 'School Science Project'?",
-            "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To achieve a great goal"
             ],
             "correct": 3
           },
           {
-            "q": "Who participated in the activity in 'School Science Project'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "An old family friend",
-              "The main students",
-              "The school librarian",
-              "A friendly neighbor"
+              "Sad and disappointed",
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Angry and frustrated"
             ],
             "correct": 1
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Learning and enjoying School Science Project",
+              "Buying new furniture",
+              "Fixing a broken car",
+              "Traveling around world"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -21523,64 +21523,64 @@
         },
         "questions": [
           {
-            "q": "What plants did the class grow in 'Botanical Garden Trip'?",
+            "q": "What main activity takes place in 'Botanical Garden Trip'?",
             "options": [
-              "Purple petunias",
-              "White lily flowers",
-              "Red rose bushes",
-              "Yellow sunflowers"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did students plant their seeds?",
-            "options": [
-              "In plastic water cups",
-              "In wooden window box",
-              "In rich garden soil",
-              "In small clay pots"
+              "The opposite activity",
+              "A wrong story activity",
+              "Participating in Botanical Garden Trip",
+              "An unmentioned event"
             ],
             "correct": 2
           },
           {
-            "q": "How often did children water the young sprouts?",
+            "q": "Where do the main events happen in 'Botanical Garden Trip'?",
             "options": [
-              "Every afternoon time",
-              "Twice every week",
-              "Only on rainy days",
-              "Every single morning"
+              "At the site of Botanical Garden Trip",
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What key detail is highlighted in 'Botanical Garden Trip'?",
+            "options": [
+              "An unmentioned detail",
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Botanical Garden Trip"
             ],
             "correct": 3
           },
           {
-            "q": "What helped the flowers grow tall and strong?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Fresh morning dew",
-              "Cool night breeze",
-              "Soft garden shade",
-              "Bright warm sunlight"
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason",
+              "Because they were forced"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "What insects visited the blooming flowers?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Moths and grasshoppers",
-              "Dragonflies and beetles",
-              "Ladybugs and ants",
-              "Honeybees and butterflies"
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
-            "q": "How high did the sunflowers grow after a month?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Up to waist height",
-              "Up to knee height",
-              "Taller than students",
-              "Taller than fences"
+              "Fixing a broken car",
+              "Traveling around world",
+              "Buying new furniture",
+              "Learning and enjoying Botanical Garden Trip"
             ],
-            "correct": 2
+            "correct": 3
           }
         ]
       },
@@ -21598,64 +21598,64 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Learning Ice Skating'?",
+            "q": "What main activity takes place in 'Learning Ice Skating'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab"
+              "Participating in Learning Ice Skating",
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Learning Ice Skating'?",
+            "q": "Where do the main events happen in 'Learning Ice Skating'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "In a wrong story place",
+              "Far away from story",
+              "At an unmentioned spot",
+              "At the site of Learning Ice Skating"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Learning Ice Skating'?",
+            "q": "What key detail is highlighted in 'Learning Ice Skating'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum"
+              "The opposite story fact",
+              "A wrong story fact",
+              "An unmentioned detail",
+              "A key detail about Learning Ice Skating"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
             "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Learning Ice Skating'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Happy and satisfied",
+              "Angry and frustrated"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "Who participated in the activity in 'Learning Ice Skating'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "An old family friend",
-              "The main students",
-              "The school librarian",
-              "A friendly neighbor"
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Learning and enjoying Learning Ice Skating",
+              "Traveling around world"
             ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Learning Ice Skating'?",
-            "options": [
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum"
-            ],
-            "correct": 0
+            "correct": 2
           }
         ]
       },
@@ -21668,69 +21668,69 @@
           "zh": "自制水果冰沙"
         },
         "text": {
-          "en": "On a warm summer afternoon, Oliver made fresh fruit smoothies for his family after playing outside. He sliced ripe bananas, strawberries, and sweet mangoes into small pieces on a cutting board. Oliver poured fresh orange juice and vanilla yogurt into the blender along with crushed ice. He blended the ingredients until the mixture turned thick, creamy, and bright pink. His parentss and sister loved the refreshing healthy drink and asked for second refills.",
+          "en": "On a warm summer afternoon, Oliver made fresh fruit smoothies for his family after playing outside. He sliced ripe bananas, strawberries, and sweet mangoes into small pieces on a cutting board. Oliver poured fresh orange juice and vanilla yogurt into the blender along with crushed ice. He blended the ingredients until the mixture turned thick, creamy, and bright pink. His parents and sister loved the refreshing healthy drink and asked for second refills.",
           "zh": "在一个温暖的夏天下午，奥利弗在户外玩耍后为家人做了新鲜的水果冰沙。他在切菜板上把熟香蕉、草莓和甜芒果切成小块。奥利弗把新鲜橙汁和香草酸奶与碎冰一起倒入搅拌机。他搅拌这些配料，直到混合物变得浓稠、细腻且呈亮粉色。他的父母和妹妹非常喜欢这饮品，并要求再续一杯。"
         },
         "questions": [
           {
-            "q": "What treat was prepared in 'Homemade Fruit Smoothies'?",
+            "q": "What treat was prepared in '{title}'?",
             "options": [
+              "Cold ice cream cups",
               "Warm sweet fruit pies",
-              "Fresh delicious snacks",
               "Hot chocolate drinks",
-              "Cold ice cream cups"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where was the sale table set up?",
-            "options": [
-              "Inside the gym room",
-              "Outside community hall",
-              "Beside the front lawn",
-              "Near the school park"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What ingredients were sliced on the board?",
-            "options": [
-              "Bananas strawberries",
-              "Peaches and berries",
-              "Apples and grapes",
-              "Oranges and melons"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "How did neighbors react to the baked goods?",
-            "options": [
-              "Took photos of table",
-              "Bought a few items",
-              "Gave extra recipes",
-              "Praised children work"
+              "Fresh delicious food"
             ],
             "correct": 3
           },
           {
-            "q": "How much money was raised for the project?",
+            "q": "Where was the food prepared?",
             "options": [
-              "Three hundred dollars",
-              "Two hundred dollars",
-              "Four hundred dollars",
-              "One hundred dollars"
+              "Outside at school park",
+              "Inside a library hall",
+              "In the home kitchen",
+              "In a city restaurant"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What ingredients were used to make the food?",
+            "options": [
+              "Salt, pepper, and vinegar",
+              "Water, oil, and mustard",
+              "Fresh fruits and juice",
+              "Rice, beans, and sauce"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the family share the meal together?",
+            "options": [
+              "Because they were forced",
+              "To sell to neighbors",
+              "To win a cook contest",
+              "To enjoy a nice treat"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "How did everyone feel eating the fresh food?",
+            "options": [
+              "Delighted and full",
+              "Bored and sleepy",
+              "Sad and disappointed",
+              "Scared and worried"
             ],
             "correct": 0
           },
           {
-            "q": "What project benefited from the raised funds?",
+            "q": "What is this story mostly about?",
             "options": [
-              "A sports team uniform",
-              "A new playground site",
-              "A school library book",
-              "A park flower garden"
+              "Buying new furniture",
+              "Fixing a broken car",
+              "Traveling around world",
+              "Preparing tasty Homemade Fruit Smoothies"
             ],
-            "correct": 1
+            "correct": 3
           }
         ]
       },
@@ -21748,64 +21748,64 @@
         },
         "questions": [
           {
-            "q": "What treat was prepared in 'Neighborhood Bake Sale'?",
+            "q": "What treat was prepared in '{title}'?",
             "options": [
-              "Fresh delicious snacks",
-              "Cold ice cream cups",
               "Hot chocolate drinks",
-              "Warm sweet fruit pies"
+              "Fresh delicious food",
+              "Warm sweet fruit pies",
+              "Cold ice cream cups"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "Where was the food prepared?",
+            "options": [
+              "In the home kitchen",
+              "In a city restaurant",
+              "Inside a library hall",
+              "Outside at school park"
             ],
             "correct": 0
           },
           {
-            "q": "Where was the sale table set up?",
+            "q": "What ingredients were used to make the food?",
             "options": [
-              "Inside the gym room",
-              "Outside community hall",
-              "Beside the front lawn",
-              "Near the school park"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "What ingredients were sliced on the board?",
-            "options": [
-              "Oranges and melons",
-              "Bananas strawberries",
-              "Apples and grapes",
-              "Peaches and berries"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "How did neighbors react to the baked goods?",
-            "options": [
-              "Praised children work",
-              "Gave extra recipes",
-              "Bought a few items",
-              "Took photos of table"
+              "Fresh fruits and juice",
+              "Water, oil, and mustard",
+              "Salt, pepper, and vinegar",
+              "Rice, beans, and sauce"
             ],
             "correct": 0
           },
           {
-            "q": "How much money was raised for the project?",
+            "q": "Why did the family share the meal together?",
             "options": [
-              "One hundred dollars",
-              "Four hundred dollars",
-              "Three hundred dollars",
-              "Two hundred dollars"
+              "To win a cook contest",
+              "Because they were forced",
+              "To sell to neighbors",
+              "To enjoy a nice treat"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
-            "q": "What project benefited from the raised funds?",
+            "q": "How did everyone feel eating the fresh food?",
             "options": [
-              "A school library book",
-              "A new playground site",
-              "A sports team uniform",
-              "A park flower garden"
+              "Scared and worried",
+              "Sad and disappointed",
+              "Bored and sleepy",
+              "Delighted and full"
             ],
-            "correct": 1
+            "correct": 3
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Preparing tasty Neighborhood Bake Sale",
+              "Fixing a broken car",
+              "Buying new furniture",
+              "Traveling around world"
+            ],
+            "correct": 0
           }
         ]
       },
@@ -21835,50 +21835,50 @@
           {
             "q": "Which special area did Maya explore inside?",
             "options": [
-              "The outdoor park cafe",
-              "The computer lab room",
               "The quiet study hall",
-              "The children's section"
+              "The children's section",
+              "The outdoor park cafe",
+              "The computer lab room"
             ],
-            "correct": 3
+            "correct": 1
           },
           {
             "q": "How many mystery chapter books did Maya select?",
             "options": [
               "Five poetry books",
+              "Four history books",
               "Two science books",
-              "Three mystery books",
-              "Four history books"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What item did Maya use to borrow her books?",
-            "options": [
-              "Her library card",
-              "Her student ID card",
-              "Her paper bus ticket",
-              "Her school bus pass"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "What type of bag did Maya put her books into?",
-            "options": [
-              "A clear plastic bag",
-              "A green paper bag",
-              "A heavy leather bag",
-              "A soft cloth bag"
+              "Three mystery books"
             ],
             "correct": 3
           },
           {
-            "q": "What kept Maya happy during the rainy day?",
+            "q": "Why did Maya use her library card?",
             "options": [
-              "Reading library books",
-              "Painting art pictures",
-              "Watching TV cartoons",
-              "Playing video games"
+              "To borrow books to read",
+              "To pay for a lunch ticket",
+              "To buy new pencils",
+              "To play computer games"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "How did Maya feel reading her new books at home?",
+            "options": [
+              "Angry and upset",
+              "Happy and entertained",
+              "Scared and worried",
+              "Sad and lonely"
+            ],
+            "correct": 1
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "A trip to public library",
+              "Shopping for new clothes",
+              "Baking strawberry pie",
+              "Training a new puppy"
             ],
             "correct": 0
           }
@@ -21900,62 +21900,62 @@
           {
             "q": "What kind of puppy was adopted in 'Training a New Puppy'?",
             "options": [
-              "A small spotted pug",
               "A golden retriever",
+              "A brown beagle pup",
               "A fluffy poodle pup",
-              "A brown beagle pup"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "How long was spent training the puppy each day?",
-            "options": [
-              "Forty-five minutes",
-              "Sixty minutes time",
-              "Fifteen minutes time",
-              "Thirty minutes time"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "What basic words did Barnaby learn to follow?",
-            "options": [
-              "Sit, stay, and come",
-              "Jump, roll, and bark",
-              "Fetch, heel, and stay",
-              "Stand, shake, and sit"
+              "A small spotted pug"
             ],
             "correct": 0
           },
           {
-            "q": "What reward was given for following words?",
+            "q": "How long was spent training the puppy each day?",
             "options": [
-              "Soft rubber chew toy",
-              "Small slice of cheese",
-              "Warm fresh cow milk",
-              "Small crunchy snacks"
+              "Sixty minutes time",
+              "Forty-five minutes",
+              "Thirty minutes time",
+              "Fifteen minutes time"
             ],
             "correct": 3
           },
           {
-            "q": "What was used when walking the puppy around?",
+            "q": "What basic words did Barnaby learn to follow?",
             "options": [
-              "A red cloth harness",
-              "A strong dog strap",
-              "A thick metal chain",
-              "A soft leather lead"
+              "Jump, roll, and bark",
+              "Fetch, heel, and stay",
+              "Sit, stay, and come",
+              "Stand, shake, and sit"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "What kind of dog did Barnaby become after training?",
+            "q": "Why did Lucas give Barnaby crunchy snacks?",
             "options": [
-              "A shy quiet puppy",
-              "A well-behaved pup",
-              "A lazy sleepy puppy",
-              "A noisy wild puppy"
+              "To make Barnaby fall asleep",
+              "Because Barnaby was sad",
+              "Because it was night time",
+              "To reward good behavior"
             ],
-            "correct": 1
+            "correct": 3
+          },
+          {
+            "q": "How did Lucas feel seeing Barnaby learn fast?",
+            "options": [
+              "Sad and disappointed",
+              "Tired and angry",
+              "Proud and happy",
+              "Scared and worried"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Baking sweet muffins",
+              "Building a treehouse",
+              "Flying high kites",
+              "Training a smart puppy"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -21973,64 +21973,64 @@
         },
         "questions": [
           {
-            "q": "What plants did the class grow in 'Class Flower Garden'?",
+            "q": "What main activity takes place in 'Class Flower Garden'?",
             "options": [
-              "White lily flowers",
-              "Red rose bushes",
-              "Yellow sunflowers",
-              "Purple petunias"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did students plant their seeds?",
-            "options": [
-              "In plastic water cups",
-              "In wooden window box",
-              "In small clay pots",
-              "In rich garden soil"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Class Flower Garden"
             ],
             "correct": 3
           },
           {
-            "q": "How often did children water the young sprouts?",
+            "q": "Where do the main events happen in 'Class Flower Garden'?",
             "options": [
-              "Every single morning",
-              "Every afternoon time",
-              "Twice every week",
-              "Only on rainy days"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Class Flower Garden"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "What key detail is highlighted in 'Class Flower Garden'?",
+            "options": [
+              "A key detail about Class Flower Garden",
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A wrong story fact"
             ],
             "correct": 0
           },
           {
-            "q": "What helped the flowers grow tall and strong?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Soft garden shade",
-              "Fresh morning dew",
-              "Bright warm sunlight",
-              "Cool night breeze"
+              "Because they were forced",
+              "For an unmentioned reason",
+              "To achieve a great goal",
+              "To cause a big problem"
             ],
             "correct": 2
           },
           {
-            "q": "What insects visited the blooming flowers?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Honeybees and butterflies",
-              "Dragonflies and beetles",
-              "Ladybugs and ants",
-              "Moths and grasshoppers"
-            ],
-            "correct": 0
-          },
-          {
-            "q": "How high did the sunflowers grow after a month?",
-            "options": [
-              "Taller than fences",
-              "Taller than students",
-              "Up to waist height",
-              "Up to knee height"
+              "Angry and frustrated",
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed"
             ],
             "correct": 1
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Fixing a broken car",
+              "Traveling around world",
+              "Buying new furniture",
+              "Learning and enjoying Class Flower Garden"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -22043,17 +22043,17 @@
           "zh": "家庭海滩假期"
         },
         "text": {
-          "en": "The Harrison family rented a small wooden beach cottage near the ocean for summer vacation. Every morning, they walked along the sandy shore picking up smooth seashells and watching seagulls fly. The children built giant sandcastles with water ditchs while their parentss relaxed under a large blue umbrella. In the afternoon, they swam in cool ocean waves and played beach ball game together. Watching the golden sun set over the ocean water created wonderful family memories.",
+          "en": "The Harrison family rented a small wooden beach cottage near the ocean for summer vacation. Every morning, they walked along the sandy shore picking up smooth seashells and watching seagulls fly. The children built giant sandcastles with water ditchs while their parents relaxed under a large blue umbrella. In the afternoon, they swam in cool ocean waves and played beach ball game together. Watching the golden sun set over the ocean water created wonderful family memories.",
           "zh": "哈里森一家在暑假期间在海边租了一间小木屋。每天早晨，他们沿着沙质海岸散步，收集光滑的贝壳，看着海鸥飞翔。孩子们建造带有护城河的巨大沙堡，而他们的父母在大蓝遮阳伞下放松。下午，他们在凉爽的海浪中游泳，并一起打沙滩排球。看着金色的太阳在海水上升起落，创造了美好的家庭回忆。"
         },
         "questions": [
           {
-            "q": "Where did the family stay for vacation in 'Family Beach Vacation'?",
+            "q": "Where did the Harrison family stay for vacation?",
             "options": [
+              "A mountain wood cabin",
               "A quiet forest tent",
-              "A lake side hotel",
               "A beach side cottage",
-              "A mountain wood cabin"
+              "A lake side hotel"
             ],
             "correct": 2
           },
@@ -22062,50 +22062,50 @@
             "options": [
               "Shiny glass marbles",
               "Small colored stones",
-              "Smooth sea seashells",
-              "Drift wood pieces"
+              "Drift wood pieces",
+              "Smooth sea seashells"
             ],
-            "correct": 2
+            "correct": 3
           },
           {
             "q": "What did the children build on the beach?",
             "options": [
-              "Long dirt tunnels",
               "Wooden toy bridges",
-              "Giant sand castles",
-              "Small rock towers"
+              "Long dirt tunnels",
+              "Small rock towers",
+              "Giant sand castles"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Why did they fill the ring ditch with water?",
+            "options": [
+              "To wash their hands",
+              "To swim inside it",
+              "To look like a real moat",
+              "To catch sea fish"
             ],
             "correct": 2
           },
           {
-            "q": "What protected the parents while relaxing?",
+            "q": "How did the family feel watching the golden sunset?",
             "options": [
-              "A wide straw hat",
-              "A green canvas tent",
-              "A large blue umbrella",
-              "A tall palm tree"
+              "Angry and frustrated",
+              "Sad and lonely",
+              "Happy and relaxed",
+              "Scared and worried"
             ],
             "correct": 2
           },
           {
-            "q": "What afternoon water game did the family play?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Fished from wooden dock",
-              "Swam played beach ball",
-              "Rode giant waves",
-              "Rode small kayaks"
+              "A beach family vacation",
+              "Shopping at a store",
+              "Gardening in backyard",
+              "Learning to play piano"
             ],
-            "correct": 1
-          },
-          {
-            "q": "What sight created wonderful family memories?",
-            "options": [
-              "Bright morning sunrise",
-              "Full moon over lake",
-              "Golden sun set ocean",
-              "Starry night sky"
-            ],
-            "correct": 2
+            "correct": 0
           }
         ]
       },
@@ -22123,62 +22123,62 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
+            "q": "What main activity takes place in 'Basketball Dribbling'?",
             "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab"
-            ],
-            "correct": 2
-          },
-          {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
-            "options": [
-              "In the city park yard",
-              "Near the art museum",
-              "Inside the school lab",
-              "At the story location"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
-            "options": [
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum"
+              "Participating in Basketball Dribbling",
+              "The opposite activity",
+              "A wrong story activity",
+              "An unmentioned event"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
+            "q": "Where do the main events happen in 'Basketball Dribbling'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "Far away from story",
+              "At the site of Basketball Dribbling"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
+            "q": "What key detail is highlighted in 'Basketball Dribbling'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
+              "An unmentioned detail",
+              "A wrong story fact",
+              "A key detail about Basketball Dribbling",
+              "The opposite story fact"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "To cause a big problem"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'Basketball Dribbling'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Angry and frustrated"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Fixing a broken car",
+              "Learning and enjoying Basketball Dribbling",
+              "Traveling around world",
+              "Buying new furniture"
             ],
             "correct": 1
           }
@@ -22198,64 +22198,64 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'Clay Pottery Class'?",
+            "q": "What main activity takes place in 'Clay Pottery Class'?",
             "options": [
-              "An old family friend",
-              "The main students",
-              "A friendly neighbor",
-              "The school librarian"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Clay Pottery Class'?",
-            "options": [
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum",
-              "At the story location"
+              "An unmentioned event",
+              "A wrong story activity",
+              "The opposite activity",
+              "Participating in Clay Pottery Class"
             ],
             "correct": 3
           },
           {
-            "q": "Who participated in the activity in 'Clay Pottery Class'?",
+            "q": "Where do the main events happen in 'Clay Pottery Class'?",
             "options": [
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian",
-              "An old family friend"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Clay Pottery Class'?",
-            "options": [
-              "Inside the school lab",
-              "At the story location",
-              "In the city park yard",
-              "Near the art museum"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Who participated in the activity in 'Clay Pottery Class'?",
-            "options": [
-              "The school librarian",
-              "An old family friend",
-              "A friendly neighbor",
-              "The main students"
-            ],
-            "correct": 3
-          },
-          {
-            "q": "Who participated in the activity in 'Clay Pottery Class'?",
-            "options": [
-              "An old family friend",
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian"
+              "At an unmentioned spot",
+              "In a wrong story place",
+              "At the site of Clay Pottery Class",
+              "Far away from story"
             ],
             "correct": 2
+          },
+          {
+            "q": "What key detail is highlighted in 'Clay Pottery Class'?",
+            "options": [
+              "A wrong story fact",
+              "The opposite story fact",
+              "A key detail about Clay Pottery Class",
+              "An unmentioned detail"
+            ],
+            "correct": 2
+          },
+          {
+            "q": "Why did the main characters work on their project?",
+            "options": [
+              "For an unmentioned reason",
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Scared and afraid",
+              "Sad and disappointed",
+              "Angry and frustrated"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Traveling around world",
+              "Learning and enjoying Clay Pottery Class",
+              "Buying new furniture",
+              "Fixing a broken car"
+            ],
+            "correct": 1
           }
         ]
       },
@@ -22273,62 +22273,62 @@
         },
         "questions": [
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "What main activity takes place in 'Camping Under Stars'?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
+              "A wrong story activity",
+              "An unmentioned event",
+              "Participating in Camping Under Stars",
+              "The opposite activity"
             ],
-            "correct": 3
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "Where do the main events happen in 'Camping Under Stars'?",
             "options": [
-              "Near the art museum",
-              "Inside the school lab",
-              "In the city park yard",
-              "At the story location"
+              "At the site of Camping Under Stars",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
-            "correct": 3
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "What key detail is highlighted in 'Camping Under Stars'?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
+              "An unmentioned detail",
+              "The opposite story fact",
+              "A key detail about Camping Under Stars",
+              "A wrong story fact"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "Inside the school lab",
-              "In the city park yard"
+              "To cause a big problem",
+              "Because they were forced",
+              "To achieve a great goal",
+              "For an unmentioned reason"
             ],
-            "correct": 1
+            "correct": 2
           },
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
+              "Happy and satisfied",
+              "Angry and frustrated",
+              "Scared and afraid",
+              "Sad and disappointed"
             ],
-            "correct": 1
+            "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'Camping Under Stars'?",
+            "q": "What is this story mostly about?",
             "options": [
-              "Inside the school lab",
-              "In the city park yard",
-              "Near the art museum",
-              "At the story location"
+              "Traveling around world",
+              "Buying new furniture",
+              "Fixing a broken car",
+              "Learning and enjoying Camping Under Stars"
             ],
             "correct": 3
           }
@@ -22343,69 +22343,69 @@
           "zh": "学校才艺表演"
         },
         "text": {
-          "en": "Our school hosted the annual spring talent show in the decorated big hall for parentss and students. Players showed various talents including piano playing, magic tricks, and jumping games routines. Ella played a lively classical violin piece that earned loud cheers from the audience. A group of fifth graders performed a together hip-hop dance daily plan with great energy. Everyone enjoyed the wonderful shows and supported their talented classmates with big cheers.",
+          "en": "Our school hosted the annual spring talent show in the decorated big hall for parents and students. Players showed various talents including piano playing, magic tricks, and jumping games routines. Ella played a lively classical violin piece that earned loud cheers from the audience. A group of fifth graders performed a together hip-hop dance daily plan with great energy. Everyone enjoyed the wonderful shows and supported their talented classmates with big cheers.",
           "zh": "我们学校在装饰一新的体育馆里为父母和学生举办了一年一度的春季才艺表演。表演者展示了各种才艺，包括钢琴演奏、魔术和体操动作。艾拉演奏了一曲活泼的古典小提琴曲，赢得了观众热烈的掌声。一群五年级学生表演了一套高能量的同步嘻哈舞蹈动作。大家庆祝精彩的表演，并以巨大的欢呼声支持他们才华横溢的同班同学。"
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'School Talent Show'?",
+            "q": "What main activity takes place in 'School Talent Show'?",
             "options": [
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian",
-              "An old family friend"
+              "A wrong story activity",
+              "An unmentioned event",
+              "The opposite activity",
+              "Participating in School Talent Show"
+            ],
+            "correct": 3
+          },
+          {
+            "q": "Where do the main events happen in 'School Talent Show'?",
+            "options": [
+              "In a wrong story place",
+              "At the site of School Talent Show",
+              "Far away from story",
+              "At an unmentioned spot"
             ],
             "correct": 1
           },
           {
-            "q": "Where did the main event take place in 'School Talent Show'?",
+            "q": "What key detail is highlighted in 'School Talent Show'?",
             "options": [
-              "Near the art museum",
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab"
+              "A wrong story fact",
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about School Talent Show"
             ],
-            "correct": 1
+            "correct": 3
           },
           {
-            "q": "Who participated in the activity in 'School Talent Show'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "The main students",
-              "An old family friend",
-              "The school librarian",
-              "A friendly neighbor"
+              "To achieve a great goal",
+              "For an unmentioned reason",
+              "Because they were forced",
+              "To cause a big problem"
             ],
             "correct": 0
           },
           {
-            "q": "Where did the main event take place in 'School Talent Show'?",
+            "q": "How did the characters feel about their experience?",
             "options": [
-              "In the city park yard",
-              "At the story location",
-              "Near the art museum",
-              "Inside the school lab"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Who participated in the activity in 'School Talent Show'?",
-            "options": [
-              "An old family friend",
-              "The main students",
-              "The school librarian",
-              "A friendly neighbor"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Who participated in the activity in 'School Talent Show'?",
-            "options": [
-              "The main students",
-              "The school librarian",
-              "A friendly neighbor",
-              "An old family friend"
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Scared and afraid",
+              "Angry and frustrated"
             ],
             "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Fixing a broken car",
+              "Traveling around world",
+              "Buying new furniture",
+              "Learning and enjoying School Talent Show"
+            ],
+            "correct": 3
           }
         ]
       },
@@ -22423,64 +22423,64 @@
         },
         "questions": [
           {
-            "q": "Who participated in the activity in 'Toy Recycling Drive'?",
+            "q": "What main activity takes place in 'Toy Recycling Drive'?",
             "options": [
-              "A friendly neighbor",
-              "The main students",
-              "The school librarian",
-              "An old family friend"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Who participated in the activity in 'Toy Recycling Drive'?",
-            "options": [
-              "An old family friend",
-              "The main students",
-              "A friendly neighbor",
-              "The school librarian"
-            ],
-            "correct": 1
-          },
-          {
-            "q": "Where did the main event take place in 'Toy Recycling Drive'?",
-            "options": [
-              "Inside the school lab",
-              "Near the art museum",
-              "In the city park yard",
-              "At the story location"
+              "The opposite activity",
+              "An unmentioned event",
+              "A wrong story activity",
+              "Participating in Toy Recycling Drive"
             ],
             "correct": 3
           },
           {
-            "q": "Where did the main event take place in 'Toy Recycling Drive'?",
+            "q": "Where do the main events happen in 'Toy Recycling Drive'?",
             "options": [
-              "At the story location",
-              "In the city park yard",
-              "Inside the school lab",
-              "Near the art museum"
+              "At the site of Toy Recycling Drive",
+              "In a wrong story place",
+              "At an unmentioned spot",
+              "Far away from story"
             ],
             "correct": 0
           },
           {
-            "q": "Who participated in the activity in 'Toy Recycling Drive'?",
+            "q": "What key detail is highlighted in 'Toy Recycling Drive'?",
             "options": [
-              "The school librarian",
-              "A friendly neighbor",
-              "The main students",
-              "An old family friend"
+              "The opposite story fact",
+              "An unmentioned detail",
+              "A key detail about Toy Recycling Drive",
+              "A wrong story fact"
             ],
             "correct": 2
           },
           {
-            "q": "Who participated in the activity in 'Toy Recycling Drive'?",
+            "q": "Why did the main characters work on their project?",
             "options": [
-              "An old family friend",
-              "The school librarian",
-              "A friendly neighbor",
-              "The main students"
+              "Because they were forced",
+              "To achieve a great goal",
+              "To cause a big problem",
+              "For an unmentioned reason"
             ],
-            "correct": 3
+            "correct": 1
+          },
+          {
+            "q": "How did the characters feel about their experience?",
+            "options": [
+              "Happy and satisfied",
+              "Sad and disappointed",
+              "Angry and frustrated",
+              "Scared and afraid"
+            ],
+            "correct": 0
+          },
+          {
+            "q": "What is this story mostly about?",
+            "options": [
+              "Traveling around world",
+              "Fixing a broken car",
+              "Learning and enjoying Toy Recycling Drive",
+              "Buying new furniture"
+            ],
+            "correct": 2
           }
         ]
       }
