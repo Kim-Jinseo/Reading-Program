@@ -91,7 +91,7 @@ const requireAuth = async (c, next) => {
   }
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = await verify(token, process.env.JWT_SECRET);
+    const decoded = await verify(token, process.env.JWT_SECRET, "HS256");
     c.set('user', decoded);
     await next();
   } catch (err) {
