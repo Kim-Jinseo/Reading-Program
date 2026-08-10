@@ -1175,7 +1175,7 @@ export const VoiceJump = ({ onBack }) => {
                  <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-indigo-950 to-slate-950 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-6 text-center border-4 border-purple-400/80 shadow-[0_0_50px_rgba(168,85,247,0.6)]">
                    <div className="text-6xl mb-3 animate-bounce">💜</div>
                    <h3 className="text-4xl sm:text-5xl font-black text-purple-300 mb-2 drop-shadow-[0_0_15px_rgba(168,85,247,0.8)] tracking-tight">
-                     PURPLE OVERCHARGE CLEAR!
+                     STAGE CLEAR!
                    </h3>
                    
                    <div className="inline-flex items-center gap-3 bg-purple-900/90 text-purple-200 border-2 border-purple-400 px-7 py-3 rounded-full font-black text-2xl shadow-lg mb-4">
@@ -1184,7 +1184,7 @@ export const VoiceJump = ({ onBack }) => {
                    </div>
                    
                    <p className="text-purple-200 font-bold text-base sm:text-lg mb-6 max-w-sm">
-                     Fantastic Voice Battle performance! Monster defeated!
+                     Great job! You defeated the monster!
                    </p>
                    
                    <button onClick={() => setView('levels')} className="px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-[0_6px_0_rgba(126,34,206,1)] active:shadow-none active:translate-y-2 transition-all">
