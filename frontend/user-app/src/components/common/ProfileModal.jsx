@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, BarChart2, Key, ShieldCheck, LogOut, Trophy } from 'lucide-react';
+import { X, BarChart2, Key, ShieldCheck, LogOut, Trophy, Star } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const ProfileModal = ({ onClose }) => {
@@ -51,8 +51,13 @@ export const ProfileModal = ({ onClose }) => {
             const isTop3 = rank > 0 && rank <= 3;
             return (
               <div className="flex flex-col items-center gap-3 mt-4">
-                <div className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-6 py-2.5 rounded-full font-extrabold text-lg shadow-md border border-orange-300">
-                  <Trophy size={22} fill="currentColor" className="text-amber-100"/> {user.trophies !== undefined ? user.trophies : (user.stars || 0)} Trophies
+                <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+                  <div className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-5 py-2 sm:px-6 sm:py-2.5 rounded-full font-extrabold text-sm sm:text-md shadow-md border border-orange-300">
+                    <Trophy size={18} fill="currentColor" className="text-amber-100"/> {user.trophies !== undefined ? user.trophies : (user.stars || 0)} Trophies
+                  </div>
+                  <div className="flex items-center gap-2 bg-amber-50 text-amber-600 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full font-extrabold text-sm sm:text-md border border-amber-200 shadow-inner">
+                    <Star size={18} fill="currentColor"/> {user.stars || 0} Stars
+                  </div>
                 </div>
                 <div className={`flex items-center gap-2 px-6 py-2 rounded-full font-extrabold text-sm border-2 transition-all ${isTop3 ? 'bg-gradient-to-r from-purple-100 to-fuchsia-100 text-purple-700 border-purple-300 shadow-[0_0_20px_rgba(192,38,211,0.5)] scale-110 animate-pulse' : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
                   <Trophy size={16} className={isTop3 ? 'text-fuchsia-500' : 'text-slate-400'}/> Server Rank: #{rank}
