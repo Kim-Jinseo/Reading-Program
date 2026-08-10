@@ -41,6 +41,48 @@ async function getDb() {
   return cachedCols;
 }
 
+// ── Security: In-memory rate limiter for auth endpoints ──────────────────────
+const authRateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX = 10; // max 10 auth attempts per window
+
+const authRateLimit = async (c, next) => {
+  const ip = c.req.header('x-forwarded-for')?.split(',')[0]?.trim() || 
+             c.req.header('x-real-ip') || 'unknown';
+  const now = Date.now();
+  
+  if (authRateLimitMap.has(ip)) {
+    const entry = authRateLimitMap.get(ip);
+    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+      // Reset window
+      authRateLimitMap.set(ip, { windowStart: now, count: 1 });
+    } else if (entry.count >= RATE_LIMIT_MAX) {
+      return c.json({ success: false, error: 'Too many login attempts. Please try again later.' }, 429);
+    } else {
+      entry.count++;
+    }
+  } else {
+    authRateLimitMap.set(ip, { windowStart: now, count: 1 });
+  }
+  
+  // Cleanup old entries every 100 requests
+  if (authRateLimitMap.size > 100) {
+    for (const [key, val] of authRateLimitMap) {
+      if (now - val.windowStart > RATE_LIMIT_WINDOW_MS) authRateLimitMap.delete(key);
+    }
+  }
+  
+  await next();
+};
+
+// ── Security Headers Middleware ──────────────────────────────────────────────
+app.use('/*', async (c, next) => {
+  await next();
+  c.header('X-Content-Type-Options', 'nosniff');
+  c.header('X-Frame-Options', 'DENY');
+  c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+});
+
 // Auth Middlewares
 const requireAuth = async (c, next) => {
   const authHeader = c.req.header('authorization');
@@ -139,7 +181,7 @@ app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOStri
 // 1. AUTH API
 app.get('/debug', (c) => c.json({ url: c.req.url, path: c.req.path }));
 app.post('/test', (c) => c.json({ status: 'ok', msg: 'POST test works' }));
-app.post('/auth/login', async (c) => {
+app.post('/auth/login', authRateLimit, async (c) => {
   try {
     const { users } = await getDb();
     const { username, pin, isSignup } = await c.req.json();
@@ -148,7 +190,7 @@ app.post('/auth/login', async (c) => {
       return c.json({ success: false, error: "Password must be at least 6 characters long." }, 400);
     }
 
-    let user = await users.findOne({ username });
+    let user = await users.findOne({ username: String(username) });
     
     if (isSignup) {
       if (user) return c.json({ success: false, error: "Username already exists." }, 400);

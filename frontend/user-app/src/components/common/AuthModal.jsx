@@ -118,12 +118,12 @@ export const AuthModal = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
             <UserCircle size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"/>
-            <input type="text" value={name} onChange={e=>setName(e.target.value)} required placeholder={t('login_name')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold focus:border-indigo-400 focus:outline-none transition-colors" />
+            <input type="text" autoComplete="username" value={name} onChange={e=>setName(e.target.value)} required placeholder={t('login_name')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold focus:border-indigo-400 focus:outline-none transition-colors" />
           </div>
           
           <div className="relative">
             <Lock size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"/>
-            <input type="text" style={{ WebkitTextSecurity: 'disc' }} value={password} onChange={e=>setPassword(e.target.value)} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
+            <input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
           </div>
 
           {error && <p className="text-rose-500 text-sm font-bold text-center">{error}</p>}
