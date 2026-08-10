@@ -426,7 +426,7 @@ export const WritingModule = () => {
   }
 
   return (
-    <div className={`mx-auto pt-4 flex flex-col flex-1 transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-5xl'}`}>
+    <div className={`mx-auto pt-4 flex flex-col flex-1 w-full transition-all duration-500 ${status === 'improving' ? 'max-w-5xl' : 'max-w-3xl'}`}>
       <div className="flex justify-between items-center mb-4 shrink-0">
         <button onClick={() => {
            if (status === 'improving') setStatus('feedback');
@@ -455,7 +455,7 @@ export const WritingModule = () => {
             </div>
 
             {/* Synchronized Indigo-Purple Writing Pad */}
-            <div className="flex-1 flex flex-col min-h-[300px] md:min-h-[400px] bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all relative">
+            <div className="flex-1 flex flex-col min-h-[350px] md:min-h-[500px] bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all relative">
               <textarea 
                 value={text} 
                 onChange={e => {
