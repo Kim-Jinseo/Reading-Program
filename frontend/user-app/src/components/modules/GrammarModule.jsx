@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Star, ChevronRight, BookOpen, CheckCircle2, List, Layers, ChevronLeft, Filter, Gavel } from 'lucide-react';
+import { Star, ChevronRight, BookOpen, CheckCircle2, List, Layers, ChevronLeft, Filter, Gavel, X } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { getDailyItem } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
@@ -63,6 +63,7 @@ export const GrammarModule = () => {
   const [mode, setMode] = useState('menu'); // 'menu', 'courtroom', 'solve', 'done', 'learn_concept', 'learn_quiz', 'learn_score'
   const [activeQueue, setActiveQueue] = useState([]);
   const [activeQIndex, setActiveQIndex] = useState(0);
+  const [selectedOpt, setSelectedOpt] = useState(null);
   const [sessionScore, setSessionScore] = useState(0); // stars earned in current session
   const [wrongQueue, setWrongQueue] = useState([]); // for grammar retry
   const [activeConcept, setActiveConcept] = useState(null);
@@ -156,19 +157,19 @@ export const GrammarModule = () => {
   };
 
   const handleBankAnswer = (opt) => {
+    if (selectedOpt) return; // Prevent multiple clicks
+    setSelectedOpt(opt);
+
     const activeQ = activeQueue[activeQIndex];
     const stat = getQStat(activeQ.id, activeQ.difficulty);
-    
-    if (stat.solved) return;
 
     if (opt === activeQ.answer) {
-      const starsEarned = stat.maxStars;
-      updateGrammarStat(activeQ.id, { solved: true, earned: starsEarned });
-      if (starsEarned > 0) handleEarnStars(starsEarned, 'grammar', activeQ.id);
-      setSessionScore(s => s + starsEarned);
+      if (!stat.solved) {
+        updateGrammarStat(activeQ.id, { solved: true, earned: stat.maxStars });
+        if (stat.maxStars > 0) handleEarnStars(stat.maxStars, 'grammar', activeQ.id);
+        setSessionScore(s => s + stat.maxStars);
+      }
     } else {
-      const newMax = Math.max(0, stat.maxStars - 1);
-      updateGrammarStat(activeQ.id, { maxStars: newMax, attempts: stat.attempts + 1 });
       if (!wrongQueue.find(q => q.id === activeQ.id)) {
         setWrongQueue(prev => [...prev, activeQ]);
       }
@@ -176,6 +177,7 @@ export const GrammarModule = () => {
   };
 
   const nextBankQuestion = () => {
+    setSelectedOpt(null);
     if (activeQIndex < activeQueue.length - 1) {
       setActiveQIndex(i => i + 1);
     } else {
@@ -188,12 +190,14 @@ export const GrammarModule = () => {
     setActiveQIndex(0);
     setSessionScore(0);
     setWrongQueue([]);
+    setSelectedOpt(null);
     setMode('solve');
   };
 
   const leaveEarly = () => {
     setMode('menu');
     setActiveConcept(null);
+    setSelectedOpt(null);
   };
 
   // -------- Learn Methods --------
@@ -624,11 +628,15 @@ export const GrammarModule = () => {
               let letterClass = "border-slate-200 text-slate-400 group-hover:border-indigo-400 group-hover:text-indigo-600 group-hover:bg-indigo-100";
               let icon = null;
 
-              if (stat.solved) {
+              if (selectedOpt) {
                 if (opt === activeQ.answer) {
                   btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm";
                   letterClass = "border-emerald-500 bg-emerald-500 text-white";
                   icon = <CheckCircle2 className="text-emerald-600" size={28} />;
+                } else if (opt === selectedOpt) {
+                  btnClass = "border-rose-400 bg-rose-50 text-rose-900 shadow-sm";
+                  letterClass = "border-rose-400 bg-rose-400 text-white";
+                  icon = <X className="text-rose-500" size={28} />;
                 } else {
                   btnClass = "border-slate-100 bg-slate-50 text-slate-400 opacity-50";
                 }
@@ -638,7 +646,7 @@ export const GrammarModule = () => {
                 <button 
                   key={opt}
                   onClick={() => handleBankAnswer(opt)}
-                  disabled={stat.solved}
+                  disabled={!!selectedOpt}
                   className={`flex items-center justify-between p-6 rounded-2xl border-2 font-bold text-2xl transition-all group active:scale-[0.98] ${btnClass}`}
                 >
                   <div className="flex items-center gap-6">
@@ -653,13 +661,13 @@ export const GrammarModule = () => {
             })}
           </div>
 
-          {stat.solved && (
+          {selectedOpt === activeQ.answer && (
             <div className="absolute bottom-8 left-8 right-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex justify-between items-center z-10">
               <div>
                 <h4 className="text-emerald-800 font-extrabold text-2xl mb-1 flex items-center gap-2">
                   <CheckCircle2 size={28} /> Correct!
                 </h4>
-                <p className="text-emerald-700 font-bold text-lg">You earned {stat.earned} stars.</p>
+                <p className="text-emerald-700 font-bold text-lg">You earned {stat.maxStars} stars.</p>
               </div>
               <button 
                 onClick={nextBankQuestion}
@@ -670,10 +678,21 @@ export const GrammarModule = () => {
             </div>
           )}
 
-          {!stat.solved && stat.attempts > 0 && (
-             <div className="mt-8 p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-600 font-bold text-center animate-in shake">
-               Incorrect! -1 potential star. Try again!
-             </div>
+          {selectedOpt && selectedOpt !== activeQ.answer && (
+            <div className="absolute bottom-8 left-8 right-8 p-6 bg-rose-50 border-2 border-rose-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex flex-col md:flex-row justify-between items-center gap-4 z-10">
+              <div>
+                <h4 className="text-rose-800 font-extrabold text-2xl mb-1 flex items-center gap-2">
+                  <X size={28} /> Incorrect!
+                </h4>
+                <p className="text-rose-700 font-bold text-lg">The correct answer is: <span className="font-extrabold">{activeQ.answer}</span></p>
+              </div>
+              <button 
+                onClick={nextBankQuestion}
+                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg rounded-xl shadow-[0_6px_0_rgb(225,29,72)] active:shadow-none active:translate-y-1 transition-all whitespace-nowrap"
+              >
+                {activeQIndex < activeQueue.length - 1 ? 'Next Question' : 'Finish Practice'}
+              </button>
+            </div>
           )}
         </div>
 
