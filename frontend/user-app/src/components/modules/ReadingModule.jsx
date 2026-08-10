@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 import { getDailyItem } from '../../utils/dailySelection';
 import { ScoreScreen } from '../common/ScoreScreen';
 import Pagination from '../common/Pagination';
+import localCurriculum from '../../data/curriculum.json';
 
 export const ReadingModule = () => {
   const { t, curriculumDb, grade, user, handleEarnStars, updateCompletion, markDailyComplete, getDailyStatus } = useAppContext();
@@ -11,7 +12,7 @@ export const ReadingModule = () => {
   
   const difficultyOrder = useMemo(() => ({ easy: 1, medium: 2, hard: 3, super_hard: 4 }), []);
   const allData = useMemo(() => {
-    const rawData = curriculumDb?.[grade]?.reading || [];
+    const rawData = curriculumDb?.[grade]?.reading || localCurriculum?.[grade]?.reading || [];
     return [...rawData].sort((a, b) => (difficultyOrder[a.difficulty] || 0) - (difficultyOrder[b.difficulty] || 0));
   }, [curriculumDb, grade, difficultyOrder]);
   const activeData = useMemo(() => allData.filter(d => !user.completedReading?.includes(d.id)), [allData, user.completedReading]);
