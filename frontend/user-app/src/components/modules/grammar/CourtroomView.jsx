@@ -102,7 +102,8 @@ export const CourtroomView = ({ onBack }) => {
     if (nextCaseInLevel >= 5) {
       // Level cleared!
       setGameState('verdict_won');
-      const baseStars = strikes * 3; // 3 stars per heart left!
+      const heartsLeft = strikes + shieldBlocks;
+      const baseStars = heartsLeft * 2; // 2 stars per heart left!
       const starsWon = hasGavel ? baseStars * 2 : baseStars;
       handleEarnStars(starsWon, 'grammar', `courtroom_level_${grade}_${levelIndex}`);
       handleEarnBattleStars(starsWon);
@@ -184,7 +185,9 @@ export const CourtroomView = ({ onBack }) => {
             // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared (bypassed for teacher2026/admin)
             const isUnlocked = isAdmin || idx === 0 || Array.from({ length: idx }, (_, i) => i).every(prevIdx => (user?.starsTracker?.[`courtroom_level_${grade}_${prevIdx}`] || 0) > 0);
             const starsEarned = user?.starsTracker?.[`courtroom_level_${grade}_${idx}`] || 0;
-            const heartsEarned = starsEarned > 0 ? Math.min(3, Math.floor(starsEarned / 3)) : 0;
+            const baseStarsEarned = hasGavel ? Math.floor(starsEarned / 2) : starsEarned;
+            const heartsEarned = starsEarned > 0 ? Math.floor(baseStarsEarned / 2) : 0;
+            const isPurple = heartsEarned > 3;
             const isCompleted = starsEarned > 0;
             
             return (
@@ -195,7 +198,9 @@ export const CourtroomView = ({ onBack }) => {
                 className={`relative p-5 rounded-3xl border-2 flex flex-col items-center justify-center transition-all min-h-[160px] ${
                   isUnlocked 
                     ? isCompleted
-                      ? 'bg-emerald-50 border-emerald-200 hover:border-emerald-400 shadow-sm hover:shadow-md cursor-pointer group' 
+                      ? isPurple
+                        ? 'bg-purple-50 border-purple-300 hover:border-purple-500 shadow-md hover:shadow-purple-200 cursor-pointer group'
+                        : 'bg-emerald-50 border-emerald-200 hover:border-emerald-400 shadow-sm hover:shadow-md cursor-pointer group' 
                       : 'bg-white border-slate-200 hover:border-indigo-400 shadow-md hover:shadow-lg hover:-translate-y-1 cursor-pointer group'
                     : 'bg-slate-100 border-slate-200 opacity-60 cursor-not-allowed grayscale'
                 }`}
@@ -207,21 +212,38 @@ export const CourtroomView = ({ onBack }) => {
                   </div>
                 ) : (
                   <>
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-sm mb-3 group-hover:scale-110 transition-transform bg-indigo-100 flex items-center justify-center text-indigo-500 font-black text-2xl">
+                    <div className={`w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-sm mb-3 group-hover:scale-110 transition-transform flex items-center justify-center font-black text-2xl ${
+                      isPurple ? 'bg-purple-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.4)]' : 'bg-indigo-100 text-indigo-500'
+                    }`}>
                       {idx + 1}
                     </div>
-                    <span className={`font-black text-lg mb-1 ${isCompleted ? 'text-emerald-700' : 'text-slate-700'}`}>
+                    <span className={`font-black text-lg mb-1 ${isPurple ? 'text-purple-900' : isCompleted ? 'text-emerald-700' : 'text-slate-700'}`}>
                       Level {idx + 1}
                     </span>
-                    <div className="flex gap-1">
-                      {Array.from({ length: 3 }).map((_, i) => (
-                        <Heart 
-                          key={i} 
-                          size={14} 
-                          className={i < heartsEarned ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
-                        />
-                      ))}
-                    </div>
+                    {isCompleted ? (
+                      isPurple ? (
+                        <div className="flex items-center gap-1 bg-purple-100 border border-purple-200 px-2.5 py-1 rounded-full text-purple-700 font-black text-xs">
+                          <Star size={12} className="fill-purple-500 text-purple-500 animate-pulse" />
+                          <span>{starsEarned} Stars</span>
+                        </div>
+                      ) : (
+                        <div className="flex gap-1">
+                          {Array.from({ length: 3 }).map((_, i) => (
+                            <Heart 
+                              key={i} 
+                              size={14} 
+                              className={i < heartsEarned ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
+                            />
+                          ))}
+                        </div>
+                      )
+                    ) : (
+                      <div className="flex gap-1">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <Heart key={i} size={14} className="text-slate-300 fill-slate-200" />
+                        ))}
+                      </div>
+                    )}
                     {!isCompleted && (
                       <div className="absolute inset-0 bg-indigo-500/90 rounded-[1.3rem] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Play size={32} className="text-white fill-white" />
@@ -432,38 +454,72 @@ export const CourtroomView = ({ onBack }) => {
         )}
 
         {/* STATE 3: VERDICT WON (LEVEL CLEARED) */}
-        {gameState === 'verdict_won' && (
-          <div className="animate-in zoom-in-95 duration-300 text-center py-6">
-            <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-emerald-100 border-4 border-emerald-400 text-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-sm animate-bounce">
-              <CheckCircle2 size={64} />
+        {gameState === 'verdict_won' && (() => {
+          const heartsLeft = strikes + shieldBlocks;
+          const baseStars = heartsLeft * 2;
+          const starsWon = hasGavel ? baseStars * 2 : baseStars;
+          const isPurple = heartsLeft > 3;
+
+          return (
+            <div className="animate-in zoom-in-95 duration-300 text-center py-6">
+              <div className={`mx-auto w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full flex items-center justify-center mb-6 shadow-md ${
+                isPurple 
+                  ? 'bg-purple-100 border-4 border-purple-500 text-purple-600 animate-pulse shadow-[0_0_25px_rgba(168,85,247,0.5)]' 
+                  : 'bg-emerald-100 border-4 border-emerald-400 text-emerald-500 animate-bounce shadow-sm'
+              }`}>
+                {isPurple ? <Star size={64} className="fill-purple-500 text-purple-600" /> : <CheckCircle2 size={64} />}
+              </div>
+
+              <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+                isPurple ? 'text-purple-600 drop-shadow-sm' : 'text-emerald-500'
+              }`}>
+                LEVEL {levelIndex + 1} CLEARED!
+              </h2>
+
+              {isPurple ? (
+                <div className="flex flex-col items-center gap-2 mb-8">
+                  <div className="inline-flex items-center gap-3 bg-purple-100 border-2 border-purple-300 px-6 py-3 rounded-full text-purple-700 font-black text-2xl shadow-md">
+                    <Star size={32} className="fill-purple-500 text-purple-600 animate-bounce" />
+                    <span>+{starsWon} Stars Earned!</span>
+                  </div>
+                  <span className="text-sm font-extrabold text-purple-500">
+                    💜 PURPLE OVERCHARGE ({heartsLeft} Hearts Left)
+                  </span>
+                  {hasGavel && (
+                    <span className="text-xs bg-purple-200 text-purple-900 px-3 py-1 rounded-full font-bold">
+                      ⚖️ 2x Gavel Bonus Applied
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-center gap-2 mb-4">
+                     {Array.from({ length: 3 }).map((_, i) => (
+                       <Heart 
+                         key={i} 
+                         size={48} 
+                         className={i < strikes ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
+                       />
+                     ))}
+                  </div>
+
+                  <div className="flex items-center justify-center gap-2 text-xl font-black text-amber-500 mb-8">
+                    <Star size={24} className="fill-amber-500 text-amber-500" /> +{starsWon} Stars Earned! {hasGavel && <span className="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">⚖️ 2x Gavel Bonus</span>}
+                  </div>
+                </>
+              )}
+
+              <button
+                onClick={returnToMenu}
+                className={`px-10 py-5 font-black text-2xl rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center gap-2 text-white ${
+                  isPurple ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-200' : 'bg-indigo-500 hover:bg-indigo-600'
+                }`}
+              >
+                Return to Level Select <ArrowRight size={24} />
+              </button>
             </div>
-
-            <h2 className="text-5xl font-black text-emerald-500 mb-4 tracking-tight">
-              LEVEL {levelIndex + 1} CLEARED!
-            </h2>
-
-            <div className="flex justify-center gap-2 mb-4">
-               {Array.from({ length: 3 }).map((_, i) => (
-                 <Heart 
-                   key={i} 
-                   size={48} 
-                   className={i < strikes ? 'text-rose-500 fill-rose-500' : 'text-slate-300 fill-slate-200'} 
-                 />
-               ))}
-            </div>
-
-            <div className="flex items-center justify-center gap-2 text-xl font-black text-amber-500 mb-8">
-              <Star size={24} className="fill-amber-500 text-amber-500" /> +{strikes * 3 * (hasGavel ? 2 : 1)} Stars Earned! {hasGavel && <span className="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">⚖️ 2x Gavel Bonus</span>}
-            </div>
-
-            <button
-              onClick={returnToMenu}
-              className="px-10 py-5 bg-indigo-500 hover:bg-indigo-600 text-white font-black text-2xl rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center gap-2"
-            >
-              Return to Level Select <ArrowRight size={24} />
-            </button>
-          </div>
-        )}
+          );
+        })()}
 
         {/* STATE 4: VERDICT LOST */}
         {gameState === 'verdict_lost' && (
