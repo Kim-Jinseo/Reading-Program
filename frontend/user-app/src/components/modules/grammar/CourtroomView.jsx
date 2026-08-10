@@ -187,8 +187,8 @@ export const CourtroomView = ({ onBack }) => {
             const starsEarned = user?.starsTracker?.[`courtroom_level_${grade}_${idx}`] || 0;
             const baseStarsEarned = hasGavel ? Math.floor(starsEarned / 2) : starsEarned;
             const heartsEarned = starsEarned > 0 ? Math.min(3, Math.max(1, Math.floor(baseStarsEarned / 2))) : 0;
-            const isPurple = starsEarned > 6;
             const isCompleted = starsEarned > 0;
+            const isThreeStars = isCompleted && heartsEarned === 3;
             
             return (
               <button
@@ -198,9 +198,9 @@ export const CourtroomView = ({ onBack }) => {
                 className={`relative p-5 rounded-3xl border-2 flex flex-col items-center justify-center transition-all min-h-[160px] ${
                   isUnlocked 
                     ? isCompleted
-                      ? isPurple
+                      ? isThreeStars
                         ? 'bg-white border-purple-400 hover:border-purple-600 shadow-md shadow-purple-100/50 cursor-pointer group'
-                        : 'bg-white border-emerald-300 hover:border-emerald-500 shadow-sm cursor-pointer group' 
+                        : 'bg-white border-emerald-400 hover:border-emerald-600 shadow-sm cursor-pointer group' 
                       : 'bg-white border-slate-200 hover:border-indigo-400 shadow-md hover:shadow-lg hover:-translate-y-1 cursor-pointer group'
                     : 'bg-slate-100 border-slate-200 opacity-60 cursor-not-allowed grayscale'
                 }`}
@@ -213,28 +213,40 @@ export const CourtroomView = ({ onBack }) => {
                 ) : (
                   <>
                     <div className={`w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-sm mb-3 group-hover:scale-110 transition-transform flex items-center justify-center font-black text-2xl ${
-                      isPurple ? 'bg-purple-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.4)]' : isCompleted ? 'bg-emerald-100 text-emerald-600' : 'bg-indigo-100 text-indigo-500'
+                      isThreeStars 
+                        ? 'bg-purple-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.4)]' 
+                        : isCompleted 
+                          ? 'bg-emerald-500 text-white shadow-sm' 
+                          : 'bg-indigo-100 text-indigo-500'
                     }`}>
                       {idx + 1}
                     </div>
-                    <span className={`font-black text-lg mb-2 ${isPurple ? 'text-purple-900' : isCompleted ? 'text-emerald-700' : 'text-slate-700'}`}>
+                    <span className={`font-black text-lg mb-2 ${
+                      isThreeStars 
+                        ? 'text-purple-900' 
+                        : isCompleted 
+                          ? 'text-emerald-800' 
+                          : 'text-slate-700'
+                    }`}>
                       Level {idx + 1}
                     </span>
-                    {isCompleted && (
-                      <div className="flex gap-1">
-                        {Array.from({ length: 3 }).map((_, i) => (
-                          <Heart 
-                            key={i} 
-                            size={16} 
-                            className={
-                              i < (heartsEarned || 3) 
-                                ? isPurple ? 'text-purple-500 fill-purple-500 drop-shadow-[0_0_6px_rgba(168,85,247,0.6)]' : 'text-rose-500 fill-rose-500' 
-                                : 'text-slate-200 fill-slate-100'
-                            } 
-                          />
-                        ))}
-                      </div>
-                    )}
+                    <div className="flex gap-1">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <Heart 
+                          key={i} 
+                          size={16} 
+                          className={
+                            isCompleted
+                              ? i < heartsEarned 
+                                ? isThreeStars 
+                                  ? 'text-purple-500 fill-purple-500 drop-shadow-[0_0_6px_rgba(168,85,247,0.6)]' 
+                                  : 'text-rose-500 fill-rose-500' 
+                                : 'text-slate-300 fill-slate-100'
+                              : 'text-slate-300 fill-slate-100'
+                          } 
+                        />
+                      ))}
+                    </div>
                     {!isCompleted && (
                       <div className="absolute inset-0 bg-indigo-500/90 rounded-[1.3rem] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Play size={32} className="text-white fill-white" />
