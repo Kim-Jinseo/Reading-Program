@@ -49,14 +49,14 @@ export const WritingModule = () => {
     if (status === 'feedback' && feedback) {
       setRevealedStarCount(0);
       setWritingPurplePhase(false);
-      const displayCount = Math.min(feedback.stars, 3);
-      const isMp = feedback.stars >= 4;
+      const starCount = Math.max(1, Math.min(5, Number(feedback.stars) || 1));
+      const isMp = starCount >= 4;
       const timers = [];
-      for (let i = 1; i <= displayCount; i++) {
-        timers.push(setTimeout(() => setRevealedStarCount(i), i * 400));
+      for (let i = 1; i <= starCount; i++) {
+        timers.push(setTimeout(() => setRevealedStarCount(i), i * 350));
       }
       if (isMp) {
-        timers.push(setTimeout(() => setWritingPurplePhase(true), displayCount * 400 + 600));
+        timers.push(setTimeout(() => setWritingPurplePhase(true), starCount * 350 + 400));
       }
       return () => timers.forEach(clearTimeout);
     }
@@ -257,7 +257,6 @@ export const WritingModule = () => {
     const textTrimmed = text.trim();
     const words = textTrimmed.split(/\s+/).filter(Boolean);
     const wordCount = words.length;
-    let baseStars = wordCount >= 10 ? 4 : wordCount >= 5 ? 3 : wordCount >= 2 ? 2 : 1;
 
     // Detect grammar & formatting errors
     let grammarErrors = 0;
@@ -278,28 +277,29 @@ export const WritingModule = () => {
     // 3. Ending punctuation check
     if (!/[.!?]$/.test(textTrimmed)) { grammarErrors += 1; grammarNotes.push("End your sentence with punctuation (.)."); }
 
-    // Grammar deductions
-    let finalStars = baseStars;
-    if (grammarErrors >= 3) finalStars = Math.max(1, finalStars - 2);
-    else if (grammarErrors >= 1) finalStars = Math.max(1, finalStars - 1);
+    let finalStars = 1;
+    if (wordCount >= 20 && grammarErrors === 0) finalStars = 5;
+    else if (wordCount >= 12 && grammarErrors === 0) finalStars = 4;
+    else if (wordCount >= 8 && grammarErrors <= 1) finalStars = 3;
+    else if (wordCount >= 4) finalStars = 2;
+    else finalStars = 1;
 
     const grammarMsg = grammarNotes.length > 0
       ? `Grammar Tip: ${grammarNotes.join(' ')}`
       : "Great job writing with correct grammar, capitalization, and punctuation!";
 
-    const earnedStars = finalStars >= 4 ? 5 : finalStars;
-    handleEarnStars(earnedStars, 'writing', prompt.id);
+    handleEarnStars(finalStars, 'writing', prompt.id);
     saveEssay(prompt.id, text);
     updateCompletion('completedWriting', prompt.id);
-    if (isDaily) markDailyComplete('writing', earnedStars, prompt.id);
+    if (isDaily) markDailyComplete('writing', finalStars, prompt.id);
     setFeedback({
       stars: finalStars,
       grammar: grammarMsg,
-      grammarZh: "请写出完整的句子。",
+      grammarZh: grammarNotes.length > 0 ? "请注意语法与标点规范。" : "语法和标点表达非常棒！",
       content: "Nice effort answering the writing prompt!",
       contentZh: "感谢你努力解答写作题！",
-      general: "Wonderful effort! Keep practicing your writing skills everyday!",
-      generalZh: "很棒的尝试！坚持每天练习写作！"
+      general: finalStars >= 4 ? "Fantastic job! Outstanding writing!" : "Wonderful effort! Keep practicing your writing skills everyday!",
+      generalZh: finalStars >= 4 ? "太棒了！极为优秀的写作！" : "很棒的尝试！坚持每天练习写作！"
     });
     setStatus('feedback');
   };
@@ -321,13 +321,13 @@ export const WritingModule = () => {
       const data = await response.json();
       
       if (data.success) {
-        const earnedStars = data.stars >= 4 ? 5 : data.stars;
+        const earnedStars = Math.max(1, Math.min(5, Number(data.stars) || 1));
         handleEarnStars(earnedStars, 'writing', prompt.id);
         saveEssay(prompt.id, text);
         updateCompletion('completedWriting', prompt.id);
         if (isDaily) markDailyComplete('writing', earnedStars, prompt.id);
         setFeedback({ 
-          stars: data.stars, 
+          stars: earnedStars, 
           grammar: data.grammar,
           grammarZh: data.grammarZh,
           content: data.content,
@@ -346,25 +346,37 @@ export const WritingModule = () => {
   };
 
   if (status === 'feedback' && feedback) {
+    const starCount = Math.max(1, Math.min(5, Number(feedback.stars) || 1));
+    const isPurple = starCount >= 4;
+
     const getStarStyle = (starNum) => {
       const isRevealed = starNum <= revealedStarCount;
-      if (!isRevealed) return { className: 'text-slate-200 fill-slate-100 transition-all duration-500', size: 64 };
-      if (writingPurplePhase) return { className: 'text-purple-500 fill-purple-500 drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] transition-all duration-700 scale-110', size: 72 };
-      return { className: 'text-amber-400 fill-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)] transition-all duration-500 scale-105', size: 64 };
+      if (!isRevealed) return { className: 'text-slate-200 fill-slate-100 transition-all duration-500', size: isPurple ? 48 : 56 };
+      if (writingPurplePhase) return { className: 'text-purple-500 fill-purple-500 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all duration-700 scale-110 animate-pulse', size: 56 };
+      return { className: 'text-amber-400 fill-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)] transition-all duration-500 scale-105', size: 56 };
     };
 
     return (
       <div className="max-w-md mx-auto pt-10">
-        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100 text-center animate-in zoom-in-95 mt-6">
-          <h2 className="text-3xl font-extrabold text-slate-800 mb-4">Evaluation Complete</h2>
-          <div className="flex justify-center gap-5 mb-4 items-center" style={{ minHeight: '80px' }}>
-            {[1, 2, 3].map((starNum) => {
+        <div className={`p-8 rounded-[2.5rem] shadow-xl border-2 text-center animate-in zoom-in-95 mt-6 transition-all duration-700 ${
+          writingPurplePhase 
+            ? 'bg-gradient-to-br from-purple-50 via-white to-fuchsia-50 border-purple-300 shadow-purple-200/80 ring-4 ring-purple-200/50' 
+            : 'bg-white border-slate-100'
+        }`}>
+          <h2 className={`text-3xl font-black mb-4 ${writingPurplePhase ? 'text-purple-900 drop-shadow-sm' : 'text-slate-800'}`}>
+            {writingPurplePhase ? '💜 EXCELLENT WRITING!' : 'Evaluation Complete'}
+          </h2>
+
+          {/* Animated Stars Row */}
+          <div className="flex justify-center gap-2 sm:gap-3 mb-6 items-center flex-wrap" style={{ minHeight: '80px' }}>
+            {Array.from({ length: starCount }).map((_, idx) => {
+              const starNum = idx + 1;
               const { className, size } = getStarStyle(starNum);
               const isRevealed = starNum <= revealedStarCount;
               return (
                 <div 
                   key={starNum}
-                  className={`transition-all duration-500 ease-out ${isRevealed ? 'opacity-100' : 'opacity-60'}`}
+                  className={`transition-all duration-500 ease-out ${isRevealed ? 'opacity-100 scale-100' : 'opacity-30 scale-90'}`}
                   style={{ animation: isRevealed && starNum === revealedStarCount ? 'starBounce 0.5s ease-out' : 'none' }}
                 >
                   <Star size={size} className={className} />
@@ -373,34 +385,33 @@ export const WritingModule = () => {
             })}
           </div>
 
-          {/* Prominent Star Earnings Badge */}
-          {(() => {
-            const actualStars = feedback.stars >= 4 ? 5 : (feedback.stars || 0);
-            return (
-              <div className={`inline-flex items-center gap-2 border-2 px-6 py-2 rounded-full font-black text-lg shadow-md mb-4 transition-all duration-500 ${
-                writingPurplePhase 
-                  ? 'bg-gradient-to-r from-purple-100 via-fuchsia-100 to-indigo-100 border-purple-300 text-purple-900 shadow-purple-200/50' 
-                  : 'bg-gradient-to-r from-amber-100 via-yellow-100 to-amber-100 border-amber-300 text-amber-900 shadow-amber-200/50'
-              }`}>
-                <span>⭐ You earned {actualStars} Star{actualStars === 1 ? '' : 's'}! ⭐</span>
-              </div>
-            );
-          })()}
+          {/* Prominent Star Count Badge & Compliment */}
+          <div className="flex flex-col items-center gap-2 mb-6">
+            <div className={`inline-flex items-center gap-2.5 border-2 px-6 py-3 rounded-full font-black text-2xl shadow-md transition-all duration-500 ${
+              writingPurplePhase 
+                ? 'bg-purple-100 border-purple-300 text-purple-900 shadow-purple-200/50' 
+                : 'bg-amber-100 border-amber-300 text-amber-900 shadow-amber-200/50'
+            }`}>
+              <span>⭐ You got {starCount} star{starCount === 1 ? '' : 's'}! ⭐</span>
+            </div>
 
-          <p className={`font-bold mb-6 text-base transition-all duration-500 ${writingPurplePhase ? 'text-purple-600' : 'text-slate-500'}`}>
-            {writingPurplePhase 
-              ? "⭐ ABSOLUTE MASTERPIECE! ⭐" 
-              : feedback.stars >= 3 
-                ? "Fantastic work! You're a brilliant writer! 🌟" 
-                : feedback.stars >= 2 
-                  ? "Great effort! Just a few tiny tweaks to make it perfect! ✨" 
-                  : feedback.stars === 1 
-                    ? "Good try! Let's polish it up together to make it shine! 💪" 
-                    : "Keep going! Every great writer starts with a draft. 🌱"}
-          </p>
+            <p className={`font-black mt-2 transition-all duration-500 ${
+              writingPurplePhase ? 'text-purple-700 text-2xl animate-bounce' : 'text-slate-600 text-xl'
+            }`}>
+              {writingPurplePhase 
+                ? (starCount >= 5 ? "Fantastic job! Absolute Masterpiece! 🚀💜" : "Fantastic job! Outstanding writing! 🌟💜")
+                : starCount === 3 
+                  ? "Great job! Wonderful effort! 🌟" 
+                  : starCount === 2 
+                    ? "Good try! A few tweaks will make it shine! ✨" 
+                    : "Keep practicing! Every draft gets better! 🌱"}
+            </p>
+          </div>
 
           <div className="flex flex-col gap-3">
-            <button onClick={() => setStatus('improving')} className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-600 text-white font-black rounded-2xl shadow-[0_4px_0_rgb(79,70,229)] active:shadow-none active:translate-y-1 transition-all">
+            <button onClick={() => setStatus('improving')} className={`w-full py-3.5 text-white font-black rounded-2xl transition-all shadow-md ${
+              writingPurplePhase ? 'bg-purple-600 hover:bg-purple-700 shadow-[0_4px_0_rgb(147,51,234)]' : 'bg-indigo-500 hover:bg-indigo-600 shadow-[0_4px_0_rgb(79,70,229)]'
+            }`}>
               Improve based on feedback
             </button>
             <div className="flex gap-3">

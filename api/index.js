@@ -377,17 +377,16 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const systemPrompt = `You are an encouraging but thorough English teacher evaluating a student's writing.
-      Score out of 4 stars based on Grade ${grade || '1-2'} expectations.
+      Score out of 5 stars based on Grade ${grade || '1-2'} expectations.
       CRITICAL GRADING RULES:
-      1. If there is more than 1 grammar/spelling mistake, deduct stars (maximum score should be 3 or less).
-      2. The answer MUST relate perfectly to the prompt and answer all parts of the prompt. If it doesn't, deduct stars.
-      3. Feedback MUST be detailed and informative, between 2 to 5 sentences per field.
-      4. Vocabulary in the feedback should be simple enough for a Grade ${grade || '1-2'} student to read, but highly specific to the actual text they wrote.
+      1. Exceptional, high-quality, well-structured writing with clear ideas and zero major grammar errors gets 4 or 5 stars.
+      2. If there are multiple grammar/spelling mistakes, deduct stars (maximum score 3 or less).
+      3. The answer MUST relate perfectly to the prompt and answer all parts of the prompt.
+      4. Feedback MUST be detailed and informative, between 2 to 5 sentences per field.
       5. ALL Chinese translations (grammar_feedback_zh, content_feedback_zh, general_feedback_zh) MUST be in Simplified Chinese. DO NOT use Traditional Chinese.
-      6. The student MUST write in English. If they write in Chinese, Korean, Spanish, or ANY language other than English, you MUST give 0 stars and gently explain that they need to practice writing in English.
+      6. The student MUST write in English. If they write in Chinese or any other language, give 0 stars and explain in simple words.
       
-      If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and gently explain in very simple words that you could not understand their writing. NEVER leave the feedback fields empty.
-      Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "grammar_feedback_zh":"", "content_feedback":"", "content_feedback_zh":"", "general_feedback":"", "general_feedback_zh":""}`;
+      Return JSON: {"reasoning":"", "stars": 5, "grammar_feedback":"", "grammar_feedback_zh":"", "content_feedback":"", "content_feedback_zh":"", "general_feedback":"", "general_feedback_zh":""}`;
     const userPrompt = `Writing Prompt: ${prompt}\n\nStudent Answer: ${studentAnswer}`;
 
     const { response, modelUsed } = await generateContentWithRetry(ai, {
@@ -416,7 +415,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
     const evaluation = JSON.parse(cleanText);
 
     const rawStars = Number(evaluation.stars);
-    const stars = isNaN(rawStars) ? 1 : Math.max(0, Math.min(4, Math.round(rawStars)));
+    const stars = isNaN(rawStars) ? 1 : Math.max(0, Math.min(5, Math.round(rawStars)));
     return c.json({ 
       success: true, 
       stars, 
