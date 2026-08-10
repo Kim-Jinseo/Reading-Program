@@ -16,8 +16,19 @@ import { LeaderboardView } from './pages/LeaderboardView';
 import { ShopView } from './pages/ShopView';
 
 const AppContent = () => {
-  const { user, view, curriculumDb } = useAppContext();
+  const { user, view, curriculumDb, isAuthLoading } = useAppContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  if (isAuthLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#f8fafc]" style={{ fontFamily: '"Inter", "Noto Sans SC", sans-serif' }}>
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+          <p className="text-slate-400 font-bold text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return <AuthModal />;

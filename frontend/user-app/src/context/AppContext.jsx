@@ -42,8 +42,46 @@ export const AppProvider = ({ children }) => {
   const [view, setView] = useState('dashboard');
   const [curriculumDb, setCurriculumDb] = useState(localCurriculum);
   const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const t = (key) => TRANSLATIONS[lang][key] || key;
+
+  // Auto-login: restore session from saved JWT token
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsAuthLoading(false);
+      return;
+    }
+    fetch('/api/auth/me', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.user) {
+          const isTeacher = data.user.role === 'admin' || data.user.username?.toLowerCase() === 'teacher2026';
+          const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
+          setUser({
+            ...data.user,
+            name: data.user.username,
+            isGuest: false,
+            role: isTeacher ? 'admin' : (data.user.role || 'student'),
+            inventory: isTeacher ? teacherItems : (data.user.inventory || []),
+            unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (data.user.unlockedChars || []),
+            unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (data.user.unlockedPets || []),
+            clearedVoiceStages: isTeacher
+              ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
+              : (data.user.clearedVoiceStages || {})
+          });
+        } else {
+          localStorage.removeItem('token');
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem('token');
+      })
+      .finally(() => setIsAuthLoading(false));
+  }, []);
 
   useEffect(() => {
     fetch(`/api/curriculum`)
@@ -301,7 +339,7 @@ export const AppProvider = ({ children }) => {
       grade, setGrade,
       view, setView,
       curriculumDb, setCurriculumDb,
-      user, setUser,
+      user, setUser, isAuthLoading,
       t, handleEarnStars, handleEarnBattleStars, handlePurchase, handleEquipItem, handleEquipPet, handleEquipShield, calculateStars, updateCompletion, unmasterVocab, saveEssay, updateVocabStat, updateGrammarStat, getLeaderboard, fetchRealLeaderboard, markDailyComplete, getDailyStatus
     }}>
       {children}

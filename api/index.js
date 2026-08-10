@@ -188,6 +188,21 @@ app.post('/auth/login', async (c) => {
   }
 });
 
+// Auto-login: verify token and return user data
+app.get('/auth/me', requireAuth, async (c) => {
+  try {
+    const { users } = await getDb();
+    const userId = c.get('user').userId;
+    const user = await users.findOne({ _id: new ObjectId(userId) });
+    if (!user) return c.json({ success: false, error: 'User not found' }, 404);
+    delete user.pin;
+    return c.json({ success: true, user });
+  } catch (error) {
+    console.error(error);
+    return c.json({ success: false, error: 'Failed to restore session' }, 500);
+  }
+});
+
 app.post('/auth/sync', requireAuth, async (c) => {
   try {
     const { users } = await getDb();
