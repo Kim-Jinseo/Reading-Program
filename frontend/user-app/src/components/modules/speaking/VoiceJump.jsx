@@ -860,7 +860,7 @@ export const VoiceJump = ({ onBack }) => {
                     <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 text-[0.65rem] font-black tracking-widest uppercase px-4 py-1 rounded-full shadow-lg border-2 border-white z-30 whitespace-nowrap ${
                       isCompleted ? 'bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-cyan-300 border-cyan-300' : 'bg-gradient-to-r from-amber-400 via-rose-500 to-amber-400 text-white animate-pulse'
                     }`}>
-                      {isCompleted ? '💎 FINAL BOSS CLEARED 💎' : '👑 FINAL SUPREME BOSS 👑'}
+                      {isCompleted ? '✨ FINAL BOSS CLEARED ✨' : '👑 FINAL SUPREME BOSS 👑'}
                     </div>
                   )}
 
