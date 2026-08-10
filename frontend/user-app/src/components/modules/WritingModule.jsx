@@ -351,9 +351,9 @@ export const WritingModule = () => {
 
     const getStarStyle = (starNum) => {
       const isRevealed = starNum <= revealedStarCount;
-      if (!isRevealed) return { className: 'text-slate-200 fill-slate-100 transition-all duration-500', size: isPurple ? 48 : 56 };
-      if (writingPurplePhase) return { className: 'text-purple-500 fill-purple-500 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all duration-700 scale-110 animate-pulse', size: 56 };
-      return { className: 'text-amber-400 fill-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)] transition-all duration-500 scale-105', size: 56 };
+      if (!isRevealed) return { className: 'text-slate-200 fill-slate-100 transition-all duration-500', size: isPurple ? 48 : 56, filter: 'none' };
+      if (writingPurplePhase) return { className: 'text-purple-500 fill-purple-500 transition-all duration-700 scale-110 animate-pulse', size: 56, filter: 'drop-shadow(0 4px 12px rgba(168, 85, 247, 0.4))' };
+      return { className: 'text-amber-400 fill-amber-400 transition-all duration-500 scale-105', size: 56, filter: 'drop-shadow(0 4px 8px rgba(245, 158, 11, 0.4))' };
     };
 
     return (
@@ -368,16 +368,20 @@ export const WritingModule = () => {
           </h2>
 
           {/* Animated Stars Row */}
-          <div className="flex justify-center gap-2 sm:gap-3 mb-6 items-center flex-wrap" style={{ minHeight: '80px' }}>
+          <div className="flex justify-center gap-3 mb-6 items-center" style={{ minHeight: '80px' }}>
             {Array.from({ length: starCount }).map((_, idx) => {
               const starNum = idx + 1;
-              const { className, size } = getStarStyle(starNum);
+              const { className, size, filter } = getStarStyle(starNum);
               const isRevealed = starNum <= revealedStarCount;
+              
               return (
                 <div 
                   key={starNum}
-                  className={`transition-all duration-500 ease-out ${isRevealed ? 'opacity-100 scale-100' : 'opacity-30 scale-90'}`}
-                  style={{ animation: isRevealed && starNum === revealedStarCount ? 'starBounce 0.5s ease-out' : 'none' }}
+                  className={`transition-all duration-500 ease-out ${isRevealed ? 'opacity-100 translate-y-0 scale-100' : 'opacity-60 translate-y-0 scale-100'}`}
+                  style={{
+                    animation: isRevealed && starNum === revealedStarCount ? 'starBounce 0.5s ease-out' : 'none',
+                    filter: isRevealed ? filter : 'none'
+                  }}
                 >
                   <Star size={size} className={className} />
                 </div>

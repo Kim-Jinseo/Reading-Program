@@ -41,21 +41,24 @@ export const ScoreScreen = ({ stars, onRetry, onContinue, customMessage }) => {
       return {
         className: 'text-slate-200 fill-slate-100 transition-all duration-500',
         size: 64,
+        filter: 'none'
       };
     }
 
     if (isPurplePhase) {
-      // Purple masterpiece star — steady glow, no blinking
+      // Purple masterpiece star — clean drop shadow without SVG bounding box artifacts
       return {
-        className: 'text-purple-500 fill-purple-500 drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] transition-all duration-700 scale-110',
+        className: 'text-purple-500 fill-purple-500 transition-all duration-700 scale-110',
         size: 72,
+        filter: 'drop-shadow(0 4px 12px rgba(168, 85, 247, 0.4))'
       };
     }
 
     // Gold active star
     return {
-      className: 'text-amber-400 fill-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)] transition-all duration-500 scale-105',
+      className: 'text-amber-400 fill-amber-400 transition-all duration-500 scale-105',
       size: 64,
+      filter: 'drop-shadow(0 4px 8px rgba(245, 158, 11, 0.4))'
     };
   };
 
@@ -65,7 +68,7 @@ export const ScoreScreen = ({ stars, onRetry, onContinue, customMessage }) => {
       
       <div className="flex justify-center gap-5 mb-4 items-center" style={{ minHeight: '90px' }}>
         {[1, 2, 3].map((starNum) => {
-          const { className, size } = getStarStyle(starNum);
+          const { className, size, filter } = getStarStyle(starNum);
           const isRevealed = starNum <= revealedCount;
           
           return (
@@ -74,6 +77,7 @@ export const ScoreScreen = ({ stars, onRetry, onContinue, customMessage }) => {
               className={`transition-all duration-500 ease-out ${isRevealed ? 'opacity-100 translate-y-0 scale-100' : 'opacity-60 translate-y-0 scale-100'}`}
               style={{
                 animation: isRevealed && starNum === revealedCount ? 'starBounce 0.5s ease-out' : 'none',
+                filter: isRevealed ? filter : 'none'
               }}
             >
               <Star size={size} className={className} />
