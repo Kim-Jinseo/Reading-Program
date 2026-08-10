@@ -150,22 +150,7 @@ export const VocabModule = () => {
     setMode('daily_quiz');
   };
 
-  // Handlers for Matching
-  const startMatching = () => {
-    const pool = allData.sort(() => Math.random() - 0.5).slice(0, 5);
-    if (pool.length === 0) return;
-    const leftCol = [...pool].sort(() => Math.random() - 0.5);
-    const rightCol = [...pool].sort(() => Math.random() - 0.5);
-    setMatchingData({ left: leftCol, right: rightCol });
-    setMatchedIds([]);
-    setSelectedLeft(null);
-    setSelectedRight(null);
-    setErrorIds([]);
-    setMistakeIds([]);
-    setMistakeCount(0);
-    setLearningQueue(pool); 
-    setMode('matching');
-  };
+
 
   const handleMatchClick = (side, id) => {
     if (matchedIds.includes(id)) return;
