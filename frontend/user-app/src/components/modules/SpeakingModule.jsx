@@ -550,21 +550,21 @@ export const SpeakingModule = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto pt-6 flex flex-col items-center flex-1">
-      <div className="flex justify-between items-center w-full mb-12">
+    <div className="max-w-3xl mx-auto pt-4 sm:pt-6 flex flex-col items-center flex-1 px-4 sm:px-0">
+      <div className="flex justify-between items-center w-full mb-8 sm:mb-12">
         <button onClick={() => setMode('menu')} className="text-slate-400 hover:text-slate-700 flex items-center gap-2 font-bold"><ChevronLeft size={20}/> Back</button>
       </div>
       
-      <div className="bg-white border-2 border-rose-100 p-12 rounded-[3rem] shadow-xl w-full text-center mb-12 relative">
+      <div className="bg-white border-2 border-rose-100 p-6 sm:p-12 rounded-[2rem] sm:rounded-[3rem] shadow-xl w-full text-center mb-8 sm:mb-12 relative">
         <button 
           onClick={handlePlayAudio} 
-          className="mx-auto text-rose-300 hover:text-rose-500 transition-colors mb-6 block focus:outline-none hover:scale-110 active:scale-95"
+          className="mx-auto text-rose-300 hover:text-rose-500 transition-colors mb-4 sm:mb-6 block focus:outline-none hover:scale-110 active:scale-95"
           title="Listen to native pronunciation"
         >
           <Volume2 size={48} className="mx-auto" />
         </button>
-        <h2 className="text-4xl font-extrabold text-slate-800 mb-6 leading-relaxed">{prompt.en}</h2>
-        <p className="text-slate-500 font-bold text-xl">{prompt.zh}</p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-4 sm:mb-6 leading-relaxed">{prompt.en}</h2>
+        <p className="text-slate-500 font-bold text-lg sm:text-xl">{prompt.zh}</p>
       </div>
       
       <div className="flex-1 flex flex-col items-center justify-center w-full min-h-[350px]">
