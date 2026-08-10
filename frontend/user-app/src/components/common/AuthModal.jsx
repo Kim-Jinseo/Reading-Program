@@ -17,6 +17,26 @@ export const AuthModal = () => {
       return;
     }
     
+    // Helper: save user to both state AND localStorage in one shot
+    const loginAs = (userData, token) => {
+      localStorage.removeItem('isGuest');
+      localStorage.setItem('token', token);
+      localStorage.setItem('savedUserData', JSON.stringify(userData));
+      setUser(userData);
+    };
+
+    const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
+    const teacherUser = {
+      name: 'teacher2026', username: 'teacher2026', isGuest: false, role: 'admin', stars: 999, trophies: 999,
+      inventory: teacherItems,
+      unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
+      unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
+      clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
+      masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
+      stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
+      starsTracker: {}, essays: {}
+    };
+
     try {
       const isTeacherUser = name.trim().toLowerCase() === 'teacher2026';
       
@@ -28,11 +48,8 @@ export const AuthModal = () => {
       const data = await response.json();
       
       if (data.success) {
-        localStorage.removeItem('isGuest');
-        localStorage.setItem('token', data.token);
         const isTeacher = isTeacherUser || data.user?.role === 'admin';
-        const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
-        setUser({ 
+        const userData = { 
           ...data.user, 
           name: data.user.username, 
           isGuest: false,
@@ -40,47 +57,27 @@ export const AuthModal = () => {
           inventory: isTeacher ? teacherItems : (data.user.inventory || []),
           unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (data.user.unlockedChars || []),
           unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (data.user.unlockedPets || []),
-          clearedVoiceStages: isTeacher ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) } : (data.user.clearedVoiceStages || {})
-        });
+          clearedVoiceStages: isTeacher ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) } : (data.user.clearedVoiceStages || {}),
+          masteredVocab: data.user.masteredVocab || [],
+          completedGrammar: data.user.completedGrammar || [],
+          completedWriting: data.user.completedWriting || [],
+          completedSpeaking: data.user.completedSpeaking || [],
+          completedReading: data.user.completedReading || [],
+          stats: data.user.stats || { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
+          starsTracker: data.user.starsTracker || {},
+          essays: data.user.essays || {},
+          stars: data.user.stars || 0,
+          trophies: data.user.trophies || data.user.stars || 0,
+        };
+        loginAs(userData, data.token);
       } else if (isTeacherUser) {
-        // Teacher offline fallback demo account
-        localStorage.removeItem('isGuest');
-        localStorage.setItem('token', 'offline_teacher_token');
-        setUser({
-          name: 'teacher2026',
-          username: 'teacher2026',
-          isGuest: false,
-          role: 'admin',
-          stars: 999,
-          inventory: ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'],
-          unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
-          unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
-          clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
-          masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
-          stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
-          starsTracker: {}
-        });
+        loginAs(teacherUser, 'offline_teacher_token');
       } else {
         setError(data.error || "Login failed");
       }
     } catch (err) {
       if (name.trim().toLowerCase() === 'teacher2026') {
-        localStorage.removeItem('isGuest');
-        localStorage.setItem('token', 'offline_teacher_token');
-        setUser({
-          name: 'teacher2026',
-          username: 'teacher2026',
-          isGuest: false,
-          role: 'admin',
-          stars: 999,
-          inventory: ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'],
-          unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
-          unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
-          clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
-          masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
-          stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
-          starsTracker: {}
-        });
+        loginAs(teacherUser, 'offline_teacher_token');
       } else {
         setError("Server error. Try continuing as guest.");
       }
