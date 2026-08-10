@@ -181,7 +181,7 @@ const MONSTER_STYLES = {
 };
 
 export const VoiceJump = ({ onBack }) => {
-  const { t, grade, user, handleEarnBattleStars, syncProgress } = useAppContext();
+  const { t, grade, user, setUser, handleEarnBattleStars, syncProgress } = useAppContext();
   
   const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';
   const hasHourglass = isAdmin || user?.inventory?.includes('relic_hourglass');
@@ -679,8 +679,9 @@ export const VoiceJump = ({ onBack }) => {
                    const newGradeCleared = [...clearedStages, stage];
                    const newMap = { ...clearedStagesByGrade, [activeGrade]: newGradeCleared };
                    setClearedStagesByGrade(newMap);
-                   localStorage.setItem('voiceBattleClearedByGrade', JSON.stringify(newMap));
-                   if (syncProgress) syncProgress({ clearedVoiceStages: newMap });
+                    setUser(prev => ({ ...prev, clearedVoiceStages: newMap }));
+                    localStorage.setItem('voiceBattleClearedByGrade', JSON.stringify(newMap));
+                    if (syncProgress) syncProgress({ clearedVoiceStages: newMap });
                  }
                }, 500);
             } else {
@@ -713,8 +714,9 @@ export const VoiceJump = ({ onBack }) => {
                    const newGradeCleared = [...clearedStages, stage];
                    const newMap = { ...clearedStagesByGrade, [activeGrade]: newGradeCleared };
                    setClearedStagesByGrade(newMap);
-                   localStorage.setItem('voiceBattleClearedByGrade', JSON.stringify(newMap));
-                   if (syncProgress) syncProgress({ clearedVoiceStages: newMap });
+                    setUser(prev => ({ ...prev, clearedVoiceStages: newMap }));
+                    localStorage.setItem('voiceBattleClearedByGrade', JSON.stringify(newMap));
+                    if (syncProgress) syncProgress({ clearedVoiceStages: newMap });
                  }
                }, 500);
             }
