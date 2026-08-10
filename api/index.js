@@ -523,6 +523,27 @@ app.post('/audio/stt', async (c) => {
   }
 });
 
+function getSoundex(s) {
+  if (!s) return '';
+  let a = s.toLowerCase().replace(/[^a-z]/g, '').split('');
+  if (!a.length) return '';
+  let f = a.shift();
+  let codes = {
+      a: '', e: '', i: '', o: '', u: '', h: '', w: '', y: '',
+      b: 1, f: 1, p: 1, v: 1,
+      c: 2, g: 2, j: 2, k: 2, q: 2, s: 2, x: 2, z: 2,
+      d: 3, t: 3,
+      l: 4,
+      m: 5, n: 5,
+      r: 6
+  };
+  let r = f + a.map((v, i, arr) => codes[v] === codes[arr[i - 1]] ? '' : codes[v])
+      .filter(v => v !== undefined && v !== '')
+      .join('')
+      .substring(0, 3);
+  return r.padEnd(4, '0');
+}
+
 function calculateLevenshteinSimilarity(a, b) {
   if (!a || !b) return 0;
   if (a === b) return 1.0;
@@ -581,7 +602,22 @@ app.post('/audio/evaluate', async (c) => {
 
       const sim = calculateLevenshteinSimilarity(h, t);
 
-      if (sim >= 0.75 || h.includes(t)) {
+      // Soundex check for single word targets (Ultra Lenient for Accents)
+      let soundexMatch = false;
+      if (targetWords.length === 1 && heardWords.length > 0) {
+        const targetSoundex = getSoundex(t).substring(0, 2);
+        for (const hw of heardWords) {
+           if (getSoundex(hw).substring(0, 2) === targetSoundex && hw.length > 1) {
+              soundexMatch = true;
+              break;
+           }
+        }
+      }
+
+      if (soundexMatch) {
+        finalScore = 3;
+        finalFeedback = `Hit! (${deepgramTranscript})`;
+      } else if (sim >= 0.75 || h.includes(t)) {
         finalScore = 3;
         finalFeedback = `Hit! (${deepgramTranscript})`;
       } else if (sim >= 0.55) {
@@ -592,21 +628,27 @@ app.post('/audio/evaluate', async (c) => {
         finalFeedback = `Close! (${deepgramTranscript})`;
       } else if (h.length > 0) {
         // Fallback for multi-word phrases if full phrase similarity fails but individual words match well
-        let matchCount = 0;
+        let bestMatchScore = 0;
         targetWords.forEach(tw => {
-          const isMatch = heardWords.some(hw => calculateLevenshteinSimilarity(hw, tw) >= 0.75);
-          if (isMatch) matchCount++;
+          let wordScore = 0;
+          heardWords.forEach(hw => {
+             const s = calculateLevenshteinSimilarity(hw, tw);
+             if (s >= 0.75) wordScore = Math.max(wordScore, 3);
+             else if (s >= 0.55) wordScore = Math.max(wordScore, 2);
+             else if (s >= 0.20) wordScore = Math.max(wordScore, 1);
+          });
+          bestMatchScore += wordScore;
         });
         
-        const matchRatio = targetWords.length > 0 ? matchCount / targetWords.length : 0;
+        const avgScore = targetWords.length > 0 ? bestMatchScore / targetWords.length : 0;
         
-        if (matchRatio >= 0.6) {
+        if (avgScore >= 2.5) {
            finalScore = 3;
            finalFeedback = `Hit! (${deepgramTranscript})`;
-        } else if (matchRatio >= 0.4) {
+        } else if (avgScore >= 1.5) {
            finalScore = 2;
            finalFeedback = `Good! (${deepgramTranscript})`;
-        } else if (matchRatio > 0) {
+        } else if (avgScore > 0) {
            finalScore = 1;
            finalFeedback = `Close! (${deepgramTranscript})`;
         }
