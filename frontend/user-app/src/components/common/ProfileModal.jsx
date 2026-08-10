@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Star, BarChart2, Key, ShieldCheck, LogOut, Trophy } from 'lucide-react';
+import { X, BarChart2, Key, ShieldCheck, LogOut, Trophy } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const ProfileModal = ({ onClose }) => {
