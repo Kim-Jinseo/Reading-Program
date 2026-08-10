@@ -95,7 +95,7 @@ const requireAuth = async (c, next) => {
     c.set('user', decoded);
     await next();
   } catch (err) {
-    return c.json({ success: false, error: 'Invalid or expired token' }, 401);
+    return c.json({ success: false, error: 'Invalid or expired token', details: err.message }, 401);
   }
 };
 
