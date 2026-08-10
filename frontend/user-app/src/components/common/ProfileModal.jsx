@@ -27,6 +27,7 @@ export const ProfileModal = ({ onClose }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('isGuest');
     setUser(null); // Setting to null triggers AuthModal to appear
     onClose();
   };

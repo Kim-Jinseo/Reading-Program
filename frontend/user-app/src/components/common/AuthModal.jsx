@@ -85,6 +85,7 @@ export const AuthModal = () => {
   const handleGuestEntry = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('voiceBattleCleared');
+    localStorage.setItem('isGuest', 'true');
     setUser({ 
       name: 'Guest Student', 
       stars: 0, 

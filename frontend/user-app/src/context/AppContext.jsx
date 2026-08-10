@@ -46,8 +46,29 @@ export const AppProvider = ({ children }) => {
 
   const t = (key) => TRANSLATIONS[lang][key] || key;
 
-  // Auto-login: restore session from saved JWT token
+  // Auto-login: restore session from saved JWT token or Guest flag
   useEffect(() => {
+    const isGuest = localStorage.getItem('isGuest');
+    if (isGuest === 'true') {
+      setUser({ 
+        name: 'Guest Student', 
+        stars: 0, 
+        isGuest: true,
+        role: 'student',
+        masteredVocab: [],
+        completedGrammar: [],
+        completedWriting: [],
+        completedSpeaking: [],
+        completedReading: [],
+        clearedVoiceStages: [],
+        stats: { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
+        starsTracker: {},
+        essays: {}
+      });
+      setIsAuthLoading(false);
+      return;
+    }
+
     const token = localStorage.getItem('token');
     if (!token) {
       setIsAuthLoading(false);
