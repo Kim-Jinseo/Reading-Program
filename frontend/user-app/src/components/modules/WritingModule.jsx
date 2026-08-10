@@ -442,10 +442,9 @@ export const WritingModule = () => {
       
       <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-visible pb-10 lg:pb-0">
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Desktop: side-by-side prompt + writing pad */}
-          <div className="flex flex-col xl:flex-row gap-6 flex-1 min-h-0">
+          <div className="flex flex-col gap-6 flex-1 min-h-0">
             {/* Synchronized Indigo-Purple Prompt Card */}
-            <div className="xl:w-[340px] xl:shrink-0 bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm relative self-start">
+            <div className="bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm relative shrink-0">
               <div className="flex items-center gap-2 mb-2">
                 <span className="px-3 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-indigo-600 text-white shadow-sm">
                   Writing Prompt
