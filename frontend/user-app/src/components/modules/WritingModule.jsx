@@ -454,7 +454,7 @@ export const WritingModule = () => {
           </div>
 
           {/* Synchronized Indigo-Purple Writing Pad */}
-          <div className="flex-1 flex flex-col bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all mb-4 relative">
+          <div className="flex-1 flex flex-col min-h-[300px] md:min-h-[400px] bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all mb-4 relative">
             <textarea 
               value={text} 
               onChange={e => {
