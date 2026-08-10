@@ -903,22 +903,22 @@ export const VoiceJump = ({ onBack }) => {
         <ChevronLeft size={16}/> Back to Levels
       </button>
       
-      <div className="bg-white p-10 rounded-[3rem] shadow-xl text-center border-4 border-indigo-100">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-4xl font-extrabold text-slate-800 flex items-center gap-3">
-             <Gamepad2 className="text-indigo-500" size={40} />
+      <div className="bg-white p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-xl text-center border-4 border-indigo-100">
+        <div className="flex justify-between items-center mb-6 sm:mb-8">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 flex items-center gap-2 sm:gap-3">
+             <Gamepad2 className="text-indigo-500" size={32} />
              Voice Battle
           </h2>
-          <div className="flex items-center gap-8">
-             <div className="text-2xl font-bold text-slate-500">Stage {stage + 1}</div>
-             <div className={`flex items-center gap-2 text-2xl font-bold px-4 py-2 rounded-full ${timer <= 10 ? 'bg-red-100 text-red-500 animate-pulse' : 'bg-slate-100 text-slate-700'}`}>
-                <Timer size={24} /> 0:{timer < 10 ? `0${timer}` : timer}
+          <div className="flex items-center gap-4 sm:gap-8">
+             <div className="text-xl sm:text-2xl font-bold text-slate-500">Stage {stage + 1}</div>
+             <div className={`flex items-center gap-2 text-xl sm:text-2xl font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full ${timer <= 10 ? 'bg-red-100 text-red-500 animate-pulse' : 'bg-slate-100 text-slate-700'}`}>
+                <Timer size={20} /> 0:{timer < 10 ? `0${timer}` : timer}
              </div>
           </div>
         </div>
 
         {/* Game Stage */}
-        <div className="relative w-full h-80 bg-sky-100 rounded-3xl overflow-hidden mb-8 shadow-inner border-8 border-sky-200">
+        <div className="relative w-full h-64 sm:h-80 bg-sky-100 rounded-[2rem] sm:rounded-3xl overflow-hidden mb-6 sm:mb-8 shadow-inner border-4 sm:border-8 border-sky-200">
            {/* Floor */}
            <div className="absolute bottom-0 w-full h-1/4 bg-green-500 border-t-8 border-green-600"></div>
 
@@ -1152,12 +1152,12 @@ export const VoiceJump = ({ onBack }) => {
 
         {/* Controls */}
         <div className="flex flex-col items-center opacity-100 transition-opacity" style={{ opacity: gameState === 'playing' ? 1 : 0.3, pointerEvents: gameState === 'playing' ? 'auto' : 'none' }}>
-           <div className="text-6xl font-black text-indigo-700 mb-2 tracking-wider uppercase drop-shadow-sm">
+           <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-indigo-700 mb-2 tracking-wider uppercase drop-shadow-sm px-4 break-words max-w-full">
              {word}
            </div>
-           <p className="text-xl text-slate-500 font-bold h-8 mb-8">{status === 'loading' ? 'Analyzing...' : feedback}</p>
+           <p className="text-lg sm:text-xl text-slate-500 font-bold h-8 mb-4 sm:mb-8">{status === 'loading' ? 'Analyzing...' : feedback}</p>
 
-            <div className="relative flex items-center justify-center w-48 h-48 mx-auto">
+            <div className="relative flex items-center justify-center w-36 h-36 sm:w-48 sm:h-48 mx-auto">
               {isRecording && !isWarmingUp && (
                 <>
                   <div 

@@ -36,11 +36,11 @@ export const ProfileModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center p-4">
-      <div className="bg-white rounded-[3rem] p-10 w-full max-w-lg shadow-2xl animate-in zoom-in-95 relative border border-slate-100">
-        <button onClick={onClose} className="absolute top-8 right-8 text-slate-400 hover:text-slate-700 bg-slate-50 p-2 rounded-full"><X size={24}/></button>
+      <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-lg shadow-2xl animate-in zoom-in-95 relative border border-slate-100 max-h-[95vh] overflow-y-auto">
+        <button onClick={onClose} className="absolute top-4 sm:top-8 right-4 sm:right-8 text-slate-400 hover:text-slate-700 bg-slate-50 p-2 rounded-full"><X size={24}/></button>
 
-        <div className="flex flex-col items-center mb-10 mt-4">
-          <div className={`w-28 h-28 text-white rounded-full flex items-center justify-center text-5xl font-extrabold shadow-xl mb-4 ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-900'}`}>
+        <div className="flex flex-col items-center mb-8 sm:mb-10 mt-2 sm:mt-4">
+          <div className={`w-24 h-24 sm:w-28 sm:h-28 text-white rounded-full flex items-center justify-center text-4xl sm:text-5xl font-extrabold shadow-xl mb-4 ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-900'}`}>
             {user.name.charAt(0).toUpperCase()}
           </div>
           <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">{user.name}</h2>
