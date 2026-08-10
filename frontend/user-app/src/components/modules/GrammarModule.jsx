@@ -149,7 +149,8 @@ export const GrammarModule = () => {
          return;
       }
     }
-    setActiveQueue(pool);
+    const shuffledPool = pool.map(q => ({ ...q, options: [...q.options].sort(() => Math.random() - 0.5) }));
+    setActiveQueue(shuffledPool);
     setActiveQIndex(0);
     setSessionScore(0);
     setWrongQueue([]);
@@ -186,7 +187,8 @@ export const GrammarModule = () => {
   };
 
   const handleBankTryAgain = () => {
-    setActiveQueue(wrongQueue);
+    const shuffledWrong = wrongQueue.map(q => ({ ...q, options: [...q.options].sort(() => Math.random() - 0.5) }));
+    setActiveQueue(shuffledWrong);
     setActiveQIndex(0);
     setSessionScore(0);
     setWrongQueue([]);
@@ -208,7 +210,8 @@ export const GrammarModule = () => {
 
   const startLearnQuiz = () => {
     const pool = [...activeConcept.questions].sort(() => Math.random() - 0.5).slice(0, 3);
-    setActiveQueue(pool);
+    const shuffledPool = pool.map(q => ({ ...q, options: [...q.options].sort(() => Math.random() - 0.5) }));
+    setActiveQueue(shuffledPool);
     setActiveQIndex(0);
     setSessionScore(0);
     setMode('learn_quiz');
@@ -254,14 +257,12 @@ export const GrammarModule = () => {
   if (mode === 'menu') {
     return (
       <div className="max-w-4xl mx-auto pt-6">
-        <div className="flex justify-between items-center mb-10">
-          <div className="w-24"></div>
+        <div className="flex justify-center mb-10 overflow-x-auto hide-scrollbar px-4 pb-2 -mx-4 sm:mx-0 sm:px-0 sm:pb-0">
           
-          <div className="flex gap-2 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full shadow-inner border border-slate-200/50">
+          <div className="flex gap-2 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full shadow-inner border border-slate-200/50 whitespace-nowrap min-w-max">
             <button 
               onClick={() => { setActiveTab('learn'); setPage(1); }}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold transition-all duration-300 ${activeTab === 'learn' ? 'bg-white text-indigo-600 shadow-md scale-105' : 'text-slate-500 hover:text-slate-700'}`}
-            >
             >
               <Layers size={18}/> {t('tab_learn')}
             </button>
@@ -279,7 +280,6 @@ export const GrammarModule = () => {
             </button>
           </div>
 
-          <div className="w-24"></div>
         </div>
 
         {activeTab === 'learn' ? (
@@ -352,19 +352,21 @@ export const GrammarModule = () => {
             <div className="flex flex-wrap justify-between items-center mb-6">
               <button onClick={() => setLearnView('boxes')} className="text-slate-500 hover:text-slate-800 font-bold flex items-center gap-2"><ChevronLeft size={16}/> Back to Options</button>
               
-              <div className="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
-                <div className="flex items-center gap-2 text-slate-500 font-bold ml-2">
+              <div className="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm overflow-x-auto hide-scrollbar w-full sm:w-auto">
+                <div className="flex items-center gap-2 text-slate-500 font-bold ml-2 shrink-0">
                   <Filter size={18}/> Filters:
                 </div>
-                {['all', 'completed', 'uncompleted'].map(f => (
-                  <button 
-                    key={f} 
-                    onClick={() => { setFilterResult(f); setPage(1); }}
-                    className={`px-4 py-1.5 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
-                  >
-                    {f}
-                  </button>
-                ))}
+                <div className="flex gap-2 min-w-max">
+                  {['all', 'completed', 'uncompleted'].map(f => (
+                    <button 
+                      key={f} 
+                      onClick={() => { setFilterResult(f); setPage(1); }}
+                      className={`px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
+                    >
+                      {f}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -406,20 +408,22 @@ export const GrammarModule = () => {
           )
         ) : (
           <div className="animate-in fade-in slide-in-from-bottom-4">
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap justify-between gap-4 mb-8 items-center">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 text-slate-500 font-bold ml-2">
+            <div className="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between gap-4 mb-8 sm:items-center overflow-x-auto hide-scrollbar">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-max">
+                <div className="flex items-center gap-2 text-slate-500 font-bold ml-1 sm:ml-2">
                   <Filter size={18}/> Filters:
                 </div>
-                {['all', 'completed', 'uncompleted'].map(f => (
-                  <button 
-                    key={f} 
-                    onClick={() => { setFilterResult(f); setPage(1); }}
-                    className={`px-5 py-2 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
-                  >
-                    {f}
-                  </button>
-                ))}
+                <div className="flex gap-2">
+                  {['all', 'completed', 'uncompleted'].map(f => (
+                    <button 
+                      key={f} 
+                      onClick={() => { setFilterResult(f); setPage(1); }}
+                      className={`px-3 py-1.5 sm:px-5 sm:py-2 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
+                    >
+                      {f}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -684,7 +688,7 @@ export const GrammarModule = () => {
                 <h4 className="text-rose-800 font-extrabold text-2xl mb-1 flex items-center gap-2">
                   <X size={28} /> Incorrect!
                 </h4>
-                <p className="text-rose-700 font-bold text-lg">The correct answer is: <span className="font-extrabold">{activeQ.answer}</span></p>
+                <p className="text-rose-700 font-bold text-lg">You can try again later.</p>
               </div>
               <button 
                 onClick={nextBankQuestion}
