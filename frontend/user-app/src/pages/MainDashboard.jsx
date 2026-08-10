@@ -97,20 +97,20 @@ export const MainDashboard = () => {
             <div 
               key={mod.id} 
               onClick={() => setView(mod.id)}
-              className={`p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-sm transition-all cursor-pointer group flex flex-col justify-between min-h-[220px] md:min-h-[260px] hover:shadow-xl hover:-translate-y-1.5 ${
+              className={`p-6 lg:p-8 rounded-[2rem] shadow-sm transition-all cursor-pointer group flex flex-col justify-between min-h-[220px] hover:shadow-xl hover:-translate-y-1.5 ${
                 isDone 
                   ? mod.doneStyle.card 
                   : 'bg-white border-2 border-slate-100 ' + mod.border + ' ' + mod.shadow
               }`}
             >
-              <div className="flex justify-between items-start gap-2">
-                <div className={`w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-3xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300 ${
+              <div className="flex justify-between items-start gap-2 w-full">
+                <div className={`w-16 h-16 shrink-0 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300 ${
                   isDone ? mod.doneStyle.icon : mod.bg + ' ' + mod.color
                 }`}>
                   {mod.icon}
                 </div>
                 {isDone ? (
-                  <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-extrabold text-xs md:text-sm shadow-2xs whitespace-nowrap shrink-0 ${mod.doneStyle.badge}`}>
+                  <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-extrabold text-xs shadow-sm whitespace-nowrap shrink-0 ${mod.doneStyle.badge}`}>
                     <CheckCircle2 size={16} className="shrink-0" /> Daily Done
                   </div>
                 ) : (
