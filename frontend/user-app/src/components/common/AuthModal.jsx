@@ -104,7 +104,7 @@ export const AuthModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center p-4">
       <div className="bg-white rounded-[3rem] p-10 w-full max-w-md shadow-2xl animate-in zoom-in-95 relative border border-slate-100">
         
         <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8">
