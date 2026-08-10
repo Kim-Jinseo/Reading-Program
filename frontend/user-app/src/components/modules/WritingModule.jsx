@@ -426,7 +426,7 @@ export const WritingModule = () => {
   }
 
   return (
-    <div className={`mx-auto pt-4 flex flex-col flex-1 w-full transition-all duration-500 ${status === 'improving' ? 'max-w-5xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto pt-4 flex flex-col flex-1 w-full transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
       <div className="flex justify-between items-center mb-4 shrink-0">
         <button onClick={() => {
            if (status === 'improving') setStatus('feedback');
@@ -498,7 +498,7 @@ export const WritingModule = () => {
         </div>
 
         {status === 'improving' && feedback && (feedback.grammar || feedback.general) && (
-          <div className="w-full lg:w-1/3 bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
+          <div className="w-full lg:w-[40%] bg-white border-2 border-indigo-200 rounded-[2.5rem] p-6 sm:p-8 flex flex-col overflow-y-auto shadow-lg animate-in slide-in-from-right-8">
              <div className="flex flex-col mb-6 gap-3">
                <div className="flex self-end bg-slate-100 p-1 rounded-full border border-slate-200 shadow-inner">
                  <button onClick={() => setFeedbackLang('en')} className={`px-4 py-1 text-sm font-bold rounded-full transition-all ${feedbackLang === 'en' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}>English</button>
