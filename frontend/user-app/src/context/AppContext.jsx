@@ -204,6 +204,13 @@ export const AppProvider = ({ children }) => {
       .catch(console.error);
   }, []);
 
+  // Keep localStorage perfectly synced with user state so refreshes never lose progress
+  useEffect(() => {
+    if (user && !user.isGuest) {
+      localStorage.setItem('savedUserData', JSON.stringify(user));
+    }
+  }, [user]);
+
   const syncProgress = async (updates) => {
     if (!user || user.isGuest) return;
     try {
