@@ -945,35 +945,35 @@ export const VoiceJump = ({ onBack }) => {
            {(() => {
              const mStyle = MONSTER_STYLES[currentMonster.name] || MONSTER_STYLES["Slime"];
              return (
-               <div className="absolute right-4 sm:right-[10%] md:right-[16%] bottom-[16%] flex flex-col items-center z-20">
+               <div className="absolute right-2 sm:right-[10%] md:right-[16%] bottom-[14%] sm:bottom-[16%] flex flex-col items-center z-20">
                  {/* Monster HP & Name Badge */}
-                 <div className="flex flex-col items-center mb-3">
-                   <div className="flex items-center gap-2 bg-slate-900/90 text-white text-xs font-black px-3.5 py-1 rounded-full border border-slate-700 shadow-md mb-1.5">
+                 <div className="flex flex-col items-center mb-2 sm:mb-3">
+                   <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 text-white text-[10px] sm:text-xs font-black px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full border border-slate-700 shadow-md mb-1 sm:mb-1.5">
                      <span>{currentMonster.emoji} {currentMonster.name}</span>
                      <span className="text-amber-400">Lv.{stage + 1}</span>
                    </div>
-                   <div className="w-full max-w-[12rem] h-6 bg-slate-900 border-2 border-slate-700 rounded-full overflow-hidden relative shadow-lg">
+                   <div className="w-full max-w-[9rem] sm:max-w-[12rem] h-4 sm:h-6 bg-slate-900 border-2 border-slate-700 rounded-full overflow-hidden relative shadow-lg">
                      <div className="h-full bg-gradient-to-r from-rose-500 to-red-600 transition-all duration-500" style={{ width: `${hpPercentage}%` }}></div>
-                     <span className="absolute inset-0 flex items-center justify-center text-[11px] font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{hp} / {currentMonster.maxHp} HP</span>
+                     <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[11px] font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{hp} / {currentMonster.maxHp} HP</span>
                    </div>
                  </div>
 
                  {/* Clean Monster Avatar on Battle Arena Floor */}
                   {currentMonster.image ? (
                     <div className={`relative flex items-center justify-center transition-all duration-300 ${animTrigger === 'monster_hit' ? 'animate-shake scale-110' : 'animate-bounce-slow'}`}>
-                      <img src={currentMonster.image} alt={currentMonster.name} className="w-40 h-40 sm:w-44 sm:h-44 object-contain filter drop-shadow-[0_0_20px_rgba(244,63,94,0.9)] relative z-10" />
-                      <div className="absolute -bottom-2 w-32 h-6 bg-black/30 rounded-full blur-xs -z-10"></div>
+                      <img src={currentMonster.image} alt={currentMonster.name} className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 object-contain filter drop-shadow-[0_0_20px_rgba(244,63,94,0.9)] relative z-10" />
+                      <div className="absolute -bottom-2 w-24 sm:w-32 h-4 sm:h-6 bg-black/30 rounded-full blur-xs -z-10"></div>
                     </div>
                   ) : (
                     <div className={`relative flex items-center justify-center transition-all duration-300 ${animTrigger === 'monster_hit' ? 'animate-shake scale-110' : 'animate-bounce-slow'}`}>
-                      <div className={`w-36 h-36 rounded-full bg-gradient-to-br ${mStyle.bg} flex items-center justify-center border-4 ${mStyle.border} shadow-xl relative`}>
-                        <span className="text-[5.5rem] relative z-10">
+                      <div className={`w-24 h-24 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br ${mStyle.bg} flex items-center justify-center border-4 ${mStyle.border} shadow-xl relative`}>
+                        <span className="text-4xl sm:text-[5.5rem] relative z-10">
                           {currentMonster.emoji}
                         </span>
                       </div>
 
                       {/* Shadow Pedestal under Monster */}
-                      <div className="absolute -bottom-4 w-32 h-6 bg-black/20 rounded-full blur-xs -z-10"></div>
+                      <div className="absolute -bottom-4 w-24 sm:w-32 h-4 sm:h-6 bg-black/20 rounded-full blur-xs -z-10"></div>
                     </div>
                   )}
                </div>
@@ -981,30 +981,30 @@ export const VoiceJump = ({ onBack }) => {
            })()}
 
            {/* Player Area */}
-           <div className={`absolute left-4 sm:left-[10%] md:left-[15%] bottom-1/4 filter drop-shadow-2xl transition-all duration-300 ${
+           <div className={`absolute left-2 sm:left-[10%] md:left-[15%] bottom-[18%] sm:bottom-1/4 filter drop-shadow-2xl transition-all duration-300 ${
              animTrigger === 'player_attack' 
-               ? 'translate-x-12 -translate-y-4 scale-110' 
+               ? 'translate-x-8 sm:translate-x-12 -translate-y-4 scale-110' 
                : isRecording 
                  ? 'scale-110 -translate-y-2' 
                  : 'scale-100'
              }`}
            >
              {selectedChar === 'char_paladin' ? (
-               <img src={animTrigger === 'player_attack' ? "/assets/paladin_attack.png" : "/assets/paladin_idle.png"} alt="Paladin" className="w-40 h-40 object-contain" />
+               <img src={animTrigger === 'player_attack' ? "/assets/paladin_attack.png" : "/assets/paladin_idle.png"} alt="Paladin" className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 object-contain" />
              ) : selectedChar === 'char_knight' ? (
-               <img src={animTrigger === 'player_attack' ? "/assets/knight_attack.png" : "/assets/knight_idle.png"} alt="Knight" className="w-40 h-40 object-contain" />
+               <img src={animTrigger === 'player_attack' ? "/assets/knight_attack.png" : "/assets/knight_idle.png"} alt="Knight" className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 object-contain" />
              ) : (
-               <span className="text-[7rem] filter drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">🧙‍♂️</span>
+               <span className="text-5xl sm:text-7xl md:text-[7rem] filter drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">🧙‍♂️</span>
              )}
              
-             {/* Custom Pet */}
+             {/* Custom Pet - Positioned Floating Above Player's Left Shoulder */}
              {selectedPet === 'pet_dragon' && (
                 <>
                   <div className="relative">
                     <img 
                       src={animTrigger === 'pet_attack' ? "/assets/pet_dragon_attack.png" : "/assets/pet_dragon.png"} 
                       alt="Dragonling" 
-                      className={`absolute -top-10 -right-16 h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-36 [mask-image:linear-gradient(to_right,black_65%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_right,black_65%,transparent_98%)]' : 'w-24'} ${
+                      className={`absolute -top-8 sm:-top-12 -left-6 sm:-left-12 h-16 sm:h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-24 sm:w-36 [mask-image:linear-gradient(to_right,black_65%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_right,black_65%,transparent_98%)]' : 'w-16 sm:w-24'} ${
                          petDisabledTimer > 0 ? 'grayscale opacity-60' :
                          animTrigger === 'pet_inhale' ? 'scale-x-[-0.9] scale-y-110 -translate-x-4' : 
                          animTrigger === 'pet_attack' ? 'scale-x-[-1] scale-110 translate-x-6 -translate-y-2' : 
@@ -1012,7 +1012,7 @@ export const VoiceJump = ({ onBack }) => {
                       }`} 
                     />
                     {petDisabledTimer > 0 && (
-                      <span className="absolute -top-14 -right-16 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                      <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-12 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                         🚫 Silenced ({petDisabledTimer}s)
                       </span>
                     )}
@@ -1022,8 +1022,8 @@ export const VoiceJump = ({ onBack }) => {
                     <div 
                       className="absolute z-30 pointer-events-none rounded-full animate-ping"
                       style={{
-                        top: '90px',
-                        right: '-84px',
+                        top: '40px',
+                        left: '40px',
                         width: '18px',
                         height: '18px',
                         background: 'radial-gradient(circle, #ffffff 20%, #f97316 60%, #dc2626 100%)',
@@ -1035,12 +1035,12 @@ export const VoiceJump = ({ onBack }) => {
                   <div 
                     className="absolute z-30 pointer-events-none flex items-center"
                     style={{
-                      top: animTrigger === 'pet_attack' ? '90px' : '90px',
-                      right: animTrigger === 'pet_attack' ? '-500px' : '-85px',
+                      top: '40px',
+                      left: animTrigger === 'pet_attack' ? '400px' : '40px',
                       opacity: animTrigger === 'pet_attack' ? 1 : 0,
                       transform: animTrigger === 'pet_attack' ? 'scale(1.25)' : 'scale(0.2)',
                       transition: animTrigger === 'pet_attack' 
-                        ? 'right 300ms cubic-bezier(0.2, 0.8, 0.4, 1), transform 300ms ease-out, opacity 100ms ease-in' 
+                        ? 'left 300ms cubic-bezier(0.2, 0.8, 0.4, 1), transform 300ms ease-out, opacity 100ms ease-in' 
                         : 'none'
                     }}
                   >
@@ -1081,9 +1081,9 @@ export const VoiceJump = ({ onBack }) => {
              )}
              {selectedPet === 'pet_griffin' && (
                 <div className="relative">
-                  <img src="/assets/pet_griffin.png" alt="Griffin" className={`absolute -top-12 -right-20 w-32 h-32 object-contain animate-bounce-slow filter drop-shadow-[0_0_15px_rgba(0,150,255,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
+                  <img src="/assets/pet_griffin.png" alt="Griffin" className={`absolute -top-10 sm:-top-14 -left-6 sm:-left-14 w-16 h-16 sm:w-28 sm:h-28 object-contain animate-bounce-slow filter drop-shadow-[0_0_15px_rgba(0,150,255,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
-                    <span className="absolute -top-14 -right-16 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                    <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-14 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                       🚫 Silenced ({petDisabledTimer}s)
                     </span>
                   )}
@@ -1091,9 +1091,9 @@ export const VoiceJump = ({ onBack }) => {
              )}
              {selectedPet === 'pet_golem' && (
                 <div className="relative">
-                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute -top-4 -right-16 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
+                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute -top-8 sm:-top-12 -left-6 sm:-left-12 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
-                    <span className="absolute -top-14 -right-16 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                    <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-12 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                       🚫 Silenced ({petDisabledTimer}s)
                     </span>
                   )}
