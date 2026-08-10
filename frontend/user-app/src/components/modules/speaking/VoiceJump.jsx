@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock, Square, Loader2 } from 'lucide-react';
+import { ChevronLeft, Mic, Gamepad2, Timer, Heart, Zap, Lock, Square, Loader2, Star } from 'lucide-react';
 import { useAppContext } from '../../../context/AppContext';
 
 
@@ -833,6 +833,9 @@ export const VoiceJump = ({ onBack }) => {
             {MONSTERS.map((monster, idx) => {
               // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared (bypassed for teacher2026/admin)
               const isLocked = !isAdmin && idx > 0 && Array.from({ length: idx }, (_, i) => i).some(prevIdx => !clearedStages.includes(prevIdx));
+              const isCompleted = clearedStages.includes(idx);
+              const isFinalLevel = idx === MONSTERS.length - 1;
+              const isPurple = monster.reward > 3 && !isFinalLevel;
               const mStyle = MONSTER_STYLES[monster.name] || MONSTER_STYLES["Slime"];
 
               return (
@@ -840,16 +843,24 @@ export const VoiceJump = ({ onBack }) => {
                   key={idx} 
                   onClick={() => !isLocked && startLevel(idx)}
                   className={`border-2 rounded-[2.5rem] p-6 transition-all duration-300 relative group flex flex-col items-center ${
-                    idx === 19 && !isLocked
-                      ? 'bg-slate-900 border-amber-400 shadow-[0_0_30px_rgba(244,63,94,0.4)] text-white hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(244,63,94,0.7)]'
+                    isFinalLevel
+                      ? isCompleted
+                        ? 'bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 border-4 border-white shadow-[0_0_30px_rgba(255,255,255,0.8)] ring-2 ring-cyan-300 text-slate-900 cursor-pointer hover:-translate-y-2'
+                        : 'bg-slate-900 border-amber-400 shadow-[0_0_30px_rgba(244,63,94,0.4)] text-white hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(244,63,94,0.7)] cursor-pointer'
                       : isLocked 
                         ? 'bg-slate-100 border-slate-200 cursor-not-allowed opacity-75' 
-                        : 'bg-white border-slate-100 cursor-pointer hover:border-indigo-300 hover:-translate-y-2 shadow-lg hover:shadow-2xl'
+                        : isCompleted
+                          ? isPurple
+                            ? 'bg-gradient-to-br from-purple-50 via-white to-fuchsia-50 border-2 border-purple-300 shadow-purple-100 hover:border-purple-500 hover:shadow-purple-200 cursor-pointer hover:-translate-y-2'
+                            : 'bg-emerald-50 border-emerald-200 hover:border-emerald-400 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-2'
+                          : 'bg-white border-slate-100 cursor-pointer hover:border-indigo-300 hover:-translate-y-2 shadow-lg hover:shadow-2xl'
                   }`}
                 >
-                  {idx === 19 && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 via-rose-500 to-amber-400 text-white text-[0.65rem] font-black tracking-widest uppercase px-4 py-1 rounded-full shadow-lg border-2 border-white z-30 animate-pulse whitespace-nowrap">
-                      👑 FINAL SUPREME BOSS 👑
+                  {isFinalLevel && (
+                    <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 text-[0.65rem] font-black tracking-widest uppercase px-4 py-1 rounded-full shadow-lg border-2 border-white z-30 whitespace-nowrap ${
+                      isCompleted ? 'bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-cyan-300 border-cyan-300' : 'bg-gradient-to-r from-amber-400 via-rose-500 to-amber-400 text-white animate-pulse'
+                    }`}>
+                      {isCompleted ? '💎 PLATINUM FINAL BOSS CLEARED 💎' : '👑 FINAL SUPREME BOSS 👑'}
                     </div>
                   )}
 
@@ -865,16 +876,16 @@ export const VoiceJump = ({ onBack }) => {
                   )}
                   
                   {/* 3D Monster Avatar Orb */}
-                  <div className={`${idx === 19 ? 'w-36 h-36 border-amber-400 shadow-[0_0_30px_rgba(251,191,36,0.8)] animate-pulse' : 'w-32 h-32 border-4'} rounded-full mb-4 bg-gradient-to-br ${mStyle.bg} flex items-center justify-center border-4 ${mStyle.border} shadow-xl relative transition-transform duration-300 group-hover:scale-110 overflow-hidden ${isLocked ? 'grayscale opacity-50' : ''}`}>
+                  <div className={`${isFinalLevel ? 'w-36 h-36 border-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.8)] animate-pulse' : 'w-32 h-32 border-4'} rounded-full mb-4 bg-gradient-to-br ${mStyle.bg} flex items-center justify-center border-4 ${mStyle.border} shadow-xl relative transition-transform duration-300 group-hover:scale-110 overflow-hidden ${isLocked ? 'grayscale opacity-50' : ''}`}>
                     {monster.image ? (
                       <img src={monster.image} alt={monster.name} className="w-full h-full object-cover rounded-full mix-blend-screen scale-110" />
                     ) : (
-                      <span className={`${idx === 19 ? 'text-[5.5rem]' : 'text-[5rem]'} relative z-10`}>{monster.emoji}</span>
+                      <span className={`${isFinalLevel ? 'text-[5.5rem]' : 'text-[5rem]'} relative z-10`}>{monster.emoji}</span>
                     )}
                   </div>
 
-                  <h3 className={`text-2xl font-black mb-0.5 ${idx === 19 && !isLocked ? 'text-amber-400' : 'text-slate-800'}`}>Stage {idx + 1}</h3>
-                  <h4 className={`text-lg font-extrabold mb-4 ${idx === 19 && !isLocked ? 'text-rose-400' : 'text-indigo-600'}`}>{monster.name}</h4>
+                  <h3 className={`text-2xl font-black mb-0.5 ${isFinalLevel ? (isCompleted ? 'text-slate-800' : 'text-amber-400') : isPurple ? 'text-purple-900' : 'text-slate-800'}`}>Stage {idx + 1}</h3>
+                  <h4 className={`text-lg font-extrabold mb-4 ${isFinalLevel ? (isCompleted ? 'text-slate-700' : 'text-rose-400') : isPurple ? 'text-purple-700' : 'text-indigo-600'}`}>{monster.name}</h4>
                   
                   <div className="flex flex-wrap justify-center items-center gap-2 text-xs font-extrabold mt-auto">
                     <span className="flex items-center gap-1 text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200">
@@ -883,7 +894,13 @@ export const VoiceJump = ({ onBack }) => {
                     <span className="flex items-center gap-1 text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
                       <Zap size={14} className="fill-blue-500" /> {monster.shield}% Shield
                     </span>
-                    <span className="flex items-center gap-1 text-amber-700 bg-gradient-to-r from-amber-100 to-yellow-100 px-3 py-1 rounded-full border border-amber-300 shadow-2xs">
+                    <span className={`flex items-center gap-1 px-3 py-1 rounded-full border ${
+                      isFinalLevel && isCompleted
+                        ? 'bg-slate-900 text-cyan-300 border-cyan-300 shadow-md font-black'
+                        : isPurple
+                          ? 'bg-purple-100 text-purple-800 border-purple-300 font-black'
+                          : 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border-amber-300'
+                    }`}>
                       ⭐ +{monster.reward} Stars
                     </span>
                   </div>
@@ -1118,16 +1135,80 @@ export const VoiceJump = ({ onBack }) => {
            )}
 
            {/* Overlays */}
-           {gameState === 'stage_clear' && (
-              <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-4 text-center">
-                 <div className="text-5xl sm:text-6xl mb-1 sm:mb-2 animate-bounce">🎉</div>
-                 <h3 className="text-4xl sm:text-5xl font-black text-amber-400 mb-1 sm:mb-2 drop-shadow-md leading-tight">STAGE CLEAR!</h3>
-                 <p className="text-slate-300 font-bold text-sm sm:text-lg mb-4 sm:mb-6">Great job! You defeated the monster!</p>
-                 <button onClick={() => setView('levels')} className="px-6 py-3 sm:px-8 sm:py-4 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-lg sm:text-2xl rounded-full shadow-[0_6px_0_rgba(202,138,4,1)] sm:shadow-[0_8px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-2 transition-all">
-                   Back to Levels
-                 </button>
-              </div>
-           )}
+           {gameState === 'stage_clear' && (() => {
+             const currentReward = MONSTERS[stage]?.reward || 10;
+             const isFinalLevel = stage === MONSTERS.length - 1;
+             const isPurple = currentReward > 3 && !isFinalLevel;
+
+             if (isFinalLevel) {
+               return (
+                 <div className="absolute inset-0 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-300 backdrop-blur-xl flex flex-col items-center justify-center animate-in fade-in zoom-in duration-500 z-[100] p-6 text-center border-4 border-white shadow-[0_0_60px_rgba(255,255,255,0.9)]">
+                   <div className="relative mb-4">
+                     <div className="absolute -inset-4 bg-gradient-to-r from-cyan-300 via-white to-sky-300 rounded-full blur-lg animate-pulse"></div>
+                     <div className="relative flex items-center justify-center w-24 h-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-full border-4 border-cyan-200 shadow-2xl">
+                       <Star size={56} className="text-cyan-300 fill-slate-100 drop-shadow-[0_0_25px_rgba(255,255,255,1)] animate-bounce" />
+                     </div>
+                   </div>
+                   
+                   <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-wider mb-2 drop-shadow-sm uppercase">
+                     ✨ ULTIMATE PLATINUM VICTORY! ✨
+                   </h3>
+                   
+                   <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-cyan-300 px-8 py-3.5 rounded-full font-black text-2xl sm:text-3xl shadow-xl border-2 border-cyan-200/80 mb-4">
+                     <Star size={36} className="fill-cyan-300 text-cyan-300 animate-spin-slow" />
+                     <span>You got {currentReward} stars!</span>
+                   </div>
+                   
+                   <p className="text-slate-700 font-extrabold text-lg sm:text-xl max-w-md mb-8">
+                     👑 PLATINUM CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
+                   </p>
+                   
+                   <button onClick={() => setView('levels')} className="px-8 py-4 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xl sm:text-2xl rounded-full shadow-[0_8px_20px_rgba(6,182,212,0.5)] active:translate-y-1 transition-all">
+                     Back to Levels
+                   </button>
+                 </div>
+               );
+             }
+
+             if (isPurple) {
+               return (
+                 <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-indigo-950 to-slate-950 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-6 text-center border-4 border-purple-400/80 shadow-[0_0_50px_rgba(168,85,247,0.6)]">
+                   <div className="text-6xl mb-3 animate-bounce">💜</div>
+                   <h3 className="text-4xl sm:text-5xl font-black text-purple-300 mb-2 drop-shadow-[0_0_15px_rgba(168,85,247,0.8)] tracking-tight">
+                     PURPLE OVERCHARGE CLEAR!
+                   </h3>
+                   
+                   <div className="inline-flex items-center gap-3 bg-purple-900/90 text-purple-200 border-2 border-purple-400 px-7 py-3 rounded-full font-black text-2xl shadow-lg mb-4">
+                     <Star size={32} className="fill-purple-400 text-purple-400 animate-bounce" />
+                     <span>You got {currentReward} stars!</span>
+                   </div>
+                   
+                   <p className="text-purple-200 font-bold text-base sm:text-lg mb-6 max-w-sm">
+                     Fantastic Voice Battle performance! Monster defeated!
+                   </p>
+                   
+                   <button onClick={() => setView('levels')} className="px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-[0_6px_0_rgba(126,34,206,1)] active:shadow-none active:translate-y-2 transition-all">
+                     Back to Levels
+                   </button>
+                 </div>
+               );
+             }
+
+             return (
+               <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-4 text-center">
+                  <div className="text-5xl sm:text-6xl mb-1 sm:mb-2 animate-bounce">🎉</div>
+                  <h3 className="text-4xl sm:text-5xl font-black text-amber-400 mb-1 sm:mb-2 drop-shadow-md leading-tight">STAGE CLEAR!</h3>
+                  <div className="inline-flex items-center gap-2 bg-amber-100/10 text-amber-300 border border-amber-400/40 px-5 py-2 rounded-full font-black text-xl mb-4">
+                    <Star size={24} className="fill-amber-400 text-amber-400" />
+                    <span>You got {currentReward} stars!</span>
+                  </div>
+                  <p className="text-slate-300 font-bold text-sm sm:text-lg mb-4 sm:mb-6">Great job! You defeated the monster!</p>
+                  <button onClick={() => setView('levels')} className="px-6 py-3 sm:px-8 sm:py-4 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-lg sm:text-2xl rounded-full shadow-[0_6px_0_rgba(202,138,4,1)] sm:shadow-[0_8px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-2 transition-all">
+                    Back to Levels
+                  </button>
+               </div>
+             );
+           })()}
 
            {gameState === 'game_over' && (
               <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100] p-4 text-center">
@@ -1140,16 +1221,36 @@ export const VoiceJump = ({ onBack }) => {
               </div>
            )}
 
-           {gameState === 'victory' && (
-              <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 z-[100]">
-                 <div className="text-6xl mb-2 animate-bounce">🏆</div>
-                 <h3 className="text-5xl font-black text-amber-400 mb-2 drop-shadow-md">VICTORY!</h3>
-                 <p className="text-slate-300 font-bold text-lg mb-6">You defeated all the monsters in Voice Battle!</p>
-                 <button onClick={resetGame} className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-2xl rounded-full shadow-[0_8px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-2 transition-all">
+           {gameState === 'victory' && (() => {
+             const currentReward = MONSTERS[19]?.reward || 15;
+             return (
+               <div className="absolute inset-0 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-300 backdrop-blur-xl flex flex-col items-center justify-center animate-in fade-in zoom-in duration-500 z-[100] p-6 text-center border-4 border-white shadow-[0_0_60px_rgba(255,255,255,0.9)]">
+                 <div className="relative mb-4">
+                   <div className="absolute -inset-4 bg-gradient-to-r from-cyan-300 via-white to-sky-300 rounded-full blur-lg animate-pulse"></div>
+                   <div className="relative flex items-center justify-center w-24 h-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-full border-4 border-cyan-200 shadow-2xl">
+                     <Star size={56} className="text-cyan-300 fill-slate-100 drop-shadow-[0_0_25px_rgba(255,255,255,1)] animate-bounce" />
+                   </div>
+                 </div>
+                 
+                 <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-wider mb-2 drop-shadow-sm uppercase">
+                   ✨ ULTIMATE PLATINUM VICTORY! ✨
+                 </h3>
+                 
+                 <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-cyan-300 px-8 py-3.5 rounded-full font-black text-2xl sm:text-3xl shadow-xl border-2 border-cyan-200/80 mb-4">
+                   <Star size={36} className="fill-cyan-300 text-cyan-300 animate-spin-slow" />
+                   <span>You got {currentReward} stars!</span>
+                 </div>
+                 
+                 <p className="text-slate-700 font-extrabold text-lg sm:text-xl max-w-md mb-8">
+                   👑 PLATINUM CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
+                 </p>
+                 
+                 <button onClick={resetGame} className="px-8 py-4 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xl sm:text-2xl rounded-full shadow-[0_8px_20px_rgba(6,182,212,0.5)] active:translate-y-1 transition-all">
                    Play Again
                  </button>
-              </div>
-           )}
+               </div>
+             );
+           })()}
         </div>
 
         {/* Controls */}
