@@ -231,12 +231,10 @@ export const GrammarModule = () => {
       const earnedStars = calculateStars(finalScore, activeQueue.length);
       if (isDaily) markDailyComplete('grammar', earnedStars, activeConcept.id);
       
-      if (finalScore === activeQueue.length) {
-        handleEarnStars(3, 'grammar', activeConcept.id);
+      if (earnedStars >= 1) {
         updateCompletion('grammar', activeConcept.id);
-      } else {
-        handleEarnStars(earnedStars, 'grammar', activeConcept.id);
       }
+      handleEarnStars(earnedStars, 'grammar', activeConcept.id);
       setSessionScore(finalScore);
       setMode('learn_score');
     }
@@ -508,20 +506,20 @@ export const GrammarModule = () => {
             </p>
           </div>
 
-          {!isCompleted ? (
-            <button 
-              onClick={startLearnQuiz}
-              className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xl rounded-2xl shadow-[0_6px_0_rgb(67,56,202)] active:shadow-none active:translate-y-1 transition-all relative z-10"
-            >
-              Start Quiz
-            </button>
-          ) : (
-            <div className="text-center p-6 bg-emerald-50 rounded-2xl border border-emerald-200">
-              <p className="text-emerald-700 font-bold text-lg flex items-center justify-center gap-2">
-                <CheckCircle2 /> You have mastered this concept!
+          {isCompleted && (
+            <div className="text-center p-4 bg-emerald-50 rounded-2xl border border-emerald-200 mb-6">
+              <p className="text-emerald-700 font-extrabold text-base flex items-center justify-center gap-2">
+                <CheckCircle2 size={20} /> Concept Completed!
               </p>
             </div>
           )}
+
+          <button 
+            onClick={startLearnQuiz}
+            className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xl rounded-2xl shadow-[0_6px_0_rgb(67,56,202)] active:shadow-none active:translate-y-1 transition-all relative z-10"
+          >
+            {isCompleted ? "Practice Again" : "Start Quiz"}
+          </button>
         </div>
       </div>
     );
@@ -564,12 +562,12 @@ export const GrammarModule = () => {
 
   // LEARN - SCORE SCREEN
   if (mode === 'learn_score') {
-    const isPerfect = sessionScore === activeQueue.length;
+    const earnedStars = calculateStars(sessionScore, activeQueue.length);
     return (
       <ScoreScreen 
-        stars={isPerfect ? 3 : sessionScore > 0 ? 1 : 0} 
-        customMessage={isPerfect ? "Perfect! Concept mastered." : "You need a perfect score to master this concept. Try again!"}
-        onRetry={isPerfect ? undefined : startLearnQuiz}
+        stars={earnedStars} 
+        customMessage={earnedStars >= 1 ? "Great job! Concept completed." : "Review the rule and try again!"}
+        onRetry={startLearnQuiz}
         onContinue={resetToMenu}
       />
     );
