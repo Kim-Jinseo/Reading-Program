@@ -98,7 +98,7 @@ export const WritingModule = () => {
                   ? 'border-amber-200 bg-gradient-to-br from-amber-50/60 via-white to-orange-50/40 shadow-amber-100' 
                   : 'border-indigo-100 bg-gradient-to-br from-indigo-50/70 via-white to-purple-50/40 shadow-indigo-100/60 hover:shadow-indigo-200/80 hover:border-indigo-300'
             }`}>
-              <div className={`w-24 h-24 rounded-[2rem] flex items-center justify-center mb-6 shadow-md transition-transform group-hover:scale-105 ${
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-[2rem] flex items-center justify-center mb-6 shadow-md transition-transform group-hover:scale-105 ${
                 (dailyStatus.isComplete && dailyStatus.bestStars === 3) ? 'bg-indigo-500 text-white shadow-indigo-200' : dailyStatus.isComplete ? 'bg-amber-500 text-white shadow-amber-200' : 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-indigo-200'
               }`}>
                 {(dailyStatus.isComplete && dailyStatus.bestStars === 3) ? <CheckCircle2 size={48} /> : <PenTool size={48} />}
@@ -128,7 +128,7 @@ export const WritingModule = () => {
 
             {/* Keep Practicing Card */}
             <div className="bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 p-10 rounded-[3rem] shadow-xl shadow-slate-200/50 border-2 border-slate-100 flex flex-col items-center text-center group hover:border-slate-300 transition-all h-full">
-              <div className="w-24 h-24 bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-[2rem] flex items-center justify-center mb-6 shadow-md shadow-slate-300 transition-transform group-hover:scale-105">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-[2rem] flex items-center justify-center mb-6 shadow-md shadow-slate-300 transition-transform group-hover:scale-105">
                 <Sparkles size={48} />
               </div>
               <span className="px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-slate-100 text-slate-700 mb-3">
@@ -426,7 +426,7 @@ export const WritingModule = () => {
   }
 
   return (
-    <div className={`mx-auto pt-4 flex flex-col min-h-[85vh] transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto pt-4 flex flex-col flex-1 transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
       <div className="flex justify-between items-center mb-4 shrink-0">
         <button onClick={() => {
            if (status === 'improving') setStatus('feedback');

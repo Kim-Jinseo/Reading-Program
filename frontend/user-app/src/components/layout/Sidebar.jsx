@@ -27,7 +27,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         />
       )}
       
-      <aside className={`fixed md:relative inset-y-0 left-0 bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'md:w-[88px] w-64' : 'w-[300px]'}`}>
+      <aside className={`fixed md:relative inset-y-0 left-0 bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'md:w-[88px] w-64' : 'w-64 lg:w-[300px]'}`}>
         
         {/* Mobile Close Button */}
         <button 

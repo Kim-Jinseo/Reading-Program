@@ -350,7 +350,7 @@ export const CourtroomView = ({ onBack }) => {
           <div className="flex flex-col items-center mb-10">
             <div className="flex items-end gap-6 w-full max-w-2xl">
               <div className="flex flex-col items-center shrink-0">
-                <div className="w-24 h-24 bg-indigo-50 border-4 border-indigo-100 rounded-full flex items-center justify-center overflow-hidden shadow-sm mb-2">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-indigo-50 border-4 border-indigo-100 rounded-full flex items-center justify-center overflow-hidden shadow-sm mb-2">
                   <img src={currentCase.witnessImage} alt={currentCase.witnessName} className="w-full h-full object-cover" />
                 </div>
                 <span className="font-extrabold text-slate-700 text-lg text-center max-w-[120px] leading-tight">{currentCase.witnessName}</span>
@@ -434,7 +434,7 @@ export const CourtroomView = ({ onBack }) => {
         {/* STATE 3: VERDICT WON (LEVEL CLEARED) */}
         {gameState === 'verdict_won' && (
           <div className="animate-in zoom-in-95 duration-300 text-center py-6">
-            <div className="mx-auto w-24 h-24 bg-emerald-100 border-4 border-emerald-400 text-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-sm animate-bounce">
+            <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-emerald-100 border-4 border-emerald-400 text-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-sm animate-bounce">
               <CheckCircle2 size={64} />
             </div>
 
@@ -468,7 +468,7 @@ export const CourtroomView = ({ onBack }) => {
         {/* STATE 4: VERDICT LOST */}
         {gameState === 'verdict_lost' && (
           <div className="animate-in zoom-in-95 duration-300 text-center py-6">
-            <div className="mx-auto w-24 h-24 bg-rose-100 border-4 border-rose-500 text-rose-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
+            <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-rose-100 border-4 border-rose-500 text-rose-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
               <XCircle size={64} />
             </div>
 

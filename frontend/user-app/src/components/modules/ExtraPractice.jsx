@@ -51,7 +51,7 @@ export const ExtraPractice = () => {
     return (
       <div className="max-w-3xl mx-auto pt-16 text-center">
         <div className="mb-10"></div>
-        <div className="w-24 h-24 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
           <Sparkles size={48} />
         </div>
         <h2 className="text-4xl font-extrabold text-slate-800 mb-6 tracking-tight">Infinite Extra Practice</h2>

@@ -31,7 +31,7 @@ export default function Practice() {
         <p className="text-sky-500 font-extrabold uppercase tracking-widest mb-4">Grammar Check</p>
         <h2 className="text-3xl font-extrabold text-slate-800 mb-10 leading-relaxed">{exercise.sentence}</h2>
         
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {exercise.options.map(opt => (
             <button key={opt} onClick={() => {setSelected(opt); setFeedback(null);}} className={`p-4 rounded-2xl text-xl font-bold border-2 transition-all ${selected === opt ? 'border-sky-500 bg-sky-50 text-sky-600' : 'border-slate-200 text-slate-600 hover:border-sky-300'}`}>
               {opt}

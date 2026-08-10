@@ -742,8 +742,8 @@ export const VoiceJump = ({ onBack }) => {
           <div className="flex flex-col md:flex-row justify-center gap-8 mb-12">
             <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200">
                <p className="text-xl text-slate-500 font-bold mb-4">{t('choose_hero')}</p>
-               <div className="flex justify-center gap-6">
-                  <button onClick={() => setSelectedChar('char_wizard')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center text-5xl transition-all ${selectedChar === 'char_wizard' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+                  <button onClick={() => setSelectedChar('char_wizard')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center text-5xl transition-all ${selectedChar === 'char_wizard' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     🧙‍♂️
                     <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap pointer-events-none z-50">
                       <div className="font-bold">Wizard</div>
@@ -751,7 +751,7 @@ export const VoiceJump = ({ onBack }) => {
                     </div>
                   </button>
                   
-                  <button disabled={!hasKnight} onClick={() => setSelectedChar('char_knight')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasKnight ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedChar === 'char_knight' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+                  <button disabled={!hasKnight} onClick={() => setSelectedChar('char_knight')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasKnight ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedChar === 'char_knight' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center relative">
                       <img src="/assets/knight_hero.jpg" alt="Knight" className="w-20 h-20 object-contain mix-blend-multiply" />
                       {!hasKnight && <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center"><Lock size={24} className="text-slate-800 bg-white/80 p-1 rounded-full"/></div>}
@@ -764,7 +764,7 @@ export const VoiceJump = ({ onBack }) => {
                     )}
                   </button>
                   
-                  <button disabled={!hasPaladin} onClick={() => setSelectedChar('char_paladin')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasPaladin ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedChar === 'char_paladin' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+                  <button disabled={!hasPaladin} onClick={() => setSelectedChar('char_paladin')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasPaladin ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedChar === 'char_paladin' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center relative">
                       <img src="/assets/paladin_hero.jpg" alt="Paladin" className="w-20 h-20 object-contain mix-blend-multiply" />
                       {!hasPaladin && <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center"><Lock size={24} className="text-slate-800 bg-white/80 p-1 rounded-full"/></div>}
@@ -781,8 +781,8 @@ export const VoiceJump = ({ onBack }) => {
 
             <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200">
                <p className="text-xl text-slate-500 font-bold mb-4">{t('choose_pet')}</p>
-               <div className="flex justify-center gap-6">
-                  <button disabled={!hasDragon} onClick={() => setSelectedPet(selectedPet === 'pet_dragon' ? null : 'pet_dragon')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasDragon ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_dragon' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+                  <button disabled={!hasDragon} onClick={() => setSelectedPet(selectedPet === 'pet_dragon' ? null : 'pet_dragon')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasDragon ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_dragon' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center relative">
                       <img src="/assets/pet_dragon.png" alt="Dragon" className="w-16 h-16 object-contain" />
                       {!hasDragon && <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center"><Lock size={24} className="text-slate-800 bg-white/80 p-1 rounded-full"/></div>}
@@ -795,7 +795,7 @@ export const VoiceJump = ({ onBack }) => {
                     )}
                   </button>
 
-                  <button disabled={!hasGriffin} onClick={() => setSelectedPet(selectedPet === 'pet_griffin' ? null : 'pet_griffin')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasGriffin ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_griffin' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+                  <button disabled={!hasGriffin} onClick={() => setSelectedPet(selectedPet === 'pet_griffin' ? null : 'pet_griffin')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasGriffin ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_griffin' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center relative">
                       <img src="/assets/pet_griffin.png" alt="Griffin" className="w-16 h-16 object-contain" />
                       {!hasGriffin && <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center"><Lock size={24} className="text-slate-800 bg-white/80 p-1 rounded-full"/></div>}
@@ -808,7 +808,7 @@ export const VoiceJump = ({ onBack }) => {
                     )}
                   </button>
 
-                  <button disabled={!hasGolem} onClick={() => setSelectedPet(selectedPet === 'pet_golem' ? null : 'pet_golem')} className={`group relative w-24 h-24 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasGolem ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_golem' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
+                  <button disabled={!hasGolem} onClick={() => setSelectedPet(selectedPet === 'pet_golem' ? null : 'pet_golem')} className={`group relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 rounded-3xl border-4 flex items-center justify-center overflow-visible transition-all ${!hasGolem ? 'opacity-50 grayscale cursor-not-allowed border-slate-200 bg-slate-100' : selectedPet === 'pet_golem' ? 'border-indigo-500 bg-indigo-50 scale-110 shadow-lg' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center relative">
                       <img src="/assets/pet_golem.png" alt="Golem" className="w-16 h-16 object-contain" />
                       {!hasGolem && <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center"><Lock size={24} className="text-slate-800 bg-white/80 p-1 rounded-full"/></div>}
@@ -932,7 +932,7 @@ export const VoiceJump = ({ onBack }) => {
                      <span>{currentMonster.emoji} {currentMonster.name}</span>
                      <span className="text-amber-400">Lv.{stage + 1}</span>
                    </div>
-                   <div className="w-48 h-6 bg-slate-900 border-2 border-slate-700 rounded-full overflow-hidden relative shadow-lg">
+                   <div className="w-full max-w-[12rem] h-6 bg-slate-900 border-2 border-slate-700 rounded-full overflow-hidden relative shadow-lg">
                      <div className="h-full bg-gradient-to-r from-rose-500 to-red-600 transition-all duration-500" style={{ width: `${hpPercentage}%` }}></div>
                      <span className="absolute inset-0 flex items-center justify-center text-[11px] font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{hp} / {currentMonster.maxHp} HP</span>
                    </div>
@@ -1073,7 +1073,7 @@ export const VoiceJump = ({ onBack }) => {
              )}
              {selectedPet === 'pet_golem' && (
                 <div className="relative">
-                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute -top-4 -right-16 w-24 h-24 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
+                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute -top-4 -right-16 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
                     <span className="absolute -top-14 -right-16 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                       🚫 Silenced ({petDisabledTimer}s)
@@ -1191,7 +1191,7 @@ export const VoiceJump = ({ onBack }) => {
                   <p className={`text-sm font-bold uppercase tracking-widest mb-2 ${isWarmingUp ? 'text-amber-400' : 'text-green-500'}`}>
                     {isWarmingUp ? "WARMING UP..." : "MIC ON - SPEAK NOW"}
                   </p>
-                  <div className="w-48 h-3 bg-slate-200 rounded-full overflow-hidden">
+                  <div className="w-full max-w-[12rem] h-3 bg-slate-200 rounded-full overflow-hidden">
                      <div 
                         className={`h-full transition-all duration-75 rounded-full ${isWarmingUp ? 'bg-amber-400' : 'bg-green-500'}`}
                         style={{ width: `${Math.max(5, micVolume)}%` }}
