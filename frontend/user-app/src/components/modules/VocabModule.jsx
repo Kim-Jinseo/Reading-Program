@@ -185,8 +185,6 @@ export const VocabModule = () => {
     if (matchedIds.includes(id)) return;
     
     if (side === 'left') {
-      const matchObj = matchingData.left.find(item => item.id === id);
-      if (matchObj) playWordAudio(matchObj.word);
       setSelectedLeft(id);
       if (selectedRight) verifyMatch(id, selectedRight);
     } else {
