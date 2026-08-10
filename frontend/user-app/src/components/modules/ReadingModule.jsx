@@ -518,8 +518,14 @@ export const ReadingModule = () => {
 
         {/* Peek Story Modal */}
         {showPeekModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in">
-            <div className="bg-[#fdfbf7] border-2 border-amber-200 p-8 rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto relative animate-in zoom-in-95">
+          <div 
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-in fade-in cursor-pointer"
+            onClick={() => setShowPeekModal(false)}
+          >
+            <div 
+              className="bg-[#fdfbf7] border-2 border-amber-200 p-8 rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto relative animate-in zoom-in-95 cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button 
                 onClick={() => setShowPeekModal(false)}
                 className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-800 bg-white rounded-full border border-slate-200 shadow-sm"

@@ -711,8 +711,14 @@ export const GrammarModule = () => {
 
         {/* Concept Modal */}
         {showConceptModal && (
-          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in">
-            <div className="bg-white max-w-xl w-full rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95">
+          <div 
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-in fade-in cursor-pointer"
+            onClick={() => setShowConceptModal(false)}
+          >
+            <div 
+              className="bg-white max-w-xl w-full rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="p-8 border-b border-slate-100 bg-indigo-50/50">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full font-extrabold text-xs mb-3 uppercase tracking-wider">
                   <BookOpen size={14} /> Concept Explanation
