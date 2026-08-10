@@ -15,10 +15,14 @@ export const LeaderboardView = () => {
       let baseList = getLeaderboard();
       
       if (realUsers && realUsers.length > 0) {
-        const mappedReal = realUsers.map(u => ({
-          ...u,
-          isCurrentUser: Boolean(user && (u.id === user._id || u.name === user.username))
-        }));
+        const mappedReal = realUsers.map(u => {
+          const isCurrent = Boolean(user && (u.id === user._id || u.name === user.username));
+          return {
+            ...u,
+            isCurrentUser: isCurrent,
+            trophies: isCurrent && user ? (user.trophies !== undefined ? user.trophies : (user.stars || 0)) : u.trophies
+          };
+        });
         
         // Merge real users with mock filler so the list is rich and competitive
         const combined = [...mappedReal];

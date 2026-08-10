@@ -228,7 +228,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const handleEarnStars = (amount, moduleName, itemId) => {
-    if (user && user.role !== 'admin' && itemId) {
+    if (user && itemId) {
       setUser(prev => {
         const tracker = prev.starsTracker || {};
         const currentStarsForId = tracker[itemId] || 0;
