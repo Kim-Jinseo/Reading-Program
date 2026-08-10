@@ -363,6 +363,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       3. Feedback MUST be detailed and informative, between 2 to 5 sentences per field.
       4. Vocabulary in the feedback should be simple enough for a Grade ${grade || '1-2'} student to read, but highly specific to the actual text they wrote.
       5. ALL Chinese translations (grammar_feedback_zh, content_feedback_zh, general_feedback_zh) MUST be in Simplified Chinese. DO NOT use Traditional Chinese.
+      6. The student MUST write in English. If they write in Chinese, Korean, Spanish, or ANY language other than English, you MUST give 0 stars and gently explain that they need to practice writing in English.
       
       If the student writes gibberish, random letters, or very short incomplete thoughts (like "mn"), you MUST give 0 stars and gently explain in very simple words that you could not understand their writing. NEVER leave the feedback fields empty.
       Return JSON: {"reasoning":"", "stars": 4, "grammar_feedback":"", "grammar_feedback_zh":"", "content_feedback":"", "content_feedback_zh":"", "general_feedback":"", "general_feedback_zh":""}`;
