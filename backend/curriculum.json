@@ -11418,8 +11418,8 @@
       {
         "id": 1001,
         "dayIndex": 0,
-        "en": "What is your favorite animal? Why?",
-        "zh": "你最喜欢的动物是什么？为什么？"
+        "en": "What is your favorite animal? Why do you like it?",
+        "zh": "你最喜欢的动物是什么？你为什么喜欢它？"
       },
       {
         "id": 1002,
@@ -11430,350 +11430,350 @@
       {
         "id": 1003,
         "dayIndex": 2,
-        "en": "What do you like to eat for breakfast?",
-        "zh": "你早餐喜欢吃什么？"
+        "en": "What do you like to eat for breakfast? Who makes it for you?",
+        "zh": "你早餐喜欢吃什么？谁为你做早餐？"
       },
       {
         "id": 1004,
         "dayIndex": 3,
-        "en": "Who is your best friend? What do you play together?",
-        "zh": "谁是你最好的朋友？你们一起玩什么？"
+        "en": "Who is your best friend? What games do you play together?",
+        "zh": "谁是你最好的朋友？你们一起玩什么游戏？"
       },
       {
         "id": 1005,
         "dayIndex": 4,
-        "en": "What is your favorite toy?",
-        "zh": "你最喜欢的玩具是什么？"
+        "en": "What is your favorite toy? Why is it special to you?",
+        "zh": "你最喜欢的玩具是什么？它为什么对你很特别？"
       },
       {
         "id": 1006,
         "dayIndex": 5,
-        "en": "Do you like rainy days or sunny days? Why?",
-        "zh": "你喜欢雨天还是晴天？为什么？"
+        "en": "Do you like rainy days or sunny days? What do you do on those days?",
+        "zh": "你喜欢雨天还是晴天？在那些日子里你会做什么？"
       },
       {
         "id": 1007,
         "dayIndex": 6,
-        "en": "What can you do at the park?",
-        "zh": "你在公园里能做什么？"
+        "en": "What is your favorite thing to do at the park? Who goes with you?",
+        "zh": "你在公园里最喜欢做什么？谁和你一起去？"
       },
       {
         "id": 1008,
         "dayIndex": 7,
-        "en": "Tell me about your family.",
-        "zh": "告诉我关于你家人的事情。"
+        "en": "Tell me about your family. What do you love about them?",
+        "zh": "告诉我关于你家人的事情。你喜欢他们的什么？"
       },
       {
         "id": 1009,
         "dayIndex": 8,
-        "en": "What do you like to do on the weekend?",
-        "zh": "你周末喜欢做什么？"
+        "en": "What do you like to do on the weekend? How does it make you feel?",
+        "zh": "你周末喜欢做什么？这让你感觉怎么样？"
       },
       {
         "id": 1010,
         "dayIndex": 9,
-        "en": "What is your favorite fruit?",
-        "zh": "你最喜欢的水果是什么？"
+        "en": "What is your favorite fruit? How does it taste?",
+        "zh": "你最喜欢的水果是什么？它尝起来味道怎么样？"
       },
       {
         "id": 1011,
         "dayIndex": 10,
-        "en": "Do you have a pet? If not, what pet do you want?",
-        "zh": "你有宠物吗？如果没有，你想要什么宠物？"
+        "en": "What is your favorite ice cream flavor? When do you eat it?",
+        "zh": "你最喜欢什么口味的冰淇淋？你什么时候吃它？"
       },
       {
         "id": 1012,
         "dayIndex": 11,
-        "en": "What makes you happy?",
-        "zh": "什么让你感到开心？"
+        "en": "What clothes do you like to wear? What color are they?",
+        "zh": "你喜欢穿什么衣服？它们是什么颜色的？"
       },
       {
         "id": 1013,
         "dayIndex": 12,
-        "en": "What is your favorite book?",
-        "zh": "你最喜欢的书是什么？"
+        "en": "What is your favorite book? What happens in the story?",
+        "zh": "你最喜欢的书是什么？故事里发生了什么？"
       },
       {
         "id": 1014,
         "dayIndex": 13,
-        "en": "What game do you like to play at school?",
-        "zh": "在学校你喜欢玩什么游戏？"
+        "en": "What pet would you like to have? What would you name it?",
+        "zh": "你想养什么宠物？你会给它取什么名字？"
       },
       {
         "id": 1015,
         "dayIndex": 14,
-        "en": "What do you like about winter?",
-        "zh": "你喜欢冬天的什么？"
+        "en": "What game do you love to play? How do you play it?",
+        "zh": "你喜欢玩什么游戏？你怎么玩它？"
       },
       {
         "id": 1016,
         "dayIndex": 15,
-        "en": "What do you like about summer?",
-        "zh": "你喜欢夏天的什么？"
+        "en": "What is your favorite school subject? Why do you like it?",
+        "zh": "你最喜欢学校的什么科目？你为什么喜欢它？"
       },
       {
         "id": 1017,
         "dayIndex": 16,
-        "en": "If you could fly, where would you go?",
-        "zh": "如果你会飞，你会去哪里？"
+        "en": "What do you do before you go to bed? Who reads a story with you?",
+        "zh": "你在睡觉前做什么？谁和你一起读故事？"
       },
       {
         "id": 1018,
         "dayIndex": 17,
-        "en": "What is your favorite dinner?",
-        "zh": "你最喜欢的晚餐是什么？"
+        "en": "What is your favorite drink on a hot day? How does it make you feel?",
+        "zh": "大热天你最喜欢的饮料是什么？它让你感觉怎么样？"
       },
       {
         "id": 1019,
         "dayIndex": 18,
-        "en": "What do you do before you go to bed?",
-        "zh": "你睡觉前会做什么？"
+        "en": "What do you like to draw? What colors do you use?",
+        "zh": "你喜欢画什么？你使用什么颜色？"
       },
       {
         "id": 1020,
         "dayIndex": 19,
-        "en": "What can you see in the sky at night?",
-        "zh": "在晚上的天空中你能看到什么？"
+        "en": "What is your favorite holiday? What do you do on that day?",
+        "zh": "你最喜欢的节日是什么？你在那一天做什么？"
       },
       {
         "id": 1021,
         "dayIndex": 20,
-        "en": "What can you build with blocks?",
-        "zh": "你能用积木搭什么？"
+        "en": "What song do you love to sing? Where do you sing it?",
+        "zh": "你喜欢唱什么歌？你在哪里唱它？"
       },
       {
         "id": 1022,
         "dayIndex": 21,
-        "en": "What is your favorite holiday?",
-        "zh": "你最喜欢的节日是什么？"
+        "en": "What is your favorite snack after school? Who gives it to you?",
+        "zh": "放学后你最喜欢的零食是什么？谁给你的？"
       },
       {
         "id": 1023,
         "dayIndex": 22,
-        "en": "Who helps you when you are sad?",
-        "zh": "当你伤心时谁会帮助你？"
+        "en": "Do you like to swim in the pool or sea? Why do you enjoy it?",
+        "zh": "你喜欢在泳池里还是大海里游泳？你为什么喜欢它？"
       },
       {
         "id": 1024,
         "dayIndex": 23,
-        "en": "What sounds do you hear in the morning?",
-        "zh": "早上你能听到什么声音？"
+        "en": "What is your favorite room in your house? What do you do inside?",
+        "zh": "家里你最喜欢哪个房间？你在里面做什么？"
       },
       {
         "id": 1025,
         "dayIndex": 24,
-        "en": "What is something you are good at?",
-        "zh": "你擅长做什么？"
+        "en": "What season do you like best? What do you wear in that season?",
+        "zh": "你最喜欢什么季节？你在那个季节穿什么？"
       },
       {
         "id": 1026,
         "dayIndex": 25,
-        "en": "If you had a robot, what would it do?",
-        "zh": "如果你有一个机器人，它会做什么？"
+        "en": "What do you like to do on a birthday? What cake do you want?",
+        "zh": "过生日你喜欢做什么？想要什么蛋糕？"
       },
       {
         "id": 1027,
         "dayIndex": 26,
-        "en": "What do you wear when it is cold?",
-        "zh": "天冷的时候你穿什么？"
+        "en": "What is your favorite cartoon character? What can they do?",
+        "zh": "你最喜欢的卡通角色是谁？他们能做什么？"
       },
       {
         "id": 1028,
         "dayIndex": 27,
-        "en": "What is your favorite vegetable?",
-        "zh": "你最喜欢的蔬菜是什么？"
+        "en": "What bird or insect do you like? Where do you see it?",
+        "zh": "你喜欢什么鸟或者昆虫？你在哪里看到它？"
       },
       {
         "id": 1029,
         "dayIndex": 28,
-        "en": "What do you like to draw?",
-        "zh": "你喜欢画什么？"
+        "en": "What do you eat for dinner? Who sits with you at the table?",
+        "zh": "你晚餐吃什么？谁和你一起坐在桌旁？"
       },
       {
         "id": 1030,
         "dayIndex": 29,
-        "en": "Where do you want to go for a trip?",
-        "zh": "你想去哪里旅行？"
+        "en": "What is your favorite thing in your bedroom? Why do you like it?",
+        "zh": "房间里你最喜欢的东西是什么？你为什么喜欢它？"
       },
       {
         "id": 1031,
         "dayIndex": 30,
-        "en": "What is a fun thing to do in the snow?",
-        "zh": "在雪地里有什么好玩的事情？"
+        "en": "What sport do you like to play? Who do you play with?",
+        "zh": "你喜欢做什么运动？你和谁一起做运动？"
       },
       {
         "id": 1032,
         "dayIndex": 31,
-        "en": "What do you learn at school?",
-        "zh": "你在学校学到了什么？"
+        "en": "Do you like to build with blocks or Lego? What do you build?",
+        "zh": "你喜欢用积木还是乐高搭东西？你搭什么？"
       },
       {
         "id": 1033,
         "dayIndex": 32,
-        "en": "What animal is very fast?",
-        "zh": "什么动物跑得很快？"
+        "en": "What is your favorite place to visit? What do you see there?",
+        "zh": "你最喜欢去游览的地方是什么？你在那里看到什么？"
       },
       {
         "id": 1034,
         "dayIndex": 33,
-        "en": "What animal is very big?",
-        "zh": "什么动物非常大？"
+        "en": "What do you do when it snows? How do you keep warm?",
+        "zh": "下雪的时候你会做什么？你怎么保暖？"
       },
       {
         "id": 1035,
         "dayIndex": 34,
-        "en": "How do you help at home?",
-        "zh": "你在家里怎么帮忙？"
+        "en": "What makes you smile or laugh? Why is it funny?",
+        "zh": "什么事情让你微笑或大笑？它为什么好笑？"
       },
       {
         "id": 1036,
         "dayIndex": 35,
-        "en": "What do you see on your way to school?",
-        "zh": "你在去学校的路上能看到什么？"
+        "en": "What is your favorite storybook picture? What is in the picture?",
+        "zh": "故事书里你最喜欢哪张插图？画里有什么？"
       },
       {
         "id": 1037,
         "dayIndex": 36,
-        "en": "What do you like to drink?",
-        "zh": "你喜欢喝什么？"
+        "en": "What treat do you get on weekends? How does it taste?",
+        "zh": "你周末能吃到什么好吃的？味道怎么样？"
       },
       {
         "id": 1038,
         "dayIndex": 37,
-        "en": "What do you do when you are tired?",
-        "zh": "当你累的时候你会做什么？"
+        "en": "What kind of shoes do you wear to run? What color are they?",
+        "zh": "你跑步穿什么鞋？它们是什么颜色的？"
       },
       {
         "id": 1039,
         "dayIndex": 38,
-        "en": "What is your favorite movie?",
-        "zh": "你最喜欢的电影是什么？"
+        "en": "What is your favorite flower or plant? Where does it grow?",
+        "zh": "你最喜欢的花或植物是什么？它生长在哪里？"
       },
       {
         "id": 1040,
         "dayIndex": 39,
-        "en": "If you were an animal, what would you be?",
-        "zh": "如果你是一种动物，你想做什么动物？"
+        "en": "What animal sounds can you make? Which sound is your favorite?",
+        "zh": "你能发出什么动物的叫声？哪个声音是你最喜欢的？"
       },
       {
         "id": 1041,
         "dayIndex": 40,
-        "en": "What do you like to play outside?",
-        "zh": "你喜欢在外面玩什么？"
+        "en": "What do you carry in your school bag? What color is your bag?",
+        "zh": "你书包里装了什么？你的书包是什么颜色的？"
       },
       {
         "id": 1042,
         "dayIndex": 41,
-        "en": "What do you like to play inside?",
-        "zh": "你喜欢在室内玩什么？"
+        "en": "What is your favorite vegetable? How do you eat it?",
+        "zh": "你最喜欢的蔬菜是什么？你怎么吃它？"
       },
       {
         "id": 1043,
         "dayIndex": 42,
-        "en": "What is your favorite snack?",
-        "zh": "你最喜欢的零食是什么？"
+        "en": "What craft do you like to make with paper? What colors do you cut?",
+        "zh": "你喜欢用纸做什么手工？你剪下什么颜色的纸？"
       },
       {
         "id": 1044,
         "dayIndex": 43,
-        "en": "Tell me about a time you laughed.",
-        "zh": "告诉我一次你大笑的经历。"
+        "en": "What ride do you like at the playground? How fast does it go?",
+        "zh": "在游乐场你最喜欢玩什么游乐设施？它转得有多快？"
       },
       {
         "id": 1045,
         "dayIndex": 44,
-        "en": "What do you put on a pizza?",
-        "zh": "你在披萨上放什么？"
+        "en": "What do you like to do on a bus or car ride? Who sits next to you?",
+        "zh": "坐公交车或乘车时你喜欢做什么？谁坐在你旁边？"
       },
       {
         "id": 1046,
         "dayIndex": 45,
-        "en": "What is your favorite thing about spring?",
-        "zh": "你最喜欢春天的什么？"
+        "en": "What is your favorite bedtime stuffed animal? What color is it?",
+        "zh": "你最喜欢的睡前毛绒玩具是什么？它是什么颜色的？"
       },
       {
         "id": 1047,
         "dayIndex": 46,
-        "en": "What is your favorite thing about fall?",
-        "zh": "你最喜欢秋天的什么？"
+        "en": "What funny face can you make? Who laughs when you make it?",
+        "zh": "你能做出什么样的鬼脸？当你做鬼脸时谁会大笑？"
       },
       {
         "id": 1048,
         "dayIndex": 47,
-        "en": "What do you do to get ready for school?",
-        "zh": "你是怎么准备去上学的？"
+        "en": "What do you like to do at recess? Who plays with you?",
+        "zh": "课间休息你喜欢做什么？谁和你一起玩？"
       },
       {
         "id": 1049,
         "dayIndex": 48,
-        "en": "Who makes you smile?",
-        "zh": "谁让你微笑？"
+        "en": "What is your favorite sweet treat? When do you get to eat it?",
+        "zh": "你最喜欢的甜食是什么？你什么时候能吃到它？"
       },
       {
         "id": 1050,
         "dayIndex": 49,
-        "en": "What do you do with a ball?",
-        "zh": "你可以用球做什么？"
+        "en": "What animal would you like to see at the zoo? Why is it cool?",
+        "zh": "在动物园你想看什么动物？它为什么很酷？"
       },
       {
         "id": 1051,
         "dayIndex": 50,
-        "en": "What is a good name for a dog?",
-        "zh": "狗的好名字是什么？"
+        "en": "What do you help your parents do at home? How does it help them?",
+        "zh": "你在家里帮父母做什么？这怎么帮到他们？"
       },
       {
         "id": 1052,
         "dayIndex": 51,
-        "en": "What is a good name for a cat?",
-        "zh": "猫的好名字是什么？"
+        "en": "What is your favorite sea creature? What does it look like?",
+        "zh": "你最喜欢的海洋生物是什么？它长什么样？"
       },
       {
         "id": 1053,
         "dayIndex": 52,
-        "en": "What is your favorite room in your house?",
-        "zh": "你家里的哪个房间是你最喜欢的？"
+        "en": "What hat or cap do you wear outside? What color is it?",
+        "zh": "你在户外戴什么帽子？它是什么颜色的？"
       },
       {
         "id": 1054,
         "dayIndex": 53,
-        "en": "What do you like to sing?",
-        "zh": "你喜欢唱什么？"
+        "en": "What do you like to eat at a party? What games do you play?",
+        "zh": "派对上你喜欢吃什么？你玩什么游戏？"
       },
       {
         "id": 1055,
         "dayIndex": 54,
-        "en": "What is your favorite sport?",
-        "zh": "你最喜欢的运动是什么？"
+        "en": "What sound in nature do you like? Why is it peaceful?",
+        "zh": "你喜欢大自然里的什么声音？为什么它很安静宁和？"
       },
       {
         "id": 1056,
         "dayIndex": 55,
-        "en": "How do you wash your hands?",
-        "zh": "你怎么洗手？"
+        "en": "What is your favorite song to dance to? Who dances with you?",
+        "zh": "你最喜欢跳舞配什么歌？谁和你一起跳舞？"
       },
       {
         "id": 1057,
         "dayIndex": 56,
-        "en": "What do you see at the beach?",
-        "zh": "你在海滩能看到什么？"
+        "en": "What do you like to do on a hot summer day? How do you stay cool?",
+        "zh": "在炎热的夏天你喜欢做什么？你怎么解暑？"
       },
       {
         "id": 1058,
         "dayIndex": 57,
-        "en": "What do you take on a picnic?",
-        "zh": "野餐你会带什么？"
+        "en": "What animal would you like to fly like? Where would you fly?",
+        "zh": "你想像什么动物一样飞翔？你会飞去哪里？"
       },
       {
         "id": 1059,
         "dayIndex": 58,
-        "en": "What is a scary animal?",
-        "zh": "什么是可怕的动物？"
+        "en": "What is your favorite warm drink in winter? How does it taste?",
+        "zh": "冬天你最喜欢的热饮是什么？味道怎么样？"
       },
       {
         "id": 1060,
         "dayIndex": 59,
-        "en": "What do you do when you are angry?",
-        "zh": "当你生气时你会做什么？"
+        "en": "What is your favorite thing about going to school? Who is your favorite classmate?",
+        "zh": "关于去上学你最喜欢的事情是什么？谁是你最喜欢的同班同学？"
       }
     ],
     "speaking": [
@@ -23796,14 +23796,14 @@
       {
         "id": 3001,
         "dayIndex": 0,
-        "en": "If you could have any superpower for one day, what would it be and how would you use it?",
-        "zh": "如果你能拥有一天的超能力，你想要什么？你会怎么使用它？"
+        "en": "If you could have any superpower for one day, what would it be? How would you use it to help others?",
+        "zh": "如果你能拥有一天的超能力，你想要什么？你会如何使用它来帮助别人？"
       },
       {
         "id": 3002,
         "dayIndex": 1,
-        "en": "Imagine you found a secret door in your bedroom. Where does it lead to?",
-        "zh": "想象你在卧室里发现了一扇秘密门。它通向哪里？"
+        "en": "Imagine you found a secret door in your bedroom. Where does it lead to and what do you see?",
+        "zh": "想象你在卧室里发现了一扇秘密门。它通向哪里，你在那里看到了什么？"
       },
       {
         "id": 3003,
@@ -23814,344 +23814,344 @@
       {
         "id": 3004,
         "dayIndex": 3,
-        "en": "If you could invent a robot to help you with chores, what would it look like and what would it do?",
-        "zh": "如果你能发明一个机器人帮你做家务，它长什么样，会做什么？"
+        "en": "If you could invent a helpful robot, what would it look like? What chores would it do for you?",
+        "zh": "如果你能发明一个有用的机器人，它长什么样？它会帮你做哪些家务？"
       },
       {
         "id": 3005,
         "dayIndex": 4,
-        "en": "Describe the perfect treehouse. What rooms and fun things would you have inside?",
-        "zh": "描述一下完美的树屋。里面会有什么房间和好玩的东西？"
+        "en": "Describe your dream treehouse. What fun games and rooms would you put inside?",
+        "zh": "描述一下你梦想中的树屋。你会在里面放哪些有趣的游戏和房间？"
       },
       {
         "id": 3006,
         "dayIndex": 5,
-        "en": "If you were a famous explorer, what place in the world would you want to discover?",
-        "zh": "如果你是一位著名的探险家，你想去发现世界上哪个地方？"
+        "en": "If you were a famous explorer, where would you go? What mysterious things would you discover?",
+        "zh": "如果你是一位著名的探险家，你想去哪里？你会发现什么神秘的东西？"
       },
       {
         "id": 3007,
         "dayIndex": 6,
-        "en": "Write a story about a pet that can talk. What do you think they would say to you?",
-        "zh": "写一个关于会说话的宠物的故事。你觉得他们会对你说什么？"
+        "en": "Write a story about a pet that can talk. What funny things would your pet say to you?",
+        "zh": "写一个关于会说话的宠物的故事。你的宠物会对你说什么有趣的话？"
       },
       {
         "id": 3008,
         "dayIndex": 7,
-        "en": "Imagine you could travel to space. Which planet would you visit and what would you look for?",
-        "zh": "想象你可以去太空旅行。你想去哪个星球？你想寻找什么？"
+        "en": "Imagine you could travel into outer space. Which planet would you visit and who would you take with you?",
+        "zh": "想象你可以去外太空旅行。你想去哪个星球，你会带谁一起去？"
       },
       {
         "id": 3009,
         "dayIndex": 8,
-        "en": "Who is your best friend? What are three fun things you like to do together?",
+        "en": "Who is your best friend? What are three fun things you love to do together?",
         "zh": "谁是你最好的朋友？你们最喜欢一起做的三件有趣的事情是什么？"
       },
       {
         "id": 3010,
         "dayIndex": 9,
-        "en": "If it rained your favorite food instead of water, what would it be and how would you catch it?",
-        "zh": "如果天上下的不是雨，而是你最喜欢的食物，那会是什么？你会怎么接住它？"
+        "en": "If it rained your favorite food instead of water, what food would it be? How would you collect it?",
+        "zh": "如果天上下的不是雨而是你最喜欢的食物，那会是什么？你会怎么把它们收集起来？"
       },
       {
         "id": 3011,
         "dayIndex": 10,
-        "en": "What would you do if you were the principal of your school for a day?",
-        "zh": "如果你做了一天的校长，你会做什么？"
+        "en": "What is the best gift you ever received? Why is it special to you?",
+        "zh": "你收到的最好的礼物是什么？它为什么对你很特别？"
       },
       {
         "id": 3012,
         "dayIndex": 11,
-        "en": "Imagine you found a magic pencil that makes whatever you draw become real. What is the first thing you draw?",
-        "zh": "想象你找到了一支神奇的铅笔，能让你画的东西变成现实。你画的第一样东西是什么？"
+        "en": "If you could talk to any ocean animal, which one would it be? What would you ask them?",
+        "zh": "如果你能和任何海洋动物说话，你想和哪种说话？你会问他们什么？"
       },
       {
         "id": 3013,
         "dayIndex": 12,
-        "en": "If you could shrink down to the size of an ant, what adventure would you go on in your backyard?",
-        "zh": "如果你能缩到蚂蚁那么小，你会在后院进行什么探险？"
+        "en": "What is your favorite family tradition? What makes it so fun for everyone?",
+        "zh": "你最喜欢的家庭传统是什么？是什么让大家觉得这么有趣？"
       },
       {
         "id": 3014,
         "dayIndex": 13,
-        "en": "Write about a time you helped someone. How did it make you feel?",
-        "zh": "写一次你帮助别人的经历。这让你感觉如何？"
+        "en": "Imagine you spent a day living in a cartoon world. What cartoon would it be and what would you do?",
+        "zh": "想象你在卡通世界里生活了一天。那会是哪个卡通，你会做什么？"
       },
       {
         "id": 3015,
         "dayIndex": 14,
-        "en": "If animals could have jobs, what job would a dog have and why?",
-        "zh": "如果动物也有工作，狗会做什么工作？为什么？"
+        "en": "If you had a magic carpet, where would you fly first? What would you see from the sky?",
+        "zh": "如果你有一块魔毯，你会先飞去哪里？你从天上会看到什么？"
       },
       {
         "id": 3016,
         "dayIndex": 15,
-        "en": "Describe your favorite outdoor activity. Why is it fun to do outside?",
-        "zh": "描述你最喜欢的户外活动。为什么在户外做这件事很有趣？"
+        "en": "What is your favorite game to play with your family? Why is it so exciting?",
+        "zh": "你最喜欢和家人玩什么游戏？为什么它这么令人兴奋？"
       },
       {
         "id": 3017,
         "dayIndex": 16,
-        "en": "Imagine you are stranded on a desert island. What three items would you want to have with you?",
-        "zh": "想象你被困在荒岛上。你希望随身携带哪三样东西？"
+        "en": "If you could change one school rule, what rule would you change? What would the new rule be?",
+        "zh": "如果你能改变一条学校规则，你会改变哪一条？新的规则会是什么？"
       },
       {
         "id": 3018,
         "dayIndex": 17,
-        "en": "If you could only eat one color of food for a week, what color would you choose and what would you eat?",
-        "zh": "如果一个星期你只能吃一种颜色的食物，你会选什么颜色？你会吃什么？"
+        "en": "What is your favorite meal that your parents cook? Why do you like it so much?",
+        "zh": "你父母做的饭菜里你最喜欢哪一道？为什么你这么喜欢它？"
       },
       {
         "id": 3019,
         "dayIndex": 18,
-        "en": "Write a story about a friendly dragon who comes to visit your town.",
-        "zh": "写一个关于一条友好的龙来拜访你的小镇的故事。"
+        "en": "If you found a magic lamp with three wishes, what would your first wish be? Why?",
+        "zh": "如果你发现了一个可以满足三个愿望的神灯，你的第一个愿望会是什么？为什么？"
       },
       {
         "id": 3020,
         "dayIndex": 19,
-        "en": "If you could breathe underwater, what kind of sea creatures would you want to play with?",
-        "zh": "如果你能在水下呼吸，你想和什么样的海洋生物一起玩？"
+        "en": "What is your favorite movie or TV show? Who is your favorite character in it?",
+        "zh": "你最喜欢的电影或电视节目是什么？里面你最喜欢的角色是谁？"
       },
       {
         "id": 3021,
         "dayIndex": 20,
-        "en": "What makes a good friend? Write about why being kind and sharing is important.",
-        "zh": "什么是好朋友？写写为什么善良和分享很重要。"
+        "en": "If you could build a house out of candy, what sweets would you use for the walls and roof?",
+        "zh": "如果你能用糖果建一座房子，你会用什么甜食来做墙壁和屋顶？"
       },
       {
         "id": 3022,
         "dayIndex": 21,
-        "en": "Imagine you have a time machine. Would you travel to the past or the future, and why?",
-        "zh": "想象你有一台时光机。你想穿越到过去还是未来，为什么？"
+        "en": "What is your favorite outdoor activity in spring? How does it make you feel?",
+        "zh": "春天你最喜欢的户外活动是什么？它让你感觉怎么样？"
       },
       {
         "id": 3023,
         "dayIndex": 22,
-        "en": "If you could create a new holiday, what would it celebrate and how would people celebrate it?",
-        "zh": "如果你能创造一个新节日，它庆祝什么？人们会怎么庆祝它？"
+        "en": "If you had a pet dragon, what would you name it? Where would you take your dragon to play?",
+        "zh": "如果你有一只宠物龙，你会给它取什么名字？你会带你的龙去哪里玩？"
       },
       {
         "id": 3024,
         "dayIndex": 23,
-        "en": "Write about a time when you tried something new and difficult. Did you succeed or learn from it?",
-        "zh": "写一次你尝试既新颖又困难的事情的经历。你成功了吗，或者从中学到了什么？"
+        "en": "What is your favorite thing about your school classroom? What makes your classroom special?",
+        "zh": "关于你的学校教室，你最喜欢什么？是什么让你的教室很特别？"
       },
       {
         "id": 3025,
         "dayIndex": 24,
-        "en": "If you could be any character from a book or movie, who would you be and what would you do?",
-        "zh": "如果你能成为书本或电影里的任何一个角色，你想成为谁？你会做什么？"
+        "en": "If you could grow any plant in a magic garden, what would grow on the branches?",
+        "zh": "如果你能在魔法花园里种植任何植物，树枝上会长出什么？"
       },
       {
         "id": 3026,
         "dayIndex": 25,
-        "en": "Imagine you woke up and you were invisible. How would you spend your day?",
-        "zh": "想象你醒来发现自己隐身了。你会怎么度过这一天？"
+        "en": "What is your favorite sport or physical activity? What do you like most about it?",
+        "zh": "你最喜欢的体育活动是什么？你最喜欢它的什么？"
       },
       {
         "id": 3027,
         "dayIndex": 26,
-        "en": "What is the best gift you have ever given someone? Why was it special?",
-        "zh": "你送给别人最好的礼物是什么？为什么它很特别？"
+        "en": "If you could travel back in time, what historical place or event would you visit?",
+        "zh": "如果你能穿越回过去，你会去游览哪个历史地方或事件？"
       },
       {
         "id": 3028,
         "dayIndex": 27,
-        "en": "If you could build a vehicle that travels on land, water, and air, what would it look like?",
-        "zh": "如果你能制造一辆可以在陆地、水上和空中行驶的交通工具，它会是什么样子？"
+        "en": "What is your favorite dessert to eat at a party? Why is it your top choice?",
+        "zh": "在派对上你最喜欢吃什么甜点？为什么它是你的首选？"
       },
       {
         "id": 3029,
         "dayIndex": 28,
-        "en": "Write a story about a day when all the toys in your room came alive.",
-        "zh": "写一个关于你房间里所有玩具都活过来的一天的故事。"
+        "en": "Imagine you could talk to birds. What news would they bring you from the sky?",
+        "zh": "想象你能和鸟儿说话。它们会从天上为你带来什么消息？"
       },
       {
         "id": 3030,
         "dayIndex": 29,
-        "en": "If you could learn any language in the world instantly, which one would it be and who would you talk to?",
-        "zh": "如果你能立刻学会世界上的任何一种语言，你会选哪一种？你想和谁说话？"
+        "en": "What is your favorite place to relax when you are tired? What do you do there?",
+        "zh": "当你累的时候你最喜欢在哪里放松？你在那里做什么？"
       },
       {
         "id": 3031,
         "dayIndex": 30,
-        "en": "Imagine you found a treasure map in a bottle on the beach. Where do you think it leads?",
-        "zh": "想象你在沙滩上的一个瓶子里发现了一张藏宝图。你觉得它通向哪里？"
+        "en": "If you could design a new playground slide, what shape and color would it be?",
+        "zh": "如果你能设计一个新的游乐场滑梯，它会是什么形状和颜色？"
       },
       {
         "id": 3032,
         "dayIndex": 31,
-        "en": "What is your favorite season of the year? Write about the fun things you do during that time.",
-        "zh": "你最喜欢一年中的哪个季节？写写在那个时候你做的有趣的事情。"
+        "en": "What is your favorite thing to do on a rainy afternoon indoors?",
+        "zh": "下雨的下午在室内你最喜欢做什么？"
       },
       {
         "id": 3033,
         "dayIndex": 32,
-        "en": "If you were a superhero, what would your name be and what costume would you wear?",
-        "zh": "如果你是个超级英雄，你的名字会叫什么？你会穿什么样的服装？"
+        "en": "If you could turn invisible for one hour, where would you hide and what would you do?",
+        "zh": "如果你能隐形一小时，你会藏在哪里，会做什么？"
       },
       {
         "id": 3034,
         "dayIndex": 33,
-        "en": "Write about a time you went on a fun trip with your family. What was the best part?",
-        "zh": "写一次你和家人一起进行的有趣旅行。最棒的部分是什么？"
+        "en": "What is your favorite sea animal to see at the aquarium? Why do you like it?",
+        "zh": "在水族馆你最喜欢看什么海洋动物？你为什么喜欢它？"
       },
       {
         "id": 3035,
         "dayIndex": 34,
-        "en": "If you could have a wild animal as a pet, what would it be and how would you take care of it?",
-        "zh": "如果你能养一只野生动物当宠物，你会养什么？你会怎么照顾它？"
+        "en": "If you were the teacher for one day, what fun lesson would you teach your class?",
+        "zh": "如果你能当一天老师，你会给全班上一堂什么有趣的课？"
       },
       {
         "id": 3036,
         "dayIndex": 35,
-        "en": "Imagine you can fly like a bird. What places would you fly to and look at from above?",
-        "zh": "想象你能像鸟儿一样飞翔。你会飞到哪些地方从上面俯瞰？"
+        "en": "What is your favorite memory from a past vacation? Who was there with you?",
+        "zh": "过去假期里你最美好的回忆是什么？当时谁和你在一起？"
       },
       {
         "id": 3037,
         "dayIndex": 36,
-        "en": "What is an invention you wish existed to make your morning routine easier?",
-        "zh": "你希望有什么发明能让你早上的日常生活变得更容易？"
+        "en": "If you could open a small shop, what cool things would you sell inside?",
+        "zh": "如果你能开一家小店，你会卖哪些酷炫的东西？"
       },
       {
         "id": 3038,
         "dayIndex": 37,
-        "en": "If you had a magical garden, what kind of weird and wonderful plants would grow there?",
-        "zh": "如果你有一个神奇花园，那里会生长什么奇特而美妙的植物？"
+        "en": "What is your favorite fruit juice or drink? How often do you get to drink it?",
+        "zh": "你最喜欢的果汁或饮料是什么？你多久能喝一次？"
       },
       {
         "id": 3039,
         "dayIndex": 38,
-        "en": "Write a story about a brave knight who has to rescue a lost kitten instead of a princess.",
-        "zh": "写一个关于勇敢骑士不去救公主，而是去救一只走失的小猫的故事。"
+        "en": "If your pet could wear clothes, what costume would you dress them in?",
+        "zh": "如果你的宠物能穿衣服，你会给他们穿什么服装？"
       },
       {
         "id": 3040,
         "dayIndex": 39,
-        "en": "If you could swap lives with your pet for one day, what do you think you would do?",
-        "zh": "如果你能和你的宠物交换一天的生活，你觉得你会做什么？"
+        "en": "What is your favorite thing about camping under the stars? What food would you cook?",
+        "zh": "在星空下露营你最喜欢什么？你会做什么食物？"
       },
       {
         "id": 3041,
         "dayIndex": 40,
-        "en": "Imagine you found a pair of shoes that let you run super fast. Where would you run to?",
-        "zh": "想象你发现了一双能让你跑得超级快的鞋。你会跑到哪里去？"
+        "en": "If you found a glowing treasure chest, what magical item would be inside?",
+        "zh": "如果你发现了一个发光的宝箱，里面会有什么神奇的物品？"
       },
       {
         "id": 3042,
         "dayIndex": 41,
-        "en": "What is something you are really good at doing? How did you learn to do it so well?",
-        "zh": "你非常擅长做的一件事是什么？你是怎么学得这么好的？"
+        "en": "What is your favorite board game or card game? Why is it fun to win?",
+        "zh": "你最喜欢的桌游或纸牌游戏是什么？为什么赢了很有趣？"
       },
       {
         "id": 3043,
         "dayIndex": 42,
-        "en": "If you could turn your classroom into anything for a day, what would it be? (e.g., a jungle, a spaceship)",
-        "zh": "如果你能让你的教室变成任何东西一天，那会是什么？（比如：丛林、宇宙飞船）"
+        "en": "If you could build a giant snow castle in winter, who would help you build it?",
+        "zh": "如果你能在冬天建一座巨型雪城堡，谁会帮你建造？"
       },
       {
         "id": 3044,
         "dayIndex": 43,
-        "en": "Write a story about an alien who comes to your school and tries to learn how to play soccer.",
-        "zh": "写一个关于外星人来到你的学校，并试图学习踢足球的故事。"
+        "en": "What is your favorite song to listen to when you are happy? Why do you like the music?",
+        "zh": "当你高兴的时候你最喜欢听什么歌？你为什么喜欢这音乐？"
       },
       {
         "id": 3045,
         "dayIndex": 44,
-        "en": "If you could design your own amusement park, what would the biggest roller coaster be like?",
-        "zh": "如果你能设计自己的游乐园，最大的过山车会是什么样的？"
+        "en": "If you could shrink down to the size of an ant, what places would you explore?",
+        "zh": "如果你能缩到蚂蚁那么大，你会探索什么地方？"
       },
       {
         "id": 3046,
         "dayIndex": 45,
-        "en": "Imagine you have a camera that takes pictures of the future. What do you see in the photos?",
-        "zh": "想象你有一台能拍到未来照片的相机。你在照片里看到了什么？"
+        "en": "What is your favorite season of the year? What do you love doing during that season?",
+        "zh": "一年中你最喜欢的季节是什么？你在那个季节最喜欢做什么？"
       },
       {
         "id": 3047,
         "dayIndex": 46,
-        "en": "What is the most amazing dream you have ever had? Describe what happened.",
-        "zh": "你做过最不可思议的梦是什么？描述一下发生了什么。"
+        "en": "If you had a magic pencil that brought drawings to life, what would you draw first?",
+        "zh": "如果你有一支能让画作变活的神奇铅笔，你会先画什么？"
       },
       {
         "id": 3048,
         "dayIndex": 47,
-        "en": "If you could combine two animals to make a new one, what would they be and what would you call it?",
-        "zh": "如果你能把两种动物结合成一种新动物，会是哪两种？你会叫它什么？"
+        "en": "What is your favorite subject at school? What new things did you learn recently?",
+        "zh": "学校里你最喜欢的科目是什么？你最近学到了什么新知识？"
       },
       {
         "id": 3049,
         "dayIndex": 48,
-        "en": "Write about a time you solved a difficult puzzle or problem. How did you figure it out?",
-        "zh": "写一次你解决一个困难的谜题或问题的经历。你是怎么想出办法的？"
+        "en": "If you could build your own bicycle, what color and cool features would it have?",
+        "zh": "如果你能组装自己的自行车，它会有什么颜色和酷炫的功能？"
       },
       {
         "id": 3050,
         "dayIndex": 49,
-        "en": "If your town had a giant snowstorm and you had the day off school, what would you do in the snow?",
-        "zh": "如果你的小镇下了一场大暴风雪，你放假一天，你会在雪地里做什么？"
+        "en": "What is your favorite memory with your grandparents? What did you do together?",
+        "zh": "你和祖父母之间最美好的回忆是什么？你们一起做了什么？"
       },
       {
         "id": 3051,
         "dayIndex": 50,
-        "en": "Imagine you have a magic backpack that always has exactly what you need. What does it give you today?",
-        "zh": "想象你有一个神奇的背包，里面总是有你需要的东西。今天它给了你什么？"
+        "en": "If you could visit a zoo at night, which animals would you want to watch?",
+        "zh": "如果你能在晚上游览动物园，你想观察哪些动物？"
       },
       {
         "id": 3052,
         "dayIndex": 51,
-        "en": "If you could interview a famous historical figure, who would it be and what would you ask them?",
-        "zh": "如果你能采访一位著名的历史人物，你会选谁？你会问他们什么？"
+        "en": "What is your favorite kind of pizza topping? Why is it the tastiest?",
+        "zh": "你最喜欢的披萨馅料是什么？为什么它最美味？"
       },
       {
         "id": 3053,
         "dayIndex": 52,
-        "en": "Write a story about two kids who discover their treehouse can fly.",
-        "zh": "写一个关于两个孩子发现他们的树屋能飞的故事。"
+        "en": "If you had a pet monkey for a day, what funny tricks would you teach it?",
+        "zh": "如果你能当一天的宠物猴子的主人，你会教它什么有趣的本领？"
       },
       {
         "id": 3054,
         "dayIndex": 53,
-        "en": "What is your favorite board game or video game? Why do you think it is so fun to play?",
-        "zh": "你最喜欢的棋盘游戏或电子游戏是什么？你为什么觉得它这么好玩？"
+        "en": "What is your favorite craft activity? What materials do you use to make it?",
+        "zh": "你最喜欢的手工活动是什么？你用什么材料制作它？"
       },
       {
         "id": 3055,
         "dayIndex": 54,
-        "en": "If you could only listen to one song for the rest of your life, what would it be and why?",
-        "zh": "如果你这辈子只能听一首歌，那会是什么？为什么？"
+        "en": "If you could fly in a hot air balloon, where would you drift in the sky?",
+        "zh": "如果你能乘坐热气球飞行，你会飘去天空中的什么地方？"
       },
       {
         "id": 3056,
         "dayIndex": 55,
-        "en": "Imagine you are a detective trying to solve the mystery of a missing school bell. Where do you look?",
-        "zh": "想象你是一名侦探，试图解开学校铃铛失踪的谜团。你会在哪里寻找？"
+        "en": "What is your favorite kind of weather? What do you like to do outside?",
+        "zh": "你最喜欢什么天气？在户外你喜欢做什么？"
       },
       {
         "id": 3057,
         "dayIndex": 56,
-        "en": "If you could create a brand new flavor of ice cream, what ingredients would be in it?",
-        "zh": "如果你能创造一种全新的冰淇淋口味，里面会有什么配料？"
+        "en": "If you could design a new flavor of ice cream, what ingredients would you put in?",
+        "zh": "如果你能设计一款新口味的冰淇淋，你会放入什么配料？"
       },
       {
         "id": 3058,
         "dayIndex": 57,
-        "en": "Write about a day when everything went completely backwards. How did you eat breakfast?",
-        "zh": "写写一切都完全倒转的一天。你是怎么吃早餐的？"
+        "en": "What is your favorite storybook hero or heroine? Why do you admire them?",
+        "zh": "你最喜欢的童话故事英雄是谁？你为什么钦佩他们？"
       },
       {
         "id": 3059,
         "dayIndex": 58,
-        "en": "If you could have a conversation with the sun, what would you ask it about its day?",
-        "zh": "如果你能和太阳对话，你会问它这一天过得怎么样？"
+        "en": "If you could create a new national holiday, what would people celebrate on that day?",
+        "zh": "如果你能设立一个新的国家节日，人们在这一天会庆祝什么？"
       },
       {
         "id": 3060,
         "dayIndex": 59,
-        "en": "Imagine you are standing on top of the tallest mountain in the world. What do you yell out?",
-        "zh": "想象你站在世界上最高的山峰顶上。你会大声喊出什么？"
+        "en": "What are you most proud of accomplishing this school year? How did you achieve it?",
+        "zh": "在这个学年里，你最骄傲完成的事是什么？你是怎么做到的？"
       }
     ],
     "speaking": [
@@ -36174,362 +36174,362 @@
       {
         "id": 5001,
         "dayIndex": 0,
-        "en": "If you could invent a new piece of technology to help students learn, what would it be and how would it work?",
-        "zh": "如果你能发明一项帮助学生学习的新技术，那会是什么？它是如何运作的？"
+        "en": "If you could invent a fun tool to help students study, what would it be? How would it make learning easier?",
+        "zh": "如果你能发明一个帮助学生学习的有趣工具，那会是什么？它会如何让学习变得更容易？"
       },
       {
         "id": 5002,
         "dayIndex": 1,
-        "en": "How do you think artificial intelligence will change schools in the next twenty years?",
-        "zh": "你认为人工智能在未来二十年里会如何改变学校？"
+        "en": "What is your dream job when you grow up? Why do you find this career exciting?",
+        "zh": "你长大后梦想的工作是什么？为什么你觉得这个职业很令人兴奋？"
       },
       {
         "id": 5003,
         "dayIndex": 2,
-        "en": "Write about a world where people only communicate through screens. What are the advantages and disadvantages?",
-        "zh": "写一个人们只通过屏幕交流的世界。有什么优点和缺点？"
+        "en": "If you could design a new amusement park, what would be the main theme? What exciting rides would you build?",
+        "zh": "如果你能设计一个新的游乐园，主题会是什么？你会建造哪些刺激的游乐设施？"
       },
       {
         "id": 5004,
         "dayIndex": 3,
-        "en": "If you had a personal robot assistant, what tasks would you give it and why?",
-        "zh": "如果你有一个私人机器人助手，你会让它做什么任务？为什么？"
+        "en": "If you had a personal helper robot for one week, what tasks would you ask it to do? Why?",
+        "zh": "如果你有一周的私人助手机器人，你会让它做什么任务？为什么？"
       },
       {
         "id": 5005,
         "dayIndex": 4,
-        "en": "Imagine a new form of green energy is discovered. How does it power our cities and vehicles?",
-        "zh": "想象发现了一种新型绿色能源。它如何为我们的城市和车辆提供动力？"
+        "en": "Describe an ideal eco-friendly school. What special green features would your school have?",
+        "zh": "描述一所理想的环保学校。你的学校会有什么特别的绿色环保特色？"
       },
       {
         "id": 5006,
         "dayIndex": 5,
-        "en": "Do you think video games can be educational? Explain your thoughts with examples.",
-        "zh": "你认为电子游戏有教育意义吗？用例子解释你的想法。"
+        "en": "Do you think playing team sports is good for students? How does teamwork help us make friends?",
+        "zh": "你认为做团队运动对学生有好处吗？团队合作如何帮助我们交朋友？"
       },
       {
         "id": 5007,
         "dayIndex": 6,
-        "en": "Describe a smart home of the future. What special features does it have in each room?",
-        "zh": "描述一个未来的智能家居。每个房间有什么特色？"
+        "en": "Describe your dream bedroom of the future. What cool technology and furniture would you put inside?",
+        "zh": "描述一下你梦想中未来的卧室。你会在里面摆放什么酷炫的技术和家具？"
       },
       {
         "id": 5008,
         "dayIndex": 7,
-        "en": "If you could have any superpower, what would it be and how would you use it to help people?",
-        "zh": "如果你可以拥有一种超能力，它会是什么？你会如何用它来帮助别人？"
+        "en": "If you could have any superpower to protect the environment, what power would you choose? How would you use it?",
+        "zh": "如果你能拥有保护环境的超能力，你会选择什么能力？你会如何使用它？"
       },
       {
         "id": 5009,
         "dayIndex": 8,
-        "en": "If you could design a new app for smartphones, what problem would it solve?",
-        "zh": "如果你能为智能手机设计一款新应用，它能解决什么问题？"
+        "en": "If you could design a new smartphone game, what would the player's main mission be?",
+        "zh": "如果你能设计一款新的智能手机游戏，玩家的主要任务会是什么？"
       },
       {
         "id": 5010,
         "dayIndex": 9,
-        "en": "How has the internet changed the way we find information? Is it always a reliable source?",
-        "zh": "互联网如何改变了我们寻找信息的方式？它总是一个可靠的来源吗？"
+        "en": "What is your favorite way to learn new things online? Why do you prefer this method?",
+        "zh": "在网上学习新事物你最喜欢的方式是什么？为什么你更喜欢这种方法？"
       },
       {
         "id": 5011,
         "dayIndex": 10,
-        "en": "Why is it important to protect the environment? Share three things you can do every day to help.",
-        "zh": "为什么保护环境很重要？分享三件你每天可以做的有助于环保的事情。"
+        "en": "If you were the school principal for one day, what special event would you plan for the students?",
+        "zh": "如果你能当一天的校长，你会为学生们规划什么特别的活动？"
       },
       {
         "id": 5012,
         "dayIndex": 11,
-        "en": "Imagine you are a sea turtle swimming in the ocean. Describe the impact of plastic pollution on your life.",
-        "zh": "想象你是一只在海里游泳的海龟。描述塑料污染对你生活的影响。"
+        "en": "What is your favorite book series or novel? Why is the main character memorable?",
+        "zh": "你最喜欢的系列丛书或小说是什么？为什么主人公令人难忘？"
       },
       {
         "id": 5013,
         "dayIndex": 12,
-        "en": "What are the benefits of planting more trees in urban areas? How would it change the city environment?",
-        "zh": "在城市地区种植更多树木有什么好处？它将如何改变城市环境？"
+        "en": "If you could visit any country in the world, where would you go? What famous sights would you see?",
+        "zh": "如果你能去世界上任何国家，你想去哪里？你会看哪些著名的景点？"
       },
       {
         "id": 5014,
         "dayIndex": 13,
-        "en": "Write a persuasive paragraph encouraging your classmates to recycle and reduce waste.",
-        "zh": "写一段有说服力的段落，鼓励你的同学回收利用并减少浪费。"
+        "en": "What is a good habit you have built this year? How has it helped you in daily life?",
+        "zh": "今年你养成了什么好习惯？它在日常生活里怎么帮到了你？"
       },
       {
         "id": 5015,
         "dayIndex": 14,
-        "en": "How does climate change affect animals living in the Arctic? What can we do to slow it down?",
-        "zh": "气候变化如何影响生活在北极的动物？我们能做些什么来减缓它？"
+        "en": "If you could create a new flavor of soft drink, what fruits and ingredients would you blend?",
+        "zh": "如果你能调配一种新口味的软饮料，你会混合什么水果和配料？"
       },
       {
         "id": 5016,
         "dayIndex": 15,
-        "en": "If you were the mayor of a city, what laws would you pass to make the city more eco-friendly?",
-        "zh": "如果你是一个城市的市长，你会通过什么法律让城市更加环保？"
+        "en": "Describe an unforgettable school trip you took. What was the most exciting part?",
+        "zh": "描述一次令人难忘的学校郊游。最让人兴奋的部分是什么？"
       },
       {
         "id": 5017,
         "dayIndex": 16,
-        "en": "Describe the importance of conserving water. What are some creative ways to save water at home?",
-        "zh": "描述节约用水的重要性。在家里有哪些有创意的节水方法？"
+        "en": "If you could build a futuristic vehicle, would it fly, sail, or drive? How fast would it travel?",
+        "zh": "如果你能建造一部未来交通工具，它会飞、航行还是驾驶？它速度有多快？"
       },
       {
         "id": 5018,
         "dayIndex": 17,
-        "en": "Write about a time you participated in a nature cleanup or wish you had. What was the experience like?",
-        "zh": "写一次你参加（或希望参加）大自然清理活动的经历。那次经历是怎样的？"
+        "en": "What is your favorite dish to help cook at home? Why do you enjoy preparing it?",
+        "zh": "在家帮着做饭你最喜欢哪道菜？为什么你喜欢准备它？"
       },
       {
         "id": 5019,
         "dayIndex": 18,
-        "en": "How do human activities threaten endangered species? Choose one animal to focus on.",
-        "zh": "人类活动如何威胁濒危物种？选择一种动物进行重点讨论。"
+        "en": "If you could meet any historical figure, who would it be? What main question would you ask them?",
+        "zh": "如果你能见到任何历史人物，那会是谁？你会问他们的主要问题是什么？"
       },
       {
         "id": 5020,
         "dayIndex": 19,
-        "en": "What would happen if all the bees in the world disappeared? Explain the impact on our food supply.",
-        "zh": "如果世界上所有的蜜蜂都消失了会发生什么？解释对我们食物供应的影响。"
+        "en": "What is your favorite talent or skill? How do you practice to get better at it?",
+        "zh": "你最喜欢的特长或技能是什么？你平时怎么练习来提高它？"
       },
       {
         "id": 5021,
         "dayIndex": 20,
-        "en": "Imagine you are an astronaut traveling to Mars. What are your feelings as you leave Earth, and what do you hope to discover?",
-        "zh": "想象一下你是一名去火星旅行的宇航员。当你离开地球时，你有什么感觉？你希望能发现什么？"
+        "en": "If you could design a new sport, what equipment would players use? What are the main rules?",
+        "zh": "如果你能设计一项新的运动，选手们会使用什么装备？主要规则是什么？"
       },
       {
         "id": 5022,
         "dayIndex": 21,
-        "en": "If you could visit any planet in our solar system, which one would you choose and what would you look for?",
-        "zh": "如果你能参观我们太阳系中的任何行星，你会选择哪一个？你会寻找什么？"
+        "en": "What is your favorite memory of a holiday celebration with family?",
+        "zh": "关于和家人一起过节，你最美好的回忆是什么？"
       },
       {
         "id": 5023,
         "dayIndex": 22,
-        "en": "Write a story about finding a strange message from an alien civilization. How do you decode it?",
-        "zh": "写一个关于收到来自外星文明的奇怪信息的故事。你如何解码它？"
+        "en": "If you could spend a week living on a tropical island, what activities would you do each day?",
+        "zh": "如果你能在热带岛屿上生活一周，你每天会做哪些活动？"
       },
       {
         "id": 5024,
         "dayIndex": 23,
-        "en": "What qualities make a good astronaut? Do you think you have what it takes for a space mission?",
-        "zh": "什么品质造就了一个好的宇航员？你认为你具备执行太空任务的条件吗？"
+        "en": "What is the best piece of advice a teacher or parent gave you? How did it help you?",
+        "zh": "老师或父母给过你最好的建议是什么？它怎么帮到了你？"
       },
       {
         "id": 5025,
         "dayIndex": 24,
-        "en": "Describe a typical day living on a space station orbiting the Earth. What are the challenges?",
-        "zh": "描述在绕地球运行的空间站上生活的典型一天。有哪些挑战？"
+        "en": "If you could build your own space station, what research labs and fun rooms would you include?",
+        "zh": "如果你能建造自己的空间站，你会包含哪些科研实验室和娱乐房间？"
       },
       {
         "id": 5026,
         "dayIndex": 25,
-        "en": "Do you think humans should try to colonize other planets? Why or why not?",
-        "zh": "你认为人类应该尝试在其他星球上殖民吗？为什么应该或为什么不应该？"
+        "en": "What is your favorite outdoor sport or game in summer? Why do you love playing it?",
+        "zh": "夏天你最喜欢的户外运动或游戏是什么？你为什么喜欢玩它？"
       },
       {
         "id": 5027,
         "dayIndex": 26,
-        "en": "Imagine you are the first person to walk on a newly discovered moon. What are your first words?",
-        "zh": "想象你是第一个踏上新发现的卫星的人。你的第一句话是什么？"
+        "en": "If you could turn any book into a movie, which book would you pick? Who would play the hero?",
+        "zh": "如果你能把任何一本书拍成电影，你会选哪本？谁来扮演主角？"
       },
       {
         "id": 5028,
         "dayIndex": 27,
-        "en": "How does studying space help us understand our own planet better?",
-        "zh": "研究太空如何帮助我们更好地了解我们自己的星球？"
+        "en": "What is your favorite restaurant meal? What makes that food so delicious?",
+        "zh": "在餐厅里你最喜欢吃的一餐是什么？是什么让那食物这么美味？"
       },
       {
         "id": 5029,
         "dayIndex": 28,
-        "en": "If you could design a new spaceship, what special features would it need for deep space travel?",
-        "zh": "如果你能设计一艘新的宇宙飞船，进行深空旅行需要什么特殊功能？"
+        "en": "If you had a time machine that only traveled into the future, what year would you visit?",
+        "zh": "如果你有一台只能去未来的时间机器，你会去参观哪一年？"
       },
       {
         "id": 5030,
         "dayIndex": 29,
-        "en": "Write a journal entry as a space explorer who just encountered a black hole for the first time.",
-        "zh": "作为一名刚刚首次遇到黑洞的太空探索者写一篇日记。"
+        "en": "What is your favorite thing about working on a group project with classmates?",
+        "zh": "关于和同班同学一起做小组课题，你最喜欢什么？"
       },
       {
         "id": 5031,
         "dayIndex": 30,
-        "en": "What is your dream job for the future? Explain why you want this career and what skills you will need.",
-        "zh": "你未来梦想的工作是什么？解释你为什么想要这份职业，以及你需要什么技能。"
+        "en": "If you could create a new festival for your city, what would people eat and celebrate?",
+        "zh": "如果你能为你的城市设立一个新的节日，人们会吃什么、庆祝什么？"
       },
       {
         "id": 5032,
         "dayIndex": 31,
-        "en": "If you could shadow a professional in your dream field for a day, who would it be and what would you ask them?",
-        "zh": "如果你能跟随你梦想领域的专业人士一天，那会是谁？你会问他们什么？"
+        "en": "What is your favorite music genre or instrument? How does listening to music help you relax?",
+        "zh": "你最喜欢的音乐类型或乐器是什么？听音乐怎么帮到你放松？"
       },
       {
         "id": 5033,
         "dayIndex": 32,
-        "en": "How do you plan to achieve your career goals? Describe the steps you need to take in your education.",
-        "zh": "你打算如何实现你的职业目标？描述你在教育中需要采取的步骤。"
+        "en": "If you could adopt any wild animal as a pet, what animal would you choose? How would you care for it?",
+        "zh": "如果你能领养任何野生动物做宠物，你会选哪种？你会怎么照顾它？"
       },
       {
         "id": 5034,
         "dayIndex": 33,
-        "en": "Write about a job that doesn't exist yet but might be common in 2050. What does the job involve?",
-        "zh": "写一份现在还不存在，但在2050年可能很普遍的工作。这份工作包括什么？"
+        "en": "What is your favorite museum exhibit you have seen? What interesting facts did you learn?",
+        "zh": "你看过最喜欢的博物馆展品是什么？你学到了哪些有趣的知识？"
       },
       {
         "id": 5035,
         "dayIndex": 34,
-        "en": "Why is teamwork important in almost any career? Give an example of how you work well with others.",
-        "zh": "为什么团队合作在几乎所有职业中都很重要？举例说明你是如何与他人良好合作的。"
+        "en": "If you could build a secret hideout in the forest, what supplies and tools would you bring?",
+        "zh": "如果你能在森林里建一个秘密据点，你会带什么物资和工具？"
       },
       {
         "id": 5036,
         "dayIndex": 35,
-        "en": "Describe a time when you failed at something but learned a valuable lesson for your future.",
-        "zh": "描述一次你做某事失败但为你未来学到了宝贵教训的经历。"
+        "en": "What is the most useful thing you learned in science class this year?",
+        "zh": "今年科学课上你学到的最用得上的知识是什么？"
       },
       {
         "id": 5037,
         "dayIndex": 36,
-        "en": "What role does creativity play in a scientific or technical career? Explain your viewpoint.",
-        "zh": "创造力在科学或技术职业中扮演什么角色？解释你的观点。"
+        "en": "If you could direct a comedy movie, what funny event would happen to the main characters?",
+        "zh": "如果你能导演一部喜剧电影，主角们会发生什么搞笑的事？"
       },
       {
         "id": 5038,
         "dayIndex": 37,
-        "en": "If you had to choose between a highly paid job you dislike or a low-paying job you love, which would you pick and why?",
-        "zh": "如果必须在你不喜欢的高薪工作和热爱但低薪的工作之间做出选择，你会选哪个？为什么？"
+        "en": "What is your favorite place to go with your best friends? What do you do there?",
+        "zh": "你和好朋友们最喜欢去的地方是什么？你们在那里做什么？"
       },
       {
         "id": 5039,
         "dayIndex": 38,
-        "en": "How can you use your future career to make a positive impact on the world?",
-        "zh": "你如何利用未来的职业对世界产生积极影响？"
+        "en": "If you could change the school menu, what healthy meals would you add for lunch?",
+        "zh": "如果你能更改学校菜单，午餐你会增加什么健康的菜肴？"
       },
       {
         "id": 5040,
         "dayIndex": 39,
-        "en": "What skills do you think will be most important for jobs in the future? How can you learn them now?",
-        "zh": "你认为哪些技能对未来的工作最重要？你现在该如何学习它们？"
+        "en": "What is your favorite memory from a school sports day? How did your team do?",
+        "zh": "关于学校运动会你最美好的回忆是什么？你们队表现怎么样？"
       },
       {
         "id": 5041,
         "dayIndex": 40,
-        "en": "If you could travel back in time to witness any historical event, which one would you choose and why?",
-        "zh": "如果你能回到过去见证任何历史事件，你会选择哪一个？为什么？"
+        "en": "If you could explore the ocean floor in a mini-submarine, what deep sea creatures would you photograph?",
+        "zh": "如果你能坐微型潜水艇探索海底，你会拍哪些深海生物？"
       },
       {
         "id": 5042,
         "dayIndex": 41,
-        "en": "Imagine you are a sailor on Christopher Columbus's ship. Describe your feelings when you first see land.",
-        "zh": "想象你是克里斯托弗·哥伦布船上的一名水手。描述你第一次看到陆地时的感受。"
+        "en": "What is your favorite board game strategy? Why do you enjoy playing it with friends?",
+        "zh": "你最喜欢的桌游策略是什么？为什么你喜欢和朋友们玩它？"
       },
       {
         "id": 5043,
         "dayIndex": 42,
-        "en": "Write about a historical figure who fought for civil rights. How did their actions change society?",
-        "zh": "写一位为民权奋斗的历史人物。他们的行动如何改变了社会？"
+        "en": "If you could build a giant robot to clean up trash in your town, how would it work?",
+        "zh": "如果你能建造一个巨型机器人清理小镇的垃圾，它会怎么工作？"
       },
       {
         "id": 5044,
         "dayIndex": 43,
-        "en": "If you lived during the Industrial Revolution, what would your daily life look like in a growing city?",
-        "zh": "如果你生活在工业革命时期，你在不断发展的城市中的日常生活会是怎样的？"
+        "en": "What is your favorite story from history class? Why do you find it interesting?",
+        "zh": "历史课上你最喜欢的故事是什么？为什么你觉得它很有趣？"
       },
       {
         "id": 5045,
         "dayIndex": 44,
-        "en": "Describe the construction of the Great Wall of China from the perspective of a worker.",
-        "zh": "从一名工人的角度描述中国长城的修建过程。"
+        "en": "If you could visit the moon for one weekend, what space games would you play in zero gravity?",
+        "zh": "如果你能在月球上度过一个周末，你会玩什么失重太空游戏？"
       },
       {
         "id": 5046,
         "dayIndex": 45,
-        "en": "How did the invention of the printing press change the way knowledge was shared?",
-        "zh": "印刷术的发明是如何改变知识传播方式的？"
+        "en": "What is your favorite kind of art or craft project? What colors do you love using?",
+        "zh": "你最喜欢的艺术或手工项目是什么？你喜欢使用什么颜色？"
       },
       {
         "id": 5047,
         "dayIndex": 46,
-        "en": "Write a letter to a friend describing your experience witnessing the first airplane flight by the Wright brothers.",
-        "zh": "写信给朋友，描述你见证莱特兄弟第一次飞机飞行的经历。"
+        "en": "If you could invent a machine that controls the weather, what weather would you pick for tomorrow?",
+        "zh": "如果你能发明控制天气的机器，明天你会挑选什么天气？"
       },
       {
         "id": 5048,
         "dayIndex": 47,
-        "en": "Why is it important for us to study history? What lessons can we learn from past mistakes?",
-        "zh": "为什么学习历史对我们很重要？我们可以从过去的错误中吸取什么教训？"
+        "en": "What is your favorite thing about participating in a school club or activity?",
+        "zh": "关于参加学校社团或活动，你最喜欢什么？"
       },
       {
         "id": 5049,
         "dayIndex": 48,
-        "en": "Imagine you are a reporter during the moon landing in 1969. Write the opening paragraph of your news article.",
-        "zh": "想象你是1969年登月期间的一名记者。写下你新闻报道的开篇段落。"
+        "en": "If you could design a new playground obstacle course, what fun challenges would you build?",
+        "zh": "如果你能设计一个新的游乐场障碍赛道，你会建造哪些有趣的挑战？"
       },
       {
         "id": 5050,
         "dayIndex": 49,
-        "en": "Choose a historical mystery (like the Pyramids or Stonehenge). What is your theory on how it was built?",
-        "zh": "选择一个历史谜团（如金字塔或巨石阵）。关于它是如何建造的，你的理论是什么？"
+        "en": "What is your favorite memory of visiting an amusement park with family?",
+        "zh": "关于和家人游览游乐园，你最美好的回忆是什么？"
       },
       {
         "id": 5051,
         "dayIndex": 50,
-        "en": "Describe a time when you faced a difficult problem. How did you use creative thinking to solve it?",
-        "zh": "描述一次你面临难题的经历。你是如何用创造性思维来解决它的？"
+        "en": "If you could stay overnight at a museum, which exhibit room would you sleep in?",
+        "zh": "如果你能在博物馆过夜，你会睡在哪个展览室？"
       },
       {
         "id": 5052,
         "dayIndex": 51,
-        "en": "You are lost in a dense forest with a compass, a water bottle, and a flashlight. How do you find your way out?",
-        "zh": "你带着指南针、水壶和手电筒在茂密的森林中迷路了。你如何找到出路？"
+        "en": "What is your favorite kind of birthday cake? Who bakes or buys it for you?",
+        "zh": "你最喜欢的生日蛋糕是什么类型的？谁为你烘焙或购买？"
       },
       {
         "id": 5053,
         "dayIndex": 52,
-        "en": "Your community center needs to raise money for a new playground. Pitch a unique fundraising event.",
-        "zh": "你们的社区中心需要为新操场筹集资金。提出一个独特的筹款活动。"
+        "en": "If you could teach a class to younger students, what fun skill would you teach them?",
+        "zh": "如果你能给低年级学生上课，你会教他们什么有趣的技能？"
       },
       {
         "id": 5054,
         "dayIndex": 53,
-        "en": "Imagine a bridge collapses, separating your town in half. What temporary solution can you design to keep people connected?",
-        "zh": "想象一座桥塌了，把你的小镇分成了两半。你能设计什么临时解决方案让人们保持联系？"
+        "en": "What is your favorite season for outdoor adventures? What equipment do you take?",
+        "zh": "对于户外探险你最喜欢的季节是什么？你带什么装备？"
       },
       {
         "id": 5055,
         "dayIndex": 54,
-        "en": "You have been tasked with inventing a machine that cleans up ocean plastic. How does it work without harming sea life?",
-        "zh": "你被派去发明一种清理海洋塑料的机器。它是如何在不伤害海洋生物的情况下工作的？"
+        "en": "If you could build a solar-powered toy car, how fast would it race?",
+        "zh": "如果你能建造一辆太阳能玩具赛车，它比赛能跑多快？"
       },
       {
         "id": 5056,
         "dayIndex": 55,
-        "en": "Your school cafeteria is producing too much food waste. Propose a system to reduce and reuse the leftovers.",
-        "zh": "学校食堂产生了太多的食物垃圾。提出一个减少和重新利用剩菜的系统。"
+        "en": "What is your favorite science experiment you have performed? What happened during the test?",
+        "zh": "做过的科学实验里你最喜欢哪一个？测试过程中发生了什么？"
       },
       {
         "id": 5057,
         "dayIndex": 56,
-        "en": "If you were locked in a museum overnight, how would you keep yourself safe and entertained using the exhibits?",
-        "zh": "如果你被整夜锁在博物馆里，你将如何利用展品来保证自己的安全并自娱自乐？"
+        "en": "If you could design a new uniform for your school sports team, what colors would you choose?",
+        "zh": "如果你能为学校运动队设计一套新队服，你会选择什么颜色？"
       },
       {
         "id": 5058,
         "dayIndex": 57,
-        "en": "Design a new sport that combines elements of soccer and swimming. What are the rules?",
-        "zh": "设计一项结合足球和游泳元素的新运动。规则是什么？"
+        "en": "What is your favorite childhood story? Why do you still remember it today?",
+        "zh": "你童年最喜欢的故事是什么？为什么你今天依然记得它？"
       },
       {
         "id": 5059,
         "dayIndex": 58,
-        "en": "A spaceship has crash-landed in your backyard. How do you communicate with the aliens who only speak in colors?",
-        "zh": "一艘宇宙飞船在你的后院坠毁。你如何与只会用颜色交流的外星人沟通？"
+        "en": "If you could build a giant aquarium in your city, what rare sea animals would live inside?",
+        "zh": "如果你能在你的城市建造一座巨型水族馆，里面会生活什么稀有的海洋动物？"
       },
       {
         "id": 5060,
         "dayIndex": 59,
-        "en": "You need to teach a complex math concept to a group of first graders. Describe a fun game you would use to explain it.",
-        "zh": "你需要给一群一年级学生教一个复杂的数学概念。描述一个你会用来解释这个概念的有趣游戏。"
+        "en": "What are you most looking forward to learning in the next school grade?",
+        "zh": "对于下一个年级的学习，你最期待学到什么？"
       }
     ],
     "speaking": [
