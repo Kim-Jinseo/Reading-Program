@@ -426,7 +426,7 @@ export const WritingModule = () => {
   }
 
   return (
-    <div className={`mx-auto pt-4 flex flex-col flex-1 transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto pt-4 flex flex-col flex-1 transition-all duration-500 ${status === 'improving' ? 'max-w-6xl' : 'max-w-5xl'}`}>
       <div className="flex justify-between items-center mb-4 shrink-0">
         <button onClick={() => {
            if (status === 'improving') setStatus('feedback');
@@ -442,46 +442,49 @@ export const WritingModule = () => {
       
       <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-visible pb-10 lg:pb-0">
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Synchronized Indigo-Purple Prompt Card */}
-          <div className="bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] mb-6 shadow-sm shrink-0 relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-indigo-600 text-white shadow-sm">
-                Writing Prompt
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 leading-snug">{prompt.en}</h2>
-            <p className="text-indigo-800/80 font-bold text-base sm:text-lg">{prompt.zh}</p>
-          </div>
-
-          {/* Synchronized Indigo-Purple Writing Pad */}
-          <div className="flex-1 flex flex-col min-h-[300px] md:min-h-[400px] bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all mb-4 relative">
-            <textarea 
-              value={text} 
-              onChange={e => {
-                if (e.target.value.length <= 1000) {
-                  setText(e.target.value);
-                }
-              }} 
-              placeholder="Write your story here... Take your time and express your thoughts clearly! ✏️"
-              disabled={status === 'loading'}
-              maxLength={1000}
-              className="flex-1 w-full bg-transparent text-slate-800 text-xl leading-[2.2rem] resize-none focus:outline-none placeholder:text-slate-400 placeholder:text-lg font-sans"
-            />
-            
-            {/* Matching Helper Bar */}
-            <div className="flex justify-between items-center pt-4 border-t border-indigo-100/80 mt-2 shrink-0">
-              <div className="flex items-center gap-2 text-xs font-bold">
-                {text.trim().split(/\s+/).filter(Boolean).length === 0 ? (
-                  <span className="text-slate-400">🌱 Ready to start writing</span>
-                ) : text.trim().split(/\s+/).filter(Boolean).length < 10 ? (
-                  <span className="text-indigo-800 bg-indigo-100/70 border border-indigo-200/60 px-3 py-1 rounded-full">✍️ {text.trim().split(/\s+/).filter(Boolean).length} words • Keep going!</span>
-                ) : (
-                  <span className="text-emerald-800 bg-emerald-100/70 border border-emerald-200/60 px-3 py-1 rounded-full">🌟 {text.trim().split(/\s+/).filter(Boolean).length} words • Great job!</span>
-                )}
+          {/* Desktop: side-by-side prompt + writing pad */}
+          <div className="flex flex-col xl:flex-row gap-6 flex-1 min-h-0">
+            {/* Synchronized Indigo-Purple Prompt Card */}
+            <div className="xl:w-[340px] xl:shrink-0 bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/50 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm relative self-start">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="px-3 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-indigo-600 text-white shadow-sm">
+                  Writing Prompt
+                </span>
               </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 leading-snug">{prompt.en}</h2>
+              <p className="text-indigo-800/80 font-bold text-base sm:text-lg">{prompt.zh}</p>
+            </div>
+
+            {/* Synchronized Indigo-Purple Writing Pad */}
+            <div className="flex-1 flex flex-col min-h-[300px] md:min-h-[400px] bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 border-2 border-indigo-200/80 p-6 sm:p-8 rounded-[2.5rem] shadow-sm transition-all relative">
+              <textarea 
+                value={text} 
+                onChange={e => {
+                  if (e.target.value.length <= 1000) {
+                    setText(e.target.value);
+                  }
+                }} 
+                placeholder="Write your story here... Take your time and express your thoughts clearly! ✏️"
+                disabled={status === 'loading'}
+                maxLength={1000}
+                className="flex-1 w-full bg-transparent text-slate-800 text-xl leading-[2.2rem] resize-none focus:outline-none placeholder:text-slate-400 placeholder:text-lg font-sans"
+              />
               
-              <div className="text-xs font-bold text-slate-400">
-                {text.length} / 1000 chars
+              {/* Matching Helper Bar */}
+              <div className="flex justify-between items-center pt-4 border-t border-indigo-100/80 mt-2 shrink-0">
+                <div className="flex items-center gap-2 text-xs font-bold">
+                  {text.trim().split(/\s+/).filter(Boolean).length === 0 ? (
+                    <span className="text-slate-400">🌱 Ready to start writing</span>
+                  ) : text.trim().split(/\s+/).filter(Boolean).length < 10 ? (
+                    <span className="text-indigo-800 bg-indigo-100/70 border border-indigo-200/60 px-3 py-1 rounded-full">✍️ {text.trim().split(/\s+/).filter(Boolean).length} words • Keep going!</span>
+                  ) : (
+                    <span className="text-emerald-800 bg-emerald-100/70 border border-emerald-200/60 px-3 py-1 rounded-full">🌟 {text.trim().split(/\s+/).filter(Boolean).length} words • Great job!</span>
+                  )}
+                </div>
+                
+                <div className="text-xs font-bold text-slate-400">
+                  {text.length} / 1000 chars
+                </div>
               </div>
             </div>
           </div>
@@ -489,7 +492,7 @@ export const WritingModule = () => {
           <button 
             onClick={handleSubmit}
             disabled={text.trim().length === 0 || status === 'loading'}
-            className={`py-4 text-white font-black text-xl rounded-2xl transition-all shrink-0 ${text.trim().length === 0 || status === 'loading' ? 'bg-indigo-200 text-indigo-400 cursor-not-allowed' : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_6px_0_rgb(79,70,229)] active:shadow-none active:translate-y-1'}`}
+            className={`py-4 text-white font-black text-xl rounded-2xl transition-all shrink-0 mt-4 ${text.trim().length === 0 || status === 'loading' ? 'bg-indigo-200 text-indigo-400 cursor-not-allowed' : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_6px_0_rgb(79,70,229)] active:shadow-none active:translate-y-1'}`}
           >
             {status === 'loading' ? (t('loading').replace(/\.+$/, '') + dots) : 'Submit Writing 🚀'}
           </button>
