@@ -197,9 +197,8 @@ export const GrammarModule = () => {
   };
 
   const leaveEarly = () => {
-    setMode('menu');
-    setActiveConcept(null);
     setSelectedOpt(null);
+    setMode('done');
   };
 
   // -------- Learn Methods --------
