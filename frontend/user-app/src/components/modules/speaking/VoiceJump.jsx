@@ -860,7 +860,7 @@ export const VoiceJump = ({ onBack }) => {
                     <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 text-[0.65rem] font-black tracking-widest uppercase px-4 py-1 rounded-full shadow-lg border-2 border-white z-30 whitespace-nowrap ${
                       isCompleted ? 'bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-cyan-300 border-cyan-300' : 'bg-gradient-to-r from-amber-400 via-rose-500 to-amber-400 text-white animate-pulse'
                     }`}>
-                      {isCompleted ? '💎 PLATINUM FINAL BOSS CLEARED 💎' : '👑 FINAL SUPREME BOSS 👑'}
+                      {isCompleted ? '💎 FINAL BOSS CLEARED 💎' : '👑 FINAL SUPREME BOSS 👑'}
                     </div>
                   )}
 
@@ -1151,7 +1151,7 @@ export const VoiceJump = ({ onBack }) => {
                    </div>
                    
                    <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-wider mb-2 drop-shadow-sm uppercase">
-                     ✨ ULTIMATE PLATINUM VICTORY! ✨
+                     ✨ ULTIMATE VICTORY! ✨
                    </h3>
                    
                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-cyan-300 px-8 py-3.5 rounded-full font-black text-2xl sm:text-3xl shadow-xl border-2 border-cyan-200/80 mb-4">
@@ -1160,7 +1160,7 @@ export const VoiceJump = ({ onBack }) => {
                    </div>
                    
                    <p className="text-slate-700 font-extrabold text-lg sm:text-xl max-w-md mb-8">
-                     👑 PLATINUM CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
+                     👑 ULTIMATE CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
                    </p>
                    
                    <button onClick={() => setView('levels')} className="px-8 py-4 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xl sm:text-2xl rounded-full shadow-[0_8px_20px_rgba(6,182,212,0.5)] active:translate-y-1 transition-all">
@@ -1233,7 +1233,7 @@ export const VoiceJump = ({ onBack }) => {
                  </div>
                  
                  <h3 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-wider mb-2 drop-shadow-sm uppercase">
-                   ✨ ULTIMATE PLATINUM VICTORY! ✨
+                   ✨ ULTIMATE VICTORY! ✨
                  </h3>
                  
                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-cyan-300 px-8 py-3.5 rounded-full font-black text-2xl sm:text-3xl shadow-xl border-2 border-cyan-200/80 mb-4">
@@ -1242,7 +1242,7 @@ export const VoiceJump = ({ onBack }) => {
                  </div>
                  
                  <p className="text-slate-700 font-extrabold text-lg sm:text-xl max-w-md mb-8">
-                   👑 PLATINUM CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
+                   👑 ULTIMATE CHAMPION! You defeated the final boss Chaos Overlord and conquered Voice Battle!
                  </p>
                  
                  <button onClick={resetGame} className="px-8 py-4 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xl sm:text-2xl rounded-full shadow-[0_8px_20px_rgba(6,182,212,0.5)] active:translate-y-1 transition-all">
