@@ -82,25 +82,27 @@ export const LeaderboardView = () => {
             ? 'bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 shadow-amber-200' 
             : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-indigo-200'
         }`}>
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
-              <Trophy size={34} className="text-white" />
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left w-full sm:w-auto">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
+              <Trophy size={30} className="text-white" />
             </div>
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-black uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-sm">Your Personal Rank</span>
-                <span className="text-xs font-bold text-white/80">• {user.username || user.name || 'Student'}</span>
+              <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-sm">Your Personal Rank</span>
+                <span className="text-[10px] sm:text-xs font-bold text-white/80">• {user.username || user.name || 'Student'}</span>
               </div>
-              <h3 className="text-2xl font-black">
+              <h3 className="text-xl sm:text-2xl font-black">
                 {userRankNumber <= 3 ? '🎉 Podium Ranking!' : `Rank #${userRankNumber} Global`}
               </h3>
             </div>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 flex items-center gap-3 text-right">
+          <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 flex items-center justify-center sm:justify-end gap-3 text-center sm:text-right w-full sm:w-auto mt-2 sm:mt-0">
             <div>
-              <div className="text-xs font-bold text-white/80 uppercase">Total Stars</div>
-              <div className="text-2xl font-black">{currentUserObj?.trophies || user.stars || 0} ⭐</div>
+              <div className="text-xs font-bold text-white/80 uppercase tracking-wider">Total Trophies</div>
+              <div className="text-2xl font-black flex items-center justify-center sm:justify-end gap-2">
+                {currentUserObj?.trophies || user.stars || 0} 🏆
+              </div>
             </div>
           </div>
         </div>
@@ -120,7 +122,7 @@ export const LeaderboardView = () => {
           {/* Table Header */}
           <div className="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs font-black text-slate-400 uppercase tracking-wider">
             <span>Rank & Student</span>
-            <span>Stars</span>
+            <span>Trophies</span>
           </div>
 
           {/* Top 20 Ranks */}

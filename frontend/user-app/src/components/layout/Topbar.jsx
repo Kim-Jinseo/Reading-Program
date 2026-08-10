@@ -38,9 +38,9 @@ export const Topbar = ({ onMenuClick }) => {
 
         <div className="flex items-center gap-6">
           {user.role !== 'admin' && (
-            <div className="flex items-center gap-2 bg-amber-50 px-5 py-2.5 rounded-2xl border border-amber-200 shadow-inner hidden sm:flex">
-              <Star size={20} className="text-amber-500 fill-amber-500" />
-              <span className="font-extrabold text-amber-700 text-lg">{user.stars}</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-amber-50 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl border border-amber-200 shadow-inner">
+              <Star className="text-amber-500 fill-amber-500 w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="font-extrabold text-amber-700 text-sm sm:text-lg">{user.stars}</span>
             </div>
           )}
           
