@@ -31,40 +31,40 @@
         "id": 3,
         "dayIndex": 0,
         "word": "more",
-        "def": "更多的 (gèng duō de)",
+        "def": "更多 (gèng duō)",
         "options": [
-          "后退",
+          "更多",
           "手",
           "更多的",
           "新的"
         ],
-        "answer": "更多的"
+        "answer": "更多"
       },
       {
         "id": 4,
         "dayIndex": 0,
         "word": "were",
-        "def": "是 (shì)",
+        "def": "是（过去式） (shì （ guò qù shì ）)",
         "options": [
-          "三",
+          "是（过去式）",
           "是",
           "任何事物",
           "作品"
         ],
-        "answer": "是"
+        "answer": "是（过去式）"
       },
       {
         "id": 5,
         "dayIndex": 0,
         "word": "her",
-        "def": "她 (tā)",
+        "def": "她的 (tā de)",
         "options": [
-          "她",
+          "她的",
           "单身的",
           "报告",
           "那些"
         ],
-        "answer": "她"
+        "answer": "她的"
       },
       {
         "id": 6,
@@ -96,14 +96,14 @@
         "id": 8,
         "dayIndex": 1,
         "word": "been",
-        "def": "到过 (dào guò)",
+        "def": "是（完成时） (shì （ wán chéng shí ）)",
         "options": [
-          "虽然",
+          "是（完成时）",
           "国际的",
           "到过",
           "女士"
         ],
-        "answer": "到过"
+        "answer": "是（完成时）"
       },
       {
         "id": 9,
@@ -135,144 +135,144 @@
         "id": 11,
         "dayIndex": 2,
         "word": "people",
-        "def": "翻译 (fān yì)",
+        "def": "人们 (rén men)",
         "options": [
           "去",
           "展示",
-          "翻译",
+          "人们",
           "丢失的"
         ],
-        "answer": "翻译"
+        "answer": "人们"
       },
       {
         "id": 12,
         "dayIndex": 2,
         "word": "also",
-        "def": "翻译 (fān yì)",
+        "def": "也 (yě)",
         "options": [
           "足够的",
-          "翻译",
+          "也",
           "女性",
           "包括"
         ],
-        "answer": "翻译"
+        "answer": "也"
       },
       {
         "id": 13,
         "dayIndex": 2,
         "word": "its",
-        "def": "翻译 (fān yì)",
+        "def": "它的 (tā de)",
         "options": [
-          "翻译",
+          "它的",
           "好的",
           "等级",
           "之后"
         ],
-        "answer": "翻译"
+        "answer": "它的"
       },
       {
         "id": 14,
         "dayIndex": 2,
         "word": "our",
-        "def": "翻译 (fān yì)",
+        "def": "我们的 (wǒ men de)",
         "options": [
           "希望",
           "五",
           "原因",
-          "翻译"
+          "我们的"
         ],
-        "answer": "翻译"
+        "answer": "我们的"
       },
       {
         "id": 15,
         "dayIndex": 2,
         "word": "good",
-        "def": "翻译 (fān yì)",
+        "def": "好的 (hǎo de)",
         "options": [
           "之中",
           "家",
-          "翻译",
+          "好的",
           "感谢"
         ],
-        "answer": "翻译"
+        "answer": "好的"
       },
       {
         "id": 16,
         "dayIndex": 3,
         "word": "only",
-        "def": "翻译 (fān yì)",
+        "def": "只有 (zhǐ yǒu)",
         "options": [
           "价格",
-          "翻译",
+          "只有",
           "请",
           "等待"
         ],
-        "answer": "翻译"
+        "answer": "只有"
       },
       {
         "id": 17,
         "dayIndex": 3,
         "word": "after",
-        "def": "翻译 (fān yì)",
+        "def": "在...之后 (zài . . . zhī hòu)",
         "options": [
           "有时",
           "在后面",
           "那些",
-          "翻译"
+          "在...之后"
         ],
-        "answer": "翻译"
+        "answer": "在...之后"
       },
       {
         "id": 18,
         "dayIndex": 3,
         "word": "first",
-        "def": "翻译 (fān yì)",
+        "def": "第一 (dì yī)",
         "options": [
           "成立",
           "妻子",
-          "翻译",
+          "第一",
           "足够的"
         ],
-        "answer": "翻译"
+        "answer": "第一"
       },
       {
         "id": 19,
         "dayIndex": 3,
         "word": "him",
-        "def": "翻译 (fān yì)",
+        "def": "他 (tā)",
         "options": [
           "开始",
           "一切",
-          "翻译",
+          "他",
           "每个"
         ],
-        "answer": "翻译"
+        "answer": "他"
       },
       {
         "id": 20,
         "dayIndex": 3,
         "word": "know",
-        "def": "翻译 (fān yì)",
+        "def": "知道 (zhī dào)",
         "options": [
           "美好的",
           "学校",
           "使",
-          "翻译"
+          "知道"
         ],
-        "answer": "翻译"
+        "answer": "知道"
       },
       {
         "id": 21,
         "dayIndex": 4,
         "word": "see",
-        "def": "看 (kàn)",
+        "def": "看见 (kàn jiàn)",
         "options": [
-          "镇",
+          "看见",
           "我",
           "看",
           "街道"
         ],
-        "answer": "看"
+        "answer": "看见"
       },
       {
         "id": 22,
@@ -304,14 +304,14 @@
         "id": 24,
         "dayIndex": 4,
         "word": "over",
-        "def": "超过 (chāo guò)",
+        "def": "在...上方 (zài . . . shàng fāng)",
         "options": [
-          "经常",
+          "在...上方",
           "车",
           "超过",
           "最好的"
         ],
-        "answer": "超过"
+        "answer": "在...上方"
       },
       {
         "id": 25,
@@ -343,14 +343,14 @@
         "id": 27,
         "dayIndex": 5,
         "word": "back",
-        "def": "后退 (hòu tuì)",
+        "def": "返回 (fǎn huí)",
         "options": [
-          "后退",
+          "返回",
           "父亲",
           "之间",
           "非常"
         ],
-        "answer": "后退"
+        "answer": "返回"
       },
       {
         "id": 28,
@@ -369,14 +369,14 @@
         "id": 29,
         "dayIndex": 5,
         "word": "want",
-        "def": "想 (xiǎng)",
+        "def": "想要 (xiǎng yào)",
         "options": [
-          "想法",
+          "想要",
           "相同的",
           "想",
           "完毕"
         ],
-        "answer": "想"
+        "answer": "想要"
       },
       {
         "id": 30,
@@ -395,66 +395,66 @@
         "id": 31,
         "dayIndex": 6,
         "word": "well",
-        "def": "出色地 (chū sè dì)",
+        "def": "好 (hǎo)",
         "options": [
-          "美好的",
+          "好",
           "每个",
           "性别",
           "出色地"
         ],
-        "answer": "出色地"
+        "answer": "好"
       },
       {
         "id": 32,
         "dayIndex": 6,
         "word": "said",
-        "def": "说 (shuō)",
+        "def": "说（过去式） (shuō （ guò qù shì ）)",
         "options": [
-          "说",
+          "说（过去式）",
           "两个都",
           "今天",
           "用过的"
         ],
-        "answer": "说"
+        "answer": "说（过去式）"
       },
       {
         "id": 33,
         "dayIndex": 6,
         "word": "way",
-        "def": "方式 (fāng shì)",
+        "def": "方法 (fāng fǎ)",
         "options": [
-          "其他的",
+          "方法",
           "低的",
           "方式",
           "之中"
         ],
-        "answer": "方式"
+        "answer": "方法"
       },
       {
         "id": 34,
         "dayIndex": 6,
         "word": "most",
-        "def": "最多 (zuì duō)",
+        "def": "最多的 (zuì duō de)",
         "options": [
-          "时间",
+          "最多的",
           "作品",
           "最多",
           "使用"
         ],
-        "answer": "最多"
+        "answer": "最多的"
       },
       {
         "id": 35,
         "dayIndex": 6,
         "word": "much",
-        "def": "很多 (hěn duō)",
+        "def": "许多 (xǔ duō)",
         "options": [
-          "邮政",
+          "许多",
           "开始了",
           "来了",
           "很多"
         ],
-        "answer": "很多"
+        "answer": "许多"
       },
       {
         "id": 36,
@@ -525,170 +525,170 @@
         "id": 41,
         "dayIndex": 8,
         "word": "really",
-        "def": "翻译 (fān yì)",
+        "def": "真正地 (zhēn zhèng dì)",
         "options": [
-          "翻译",
+          "真正地",
           "工作",
           "漂亮的",
           "已知的"
         ],
-        "answer": "翻译"
+        "answer": "真正地"
       },
       {
         "id": 42,
         "dayIndex": 8,
         "word": "did",
-        "def": "翻译 (fān yì)",
+        "def": "做（过去式） (zuò （ guò qù shì ）)",
         "options": [
-          "翻译",
+          "做（过去式）",
           "基于",
           "事情",
           "警察"
         ],
-        "answer": "翻译"
+        "answer": "做（过去式）"
       },
       {
         "id": 43,
         "dayIndex": 8,
         "word": "right",
-        "def": "翻译 (fān yì)",
+        "def": "正确的 (zhèng què de)",
         "options": [
           "没有什么",
-          "翻译",
+          "正确的",
           "小时",
           "开始了"
         ],
-        "answer": "翻译"
+        "answer": "正确的"
       },
       {
         "id": 44,
         "dayIndex": 8,
         "word": "work",
-        "def": "翻译 (fān yì)",
+        "def": "工作 (gōng zuò)",
         "options": [
           "信息",
           "约克",
           "几乎",
-          "翻译"
+          "工作"
         ],
-        "answer": "翻译"
+        "answer": "工作"
       },
       {
         "id": 45,
         "dayIndex": 8,
         "word": "year",
-        "def": "翻译 (fān yì)",
+        "def": "年 (nián)",
         "options": [
           "游戏",
           "或许",
-          "翻译",
+          "年",
           "采取了"
         ],
-        "answer": "翻译"
+        "answer": "年"
       },
       {
         "id": 46,
         "dayIndex": 9,
         "word": "years",
-        "def": "翻译 (fān yì)",
+        "def": "年份 (nián fèn)",
         "options": [
           "相同的",
           "打开",
-          "翻译",
+          "年份",
           "约翰"
         ],
-        "answer": "翻译"
+        "answer": "年份"
       },
       {
         "id": 47,
         "dayIndex": 9,
         "word": "being",
-        "def": "翻译 (fān yì)",
+        "def": "存在 (cún zài)",
         "options": [
           "部门",
           "到期的",
-          "翻译",
+          "存在",
           "期间"
         ],
-        "answer": "翻译"
+        "answer": "存在"
       },
       {
         "id": 48,
         "dayIndex": 9,
         "word": "day",
-        "def": "翻译 (fān yì)",
+        "def": "一天 (yì tiān)",
         "options": [
           "错误的",
           "机会",
-          "翻译",
+          "一天",
           "制作"
         ],
-        "answer": "翻译"
+        "answer": "一天"
       },
       {
         "id": 49,
         "dayIndex": 9,
         "word": "too",
-        "def": "翻译 (fān yì)",
+        "def": "太 (tài)",
         "options": [
           "城市",
           "给了",
-          "翻译",
+          "太",
           "大的"
         ],
-        "answer": "翻译"
+        "answer": "太"
       },
       {
         "id": 50,
         "dayIndex": 9,
         "word": "going",
-        "def": "翻译 (fān yì)",
+        "def": "去 (qù)",
         "options": [
-          "翻译",
+          "去",
           "学期",
           "控制",
           "漂亮的"
         ],
-        "answer": "翻译"
+        "answer": "去"
       },
       {
         "id": 51,
         "dayIndex": 10,
         "word": "before",
-        "def": "翻译 (fān yì)",
+        "def": "在...之前 (zài . . . zhī qián)",
         "options": [
-          "翻译",
+          "在...之前",
           "读",
           "查看",
           "买"
         ],
-        "answer": "翻译"
+        "answer": "在...之前"
       },
       {
         "id": 52,
         "dayIndex": 10,
         "word": "off",
-        "def": "翻译 (fān yì)",
+        "def": "关掉 (guān diào)",
         "options": [
-          "翻译",
+          "关掉",
           "射击",
           "片刻",
           "历史"
         ],
-        "answer": "翻译"
+        "answer": "关掉"
       },
       {
         "id": 53,
         "dayIndex": 10,
         "word": "made",
-        "def": "制成 (zhì chéng)",
+        "def": "制作（过去式） (zhì zuò （ guò qù shì ）)",
         "options": [
-          "死亡",
+          "制作（过去式）",
           "制成",
           "课程",
           "总是"
         ],
-        "answer": "制成"
+        "answer": "制作（过去式）"
       },
       {
         "id": 54,
@@ -720,14 +720,14 @@
         "id": 56,
         "dayIndex": 11,
         "word": "got",
-        "def": "得到 (dé dào)",
+        "def": "得到（过去式） (dé dào （ guò qù shì ）)",
         "options": [
-          "伟大的",
+          "得到（过去式）",
           "给了",
           "得到",
           "交易"
         ],
-        "answer": "得到"
+        "answer": "得到（过去式）"
       },
       {
         "id": 57,
@@ -746,14 +746,14 @@
         "id": 58,
         "dayIndex": 11,
         "word": "never",
-        "def": "绝不 (jué bù)",
+        "def": "从不 (cóng bù)",
         "options": [
-          "死亡",
+          "从不",
           "让",
           "想",
           "绝不"
         ],
-        "answer": "绝不"
+        "answer": "从不"
       },
       {
         "id": 59,
@@ -837,14 +837,14 @@
         "id": 65,
         "dayIndex": 12,
         "word": "through",
-        "def": "通过 (tōng guò)",
+        "def": "穿过 (chuān guò)",
         "options": [
-          "仍然",
+          "穿过",
           "买",
           "通过",
           "拥有"
         ],
-        "answer": "通过"
+        "answer": "穿过"
       },
       {
         "id": 66,
@@ -863,14 +863,14 @@
         "id": 67,
         "dayIndex": 13,
         "word": "while",
-        "def": "尽管 (jǐn guǎn)",
+        "def": "当...的时候 (dāng . . . de shí hòu)",
         "options": [
-          "尽管",
+          "当...的时候",
           "年轻的",
           "一",
           "等级"
         ],
-        "answer": "尽管"
+        "answer": "当...的时候"
       },
       {
         "id": 68,
@@ -941,7 +941,7 @@
         "id": 73,
         "dayIndex": 14,
         "word": "long",
-        "def": "长的 (zhǎng de)",
+        "def": "长的 (cháng de)",
         "options": [
           "长的",
           "丢失的",
@@ -967,14 +967,14 @@
         "id": 75,
         "dayIndex": 14,
         "word": "something",
-        "def": "某物 (mǒu wù)",
+        "def": "某事 (mǒu shì)",
         "options": [
-          "许多",
+          "某事",
           "某物",
           "事实",
           "成本"
         ],
-        "answer": "某物"
+        "answer": "某事"
       },
       {
         "id": 76,
@@ -1019,14 +1019,14 @@
         "id": 79,
         "dayIndex": 15,
         "word": "both",
-        "def": "两个都 (liǎng gè dōu)",
+        "def": "两者都 (liǎng zhě dōu)",
         "options": [
-          "难的",
+          "两者都",
           "成立",
           "家伙",
           "两个都"
         ],
-        "answer": "两个都"
+        "answer": "两者都"
       },
       {
         "id": 80,
@@ -1058,7 +1058,7 @@
         "id": 82,
         "dayIndex": 16,
         "word": "part",
-        "def": "部分 (bù fèn)",
+        "def": "部分 (bù fen)",
         "options": [
           "想要",
           "部分",
@@ -1097,27 +1097,27 @@
         "id": 85,
         "dayIndex": 16,
         "word": "around",
-        "def": "大约 (dà yuē)",
+        "def": "周围 (zhōu wéi)",
         "options": [
-          "大约",
+          "周围",
           "一次",
           "特别的",
           "有时"
         ],
-        "answer": "大约"
+        "answer": "周围"
       },
       {
         "id": 86,
         "dayIndex": 17,
         "word": "between",
-        "def": "之间 (zhī jiān)",
+        "def": "在...之间 (zài . . . zhī jiān)",
         "options": [
-          "火",
+          "在...之间",
           "锯",
           "之间",
           "工作"
         ],
-        "answer": "之间"
+        "answer": "在...之间"
       },
       {
         "id": 87,
@@ -1149,14 +1149,14 @@
         "id": 89,
         "dayIndex": 17,
         "word": "find",
-        "def": "寻找 (xún zhǎo)",
+        "def": "找到 (zhǎo dào)",
         "options": [
-          "很多",
+          "找到",
           "寻找",
           "更远",
           "自由的"
         ],
-        "answer": "寻找"
+        "answer": "找到"
       },
       {
         "id": 90,
@@ -1201,14 +1201,14 @@
         "id": 93,
         "dayIndex": 18,
         "word": "old",
-        "def": "老的 (lǎo de)",
+        "def": "旧的 (jiù de)",
         "options": [
-          "例子",
+          "旧的",
           "自由的",
           "老的",
           "感谢"
         ],
-        "answer": "老的"
+        "answer": "旧的"
       },
       {
         "id": 94,
@@ -1227,14 +1227,14 @@
         "id": 95,
         "dayIndex": 18,
         "word": "another",
-        "def": "其他 (qí tā)",
+        "def": "另一个 (lìng yí gè)",
         "options": [
-          "每个",
+          "另一个",
           "我",
           "有能力的",
           "其他"
         ],
-        "answer": "其他"
+        "answer": "另一个"
       },
       {
         "id": 96,
@@ -1279,14 +1279,14 @@
         "id": 99,
         "dayIndex": 19,
         "word": "under",
-        "def": "在下面 (zài xià miàn)",
+        "def": "在...下面 (zài . . . xià miàn)",
         "options": [
-          "在下面",
+          "在...下面",
           "女性",
           "分钟",
           "停止"
         ],
-        "answer": "在下面"
+        "answer": "在...下面"
       },
       {
         "id": 100,
@@ -1331,14 +1331,14 @@
         "id": 103,
         "dayIndex": 20,
         "word": "give",
-        "def": "给 (gěi)",
+        "def": "给予 (jǐ yǔ)",
         "options": [
-          "历史",
+          "给予",
           "之中",
           "错误的",
           "给"
         ],
-        "answer": "给"
+        "answer": "给予"
       },
       {
         "id": 104,
@@ -1448,27 +1448,27 @@
         "id": 112,
         "dayIndex": 22,
         "word": "end",
-        "def": "结尾 (jié wěi)",
+        "def": "结束 (jié shù)",
         "options": [
-          "关心",
+          "结束",
           "结尾",
           "第三",
           "学习"
         ],
-        "answer": "结尾"
+        "answer": "结束"
       },
       {
         "id": 113,
         "dayIndex": 22,
         "word": "found",
-        "def": "成立 (chéng lì)",
+        "def": "找到（过去式） (zhǎo dào （ guò qù shì ）)",
         "options": [
-          "满的",
+          "找到（过去式）",
           "成立",
           "至少",
           "采取了"
         ],
-        "answer": "成立"
+        "answer": "找到（过去式）"
       },
       {
         "id": 114,
@@ -1617,14 +1617,14 @@
         "id": 125,
         "dayIndex": 24,
         "word": "put",
-        "def": "放 (fàng)",
+        "def": "放置 (fàng zhì)",
         "options": [
-          "系列",
+          "放置",
           "放",
           "房子",
           "经验"
         ],
-        "answer": "放"
+        "answer": "放置"
       },
       {
         "id": 126,
@@ -1760,14 +1760,14 @@
         "id": 136,
         "dayIndex": 27,
         "word": "name",
-        "def": "姓名 (xìng míng)",
+        "def": "名字 (míng zì)",
         "options": [
-          "之内",
+          "名字",
           "姓名",
           "事实",
           "以前的"
         ],
-        "answer": "姓名"
+        "answer": "名字"
       },
       {
         "id": 137,
@@ -1802,7 +1802,7 @@
         "def": "直到 (zhí dào)",
         "options": [
           "类型",
-          "翻译",
+          "苹果",
           "是的",
           "直到"
         ],
@@ -1838,14 +1838,14 @@
         "id": 142,
         "dayIndex": 28,
         "word": "few",
-        "def": "很少 (hěn shǎo)",
+        "def": "少数 (shǎo shù)",
         "options": [
-          "想",
+          "少数",
           "很快",
           "很少",
           "社区"
         ],
-        "answer": "很少"
+        "answer": "少数"
       },
       {
         "id": 143,
@@ -1916,14 +1916,14 @@
         "id": 148,
         "dayIndex": 29,
         "word": "set",
-        "def": "放 (fàng)",
+        "def": "设置 (shè zhì)",
         "options": [
-          "问题",
+          "设置",
           "放",
           "商业",
           "次"
         ],
-        "answer": "放"
+        "answer": "设置"
       },
       {
         "id": 149,
@@ -2007,14 +2007,14 @@
         "id": 155,
         "dayIndex": 30,
         "word": "group",
-        "def": "团体 (tuán tǐ)",
+        "def": "小组 (xiǎo zǔ)",
         "options": [
-          "社区",
+          "小组",
           "自从",
           "艺术",
           "团体"
         ],
-        "answer": "团体"
+        "answer": "小组"
       },
       {
         "id": 156,
@@ -2254,7 +2254,7 @@
         "id": 174,
         "dayIndex": 34,
         "word": "everything",
-        "def": "一切 (yī qiè)",
+        "def": "一切 (yí qiè)",
         "options": [
           "感觉",
           "远的",
@@ -2280,14 +2280,14 @@
         "id": 176,
         "dayIndex": 35,
         "word": "live",
-        "def": "居住 (jū zhù)",
+        "def": "生活 (shēng huó)",
         "options": [
-          "可用的",
+          "生活",
           "国际的",
           "活的",
           "居住"
         ],
-        "answer": "居住"
+        "answer": "生活"
       },
       {
         "id": 177,
@@ -2306,27 +2306,27 @@
         "id": 178,
         "dayIndex": 35,
         "word": "point",
-        "def": "观点 (guān diǎn)",
+        "def": "点 (diǎn)",
         "options": [
-          "观点",
+          "点",
           "变得",
           "听到",
           "寻找"
         ],
-        "answer": "观点"
+        "answer": "点"
       },
       {
         "id": 179,
         "dayIndex": 35,
         "word": "read",
-        "def": "读 (dú)",
+        "def": "阅读 (yuè dú)",
         "options": [
-          "读",
+          "阅读",
           "国家",
           "伟大的",
           "美国人"
         ],
-        "answer": "读"
+        "answer": "阅读"
       },
       {
         "id": 180,
@@ -2384,20 +2384,20 @@
         "id": 184,
         "dayIndex": 36,
         "word": "hard",
-        "def": "难的 (nán de)",
+        "def": "困难的 (kùn nán de)",
         "options": [
-          "每个人",
+          "困难的",
           "到期的",
           "媒体",
           "难的"
         ],
-        "answer": "难的"
+        "answer": "困难的"
       },
       {
         "id": 185,
         "dayIndex": 36,
         "word": "mean",
-        "def": "意思是 (yì si shì)",
+        "def": "意思是 (yì sī shì)",
         "options": [
           "意思是",
           "团结的",
@@ -2410,7 +2410,7 @@
         "id": 186,
         "dayIndex": 37,
         "word": "once",
-        "def": "一次 (yī cì)",
+        "def": "一次 (yí cì)",
         "options": [
           "某人",
           "黑色的",
@@ -2566,14 +2566,14 @@
         "id": 198,
         "dayIndex": 39,
         "word": "call",
-        "def": "称呼 (chēng hū)",
+        "def": "呼叫 (hū jiào)",
         "options": [
-          "每个人",
+          "呼叫",
           "家",
           "称呼",
           "白色的"
         ],
-        "answer": "称呼"
+        "answer": "呼叫"
       },
       {
         "id": 199,
@@ -2592,14 +2592,14 @@
         "id": 200,
         "dayIndex": 39,
         "word": "men",
-        "def": "翻译 (fān yì)",
+        "def": "男人们 (nán rén men)",
         "options": [
           "在下面",
           "更远",
           "然而",
-          "翻译"
+          "男人们"
         ],
-        "answer": "翻译"
+        "answer": "男人们"
       },
       {
         "id": 201,
@@ -2631,40 +2631,40 @@
         "id": 203,
         "dayIndex": 40,
         "word": "took",
-        "def": "采取了 (cǎi qǔ le)",
+        "def": "拿（过去式） (ná （ guò qù shì ）)",
         "options": [
-          "高的",
+          "拿（过去式）",
           "男人",
           "采取了",
           "心"
         ],
-        "answer": "采取了"
+        "answer": "拿（过去式）"
       },
       {
         "id": 204,
         "dayIndex": 40,
         "word": "white",
-        "def": "白色的 (bái sè de)",
+        "def": "白色 (bái sè)",
         "options": [
-          "去",
+          "白色",
           "白色的",
           "男人",
           "水"
         ],
-        "answer": "白色的"
+        "answer": "白色"
       },
       {
         "id": 205,
         "dayIndex": 40,
         "word": "came",
-        "def": "来了 (lái le)",
+        "def": "来（过去式） (lái （ guò qù shì ）)",
         "options": [
-          "来了",
+          "来（过去式）",
           "直到",
           "身体",
           "采取"
         ],
-        "answer": "来了"
+        "answer": "来（过去式）"
       },
       {
         "id": 206,
@@ -2696,14 +2696,14 @@
         "id": 208,
         "dayIndex": 41,
         "word": "side",
-        "def": "边 (biān)",
+        "def": "侧面 (cè miàn)",
         "options": [
-          "靠近",
+          "侧面",
           "边",
           "思考",
           "一次"
         ],
-        "answer": "边"
+        "answer": "侧面"
       },
       {
         "id": 209,
@@ -2735,14 +2735,14 @@
         "id": 211,
         "dayIndex": 42,
         "word": "went",
-        "def": "去了 (qù le)",
+        "def": "去（过去式） (qù （ guò qù shì ）)",
         "options": [
-          "较少的",
+          "去（过去式）",
           "去了",
           "得到",
           "伙计们"
         ],
-        "answer": "去了"
+        "answer": "去（过去式）"
       },
       {
         "id": 212,
@@ -2761,7 +2761,7 @@
         "id": 213,
         "dayIndex": 42,
         "word": "actually",
-        "def": "实际上 (shí jì shàng)",
+        "def": "实际上 (shí jì shang)",
         "options": [
           "变得",
           "足够的",
@@ -3138,14 +3138,14 @@
         "id": 242,
         "dayIndex": 48,
         "word": "car",
-        "def": "车 (chē)",
+        "def": "汽车 (qì chē)",
         "options": [
-          "车",
+          "汽车",
           "之内",
           "研究",
           "任何事物"
         ],
-        "answer": "车"
+        "answer": "汽车"
       },
       {
         "id": 243,
@@ -3333,14 +3333,14 @@
         "id": 257,
         "dayIndex": 51,
         "word": "means",
-        "def": "方法 (fāng fǎ)",
+        "def": "意味着 (yì wèi zhe)",
         "options": [
-          "没有什么",
+          "意味着",
           "拿",
           "或许",
           "方法"
         ],
-        "answer": "方法"
+        "answer": "意味着"
       },
       {
         "id": 258,
@@ -3541,14 +3541,14 @@
         "id": 273,
         "dayIndex": 54,
         "word": "talk",
-        "def": "讲话 (jiǎng huà)",
+        "def": "谈话 (tán huà)",
         "options": [
-          "讲话",
+          "谈话",
           "季节",
           "总是",
           "看起来"
         ],
-        "answer": "讲话"
+        "answer": "谈话"
       },
       {
         "id": 274,
@@ -3684,7 +3684,7 @@
         "id": 284,
         "dayIndex": 56,
         "word": "become",
-        "def": "变得 (biàn dé)",
+        "def": "变得 (biàn de)",
         "options": [
           "变得",
           "部门",
@@ -3957,7 +3957,7 @@
         "id": 305,
         "dayIndex": 60,
         "word": "several",
-        "def": "一些 (yī xiē)",
+        "def": "一些 (yì xiē)",
         "options": [
           "国际的",
           "至少",
@@ -4113,7 +4113,7 @@
         "id": 317,
         "dayIndex": 63,
         "word": "pretty",
-        "def": "漂亮的 (piào liàng de)",
+        "def": "漂亮的 (piào liang de)",
         "options": [
           "所有的",
           "讲话",
@@ -4334,14 +4334,14 @@
         "id": 334,
         "dayIndex": 66,
         "word": "idea",
-        "def": "主意 (zhǔ yì)",
+        "def": "想法 (xiǎng fǎ)",
         "options": [
-          "斗争",
+          "想法",
           "当地的",
           "主意",
           "感谢"
         ],
-        "answer": "主意"
+        "answer": "想法"
       },
       {
         "id": 335,
@@ -4555,14 +4555,14 @@
         "id": 351,
         "dayIndex": 70,
         "word": "ask",
-        "def": "问 (wèn)",
+        "def": "询问 (xún wèn)",
         "options": [
-          "被称为",
+          "询问",
           "今天",
           "活的",
           "问"
         ],
-        "answer": "问"
+        "answer": "询问"
       },
       {
         "id": 352,
@@ -4594,14 +4594,14 @@
         "id": 354,
         "dayIndex": 70,
         "word": "late",
-        "def": "晚的 (wǎn de)",
+        "def": "迟的 (chí de)",
         "options": [
-          "自己的",
+          "迟的",
           "需要",
           "晚的",
           "案件"
         ],
-        "answer": "晚的"
+        "answer": "迟的"
       },
       {
         "id": 355,
@@ -4633,14 +4633,14 @@
         "id": 357,
         "dayIndex": 71,
         "word": "saw",
-        "def": "锯 (jù)",
+        "def": "看见（过去式） (kàn jiàn （ guò qù shì ）)",
         "options": [
-          "美好的",
+          "看见（过去式）",
           "锯",
           "工作",
           "问"
         ],
-        "answer": "锯"
+        "answer": "看见（过去式）"
       },
       {
         "id": 358,
@@ -4659,14 +4659,14 @@
         "id": 359,
         "dayIndex": 71,
         "word": "watch",
-        "def": "手表 (shǒu biǎo)",
+        "def": "观看 (guān kàn)",
         "options": [
-          "手表",
+          "观看",
           "案件",
           "去了",
           "自由的"
         ],
-        "answer": "手表"
+        "answer": "观看"
       },
       {
         "id": 360,
@@ -4932,7 +4932,7 @@
         "id": 380,
         "dayIndex": 75,
         "word": "turn",
-        "def": "转动 (zhuǎn dòng)",
+        "def": "转动 (zhuàn dòng)",
         "options": [
           "自己",
           "学期",
@@ -5218,14 +5218,14 @@
         "id": 402,
         "dayIndex": 80,
         "word": "players",
-        "def": "玩家 (wán jiā)",
+        "def": "运动员 (yùn dòng yuán)",
         "options": [
-          "翻译",
+          "运动员",
           "至少",
           "重要的",
           "玩家"
         ],
-        "answer": "玩家"
+        "answer": "运动员"
       },
       {
         "id": 403,
@@ -5621,7 +5621,7 @@
         "id": 433,
         "dayIndex": 86,
         "word": "example",
-        "def": "例子 (lì zi)",
+        "def": "例子 (lì zǐ)",
         "options": [
           "学期",
           "例子",
@@ -5985,14 +5985,14 @@
         "id": 461,
         "dayIndex": 92,
         "word": "cut",
-        "def": "切 (qiè)",
+        "def": "剪切 (jiǎn qiè)",
         "options": [
-          "切",
+          "剪切",
           "采取了",
           "乐趣",
           "重要的"
         ],
-        "answer": "切"
+        "answer": "剪切"
       },
       {
         "id": 462,
@@ -6206,14 +6206,14 @@
         "id": 478,
         "dayIndex": 95,
         "word": "hear",
-        "def": "听到 (tīng dào)",
+        "def": "听见 (tīng jiàn)",
         "options": [
-          "一半",
+          "听见",
           "思维",
           "听到",
           "会员"
         ],
-        "answer": "听到"
+        "answer": "听见"
       },
       {
         "id": 479,
@@ -6271,7 +6271,7 @@
         "id": 483,
         "dayIndex": 96,
         "word": "rest",
-        "def": "休息 (xiū xī)",
+        "def": "休息 (xiū xi)",
         "options": [
           "红色的",
           "自己",
@@ -6453,14 +6453,14 @@
         "id": 497,
         "dayIndex": 99,
         "word": "miss",
-        "def": "错过 (cuò guò)",
+        "def": "想念 (xiǎng niàn)",
         "options": [
-          "请",
+          "想念",
           "总统",
           "曾经",
           "错过"
         ],
-        "answer": "错过"
+        "answer": "想念"
       },
       {
         "id": 498,
@@ -12189,7 +12189,7 @@
           "转身",
           "眼睛",
           "数量",
-          "翻译"
+          "苹果"
         ],
         "answer": "眼睛"
       },
@@ -12251,7 +12251,7 @@
         "word": "position",
         "def": "位置 (wèi zhì)",
         "options": [
-          "翻译",
+          "苹果",
           "简单地",
           "父母",
           "位置"
@@ -12275,7 +12275,7 @@
         "id": 1012,
         "dayIndex": 202,
         "word": "similar",
-        "def": "相似的 (xiāng sì de)",
+        "def": "相似的 (xiāng shì de)",
         "options": [
           "使用权",
           "相似的",
@@ -12301,14 +12301,14 @@
         "id": 1014,
         "dayIndex": 202,
         "word": "above",
-        "def": "多于 (duō yú)",
+        "def": "在...上方 (zài . . . shàng fāng)",
         "options": [
-          "匹配",
+          "在...上方",
           "二月",
           "多于",
           "县"
         ],
-        "answer": "多于"
+        "answer": "在...上方"
       },
       {
         "id": 1015,
@@ -12782,7 +12782,7 @@
         "id": 1051,
         "dayIndex": 210,
         "word": "break",
-        "def": "休息 (xiū xī)",
+        "def": "休息 (xiū xi)",
         "options": [
           "明天",
           "收入",
@@ -12990,14 +12990,14 @@
         "id": 1067,
         "dayIndex": 213,
         "word": "boy",
-        "def": "男生 (nán shēng)",
+        "def": "男孩 (nán hái)",
         "options": [
-          "发表",
+          "男孩",
           "关系",
           "不能",
           "男生"
         ],
-        "answer": "男生"
+        "answer": "男孩"
       },
       {
         "id": 1068,
@@ -13042,7 +13042,7 @@
         "id": 1071,
         "dayIndex": 214,
         "word": "gold",
-        "def": "金子 (jīn zi)",
+        "def": "金子 (jīn zǐ)",
         "options": [
           "金子",
           "早些时候",
@@ -13055,14 +13055,14 @@
         "id": 1072,
         "dayIndex": 214,
         "word": "gone",
-        "def": "消失了 (xiāo shī le)",
+        "def": "用完的 (yòng wán de)",
         "options": [
           "主",
           "特点",
-          "翻译",
+          "用完的",
           "消失了"
         ],
-        "answer": "消失了"
+        "answer": "用完的"
       },
       {
         "id": 1073,
@@ -13289,7 +13289,7 @@
         "id": 1090,
         "dayIndex": 217,
         "word": "longer",
-        "def": "更长 (gèng zhǎng)",
+        "def": "更长 (gèng cháng)",
         "options": [
           "访问",
           "证据",
@@ -13458,7 +13458,7 @@
         "id": 1103,
         "dayIndex": 220,
         "word": "worth",
-        "def": "值得 (zhí de)",
+        "def": "值得 (zhí dé)",
         "options": [
           "个人的",
           "值得",
@@ -13848,14 +13848,14 @@
         "id": 1133,
         "dayIndex": 226,
         "word": "tax",
-        "def": "税 (shuì)",
+        "def": "税款 (shuì kuǎn)",
         "options": [
           "除了",
-          "翻译",
+          "税款",
           "税",
           "专业的"
         ],
-        "answer": "税"
+        "answer": "税款"
       },
       {
         "id": 1134,
@@ -13952,7 +13952,7 @@
         "id": 1141,
         "dayIndex": 228,
         "word": "fall",
-        "def": "落下 (là xià)",
+        "def": "落下 (luò xià)",
         "options": [
           "经济的",
           "落下",
@@ -14225,7 +14225,7 @@
         "id": 1162,
         "dayIndex": 232,
         "word": "mom",
-        "def": "妈妈 (mā mā)",
+        "def": "妈妈 (mā ma)",
         "options": [
           "说话",
           "妈妈",
@@ -14966,7 +14966,7 @@
         "id": 1219,
         "dayIndex": 243,
         "word": "january",
-        "def": "一月 (yí yuè)",
+        "def": "一月 (yī yuè)",
         "options": [
           "改变了",
           "中央",
@@ -15135,14 +15135,14 @@
         "id": 1232,
         "dayIndex": 246,
         "word": "considered",
-        "def": "经过考虑的 (jīng guò kǎo lǜ de)",
+        "def": "深思熟虑的 (shēn sī shú lǜ de)",
         "options": [
           "国王",
           "经过考虑的",
           "韩元",
-          "翻译"
+          "深思熟虑的"
         ],
-        "answer": "经过考虑的"
+        "answer": "深思熟虑的"
       },
       {
         "id": 1233,
@@ -15278,7 +15278,7 @@
         "id": 1243,
         "dayIndex": 248,
         "word": "hair",
-        "def": "头发 (tóu fà)",
+        "def": "头发 (tóu fa)",
         "options": [
           "头发",
           "兴趣",
@@ -15473,14 +15473,14 @@
         "id": 1258,
         "dayIndex": 251,
         "word": "walk",
-        "def": "走 (zǒu)",
+        "def": "行走 (xíng zǒu)",
         "options": [
-          "按",
+          "行走",
           "质量",
           "走",
           "最后"
         ],
-        "answer": "走"
+        "answer": "行走"
       },
       {
         "id": 1259,
@@ -15512,14 +15512,14 @@
         "id": 1261,
         "dayIndex": 252,
         "word": "began",
-        "def": "开始 (kāi shǐ)",
+        "def": "开始（过去式） (kāi shǐ （ guò qù shì ）)",
         "options": [
           "英里",
           "走",
-          "翻译",
+          "开始（过去式）",
           "开始"
         ],
-        "answer": "开始"
+        "answer": "开始（过去式）"
       },
       {
         "id": 1262,
@@ -15733,7 +15733,7 @@
         "id": 1278,
         "dayIndex": 255,
         "word": "parts",
-        "def": "部分 (bù fèn)",
+        "def": "部分 (bù fen)",
         "options": [
           "步",
           "数字",
@@ -16006,14 +16006,14 @@
         "id": 1299,
         "dayIndex": 259,
         "word": "sea",
-        "def": "海 (hǎi)",
+        "def": "大海 (dà hǎi)",
         "options": [
-          "现在",
+          "大海",
           "消失了",
           "移动",
           "海"
         ],
-        "answer": "海"
+        "answer": "大海"
       },
       {
         "id": 1300,
@@ -16110,14 +16110,14 @@
         "id": 1307,
         "dayIndex": 261,
         "word": "below",
-        "def": "以下 (yǐ xià)",
+        "def": "在...下方 (zài . . . xià fāng)",
         "options": [
-          "选举",
+          "在...下方",
           "以下",
           "中央",
           "关联"
         ],
-        "answer": "以下"
+        "answer": "在...下方"
       },
       {
         "id": 1308,
@@ -16513,14 +16513,14 @@
         "id": 1338,
         "dayIndex": 267,
         "word": "piece",
-        "def": "片 (piàn)",
+        "def": "块 (kuài)",
         "options": [
           "夫妻",
           "个人的",
-          "翻译",
+          "块",
           "片"
         ],
-        "answer": "片"
+        "answer": "块"
       },
       {
         "id": 1339,
@@ -16669,14 +16669,14 @@
         "id": 1350,
         "dayIndex": 269,
         "word": "etc",
-        "def": "ETC (ETC)",
+        "def": "等等 (děng děng)",
         "options": [
-          "添加",
+          "等等",
           "ETC",
           "目标",
           "模型"
         ],
-        "answer": "ETC"
+        "answer": "等等"
       },
       {
         "id": 1351,
@@ -16838,14 +16838,14 @@
         "id": 1363,
         "dayIndex": 272,
         "word": "river",
-        "def": "河 (hé)",
+        "def": "河流 (hé liú)",
         "options": [
-          "观看",
+          "河流",
           "事件",
           "首都",
           "河"
         ],
-        "answer": "河"
+        "answer": "河流"
       },
       {
         "id": 1364,
@@ -17163,7 +17163,7 @@
         "id": 1388,
         "dayIndex": 277,
         "word": "sales",
-        "def": "销售量 (xiāo shòu liàng)",
+        "def": "销售量 (xiāo shòu liáng)",
         "options": [
           "乔治",
           "训练",
@@ -17813,7 +17813,7 @@
         "id": 1438,
         "dayIndex": 287,
         "word": "husband",
-        "def": "丈夫 (zhàng fū)",
+        "def": "丈夫 (zhàng fu)",
         "options": [
           "更高",
           "盒子",
@@ -18021,7 +18021,7 @@
         "id": 1454,
         "dayIndex": 290,
         "word": "section",
-        "def": "部分 (bù fèn)",
+        "def": "部分 (bù fen)",
         "options": [
           "部分",
           "必需的",
@@ -18242,27 +18242,27 @@
         "id": 1471,
         "dayIndex": 294,
         "word": "absolutely",
-        "def": "翻译 (fān yì)",
+        "def": "绝对地 (jué duì dì)",
         "options": [
           "普通的",
-          "翻译",
+          "绝对地",
           "四月",
           "覆盖"
         ],
-        "answer": "翻译"
+        "answer": "绝对地"
       },
       {
         "id": 1472,
         "dayIndex": 294,
         "word": "additional",
-        "def": "翻译 (fān yì)",
+        "def": "附加的 (fù jiā de)",
         "options": [
           "学生",
-          "翻译",
+          "附加的",
           "热的",
           "七月"
         ],
-        "answer": "翻译"
+        "answer": "附加的"
       },
       {
         "id": 1473,
@@ -18320,118 +18320,118 @@
         "id": 1477,
         "dayIndex": 295,
         "word": "forces",
-        "def": "翻译 (fān yì)",
+        "def": "力量 (lì liàng)",
         "options": [
           "时期",
           "首席",
-          "翻译",
+          "力量",
           "地球"
         ],
-        "answer": "翻译"
+        "answer": "力量"
       },
       {
         "id": 1478,
         "dayIndex": 295,
         "word": "immediately",
-        "def": "翻译 (fān yì)",
+        "def": "立刻 (lì kè)",
         "options": [
           "普通的",
-          "翻译",
+          "立刻",
           "手",
           "迅速地"
         ],
-        "answer": "翻译"
+        "answer": "立刻"
       },
       {
         "id": 1479,
         "dayIndex": 295,
         "word": "jobs",
-        "def": "翻译 (fān yì)",
+        "def": "工作 (gōng zuò)",
         "options": [
           "可能",
           "降低",
-          "翻译",
+          "工作",
           "圆形的"
         ],
-        "answer": "翻译"
+        "answer": "工作"
       },
       {
         "id": 1480,
         "dayIndex": 295,
         "word": "leaving",
-        "def": "翻译 (fān yì)",
+        "def": "离开 (lí kāi)",
         "options": [
           "吃",
           "表现",
-          "翻译",
+          "离开",
           "六月"
         ],
-        "answer": "翻译"
+        "answer": "离开"
       },
       {
         "id": 1481,
         "dayIndex": 296,
         "word": "minute",
-        "def": "翻译 (fān yì)",
+        "def": "分钟 (fēn zhōng)",
         "options": [
           "涉及",
           "攻击",
           "欧洲的",
-          "翻译"
+          "分钟"
         ],
-        "answer": "翻译"
+        "answer": "分钟"
       },
       {
         "id": 1482,
         "dayIndex": 296,
         "word": "nature",
-        "def": "翻译 (fān yì)",
+        "def": "自然 (zì rán)",
         "options": [
           "设计",
           "允许",
           "等待",
-          "翻译"
+          "自然"
         ],
-        "answer": "翻译"
+        "answer": "自然"
       },
       {
         "id": 1483,
         "dayIndex": 296,
         "word": "numbers",
-        "def": "翻译 (fān yì)",
+        "def": "数字 (shù zì)",
         "options": [
           "车站",
           "公司",
           "专业的",
-          "翻译"
+          "数字"
         ],
-        "answer": "翻译"
+        "answer": "数字"
       },
       {
         "id": 1484,
         "dayIndex": 296,
         "word": "quick",
-        "def": "翻译 (fān yì)",
+        "def": "快速的 (kuài sù de)",
         "options": [
           "建造",
-          "翻译",
+          "快速的",
           "账单",
           "父母"
         ],
-        "answer": "翻译"
+        "answer": "快速的"
       },
       {
         "id": 1485,
         "dayIndex": 296,
         "word": "sell",
-        "def": "翻译 (fān yì)",
+        "def": "卖 (mài)",
         "options": [
-          "翻译",
+          "卖",
           "男孩们",
           "打",
           "毛毡"
         ],
-        "answer": "翻译"
+        "answer": "卖"
       },
       {
         "id": 1486,
@@ -18567,7 +18567,7 @@
         "id": 1496,
         "dayIndex": 299,
         "word": "favorite",
-        "def": "最喜欢的 (zuì xǐ huān de)",
+        "def": "最喜欢的 (zuì xǐ huan de)",
         "options": [
           "重要的",
           "案例",
@@ -24272,7 +24272,7 @@
         "id": 2002,
         "dayIndex": 400,
         "word": "photo",
-        "def": "照片 (zhào piān)",
+        "def": "照片 (zhào piàn)",
         "options": [
           "雇员",
           "同性恋",
@@ -24623,7 +24623,7 @@
         "id": 2029,
         "dayIndex": 405,
         "word": "knowledge",
-        "def": "知识 (zhī shí)",
+        "def": "知识 (zhī shi)",
         "options": [
           "信",
           "图书馆",
@@ -24701,7 +24701,7 @@
         "id": 2035,
         "dayIndex": 406,
         "word": "wow",
-        "def": "哇 (wa)",
+        "def": "哇 (wā)",
         "options": [
           "哇",
           "预期的",
@@ -24753,7 +24753,7 @@
         "id": 2039,
         "dayIndex": 407,
         "word": "dad",
-        "def": "爸爸 (bà bà)",
+        "def": "爸爸 (bà ba)",
         "options": [
           "胖的",
           "爸爸",
@@ -24935,14 +24935,14 @@
         "id": 2053,
         "dayIndex": 410,
         "word": "letter",
-        "def": "信 (xìn)",
+        "def": "信件 (xìn jiàn)",
         "options": [
-          "树",
+          "信件",
           "信",
           "成本",
           "慢的"
         ],
-        "answer": "信"
+        "answer": "信件"
       },
       {
         "id": 2054,
@@ -25078,7 +25078,7 @@
         "id": 2064,
         "dayIndex": 412,
         "word": "sister",
-        "def": "姐姐 (jiě jiě)",
+        "def": "姐姐 (jiě jie)",
         "options": [
           "返回",
           "姐姐",
@@ -25143,7 +25143,7 @@
         "id": 2069,
         "dayIndex": 413,
         "word": "anymore",
-        "def": "不再 (bù zài)",
+        "def": "不再 (bú zài)",
         "options": [
           "注意",
           "不再",
@@ -25195,7 +25195,7 @@
         "id": 2073,
         "dayIndex": 414,
         "word": "contract",
-        "def": "合同 (hé tóng)",
+        "def": "合同 (hé tong)",
         "options": [
           "组织",
           "事先的",
@@ -25351,7 +25351,7 @@
         "id": 2085,
         "dayIndex": 416,
         "word": "meant",
-        "def": "意思是 (yì si shì)",
+        "def": "意思是 (yì sī shì)",
         "options": [
           "接受",
           "积极的",
@@ -26391,14 +26391,14 @@
         "id": 2165,
         "dayIndex": 432,
         "word": "indian",
-        "def": "印度人 (yìn dù rén)",
+        "def": "印第安人 (yìn dì ān rén)",
         "options": [
-          "委员会",
+          "印第安人",
           "印度人",
           "枪",
           "圣"
         ],
-        "answer": "印度人"
+        "answer": "印第安人"
       },
       {
         "id": 2166,
@@ -26742,14 +26742,14 @@
         "id": 2192,
         "dayIndex": 438,
         "word": "facebook",
-        "def": "Facebook (Facebook)",
+        "def": "脸谱网 (liǎn pǔ wǎng)",
         "options": [
-          "Facebook",
+          "脸谱网",
           "项目",
           "传统的",
           "复杂的"
         ],
-        "answer": "Facebook"
+        "answer": "脸谱网"
       },
       {
         "id": 2193,
@@ -28744,14 +28744,14 @@
         "id": 2346,
         "dayIndex": 469,
         "word": "prior",
-        "def": "事先的 (shì xiān de)",
+        "def": "先前的 (xiān qián de)",
         "options": [
           "事先的",
-          "翻译",
+          "先前的",
           "流行音乐",
           "坐"
         ],
-        "answer": "事先的"
+        "answer": "先前的"
       },
       {
         "id": 2347,
@@ -29537,7 +29537,7 @@
         "id": 2407,
         "dayIndex": 481,
         "word": "count",
-        "def": "数数 (shǔ shù)",
+        "def": "数数 (shuò shuò)",
         "options": [
           "持续",
           "底部",
@@ -29719,7 +29719,7 @@
         "id": 2421,
         "dayIndex": 484,
         "word": "photos",
-        "def": "照片 (zhào piān)",
+        "def": "照片 (zhào piàn)",
         "options": [
           "最高",
           "照片",
@@ -29784,14 +29784,14 @@
         "id": 2426,
         "dayIndex": 485,
         "word": "score",
-        "def": "翻译 (fān yì)",
+        "def": "得分 (dé fēn)",
         "options": [
           "克里斯",
-          "翻译",
+          "得分",
           "保护",
           "主要的"
         ],
-        "answer": "翻译"
+        "answer": "得分"
       },
       {
         "id": 2427,
@@ -29810,7 +29810,7 @@
         "id": 2428,
         "dayIndex": 485,
         "word": "smart",
-        "def": "聪明的 (cōng míng de)",
+        "def": "聪明的 (cōng ming de)",
         "options": [
           "谁",
           "凸起",
@@ -29888,7 +29888,7 @@
         "id": 2434,
         "dayIndex": 486,
         "word": "twitter",
-        "def": "叽叽喳喳 (jī jī zhā zhā)",
+        "def": "叽叽喳喳 (jī ji zhā zhā)",
         "options": [
           "流行音乐",
           "叽叽喳喳",
@@ -30538,14 +30538,14 @@
         "id": 2484,
         "dayIndex": 496,
         "word": "http",
-        "def": "http (http)",
+        "def": "超文本传输协议 (chāo wén běn chuán shū xié yì)",
         "options": [
-          "http",
+          "超文本传输协议",
           "获得",
           "引擎",
           "活动"
         ],
-        "answer": "http"
+        "answer": "超文本传输协议"
       },
       {
         "id": 2485,
