@@ -48,40 +48,64 @@ export const AppProvider = ({ children }) => {
 
   // Auto-login: restore session from saved JWT token or Guest flag
   useEffect(() => {
-    const isGuest = localStorage.getItem('isGuest');
-    if (isGuest === 'true') {
-      setUser({ 
-        name: 'Guest Student', 
-        stars: 0, 
-        isGuest: true,
-        role: 'student',
-        masteredVocab: [],
-        completedGrammar: [],
-        completedWriting: [],
-        completedSpeaking: [],
-        completedReading: [],
-        clearedVoiceStages: [],
-        stats: { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
-        starsTracker: {},
-        essays: {}
-      });
-      setIsAuthLoading(false);
-      return;
-    }
-
     const token = localStorage.getItem('token');
-    if (!token) {
-      setIsAuthLoading(false);
+    const isGuest = localStorage.getItem('isGuest');
+
+    // A real token ALWAYS takes priority over guest flag
+    if (token && token !== 'offline_teacher_token') {
+      // Real JWT token — verify with server
+      fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(async (res) => {
+          if (res.status === 401) {
+            localStorage.removeItem('token');
+            // If token is invalid, fall back to guest if flag exists
+            if (isGuest === 'true') {
+              setUser({ 
+                name: 'Guest Student', stars: 0, isGuest: true, role: 'student',
+                masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
+                clearedVoiceStages: [], stats: { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
+                starsTracker: {}, essays: {}
+              });
+            }
+            setIsAuthLoading(false);
+            return;
+          }
+          if (!res.ok) throw new Error('Server error');
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.success && data.user) {
+            // Successfully restored — clear any stale guest flag
+            localStorage.removeItem('isGuest');
+            const isTeacher = data.user.role === 'admin' || data.user.username?.toLowerCase() === 'teacher2026';
+            const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
+            setUser({
+              ...data.user,
+              name: data.user.username,
+              isGuest: false,
+              role: isTeacher ? 'admin' : (data.user.role || 'student'),
+              inventory: isTeacher ? teacherItems : (data.user.inventory || []),
+              unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (data.user.unlockedChars || []),
+              unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (data.user.unlockedPets || []),
+              clearedVoiceStages: isTeacher
+                ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
+                : (data.user.clearedVoiceStages || {})
+            });
+          }
+        })
+        .catch((err) => {
+          console.warn('Auto-login fetch failed:', err);
+        })
+        .finally(() => setIsAuthLoading(false));
       return;
     }
 
     if (token === 'offline_teacher_token') {
+      // Offline teacher demo account
       setUser({
-        name: 'teacher2026',
-        username: 'teacher2026',
-        isGuest: false,
-        role: 'admin',
-        stars: 999,
+        name: 'teacher2026', username: 'teacher2026', isGuest: false, role: 'admin', stars: 999,
         inventory: ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'],
         unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
         unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
@@ -94,41 +118,20 @@ export const AppProvider = ({ children }) => {
       return;
     }
 
-    fetch('/api/auth/me', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-      .then(async (res) => {
-        if (res.status === 401) {
-          localStorage.removeItem('token');
-          setIsAuthLoading(false);
-          return;
-        }
-        if (!res.ok) throw new Error('Server error');
-        return res.json();
-      })
-      .then(data => {
-        if (data && data.success && data.user) {
-          const isTeacher = data.user.role === 'admin' || data.user.username?.toLowerCase() === 'teacher2026';
-          const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
-          setUser({
-            ...data.user,
-            name: data.user.username,
-            isGuest: false,
-            role: isTeacher ? 'admin' : (data.user.role || 'student'),
-            inventory: isTeacher ? teacherItems : (data.user.inventory || []),
-            unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (data.user.unlockedChars || []),
-            unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (data.user.unlockedPets || []),
-            clearedVoiceStages: isTeacher
-              ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
-              : (data.user.clearedVoiceStages || {})
-          });
-        }
-      })
-      .catch((err) => {
-        console.warn('Auto-login fetch failed:', err);
-        // Do NOT remove token on network/server errors so they can try again later
-      })
-      .finally(() => setIsAuthLoading(false));
+    if (isGuest === 'true') {
+      // Guest mode — no token needed
+      setUser({ 
+        name: 'Guest Student', stars: 0, isGuest: true, role: 'student',
+        masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
+        clearedVoiceStages: [], stats: { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
+        starsTracker: {}, essays: {}
+      });
+      setIsAuthLoading(false);
+      return;
+    }
+
+    // No token and no guest flag — show login page
+    setIsAuthLoading(false);
   }, []);
 
   useEffect(() => {

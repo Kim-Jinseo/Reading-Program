@@ -28,6 +28,7 @@ export const AuthModal = () => {
       const data = await response.json();
       
       if (data.success) {
+        localStorage.removeItem('isGuest');
         localStorage.setItem('token', data.token);
         const isTeacher = isTeacherUser || data.user?.role === 'admin';
         const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
@@ -43,6 +44,7 @@ export const AuthModal = () => {
         });
       } else if (isTeacherUser) {
         // Teacher offline fallback demo account
+        localStorage.removeItem('isGuest');
         localStorage.setItem('token', 'offline_teacher_token');
         setUser({
           name: 'teacher2026',
@@ -63,6 +65,8 @@ export const AuthModal = () => {
       }
     } catch (err) {
       if (name.trim().toLowerCase() === 'teacher2026') {
+        localStorage.removeItem('isGuest');
+        localStorage.setItem('token', 'offline_teacher_token');
         setUser({
           name: 'teacher2026',
           username: 'teacher2026',
