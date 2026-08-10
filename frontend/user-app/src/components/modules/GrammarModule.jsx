@@ -606,35 +606,35 @@ export const GrammarModule = () => {
           </div>
         </div>
 
-        <div className="flex-1 bg-white border-2 border-slate-100 rounded-3xl p-8 md:p-12 flex flex-col shadow-lg overflow-y-auto relative">
-          <div className="flex justify-between items-start mb-12">
-            <div className="flex items-center gap-4">
-              <span className="w-14 h-14 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-extrabold text-2xl shadow-md">
+        <div className="flex-1 bg-white border-2 border-slate-100 rounded-3xl p-4 sm:p-8 md:p-12 flex flex-col shadow-lg overflow-y-auto relative">
+          <div className="flex justify-between items-start mb-6 sm:mb-12 gap-2">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span className="w-10 h-10 sm:w-14 sm:h-14 bg-indigo-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg sm:text-2xl shadow-md shrink-0">
                 {activeQIndex + 1}
               </span>
               <div>
-                <span className="text-slate-400 font-extrabold text-sm tracking-widest uppercase block mb-1">Grammar Practice</span>
-                <span className="text-slate-700 font-bold flex items-center gap-2">
+                <span className="text-slate-400 font-extrabold text-xs sm:text-sm tracking-widest uppercase block mb-0.5 sm:mb-1">Grammar Practice</span>
+                <span className="text-slate-700 font-bold text-xs sm:text-base flex items-center gap-2">
                    {activeQ.concept}
                 </span>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 bg-amber-50 px-5 py-2.5 rounded-full border border-amber-200">
-              <span className="text-sm font-bold text-amber-700">Reward:</span>
-              <div className="flex gap-1">
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-amber-50 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-amber-200 shrink-0">
+              <span className="text-xs sm:text-sm font-bold text-amber-700">Reward:</span>
+              <div className="flex gap-0.5 sm:gap-1">
                 {Array.from({ length: 3 }).map((_, i) => (
-                  <svg key={i} className={`w-5 h-5 ${i < stat.maxStars ? 'text-amber-400 fill-amber-400' : 'text-slate-300 fill-slate-200'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg key={i} className={`w-4 h-4 sm:w-5 sm:h-5 ${i < stat.maxStars ? 'text-amber-400 fill-amber-400' : 'text-slate-300 fill-slate-200'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 ))}
               </div>
             </div>
           </div>
 
-          <h2 className="text-4xl font-extrabold text-slate-800 mb-12 leading-relaxed text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 mb-6 sm:mb-12 leading-relaxed text-center">
             {activeQ.q}
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto w-full">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4 max-w-2xl mx-auto w-full mb-6">
             {activeQ.options.map((opt, i) => {
               const letter = String.fromCharCode(65 + i);
               let btnClass = "border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 hover:shadow-md text-slate-700 bg-white";
@@ -645,11 +645,11 @@ export const GrammarModule = () => {
                 if (opt === selectedOpt && opt === activeQ.answer) {
                   btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm";
                   letterClass = "border-emerald-500 bg-emerald-500 text-white";
-                  icon = <CheckCircle2 className="text-emerald-600" size={28} />;
+                  icon = <CheckCircle2 className="text-emerald-600 shrink-0" size={24} />;
                 } else if (opt === selectedOpt) {
                   btnClass = "border-rose-400 bg-rose-50 text-rose-900 shadow-sm";
                   letterClass = "border-rose-400 bg-rose-400 text-white";
-                  icon = <X className="text-rose-500" size={28} />;
+                  icon = <X className="text-rose-500 shrink-0" size={24} />;
                 } else {
                   btnClass = "border-slate-100 bg-slate-50 text-slate-400 opacity-50";
                 }
@@ -660,13 +660,13 @@ export const GrammarModule = () => {
                   key={opt}
                   onClick={() => handleBankAnswer(opt)}
                   disabled={!!selectedOpt}
-                  className={`flex items-center justify-between p-6 rounded-2xl border-2 font-bold text-2xl transition-all group active:scale-[0.98] ${btnClass}`}
+                  className={`flex items-center justify-between p-3.5 sm:p-6 rounded-2xl border-2 font-bold text-base sm:text-2xl transition-all group active:scale-[0.98] ${btnClass}`}
                 >
-                  <div className="flex items-center gap-6">
-                    <span className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-lg transition-colors ${letterClass}`}>
+                  <div className="flex items-center gap-3 sm:gap-6 min-w-0">
+                    <span className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 flex items-center justify-center text-xs sm:text-lg transition-colors shrink-0 ${letterClass}`}>
                       {letter}
                     </span>
-                    <span>{opt}</span>
+                    <span className="truncate">{opt}</span>
                   </div>
                   {icon}
                 </button>
@@ -675,16 +675,16 @@ export const GrammarModule = () => {
           </div>
 
           {selectedOpt === activeQ.answer && (
-            <div className="absolute bottom-8 left-8 right-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex justify-between items-center z-10">
-              <div>
-                <h4 className="text-emerald-800 font-extrabold text-2xl mb-1 flex items-center gap-2">
-                  <CheckCircle2 size={28} /> Correct!
+            <div className="mt-auto p-4 sm:p-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 z-10">
+              <div className="text-center sm:text-left">
+                <h4 className="text-emerald-800 font-extrabold text-xl sm:text-2xl mb-1 flex items-center justify-center sm:justify-start gap-2">
+                  <CheckCircle2 size={24} className="shrink-0" /> Correct!
                 </h4>
-                <p className="text-emerald-700 font-bold text-lg">You earned {stat.maxStars} stars.</p>
+                <p className="text-emerald-700 font-bold text-sm sm:text-lg">You earned {stat.maxStars} stars.</p>
               </div>
               <button 
                 onClick={nextBankQuestion}
-                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-lg rounded-xl shadow-[0_6px_0_rgb(16,185,129)] active:shadow-none active:translate-y-1 transition-all"
+                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-base sm:text-lg rounded-xl shadow-[0_4px_0_rgb(16,185,129)] sm:shadow-[0_6px_0_rgb(16,185,129)] active:shadow-none active:translate-y-1 transition-all whitespace-nowrap"
               >
                 {activeQIndex < activeQueue.length - 1 ? 'Next Question' : 'Finish Practice'}
               </button>
@@ -692,16 +692,16 @@ export const GrammarModule = () => {
           )}
 
           {selectedOpt && selectedOpt !== activeQ.answer && (
-            <div className="absolute bottom-8 left-8 right-8 p-6 bg-rose-50 border-2 border-rose-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex flex-col md:flex-row justify-between items-center gap-4 z-10">
-              <div>
-                <h4 className="text-rose-800 font-extrabold text-2xl mb-1 flex items-center gap-2">
-                  <X size={28} /> Incorrect!
+            <div className="mt-auto p-4 sm:p-6 bg-rose-50 border-2 border-rose-200 rounded-2xl shadow-lg animate-in slide-in-from-bottom-4 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 z-10">
+              <div className="text-center sm:text-left">
+                <h4 className="text-rose-800 font-extrabold text-xl sm:text-2xl mb-1 flex items-center justify-center sm:justify-start gap-2">
+                  <X size={24} className="shrink-0" /> Incorrect!
                 </h4>
-                <p className="text-rose-700 font-bold text-lg">You can try again later.</p>
+                <p className="text-rose-700 font-bold text-sm sm:text-lg">You can try again later.</p>
               </div>
               <button 
                 onClick={nextBankQuestion}
-                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg rounded-xl shadow-[0_6px_0_rgb(225,29,72)] active:shadow-none active:translate-y-1 transition-all whitespace-nowrap"
+                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-base sm:text-lg rounded-xl shadow-[0_4px_0_rgb(225,29,72)] sm:shadow-[0_6px_0_rgb(225,29,72)] active:shadow-none active:translate-y-1 transition-all whitespace-nowrap"
               >
                 {activeQIndex < activeQueue.length - 1 ? 'Next Question' : 'Finish Practice'}
               </button>
