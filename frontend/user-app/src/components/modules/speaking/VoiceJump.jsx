@@ -997,14 +997,14 @@ export const VoiceJump = ({ onBack }) => {
                <span className="text-5xl sm:text-7xl md:text-[7rem] filter drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">🧙‍♂️</span>
              )}
              
-             {/* Custom Pet - Positioned Floating Above Player's Left Shoulder */}
+             {/* Custom Pet - Positioned Floating Beside Character's Right Side */}
              {selectedPet === 'pet_dragon' && (
                 <>
                   <div className="relative">
                     <img 
                       src={animTrigger === 'pet_attack' ? "/assets/pet_dragon_attack.png" : "/assets/pet_dragon.png"} 
                       alt="Dragonling" 
-                      className={`absolute -top-8 sm:-top-12 -left-6 sm:-left-12 h-16 sm:h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-24 sm:w-36 [mask-image:linear-gradient(to_right,black_65%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_right,black_65%,transparent_98%)]' : 'w-16 sm:w-24'} ${
+                      className={`absolute top-0 sm:-top-4 -right-10 sm:-right-14 h-14 sm:h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-24 sm:w-36 [mask-image:linear-gradient(to_right,black_65%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_right,black_65%,transparent_98%)]' : 'w-14 sm:w-24'} ${
                          petDisabledTimer > 0 ? 'grayscale opacity-60' :
                          animTrigger === 'pet_inhale' ? 'scale-x-[-0.9] scale-y-110 -translate-x-4' : 
                          animTrigger === 'pet_attack' ? 'scale-x-[-1] scale-110 translate-x-6 -translate-y-2' : 
@@ -1012,7 +1012,7 @@ export const VoiceJump = ({ onBack }) => {
                       }`} 
                     />
                     {petDisabledTimer > 0 && (
-                      <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-12 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                      <span className="absolute -top-6 sm:-top-8 -right-10 sm:-right-14 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                         🚫 Silenced ({petDisabledTimer}s)
                       </span>
                     )}
@@ -1081,9 +1081,9 @@ export const VoiceJump = ({ onBack }) => {
              )}
              {selectedPet === 'pet_griffin' && (
                 <div className="relative">
-                  <img src="/assets/pet_griffin.png" alt="Griffin" className={`absolute -top-10 sm:-top-14 -left-6 sm:-left-14 w-16 h-16 sm:w-28 sm:h-28 object-contain animate-bounce-slow filter drop-shadow-[0_0_15px_rgba(0,150,255,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
+                  <img src="/assets/pet_griffin.png" alt="Griffin" className={`absolute -top-2 sm:-top-6 -right-10 sm:-right-14 w-14 h-14 sm:w-28 sm:h-28 object-contain animate-bounce-slow filter drop-shadow-[0_0_15px_rgba(0,150,255,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
-                    <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-14 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                    <span className="absolute -top-6 sm:-top-8 -right-10 sm:-right-14 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                       🚫 Silenced ({petDisabledTimer}s)
                     </span>
                   )}
@@ -1091,9 +1091,9 @@ export const VoiceJump = ({ onBack }) => {
              )}
              {selectedPet === 'pet_golem' && (
                 <div className="relative">
-                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute -top-8 sm:-top-12 -left-6 sm:-left-12 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
+                  <img src="/assets/pet_golem.png" alt="Golem" className={`absolute top-2 sm:top-0 -right-8 sm:-right-12 w-12 h-12 sm:w-20 sm:h-20 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
-                    <span className="absolute -top-12 sm:-top-16 -left-6 sm:-left-12 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
+                    <span className="absolute -top-6 sm:-top-8 -right-8 sm:-right-12 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
                       🚫 Silenced ({petDisabledTimer}s)
                     </span>
                   )}
@@ -1113,7 +1113,7 @@ export const VoiceJump = ({ onBack }) => {
                  transitionDuration: animTrigger === 'player_attack' ? '300ms' : '0ms'
                }}
              >
-               ☄️
+               🔥
              </div>
            )}
 
@@ -1253,7 +1253,11 @@ export const VoiceJump = ({ onBack }) => {
            <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-indigo-700 mb-2 tracking-wider uppercase drop-shadow-sm px-4 break-words max-w-full">
              {word}
            </div>
-           <p className="text-lg sm:text-xl text-slate-500 font-bold h-8 mb-4 sm:mb-8">{status === 'loading' ? 'Analyzing...' : feedback}</p>
+           
+           {/* Responsive Feedback Text Area with natural line height to prevent Mic Button overlap */}
+           <div className="text-xs sm:text-base text-slate-600 font-extrabold min-h-[2.5rem] mb-3 sm:mb-6 text-center px-4 leading-snug flex flex-col items-center justify-center">
+             {status === 'loading' ? 'Analyzing...' : feedback}
+           </div>
 
             <div className="relative flex items-center justify-center w-36 h-36 sm:w-48 sm:h-48 mx-auto">
               {isRecording && !isWarmingUp && (
