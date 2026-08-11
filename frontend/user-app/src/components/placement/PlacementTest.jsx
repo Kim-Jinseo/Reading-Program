@@ -358,8 +358,6 @@ export const PlacementTest = () => {
             return <div key={key} className={`min-h-24 rounded-2xl border p-3 flex flex-col items-center justify-center ${SECTION_DETAILS[key].bg}`}><Icon size={20} className={`shrink-0 ${SECTION_DETAILS[key].color}`} /><p className="font-black text-slate-800 mt-2 leading-tight">{SECTION_COUNTS[key]} {sectionName(key)}</p></div>;
           })}
         </div>
-        <p className="mt-3 text-center text-sm font-bold text-slate-500">{text('Vocabulary → Grammar → Reading → Speaking', '词汇 → 语法 → 阅读 → 口语')}</p>
-
         <div className="grid sm:grid-cols-2 gap-4 mt-7">
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Chinese name', '中文姓名')}</span>
