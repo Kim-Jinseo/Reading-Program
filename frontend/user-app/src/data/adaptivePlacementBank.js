@@ -132,7 +132,18 @@ const LEVEL_ONE_GRAMMAR = [
     const otherChoices = ['am', 'is', 'are'].filter(word => word !== answer);
     return grammarItem(1, index, `${subject} ___ ready.`, answer, otherChoices[0], otherChoices[1]);
   }),
-  ...[['cat', 'cats'], ['box', 'boxes'], ['bus', 'buses'], ['baby', 'babies'], ['dish', 'dishes'], ['toy', 'toys'], ['fox', 'foxes'], ['leaf', 'leaves'], ['book', 'books'], ['watch', 'watches']].map(([singular, answer], index) => grammarItem(1, index + 10, `Choose the correct plural: ${singular}.`, answer, singular, `a ${singular}`)),
+  ...[
+    ['I see two ___.', 'cats', 'cat', 'cates'],
+    ['There are three ___ on the table.', 'boxes', 'box', 'boxs'],
+    ['We wait for two ___.', 'buses', 'bus', 'buss'],
+    ['The two ___ are asleep.', 'babies', 'baby', 'babys'],
+    ['Please wash the ___.', 'dishes', 'dish', 'dishs'],
+    ['The children have two ___.', 'toys', 'toy', 'toies'],
+    ['The ___ live in the forest.', 'foxes', 'fox', 'foxs'],
+    ['The tree has green ___.', 'leaves', 'leaf', 'leafs'],
+    ['I put the ___ on the desk.', 'books', 'book', 'bookes'],
+    ['The shop has two ___.', 'watches', 'watch', 'watchs']
+  ].map(([q, answer, wrongA, wrongB], index) => grammarItem(1, index + 10, q, answer, wrongA, wrongB)),
   ...[['The ball is ___ the box.', 'in', 'on', 'under'], ['The cup is ___ the desk.', 'on', 'in', 'under'], ['The cat is ___ the chair.', 'under', 'in', 'on'], ['___ is my red pen.', 'This', 'These', 'Those'], ['___ are my shoes.', 'These', 'This', 'That'], ['I ___ swim.', 'can', 'am', 'is'], ['She ___ a blue bag.', 'has', 'have', 'having'], ['We ___ rice for lunch.', 'have', 'has', 'having'], ['___ is at the door?', 'Who', 'Where', 'When'], ['The bird ___ in the tree.', 'is', 'are', 'am']].map(([q, answer, wrongA, wrongB], index) => grammarItem(1, index + 20, q, answer, wrongA, wrongB))
 ];
 
@@ -371,6 +382,7 @@ export const validateAdaptivePlacementBank = () => {
         questions.forEach(question => {
           const answer = question.answer ?? question.options?.[question.correct];
           if (!question.q || !question.options || question.options.length < 3 || new Set(question.options).size !== question.options.length || !question.options.includes(answer)) errors.push(`${item.id} has invalid answer choices.`);
+          if (section === 'grammar' && (!question.q.includes('___') || /plural/i.test(question.q))) errors.push(`${item.id} must use a simple fill-in-the-blank sentence.`);
           if (section === 'reading' && Number(question.evidenceSentence) < 2) errors.push(`${item.id} has a reading question answered by its first sentence.`);
         });
         if (section === 'vocab') {

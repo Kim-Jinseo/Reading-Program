@@ -606,7 +606,10 @@ export const PlacementTest = ({ onExit }) => {
           </div>
         ) : (
           <>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-800 leading-relaxed mt-7">{activeItem.q}</h2>
+            {activeItem.section === 'grammar' && (
+              <p className="mt-7 text-sm sm:text-base font-extrabold text-violet-700">Choose the correct word for the blank.</p>
+            )}
+            <h2 className={`text-2xl sm:text-3xl font-black text-slate-800 leading-relaxed ${activeItem.section === 'grammar' ? 'mt-3' : 'mt-7'}`}>{activeItem.q}</h2>
             <div className="grid gap-3 mt-7">
               {activeItem.options.map((option, index) => {
                 const isSelected = answer?.selected === option;
