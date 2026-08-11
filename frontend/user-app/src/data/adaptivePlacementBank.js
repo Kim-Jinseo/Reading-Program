@@ -29,17 +29,16 @@ const makeVocabItems = (level, rows) => {
 };
 
 const LEVEL_ONE_WORDS = parseWords([
-  'puddle|a small pool of water', 'ribbon|a long narrow piece of cloth', 'basket|a container for carrying things',
-  'blanket|a warm cover for a bed', 'branch|a part that grows from a tree', 'feather|a soft part of a bird',
-  'gate|a small door in a fence', 'hill|land that is higher than the ground around it', 'nest|a home made by a bird',
-  'path|a small road for walking', 'pebble|a small smooth stone', 'pond|a small area of still water',
-  'rainbow|colors that can appear after rain', 'shell|a hard cover on some animals', 'stream|a small flowing river',
-  'tent|a cloth home used outside', 'wheel|a round part that helps something move', 'whisper|to speak very quietly',
-  'borrow|to use something and give it back later', 'carry|to take something from one place to another',
-  'clap|to hit your hands together', 'follow|to go after someone or something', 'jump|to push your body up from the ground',
-  'point|to show something with a finger', 'share|to give part of something to another person', 'smile|to show happiness with your face',
-  'wait|to stay until something happens', 'wake|to stop sleeping', 'yawn|to open your mouth when you are tired',
-  'zip|to close something with a zipper'
+  'book|pages you read', 'pen|a tool used for writing', 'bag|something used to carry things',
+  'desk|a table used for schoolwork', 'chair|something you sit on', 'school|a place where children learn',
+  'teacher|a person who helps children learn', 'friend|a person you like and know', 'apple|a round fruit',
+  'water|something you drink', 'cat|a small animal that says meow', 'dog|an animal that can bark',
+  'bird|an animal with wings', 'tree|a tall plant with a trunk', 'flower|the colorful part of a plant',
+  'sun|the bright thing in the sky in daytime', 'rain|water that falls from clouds', 'red|the color of an apple',
+  'blue|the color of a clear sky', 'green|the color of grass', 'big|large in size',
+  'small|not large', 'hot|having a high temperature', 'cold|not warm',
+  'eat|to have food', 'drink|to have water or juice', 'run|to move very fast on your feet',
+  'walk|to move on your feet slowly', 'open|to move something so it is not closed', 'close|to shut something'
 ]);
 
 const LEVEL_TWO_WORDS = parseWords([

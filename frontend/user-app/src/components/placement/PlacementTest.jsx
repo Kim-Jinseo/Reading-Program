@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { BookOpen, CheckCircle2, ChevronRight, Languages, Loader2, LogOut, Mic, RotateCcw, Square, Volume2 } from 'lucide-react';
+import { BookOpen, CheckCircle2, ChevronRight, Languages, Loader2, LogOut, Mic, Square, Volume2 } from 'lucide-react';
 import { ADAPTIVE_PLACEMENT_BANK, ADAPTIVE_SECTION_ORDER } from '../../data/adaptivePlacementBank';
 
-const ADAPTIVE_HISTORY_KEY = 'adaptive_placement_completed_items_v1';
+const ADAPTIVE_HISTORY_KEY = 'adaptive_placement_completed_items_v2';
 const CHINESE_NAME = /^[\u3400-\u9fff]{2,10}$/u;
 const TOTAL_QUESTIONS = 14;
 const SECTION_COUNTS = { vocab: 5, grammar: 3, reading: 3, speaking: 3 };
+const LEVEL_POINT_VALUES = { 1: 1, 2: 2, 3: 3 };
+// Vocabulary, reading, and speaking are the strongest signals for a starting
+// level. Grammar still helps, but it cannot outweigh those three skills.
+const SECTION_POINT_WEIGHTS = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
+const CORE_SECTIONS = ['vocab', 'reading', 'speaking'];
 
 const SECTION_DETAILS = {
   reading: { label: 'Reading', zh: '阅读', icon: BookOpen, color: 'text-blue-600', bg: 'bg-blue-50 border-blue-100' },
@@ -41,6 +46,9 @@ const clampLevel = level => Math.max(1, Math.min(3, level));
 const nextLevel = (level, wasCorrect) => clampLevel(level + (wasCorrect ? 1 : -1));
 const levelForRate = (rate) => (rate >= 0.8 ? 3 : rate >= 0.45 ? 2 : 1);
 const hasChineseCharacters = value => /[\u4e00-\u9fff]/.test(value || '');
+const rawMaximumForItem = item => item.section === 'speaking' ? 3 : 1;
+const pointMultiplierForItem = item => LEVEL_POINT_VALUES[item.level] * SECTION_POINT_WEIGHTS[item.section];
+const pointMaximumForItem = item => rawMaximumForItem(item) * pointMultiplierForItem(item);
 
 const repairLegacyReadingItem = (item) => {
   if (item?.section !== 'reading') return item;
@@ -78,28 +86,42 @@ const toBase64 = (blob) => new Promise((resolve, reject) => {
 
 const calculatePlacement = (items, answers) => {
   const levelScores = { 1: { score: 0, max: 0 }, 2: { score: 0, max: 0 }, 3: { score: 0, max: 0 } };
-  const sectionScores = { reading: { score: 0, max: 0 }, vocab: { score: 0, max: 0 }, grammar: { score: 0, max: 0 }, speaking: { score: 0, max: 0 } };
+  const sectionScores = {
+    reading: { score: 0, max: 0, rawScore: 0, rawMax: 0 },
+    vocab: { score: 0, max: 0, rawScore: 0, rawMax: 0 },
+    grammar: { score: 0, max: 0, rawScore: 0, rawMax: 0 },
+    speaking: { score: 0, max: 0, rawScore: 0, rawMax: 0 }
+  };
 
   items.forEach((item, index) => {
-    const max = item.section === 'speaking' ? 3 : 1;
-    const score = Math.max(0, Math.min(max, Number(answers[index]?.score || 0)));
+    const rawMax = rawMaximumForItem(item);
+    const rawScore = Math.max(0, Math.min(rawMax, Number(answers[index]?.score || 0)));
+    const multiplier = pointMultiplierForItem(item);
+    const score = rawScore * multiplier;
+    const max = rawMax * multiplier;
     levelScores[item.level].score += score;
     levelScores[item.level].max += max;
     sectionScores[item.section].score += score;
     sectionScores[item.section].max += max;
+    sectionScores[item.section].rawScore += rawScore;
+    sectionScores[item.section].rawMax += rawMax;
   });
 
   const totalScore = Object.values(levelScores).reduce((sum, item) => sum + item.score, 0);
   const totalMax = Object.values(levelScores).reduce((sum, item) => sum + item.max, 0);
   const sectionRate = section => sectionScores[section].max ? sectionScores[section].score / sectionScores[section].max : 0;
   const totalRate = totalMax ? totalScore / totalMax : 0;
-  const recommendedLevel = sectionRate('vocab') >= 0.8 && sectionRate('grammar') >= (2 / 3) && sectionRate('reading') >= (2 / 3) && sectionRate('speaking') >= (2 / 3) && totalRate >= 0.72
+  const coreScore = CORE_SECTIONS.reduce((sum, section) => sum + sectionScores[section].score, 0);
+  const coreMax = CORE_SECTIONS.reduce((sum, section) => sum + sectionScores[section].max, 0);
+  const coreRate = coreMax ? coreScore / coreMax : 0;
+  const strongCoreSkills = CORE_SECTIONS.filter(section => sectionRate(section) >= 0.6).length;
+  const recommendedLevel = coreRate >= 0.72 && strongCoreSkills >= 2 && totalRate >= 0.66
     ? '3'
-    : sectionRate('vocab') >= 0.4 && sectionRate('grammar') >= (1 / 3) && sectionRate('reading') >= (1 / 3) && totalRate >= 0.48
+    : coreRate >= 0.38 && totalRate >= 0.34
       ? '2'
       : '1';
 
-  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax };
+  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate };
 };
 
 export const PlacementTest = ({ onExit }) => {
@@ -231,9 +253,11 @@ export const PlacementTest = ({ onExit }) => {
     let max = 0;
     items.forEach((item, index) => {
       if (!sections.includes(item.section)) return;
-      const itemMax = item.section === 'speaking' ? 3 : 1;
-      score += Math.max(0, Math.min(itemMax, Number(answers[index]?.score || 0)));
-      max += itemMax;
+      const rawMax = rawMaximumForItem(item);
+      const rawScore = Math.max(0, Math.min(rawMax, Number(answers[index]?.score || 0)));
+      const multiplier = pointMultiplierForItem(item);
+      score += rawScore * multiplier;
+      max += rawMax * multiplier;
     });
     return max ? score / max : 0;
   };
@@ -258,7 +282,10 @@ export const PlacementTest = ({ onExit }) => {
     completedHistoryRef.current = loadCompletedHistory();
     usedThisAttemptRef.current = new Set();
     adaptivePathRef.current = [];
-    const firstItem = prepareEntry(selectEntry('vocab', 2));
+    // Every student begins with a Level 1 vocabulary item. A correct answer
+    // immediately moves up; a wrong answer keeps the next item at the easiest
+    // level instead of continuing with a question that is too difficult.
+    const firstItem = prepareEntry(selectEntry('vocab', 1));
     setItems(firstItem);
     setAnswers({});
     setActiveIndex(0);
@@ -378,7 +405,7 @@ export const PlacementTest = ({ onExit }) => {
         body: JSON.stringify({
           chineseName: chineseName.trim(),
           currentGrade: Number(currentGrade),
-          formId: 'adaptive-v1',
+          formId: 'adaptive-v2',
           recommendedLevel: completedResult.recommendedLevel,
           totalScore: completedResult.totalScore,
           totalMax: completedResult.totalMax,
@@ -414,7 +441,9 @@ export const PlacementTest = ({ onExit }) => {
     }
 
     if (activeItem.section === 'vocab') {
-      appendSection('grammar', levelForRate(sectionRateSoFar(['vocab'])));
+      // Grammar is deliberately capped at Level 2 on entry. It remains
+      // adaptive within its own questions, but has less pressure overall.
+      appendSection('grammar', Math.min(2, levelForRate(sectionRateSoFar(['vocab']))));
       return;
     }
     if (activeItem.section === 'grammar') {
@@ -438,7 +467,7 @@ export const PlacementTest = ({ onExit }) => {
           <div className="w-14 h-14 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={28} /></div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Adaptive Placement Test', '自适应分级测试')}</h2>
-            <p className="text-slate-600 font-medium leading-relaxed mt-1.5">{text('Each answer helps choose the next question and your starting level.', '每一道答案都会帮助系统选择下一题和适合你的起始等级。')}</p>
+            <p className="text-slate-600 font-medium leading-relaxed mt-1.5">Correct answers move up, wrong answers move down, and harder questions earn more placement points.</p>
           </div>
         </div>
 
@@ -485,7 +514,7 @@ export const PlacementTest = ({ onExit }) => {
             const score = result.sectionScores[section];
             const detail = SECTION_DETAILS[section];
             const Icon = detail.icon;
-            return <div key={section} className={`border rounded-2xl p-4 ${detail.bg}`}><Icon size={20} className={detail.color} /><p className="font-extrabold text-slate-700 mt-2">{sectionName(section)}</p><p className="text-slate-500 text-sm">{Math.round(score.score)} / {score.max}</p></div>;
+            return <div key={section} className={`border rounded-2xl p-4 ${detail.bg}`}><Icon size={20} className={detail.color} /><p className="font-extrabold text-slate-700 mt-2">{sectionName(section)}</p><p className="text-slate-500 text-sm">{score.rawScore} / {score.rawMax} answers</p><p className="text-slate-500 text-xs font-bold mt-1">{Math.round(score.score)} / {score.max} points</p></div>;
           })}
         </div>
         <p className={`mt-6 text-sm font-bold ${saveState === 'saved' ? 'text-emerald-600' : saveState === 'error' ? 'text-amber-700' : 'text-slate-500'}`}>
@@ -493,10 +522,7 @@ export const PlacementTest = ({ onExit }) => {
           {saveState === 'saved' && text('Your result has been saved.', '你的结果已保存。')}
           {saveState === 'error' && text('Your suggested level is ready, but saving did not work. Please ask your teacher to check the connection.', '你的建议等级已生成，但结果没有保存成功。请让老师检查网络连接。')}
         </p>
-        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button onClick={exitCompletedTest} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-extrabold"><LogOut size={18} /> Exit Test</button>
-          <button onClick={beginTest} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-extrabold"><RotateCcw size={18} /> Take another adaptive test</button>
-        </div>
+        <button onClick={exitCompletedTest} className="mt-5 inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-extrabold"><LogOut size={18} /> Exit Test</button>
       </div>
     );
   }
@@ -518,6 +544,7 @@ export const PlacementTest = ({ onExit }) => {
       <p className="mb-6 text-xs font-semibold text-slate-500">{text('Leaving before the final result means this test will not be saved.', '在看到最终结果前退出，这次测试不会被保存。')}</p>
       <div className="bg-white rounded-3xl border-2 border-slate-100 shadow-sm p-5 sm:p-8">
         <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-extrabold ${section.bg} ${section.color}`}><Icon size={16} /> {sectionName(activeItem.section)}</div>
+        <p className="mt-3 text-xs font-bold text-slate-500">Level {activeItem.level} question · up to {pointMaximumForItem(activeItem)} placement points</p>
         {activeItem.section === 'reading' && <div className="mt-5 p-4 sm:p-5 bg-amber-50 border border-amber-100 rounded-2xl text-slate-700 font-medium leading-relaxed"><p className="font-black text-slate-800 mb-2">{activeItem.title.en}</p>{activeItem.passage.en}</div>}
         {isSpeaking ? (
           <div className="mt-7 text-center">

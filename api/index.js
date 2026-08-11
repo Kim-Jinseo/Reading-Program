@@ -270,8 +270,9 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const currentGrade = Number(body.currentGrade);
     const formId = typeof body.formId === 'string' ? body.formId : '';
     const requestedLevel = body.recommendedLevel;
-    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1']);
-    const isAdaptiveForm = formId === 'adaptive-v1';
+    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1', 'adaptive-v2']);
+    const isAdaptiveForm = formId === 'adaptive-v1' || formId === 'adaptive-v2';
+    const usesWeightedAdaptiveScoring = formId === 'adaptive-v2';
 
     if (!/^[\u3400-\u9fff]{2,10}$/u.test(chineseName)) {
       return c.json({ success: false, error: 'Please provide a Chinese name with 2 to 10 characters.' }, 400);
@@ -305,10 +306,11 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       const raw = body.sectionScores?.[section];
       const score = Number(raw?.score);
       const reportedMax = Number(raw?.max);
-      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || reportedMax !== max || score < 0 || score > max) {
+      const validWeightedSectionScore = Number.isInteger(score) && Number.isInteger(reportedMax) && reportedMax > 0;
+      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || (!usesWeightedAdaptiveScoring && reportedMax !== max) || (usesWeightedAdaptiveScoring && !validWeightedSectionScore) || score < 0 || score > reportedMax) {
         return c.json({ success: false, error: 'Invalid placement section scores.' }, 400);
       }
-      sectionScores[section] = { score, max };
+      sectionScores[section] = { score, max: reportedMax };
     }
 
     const totalScore = Number(body.totalScore);
@@ -316,14 +318,26 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const levelTotal = Object.values(levelScores).reduce((sum, item) => sum + item.score, 0);
     const sectionTotal = Object.values(sectionScores).reduce((sum, item) => sum + item.score, 0);
     const levelMaximumTotal = Object.values(levelScores).reduce((sum, item) => sum + item.max, 0);
-    if (!Number.isFinite(totalScore) || !Number.isInteger(totalScore) || totalMax !== 20 || totalScore < 0 || totalScore > totalMax || levelMaximumTotal !== totalMax || totalScore !== levelTotal || totalScore !== sectionTotal) {
+    const hasValidWeightedTotal = Number.isInteger(totalMax) && totalMax > 0;
+    if (!Number.isFinite(totalScore) || !Number.isInteger(totalScore) || (!usesWeightedAdaptiveScoring && totalMax !== 20) || (usesWeightedAdaptiveScoring && !hasValidWeightedTotal) || totalScore < 0 || totalScore > totalMax || levelMaximumTotal !== totalMax || totalScore !== levelTotal || totalScore !== sectionTotal) {
       return c.json({ success: false, error: 'Placement total does not match the section scores.' }, 400);
     }
 
     const rate = level => levelScores[level].score / levelScores[level].max;
     const totalRate = totalScore / totalMax;
     const sectionRate = section => sectionScores[section].score / sectionScores[section].max;
-    const recommendedLevel = isAdaptiveForm
+    const coreSections = ['vocab', 'reading', 'speaking'];
+    const coreScore = coreSections.reduce((sum, section) => sum + sectionScores[section].score, 0);
+    const coreMax = coreSections.reduce((sum, section) => sum + sectionScores[section].max, 0);
+    const coreRate = coreMax ? coreScore / coreMax : 0;
+    const strongCoreSkills = coreSections.filter(section => sectionRate(section) >= 0.6).length;
+    const recommendedLevel = usesWeightedAdaptiveScoring
+      ? (coreRate >= 0.72 && strongCoreSkills >= 2 && totalRate >= 0.66
+        ? '3'
+        : coreRate >= 0.38 && totalRate >= 0.34
+          ? '2'
+          : '1')
+      : isAdaptiveForm
       ? (sectionRate('vocab') >= 0.8 && sectionRate('grammar') >= (2 / 3) && sectionRate('reading') >= (2 / 3) && sectionRate('speaking') >= (2 / 3) && totalRate >= 0.72
         ? '3'
         : sectionRate('vocab') >= 0.4 && sectionRate('grammar') >= (1 / 3) && sectionRate('reading') >= (1 / 3) && totalRate >= 0.48
@@ -344,6 +358,20 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       : [];
     if (isAdaptiveForm && (adaptivePath.length !== 12 || adaptivePath.filter(item => item.section === 'vocab').length !== 5 || adaptivePath.filter(item => item.section === 'grammar').length !== 3 || adaptivePath.filter(item => item.section === 'reading').length !== 1 || adaptivePath.filter(item => item.section === 'speaking').length !== 3)) {
       return c.json({ success: false, error: 'Invalid adaptive placement path.' }, 400);
+    }
+    if (usesWeightedAdaptiveScoring) {
+      const levelPoints = { 1: 1, 2: 2, 3: 3 };
+      const sectionWeights = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
+      const expectedSectionMaximums = { reading: 0, vocab: 0, grammar: 0, speaking: 0 };
+      adaptivePath.forEach(({ section, level }) => {
+        const questionCount = section === 'reading' ? 3 : 1;
+        const rawMaximum = section === 'speaking' ? 3 : 1;
+        expectedSectionMaximums[section] += questionCount * rawMaximum * levelPoints[level] * sectionWeights[section];
+      });
+      const expectedWeightedTotal = Object.values(expectedSectionMaximums).reduce((sum, maximum) => sum + maximum, 0);
+      if (totalMax !== expectedWeightedTotal || Object.entries(expectedSectionMaximums).some(([section, maximum]) => sectionScores[section].max !== maximum)) {
+        return c.json({ success: false, error: 'Placement points do not match the adaptive path.' }, 400);
+      }
     }
 
     const { placementTests } = await getDb();
