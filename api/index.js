@@ -270,9 +270,10 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const currentGrade = Number(body.currentGrade);
     const formId = typeof body.formId === 'string' ? body.formId : '';
     const requestedLevel = body.recommendedLevel;
-    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1', 'adaptive-v2']);
-    const isAdaptiveForm = formId === 'adaptive-v1' || formId === 'adaptive-v2';
-    const usesWeightedAdaptiveScoring = formId === 'adaptive-v2';
+    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1', 'adaptive-v2', 'adaptive-v3']);
+    const isAdaptiveForm = formId === 'adaptive-v1' || formId === 'adaptive-v2' || formId === 'adaptive-v3';
+    const usesWeightedAdaptiveScoring = formId === 'adaptive-v2' || formId === 'adaptive-v3';
+    const usesStrictAdaptiveRouting = formId === 'adaptive-v3';
 
     if (!/^[\u3400-\u9fff]{2,10}$/u.test(chineseName)) {
       return c.json({ success: false, error: 'Please provide a Chinese name with 2 to 10 characters.' }, 400);
@@ -353,24 +354,112 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       return c.json({ success: false, error: 'Placement recommendation did not match the score.' }, 400);
     }
 
-    const adaptivePath = isAdaptiveForm && Array.isArray(body.adaptivePath)
-      ? body.adaptivePath.slice(0, 12).filter(item => item && typeof item.id === 'string' && /^adaptive-(vocab|grammar|reading|speaking)-[1-3]-\d+$/.test(item.id) && ['vocab', 'grammar', 'reading', 'speaking'].includes(item.section) && [1, 2, 3].includes(Number(item.level))).map(item => ({ id: item.id, section: item.section, level: Number(item.level) }))
+    const adaptivePath = (isAdaptiveForm || usesStrictAdaptiveRouting) && Array.isArray(body.adaptivePath)
+      ? body.adaptivePath.slice(0, usesStrictAdaptiveRouting ? 14 : 12).filter(item => item && typeof item.id === 'string' && /^adaptive-(vocab|grammar|reading|speaking)-[1-3]-\d+$/.test(item.id) && ['vocab', 'grammar', 'reading', 'speaking'].includes(item.section) && [1, 2, 3].includes(Number(item.level))).map(item => ({ id: item.id, section: item.section, level: Number(item.level) }))
       : [];
-    if (isAdaptiveForm && (adaptivePath.length !== 12 || adaptivePath.filter(item => item.section === 'vocab').length !== 5 || adaptivePath.filter(item => item.section === 'grammar').length !== 3 || adaptivePath.filter(item => item.section === 'reading').length !== 1 || adaptivePath.filter(item => item.section === 'speaking').length !== 3)) {
+    const expectedPathLength = usesStrictAdaptiveRouting ? 14 : 12;
+    const expectedReadingEntries = usesStrictAdaptiveRouting ? 3 : 1;
+    if ((isAdaptiveForm || usesStrictAdaptiveRouting) && (adaptivePath.length !== expectedPathLength || adaptivePath.filter(item => item.section === 'vocab').length !== 5 || adaptivePath.filter(item => item.section === 'grammar').length !== 3 || adaptivePath.filter(item => item.section === 'reading').length !== expectedReadingEntries || adaptivePath.filter(item => item.section === 'speaking').length !== 3)) {
       return c.json({ success: false, error: 'Invalid adaptive placement path.' }, 400);
+    }
+    if (usesStrictAdaptiveRouting && new Set(adaptivePath.map(item => item.id)).size !== adaptivePath.length) {
+      return c.json({ success: false, error: 'Adaptive placement questions must not repeat.' }, 400);
+    }
+
+    let adaptiveResponses = [];
+    if (usesStrictAdaptiveRouting) {
+      const rawResponses = Array.isArray(body.adaptiveResponses) ? body.adaptiveResponses : [];
+      adaptiveResponses = rawResponses.slice(0, 14).map(item => ({
+        section: item?.section,
+        level: Number(item?.level),
+        score: Number(item?.score)
+      }));
+      if (adaptiveResponses.length !== adaptivePath.length || adaptiveResponses.some((response, index) => {
+        const rawMaximum = response.section === 'speaking' ? 3 : 1;
+        const pathItem = adaptivePath[index];
+        return !pathItem || response.section !== pathItem.section || response.level !== pathItem.level || !Number.isInteger(response.score) || response.score < 0 || response.score > rawMaximum;
+      })) {
+        return c.json({ success: false, error: 'Invalid adaptive response evidence.' }, 400);
+      }
+
+      const levelPoints = { 1: 1, 2: 2, 3: 3 };
+      const sectionWeights = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
+      const responseSectionScores = { reading: { score: 0, max: 0 }, vocab: { score: 0, max: 0 }, grammar: { score: 0, max: 0 }, speaking: { score: 0, max: 0 } };
+      const responseLevelScores = { 1: { score: 0, max: 0 }, 2: { score: 0, max: 0 }, 3: { score: 0, max: 0 } };
+      adaptiveResponses.forEach(response => {
+        const rawMaximum = response.section === 'speaking' ? 3 : 1;
+        const multiplier = levelPoints[response.level] * sectionWeights[response.section];
+        const max = rawMaximum * multiplier;
+        const score = response.score * multiplier;
+        responseSectionScores[response.section].score += score;
+        responseSectionScores[response.section].max += max;
+        responseLevelScores[response.level].score += score;
+        responseLevelScores[response.level].max += max;
+      });
+      const totalsMatch = Object.entries(responseSectionScores).every(([section, score]) => score.score === sectionScores[section].score && score.max === sectionScores[section].max)
+        && Object.entries(responseLevelScores).every(([level, score]) => score.score === levelScores[level].score && score.max === levelScores[level].max);
+      if (!totalsMatch) return c.json({ success: false, error: 'Placement totals did not match the response evidence.' }, 400);
+
+      const rateForSections = sections => {
+        let score = 0;
+        let max = 0;
+        adaptiveResponses.forEach(response => {
+          if (!sections.includes(response.section)) return;
+          const rawMaximum = response.section === 'speaking' ? 3 : 1;
+          const multiplier = levelPoints[response.level] * sectionWeights[response.section];
+          score += response.score * multiplier;
+          max += rawMaximum * multiplier;
+        });
+        return max ? score / max : 0;
+      };
+      const routedLevel = sections => {
+        const rate = rateForSections(sections);
+        return rate >= 0.8 ? 3 : rate >= 0.45 ? 2 : 1;
+      };
+      const expectedLevelForResponse = (response, index) => {
+        if (index === 0) return 1;
+        const previous = adaptiveResponses[index - 1];
+        if (response.section === previous.section) {
+          const wasCorrect = previous.section === 'speaking' ? previous.score >= 2 : previous.score === 1;
+          return Math.max(1, Math.min(3, previous.level + (wasCorrect ? 1 : -1)));
+        }
+        if (response.section === 'grammar') return Math.min(2, routedLevel(['vocab']));
+        if (response.section === 'reading') return routedLevel(['vocab', 'grammar']);
+        if (response.section === 'speaking') return routedLevel(['vocab', 'grammar', 'reading']);
+        return 1;
+      };
+      if (adaptiveResponses.some((response, index) => response.level !== expectedLevelForResponse(response, index))) {
+        return c.json({ success: false, error: 'Adaptive placement path did not follow the response results.' }, 400);
+      }
     }
     if (usesWeightedAdaptiveScoring) {
       const levelPoints = { 1: 1, 2: 2, 3: 3 };
       const sectionWeights = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
       const expectedSectionMaximums = { reading: 0, vocab: 0, grammar: 0, speaking: 0 };
       adaptivePath.forEach(({ section, level }) => {
-        const questionCount = section === 'reading' ? 3 : 1;
+        const questionCount = section === 'reading' && !usesStrictAdaptiveRouting ? 3 : 1;
         const rawMaximum = section === 'speaking' ? 3 : 1;
         expectedSectionMaximums[section] += questionCount * rawMaximum * levelPoints[level] * sectionWeights[section];
       });
       const expectedWeightedTotal = Object.values(expectedSectionMaximums).reduce((sum, maximum) => sum + maximum, 0);
       if (totalMax !== expectedWeightedTotal || Object.entries(expectedSectionMaximums).some(([section, maximum]) => sectionScores[section].max !== maximum)) {
         return c.json({ success: false, error: 'Placement points do not match the adaptive path.' }, 400);
+      }
+    }
+
+    let scaledScore = null;
+    if (usesStrictAdaptiveRouting) {
+      const sectionWeights = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
+      const pathDifficultyWeight = item => (item.section === 'speaking' ? 3 : 1) * sectionWeights[item.section];
+      const difficultyTotal = adaptivePath.reduce((sum, item) => sum + pathDifficultyWeight(item), 0);
+      const averageDifficulty = difficultyTotal
+        ? adaptivePath.reduce((sum, item) => sum + (item.level * pathDifficultyWeight(item)), 0) / difficultyTotal
+        : 1;
+      const evidenceRate = (coreRate * 0.9) + (sectionRate('grammar') * 0.1);
+      const difficultySignal = (averageDifficulty - 1) / 2;
+      scaledScore = Math.round(Math.max(100, Math.min(300, 100 + (200 * ((evidenceRate * 0.85) + (difficultySignal * 0.15))))));
+      if (!Number.isInteger(Number(body.scaledScore)) || Number(body.scaledScore) !== scaledScore) {
+        return c.json({ success: false, error: 'Placement score did not match the adaptive results.' }, 400);
       }
     }
 
@@ -385,7 +474,9 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       totalMax,
       levelScores,
       sectionScores,
-      ...(isAdaptiveForm ? { adaptivePath } : {}),
+      ...((isAdaptiveForm || usesStrictAdaptiveRouting) ? { adaptivePath } : {}),
+      ...(usesStrictAdaptiveRouting ? { adaptiveResponses } : {}),
+      ...(usesStrictAdaptiveRouting ? { scaledScore } : {}),
       accountUserId: accountUser?.userId || null,
       createdAt: new Date()
     };

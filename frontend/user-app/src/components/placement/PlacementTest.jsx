@@ -11,6 +11,8 @@ const LEVEL_POINT_VALUES = { 1: 1, 2: 2, 3: 3 };
 // level. Grammar still helps, but it cannot outweigh those three skills.
 const SECTION_POINT_WEIGHTS = { vocab: 3, grammar: 1, reading: 3, speaking: 3 };
 const CORE_SECTIONS = ['vocab', 'reading', 'speaking'];
+const PLACEMENT_SCORE_MIN = 100;
+const PLACEMENT_SCORE_MAX = 300;
 
 const SECTION_DETAILS = {
   reading: { label: 'Reading', zh: '阅读', icon: BookOpen, color: 'text-blue-600', bg: 'bg-blue-50 border-blue-100' },
@@ -115,13 +117,32 @@ const calculatePlacement = (items, answers) => {
   const coreMax = CORE_SECTIONS.reduce((sum, section) => sum + sectionScores[section].max, 0);
   const coreRate = coreMax ? coreScore / coreMax : 0;
   const strongCoreSkills = CORE_SECTIONS.filter(section => sectionRate(section) >= 0.6).length;
+  const grammarRate = sectionRate('grammar');
+  const difficultyWeight = item => rawMaximumForItem(item) * SECTION_POINT_WEIGHTS[item.section];
+  const difficultyTotal = items.reduce((sum, item) => sum + difficultyWeight(item), 0);
+  const averageDifficulty = difficultyTotal
+    ? items.reduce((sum, item) => sum + item.level * difficultyWeight(item), 0) / difficultyTotal
+    : 1;
+  // This is a transparent, child-friendly scale—not a College Board score.
+  // Core skills supply 90% of the answer evidence while grammar supplies 10%.
+  // Reaching harder questions raises the score, but never more than correct work.
+  const evidenceRate = (coreRate * 0.9) + (grammarRate * 0.1);
+  const difficultySignal = (averageDifficulty - 1) / 2;
+  const scaledScore = Math.round(Math.max(PLACEMENT_SCORE_MIN, Math.min(
+    PLACEMENT_SCORE_MAX,
+    PLACEMENT_SCORE_MIN + ((PLACEMENT_SCORE_MAX - PLACEMENT_SCORE_MIN) * ((evidenceRate * 0.85) + (difficultySignal * 0.15)))
+  )));
+  const routeSummary = [1, 2, 3].map(level => ({
+    level,
+    count: items.filter(item => item.level === level).length
+  })).filter(item => item.count > 0);
   const recommendedLevel = coreRate >= 0.72 && strongCoreSkills >= 2 && totalRate >= 0.66
     ? '3'
     : coreRate >= 0.38 && totalRate >= 0.34
       ? '2'
       : '1';
 
-  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate };
+  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate, scaledScore, averageDifficulty, routeSummary };
 };
 
 export const PlacementTest = ({ onExit }) => {
@@ -236,16 +257,21 @@ export const PlacementTest = ({ onExit }) => {
 
   const prepareEntry = (entry) => {
     if (entry.section !== 'reading') return [{ ...entry, bankId: entry.id, options: entry.options ? shuffle(entry.options) : undefined }];
-    return entry.questions.map((question, index) => ({
+    // Reading used to queue three questions from one passage at one level.
+    // Selecting one question from a fresh passage makes every reading response
+    // route the very next reading question up or down, like the other skills.
+    const questionIndex = Math.floor(Math.random() * entry.questions.length);
+    const question = entry.questions[questionIndex];
+    return [{
       ...question,
-      id: `${entry.id}-question-${index + 1}`,
+      id: `${entry.id}-question-${questionIndex + 1}`,
       bankId: entry.id,
       section: 'reading',
       level: entry.level,
       title: entry.title,
       passage: entry.text,
       options: shuffle(question.options)
-    }));
+    }];
   };
 
   const sectionRateSoFar = (sections) => {
@@ -405,13 +431,19 @@ export const PlacementTest = ({ onExit }) => {
         body: JSON.stringify({
           chineseName: chineseName.trim(),
           currentGrade: Number(currentGrade),
-          formId: 'adaptive-v2',
+          formId: 'adaptive-v3',
           recommendedLevel: completedResult.recommendedLevel,
           totalScore: completedResult.totalScore,
           totalMax: completedResult.totalMax,
+          scaledScore: completedResult.scaledScore,
           levelScores: completedResult.levelScores,
           sectionScores: completedResult.sectionScores,
-          adaptivePath: adaptivePathRef.current
+          adaptivePath: adaptivePathRef.current,
+          adaptiveResponses: items.map((item, index) => ({
+            section: item.section,
+            level: item.level,
+            score: Math.max(0, Math.min(rawMaximumForItem(item), Number(answers[index]?.score || 0)))
+          }))
         })
       });
       const data = await response.json();
@@ -509,6 +541,22 @@ export const PlacementTest = ({ onExit }) => {
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
         <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
+        <div className="mt-7 sm:mt-8 rounded-3xl bg-slate-800 px-5 py-5 sm:px-7 sm:py-6 text-white text-left shadow-lg shadow-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-widest text-indigo-200">Placement score</p>
+              <p className="mt-1 text-4xl sm:text-5xl font-black leading-none">{result.scaledScore}<span className="ml-1 text-lg sm:text-xl text-slate-300">/ {PLACEMENT_SCORE_MAX}</span></p>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed font-medium text-slate-200">Correct answers and the difficulty you reached both count. Vocabulary, reading, and speaking matter most.</p>
+          </div>
+        </div>
+        <div className="mt-6 text-left">
+          <p className="text-sm font-extrabold text-slate-700">Your adaptive route</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {result.routeSummary.map(route => <span key={route.level} className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm font-extrabold text-indigo-700">Level {route.level} questions: {route.count}</span>)}
+          </div>
+          <p className="mt-3 text-xs leading-relaxed font-medium text-slate-500">Each correct answer moved the next question up one level. A wrong answer moved the next question down one level.</p>
+        </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-10 text-left">
           {ADAPTIVE_SECTION_ORDER.map(section => {
             const score = result.sectionScores[section];
