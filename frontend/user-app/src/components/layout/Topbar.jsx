@@ -6,27 +6,34 @@ import { ProfileModal } from '../common/ProfileModal';
 export const Topbar = ({ onMenuClick }) => {
   const { t, grade, setGrade, user, setView } = useAppContext();
   const [showProfile, setShowProfile] = useState(false);
+  const [isGradeMenuOpen, setIsGradeMenuOpen] = useState(false);
 
   return (
     <>
-      <header className="h-20 md:h-24 bg-white/80 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between px-4 md:px-10 shrink-0 z-10 shadow-sm">
+      <header className="h-16 sm:h-20 md:h-24 bg-white/80 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between px-3 sm:px-4 md:px-10 shrink-0 z-10 shadow-sm">
         
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 min-w-0">
           <button 
             onClick={onMenuClick}
-            className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors"
+            className="md:hidden min-w-11 min-h-11 p-2.5 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors"
+            aria-label="Open menu"
           >
             <Menu size={24} />
           </button>
           <div className="relative group">
-            <button className="flex items-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 px-6 py-3 rounded-2xl font-extrabold transition-colors">
+            <button
+              onClick={() => setIsGradeMenuOpen(open => !open)}
+              aria-expanded={isGradeMenuOpen}
+              aria-haspopup="menu"
+              className="flex min-h-11 items-center bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-extrabold text-sm sm:text-base transition-colors whitespace-nowrap"
+            >
               {t(`grade_${grade.replace('-','_')}`)}
             </button>
-            <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col overflow-hidden">
+            <div className={`absolute top-full left-0 mt-2 w-52 sm:w-56 bg-white border border-slate-200 rounded-2xl shadow-xl transition-all flex flex-col overflow-hidden z-50 ${isGradeMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible group-hover:opacity-100 group-hover:visible'}`}>
               {['1-2', '3-4', '5-6'].map(g => (
                 <button 
                   key={g} 
-                  onClick={() => {setGrade(g); setView('dashboard');}} 
+                  onClick={() => { setGrade(g); setView('dashboard'); setIsGradeMenuOpen(false); }}
                   className={`px-5 py-4 text-left font-bold hover:bg-slate-50 transition-colors ${grade === g ? 'text-amber-500 bg-amber-50/50' : 'text-slate-600'}`}
                 >
                   {t(`grade_${g.replace('-','_')}`)}
@@ -36,9 +43,9 @@ export const Topbar = ({ onMenuClick }) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2 sm:gap-6 shrink-0">
           {user.role !== 'admin' && (
-            <div className="flex items-center gap-1.5 sm:gap-2 bg-amber-50 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl border border-amber-200 shadow-inner">
+            <div className="flex items-center gap-1 sm:gap-2 bg-amber-50 px-2.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl border border-amber-200 shadow-inner">
               <Star className="text-amber-500 fill-amber-500 w-4 h-4 sm:w-5 sm:h-5" />
               <span className="font-extrabold text-amber-700 text-sm sm:text-lg">{user.stars}</span>
             </div>
@@ -46,9 +53,9 @@ export const Topbar = ({ onMenuClick }) => {
           
           <button 
             onClick={() => setShowProfile(true)} 
-            className="flex items-center gap-4 hover:bg-slate-50 p-2 pr-5 rounded-full transition-colors border border-transparent hover:border-slate-200"
+            className="flex items-center gap-4 hover:bg-slate-50 p-1 sm:p-2 sm:pr-5 rounded-full transition-colors border border-transparent hover:border-slate-200"
           >
-            <div className={`w-12 h-12 text-white rounded-full flex items-center justify-center font-extrabold text-lg shadow-md ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-800'}`}>
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 text-white rounded-full flex items-center justify-center font-extrabold text-base sm:text-lg shadow-md ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-800'}`}>
               {user.name.charAt(0).toUpperCase()}
             </div>
             <div className="text-left hidden sm:block">

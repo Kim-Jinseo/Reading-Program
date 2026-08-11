@@ -169,12 +169,12 @@ export const CourtroomView = ({ onBack }) => {
   if (gameState === 'level_select') {
     return (
       <div className="max-w-5xl mx-auto pt-4 pb-12">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-8">
           <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-slate-800 font-bold transition-colors">
             <ChevronLeft size={20}/> Exit Grammar Court
           </button>
           
-          <div className="bg-white px-6 py-2.5 rounded-full border border-slate-200 shadow-sm font-black text-indigo-600">
+          <div className="bg-white px-4 sm:px-6 py-2.5 rounded-full border border-slate-200 shadow-sm font-black text-indigo-600 text-sm sm:text-base">
             {t('courtroom_select_level')}
           </div>
         </div>
@@ -538,18 +538,20 @@ export const CourtroomView = ({ onBack }) => {
               You made too many mistakes and failed Level {levelIndex + 1}.
             </p>
 
-            <button
-              onClick={() => startLevel(levelIndex)}
-              className="px-10 py-5 bg-slate-800 hover:bg-slate-900 text-white font-black text-xl rounded-2xl shadow-md active:translate-y-1 transition-all mr-4 inline-flex items-center gap-2"
-            >
-              <RotateCcw size={20} /> Retry Level
-            </button>
-            <button
-              onClick={returnToMenu}
-              className="px-10 py-5 bg-white text-slate-700 font-black text-xl rounded-2xl shadow-sm border border-slate-200 hover:bg-slate-50 active:translate-y-1 transition-all"
-            >
-              Back to Menu
-            </button>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <button
+                onClick={() => startLevel(levelIndex)}
+                className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-slate-800 hover:bg-slate-900 text-white font-black text-lg sm:text-xl rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center justify-center gap-2"
+              >
+                <RotateCcw size={20} /> Retry Level
+              </button>
+              <button
+                onClick={returnToMenu}
+                className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-white text-slate-700 font-black text-lg sm:text-xl rounded-2xl shadow-sm border border-slate-200 hover:bg-slate-50 active:translate-y-1 transition-all"
+              >
+                Back to Menu
+              </button>
+            </div>
           </div>
         )}
       </div>

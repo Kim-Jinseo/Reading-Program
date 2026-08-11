@@ -107,8 +107,8 @@ export const AuthModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center p-4">
-      <div className="bg-white rounded-[3rem] p-10 w-full max-w-md shadow-2xl animate-in zoom-in-95 relative border border-slate-100">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center overflow-y-auto p-4">
+      <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto shadow-2xl animate-in zoom-in-95 relative border border-slate-100">
         
         <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8">
           <button onClick={() => setAuthMode('login')} className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${authMode === 'login' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-800'}`}>{t('tab_login')}</button>

@@ -178,27 +178,25 @@ export const ReadingModule = () => {
   if (mode === 'menu') {
     return (
       <div className="max-w-5xl mx-auto pt-6">
-        <div className="flex justify-between items-center mb-10">
-          <div className="w-24"></div>
+        <div className="flex justify-center items-center mb-10">
           
           {menuView === 'list' && (
-            <div className="flex bg-slate-100 rounded-full p-1 shadow-inner">
+            <div className="flex max-w-full overflow-x-auto hide-scrollbar bg-slate-100 rounded-full p-1 shadow-inner">
               <button 
                 onClick={() => { setFilterResult('uncompleted'); setPage(1); }} 
-                className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'uncompleted' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`shrink-0 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'uncompleted' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 New Stories
               </button>
               <button 
                 onClick={() => { setFilterResult('completed'); setPage(1); }} 
-                className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'completed' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`shrink-0 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'completed' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 Completed
               </button>
             </div>
           )}
           
-          <div className="w-24"></div>
         </div>
 
         {menuView === 'boxes' ? (
@@ -523,12 +521,12 @@ export const ReadingModule = () => {
             onClick={() => setShowPeekModal(false)}
           >
             <div 
-              className="bg-[#fdfbf7] border-2 border-amber-200 p-8 rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto relative animate-in zoom-in-95 cursor-default"
+              className="bg-[#fdfbf7] border-2 border-amber-200 p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[calc(100dvh-2rem)] overflow-y-auto relative animate-in zoom-in-95 cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
                 onClick={() => setShowPeekModal(false)}
-                className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-800 bg-white rounded-full border border-slate-200 shadow-sm"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-slate-400 hover:text-slate-800 bg-white rounded-full border border-slate-200 shadow-sm"
               >
                 <X size={24} />
               </button>

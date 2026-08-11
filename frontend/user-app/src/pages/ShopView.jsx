@@ -150,8 +150,8 @@ export const ShopView = () => {
       </div>
 
       {/* Section Tabs */}
-      <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner max-w-md border border-slate-200">
-        <button 
+      <div className="flex flex-col sm:flex-row bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner max-w-md border border-slate-200 gap-1 sm:gap-0">
+        <button
           onClick={() => setActiveTab('voice_battle')}
           className={`flex-1 py-3 px-4 rounded-xl font-extrabold text-sm transition-all flex items-center justify-center gap-2 ${
             activeTab === 'voice_battle' 
@@ -173,7 +173,6 @@ export const ShopView = () => {
         </button>
       </div>
 
-      {/* Item Catalog Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentItems.map(item => {
           const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';

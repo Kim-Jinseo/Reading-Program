@@ -65,27 +65,25 @@ export const WritingModule = () => {
   if (mode === 'menu') {
     return (
       <div className="max-w-5xl mx-auto pt-6">
-        <div className="flex justify-between items-center mb-10">
-          <div className="w-24"></div>
+        <div className="flex justify-center items-center mb-10">
           
           {menuView === 'list' && (
-            <div className="flex bg-slate-100 rounded-full p-1 shadow-inner">
+            <div className="flex max-w-full overflow-x-auto hide-scrollbar bg-slate-100 rounded-full p-1 shadow-inner">
               <button 
                 onClick={() => { setFilterResult('uncompleted'); setPage(1); }} 
-                className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'uncompleted' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`shrink-0 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'uncompleted' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 New Prompts
               </button>
               <button 
                 onClick={() => { setFilterResult('completed'); setPage(1); }} 
-                className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'completed' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`shrink-0 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${filterResult === 'completed' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 Completed
               </button>
             </div>
           )}
           
-          <div className="w-24"></div>
         </div>
 
         {menuView === 'boxes' ? (
@@ -357,18 +355,18 @@ export const WritingModule = () => {
     };
 
     return (
-      <div className="max-w-md mx-auto pt-10">
-        <div className={`p-8 rounded-[2.5rem] shadow-xl border-2 text-center animate-in zoom-in-95 mt-6 transition-all duration-700 ${
+      <div className="max-w-md mx-auto pt-6 sm:pt-10">
+        <div className={`p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border-2 text-center animate-in zoom-in-95 mt-6 transition-all duration-700 ${
           writingPurplePhase 
             ? 'bg-gradient-to-br from-purple-50 via-white to-fuchsia-50 border-purple-300 shadow-purple-200/80 ring-4 ring-purple-200/50' 
             : 'bg-white border-slate-100'
         }`}>
-          <h2 className={`text-3xl font-black mb-4 ${writingPurplePhase ? 'text-purple-900 drop-shadow-sm' : 'text-slate-800'}`}>
+          <h2 className={`text-2xl sm:text-3xl font-black mb-4 ${writingPurplePhase ? 'text-purple-900 drop-shadow-sm' : 'text-slate-800'}`}>
             {writingPurplePhase ? '💜 EXCELLENT WRITING!' : 'Evaluation Complete'}
           </h2>
 
           {/* Animated Stars Row */}
-          <div className="flex justify-center gap-3 mb-6 items-center" style={{ minHeight: '80px' }}>
+          <div className="flex justify-center gap-1.5 sm:gap-3 mb-6 items-center" style={{ minHeight: '56px' }}>
             {Array.from({ length: starCount }).map((_, idx) => {
               const starNum = idx + 1;
               const { className, size, filter } = getStarStyle(starNum);
@@ -383,7 +381,7 @@ export const WritingModule = () => {
                     filter: isRevealed ? filter : 'none'
                   }}
                 >
-                  <Star size={size} className={className} />
+                  <Star size={size} className={`${className} w-9 h-9 sm:w-14 sm:h-14`} />
                 </div>
               );
             })}
@@ -391,7 +389,7 @@ export const WritingModule = () => {
 
           {/* Prominent Star Count Badge & Compliment */}
           <div className="flex flex-col items-center gap-2 mb-6">
-            <div className={`inline-flex items-center gap-2.5 border-2 px-6 py-3 rounded-full font-black text-2xl shadow-md transition-all duration-500 ${
+            <div className={`inline-flex max-w-full items-center justify-center gap-2 border-2 px-3 sm:px-6 py-2 sm:py-3 rounded-full font-black text-base sm:text-2xl leading-tight shadow-md transition-all duration-500 ${
               writingPurplePhase 
                 ? 'bg-purple-100 border-purple-300 text-purple-900 shadow-purple-200/50' 
                 : 'bg-amber-100 border-amber-300 text-amber-900 shadow-amber-200/50'
@@ -400,7 +398,7 @@ export const WritingModule = () => {
             </div>
 
             <p className={`font-black mt-2 transition-all duration-500 ${
-              writingPurplePhase ? 'text-purple-700 text-2xl animate-bounce' : 'text-slate-600 text-xl'
+              writingPurplePhase ? 'text-purple-700 text-lg sm:text-2xl animate-bounce' : 'text-slate-600 text-base sm:text-xl'
             }`}>
               {writingPurplePhase 
                 ? (starCount >= 5 ? "Fantastic job! Absolute Masterpiece! 🚀💜" : "Fantastic job! Outstanding writing! 🌟💜")
@@ -450,8 +448,8 @@ export const WritingModule = () => {
           <ChevronLeft size={20}/> Back
         </button>
         
-        <span className="px-4 py-1.5 rounded-full font-extrabold text-xs bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-sm flex items-center gap-1.5">
-          <PenTool size={14} className="text-indigo-600" /> Writing Practice • Level {grade === '1-2' ? '1' : grade === '3-4' ? '2' : '3'}
+        <span className="max-w-[58%] truncate px-3 sm:px-4 py-1.5 rounded-full font-extrabold text-xs bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-sm flex items-center gap-1.5">
+          <PenTool size={14} className="text-indigo-600 shrink-0" /> Writing Practice • Level {grade === '1-2' ? '1' : grade === '3-4' ? '2' : '3'}
         </span>
       </div>
       
@@ -485,7 +483,7 @@ export const WritingModule = () => {
               />
               
               {/* Matching Helper Bar */}
-              <div className="flex justify-between items-center pt-4 border-t border-indigo-100/80 mt-2 shrink-0">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-indigo-100/80 mt-2 shrink-0">
                 <div className="flex items-center gap-2 text-xs font-bold">
                   {text.trim().split(/\s+/).filter(Boolean).length === 0 ? (
                     <span className="text-slate-400">🌱 Ready to start writing</span>
@@ -496,7 +494,7 @@ export const WritingModule = () => {
                   )}
                 </div>
                 
-                <div className="text-xs font-bold text-slate-400">
+                <div className="self-end text-xs font-bold text-slate-400">
                   {text.length} / 1000 chars
                 </div>
               </div>

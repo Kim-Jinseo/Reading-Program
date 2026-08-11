@@ -54,14 +54,14 @@ export const ExtraPractice = () => {
         <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 shrink-0 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
           <Sparkles size={48} />
         </div>
-        <h2 className="text-4xl font-extrabold text-slate-800 mb-6 tracking-tight">Infinite Extra Practice</h2>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-6 tracking-tight">Infinite Extra Practice</h2>
         <p className="text-lg text-slate-500 font-medium mb-10 max-w-xl mx-auto">
           Our AI teacher will instantly generate brand new, never-before-seen vocabulary words matching your exact level! You can practice as much as you want.
         </p>
         <button 
           onClick={generatePractice} 
           disabled={loading}
-          className="bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white text-xl font-extrabold px-10 py-5 rounded-[2rem] shadow-[0_6px_0_rgb(234,88,12)] active:shadow-none active:translate-y-1 transition-all flex items-center justify-center gap-3 mx-auto"
+          className="w-full max-w-sm bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white text-base sm:text-xl font-extrabold px-4 sm:px-10 py-4 sm:py-5 rounded-[2rem] shadow-[0_6px_0_rgb(234,88,12)] active:shadow-none active:translate-y-1 transition-all flex items-center justify-center gap-2 sm:gap-3 mx-auto"
         >
           {loading ? <Loader2 size={28} className="animate-spin" /> : <Brain size={28} />}
           {loading ? "Generating..." : "Generate New Practice Quiz"}
@@ -87,9 +87,9 @@ export const ExtraPractice = () => {
     };
 
     return (
-      <div className="max-w-xl mx-auto pt-16">
+      <div className="max-w-xl mx-auto pt-10 sm:pt-16">
         <p className="text-center text-slate-400 font-bold mb-4 uppercase tracking-widest text-sm">New Word {idx + 1} of {quizData.length}</p>
-        <h2 className="text-center text-5xl font-extrabold text-slate-800 mb-10 tracking-tight leading-relaxed">{q.prompt}</h2>
+        <h2 className="text-center text-4xl sm:text-5xl font-extrabold text-slate-800 mb-8 sm:mb-10 tracking-tight leading-relaxed break-words">{q.prompt}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {q.options.map((opt, i) => (
             <button key={i} onClick={() => handleAnswer(opt)} className="w-full p-6 bg-white border-2 border-slate-100 rounded-2xl hover:border-orange-400 hover:bg-orange-50 text-lg font-bold text-slate-700 transition-all text-center shadow-sm active:scale-95 leading-relaxed min-h-[120px] flex items-center justify-center">

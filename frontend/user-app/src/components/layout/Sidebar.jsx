@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, Globe, ShieldCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, ClipboardCheck, Globe, ShieldCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
@@ -13,6 +13,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
     { id: 'reading', icon: <BookOpen size={20}/>, bg: 'bg-teal-100', color: 'text-teal-600' },
     { id: 'writing', icon: <PenTool size={20}/>, bg: 'bg-purple-100', color: 'text-purple-600' },
     { id: 'speaking', icon: <Mic size={20}/>, bg: 'bg-rose-100', color: 'text-rose-600' },
+    { id: 'test', icon: <ClipboardCheck size={20}/>, bg: 'bg-emerald-100', color: 'text-emerald-600' },
     { id: 'leaderboard', icon: <Trophy size={20}/>, bg: 'bg-amber-100', color: 'text-amber-600' },
     { id: 'shop', icon: <ShoppingBag size={20}/>, bg: 'bg-pink-100', color: 'text-pink-600' }
   ];
@@ -27,7 +28,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         />
       )}
       
-      <aside className={`fixed md:relative inset-y-0 left-0 bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'md:w-[88px] w-64' : 'w-64 lg:w-[300px]'}`}>
+      <aside className={`fixed md:relative inset-y-0 left-0 h-[100dvh] bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'md:w-[88px] w-64' : 'w-64 lg:w-[300px]'}`}>
         
         {/* Mobile Close Button */}
         <button 

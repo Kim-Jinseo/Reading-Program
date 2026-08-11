@@ -14,6 +14,7 @@ import { ReadingModule } from './components/modules/ReadingModule';
 import { ExtraPractice } from './components/modules/ExtraPractice';
 import { LeaderboardView } from './pages/LeaderboardView';
 import { ShopView } from './pages/ShopView';
+import { TestView } from './pages/TestView';
 
 const AppContent = () => {
   const { user, view, curriculumDb, isAuthLoading } = useAppContext();
@@ -58,7 +59,7 @@ const AppContent = () => {
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* WORKSPACE */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-10 bg-slate-50/50">
+        <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 md:p-10 bg-slate-50/50">
           {view === 'dashboard' && <MainDashboard />}
           {view === 'admin' && <AdminDashboardView />}
           {view === 'vocab' && <VocabModule />}
@@ -69,6 +70,7 @@ const AppContent = () => {
           {view === 'extra_practice' && <ExtraPractice />}
           {view === 'leaderboard' && <LeaderboardView />}
           {view === 'shop' && <ShopView />}
+          {view === 'test' && <TestView />}
         </div>
       </main>
     </div>

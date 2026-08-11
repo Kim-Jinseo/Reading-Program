@@ -36,7 +36,7 @@ export const ProfileModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center p-4">
-      <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-lg shadow-2xl animate-in zoom-in-95 relative border border-slate-100 max-h-[95vh] overflow-y-auto">
+      <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-lg shadow-2xl animate-in zoom-in-95 relative border border-slate-100 max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <button onClick={onClose} className="absolute top-4 sm:top-8 right-4 sm:right-8 text-slate-400 hover:text-slate-700 bg-slate-50 p-2 rounded-full"><X size={24}/></button>
 
         <div className="flex flex-col items-center mb-8 sm:mb-10 mt-2 sm:mt-4">

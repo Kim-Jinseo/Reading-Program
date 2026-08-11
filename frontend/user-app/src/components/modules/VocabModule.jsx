@@ -411,15 +411,15 @@ export const VocabModule = () => {
         <h2 className="text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">Match the Words!</h2>
         <p className="text-slate-500 font-bold mb-10 uppercase tracking-widest text-sm">Select the English word and its matching definition</p>
         
-        <div className="flex gap-8 justify-center">
+        <div className="grid grid-cols-2 gap-3 sm:gap-8 justify-center">
           {/* Left Column (English) */}
-          <div className="flex flex-col gap-4 flex-1">
+          <div className="flex min-w-0 flex-col gap-3 sm:gap-4">
             {matchingData.left.map(w => {
               const isMatched = matchedIds.includes(w.id);
               const isSelected = selectedLeft === w.id;
               const isError = errorIds.includes(w.id) && selectedLeft === w.id;
               
-              let btnClass = "p-6 rounded-2xl border-2 text-xl font-extrabold transition-all duration-300 shadow-sm ";
+              let btnClass = "min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-extrabold transition-all duration-300 shadow-sm ";
               if (isMatched) {
                 if (mistakeIds.includes(w.id)) {
                   btnClass += "bg-amber-100 border-amber-400 text-amber-600 opacity-70 pointer-events-none scale-95";
@@ -440,13 +440,13 @@ export const VocabModule = () => {
           </div>
 
           {/* Right Column (Chinese) */}
-          <div className="flex flex-col gap-4 flex-1">
+          <div className="flex min-w-0 flex-col gap-3 sm:gap-4">
             {matchingData.right.map(w => {
               const isMatched = matchedIds.includes(w.id);
               const isSelected = selectedRight === w.id;
               const isError = errorIds.includes(w.id) && selectedRight === w.id;
               
-              let btnClass = "p-6 rounded-2xl border-2 text-xl font-bold transition-all duration-300 shadow-sm ";
+              let btnClass = "min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-bold transition-all duration-300 shadow-sm ";
               if (isMatched) {
                 if (mistakeIds.includes(w.id)) {
                   btnClass += "bg-amber-100 border-amber-400 text-amber-600 opacity-70 pointer-events-none scale-95";
@@ -473,23 +473,21 @@ export const VocabModule = () => {
 
   return (
     <div className="max-w-6xl mx-auto pt-6">
-      <div className="flex justify-between items-center mb-8">
-        <div className="w-24"></div>
-        <div className="flex bg-slate-100 rounded-full p-1 shadow-inner">
+      <div className="flex justify-center items-center mb-8">
+        <div className="flex max-w-full overflow-x-auto hide-scrollbar bg-slate-100 rounded-full p-1 shadow-inner">
           <button 
             onClick={() => setActiveTab('learn')} 
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'learn' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`flex shrink-0 items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'learn' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
             <Layers size={18}/> {t('tab_learn_mode')}
           </button>
           <button 
             onClick={() => { setActiveTab('list'); setPage(1); }} 
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'list' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`flex shrink-0 items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full font-bold text-sm transition-all ${activeTab === 'list' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
             <List size={18}/> {t('tab_vocab_list')}
           </button>
         </div>
-        <div className="w-24"></div>
       </div>
 
       {activeTab === 'learn' && (

@@ -34,7 +34,8 @@ async function getDb() {
     cachedCols = {
       users: db.collection("users"),
       curriculum: db.collection("curriculum"),
-      progress: db.collection("progress")
+      progress: db.collection("progress"),
+      placementTests: db.collection("placement_tests")
     };
     console.log("✅ Successfully connected to MongoDB Atlas on Vercel!");
   }
@@ -257,6 +258,93 @@ app.post('/auth/sync', requireAuth, async (c) => {
   } catch (error) {
     console.error(error);
     return c.json({ success: false, error: "Failed to sync user data: " + (error.message || "Unknown error") }, 500);
+  }
+});
+
+// Placement tests are intentionally stored in their own MongoDB collection.
+// We store scores and recommendations, never microphone recordings.
+app.post('/placement-tests', optionalAuth, async (c) => {
+  try {
+    const body = await c.req.json();
+    const chineseName = typeof body.chineseName === 'string' ? body.chineseName.trim() : '';
+    const currentGrade = Number(body.currentGrade);
+    const formId = typeof body.formId === 'string' ? body.formId : '';
+    const requestedLevel = body.recommendedLevel;
+    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky']);
+
+    if (!/^[\u3400-\u9fff]{2,10}$/u.test(chineseName)) {
+      return c.json({ success: false, error: 'Please provide a Chinese name with 2 to 10 characters.' }, 400);
+    }
+    if (!Number.isInteger(currentGrade) || currentGrade < 1 || currentGrade > 6) {
+      return c.json({ success: false, error: 'Current grade must be between 1 and 6.' }, 400);
+    }
+    if (!validFormIds.has(formId)) {
+      return c.json({ success: false, error: 'Unknown placement test form.' }, 400);
+    }
+
+    const levelMaximums = { 1: 7, 2: 7, 3: 6 };
+    const levelScores = {};
+    for (const [level, max] of Object.entries(levelMaximums)) {
+      const raw = body.levelScores?.[level];
+      const score = Number(raw?.score);
+      const reportedMax = Number(raw?.max);
+      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || reportedMax !== max || score < 0 || score > max) {
+        return c.json({ success: false, error: 'Invalid placement level scores.' }, 400);
+      }
+      levelScores[level] = { score, max };
+    }
+
+    const sectionMaximums = { reading: 3, vocab: 5, grammar: 3, speaking: 9 };
+    const sectionScores = {};
+    for (const [section, max] of Object.entries(sectionMaximums)) {
+      const raw = body.sectionScores?.[section];
+      const score = Number(raw?.score);
+      const reportedMax = Number(raw?.max);
+      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || reportedMax !== max || score < 0 || score > max) {
+        return c.json({ success: false, error: 'Invalid placement section scores.' }, 400);
+      }
+      sectionScores[section] = { score, max };
+    }
+
+    const totalScore = Number(body.totalScore);
+    const totalMax = Number(body.totalMax);
+    const levelTotal = Object.values(levelScores).reduce((sum, item) => sum + item.score, 0);
+    const sectionTotal = Object.values(sectionScores).reduce((sum, item) => sum + item.score, 0);
+    if (!Number.isFinite(totalScore) || totalMax !== 20 || totalScore < 0 || totalScore > totalMax || totalScore !== levelTotal || totalScore !== sectionTotal) {
+      return c.json({ success: false, error: 'Placement total does not match the section scores.' }, 400);
+    }
+
+    const rate = level => levelScores[level].score / levelScores[level].max;
+    const totalRate = totalScore / totalMax;
+    const recommendedLevel = rate(1) >= 0.8 && rate(2) >= 0.7 && rate(3) >= 0.6 && totalRate >= 0.72
+      ? '5-6'
+      : rate(1) >= 0.6 && rate(2) >= 0.45 && totalRate >= 0.5
+        ? '3-4'
+        : '1-2';
+
+    if (requestedLevel !== recommendedLevel) {
+      return c.json({ success: false, error: 'Placement recommendation did not match the score.' }, 400);
+    }
+
+    const { placementTests } = await getDb();
+    const accountUser = c.get('user');
+    const record = {
+      chineseName,
+      currentGrade,
+      recommendedLevel,
+      formId,
+      totalScore,
+      totalMax,
+      levelScores,
+      sectionScores,
+      accountUserId: accountUser?.userId || null,
+      createdAt: new Date()
+    };
+    const result = await placementTests.insertOne(record);
+    return c.json({ success: true, id: result.insertedId.toString(), recommendedLevel });
+  } catch (error) {
+    console.error('[Placement Test Save]', error);
+    return c.json({ success: false, error: 'Failed to save placement test.' }, 500);
   }
 });
 

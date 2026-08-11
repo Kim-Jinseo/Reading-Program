@@ -24,8 +24,13 @@ export const GrammarModule = () => {
       let descZh = lesson.desc?.zh || '';
       
       const conceptQuestions = [];
+      const lessonQuestions = [];
+      // Older lessons use their existing 30 questions for both views. Newer
+      // lessons provide a three-question Learn check plus a full practice bank.
+      const practiceSource = lesson.bankQuestions || lesson.questions || [];
+      const lessonSource = lesson.bankQuestions ? lesson.questions : practiceSource;
 
-      lesson.questions.forEach((q, qIdx) => {
+      practiceSource.forEach((q, qIdx) => {
         const id = `${lesson.id}-${qIdx}`;
         const diff = q.difficulty || 1; // 1, 2, or 3 stars based on curriculum
         const qObj = {
@@ -44,6 +49,20 @@ export const GrammarModule = () => {
         conceptQuestions.push(qObj);
       });
 
+      lessonSource.forEach((q, qIdx) => {
+        lessonQuestions.push({
+          id: `${lesson.id}-learn-${qIdx}`,
+          lessonId: lesson.id,
+          concept: conceptName,
+          conceptZh: conceptNameZh,
+          rule: lesson.rule,
+          q: q.q,
+          options: q.options,
+          answer: q.a,
+          difficulty: q.difficulty || 1
+        });
+      });
+
       concepts.push({
         id: lesson.id,
         name: conceptName,
@@ -52,6 +71,7 @@ export const GrammarModule = () => {
         descZh: descZh,
         rule: lesson.rule,
         questions: conceptQuestions,
+        lessonQuestions,
         total: conceptQuestions.length
       });
     });
@@ -208,7 +228,8 @@ export const GrammarModule = () => {
   };
 
   const startLearnQuiz = () => {
-    const pool = [...activeConcept.questions].sort(() => Math.random() - 0.5).slice(0, 3);
+    const source = activeConcept.lessonQuestions?.length ? activeConcept.lessonQuestions : activeConcept.questions;
+    const pool = [...source].sort(() => Math.random() - 0.5).slice(0, 3);
     const shuffledPool = pool.map(q => ({ ...q, options: [...q.options].sort(() => Math.random() - 0.5) }));
     setActiveQueue(shuffledPool);
     setActiveQIndex(0);
@@ -590,7 +611,7 @@ export const GrammarModule = () => {
     const stat = getQStat(activeQ.id, activeQ.difficulty);
 
     return (
-      <div className="max-w-3xl mx-auto pt-6 flex flex-col h-[90vh] animate-in fade-in">
+      <div className="max-w-3xl mx-auto pt-6 flex flex-col min-h-[calc(100dvh-8rem)] animate-in fade-in">
         <div className="flex justify-between items-center gap-2 mb-4 sm:mb-6 bg-white p-3 sm:p-4 rounded-2xl shadow-sm border border-slate-200">
           <button onClick={leaveEarly} className="flex flex-1 items-center gap-1 text-slate-500 hover:text-slate-800 font-bold transition-colors text-xs sm:text-base">
             <ChevronLeft size={20}/><span className="hidden sm:inline">Exit Practice</span><span className="sm:hidden">Exit</span>
@@ -606,7 +627,7 @@ export const GrammarModule = () => {
           </div>
         </div>
 
-        <div className="flex-1 bg-white border-2 border-slate-100 rounded-3xl p-4 sm:p-8 md:p-12 flex flex-col shadow-lg overflow-y-auto relative">
+        <div className="flex-1 bg-white border-2 border-slate-100 rounded-3xl p-4 sm:p-8 md:p-12 flex flex-col shadow-lg relative">
           <div className="flex justify-between items-start mb-6 sm:mb-12 gap-2">
             <div className="flex items-center gap-3 sm:gap-4">
               <span className="w-10 h-10 sm:w-14 sm:h-14 bg-indigo-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg sm:text-2xl shadow-md shrink-0">
@@ -716,16 +737,16 @@ export const GrammarModule = () => {
             onClick={() => setShowConceptModal(false)}
           >
             <div 
-              className="bg-white max-w-xl w-full rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 cursor-default"
+              className="bg-white max-w-xl w-full max-h-[calc(100dvh-2rem)] rounded-3xl shadow-2xl overflow-y-auto animate-in zoom-in-95 cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-8 border-b border-slate-100 bg-indigo-50/50">
+              <div className="p-5 sm:p-8 border-b border-slate-100 bg-indigo-50/50">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full font-extrabold text-xs mb-3 uppercase tracking-wider">
                   <BookOpen size={14} /> Concept Explanation
                 </div>
                 <h3 className="text-2xl font-extrabold text-slate-800">{activeQ.concept}</h3>
               </div>
-              <div className="p-8">
+              <div className="p-5 sm:p-8">
                 <p className="text-xl text-slate-700 font-medium leading-relaxed mb-6">
                   {activeQ.rule.en}
                 </p>
@@ -735,7 +756,7 @@ export const GrammarModule = () => {
                   </p>
                 </div>
               </div>
-              <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
+              <div className="p-5 sm:p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
                 <button onClick={() => setShowConceptModal(false)} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-[0_4px_0_rgb(67,56,202)] active:shadow-none active:translate-y-1 transition-all">Got it</button>
               </div>
             </div>

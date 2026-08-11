@@ -63,12 +63,12 @@ export const LeaderboardView = () => {
   return (
     <div className="max-w-4xl mx-auto pt-6 pb-12">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-4">
           <button onClick={() => setView('dashboard')} className="p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm">
             <ChevronLeft size={24}/>
           </button>
-          <h2 className="text-3xl font-extrabold text-slate-800">{t('nav_leaderboard')}</h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-800">{t('nav_leaderboard')}</h2>
         </div>
         <div className="bg-amber-50 text-amber-600 px-4 py-2 rounded-full border border-amber-200 font-bold text-sm flex items-center gap-2 shadow-sm">
           <Sparkles size={16} /> Global Top 20
@@ -128,13 +128,13 @@ export const LeaderboardView = () => {
           {/* Top 20 Ranks */}
           {top20Board.map((student, index) => (
             <div key={student.id || index} className={`flex items-center justify-between p-6 border-b border-slate-50 last:border-0 transition-colors ${student.isCurrentUser ? 'bg-indigo-50/70 border-l-4 border-l-indigo-600' : 'hover:bg-slate-50'}`}>
-              <div className="flex items-center gap-4">
+              <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-white shadow-sm ${index === 0 ? 'bg-amber-400' : index === 1 ? 'bg-slate-400' : index === 2 ? 'bg-amber-600' : 'bg-slate-200 text-slate-600'}`}>
                   {index + 1}
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className={`font-bold text-lg flex items-center gap-2 ${student.isCurrentUser ? 'text-indigo-900 font-extrabold' : 'text-slate-800'}`}>
-                    {student.name} 
+                    <span className="truncate">{student.name}</span>
                     {student.isCurrentUser && (
                       <span className="text-xs bg-indigo-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider flex items-center gap-1 shadow-xs">
                         <UserCheck size={12} /> You
@@ -153,13 +153,13 @@ export const LeaderboardView = () => {
           {/* Sticky Rank Row if User is Outside Top 20 */}
           {isUserOutsideTop20 && currentUserObj && (
             <div className="bg-indigo-600 text-white p-6 flex items-center justify-between shadow-lg border-t-2 border-indigo-400 animate-in fade-in">
-              <div className="flex items-center gap-4">
+              <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center font-black text-white shadow-sm">
                   #{userRankNumber}
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="font-extrabold text-lg flex items-center gap-2 text-white">
-                    {currentUserObj.name}
+                    <span className="truncate">{currentUserObj.name}</span>
                     <span className="text-xs bg-white text-indigo-700 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shadow-xs">
                       You
                     </span>
@@ -177,4 +177,3 @@ export const LeaderboardView = () => {
     </div>
   );
 };
-
