@@ -560,7 +560,6 @@ export const PlacementTest = ({ onExit }) => {
                 <span className="text-xs mt-2">{isPreparingMic ? 'Preparing…' : isEvaluating ? 'Checking…' : isRecording ? 'Stop' : answer ? 'Saved' : 'Record'}</span>
               </button>
               {answer && <p className={`mt-4 font-extrabold ${answer.score >= 2 ? 'text-emerald-600' : 'text-amber-700'}`}>{answer.score >= 2 ? text('Good clear speech. Your recording is saved.', '朗读很清楚，录音已保存。') : text('Your recording is saved.', '录音已保存。')}</p>}
-              <button disabled={isRecording || isPreparingMic || isEvaluating || Boolean(answer)} onClick={() => recordAnswer(0, { skipped: true })} className="block mx-auto mt-4 text-sm font-bold text-slate-500 hover:text-slate-800 underline disabled:opacity-50">No microphone? Skip this speaking item</button>
             </div>
           </div>
         ) : (
