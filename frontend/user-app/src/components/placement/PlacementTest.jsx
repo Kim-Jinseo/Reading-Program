@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BookOpen, CheckCircle2, ChevronRight, Languages, Loader2, LogOut, Mic, RotateCcw, Square, Volume2 } from 'lucide-react';
 import { ADAPTIVE_PLACEMENT_BANK, ADAPTIVE_SECTION_ORDER } from '../../data/adaptivePlacementBank';
-import { useAppContext } from '../../context/AppContext';
 
 const ADAPTIVE_HISTORY_KEY = 'adaptive_placement_completed_items_v1';
 const CHINESE_NAME = /^[\u3400-\u9fff]{2,10}$/u;
@@ -76,10 +75,10 @@ const calculatePlacement = (items, answers) => {
 };
 
 export const PlacementTest = () => {
-  const { lang } = useAppContext();
-  const isChinese = lang === 'zh';
-  const text = (en, zh) => (isChinese ? zh : en);
-  const sectionName = section => text(SECTION_DETAILS[section].label, SECTION_DETAILS[section].zh);
+  // Placement is an English assessment, so its instructions and questions
+  // always stay in English even when the rest of the app is set to Chinese.
+  const text = en => en;
+  const sectionName = section => SECTION_DETAILS[section].label;
   const [stage, setStage] = useState('intro');
   const [chineseName, setChineseName] = useState('');
   const [currentGrade, setCurrentGrade] = useState('');
@@ -361,7 +360,7 @@ export const PlacementTest = () => {
         <div className="grid sm:grid-cols-2 gap-4 mt-7">
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Chinese name', '中文姓名')}</span>
-            <input value={chineseName} onChange={event => setChineseName(event.target.value.replace(/\s/g, ''))} placeholder={text('For example: 王小明', '例如：王小明')} maxLength={10} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3.5 font-bold shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-indigo-500" />
+            <input value={chineseName} onChange={event => setChineseName(event.target.value.replace(/\s/g, ''))} placeholder="For example: a Chinese name" maxLength={10} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3.5 font-bold shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-indigo-500" />
           </label>
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Current grade', '当前年级')}</span>
@@ -389,7 +388,7 @@ export const PlacementTest = () => {
         <div className="w-16 h-16 mx-auto bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center"><CheckCircle2 size={36} /></div>
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
-        <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel][isChinese ? 'zh' : 'en']}</p>
+        <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
         <div className="grid sm:grid-cols-4 gap-3 mt-8 text-left">
           {ADAPTIVE_SECTION_ORDER.map(section => {
             const score = result.sectionScores[section];
@@ -425,7 +424,7 @@ export const PlacementTest = () => {
       <p className="mb-6 text-xs font-semibold text-slate-500">{text('Leaving before the final result means this test will not be saved.', '在看到最终结果前退出，这次测试不会被保存。')}</p>
       <div className="bg-white rounded-3xl border-2 border-slate-100 shadow-sm p-5 sm:p-8">
         <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-extrabold ${section.bg} ${section.color}`}><Icon size={16} /> {sectionName(activeItem.section)}</div>
-        {activeItem.section === 'reading' && <div className="mt-5 p-4 sm:p-5 bg-amber-50 border border-amber-100 rounded-2xl text-slate-700 font-medium leading-relaxed"><p className="font-black text-slate-800 mb-2">{text(activeItem.title.en, activeItem.title.zh)}</p>{text(activeItem.passage.en, activeItem.passage.zh)}</div>}
+        {activeItem.section === 'reading' && <div className="mt-5 p-4 sm:p-5 bg-amber-50 border border-amber-100 rounded-2xl text-slate-700 font-medium leading-relaxed"><p className="font-black text-slate-800 mb-2">{activeItem.title.en}</p>{activeItem.passage.en}</div>}
         {isSpeaking ? (
           <div className="mt-7 text-center">
             <p className="text-slate-500 font-bold">{text('Read this sentence aloud:', '请大声朗读这句话：')}</p>

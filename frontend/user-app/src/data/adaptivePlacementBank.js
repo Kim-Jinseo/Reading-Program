@@ -168,7 +168,14 @@ const READING_STUDENTS = [['Ming', '明明'], ['Lan', '兰兰'], ['Bo', '波波'
 const READING_TIMES = [['Monday', '星期一'], ['Tuesday', '星期二'], ['Saturday', '星期六']];
 
 const parseReadingThemes = rows => rows.map(row => {
-  const [title, titleZh, past, verb, pastZh, item, itemZh, place, placeZh, helper, helperZh] = row.split('|');
+  const parts = row.split('|');
+  // Level 1 themes include a Chinese title, while the later banks omit it.
+  // Parse both shapes explicitly so Chinese support fields can never shift
+  // into the English passage or question text.
+  const hasChineseTitle = parts.length === 11;
+  const [title, titleZh, past, verb, pastZh, item, itemZh, place, placeZh, helper, helperZh] = hasChineseTitle
+    ? parts
+    : [parts[0], parts[0], ...parts.slice(1)];
   return { title, titleZh, past, verb, pastZh, item, itemZh, place, placeZh, helper, helperZh };
 });
 
