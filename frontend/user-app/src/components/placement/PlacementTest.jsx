@@ -40,6 +40,34 @@ const shuffle = (values) => {
 const clampLevel = level => Math.max(1, Math.min(3, level));
 const nextLevel = (level, wasCorrect) => clampLevel(level + (wasCorrect ? 1 : -1));
 const levelForRate = (rate) => (rate >= 0.8 ? 3 : rate >= 0.45 ? 2 : 1);
+const hasChineseCharacters = value => /[\u4e00-\u9fff]/.test(value || '');
+
+const repairLegacyReadingItem = (item) => {
+  if (item?.section !== 'reading') return item;
+  const visibleValues = [item.q, item.answer, ...(item.options || []), item.title?.en, item.passage?.en];
+  if (!visibleValues.some(hasChineseCharacters)) return item;
+
+  const sourcePassage = ADAPTIVE_PLACEMENT_BANK.reading.find(entry => entry.id === item.bankId);
+  const questionNumber = Number(item.id.match(/-question-(\d+)$/)?.[1]);
+  const sourceQuestion = sourcePassage?.questions[questionNumber - 1];
+  if (!sourceQuestion) return item;
+
+  // Keep a student's choice in the same A/B/C/D position if a test was
+  // already in progress when the old mixed-language bank was replaced.
+  const previousAnswerIndex = item.options?.indexOf(item.answer);
+  const answerIndex = previousAnswerIndex >= 0 ? previousAnswerIndex : sourceQuestion.correct;
+  const options = sourceQuestion.options.filter(option => option !== sourceQuestion.answer);
+  options.splice(answerIndex, 0, sourceQuestion.answer);
+
+  return {
+    ...item,
+    q: sourceQuestion.q,
+    answer: sourceQuestion.answer,
+    options,
+    title: sourcePassage.title,
+    passage: sourcePassage.text
+  };
+};
 
 const toBase64 = (blob) => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -103,6 +131,27 @@ export const PlacementTest = () => {
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  useEffect(() => {
+    const migrations = [];
+    const repairedItems = items.map((item, index) => {
+      const repaired = repairLegacyReadingItem(item);
+      if (repaired !== item) migrations.push({ index, oldOptions: item.options || [], newOptions: repaired.options || [] });
+      return repaired;
+    });
+    if (!migrations.length) return;
+
+    setItems(repairedItems);
+    setAnswers(previous => {
+      const updated = { ...previous };
+      migrations.forEach(({ index, oldOptions, newOptions }) => {
+        const selected = previous[index]?.selected;
+        const selectedIndex = oldOptions.indexOf(selected);
+        if (selectedIndex >= 0 && newOptions[selectedIndex]) updated[index] = { ...previous[index], selected: newOptions[selectedIndex] };
+      });
+      return updated;
+    });
+  }, [items]);
 
   useEffect(() => () => {
     if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
