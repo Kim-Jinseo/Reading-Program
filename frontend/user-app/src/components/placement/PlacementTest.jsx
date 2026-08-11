@@ -131,18 +131,25 @@ const calculatePlacement = (items, answers) => {
     PLACEMENT_SCORE_MAX,
     PLACEMENT_SCORE_MIN + ((PLACEMENT_SCORE_MAX - PLACEMENT_SCORE_MIN) * ((evidenceRate * 0.85) + (difficultySignal * 0.15)))
   )));
-  const correctQuestions = items.reduce((count, item, index) => {
-    const score = Number(answers[index]?.score || 0);
-    const isCorrect = item.section === 'speaking' ? score >= 2 : score === 1;
-    return count + Number(isCorrect);
-  }, 0);
+  const sectionResults = Object.fromEntries(ADAPTIVE_SECTION_ORDER.map(section => {
+    let correct = 0;
+    let total = 0;
+    items.forEach((item, index) => {
+      if (item.section !== section) return;
+      total += 1;
+      const score = Number(answers[index]?.score || 0);
+      const isCorrect = item.section === 'speaking' ? score >= 2 : score === 1;
+      correct += Number(isCorrect);
+    });
+    return [section, { correct, total }];
+  }));
   const recommendedLevel = coreRate >= 0.72 && strongCoreSkills >= 2 && totalRate >= 0.66
     ? '3'
     : coreRate >= 0.38 && totalRate >= 0.34
       ? '2'
       : '1';
 
-  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate, scaledScore, averageDifficulty, correctQuestions, questionCount: items.length };
+  return { recommendedLevel, levelScores, sectionScores, sectionResults, totalScore, totalMax, coreRate, totalRate, scaledScore, averageDifficulty };
 };
 
 export const PlacementTest = ({ onExit }) => {
@@ -156,6 +163,7 @@ export const PlacementTest = ({ onExit }) => {
   const [items, setItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [answers, setAnswers] = useState({});
+  const [pendingAnswer, setPendingAnswer] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isPreparingMic, setIsPreparingMic] = useState(false);
   const [isMicReady, setIsMicReady] = useState(false);
@@ -167,16 +175,11 @@ export const PlacementTest = ({ onExit }) => {
   const streamRef = useRef(null);
   const chunksRef = useRef([]);
   const targetAudioRef = useRef(new Map());
-  const activeIndexRef = useRef(0);
   const completedHistoryRef = useRef(makeEmptyHistory());
   const usedThisAttemptRef = useRef(new Set());
   const adaptivePathRef = useRef([]);
 
   const activeItem = items[activeIndex];
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
 
   useEffect(() => {
     const migrations = [];
@@ -274,13 +277,13 @@ export const PlacementTest = ({ onExit }) => {
     }];
   };
 
-  const sectionRateSoFar = (sections) => {
+  const sectionRateSoFar = (sections, answerSet = answers) => {
     let score = 0;
     let max = 0;
     items.forEach((item, index) => {
       if (!sections.includes(item.section)) return;
       const rawMax = rawMaximumForItem(item);
-      const rawScore = Math.max(0, Math.min(rawMax, Number(answers[index]?.score || 0)));
+      const rawScore = Math.max(0, Math.min(rawMax, Number(answerSet[index]?.score || 0)));
       const multiplier = pointMultiplierForItem(item);
       score += rawScore * multiplier;
       max += rawMax * multiplier;
@@ -314,6 +317,7 @@ export const PlacementTest = ({ onExit }) => {
     const firstItem = prepareEntry(selectEntry('vocab', 1));
     setItems(firstItem);
     setAnswers({});
+    setPendingAnswer(null);
     setActiveIndex(0);
     setResult(null);
     setSaveState('idle');
@@ -326,6 +330,7 @@ export const PlacementTest = ({ onExit }) => {
     stopRecording();
     setItems([]);
     setAnswers({});
+    setPendingAnswer(null);
     setActiveIndex(0);
     setResult(null);
     setRecordingError('');
@@ -339,12 +344,7 @@ export const PlacementTest = ({ onExit }) => {
   };
 
   const recordAnswer = (score, details = {}) => {
-    setAnswers(previous => {
-      const index = activeIndexRef.current;
-      // The student's first response is the only response that counts.
-      if (previous[index]) return previous;
-      return { ...previous, [index]: { score, ...details } };
-    });
+    setPendingAnswer({ score, ...details });
   };
 
   const evaluateAudio = async (blob, target) => {
@@ -415,11 +415,11 @@ export const PlacementTest = ({ onExit }) => {
     localStorage.setItem(ADAPTIVE_HISTORY_KEY, JSON.stringify(updated));
   };
 
-  const finishTest = async () => {
+  const finishTest = async (completedAnswers = answers) => {
     // A completed speaking answer has already been assessed, so it is safe to
     // release the microphone before showing the placement result.
     stopRecording();
-    const completedResult = calculatePlacement(items, answers);
+    const completedResult = calculatePlacement(items, completedAnswers);
     saveCompletedHistory();
     setResult(completedResult);
     setStage('result');
@@ -442,7 +442,7 @@ export const PlacementTest = ({ onExit }) => {
           adaptiveResponses: items.map((item, index) => ({
             section: item.section,
             level: item.level,
-            score: Math.max(0, Math.min(rawMaximumForItem(item), Number(answers[index]?.score || 0)))
+            score: Math.max(0, Math.min(rawMaximumForItem(item), Number(completedAnswers[index]?.score || 0)))
           }))
         })
       });
@@ -457,17 +457,25 @@ export const PlacementTest = ({ onExit }) => {
 
   const nextItem = () => {
     setRecordingError('');
+    if (!pendingAnswer) return;
+
+    // A selection or recording remains a draft until the student deliberately
+    // chooses Next question. Only then can it affect adaptive routing.
+    const completedAnswers = { ...answers, [activeIndex]: pendingAnswer };
+    setAnswers(completedAnswers);
+    setPendingAnswer(null);
+
     const nextQueued = items[activeIndex + 1];
     if (nextQueued?.section === activeItem.section) {
       setActiveIndex(index => index + 1);
       return;
     }
 
-    const answeredInCurrentSection = items.filter((item, index) => item.section === activeItem.section && answers[index]).length;
+    const answeredInCurrentSection = items.filter((item, index) => item.section === activeItem.section && completedAnswers[index]).length;
     if (answeredInCurrentSection < SECTION_COUNTS[activeItem.section]) {
       const wasCorrect = activeItem.section === 'speaking'
-        ? Number(answers[activeIndex]?.score || 0) >= 2
-        : Number(answers[activeIndex]?.score || 0) === 1;
+        ? Number(pendingAnswer.score || 0) >= 2
+        : Number(pendingAnswer.score || 0) === 1;
       appendSection(activeItem.section, nextLevel(activeItem.level, wasCorrect));
       return;
     }
@@ -475,19 +483,19 @@ export const PlacementTest = ({ onExit }) => {
     if (activeItem.section === 'vocab') {
       // Grammar is deliberately capped at Level 2 on entry. It remains
       // adaptive within its own questions, but has less pressure overall.
-      appendSection('grammar', Math.min(2, levelForRate(sectionRateSoFar(['vocab']))));
+      appendSection('grammar', Math.min(2, levelForRate(sectionRateSoFar(['vocab'], completedAnswers))));
       return;
     }
     if (activeItem.section === 'grammar') {
-      appendSection('reading', levelForRate(sectionRateSoFar(['vocab', 'grammar'])));
+      appendSection('reading', levelForRate(sectionRateSoFar(['vocab', 'grammar'], completedAnswers)));
       return;
     }
     if (activeItem.section === 'reading') {
-      appendSection('speaking', levelForRate(sectionRateSoFar(['vocab', 'grammar', 'reading'])));
+      appendSection('speaking', levelForRate(sectionRateSoFar(['vocab', 'grammar', 'reading'], completedAnswers)));
       return;
     }
     if (activeItem.section === 'speaking' && activeIndex === TOTAL_QUESTIONS - 1) {
-      finishTest();
+      finishTest(completedAnswers);
       return;
     }
   };
@@ -541,10 +549,17 @@ export const PlacementTest = ({ onExit }) => {
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
         <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
-        <div className="mt-7 sm:mt-8 rounded-3xl border border-indigo-100 bg-indigo-50 px-5 py-5 sm:px-7 sm:py-6 text-left">
-          <p className="text-xs font-extrabold uppercase tracking-widest text-indigo-600">Questions correct</p>
-          <p className="mt-1 text-4xl sm:text-5xl font-black leading-none text-slate-800">{result.correctQuestions}<span className="ml-1 text-lg sm:text-xl text-slate-500">/ {result.questionCount}</span></p>
-          <p className="mt-3 text-sm leading-relaxed font-medium text-slate-600">Your suggested level uses your answers across vocabulary, grammar, reading, and speaking.</p>
+        <div className="mt-7 sm:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-left">
+          {ADAPTIVE_SECTION_ORDER.map(section => {
+            const detail = SECTION_DETAILS[section];
+            const Icon = detail.icon;
+            const score = result.sectionResults[section];
+            return <div key={section} className={`rounded-2xl border p-4 sm:p-5 ${detail.bg}`}>
+              <Icon size={20} className={detail.color} />
+              <p className="mt-2 text-sm font-extrabold text-slate-700">{sectionName(section)}</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-black leading-none text-slate-800">{score.correct}<span className="ml-1 text-sm sm:text-base text-slate-500">/ {score.total}</span></p>
+            </div>;
+          })}
         </div>
         <p className={`mt-6 text-sm font-bold ${saveState === 'saved' ? 'text-emerald-600' : saveState === 'error' ? 'text-amber-700' : 'text-slate-500'}`}>
           {saveState === 'saving' && text('Saving your result…', '正在保存你的结果…')}
@@ -558,7 +573,7 @@ export const PlacementTest = ({ onExit }) => {
 
   const section = SECTION_DETAILS[activeItem.section];
   const Icon = section.icon;
-  const answer = answers[activeIndex];
+  const answer = pendingAnswer;
   const isSpeaking = activeItem.section === 'speaking';
   const canContinue = Boolean(answer) && !isEvaluating && !isRecording && !isPreparingMic;
   const isLastQuestion = activeIndex === TOTAL_QUESTIONS - 1;
@@ -581,11 +596,11 @@ export const PlacementTest = ({ onExit }) => {
             <button onClick={() => playTargetAudio(activeItem.target)} className="mt-4 inline-flex items-center gap-2 text-indigo-600 font-extrabold hover:text-indigo-800"><Volume2 size={19} /> Hear it</button>
             <div className="mt-7">
               <div aria-live="polite" className={`min-h-6 flex items-center justify-center gap-2 text-sm font-extrabold ${isRecording ? 'text-rose-600' : isMicReady ? 'text-emerald-600' : 'text-slate-500'}`}>
-                {isPreparingMic ? <><Loader2 size={17} className="animate-spin" /> Getting microphone ready…</> : isEvaluating ? <><Loader2 size={17} className="animate-spin" /> Checking your speech…</> : isRecording ? <><span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" /> Listening… Tap the microphone when you finish.</> : answer ? <><CheckCircle2 size={17} /> Your recording is saved.</> : isMicReady ? <><CheckCircle2 size={17} /> Microphone ready. Tap to record.</> : <><Mic size={17} /> Tap the microphone to get ready.</>}
+                {isPreparingMic ? <><Loader2 size={17} className="animate-spin" /> Getting microphone ready…</> : isEvaluating ? <><Loader2 size={17} className="animate-spin" /> Checking your speech…</> : isRecording ? <><span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" /> Listening… Tap the microphone when you finish.</> : answer ? <><CheckCircle2 size={17} /> Recording ready. Record again or choose Next question.</> : isMicReady ? <><CheckCircle2 size={17} /> Microphone ready. Tap to record.</> : <><Mic size={17} /> Tap the microphone to get ready.</>}
               </div>
-              <button disabled={isEvaluating || isPreparingMic || Boolean(answer)} onClick={toggleRecording} className={`w-32 h-32 rounded-full mx-auto mt-3 flex flex-col items-center justify-center text-white font-black shadow-lg transition-transform active:scale-95 disabled:opacity-60 ${isRecording ? 'bg-rose-600 animate-pulse' : 'bg-indigo-600 hover:bg-indigo-700'}`}>
+              <button disabled={isEvaluating || isPreparingMic} onClick={toggleRecording} className={`w-32 h-32 rounded-full mx-auto mt-3 flex flex-col items-center justify-center text-white font-black shadow-lg transition-transform active:scale-95 disabled:opacity-60 ${isRecording ? 'bg-rose-600 animate-pulse' : 'bg-indigo-600 hover:bg-indigo-700'}`}>
                 {isPreparingMic || isEvaluating ? <Loader2 className="animate-spin" size={30} /> : isRecording ? <Square size={28} /> : <Mic size={30} />}
-                <span className="text-xs mt-2">{isPreparingMic ? 'Preparing…' : isEvaluating ? 'Checking…' : isRecording ? 'Stop' : answer ? 'Saved' : 'Record'}</span>
+                <span className="text-xs mt-2">{isPreparingMic ? 'Preparing…' : isEvaluating ? 'Checking…' : isRecording ? 'Stop' : answer ? 'Record again' : 'Record'}</span>
               </button>
             </div>
           </div>
@@ -595,10 +610,10 @@ export const PlacementTest = ({ onExit }) => {
             <div className="grid gap-3 mt-7">
               {activeItem.options.map((option, index) => {
                 const isSelected = answer?.selected === option;
-                return <button key={option} disabled={Boolean(answer)} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all disabled:cursor-not-allowed ${isSelected ? 'border-indigo-500 bg-indigo-50 text-indigo-900' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700 disabled:hover:border-slate-200 disabled:hover:bg-white'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
+                return <button key={option} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all ${isSelected ? 'border-indigo-500 bg-indigo-50 text-indigo-900' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
               })}
             </div>
-            {answer && <p className="mt-4 font-extrabold text-slate-500">Your answer is saved.</p>}
+            {answer && <p className="mt-4 font-extrabold text-slate-500">Choose Next question to save this answer.</p>}
           </>
         )}
         {recordingError && <p className="mt-5 text-sm font-bold text-rose-600">{recordingError}</p>}
