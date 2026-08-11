@@ -46731,63 +46731,63 @@
         "id": 344,
         "difficulty": "hard",
         "dayIndex": 43,
-        "title": {
-          "en": "The History of Aviation",
-          "zh": "航空的历史"
-        },
-        "text": {
-          "en": "People dreamed of flying like birds for many years. In 1903, the Wright brothers made the first airplane with a motor. Their plane flew for twelve seconds over the sandy hills of Kitty Hawk. Today, jet planes carry hundreds of people over oceans in hours.",
-          "zh": "很多年来，人们梦想像鸟一样飞。1903年，莱特兄弟做出第一架有发动机的飞机。他们的飞机在基蒂霍克的沙丘上飞了12秒。今天，喷气式飞机几个小时就能载几百人飞过大洋。"
-        },
+      "title": {
+        "en": "A Mountain Weather Station",
+        "zh": "山上的气象站"
+      },
+      "text": {
+        "en": "Last autumn, students from Hill School visited a weather station on a mountain. Ms. Zhou showed them a rain gauge, a wind vane, and a computer screen with a weather map. Lin wrote the wind direction in a notebook while Bo measured the rainwater in a clear tube. Before the group left, the station worker gave each student a small weather chart to take home.",
+        "zh": "去年秋天，山岭学校的学生参观了山上的一个气象站。周老师给他们看了雨量计、风向标和显示天气地图的电脑屏幕。林把风向写在笔记本里，波用透明管测量雨水。大家离开前，气象站的工作人员给每个学生一张小天气图表带回家。"
+      },
         "questions": [
           {
-            "q": "What long-held dream did humans pursue in aviation?",
-            "options": [
-              "Soaring like birds",
-              "Traveling to moon",
-              "Swimming underwater",
-              "Building towers"
-            ],
+          "q": "Where did the students visit last autumn?",
+          "options": [
+            "A weather station on a mountain",
+            "A train station by the river",
+            "A library in town",
+            "A farm near the school"
+          ],
             "correct": 0
           },
           {
-            "q": "Who achieved the first powered aircraft flight in 1903?",
-            "options": [
-              "The Wright brothers",
-              "Alexander Bell",
-              "Thomas Edison",
-              "Henry Ford"
-            ],
+          "q": "Who showed the students the weather tools?",
+          "options": [
+            "Ms. Zhou",
+            "Lin",
+            "Bo",
+            "The bus driver"
+          ],
             "correct": 0
           },
           {
-            "q": "What was the time of the Wright brothers' first motorized flight?",
-            "options": [
-              "Twelve seconds",
-              "One hour",
-              "Five minutes",
-              "Ten minutes"
-            ],
+          "q": "What did Lin write in a notebook?",
+          "options": [
+            "The wind direction",
+            "A book title",
+            "A bus number",
+            "A lunch menu"
+          ],
             "correct": 0
           },
           {
-            "q": "Where did the historic first flight take place?",
-            "options": [
-              "Windswept dunes of Kitty Hawk",
-              "In Chicago",
-              "In London",
-              "On mountain peak"
-            ],
+          "q": "Who measured the rainwater?",
+          "options": [
+            "Bo",
+            "Ms. Zhou",
+            "Lin",
+            "The station worker"
+          ],
             "correct": 0
           },
           {
-            "q": "What do jet planes carry over oceans?",
-            "options": [
-              "Carry hundreds of passengers across oceans in hours",
-              "Take weeks",
-              "Are dangerous",
-              "Carry cargo only"
-            ],
+          "q": "What did each student take home?",
+          "options": [
+            "A small weather chart",
+            "A rain gauge",
+            "A clear tube",
+            "A wind vane"
+          ],
             "correct": 0
           }
         ]
