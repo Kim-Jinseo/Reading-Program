@@ -1,6 +1,27 @@
 const question = (level, q, options, answer) => ({ level, q, options, answer });
 const speaking = (level, target) => ({ level, target });
 
+const shuffle = (items) => {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
+};
+
+const shuffleChoices = (items) => {
+  // Spread the correct answers across A, B, and C on every test attempt.
+  // This keeps answer order fair while avoiding a repeated answer-letter pattern.
+  const answerPositions = shuffle(items.map((_, index) => index % 3));
+
+  return items.map((item, index) => {
+    const choicesWithoutAnswer = shuffle(item.options.filter(option => option !== item.answer));
+    choicesWithoutAnswer.splice(answerPositions[index], 0, item.answer);
+    return { ...item, options: choicesWithoutAnswer };
+  });
+};
+
 // These forms are purpose-written for placement. They are kept separate from
 // the lesson curriculum so a placement attempt never reuses practice content.
 export const PLACEMENT_TEST_FORMS = [
@@ -174,9 +195,15 @@ export const PLACEMENT_TEST_FORMS = [
   }
 ];
 
-export const getPlacementItems = (form) => [
-  ...form.reading.questions.map(item => ({ ...item, section: 'reading' })),
-  ...form.vocab.map(item => ({ ...item, section: 'vocab' })),
-  ...form.grammar.map(item => ({ ...item, section: 'grammar' })),
-  ...form.speaking.map(item => ({ ...item, section: 'speaking' }))
-];
+export const getPlacementItems = (form) => {
+  const multipleChoiceItems = [
+    ...form.reading.questions.map(item => ({ ...item, section: 'reading' })),
+    ...form.vocab.map(item => ({ ...item, section: 'vocab' })),
+    ...form.grammar.map(item => ({ ...item, section: 'grammar' }))
+  ];
+
+  return [
+    ...shuffleChoices(multipleChoiceItems),
+    ...form.speaking.map(item => ({ ...item, section: 'speaking' }))
+  ];
+};

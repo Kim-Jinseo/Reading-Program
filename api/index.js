@@ -317,10 +317,10 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const rate = level => levelScores[level].score / levelScores[level].max;
     const totalRate = totalScore / totalMax;
     const recommendedLevel = rate(1) >= 0.8 && rate(2) >= 0.7 && rate(3) >= 0.6 && totalRate >= 0.72
-      ? '5-6'
+      ? '3'
       : rate(1) >= 0.6 && rate(2) >= 0.45 && totalRate >= 0.5
-        ? '3-4'
-        : '1-2';
+        ? '2'
+        : '1';
 
     if (requestedLevel !== recommendedLevel) {
       return c.json({ success: false, error: 'Placement recommendation did not match the score.' }, 400);
