@@ -50,7 +50,6 @@ const levelForRate = (rate) => (rate >= 0.8 ? 3 : rate >= 0.45 ? 2 : 1);
 const hasChineseCharacters = value => /[\u4e00-\u9fff]/.test(value || '');
 const rawMaximumForItem = item => item.section === 'speaking' ? 3 : 1;
 const pointMultiplierForItem = item => LEVEL_POINT_VALUES[item.level] * SECTION_POINT_WEIGHTS[item.section];
-const pointMaximumForItem = item => rawMaximumForItem(item) * pointMultiplierForItem(item);
 
 const repairLegacyReadingItem = (item) => {
   if (item?.section !== 'reading') return item;
@@ -132,17 +131,18 @@ const calculatePlacement = (items, answers) => {
     PLACEMENT_SCORE_MAX,
     PLACEMENT_SCORE_MIN + ((PLACEMENT_SCORE_MAX - PLACEMENT_SCORE_MIN) * ((evidenceRate * 0.85) + (difficultySignal * 0.15)))
   )));
-  const routeSummary = [1, 2, 3].map(level => ({
-    level,
-    count: items.filter(item => item.level === level).length
-  })).filter(item => item.count > 0);
+  const correctQuestions = items.reduce((count, item, index) => {
+    const score = Number(answers[index]?.score || 0);
+    const isCorrect = item.section === 'speaking' ? score >= 2 : score === 1;
+    return count + Number(isCorrect);
+  }, 0);
   const recommendedLevel = coreRate >= 0.72 && strongCoreSkills >= 2 && totalRate >= 0.66
     ? '3'
     : coreRate >= 0.38 && totalRate >= 0.34
       ? '2'
       : '1';
 
-  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate, scaledScore, averageDifficulty, routeSummary };
+  return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax, coreRate, totalRate, scaledScore, averageDifficulty, correctQuestions, questionCount: items.length };
 };
 
 export const PlacementTest = ({ onExit }) => {
@@ -499,7 +499,7 @@ export const PlacementTest = ({ onExit }) => {
           <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={30} /></div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Adaptive Placement Test', '自适应分级测试')}</h2>
-            <p className="max-w-2xl text-slate-600 font-medium leading-relaxed mt-2">Correct answers move up, wrong answers move down, and harder questions earn more placement points.</p>
+            <p className="max-w-2xl text-slate-600 font-medium leading-relaxed mt-2">Correct answers move up, and wrong answers move down to find a good starting level.</p>
           </div>
         </div>
 
@@ -541,29 +541,10 @@ export const PlacementTest = ({ onExit }) => {
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
         <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
-        <div className="mt-7 sm:mt-8 rounded-3xl bg-slate-800 px-5 py-5 sm:px-7 sm:py-6 text-white text-left shadow-lg shadow-slate-200">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-widest text-indigo-200">Placement score</p>
-              <p className="mt-1 text-4xl sm:text-5xl font-black leading-none">{result.scaledScore}<span className="ml-1 text-lg sm:text-xl text-slate-300">/ {PLACEMENT_SCORE_MAX}</span></p>
-            </div>
-            <p className="max-w-md text-sm leading-relaxed font-medium text-slate-200">Correct answers and the difficulty you reached both count. Vocabulary, reading, and speaking matter most.</p>
-          </div>
-        </div>
-        <div className="mt-6 text-left">
-          <p className="text-sm font-extrabold text-slate-700">Your adaptive route</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {result.routeSummary.map(route => <span key={route.level} className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm font-extrabold text-indigo-700">Level {route.level} questions: {route.count}</span>)}
-          </div>
-          <p className="mt-3 text-xs leading-relaxed font-medium text-slate-500">Each correct answer moved the next question up one level. A wrong answer moved the next question down one level.</p>
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-10 text-left">
-          {ADAPTIVE_SECTION_ORDER.map(section => {
-            const score = result.sectionScores[section];
-            const detail = SECTION_DETAILS[section];
-            const Icon = detail.icon;
-            return <div key={section} className={`border rounded-2xl p-4 ${detail.bg}`}><Icon size={20} className={detail.color} /><p className="font-extrabold text-slate-700 mt-2">{sectionName(section)}</p><p className="text-slate-500 text-sm">{score.rawScore} / {score.rawMax} answers</p><p className="text-slate-500 text-xs font-bold mt-1">{Math.round(score.score)} / {score.max} points</p></div>;
-          })}
+        <div className="mt-7 sm:mt-8 rounded-3xl border border-indigo-100 bg-indigo-50 px-5 py-5 sm:px-7 sm:py-6 text-left">
+          <p className="text-xs font-extrabold uppercase tracking-widest text-indigo-600">Questions correct</p>
+          <p className="mt-1 text-4xl sm:text-5xl font-black leading-none text-slate-800">{result.correctQuestions}<span className="ml-1 text-lg sm:text-xl text-slate-500">/ {result.questionCount}</span></p>
+          <p className="mt-3 text-sm leading-relaxed font-medium text-slate-600">Your suggested level uses your answers across vocabulary, grammar, reading, and speaking.</p>
         </div>
         <p className={`mt-6 text-sm font-bold ${saveState === 'saved' ? 'text-emerald-600' : saveState === 'error' ? 'text-amber-700' : 'text-slate-500'}`}>
           {saveState === 'saving' && text('Saving your result…', '正在保存你的结果…')}
@@ -592,7 +573,6 @@ export const PlacementTest = ({ onExit }) => {
       <p className="mb-6 text-xs font-semibold text-slate-500">{text('Leaving before the final result means this test will not be saved.', '在看到最终结果前退出，这次测试不会被保存。')}</p>
       <div className="bg-white rounded-3xl border-2 border-slate-100 shadow-sm p-5 sm:p-8">
         <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-extrabold ${section.bg} ${section.color}`}><Icon size={16} /> {sectionName(activeItem.section)}</div>
-        <p className="mt-3 text-xs font-bold text-slate-500">Level {activeItem.level} question · up to {pointMaximumForItem(activeItem)} placement points</p>
         {activeItem.section === 'reading' && <div className="mt-5 p-4 sm:p-5 bg-amber-50 border border-amber-100 rounded-2xl text-slate-700 font-medium leading-relaxed"><p className="font-black text-slate-800 mb-2">{activeItem.title.en}</p>{activeItem.passage.en}</div>}
         {isSpeaking ? (
           <div className="mt-7 text-center">
