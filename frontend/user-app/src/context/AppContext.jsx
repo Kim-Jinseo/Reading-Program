@@ -206,13 +206,14 @@ export const AppProvider = ({ children }) => {
             if (!sanitizedDb[gradeKey]) {
               sanitizedDb[gradeKey] = localGrade;
             } else {
-              // Always use updated local reading passages and vocabulary so old database records never override clean content
-              if (localGrade && localGrade.reading) {
-                sanitizedDb[gradeKey].reading = localGrade.reading;
-              }
-              if (localGrade && localGrade.vocab) {
-                sanitizedDb[gradeKey].vocab = localGrade.vocab;
-              }
+              // The bundled curriculum is the reviewed source of truth. Keep
+              // it for every student-facing module so old database records
+              // cannot bring back outdated lessons, questions, or prompts.
+              ['reading', 'vocab', 'grammar', 'writing'].forEach(moduleName => {
+                if (localGrade?.[moduleName]) {
+                  sanitizedDb[gradeKey][moduleName] = localGrade[moduleName];
+                }
+              });
             }
           });
           setCurriculumDb(sanitizedDb);
