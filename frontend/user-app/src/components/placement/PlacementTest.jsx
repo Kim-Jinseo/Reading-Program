@@ -462,22 +462,22 @@ export const PlacementTest = ({ onExit }) => {
 
   if (stage === 'intro') {
     return (
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl border-2 border-indigo-100 shadow-sm p-6 sm:p-9">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
-          <div className="w-14 h-14 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={28} /></div>
+      <div className="max-w-4xl mx-auto bg-white rounded-[1.75rem] sm:rounded-[2rem] border-2 border-indigo-100 shadow-sm p-5 sm:p-8 md:p-10">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={30} /></div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Adaptive Placement Test', '自适应分级测试')}</h2>
-            <p className="text-slate-600 font-medium leading-relaxed mt-1.5">Correct answers move up, wrong answers move down, and harder questions earn more placement points.</p>
+            <p className="max-w-2xl text-slate-600 font-medium leading-relaxed mt-2">Correct answers move up, wrong answers move down, and harder questions earn more placement points.</p>
           </div>
         </div>
 
-        <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
           {ADAPTIVE_SECTION_ORDER.map(key => {
             const Icon = SECTION_DETAILS[key].icon;
-            return <div key={key} className={`min-h-24 rounded-2xl border p-3 flex flex-col items-center justify-center ${SECTION_DETAILS[key].bg}`}><Icon size={20} className={`shrink-0 ${SECTION_DETAILS[key].color}`} /><p className="font-black text-slate-800 mt-2 leading-tight">{SECTION_COUNTS[key]} {sectionName(key)}</p></div>;
+            return <div key={key} className={`min-h-28 sm:min-h-32 rounded-2xl border p-3 sm:p-4 flex flex-col items-center justify-center ${SECTION_DETAILS[key].bg}`}><Icon size={22} className={`shrink-0 ${SECTION_DETAILS[key].color}`} /><p className="font-black text-sm sm:text-base text-slate-800 mt-2 leading-tight">{SECTION_COUNTS[key]} {sectionName(key)}</p></div>;
           })}
         </div>
-        <div className="grid sm:grid-cols-2 gap-4 mt-7">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-5 mt-8 sm:mt-10">
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Chinese name', '中文姓名')}</span>
             <input value={chineseName} onChange={event => setChineseName(event.target.value.replace(/\s/g, ''))} placeholder="For example: a Chinese name" maxLength={10} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3.5 font-bold shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-indigo-500" />
@@ -504,12 +504,12 @@ export const PlacementTest = ({ onExit }) => {
       3: { en: 'Level 3 is a good fit. You are ready for longer reading and more detailed English.', zh: '建议从 Level 3 开始。你已经可以学习较长的阅读和更丰富的英语表达。' }
     };
     return (
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl border-2 border-emerald-100 shadow-sm p-5 sm:p-9 text-center">
+      <div className="max-w-4xl mx-auto bg-white rounded-[1.75rem] sm:rounded-[2rem] border-2 border-emerald-100 shadow-sm p-5 sm:p-8 md:p-10 text-center">
         <div className="w-16 h-16 mx-auto bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center"><CheckCircle2 size={36} /></div>
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
         <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
-        <div className="grid sm:grid-cols-4 gap-3 mt-8 text-left">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-10 text-left">
           {ADAPTIVE_SECTION_ORDER.map(section => {
             const score = result.sectionScores[section];
             const detail = SECTION_DETAILS[section];
