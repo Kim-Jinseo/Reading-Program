@@ -587,7 +587,6 @@ export const PlacementTest = ({ onExit }) => {
                 {isPreparingMic || isEvaluating ? <Loader2 className="animate-spin" size={30} /> : isRecording ? <Square size={28} /> : <Mic size={30} />}
                 <span className="text-xs mt-2">{isPreparingMic ? 'Preparing…' : isEvaluating ? 'Checking…' : isRecording ? 'Stop' : answer ? 'Saved' : 'Record'}</span>
               </button>
-              {answer && <p className={`mt-4 font-extrabold ${answer.score >= 2 ? 'text-emerald-600' : 'text-amber-700'}`}>{answer.score >= 2 ? text('Good clear speech. Your recording is saved.', '朗读很清楚，录音已保存。') : text('Your recording is saved.', '录音已保存。')}</p>}
             </div>
           </div>
         ) : (
@@ -596,10 +595,10 @@ export const PlacementTest = ({ onExit }) => {
             <div className="grid gap-3 mt-7">
               {activeItem.options.map((option, index) => {
                 const isSelected = answer?.selected === option;
-                return <button key={option} disabled={Boolean(answer)} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all disabled:cursor-not-allowed ${isSelected ? (option === activeItem.answer ? 'border-emerald-500 bg-emerald-50 text-emerald-900' : 'border-rose-400 bg-rose-50 text-rose-900') : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700 disabled:hover:border-slate-200 disabled:hover:bg-white'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
+                return <button key={option} disabled={Boolean(answer)} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all disabled:cursor-not-allowed ${isSelected ? 'border-indigo-500 bg-indigo-50 text-indigo-900' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700 disabled:hover:border-slate-200 disabled:hover:bg-white'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
               })}
             </div>
-            {answer && <p className={`mt-4 font-extrabold ${answer.score ? 'text-emerald-600' : 'text-rose-600'}`}>{answer.score ? text('Correct. Your answer is locked.', '回答正确，答案已锁定。') : text('This answer is not correct. It is locked.', '这个答案不正确，已锁定。')}</p>}
+            {answer && <p className="mt-4 font-extrabold text-slate-500">Your answer is saved.</p>}
           </>
         )}
         {recordingError && <p className="mt-5 text-sm font-bold text-rose-600">{recordingError}</p>}

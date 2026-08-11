@@ -1,4 +1,31 @@
-const PLACEHOLDER_OPTIONS = ['a small bag', 'a paper map', 'a clean cup', 'a blue hat'];
+const PLACEHOLDER_OPTIONS = ['一个小袋子', '一张纸地图', '一个干净的杯子', '一顶蓝色的帽子'];
+
+// Placement vocabulary asks students to recognize an English word. The
+// meaning choices are Chinese so children can show word knowledge without
+// being held back by an English dictionary definition.
+const VOCABULARY_DEFINITIONS_ZH = {
+  book: '有许多纸页的读物', pen: '写字用的笔', bag: '装东西的袋子', desk: '学习用的桌子',
+  chair: '坐的椅子', school: '孩子学习的地方', teacher: '帮助孩子学习的人', friend: '认识并喜欢的人',
+  apple: '一种圆圆的水果', water: '可以喝的水', cat: '会“喵喵”叫的小动物', dog: '会叫的动物',
+  bird: '有翅膀的动物', tree: '有树干的高大植物', flower: '植物开出的彩色花朵', sun: '白天在天空中发亮的太阳',
+  rain: '从云里落下的水', red: '苹果常见的颜色', blue: '晴朗天空的颜色', green: '草的颜色',
+  big: '大的', small: '不大的', hot: '温度高的', cold: '不暖和的', eat: '吃食物', drink: '喝水或果汁',
+  run: '用脚快速移动', walk: '用脚慢慢走', open: '把东西打开', close: '把东西关上',
+  adventure: '令人兴奋的旅行或活动', arrive: '到达某个地方', belong: '属于某人', collect: '把东西收集在一起',
+  decide: '想一想后作出选择', empty: '里面没有东西的', hurry: '快速地做事或走路', invite: '请某人来',
+  local: '附近的；当地的', message: '传给别人的信息', notice: '注意到；看到', patient: '能安静等待的',
+  prepare: '为某事做好准备', protect: '保护；使安全', quiet: '声音很小的；安静的', return: '回到原来的地方',
+  search: '仔细寻找', select: '选出一个', several: '几个', sudden: '突然发生的', travel: '从一个地方去另一个地方',
+  useful: '有用的', village: '有一些房子的村庄', warning: '提醒危险的标志或话', weather: '外面的雨、风、太阳或雪',
+  wonder: '感到好奇；想知道', wrap: '用纸或布包住', yesterday: '今天的前一天', zigzag: '有尖角转弯的线', proper: '合适的；正确的',
+  ancient: '很久以前的；古老的', arrange: '按顺序摆放', balance: '不会倒下的平稳状态', border: '两个地方之间的边界',
+  connect: '把两样东西连在一起', discover: '第一次发现', effort: '为做好一件事付出的努力', examine: '非常仔细地查看',
+  explain: '讲清楚，让人明白', gather: '把人或东西聚在一起', improve: '让……变得更好', include: '包含在里面',
+  journey: '一段旅行', measure: '测量大小、长度或数量', observe: '仔细观察', receive: '收到', reduce: '使变少',
+  region: '一个较大的地区', respect: '尊重；好好对待', result: '最后的结果', route: '从一地到另一地的路线',
+  separate: '分成不同的部分', solve: '找到问题的答案', supply: '需要的物品储备', support: '帮助；支持',
+  value: '有多重要或有多有用', whole: '全部的；完整的', method: '做事的方法'
+};
 
 const optionSet = (answer, pool, seed) => {
   const distractors = [];
@@ -18,8 +45,10 @@ const parseWords = (rows) => rows.map(row => {
 });
 
 const makeVocabItems = (level, rows) => {
-  const pool = rows.map(row => row.definition);
-  return rows.map(({ word, definition }, index) => ({
+  const localizedRows = rows.map(row => ({ ...row, definition: VOCABULARY_DEFINITIONS_ZH[row.word] }));
+  if (localizedRows.some(row => !row.definition)) throw new Error('A placement vocabulary word is missing its Chinese definition.');
+  const pool = localizedRows.map(row => row.definition);
+  return localizedRows.map(({ word, definition }, index) => ({
     id: `adaptive-vocab-${level}-${index + 1}`,
     section: 'vocab',
     level,
