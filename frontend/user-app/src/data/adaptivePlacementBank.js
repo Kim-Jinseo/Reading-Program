@@ -249,8 +249,7 @@ const READING_THEMES = {
 const buildReadingItems = level => {
   const themes = READING_THEMES[level];
   const people = READING_STUDENTS.map(([name]) => name);
-  const items = themes.map(theme => theme.item);
-  const places = themes.map(theme => theme.place);
+  const helpers = themes.map(theme => theme.helper);
   return themes.flatMap((theme, themeIndex) => READING_TIMES.map(([time, timeZh], variantIndex) => {
     const index = themeIndex * 3 + variantIndex;
     const [who, whoZh] = READING_STUDENTS[index % READING_STUDENTS.length];
@@ -261,12 +260,32 @@ const buildReadingItems = level => {
       : level === 2
         ? { en: `On ${time}, ${who} ${theme.past} ${theme.item} at ${theme.place}. A friend brought ${theme.helper}, so the work was easier. Before leaving, ${who} checked the work once more. The teacher thanked the pair.`, zh: `${timeZh}，${whoZh}在${theme.placeZh}${theme.pastZh}${theme.itemZh}。一位朋友带来了${theme.helperZh}，所以工作更容易完成。离开前，${whoZh}又检查了一次。老师感谢了他们。` }
         : { en: `On ${time}, ${who} ${theme.past} ${theme.item} at ${theme.place}. A friend brought ${theme.helper}, which helped the group work carefully. Before leaving, ${who} checked the result and wrote a short note. They planned to look at it again next week.`, zh: `${timeZh}，${whoZh}在${theme.placeZh}${theme.pastZh}${theme.itemZh}。一位朋友带来了${theme.helperZh}，帮助大家认真完成工作。离开前，${whoZh}检查了结果并写下一条短笔记。他们计划下周再看一次。` };
-    const questions = [
-      ['Who', `Who ${theme.past} ${theme.item}?`, who, people],
-      ['What', `What did ${who} ${theme.verb}?`, theme.item, items],
-      ['Where', `Where did ${who} ${theme.verb} ${theme.item}?`, theme.place, places]
-    ].map(([, q, answer, pool], questionIndex) => ({ q, ...optionSet(answer, pool, index * 5 + questionIndex) }));
-    return { id: `adaptive-reading-${level}-${index + 1}`, passageId: `adaptive-passage-${level}-${index + 1}`, section: 'reading', level, title: { en: `${theme.title}${titleSuffix}`, zh: `${theme.titleZh}${titleSuffixZh}` }, text, questions };
+    // Every reading question is answered by a later sentence. This makes
+    // children read the whole short passage, while the question itself stays
+    // a concrete Who, What, or When question.
+    const questions = level === 1
+      ? [
+        ['What did a friend bring?', theme.helper, helpers, 2],
+        [`Who smiled before going home?`, who, people, 3],
+        [`When did ${who} smile?`, 'before going home', ['before going home', 'after lunch', 'in the morning', 'at night'], 3]
+      ]
+      : level === 2
+        ? [
+          ['What did a friend bring?', theme.helper, helpers, 2],
+          [`What did ${who} do before leaving?`, 'checked the work once more', ['checked the work once more', 'went home at once', 'played a game', 'ate lunch'], 3],
+          ['Who thanked the pair?', 'the teacher', people, 4]
+        ]
+        : [
+          ['What did a friend bring?', theme.helper, helpers, 2],
+          [`What did ${who} write before leaving?`, 'a short note', ['a short note', 'a long letter', 'a song', 'a shopping list'], 3],
+          ['When did they plan to look at it again?', 'next week', ['next week', 'tomorrow', 'after lunch', 'last year'], 4]
+        ];
+    const preparedQuestions = questions.map(([q, answer, pool, evidenceSentence], questionIndex) => ({
+      q,
+      evidenceSentence,
+      ...optionSet(answer, pool, index * 5 + questionIndex)
+    }));
+    return { id: `adaptive-reading-${level}-${index + 1}`, passageId: `adaptive-passage-${level}-${index + 1}`, section: 'reading', level, title: { en: `${theme.title}${titleSuffix}`, zh: `${theme.titleZh}${titleSuffixZh}` }, text, questions: preparedQuestions };
   }));
 };
 
@@ -330,6 +349,7 @@ export const validateAdaptivePlacementBank = () => {
         questions.forEach(question => {
           const answer = question.answer ?? question.options?.[question.correct];
           if (!question.q || !question.options || question.options.length < 3 || new Set(question.options).size !== question.options.length || !question.options.includes(answer)) errors.push(`${item.id} has invalid answer choices.`);
+          if (section === 'reading' && Number(question.evidenceSentence) < 2) errors.push(`${item.id} has a reading question answered by its first sentence.`);
         });
       });
     });
