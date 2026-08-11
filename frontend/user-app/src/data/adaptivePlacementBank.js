@@ -11,16 +11,16 @@ const VOCABULARY_DEFINITIONS_ZH = {
   rain: '从云里落下的水', red: '苹果常见的颜色', blue: '晴朗天空的颜色', green: '草的颜色',
   big: '大的', small: '不大的', hot: '温度高的', cold: '不暖和的', eat: '吃食物', drink: '喝水或果汁',
   run: '用脚快速移动', walk: '用脚慢慢走', open: '把东西打开', close: '把东西关上',
-  adventure: '令人兴奋的旅行或活动', arrive: '到达某个地方', belong: '属于某人', collect: '把东西收集在一起',
+  adventure: '令人兴奋的旅行或活动', arrive: '到达某个地方', belong: '属于某人', borrow: '借来使用，之后要还', carry: '拿着或带着某物', choose: '从中选一个', collect: '把东西收集在一起',
   decide: '想一想后作出选择', empty: '里面没有东西的', hurry: '快速地做事或走路', invite: '请某人来',
   local: '附近的；当地的', message: '传给别人的信息', notice: '注意到；看到', patient: '能安静等待的',
   prepare: '为某事做好准备', protect: '保护；使安全', quiet: '声音很小的；安静的', return: '回到原来的地方',
   search: '仔细寻找', select: '选出一个', several: '几个', sudden: '突然发生的', travel: '从一个地方去另一个地方',
-  useful: '有用的', village: '有一些房子的村庄', warning: '提醒危险的标志或话', weather: '外面的雨、风、太阳或雪',
+  useful: '有用的', village: '有一些房子的村庄', warning: '提醒危险的标志或话', weather: '外面的雨、风、太阳或雪', favorite: '最喜欢的',
   wonder: '感到好奇；想知道', wrap: '用纸或布包住', yesterday: '今天的前一天', zigzag: '有尖角转弯的线', proper: '合适的；正确的',
-  ancient: '很久以前的；古老的', arrange: '按顺序摆放', balance: '不会倒下的平稳状态', border: '两个地方之间的边界',
+  ancient: '很久以前的；古老的', arrange: '按顺序摆放', balance: '不会倒下的平稳状态', border: '两个地方之间的边界', compare: '比较两个或更多事物',
   connect: '把两样东西连在一起', discover: '第一次发现', effort: '为做好一件事付出的努力', examine: '非常仔细地查看',
-  explain: '讲清楚，让人明白', gather: '把人或东西聚在一起', improve: '让……变得更好', include: '包含在里面',
+  explain: '讲清楚，让人明白', explore: '探索；仔细了解一个地方或问题', gather: '把人或东西聚在一起', improve: '让……变得更好', include: '包含在里面',
   journey: '一段旅行', measure: '测量大小、长度或数量', observe: '仔细观察', receive: '收到', reduce: '使变少',
   region: '一个较大的地区', respect: '尊重；好好对待', result: '最后的结果', route: '从一地到另一地的路线',
   separate: '分成不同的部分', solve: '找到问题的答案', supply: '需要的物品储备', support: '帮助；支持',
@@ -32,8 +32,8 @@ const VOCABULARY_DEFINITIONS_ZH = {
 const VOCABULARY_WORD_CATEGORIES = {
   book: 'noun', pen: 'noun', bag: 'noun', desk: 'noun', chair: 'noun', school: 'noun', teacher: 'noun', friend: 'noun', apple: 'noun', water: 'noun', cat: 'noun', dog: 'noun', bird: 'noun', tree: 'noun', flower: 'noun', sun: 'noun', rain: 'noun',
   red: 'color', blue: 'color', green: 'color', big: 'adjective', small: 'adjective', hot: 'adjective', cold: 'adjective', eat: 'verb', drink: 'verb', run: 'verb', walk: 'verb', open: 'verb', close: 'verb',
-  adventure: 'noun', arrive: 'verb', belong: 'verb', collect: 'verb', decide: 'verb', empty: 'adjective', hurry: 'verb', invite: 'verb', local: 'adjective', message: 'noun', notice: 'verb', patient: 'adjective', prepare: 'verb', protect: 'verb', quiet: 'adjective', return: 'verb', search: 'verb', select: 'verb', several: 'quantity', sudden: 'adjective', travel: 'verb', useful: 'adjective', village: 'noun', warning: 'noun', weather: 'noun', wonder: 'verb', wrap: 'verb', yesterday: 'time', zigzag: 'shape', proper: 'adjective',
-  ancient: 'adjective', arrange: 'verb', balance: 'noun', border: 'noun', connect: 'verb', discover: 'verb', effort: 'noun', examine: 'verb', explain: 'verb', gather: 'verb', improve: 'verb', include: 'verb', journey: 'noun', measure: 'verb', observe: 'verb', receive: 'verb', reduce: 'verb', region: 'noun', respect: 'verb', result: 'noun', route: 'noun', separate: 'verb', solve: 'verb', supply: 'noun', support: 'verb', value: 'noun', whole: 'adjective', method: 'noun'
+  adventure: 'noun', arrive: 'verb', belong: 'verb', borrow: 'verb', carry: 'verb', choose: 'verb', collect: 'verb', decide: 'verb', empty: 'adjective', favorite: 'adjective', hurry: 'verb', invite: 'verb', local: 'adjective', message: 'noun', notice: 'verb', patient: 'adjective', prepare: 'verb', protect: 'verb', quiet: 'adjective', return: 'verb', search: 'verb', select: 'verb', several: 'quantity', sudden: 'adjective', travel: 'verb', useful: 'adjective', village: 'noun', warning: 'noun', weather: 'noun', wonder: 'verb', wrap: 'verb', yesterday: 'time', zigzag: 'shape', proper: 'adjective',
+  ancient: 'adjective', arrange: 'verb', balance: 'noun', border: 'noun', compare: 'verb', connect: 'verb', discover: 'verb', effort: 'noun', examine: 'verb', explain: 'verb', explore: 'verb', gather: 'verb', improve: 'verb', include: 'verb', journey: 'noun', measure: 'verb', observe: 'verb', receive: 'verb', reduce: 'verb', region: 'noun', respect: 'verb', result: 'noun', route: 'noun', separate: 'verb', solve: 'verb', supply: 'noun', support: 'verb', value: 'noun', whole: 'adjective', method: 'noun'
 };
 const VOCABULARY_CATEGORY_BY_DEFINITION = Object.fromEntries(Object.entries(VOCABULARY_DEFINITIONS_ZH).map(([word, definition]) => [definition, VOCABULARY_WORD_CATEGORIES[word]]));
 
@@ -61,13 +61,29 @@ const vocabularyOptionSet = (answer, rows, word, seed) => {
   return { options, correct, answer };
 };
 
-const parseWords = (rows) => rows.map(row => {
-  const [word, definition] = row.split('|');
-  return { word, definition };
-});
+// These lists are written specifically for the placement test. They are not
+// imported from, or mixed with, the larger study vocabulary library. Random
+// selection only chooses an unused word inside the learner's current level.
+const PLACEMENT_VOCABULARY_BY_LEVEL = {
+  1: [
+    'book', 'pen', 'bag', 'desk', 'chair', 'school', 'teacher', 'friend', 'apple', 'water',
+    'cat', 'dog', 'bird', 'tree', 'flower', 'sun', 'rain', 'red', 'blue', 'green',
+    'big', 'small', 'hot', 'cold', 'eat', 'drink', 'run', 'walk', 'open', 'close'
+  ],
+  2: [
+    'arrive', 'borrow', 'carry', 'choose', 'collect', 'decide', 'empty', 'favorite', 'hurry', 'invite',
+    'local', 'message', 'notice', 'patient', 'prepare', 'protect', 'quiet', 'return', 'search', 'select',
+    'several', 'sudden', 'travel', 'useful', 'village', 'warning', 'weather', 'wonder', 'wrap', 'yesterday'
+  ],
+  3: [
+    'ancient', 'arrange', 'balance', 'border', 'compare', 'connect', 'discover', 'effort', 'examine', 'explain',
+    'explore', 'gather', 'improve', 'include', 'journey', 'measure', 'observe', 'receive', 'reduce', 'region',
+    'respect', 'result', 'route', 'separate', 'solve', 'supply', 'support', 'value', 'whole', 'method'
+  ]
+};
 
-const makeVocabItems = (level, rows) => {
-  const localizedRows = rows.map(row => ({ ...row, definition: VOCABULARY_DEFINITIONS_ZH[row.word] }));
+const makeVocabItems = (level, words) => {
+  const localizedRows = words.map(word => ({ word, definition: VOCABULARY_DEFINITIONS_ZH[word] }));
   if (localizedRows.some(row => !row.definition)) throw new Error('A placement vocabulary word is missing its Chinese definition.');
   return localizedRows.map(({ word, definition }, index) => ({
     id: `adaptive-vocab-${level}-${index + 1}`,
@@ -78,45 +94,6 @@ const makeVocabItems = (level, rows) => {
     ...vocabularyOptionSet(definition, localizedRows, word, index + level * 3)
   }));
 };
-
-const LEVEL_ONE_WORDS = parseWords([
-  'book|pages you read', 'pen|a tool used for writing', 'bag|something used to carry things',
-  'desk|a table used for schoolwork', 'chair|something you sit on', 'school|a place where children learn',
-  'teacher|a person who helps children learn', 'friend|a person you like and know', 'apple|a round fruit',
-  'water|something you drink', 'cat|a small animal that says meow', 'dog|an animal that can bark',
-  'bird|an animal with wings', 'tree|a tall plant with a trunk', 'flower|the colorful part of a plant',
-  'sun|the bright thing in the sky in daytime', 'rain|water that falls from clouds', 'red|the color of an apple',
-  'blue|the color of a clear sky', 'green|the color of grass', 'big|large in size',
-  'small|not large', 'hot|having a high temperature', 'cold|not warm',
-  'eat|to have food', 'drink|to have water or juice', 'run|to move very fast on your feet',
-  'walk|to move on your feet slowly', 'open|to move something so it is not closed', 'close|to shut something'
-]);
-
-const LEVEL_TWO_WORDS = parseWords([
-  'adventure|an exciting trip or activity', 'arrive|to get to a place', 'belong|to be owned by someone',
-  'collect|to bring things together', 'decide|to choose after thinking', 'empty|having nothing inside',
-  'hurry|to move or do something quickly', 'invite|to ask someone to come', 'local|from a nearby place',
-  'message|a piece of information sent to someone', 'notice|to see or become aware of something', 'patient|able to wait calmly',
-  'prepare|to get ready for something', 'protect|to keep safe', 'quiet|making little or no sound',
-  'return|to go back to a place', 'search|to look carefully for something', 'select|to choose one thing',
-  'several|more than two but not many', 'sudden|happening quickly and without warning', 'travel|to go from one place to another',
-  'useful|helpful for a purpose', 'village|a small group of homes', 'warning|a sign that tells about danger',
-  'weather|rain, wind, sun, or snow outside', 'wonder|to want to know about something', 'wrap|to cover something with paper or cloth',
-  'yesterday|the day before today', 'zigzag|a line with sharp turns', 'proper|right or suitable for a situation'
-]);
-
-const LEVEL_THREE_WORDS = parseWords([
-  'ancient|very old from a long time ago', 'arrange|to put things in a careful order', 'balance|a steady position that does not fall',
-  'border|the edge between two places', 'connect|to join two things together', 'discover|to find something for the first time',
-  'effort|hard work to do something', 'examine|to look at something very carefully', 'explain|to make something clear by telling about it',
-  'gather|to bring people or things together', 'improve|to make something better', 'include|to have something as part of a group',
-  'journey|a trip from one place to another', 'measure|to find the size or amount of something', 'observe|to watch carefully',
-  'protect|to keep safe from harm', 'receive|to get something that is sent or given', 'reduce|to make something less',
-  'region|a large area of a country', 'respect|to treat someone or something well', 'result|what happens in the end',
-  'route|the way from one place to another', 'separate|to divide things into different groups', 'solve|to find an answer to a problem',
-  'supply|a store of things that are needed', 'support|to help a person or idea', 'value|how useful or important something is',
-  'whole|all of something, with no part missing', 'wonder|to think with surprise or interest', 'method|a way of doing something'
-]);
 
 const grammarItem = (level, index, q, answer, wrongA, wrongB) => ({
   id: `adaptive-grammar-${level}-${index + 1}`,
@@ -353,9 +330,9 @@ const LEVEL_THREE_SPEAKING = [
 
 export const ADAPTIVE_PLACEMENT_BANK = {
   vocab: [
-    ...makeVocabItems(1, LEVEL_ONE_WORDS),
-    ...makeVocabItems(2, LEVEL_TWO_WORDS),
-    ...makeVocabItems(3, LEVEL_THREE_WORDS)
+    ...makeVocabItems(1, PLACEMENT_VOCABULARY_BY_LEVEL[1]),
+    ...makeVocabItems(2, PLACEMENT_VOCABULARY_BY_LEVEL[2]),
+    ...makeVocabItems(3, PLACEMENT_VOCABULARY_BY_LEVEL[3])
   ],
   grammar: [...LEVEL_ONE_GRAMMAR, ...LEVEL_TWO_GRAMMAR, ...LEVEL_THREE_GRAMMAR],
   reading: [...buildReadingItems(1), ...buildReadingItems(2), ...buildReadingItems(3)],
@@ -370,11 +347,27 @@ export const ADAPTIVE_SECTION_ORDER = ['vocab', 'grammar', 'reading', 'speaking'
 
 export const validateAdaptivePlacementBank = () => {
   const errors = [];
+  const placementVocabulary = Object.values(PLACEMENT_VOCABULARY_BY_LEVEL).flat();
+  if (placementVocabulary.length !== 90 || new Set(placementVocabulary).size !== placementVocabulary.length) {
+    errors.push('Placement vocabulary must contain 30 different words at each level, with no cross-level duplicates.');
+  }
+  [1, 2, 3].forEach(level => {
+    const words = PLACEMENT_VOCABULARY_BY_LEVEL[level] || [];
+    if (words.length !== 30 || words.some(word => !VOCABULARY_DEFINITIONS_ZH[word] || !VOCABULARY_WORD_CATEGORIES[word])) {
+      errors.push(`Placement vocabulary level ${level} is incomplete or has undefined words.`);
+    }
+  });
   Object.entries(ADAPTIVE_PLACEMENT_BANK).forEach(([section, items]) => {
     [1, 2, 3].forEach(level => {
       const levelItems = items.filter(item => item.level === level);
       if (levelItems.length !== 30) errors.push(`${section} level ${level} has ${levelItems.length} items, expected 30.`);
       if (new Set(levelItems.map(item => item.id)).size !== levelItems.length) errors.push(`${section} level ${level} has duplicate IDs.`);
+      if (section === 'vocab') {
+        const expectedWords = new Set(PLACEMENT_VOCABULARY_BY_LEVEL[level]);
+        if (levelItems.some(item => !expectedWords.has(item.word)) || new Set(levelItems.map(item => item.word)).size !== expectedWords.size) {
+          errors.push(`Placement vocabulary level ${level} does not match its calibrated word list.`);
+        }
+      }
       if (section === 'reading' && new Set(levelItems.map(item => item.text.en)).size !== levelItems.length) errors.push(`reading level ${level} has duplicate passages.`);
       if (section === 'speaking' && new Set(levelItems.map(item => item.target)).size !== levelItems.length) errors.push(`speaking level ${level} has duplicate sentences.`);
       levelItems.forEach(item => {

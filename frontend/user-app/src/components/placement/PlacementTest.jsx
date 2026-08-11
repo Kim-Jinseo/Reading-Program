@@ -242,7 +242,9 @@ export const PlacementTest = ({ onExit }) => {
     const excluded = new Set([...history, ...usedThisAttemptRef.current]);
     const allEntries = ADAPTIVE_PLACEMENT_BANK[section];
     const preferredEntries = allEntries.filter(entry => entry.level === preferredLevel && !excluded.has(entry.id));
-    const fallbackEntries = allEntries.filter(entry => !excluded.has(entry.id));
+    // Placement vocabulary must never borrow an item from another level band.
+    // If its 30-item set has been used before, it starts over in that same band.
+    const fallbackEntries = section === 'vocab' ? [] : allEntries.filter(entry => !excluded.has(entry.id));
     const choices = preferredEntries.length ? preferredEntries : fallbackEntries;
 
     // The bank has 30 unique entries at every level in every section. If a
