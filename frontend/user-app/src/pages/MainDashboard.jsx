@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book, Edit3, Mic, BookOpen, ChevronRight, PenTool, CheckCircle2 } from 'lucide-react';
+import { Book, Edit3, Mic, BookOpen, ChevronRight, PenTool, CheckCircle2, Trophy, ShoppingBag, ClipboardCheck } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const MainDashboard = () => {
@@ -78,6 +78,12 @@ export const MainDashboard = () => {
     },
   ];
 
+  const quickLinks = [
+    { id: 'leaderboard', icon: <Trophy size={28} />, color: 'text-amber-600', bg: 'bg-amber-100', border: 'hover:border-amber-300', desc: t('home_leaderboard_desc') },
+    { id: 'shop', icon: <ShoppingBag size={28} />, color: 'text-pink-600', bg: 'bg-pink-100', border: 'hover:border-pink-300', desc: t('home_shop_desc') },
+    { id: 'test', icon: <ClipboardCheck size={28} />, color: 'text-emerald-600', bg: 'bg-emerald-100', border: 'hover:border-emerald-300', desc: t('home_test_desc') }
+  ];
+
   return (
     <div className="max-w-7xl mx-auto pt-2 md:pt-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-4 md:gap-6">
@@ -127,6 +133,32 @@ export const MainDashboard = () => {
           );
         })}
       </div>
+
+      <section className="mt-9 md:mt-14">
+        <h3 className="text-xl md:text-2xl font-extrabold text-slate-800 mb-4 md:mb-6">{t('home_explore_title')}</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {quickLinks.map(link => (
+            <button
+              key={link.id}
+              onClick={() => setView(link.id)}
+              className={`min-h-40 bg-white rounded-3xl border-2 border-slate-100 ${link.border} p-5 md:p-6 text-left transition-all hover:-translate-y-1 hover:shadow-lg group flex flex-col justify-between`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span className={`w-14 h-14 rounded-2xl flex items-center justify-center ${link.bg} ${link.color} transition-transform group-hover:scale-110`}>
+                  {link.icon}
+                </span>
+                <span className="w-9 h-9 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                  <ChevronRight size={19} />
+                </span>
+              </div>
+              <div className="mt-5">
+                <h4 className="text-xl font-extrabold text-slate-800">{t(`nav_${link.id}`)}</h4>
+                <p className="mt-1.5 text-sm leading-relaxed font-medium text-slate-500">{link.desc}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
