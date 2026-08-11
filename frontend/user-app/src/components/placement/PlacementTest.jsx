@@ -102,7 +102,7 @@ const calculatePlacement = (items, answers) => {
   return { recommendedLevel, levelScores, sectionScores, totalScore, totalMax };
 };
 
-export const PlacementTest = () => {
+export const PlacementTest = ({ onExit }) => {
   // Placement is an English assessment, so its instructions and questions
   // always stay in English even when the rest of the app is set to Chinese.
   const text = en => en;
@@ -277,6 +277,12 @@ export const PlacementTest = () => {
     setResult(null);
     setRecordingError('');
     setStage('intro');
+  };
+
+  const exitCompletedTest = () => {
+    stopRecording();
+    if (onExit) onExit();
+    else setStage('intro');
   };
 
   const recordAnswer = (score, details = {}) => {
@@ -487,7 +493,10 @@ export const PlacementTest = () => {
           {saveState === 'saved' && text('Your result has been saved.', '你的结果已保存。')}
           {saveState === 'error' && text('Your suggested level is ready, but saving did not work. Please ask your teacher to check the connection.', '你的建议等级已生成，但结果没有保存成功。请让老师检查网络连接。')}
         </p>
-        <button onClick={beginTest} className="mt-5 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-extrabold"><RotateCcw size={18} /> {text('Take another adaptive test', '再做一次自适应测试')}</button>
+        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button onClick={exitCompletedTest} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-extrabold"><LogOut size={18} /> Exit Test</button>
+          <button onClick={beginTest} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-extrabold"><RotateCcw size={18} /> Take another adaptive test</button>
+        </div>
       </div>
     );
   }
