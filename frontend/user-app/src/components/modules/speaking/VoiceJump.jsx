@@ -1000,7 +1000,7 @@ export const VoiceJump = ({ onBack }) => {
              {/* Custom Pet - Positioned Floating Beside Character's Right Side */}
              {selectedPet === 'pet_dragon' && (
                 <>
-                  <div className="absolute bottom-2 left-12 sm:bottom-6 sm:left-20">
+                  <div className="absolute z-20 bottom-2 left-20 sm:bottom-6 sm:left-40">
                     <img 
                       src={animTrigger === 'pet_attack' ? "/assets/pet_dragon_attack.png" : "/assets/pet_dragon.png"} 
                       alt="Dragonling" 
@@ -1020,10 +1020,9 @@ export const VoiceJump = ({ onBack }) => {
                   {/* The warm-up spark and the fireball share the same responsive mouth anchor. */}
                   {animTrigger === 'pet_inhale' && (
                     <div 
-                      className="absolute z-30 pointer-events-none rounded-full animate-ping"
+                      className="absolute z-30 pointer-events-none rounded-full animate-ping left-[calc(96%_+_2rem)] sm:left-[calc(110%_+_2rem)]"
                       style={{
                         top: 'calc(36% + 0.7rem)',
-                        left: 'calc(68% + 2rem)',
                         width: '18px',
                         height: '18px',
                         background: 'radial-gradient(circle, #ffffff 20%, #f97316 60%, #dc2626 100%)',
@@ -1033,12 +1032,11 @@ export const VoiceJump = ({ onBack }) => {
                   )}
 
                   <div 
-                    className="absolute z-30 pointer-events-none flex items-center"
+                    className={`absolute z-30 pointer-events-none flex items-center ${animTrigger === 'pet_attack' ? 'left-[clamp(13rem,48vw,32rem)]' : 'left-[calc(96%_-_1.5rem)] sm:left-[calc(110%_-_1.5rem)]'}`}
                     style={{
                       // The parent is the player area. Percent anchors keep the flame
                       // at the dragon's mouth as the character and pet scale together.
                       top: '36%',
-                      left: animTrigger === 'pet_attack' ? 'clamp(13rem, 48vw, 32rem)' : 'calc(68% - 1.5rem)',
                       opacity: animTrigger === 'pet_attack' ? 1 : 0,
                       transform: animTrigger === 'pet_attack' ? 'scale(1.25)' : 'scale(0.2)',
                       transition: animTrigger === 'pet_attack' 
@@ -1082,7 +1080,7 @@ export const VoiceJump = ({ onBack }) => {
                 </>
              )}
              {selectedPet === 'pet_griffin' && (
-                <div className="absolute bottom-2 left-12 sm:bottom-6 sm:left-20">
+                <div className="absolute z-20 bottom-2 left-20 sm:bottom-6 sm:left-40">
                   <img src="/assets/pet_griffin.png" alt="Griffin" className={`w-14 h-14 sm:w-28 sm:h-28 object-contain animate-bounce-slow filter drop-shadow-[0_0_15px_rgba(0,150,255,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
                     <span className="absolute -top-5 sm:-top-8 left-0 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
@@ -1092,7 +1090,7 @@ export const VoiceJump = ({ onBack }) => {
                 </div>
              )}
              {selectedPet === 'pet_golem' && (
-                <div className="absolute bottom-2 left-12 sm:bottom-6 sm:left-20">
+                <div className="absolute z-20 bottom-2 left-20 sm:bottom-6 sm:left-40">
                   <img src="/assets/pet_golem.png" alt="Golem" className={`w-12 h-12 sm:w-20 sm:h-20 shrink-0 object-contain animate-bounce-slow filter drop-shadow-[0_0_10px_rgba(0,255,100,0.5)] scale-x-[-1] ${petDisabledTimer > 0 ? 'grayscale opacity-60' : ''}`} />
                   {petDisabledTimer > 0 && (
                     <span className="absolute -top-5 sm:-top-8 left-0 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-md z-30 whitespace-nowrap animate-pulse">
