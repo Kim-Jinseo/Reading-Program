@@ -270,7 +270,8 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const currentGrade = Number(body.currentGrade);
     const formId = typeof body.formId === 'string' ? body.formId : '';
     const requestedLevel = body.recommendedLevel;
-    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky']);
+    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1']);
+    const isAdaptiveForm = formId === 'adaptive-v1';
 
     if (!/^[\u3400-\u9fff]{2,10}$/u.test(chineseName)) {
       return c.json({ success: false, error: 'Please provide a Chinese name with 2 to 10 characters.' }, 400);
@@ -282,16 +283,20 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       return c.json({ success: false, error: 'Unknown placement test form.' }, 400);
     }
 
+    // The older fixed forms always have the same mix of levels. An adaptive
+    // form does not: its level mix is selected from the student's answers.
     const levelMaximums = { 1: 7, 2: 7, 3: 6 };
     const levelScores = {};
     for (const [level, max] of Object.entries(levelMaximums)) {
       const raw = body.levelScores?.[level];
       const score = Number(raw?.score);
       const reportedMax = Number(raw?.max);
-      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || reportedMax !== max || score < 0 || score > max) {
+      const hasValidAdaptiveMaximum = Number.isInteger(reportedMax) && reportedMax >= 0;
+      const hasValidFixedMaximum = reportedMax === max;
+      if (!Number.isFinite(score) || !Number.isFinite(reportedMax) || !Number.isInteger(score) || (!isAdaptiveForm && !hasValidFixedMaximum) || (isAdaptiveForm && !hasValidAdaptiveMaximum) || score < 0 || score > reportedMax) {
         return c.json({ success: false, error: 'Invalid placement level scores.' }, 400);
       }
-      levelScores[level] = { score, max };
+      levelScores[level] = { score, max: reportedMax };
     }
 
     const sectionMaximums = { reading: 3, vocab: 5, grammar: 3, speaking: 9 };
@@ -310,20 +315,35 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const totalMax = Number(body.totalMax);
     const levelTotal = Object.values(levelScores).reduce((sum, item) => sum + item.score, 0);
     const sectionTotal = Object.values(sectionScores).reduce((sum, item) => sum + item.score, 0);
-    if (!Number.isFinite(totalScore) || totalMax !== 20 || totalScore < 0 || totalScore > totalMax || totalScore !== levelTotal || totalScore !== sectionTotal) {
+    const levelMaximumTotal = Object.values(levelScores).reduce((sum, item) => sum + item.max, 0);
+    if (!Number.isFinite(totalScore) || !Number.isInteger(totalScore) || totalMax !== 20 || totalScore < 0 || totalScore > totalMax || levelMaximumTotal !== totalMax || totalScore !== levelTotal || totalScore !== sectionTotal) {
       return c.json({ success: false, error: 'Placement total does not match the section scores.' }, 400);
     }
 
     const rate = level => levelScores[level].score / levelScores[level].max;
     const totalRate = totalScore / totalMax;
-    const recommendedLevel = rate(1) >= 0.8 && rate(2) >= 0.7 && rate(3) >= 0.6 && totalRate >= 0.72
-      ? '3'
-      : rate(1) >= 0.6 && rate(2) >= 0.45 && totalRate >= 0.5
-        ? '2'
-        : '1';
+    const sectionRate = section => sectionScores[section].score / sectionScores[section].max;
+    const recommendedLevel = isAdaptiveForm
+      ? (sectionRate('vocab') >= 0.8 && sectionRate('grammar') >= (2 / 3) && sectionRate('reading') >= (2 / 3) && sectionRate('speaking') >= (2 / 3) && totalRate >= 0.72
+        ? '3'
+        : sectionRate('vocab') >= 0.4 && sectionRate('grammar') >= (1 / 3) && sectionRate('reading') >= (1 / 3) && totalRate >= 0.48
+          ? '2'
+          : '1')
+      : (rate(1) >= 0.8 && rate(2) >= 0.7 && rate(3) >= 0.6 && totalRate >= 0.72
+        ? '3'
+        : rate(1) >= 0.6 && rate(2) >= 0.45 && totalRate >= 0.5
+          ? '2'
+          : '1');
 
     if (requestedLevel !== recommendedLevel) {
       return c.json({ success: false, error: 'Placement recommendation did not match the score.' }, 400);
+    }
+
+    const adaptivePath = isAdaptiveForm && Array.isArray(body.adaptivePath)
+      ? body.adaptivePath.slice(0, 12).filter(item => item && typeof item.id === 'string' && /^adaptive-(vocab|grammar|reading|speaking)-[1-3]-\d+$/.test(item.id) && ['vocab', 'grammar', 'reading', 'speaking'].includes(item.section) && [1, 2, 3].includes(Number(item.level))).map(item => ({ id: item.id, section: item.section, level: Number(item.level) }))
+      : [];
+    if (isAdaptiveForm && (adaptivePath.length !== 12 || adaptivePath.filter(item => item.section === 'vocab').length !== 5 || adaptivePath.filter(item => item.section === 'grammar').length !== 3 || adaptivePath.filter(item => item.section === 'reading').length !== 1 || adaptivePath.filter(item => item.section === 'speaking').length !== 3)) {
+      return c.json({ success: false, error: 'Invalid adaptive placement path.' }, 400);
     }
 
     const { placementTests } = await getDb();
@@ -337,6 +357,7 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       totalMax,
       levelScores,
       sectionScores,
+      ...(isAdaptiveForm ? { adaptivePath } : {}),
       accountUserId: accountUser?.userId || null,
       createdAt: new Date()
     };
