@@ -114,6 +114,8 @@ export const PlacementTest = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [isRecording, setIsRecording] = useState(false);
+  const [isPreparingMic, setIsPreparingMic] = useState(false);
+  const [isMicReady, setIsMicReady] = useState(false);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [recordingError, setRecordingError] = useState('');
   const [saveState, setSaveState] = useState('idle');
@@ -121,6 +123,7 @@ export const PlacementTest = () => {
   const recorderRef = useRef(null);
   const streamRef = useRef(null);
   const chunksRef = useRef([]);
+  const targetAudioRef = useRef(new Map());
   const activeIndexRef = useRef(0);
   const completedHistoryRef = useRef(makeEmptyHistory());
   const usedThisAttemptRef = useRef(new Set());
@@ -156,6 +159,10 @@ export const PlacementTest = () => {
   useEffect(() => () => {
     if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
     streamRef.current?.getTracks().forEach(track => track.stop());
+    targetAudioRef.current.forEach(audio => {
+      audio.pause();
+      audio.src = '';
+    });
   }, []);
 
   const stopRecording = () => {
@@ -163,6 +170,25 @@ export const PlacementTest = () => {
     streamRef.current?.getTracks().forEach(track => track.stop());
     streamRef.current = null;
     setIsRecording(false);
+    setIsPreparingMic(false);
+    setIsMicReady(false);
+  };
+
+  const playTargetAudio = (target) => {
+    if (!target) return;
+
+    let audio = targetAudioRef.current.get(target);
+    if (!audio) {
+      const token = localStorage.getItem('token') || '';
+      audio = new Audio(`/api/audio/tts?text=${encodeURIComponent(target)}&token=${encodeURIComponent(token)}&t=${Date.now()}`);
+      targetAudioRef.current.set(target, audio);
+    }
+
+    audio.currentTime = 0;
+    audio.play().catch(() => {
+      targetAudioRef.current.delete(target);
+      setRecordingError('We could not play the example audio. Please try again.');
+    });
   };
 
   const selectEntry = (section, preferredLevel) => {
@@ -290,13 +316,15 @@ export const PlacementTest = () => {
     }
 
     try {
+      setIsPreparingMic(true);
       setRecordingError('');
+      if (!window.MediaRecorder) throw new Error('This browser cannot record audio.');
       const stream = streamRef.current?.active ? streamRef.current : await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
       streamRef.current = stream;
+      setIsMicReady(true);
       const options = {};
       if (window.MediaRecorder?.isTypeSupported?.('audio/webm')) options.mimeType = 'audio/webm';
       else if (window.MediaRecorder?.isTypeSupported?.('audio/mp4')) options.mimeType = 'audio/mp4';
-      if (!window.MediaRecorder) throw new Error('This browser cannot record audio.');
 
       const recorder = new MediaRecorder(stream, options);
       chunksRef.current = [];
@@ -310,7 +338,12 @@ export const PlacementTest = () => {
       recorderRef.current = recorder;
       setIsRecording(true);
     } catch (error) {
+      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+      setIsMicReady(false);
       setRecordingError(text('Please allow microphone access and try again.', '请允许使用麦克风后再试一次。'));
+    } finally {
+      setIsPreparingMic(false);
     }
   };
 
@@ -324,6 +357,9 @@ export const PlacementTest = () => {
   };
 
   const finishTest = async () => {
+    // A completed speaking answer has already been assessed, so it is safe to
+    // release the microphone before showing the placement result.
+    stopRecording();
     const completedResult = calculatePlacement(items, answers);
     saveCompletedHistory();
     setResult(completedResult);
@@ -460,14 +496,14 @@ export const PlacementTest = () => {
   const Icon = section.icon;
   const answer = answers[activeIndex];
   const isSpeaking = activeItem.section === 'speaking';
-  const canContinue = Boolean(answer) && !isEvaluating && !isRecording;
+  const canContinue = Boolean(answer) && !isEvaluating && !isRecording && !isPreparingMic;
   const isLastQuestion = activeIndex === TOTAL_QUESTIONS - 1;
 
   return (
     <div className="max-w-3xl mx-auto">
       <div className="flex items-center justify-between gap-3 mb-4 text-sm font-extrabold text-slate-500">
         <span>{text(`Question ${activeIndex + 1} of ${TOTAL_QUESTIONS}`, `第 ${activeIndex + 1} 题，共 ${TOTAL_QUESTIONS} 题`)}</span>
-        <button onClick={leaveTest} disabled={isEvaluating || isRecording} className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-800 disabled:opacity-50"><LogOut size={16} /> {text('Leave without saving', '退出且不保存')}</button>
+        <button onClick={leaveTest} disabled={isEvaluating || isRecording || isPreparingMic} className="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-800 disabled:opacity-50"><LogOut size={16} /> {text('Leave without saving', '退出且不保存')}</button>
       </div>
       <div className="h-2 rounded-full bg-slate-200 overflow-hidden mb-3"><div className="h-full bg-indigo-600 transition-all" style={{ width: `${((activeIndex + 1) / TOTAL_QUESTIONS) * 100}%` }} /></div>
       <p className="mb-6 text-xs font-semibold text-slate-500">{text('Leaving before the final result means this test will not be saved.', '在看到最终结果前退出，这次测试不会被保存。')}</p>
@@ -478,14 +514,17 @@ export const PlacementTest = () => {
           <div className="mt-7 text-center">
             <p className="text-slate-500 font-bold">{text('Read this sentence aloud:', '请大声朗读这句话：')}</p>
             <p className="text-2xl sm:text-3xl font-black text-slate-800 leading-relaxed mt-3">“{activeItem.target}”</p>
-            <button onClick={() => window.speechSynthesis?.speak(new SpeechSynthesisUtterance(activeItem.target))} className="mt-4 inline-flex items-center gap-2 text-indigo-600 font-extrabold hover:text-indigo-800"><Volume2 size={19} /> {text('Hear it', '听一听')}</button>
+            <button onClick={() => playTargetAudio(activeItem.target)} className="mt-4 inline-flex items-center gap-2 text-indigo-600 font-extrabold hover:text-indigo-800"><Volume2 size={19} /> Hear it</button>
             <div className="mt-7">
-              <button disabled={isEvaluating || Boolean(answer)} onClick={toggleRecording} className={`w-32 h-32 rounded-full mx-auto flex flex-col items-center justify-center text-white font-black shadow-lg transition-transform active:scale-95 disabled:opacity-60 ${isRecording ? 'bg-rose-600 animate-pulse' : 'bg-indigo-600 hover:bg-indigo-700'}`}>
-                {isEvaluating ? <Loader2 className="animate-spin" size={30} /> : isRecording ? <Square size={28} /> : <Mic size={30} />}
-                <span className="text-xs mt-2">{isEvaluating ? text('Checking…', '检查中…') : isRecording ? text('Stop', '停止') : answer ? text('Saved', '已保存') : text('Record', '录音')}</span>
+              <div aria-live="polite" className={`min-h-6 flex items-center justify-center gap-2 text-sm font-extrabold ${isRecording ? 'text-rose-600' : isMicReady ? 'text-emerald-600' : 'text-slate-500'}`}>
+                {isPreparingMic ? <><Loader2 size={17} className="animate-spin" /> Getting microphone ready…</> : isEvaluating ? <><Loader2 size={17} className="animate-spin" /> Checking your speech…</> : isRecording ? <><span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" /> Listening… Tap the microphone when you finish.</> : answer ? <><CheckCircle2 size={17} /> Your recording is saved.</> : isMicReady ? <><CheckCircle2 size={17} /> Microphone ready. Tap to record.</> : <><Mic size={17} /> Tap the microphone to get ready.</>}
+              </div>
+              <button disabled={isEvaluating || isPreparingMic || Boolean(answer)} onClick={toggleRecording} className={`w-32 h-32 rounded-full mx-auto mt-3 flex flex-col items-center justify-center text-white font-black shadow-lg transition-transform active:scale-95 disabled:opacity-60 ${isRecording ? 'bg-rose-600 animate-pulse' : 'bg-indigo-600 hover:bg-indigo-700'}`}>
+                {isPreparingMic || isEvaluating ? <Loader2 className="animate-spin" size={30} /> : isRecording ? <Square size={28} /> : <Mic size={30} />}
+                <span className="text-xs mt-2">{isPreparingMic ? 'Preparing…' : isEvaluating ? 'Checking…' : isRecording ? 'Stop' : answer ? 'Saved' : 'Record'}</span>
               </button>
               {answer && <p className={`mt-4 font-extrabold ${answer.score >= 2 ? 'text-emerald-600' : 'text-amber-700'}`}>{answer.score >= 2 ? text('Good clear speech. Your recording is saved.', '朗读很清楚，录音已保存。') : text('Your recording is saved.', '录音已保存。')}</p>}
-              <button disabled={isRecording || isEvaluating || Boolean(answer)} onClick={() => recordAnswer(0, { skipped: true })} className="block mx-auto mt-4 text-sm font-bold text-slate-500 hover:text-slate-800 underline disabled:opacity-50">{text('No microphone? Skip this speaking item', '没有麦克风？跳过这道口语题')}</button>
+              <button disabled={isRecording || isPreparingMic || isEvaluating || Boolean(answer)} onClick={() => recordAnswer(0, { skipped: true })} className="block mx-auto mt-4 text-sm font-bold text-slate-500 hover:text-slate-800 underline disabled:opacity-50">No microphone? Skip this speaking item</button>
             </div>
           </div>
         ) : (
