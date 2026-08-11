@@ -16,6 +16,19 @@ import { LeaderboardView } from './pages/LeaderboardView';
 import { ShopView } from './pages/ShopView';
 import { TestView } from './pages/TestView';
 
+const AppFooter = () => {
+  const { lang } = useAppContext();
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="mt-10 sm:mt-14 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-center text-xs sm:text-sm font-medium text-slate-400">
+      <span className="inline-flex max-w-full items-center justify-center rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 shadow-sm">
+        {lang === 'zh' ? `© ${year} Jinseo Kim 版权所有。` : `© ${year} Jinseo Kim. All rights reserved.`}
+      </span>
+    </footer>
+  );
+};
+
 const AppContent = () => {
   const { user, view, curriculumDb, isAuthLoading } = useAppContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -60,17 +73,22 @@ const AppContent = () => {
 
         {/* WORKSPACE */}
         <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 md:p-10 bg-slate-50/50">
-          {view === 'dashboard' && <MainDashboard />}
-          {view === 'admin' && <AdminDashboardView />}
-          {view === 'vocab' && <VocabModule />}
-          {view === 'grammar' && <GrammarModule />}
-          {view === 'writing' && <WritingModule />}
-          {view === 'speaking' && <SpeakingModule />}
-          {view === 'reading' && <ReadingModule />}
-          {view === 'extra_practice' && <ExtraPractice />}
-          {view === 'leaderboard' && <LeaderboardView />}
-          {view === 'shop' && <ShopView />}
-          {view === 'test' && <TestView />}
+          <div className="min-h-full flex flex-col">
+            <div className="flex-1">
+              {view === 'dashboard' && <MainDashboard />}
+              {view === 'admin' && <AdminDashboardView />}
+              {view === 'vocab' && <VocabModule />}
+              {view === 'grammar' && <GrammarModule />}
+              {view === 'writing' && <WritingModule />}
+              {view === 'speaking' && <SpeakingModule />}
+              {view === 'reading' && <ReadingModule />}
+              {view === 'extra_practice' && <ExtraPractice />}
+              {view === 'leaderboard' && <LeaderboardView />}
+              {view === 'shop' && <ShopView />}
+              {view === 'test' && <TestView />}
+            </div>
+            <AppFooter />
+          </div>
         </div>
       </main>
     </div>
