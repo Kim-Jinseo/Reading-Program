@@ -244,32 +244,36 @@ export const PlacementTest = () => {
 
   if (stage === 'intro') {
     return (
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl border-2 border-indigo-100 shadow-sm p-5 sm:p-8">
-        <div className="w-14 h-14 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center mb-5"><BookOpen size={28} /></div>
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Placement Test', '分级测试')}</h2>
-        <p className="text-slate-600 font-medium leading-relaxed mt-2">{text('Find the best starting level for your English learning.', '完成阅读、词汇、语法和口语小测试，获得学习等级建议。')}</p>
+      <div className="max-w-3xl mx-auto bg-white rounded-3xl border-2 border-indigo-100 shadow-sm p-6 sm:p-9">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+          <div className="w-14 h-14 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={28} /></div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Placement Test', '分级测试')}</h2>
+            <p className="text-slate-600 font-medium leading-relaxed mt-1.5">{text('Find the best starting level for your English learning.', '完成阅读、词汇、语法和口语小测试，获得学习等级建议。')}</p>
+          </div>
+        </div>
 
         <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           {[['1', 'reading'], ['5', 'vocab'], ['3', 'grammar'], ['3', 'speaking']].map(([count, key]) => {
             const Icon = SECTION_DETAILS[key].icon;
-            return <div key={key} className={`rounded-2xl border p-3 ${SECTION_DETAILS[key].bg}`}><Icon size={20} className={`mx-auto ${SECTION_DETAILS[key].color}`} /><p className="font-black text-slate-800 mt-1">{count} {sectionName(key)}</p></div>;
+            return <div key={key} className={`min-h-24 rounded-2xl border p-3 flex flex-col items-center justify-center ${SECTION_DETAILS[key].bg}`}><Icon size={20} className={`shrink-0 ${SECTION_DETAILS[key].color}`} /><p className="font-black text-slate-800 mt-2 leading-tight">{count} {sectionName(key)}</p></div>;
           })}
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 mt-8">
+        <div className="grid sm:grid-cols-2 gap-4 mt-7">
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Chinese name', '中文姓名')}</span>
-            <input value={chineseName} onChange={event => setChineseName(event.target.value.replace(/\s/g, ''))} placeholder={text('For example: 王小明', '例如：王小明')} maxLength={10} className="w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-bold outline-none focus:border-indigo-500" />
+            <input value={chineseName} onChange={event => setChineseName(event.target.value.replace(/\s/g, ''))} placeholder={text('For example: 王小明', '例如：王小明')} maxLength={10} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3.5 font-bold shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-indigo-500" />
           </label>
           <label className="block">
             <span className="block text-sm font-extrabold text-slate-700 mb-2">{text('Current grade', '当前年级')}</span>
-            <select value={currentGrade} onChange={event => setCurrentGrade(event.target.value)} className="w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-bold outline-none focus:border-indigo-500 bg-white">
+            <select value={currentGrade} onChange={event => setCurrentGrade(event.target.value)} className="w-full rounded-xl border-2 border-slate-200 px-4 py-3.5 font-bold shadow-sm outline-none transition-colors focus:border-indigo-500 bg-white">
               <option value="">{text('Choose grade', '请选择年级')}</option>
               {[1, 2, 3, 4, 5, 6].map(grade => <option key={grade} value={grade}>{text(`Grade ${grade}`, `${grade} 年级`)}</option>)}
             </select>
           </label>
         </div>
-        <p className="text-xs text-slate-500 mt-4">{text('Your name, current grade, and recommended level are saved for the teacher. Each new attempt uses a different test form until all forms have been used.', '你的姓名、当前年级和建议等级会保存给老师。每次测试会使用不同的试卷，直到所有试卷都用过。')}</p>
+        <p className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-500 leading-relaxed mt-5">{text('Your name, current grade, and recommended level are saved for the teacher. Each new attempt uses a different test form until all forms have been used.', '你的姓名、当前年级和建议等级会保存给老师。每次测试会使用不同的试卷，直到所有试卷都用过。')}</p>
         {recordingError && <p className="mt-3 text-sm font-bold text-rose-600">{recordingError}</p>}
         <button onClick={beginTest} className="mt-6 w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-lg shadow-[0_5px_0_rgb(67,56,202)] active:translate-y-1 active:shadow-none transition-all">{text('Start Placement Test', '开始分级测试')}</button>
       </div>

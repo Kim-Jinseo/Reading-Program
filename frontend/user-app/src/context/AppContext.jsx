@@ -2,8 +2,17 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { TRANSLATIONS } from '../data/translations';
 import { getTodayString } from '../utils/dailySelection';
 import localCurriculum from '../data/curriculum.json';
+import { ADDITIONAL_READINGS_BY_GRADE } from '../data/additionalReadings';
 
 const AppContext = createContext();
+
+const reviewedCurriculum = Object.fromEntries(Object.entries(localCurriculum).map(([gradeKey, gradeData]) => [
+  gradeKey,
+  {
+    ...gradeData,
+    reading: [...(gradeData.reading || []), ...(ADDITIONAL_READINGS_BY_GRADE[gradeKey] || [])]
+  }
+]));
 
 const FILLER_COMPETITORS = [
   { name: "Alex Chen", trophies: 129, grade: "5-6" },
@@ -40,7 +49,7 @@ export const AppProvider = ({ children }) => {
   const [lang, setLang] = useState('en');
   const [grade, setGrade] = useState('3-4');
   const [view, setView] = useState('dashboard');
-  const [curriculumDb, setCurriculumDb] = useState(localCurriculum);
+  const [curriculumDb, setCurriculumDb] = useState(reviewedCurriculum);
   const [user, setUser] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
@@ -202,7 +211,7 @@ export const AppProvider = ({ children }) => {
         if (data.success && data.data) {
           const sanitizedDb = { ...data.data };
           ['1-2', '3-4', '5-6'].forEach(gradeKey => {
-            const localGrade = localCurriculum[gradeKey];
+            const localGrade = reviewedCurriculum[gradeKey];
             if (!sanitizedDb[gradeKey]) {
               sanitizedDb[gradeKey] = localGrade;
             } else {

@@ -1004,7 +1004,7 @@ export const VoiceJump = ({ onBack }) => {
                     <img 
                       src={animTrigger === 'pet_attack' ? "/assets/pet_dragon_attack.png" : "/assets/pet_dragon.png"} 
                       alt="Dragonling" 
-                      className={`h-14 sm:h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-24 sm:w-36 [mask-image:linear-gradient(to_right,black_65%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_right,black_65%,transparent_98%)]' : 'w-14 sm:w-24'} ${
+                      className={`h-14 sm:h-24 object-contain filter drop-shadow-[0_0_10px_rgba(255,100,0,0.5)] transition-all duration-[150ms] ease-out ${animTrigger === 'pet_attack' ? 'w-24 sm:w-36' : 'w-14 sm:w-24'} ${
                          petDisabledTimer > 0 ? 'grayscale opacity-60' :
                          animTrigger === 'pet_inhale' ? 'scale-x-[-0.9] scale-y-110 -translate-x-4' : 
                          animTrigger === 'pet_attack' ? 'scale-x-[-1] scale-110 translate-x-6 -translate-y-2' : 
@@ -1017,13 +1017,13 @@ export const VoiceJump = ({ onBack }) => {
                       </span>
                     )}
                   </div>
-                  {/* Natural Dragon Fireball Effect originating directly from the mouth */}
+                  {/* The warm-up spark and the fireball share the same responsive mouth anchor. */}
                   {animTrigger === 'pet_inhale' && (
                     <div 
                       className="absolute z-30 pointer-events-none rounded-full animate-ping"
                       style={{
-                        top: '2.5rem',
-                        left: '4.5rem',
+                        top: 'calc(36% + 0.7rem)',
+                        left: 'calc(68% + 2rem)',
                         width: '18px',
                         height: '18px',
                         background: 'radial-gradient(circle, #ffffff 20%, #f97316 60%, #dc2626 100%)',
@@ -1035,8 +1035,10 @@ export const VoiceJump = ({ onBack }) => {
                   <div 
                     className="absolute z-30 pointer-events-none flex items-center"
                     style={{
-                      top: '2.5rem',
-                      left: animTrigger === 'pet_attack' ? 'clamp(8.5rem, 38vw, 25rem)' : '4.5rem',
+                      // The parent is the player area. Percent anchors keep the flame
+                      // at the dragon's mouth as the character and pet scale together.
+                      top: '36%',
+                      left: animTrigger === 'pet_attack' ? 'clamp(13rem, 48vw, 32rem)' : 'calc(68% - 1.5rem)',
                       opacity: animTrigger === 'pet_attack' ? 1 : 0,
                       transform: animTrigger === 'pet_attack' ? 'scale(1.25)' : 'scale(0.2)',
                       transition: animTrigger === 'pet_attack' 
