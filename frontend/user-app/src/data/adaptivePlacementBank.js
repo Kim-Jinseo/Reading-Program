@@ -27,12 +27,34 @@ const VOCABULARY_DEFINITIONS_ZH = {
   value: '有多重要或有多有用', whole: '全部的；完整的', method: '做事的方法'
 };
 
+// Keep vocabulary distractors clearly different from the answer. For example,
+// “travel” should never be placed beside the close meaning “adventure”.
+const VOCABULARY_WORD_CATEGORIES = {
+  book: 'noun', pen: 'noun', bag: 'noun', desk: 'noun', chair: 'noun', school: 'noun', teacher: 'noun', friend: 'noun', apple: 'noun', water: 'noun', cat: 'noun', dog: 'noun', bird: 'noun', tree: 'noun', flower: 'noun', sun: 'noun', rain: 'noun',
+  red: 'color', blue: 'color', green: 'color', big: 'adjective', small: 'adjective', hot: 'adjective', cold: 'adjective', eat: 'verb', drink: 'verb', run: 'verb', walk: 'verb', open: 'verb', close: 'verb',
+  adventure: 'noun', arrive: 'verb', belong: 'verb', collect: 'verb', decide: 'verb', empty: 'adjective', hurry: 'verb', invite: 'verb', local: 'adjective', message: 'noun', notice: 'verb', patient: 'adjective', prepare: 'verb', protect: 'verb', quiet: 'adjective', return: 'verb', search: 'verb', select: 'verb', several: 'quantity', sudden: 'adjective', travel: 'verb', useful: 'adjective', village: 'noun', warning: 'noun', weather: 'noun', wonder: 'verb', wrap: 'verb', yesterday: 'time', zigzag: 'shape', proper: 'adjective',
+  ancient: 'adjective', arrange: 'verb', balance: 'noun', border: 'noun', connect: 'verb', discover: 'verb', effort: 'noun', examine: 'verb', explain: 'verb', gather: 'verb', improve: 'verb', include: 'verb', journey: 'noun', measure: 'verb', observe: 'verb', receive: 'verb', reduce: 'verb', region: 'noun', respect: 'verb', result: 'noun', route: 'noun', separate: 'verb', solve: 'verb', supply: 'noun', support: 'verb', value: 'noun', whole: 'adjective', method: 'noun'
+};
+const VOCABULARY_CATEGORY_BY_DEFINITION = Object.fromEntries(Object.entries(VOCABULARY_DEFINITIONS_ZH).map(([word, definition]) => [definition, VOCABULARY_WORD_CATEGORIES[word]]));
+
 const optionSet = (answer, pool, seed) => {
   const distractors = [];
   for (const value of [...pool, ...PLACEHOLDER_OPTIONS]) {
     if (value !== answer && !distractors.includes(value)) distractors.push(value);
     if (distractors.length === 3) break;
   }
+  const options = [...distractors];
+  const correct = seed % 4;
+  options.splice(correct, 0, answer);
+  return { options, correct, answer };
+};
+
+const vocabularyOptionSet = (answer, rows, word, seed) => {
+  const category = VOCABULARY_WORD_CATEGORIES[word];
+  if (!category) throw new Error(`Placement vocabulary word is missing a category: ${word}.`);
+  const unrelated = rows.filter(row => row.word !== word && VOCABULARY_WORD_CATEGORIES[row.word] !== category).map(row => row.definition);
+  if (unrelated.length < 3) throw new Error(`Placement vocabulary word needs more distinct distractors: ${word}.`);
+  const distractors = [0, 1, 2].map(offset => unrelated[(seed + (offset * 11)) % unrelated.length]);
   const options = [...distractors];
   const correct = seed % 4;
   options.splice(correct, 0, answer);
@@ -47,13 +69,13 @@ const parseWords = (rows) => rows.map(row => {
 const makeVocabItems = (level, rows) => {
   const localizedRows = rows.map(row => ({ ...row, definition: VOCABULARY_DEFINITIONS_ZH[row.word] }));
   if (localizedRows.some(row => !row.definition)) throw new Error('A placement vocabulary word is missing its Chinese definition.');
-  const pool = localizedRows.map(row => row.definition);
   return localizedRows.map(({ word, definition }, index) => ({
     id: `adaptive-vocab-${level}-${index + 1}`,
     section: 'vocab',
     level,
+    word,
     q: `What does “${word}” mean?`,
-    ...optionSet(definition, pool, index + level * 3)
+    ...vocabularyOptionSet(definition, localizedRows, word, index + level * 3)
   }));
 };
 
@@ -351,6 +373,10 @@ export const validateAdaptivePlacementBank = () => {
           if (!question.q || !question.options || question.options.length < 3 || new Set(question.options).size !== question.options.length || !question.options.includes(answer)) errors.push(`${item.id} has invalid answer choices.`);
           if (section === 'reading' && Number(question.evidenceSentence) < 2) errors.push(`${item.id} has a reading question answered by its first sentence.`);
         });
+        if (section === 'vocab') {
+          const answerCategory = VOCABULARY_WORD_CATEGORIES[item.word];
+          if (!answerCategory || item.options.some(option => option !== item.answer && VOCABULARY_CATEGORY_BY_DEFINITION[option] === answerCategory)) errors.push(`${item.id} has a vocabulary distractor that is too close to the answer.`);
+        }
       });
     });
   });
