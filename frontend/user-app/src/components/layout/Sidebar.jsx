@@ -13,9 +13,9 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
     { id: 'reading', icon: <BookOpen size={20}/>, bg: 'bg-teal-100', color: 'text-teal-600' },
     { id: 'writing', icon: <PenTool size={20}/>, bg: 'bg-purple-100', color: 'text-purple-600' },
     { id: 'speaking', icon: <Mic size={20}/>, bg: 'bg-rose-100', color: 'text-rose-600' },
-    { id: 'test', icon: <ClipboardCheck size={20}/>, bg: 'bg-emerald-100', color: 'text-emerald-600' },
     { id: 'leaderboard', icon: <Trophy size={20}/>, bg: 'bg-amber-100', color: 'text-amber-600' },
-    { id: 'shop', icon: <ShoppingBag size={20}/>, bg: 'bg-pink-100', color: 'text-pink-600' }
+    { id: 'shop', icon: <ShoppingBag size={20}/>, bg: 'bg-pink-100', color: 'text-pink-600' },
+    { id: 'test', icon: <ClipboardCheck size={20}/>, bg: 'bg-emerald-100', color: 'text-emerald-600' }
   ];
 
   return (
