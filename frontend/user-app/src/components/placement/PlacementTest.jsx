@@ -4,8 +4,8 @@ import { ADAPTIVE_PLACEMENT_BANK, ADAPTIVE_SECTION_ORDER } from '../../data/adap
 
 const ADAPTIVE_HISTORY_KEY = 'adaptive_placement_completed_items_v2';
 const CHINESE_NAME = /^[\u3400-\u9fff]{2,10}$/u;
-const TOTAL_QUESTIONS = 14;
-const SECTION_COUNTS = { vocab: 5, grammar: 3, reading: 3, speaking: 3 };
+const TOTAL_QUESTIONS = 20;
+const SECTION_COUNTS = { vocab: 5, grammar: 5, reading: 5, speaking: 5 };
 const LEVEL_POINT_VALUES = { 1: 1, 2: 2, 3: 3 };
 // Vocabulary, reading, and speaking are the strongest signals for a starting
 // level. Grammar still helps, but it cannot outweigh those three skills.
@@ -431,7 +431,7 @@ export const PlacementTest = ({ onExit }) => {
         body: JSON.stringify({
           chineseName: chineseName.trim(),
           currentGrade: Number(currentGrade),
-          formId: 'adaptive-v3',
+          formId: 'adaptive-v4',
           recommendedLevel: completedResult.recommendedLevel,
           totalScore: completedResult.totalScore,
           totalMax: completedResult.totalMax,

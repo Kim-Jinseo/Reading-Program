@@ -270,10 +270,13 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     const currentGrade = Number(body.currentGrade);
     const formId = typeof body.formId === 'string' ? body.formId : '';
     const requestedLevel = body.recommendedLevel;
-    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1', 'adaptive-v2', 'adaptive-v3']);
-    const isAdaptiveForm = formId === 'adaptive-v1' || formId === 'adaptive-v2' || formId === 'adaptive-v3';
-    const usesWeightedAdaptiveScoring = formId === 'adaptive-v2' || formId === 'adaptive-v3';
-    const usesStrictAdaptiveRouting = formId === 'adaptive-v3';
+    const validFormIds = new Set(['garden-seeds', 'market-bread', 'rainy-walk', 'bird-house', 'school-poster', 'night-sky', 'adaptive-v1', 'adaptive-v2', 'adaptive-v3', 'adaptive-v4']);
+    const isAdaptiveForm = formId === 'adaptive-v1' || formId === 'adaptive-v2' || formId === 'adaptive-v3' || formId === 'adaptive-v4';
+    const usesWeightedAdaptiveScoring = formId === 'adaptive-v2' || formId === 'adaptive-v3' || formId === 'adaptive-v4';
+    const usesStrictAdaptiveRouting = formId === 'adaptive-v3' || formId === 'adaptive-v4';
+    const strictAdaptiveConfig = formId === 'adaptive-v4'
+      ? { pathLength: 20, sectionCounts: { vocab: 5, grammar: 5, reading: 5, speaking: 5 } }
+      : { pathLength: 14, sectionCounts: { vocab: 5, grammar: 3, reading: 3, speaking: 3 } };
 
     if (!/^[\u3400-\u9fff]{2,10}$/u.test(chineseName)) {
       return c.json({ success: false, error: 'Please provide a Chinese name with 2 to 10 characters.' }, 400);
@@ -355,11 +358,17 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     }
 
     const adaptivePath = (isAdaptiveForm || usesStrictAdaptiveRouting) && Array.isArray(body.adaptivePath)
-      ? body.adaptivePath.slice(0, usesStrictAdaptiveRouting ? 14 : 12).filter(item => item && typeof item.id === 'string' && /^adaptive-(vocab|grammar|reading|speaking)-[1-3]-\d+$/.test(item.id) && ['vocab', 'grammar', 'reading', 'speaking'].includes(item.section) && [1, 2, 3].includes(Number(item.level))).map(item => ({ id: item.id, section: item.section, level: Number(item.level) }))
+      ? body.adaptivePath.slice(0, usesStrictAdaptiveRouting ? strictAdaptiveConfig.pathLength : 12).filter(item => item && typeof item.id === 'string' && /^adaptive-(vocab|grammar|reading|speaking)-[1-3]-\d+$/.test(item.id) && ['vocab', 'grammar', 'reading', 'speaking'].includes(item.section) && [1, 2, 3].includes(Number(item.level))).map(item => ({ id: item.id, section: item.section, level: Number(item.level) }))
       : [];
-    const expectedPathLength = usesStrictAdaptiveRouting ? 14 : 12;
-    const expectedReadingEntries = usesStrictAdaptiveRouting ? 3 : 1;
-    if ((isAdaptiveForm || usesStrictAdaptiveRouting) && (adaptivePath.length !== expectedPathLength || adaptivePath.filter(item => item.section === 'vocab').length !== 5 || adaptivePath.filter(item => item.section === 'grammar').length !== 3 || adaptivePath.filter(item => item.section === 'reading').length !== expectedReadingEntries || adaptivePath.filter(item => item.section === 'speaking').length !== 3)) {
+    const expectedPathLength = usesStrictAdaptiveRouting ? strictAdaptiveConfig.pathLength : 12;
+    const expectedReadingEntries = usesStrictAdaptiveRouting ? strictAdaptiveConfig.sectionCounts.reading : 1;
+    const hasExpectedSectionCounts = usesStrictAdaptiveRouting
+      ? Object.entries(strictAdaptiveConfig.sectionCounts).every(([section, count]) => adaptivePath.filter(item => item.section === section).length === count)
+      : adaptivePath.filter(item => item.section === 'vocab').length === 5
+        && adaptivePath.filter(item => item.section === 'grammar').length === 3
+        && adaptivePath.filter(item => item.section === 'reading').length === expectedReadingEntries
+        && adaptivePath.filter(item => item.section === 'speaking').length === 3;
+    if ((isAdaptiveForm || usesStrictAdaptiveRouting) && (adaptivePath.length !== expectedPathLength || !hasExpectedSectionCounts)) {
       return c.json({ success: false, error: 'Invalid adaptive placement path.' }, 400);
     }
     if (usesStrictAdaptiveRouting && new Set(adaptivePath.map(item => item.id)).size !== adaptivePath.length) {
@@ -369,7 +378,7 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     let adaptiveResponses = [];
     if (usesStrictAdaptiveRouting) {
       const rawResponses = Array.isArray(body.adaptiveResponses) ? body.adaptiveResponses : [];
-      adaptiveResponses = rawResponses.slice(0, 14).map(item => ({
+      adaptiveResponses = rawResponses.slice(0, strictAdaptiveConfig.pathLength).map(item => ({
         section: item?.section,
         level: Number(item?.level),
         score: Number(item?.score)
