@@ -206,6 +206,7 @@ const shuffledOptions = (answer, pool, seed) => {
 const makeText = (grade, story, index) => {
   const { who, whoZh, when, whenZh, action, actionZh, object, objectZh, place, placeZh, ending, endingZh } = story;
   const style = index % 6;
+  const isVeryHard = difficultyAt(index) === 'super_hard';
   if (grade === '1-2') {
     const en = [
       `On ${when}, ${who} ${action} at ${place}. ${who} used ${object}. At the end, ${who} ${ending}.`,
@@ -251,7 +252,19 @@ const makeText = (grade, story, index) => {
     `${whenZh}，${whoZh}把${objectZh}带到${placeZh}。在那里，${whoZh}${actionZh}。任务的步骤很清楚。最后，${whoZh}${endingZh}。`,
     `${whenZh}，${whoZh}在${placeZh}工作。${whoZh}用${objectZh}${actionZh}。完成后又检查了一次。回家前，${whoZh}${endingZh}。`
   ][style];
-  return { en, zh };
+  if (!isVeryHard) return { en, zh };
+
+  if (grade === '3-4') {
+    return {
+      en: `${en} A classmate wrote a short note about the work.`,
+      zh: `${zh}一位同学写了一条关于这项工作的短笔记。`
+    };
+  }
+
+  return {
+    en: `${en} A classmate asked ${who} one simple question. ${who} gave a short answer before leaving.`,
+    zh: `${zh}一位同学问了${whoZh}一个简单的问题。离开前，${whoZh}给出了一个简短的回答。`
+  };
 };
 
 const buildPassages = (grade, idStart) => {
@@ -262,14 +275,27 @@ const buildPassages = (grade, idStart) => {
   };
   return stories.map((story, index) => {
     const difficulty = difficultyAt(index);
-    const questions = [
+    const standardQuestions = [
       [`Who ${story.action}?`, story.who, pools.who],
       [`What did ${story.who} do?`, story.action, pools.action],
       [`Where did ${story.who} do this?`, story.place, pools.place],
       [`When did ${story.who} do this?`, story.when, pools.when],
       [`What did ${story.who} use?`, story.object, pools.object],
       [`What did ${story.who} do at the end?`, story.ending, pools.ending]
-    ].slice(0, QUESTION_TOTALS[difficulty]).map(([q, answer, pool], questionIndex) => {
+    ];
+    const questionsForPassage = difficulty !== 'super_hard' || grade === '1-2'
+      ? standardQuestions.slice(0, QUESTION_TOTALS[difficulty])
+      : grade === '3-4'
+        ? [
+          ['Who wrote a short note about the work?', 'A classmate', ['A classmate', 'A teacher', 'A parent', 'A farmer']],
+          ...standardQuestions.slice(1)
+        ]
+        : [
+          [`Who asked ${story.who} a question?`, 'A classmate', ['A classmate', 'A teacher', 'A parent', 'A farmer']],
+          ...standardQuestions.slice(1, 5),
+          [`What did ${story.who} give before leaving?`, 'a short answer', ['a short answer', 'a song', 'a map', 'a lunch box']]
+        ];
+    const questions = questionsForPassage.map(([q, answer, pool], questionIndex) => {
       const options = shuffledOptions(answer, pool, index * 7 + questionIndex);
       return { q, options, correct: options.indexOf(answer) };
     });
@@ -295,7 +321,6 @@ export const validateAdditionalReadings = () => {
   const errors = [];
   Object.entries(ADDITIONAL_READINGS_BY_GRADE).forEach(([grade, passages]) => {
     const expected = { easy: 25, medium: 15, hard: 10, super_hard: 10 };
-    const expectedSentenceCount = grade === '1-2' ? 3 : 4;
     const seen = { ids: new Set(), titles: new Set(), texts: new Set(), scenarios: new Set() };
     passages.forEach((passage, index) => {
       if (passage.dayIndex !== index + 60) errors.push(`${grade}: incorrect day index for ${passage.id}`);
@@ -307,9 +332,11 @@ export const validateAdditionalReadings = () => {
       seen.texts.add(passage.text.en);
       if (seen.scenarios.has(passage.scenarioKey)) errors.push(`${grade}: repeated scenario for ${passage.id}`);
       seen.scenarios.add(passage.scenarioKey);
+      const expectedSentenceCount = grade === '1-2' ? 3 : passage.difficulty === 'super_hard' ? (grade === '3-4' ? 5 : 6) : 4;
       const sentenceCount = (passage.text.en.match(/[.!?](?=\s|$)/g) || []).length;
       if (sentenceCount !== expectedSentenceCount) errors.push(`${grade}: incorrect sentence count for ${passage.id}`);
-      if (!/[\u4e00-\u9fff]/.test(passage.text.zh)) errors.push(`${grade}: missing Chinese translation for ${passage.id}`);
+      const chineseSentenceCount = (passage.text.zh.match(/。/g) || []).length;
+      if (chineseSentenceCount !== expectedSentenceCount) errors.push(`${grade}: incorrect Chinese sentence count for ${passage.id}`);
       if (passage.questions.length !== QUESTION_TOTALS[passage.difficulty]) errors.push(`${grade}: incorrect question count for ${passage.id}`);
       passage.questions.forEach(question => {
         const answer = question.options[question.correct];

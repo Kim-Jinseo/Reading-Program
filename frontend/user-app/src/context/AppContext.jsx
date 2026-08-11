@@ -3,6 +3,7 @@ import { TRANSLATIONS } from '../data/translations';
 import { getTodayString } from '../utils/dailySelection';
 import localCurriculum from '../data/curriculum.json';
 import { ADDITIONAL_READINGS_BY_GRADE } from '../data/additionalReadings';
+import { applyVeryHardReadingUpdates } from '../data/veryHardReadingUpdates';
 import { reviewVocabulary } from '../data/reviewedVocabulary';
 
 const AppContext = createContext();
@@ -12,7 +13,10 @@ const reviewedCurriculum = Object.fromEntries(Object.entries(localCurriculum).ma
   {
     ...gradeData,
     vocab: reviewVocabulary(gradeKey, gradeData.vocab),
-    reading: [...(gradeData.reading || []), ...(ADDITIONAL_READINGS_BY_GRADE[gradeKey] || [])]
+    reading: [
+      ...applyVeryHardReadingUpdates(gradeKey, gradeData.reading || []),
+      ...(ADDITIONAL_READINGS_BY_GRADE[gradeKey] || [])
+    ]
   }
 ]));
 
