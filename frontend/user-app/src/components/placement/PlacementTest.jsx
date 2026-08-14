@@ -615,7 +615,7 @@ export const PlacementTest = ({ onExit }) => {
             <div className="grid gap-3 mt-7">
               {activeItem.options.map((option, index) => {
                 const isSelected = answer?.selected === option;
-                return <button key={option} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all ${isSelected ? 'border-indigo-500 bg-indigo-50 text-indigo-900' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
+                return <button key={option} onClick={() => recordAnswer(option === activeItem.answer ? 1 : 0, { selected: option })} className={`text-left p-4 rounded-2xl border-2 font-bold transition-all active:scale-[0.99] ${isSelected ? 'border-indigo-500 bg-indigo-50 text-indigo-900' : 'answer-choice answer-choice--indigo border-slate-200 text-slate-700'}`}><span className="inline-flex mr-3 w-7 h-7 rounded-full bg-slate-100 items-center justify-center text-sm">{String.fromCharCode(65 + index)}</span>{option}</button>;
               })}
             </div>
             {answer && <p className="mt-4 font-extrabold text-slate-500">Choose Next question to save this answer.</p>}

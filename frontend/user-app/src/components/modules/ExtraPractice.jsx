@@ -92,7 +92,7 @@ export const ExtraPractice = () => {
         <h2 className="text-center text-4xl sm:text-5xl font-extrabold text-slate-800 mb-8 sm:mb-10 tracking-tight leading-relaxed break-words">{q.prompt}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {q.options.map((opt, i) => (
-            <button key={i} onClick={() => handleAnswer(opt)} className="w-full p-6 bg-white border-2 border-slate-100 rounded-2xl hover:border-orange-400 hover:bg-orange-50 text-lg font-bold text-slate-700 transition-all text-center shadow-sm active:scale-95 leading-relaxed min-h-[120px] flex items-center justify-center">
+            <button key={i} onClick={() => handleAnswer(opt)} className="answer-choice answer-choice--orange w-full p-6 bg-white border-2 border-slate-100 rounded-2xl text-lg font-bold text-slate-700 transition-all text-center shadow-sm active:scale-95 leading-relaxed min-h-[120px] flex items-center justify-center">
               {opt}
             </button>
           ))}

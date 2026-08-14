@@ -503,9 +503,9 @@ export const ReadingModule = () => {
               <button 
                 key={opt} 
                 onClick={() => handleAnswer(opt)} 
-                className="group p-5 sm:p-6 bg-white border-2 border-slate-100 hover:border-purple-400 hover:bg-purple-50/40 rounded-2xl text-xl font-bold text-slate-800 transition-all active:scale-95 shadow-sm flex items-center gap-4 text-left"
+                className="answer-choice answer-choice--purple group p-5 sm:p-6 bg-white border-2 border-slate-100 rounded-2xl text-xl font-bold text-slate-800 transition-all active:scale-95 shadow-sm flex items-center gap-4 text-left"
               >
-                <span className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-purple-600 group-hover:text-white font-black flex items-center justify-center shrink-0 transition-colors">
+                <span className="answer-choice__badge w-10 h-10 rounded-xl bg-slate-100 text-slate-700 font-black flex items-center justify-center shrink-0 transition-colors">
                   {letter}.
                 </span>
                 <span className="flex-1">{opt}</span>

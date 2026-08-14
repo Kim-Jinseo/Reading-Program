@@ -370,7 +370,7 @@ export const VocabModule = () => {
             <button 
               key={opt} 
               onClick={() => mode === 'daily_quiz' ? handleDailyAnswer(opt) : handleFlashAnswer(opt)} 
-              className="p-6 bg-white border-2 border-slate-100 rounded-2xl hover:border-sky-400 hover:bg-sky-50 text-xl font-bold text-slate-700 transition-all active:scale-95 shadow-sm"
+              className="answer-choice answer-choice--sky p-6 bg-white border-2 border-slate-100 rounded-2xl text-xl font-bold text-slate-700 transition-all active:scale-95 shadow-sm"
             >
               {opt}
             </button>
@@ -419,7 +419,7 @@ export const VocabModule = () => {
               const isSelected = selectedLeft === w.id;
               const isError = errorIds.includes(w.id) && selectedLeft === w.id;
               
-              let btnClass = "min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-extrabold transition-all duration-300 shadow-sm ";
+              let btnClass = "answer-choice min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-extrabold transition-all duration-300 shadow-sm ";
               if (isMatched) {
                 if (mistakeIds.includes(w.id)) {
                   btnClass += "bg-amber-100 border-amber-400 text-amber-600 opacity-70 pointer-events-none scale-95";
@@ -429,7 +429,7 @@ export const VocabModule = () => {
               }
               else if (isError) btnClass += "bg-rose-100 border-rose-400 text-rose-600 scale-95";
               else if (isSelected) btnClass += "bg-sky-100 border-sky-400 text-sky-700 scale-105 shadow-md";
-              else btnClass += "bg-white border-slate-200 text-slate-700 hover:border-sky-300 hover:bg-slate-50";
+              else btnClass += "answer-choice--sky bg-white border-slate-200 text-slate-700";
 
               return (
                 <button key={`l-${w.id}`} onClick={() => handleMatchClick('left', w.id)} className={btnClass}>
@@ -446,7 +446,7 @@ export const VocabModule = () => {
               const isSelected = selectedRight === w.id;
               const isError = errorIds.includes(w.id) && selectedRight === w.id;
               
-              let btnClass = "min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-bold transition-all duration-300 shadow-sm ";
+              let btnClass = "answer-choice min-w-0 break-words p-3 sm:p-6 rounded-2xl border-2 text-base sm:text-xl font-bold transition-all duration-300 shadow-sm ";
               if (isMatched) {
                 if (mistakeIds.includes(w.id)) {
                   btnClass += "bg-amber-100 border-amber-400 text-amber-600 opacity-70 pointer-events-none scale-95";
@@ -456,7 +456,7 @@ export const VocabModule = () => {
               }
               else if (isError) btnClass += "bg-rose-100 border-rose-400 text-rose-600 scale-95";
               else if (isSelected) btnClass += "bg-sky-100 border-sky-400 text-sky-700 scale-105 shadow-md";
-              else btnClass += "bg-white border-slate-200 text-slate-700 hover:border-sky-300 hover:bg-slate-50";
+              else btnClass += "answer-choice--sky bg-white border-slate-200 text-slate-700";
 
               return (
                 <button key={`r-${w.id}`} onClick={() => handleMatchClick('right', w.id)} className={btnClass}>

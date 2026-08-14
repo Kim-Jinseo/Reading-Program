@@ -23,6 +23,65 @@ select {
   font: inherit;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.answer-choice {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.answer-choice:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 3px;
+}
+
+/* Touch screens do not have a reliable hover state. Choice feedback comes
+   from the selected/correct state and active press animation instead. */
+@media (hover: hover) and (pointer: fine) {
+  .answer-choice--indigo:not(:disabled):hover {
+    border-color: #818cf8;
+    background-color: #eef2ff;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .answer-choice--indigo:not(:disabled):hover .answer-choice__badge {
+    border-color: #818cf8;
+    background-color: #e0e7ff;
+    color: #4f46e5;
+  }
+
+  .answer-choice--indigo:not(:disabled):hover .answer-choice__option-text {
+    color: #312e81;
+  }
+
+  .answer-choice--sky:not(:disabled):hover {
+    border-color: #38bdf8;
+    background-color: #f0f9ff;
+  }
+
+  .answer-choice--purple:not(:disabled):hover {
+    border-color: #c084fc;
+    background-color: rgb(250 245 255 / 0.55);
+  }
+
+  .answer-choice--purple:not(:disabled):hover .answer-choice__badge {
+    background-color: #9333ea;
+    color: white;
+  }
+
+  .answer-choice--orange:not(:disabled):hover {
+    border-color: #fb923c;
+    background-color: #fff7ed;
+  }
+}
+
 @media (max-width: 639px) {
   button,
   input,

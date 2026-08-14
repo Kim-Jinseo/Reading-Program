@@ -62,11 +62,14 @@ export const TRANSLATIONS = {
 
     // Added Instructions & UI Keys
     tab_learn: "Learn 📚",
+    tab_learn_short: "Learn",
     tab_learn_mode: "Learn",
     tab_vocab_list: "Vocab List",
     tab_question_bank: "Question Bank",
+    tab_question_bank_short: "Bank",
     tab_voice_battle_mode: "Voice Battle ⚔️",
     tab_courtroom_trial: "Courtroom Trial ⚖️",
+    tab_courtroom_trial_short: "Trial",
     full_curriculum: "Full Curriculum",
     completed_today: "Completed Today! ✨",
     btn_start_launch: "Start 🚀",
@@ -224,11 +227,14 @@ export const TRANSLATIONS = {
 
     // Added Instructions & UI Keys
     tab_learn: "学习模式 📚",
+    tab_learn_short: "学习",
     tab_learn_mode: "学习模式",
     tab_vocab_list: "单词表",
     tab_question_bank: "题库",
+    tab_question_bank_short: "题库",
     tab_voice_battle_mode: "语音对决 ⚔️",
     tab_courtroom_trial: "法庭审判 ⚖️",
+    tab_courtroom_trial_short: "法庭",
     full_curriculum: "完整课程",
     completed_today: "今日已完成！✨",
     btn_start_launch: "开始 🚀",

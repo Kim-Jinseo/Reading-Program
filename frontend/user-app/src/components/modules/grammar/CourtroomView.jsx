@@ -439,14 +439,14 @@ export const CourtroomView = ({ onBack }) => {
                 <button
                   key={option.id}
                   onClick={() => handlePresentEvidence(option)}
-                  className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-left transition-all group shadow-sm flex items-start gap-3 sm:gap-5"
+                  className="answer-choice answer-choice--indigo p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border-2 border-slate-200 text-left transition-all shadow-sm flex items-start gap-3 sm:gap-5"
                 >
-                  <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center font-black text-sm sm:text-lg shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-colors">
+                  <span className="answer-choice__badge w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center font-black text-sm sm:text-lg shrink-0 transition-colors">
                     {String.fromCharCode(65 + idx)}
                   </span>
 
                   <div className="flex-1 min-w-0">
-                    <p className="text-base sm:text-lg font-bold text-slate-700 mb-1 sm:mb-2 group-hover:text-indigo-900 transition-colors break-words">
+                    <p className="answer-choice__option-text text-base sm:text-lg font-bold text-slate-700 mb-1 sm:mb-2 transition-colors break-words">
                       "{option.text}"
                     </p>
                   </div>

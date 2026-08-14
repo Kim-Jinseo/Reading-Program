@@ -275,26 +275,34 @@ export const GrammarModule = () => {
   if (mode === 'menu') {
     return (
       <div className="max-w-4xl mx-auto pt-6">
-        <div className="flex justify-center mb-10 overflow-x-auto hide-scrollbar px-4 pb-2 -mx-4 sm:mx-0 sm:px-0 sm:pb-0">
-          
-          <div className="flex gap-2 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full shadow-inner border border-slate-200/50 whitespace-nowrap min-w-max">
+        <div className="mb-8 sm:mb-10">
+          <div className="grid grid-cols-3 gap-1.5 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-2xl sm:flex sm:w-fit sm:mx-auto sm:rounded-full shadow-inner border border-slate-200/50">
             <button 
               onClick={() => { setActiveTab('learn'); setPage(1); }}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold transition-all duration-300 ${activeTab === 'learn' ? 'bg-white text-indigo-600 shadow-md scale-105' : 'text-slate-500 hover:text-slate-700'}`}
+              aria-label={t('tab_learn')}
+              className={`flex min-w-0 items-center justify-center gap-1 px-2 py-2.5 rounded-xl sm:gap-2 sm:px-6 sm:rounded-full font-bold text-xs sm:text-base transition-all duration-300 ${activeTab === 'learn' ? 'bg-white text-indigo-600 shadow-md sm:scale-105' : 'text-slate-500 hover:text-slate-700'}`}
             >
-              <Layers size={18}/> {t('tab_learn')}
+              <Layers size={17} className="shrink-0"/>
+              <span className="sm:hidden truncate">{t('tab_learn_short')}</span>
+              <span className="hidden sm:inline">{t('tab_learn')}</span>
             </button>
             <button 
               onClick={() => { setActiveTab('bank'); setPage(1); }}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold transition-all duration-300 ${activeTab === 'bank' ? 'bg-white text-indigo-600 shadow-md scale-105' : 'text-slate-500 hover:text-slate-700'}`}
+              aria-label={t('tab_question_bank')}
+              className={`flex min-w-0 items-center justify-center gap-1 px-2 py-2.5 rounded-xl sm:gap-2 sm:px-6 sm:rounded-full font-bold text-xs sm:text-base transition-all duration-300 ${activeTab === 'bank' ? 'bg-white text-indigo-600 shadow-md sm:scale-105' : 'text-slate-500 hover:text-slate-700'}`}
             >
-              <List size={18}/> {t('tab_question_bank')}
+              <List size={17} className="shrink-0"/>
+              <span className="sm:hidden truncate">{t('tab_question_bank_short')}</span>
+              <span className="hidden sm:inline">{t('tab_question_bank')}</span>
             </button>
             <button 
               onClick={() => setMode('courtroom')}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md hover:scale-105`}
+              aria-label={t('tab_courtroom_trial')}
+              className="flex min-w-0 items-center justify-center gap-1 px-2 py-2.5 rounded-xl sm:gap-2 sm:px-6 sm:rounded-full font-bold text-xs sm:text-base transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md sm:hover:scale-105"
             >
-              <Gavel size={18}/> {t('tab_courtroom_trial')}
+              <Gavel size={17} className="shrink-0"/>
+              <span className="sm:hidden truncate">{t('tab_courtroom_trial_short')}</span>
+              <span className="hidden sm:inline">{t('tab_courtroom_trial')}</span>
             </button>
           </div>
 
@@ -370,18 +378,20 @@ export const GrammarModule = () => {
             <div className="flex flex-wrap justify-between items-center mb-6">
               <button onClick={() => setLearnView('boxes')} className="text-slate-500 hover:text-slate-800 font-bold flex items-center gap-2"><ChevronLeft size={16}/> Back to Options</button>
               
-              <div className="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm overflow-x-auto hide-scrollbar w-full sm:w-auto">
+              <div className="flex flex-col gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm w-full sm:w-auto sm:flex-row sm:items-center sm:gap-4">
                 <div className="flex items-center gap-2 text-slate-500 font-bold ml-2 shrink-0">
                   <Filter size={18}/> Filters:
                 </div>
-                <div className="flex gap-2 min-w-max">
+                <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto">
                   {['all', 'completed', 'uncompleted'].map(f => (
                     <button 
                       key={f} 
                       onClick={() => { setFilterResult(f); setPage(1); }}
-                      className={`px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
+                      aria-label={f}
+                      className={`min-h-10 px-2 py-1.5 sm:px-4 sm:py-1.5 rounded-xl font-bold uppercase tracking-wider text-[10px] sm:text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
                     >
-                      {f}
+                      <span className="sm:hidden">{f === 'uncompleted' ? 'To do' : f === 'completed' ? 'Done' : 'All'}</span>
+                      <span className="hidden sm:inline">{f}</span>
                     </button>
                   ))}
                 </div>
@@ -434,19 +444,21 @@ export const GrammarModule = () => {
           )
         ) : (
           <div className="animate-in fade-in slide-in-from-bottom-4">
-            <div className="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between gap-4 mb-8 sm:items-center overflow-x-auto hide-scrollbar">
-              <div className="flex items-center gap-2 sm:gap-4 min-w-max">
+            <div className="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mb-8 sm:items-center">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
                 <div className="flex items-center gap-2 text-slate-500 font-bold ml-1 sm:ml-2">
                   <Filter size={18}/> Filters:
                 </div>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-3 gap-2 sm:flex">
                   {['all', 'completed', 'uncompleted'].map(f => (
                     <button 
                       key={f} 
                       onClick={() => { setFilterResult(f); setPage(1); }}
-                      className={`px-3 py-1.5 sm:px-5 sm:py-2 rounded-xl font-bold uppercase tracking-wider text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
+                      aria-label={f}
+                      className={`min-h-10 px-2 py-1.5 sm:px-5 sm:py-2 rounded-xl font-bold uppercase tracking-wider text-[10px] sm:text-xs border-2 transition-all ${filterResult === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
                     >
-                      {f}
+                      <span className="sm:hidden">{f === 'uncompleted' ? 'To do' : f === 'completed' ? 'Done' : 'All'}</span>
+                      <span className="hidden sm:inline">{f}</span>
                     </button>
                   ))}
                 </div>
@@ -581,7 +593,7 @@ export const GrammarModule = () => {
               <button 
                 key={opt}
                 onClick={() => handleLearnAnswer(opt)}
-                className="p-5 text-left rounded-2xl border-2 border-slate-100 hover:border-indigo-400 hover:bg-indigo-50 font-bold text-xl text-slate-700 transition-all active:scale-95"
+                className="answer-choice answer-choice--indigo p-5 text-left rounded-2xl border-2 border-slate-100 font-bold text-xl text-slate-700 transition-all active:scale-95"
               >
                 {opt}
               </button>
@@ -658,8 +670,8 @@ export const GrammarModule = () => {
           <div className="grid grid-cols-1 gap-3 sm:gap-4 max-w-2xl mx-auto w-full mb-6">
             {activeQ.options.map((opt, i) => {
               const letter = String.fromCharCode(65 + i);
-              let btnClass = "border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 hover:shadow-md text-slate-700 bg-white";
-              let letterClass = "border-slate-200 text-slate-400 group-hover:border-indigo-400 group-hover:text-indigo-600 group-hover:bg-indigo-100";
+              let btnClass = "answer-choice--indigo border-slate-200 text-slate-700 bg-white";
+              let letterClass = "answer-choice__badge border-slate-200 text-slate-400";
               let icon = null;
 
               if (selectedOpt) {
@@ -681,7 +693,7 @@ export const GrammarModule = () => {
                   key={opt}
                   onClick={() => handleBankAnswer(opt)}
                   disabled={!!selectedOpt}
-                  className={`flex items-center justify-between p-3.5 sm:p-6 rounded-2xl border-2 font-bold text-base sm:text-2xl transition-all group active:scale-[0.98] ${btnClass}`}
+                  className={`answer-choice flex items-center justify-between p-3.5 sm:p-6 rounded-2xl border-2 font-bold text-base sm:text-2xl transition-all group active:scale-[0.98] ${btnClass}`}
                 >
                   <div className="flex items-center gap-3 sm:gap-6 min-w-0">
                     <span className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 flex items-center justify-center text-xs sm:text-lg transition-colors shrink-0 ${letterClass}`}>
