@@ -1,6 +1,10 @@
 import { sign, verify } from 'hono/jwt';
 
-const secret = process.env.JWT_SECRET || 'mysecret';
+const secret = process.env.JWT_SECRET;
+
+if (!secret || secret.length < 32) {
+  throw new Error('JWT_SECRET must be set to a value with at least 32 characters.');
+}
 
 async function test() {
   try {

@@ -1,45 +1,76 @@
+const API_ORIGIN = 'https://reading-program-wine.vercel.app';
+const MAX_PROXY_BODY_BYTES = 5 * 1024 * 1024;
+const ALLOWED_METHODS = new Set(['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']);
+
 export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
+  const method = request.method.toUpperCase();
 
-  // Reconstruct the destination URL to point to Vercel
-  // url.pathname starts with /api/...
-  const targetUrl = `https://reading-program-wine.vercel.app${url.pathname}${url.search}`;
+  if (!ALLOWED_METHODS.has(method)) {
+    return new Response(JSON.stringify({ success: false, error: 'Method not allowed.' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+    });
+  }
 
-  // Clone headers and remove ones that could cause Vercel to reject the request
+  const contentLength = Number(request.headers.get('content-length'));
+  if (Number.isFinite(contentLength) && contentLength > MAX_PROXY_BODY_BYTES) {
+    return new Response(JSON.stringify({ success: false, error: 'Request is too large.' }), {
+      status: 413,
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+    });
+  }
+
+  const targetUrl = API_ORIGIN + url.pathname + url.search;
   const modifiedHeaders = new Headers(request.headers);
-  modifiedHeaders.delete('Host');
-  modifiedHeaders.delete('Referer');
+  [
+    'host',
+    'referer',
+    'origin',
+    'content-length',
+    'x-forwarded-for',
+    'x-real-ip',
+    'x-vercel-forwarded-for',
+    'cf-connecting-ip'
+  ].forEach(header => modifiedHeaders.delete(header));
 
-  // Prepare the proxy fetch options
   const fetchOptions = {
-    method: request.method,
+    method,
     headers: modifiedHeaders,
     redirect: 'manual'
   };
 
-  // Only attach the body for methods that allow payloads
-  if (['POST', 'PUT', 'PATCH'].includes(request.method.toUpperCase())) {
-    // Read the body into memory completely to prevent Cloudflare streaming hangs
-    // This solves issues with multipart/form-data and chunked encoding proxying
-    fetchOptions.body = await request.arrayBuffer();
+  if (['POST', 'PUT', 'PATCH'].includes(method)) {
+    const body = await request.arrayBuffer();
+    if (body.byteLength > MAX_PROXY_BODY_BYTES) {
+      return new Response(JSON.stringify({ success: false, error: 'Request is too large.' }), {
+        status: 413,
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+      });
+    }
+    fetchOptions.body = body;
   }
 
   try {
     const response = await fetch(targetUrl, fetchOptions);
-    
-    // Create a new response to return to the client
-    const proxyResponse = new Response(response.body, response);
-    
-    // We don't strictly need CORS headers since the request is same-origin from the browser's perspective,
-    // but we can add them just in case they are needed for any external tools.
-    proxyResponse.headers.set('Access-Control-Allow-Origin', '*');
-    
-    return proxyResponse;
-  } catch (err) {
-    return new Response(JSON.stringify({ success: false, error: 'Proxy failed to reach Vercel backend' }), {
+    const headers = new Headers(response.headers);
+    [
+      'access-control-allow-origin',
+      'access-control-allow-credentials',
+      'access-control-allow-methods',
+      'access-control-allow-headers'
+    ].forEach(header => headers.delete(header));
+    headers.set('Cache-Control', 'no-store, max-age=0');
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers
+    });
+  } catch {
+    return new Response(JSON.stringify({ success: false, error: 'Service is temporarily unavailable.' }), {
       status: 502,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
     });
   }
 }

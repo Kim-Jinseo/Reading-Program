@@ -45,8 +45,8 @@ export default function Login({ setUser }) {
             className="w-full text-center text-lg p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-sky-400 focus:outline-none"
           />
           <input 
-            type="text" style={{ WebkitTextSecurity: 'disc' }} value={pin} onChange={e => setPin(e.target.value)} required
-            placeholder="PIN Code (密码)" maxLength={4} pattern="\d*"
+            type="password" autoComplete="current-password" value={pin} onChange={e => setPin(e.target.value)} required
+            placeholder="Password" maxLength={128}
             className="w-full text-center text-2xl tracking-widest p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-sky-400 focus:outline-none"
           />
           <button disabled={loading} type="submit" className="w-full bg-sky-500 hover:bg-sky-600 text-white font-extrabold text-xl py-4 rounded-2xl transition-all shadow-md active:scale-95 mt-4">

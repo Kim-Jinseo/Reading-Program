@@ -335,9 +335,8 @@ export const SpeakingModule = () => {
   const handlePlayAudio = () => {
     try {
       const text = encodeURIComponent(prompt.en);
-      const token = localStorage.getItem('token');
       const timestamp = Date.now();
-      const audioUrl = `/api/audio/tts?text=${text}&token=${token}&t=${timestamp}`;
+      const audioUrl = `/api/audio/tts?text=${text}&t=${timestamp}`;
       
       const audio = new Audio(audioUrl);
       audio.play();

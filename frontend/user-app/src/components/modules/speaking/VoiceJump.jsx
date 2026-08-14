@@ -183,7 +183,7 @@ const MONSTER_STYLES = {
 export const VoiceJump = ({ onBack }) => {
   const { t, grade, user, setUser, handleEarnBattleStars, syncProgress } = useAppContext();
   
-  const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';
+  const isAdmin = user?.role === 'admin';
   const hasHourglass = isAdmin || user?.inventory?.includes('relic_hourglass');
   const baseTimer = hasHourglass ? 90 : 60;
   
@@ -831,7 +831,7 @@ export const VoiceJump = ({ onBack }) => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {MONSTERS.map((monster, idx) => {
-              // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared (bypassed for teacher2026/admin)
+              // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared for students.
               const isLocked = !isAdmin && idx > 0 && Array.from({ length: idx }, (_, i) => i).some(prevIdx => !clearedStages.includes(prevIdx));
               const isCompleted = clearedStages.includes(idx);
               const isFinalLevel = idx === MONSTERS.length - 1;

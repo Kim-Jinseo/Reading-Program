@@ -12,8 +12,8 @@ export const AuthModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim()) return;
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+    if (authMode === 'signup' && password.length < 8) {
+      setError("New passwords must be at least 8 characters.");
       return;
     }
     
@@ -25,21 +25,7 @@ export const AuthModal = () => {
       setUser(userData);
     };
 
-    const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
-    const teacherUser = {
-      name: 'teacher2026', username: 'teacher2026', isGuest: false, role: 'admin', stars: 999, trophies: 999,
-      inventory: teacherItems,
-      unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
-      unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
-      clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
-      masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
-      stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
-      starsTracker: {}, essays: {}
-    };
-
     try {
-      const isTeacherUser = name.trim().toLowerCase() === 'teacher2026';
-      
       const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -48,16 +34,15 @@ export const AuthModal = () => {
       const data = await response.json();
       
       if (data.success) {
-        const isTeacher = isTeacherUser || data.user?.role === 'admin';
         const userData = { 
           ...data.user, 
           name: data.user.username, 
           isGuest: false,
-          role: isTeacher ? 'admin' : (data.user.role || 'student'),
-          inventory: isTeacher ? teacherItems : (data.user.inventory || []),
-          unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (data.user.unlockedChars || []),
-          unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (data.user.unlockedPets || []),
-          clearedVoiceStages: isTeacher ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) } : (data.user.clearedVoiceStages || {}),
+          role: data.user.role === 'admin' ? 'admin' : 'student',
+          inventory: data.user.inventory || [],
+          unlockedChars: data.user.unlockedChars || [],
+          unlockedPets: data.user.unlockedPets || [],
+          clearedVoiceStages: data.user.clearedVoiceStages || {},
           masteredVocab: data.user.masteredVocab || [],
           completedGrammar: data.user.completedGrammar || [],
           completedWriting: data.user.completedWriting || [],
@@ -70,17 +55,11 @@ export const AuthModal = () => {
           trophies: data.user.trophies || data.user.stars || 0,
         };
         loginAs(userData, data.token);
-      } else if (isTeacherUser) {
-        loginAs(teacherUser, 'offline_teacher_token');
       } else {
         setError(data.error || "Login failed");
       }
     } catch (err) {
-      if (name.trim().toLowerCase() === 'teacher2026') {
-        loginAs(teacherUser, 'offline_teacher_token');
-      } else {
-        setError("Server error. Try continuing as guest.");
-      }
+      setError("Server error. Try continuing as guest.");
     }
   };
 
@@ -127,7 +106,7 @@ export const AuthModal = () => {
           
           <div className="relative">
             <Lock size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"/>
-            <input type="text" style={{ WebkitTextSecurity: 'disc' }} value={password} onChange={e=>setPassword(e.target.value)} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
+            <input type="password" autoComplete={authMode === 'signup' ? 'new-password' : 'current-password'} value={password} onChange={e=>setPassword(e.target.value)} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
           </div>
 
           {error && <p className="text-rose-500 text-sm font-bold text-center">{error}</p>}

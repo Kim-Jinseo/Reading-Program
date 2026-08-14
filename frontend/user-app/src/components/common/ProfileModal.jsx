@@ -1,29 +1,9 @@
-import React, { useState } from 'react';
-import { X, BarChart2, Key, ShieldCheck, LogOut, Trophy, Star } from 'lucide-react';
+import React from 'react';
+import { X, BarChart2, ShieldCheck, LogOut, Trophy, Star } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const ProfileModal = ({ onClose }) => {
-  const { user, setUser, setView, t, getLeaderboard } = useAppContext();
-  const [secretCode, setSecretCode] = useState('');
-
-  const handleUnlockAdmin = () => {
-    if (secretCode === 'teacher2026') {
-      const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
-      setUser({ 
-        ...user, 
-        role: 'admin',
-        stars: (user.stars || 0) < 999 ? 999 : user.stars,
-        inventory: teacherItems,
-        unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
-        unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
-        clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
-      });
-      onClose();
-      setView('admin');
-    } else {
-      alert("Invalid Admin Code");
-    }
-  };
+  const { user, setUser, t, getLeaderboard } = useAppContext();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -106,24 +86,6 @@ export const ProfileModal = ({ onClose }) => {
           </>
         )}
 
-        {/* ADMIN UNLOCK INPUT (Hidden for existing Admins and Guests) */}
-        {user.role !== 'admin' && !user.isGuest && (
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-4 flex gap-2 sm:gap-3 items-center mb-6">
-            <Key size={20} className="text-slate-400 shrink-0 ml-1 hidden sm:block" />
-            <input 
-              type="text"
-              style={{ WebkitTextSecurity: 'disc' }}
-              placeholder="Teacher Code..." 
-              value={secretCode}
-              onChange={(e) => setSecretCode(e.target.value)}
-              className="flex-1 min-w-0 bg-white border border-slate-200 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm font-bold focus:outline-none focus:border-indigo-400 transition-colors"
-            />
-            <button onClick={handleUnlockAdmin} className="bg-slate-800 text-white font-bold text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:bg-slate-900 transition-colors shrink-0">
-              Unlock
-            </button>
-          </div>
-        )}
-        
         {/* Admin Confirmation Display */}
         {user.role === 'admin' && (
           <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 text-center mb-6">
@@ -132,12 +94,11 @@ export const ProfileModal = ({ onClose }) => {
             <p className="text-indigo-700 text-sm mb-4">You have full access to edit curriculum data.</p>
             <button 
               onClick={() => {
-                localStorage.removeItem('savedUserData');
-                window.location.reload();
+                handleLogout();
               }}
               className="px-5 py-2 bg-white text-indigo-600 font-extrabold text-sm rounded-full border border-indigo-200 hover:bg-indigo-100 transition-colors shadow-sm"
             >
-              Exit Teacher Mode
+              Sign out
             </button>
           </div>
         )}

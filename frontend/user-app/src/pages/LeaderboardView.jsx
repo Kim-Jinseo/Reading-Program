@@ -16,7 +16,7 @@ export const LeaderboardView = () => {
       
       if (realUsers && realUsers.length > 0) {
         const mappedReal = realUsers.map(u => {
-          const isCurrent = Boolean(user && (u.id === user._id || u.name === user.username));
+          const isCurrent = Boolean(u.isCurrentUser || (user && (u.id === user._id || u.name === user.username)));
           return {
             ...u,
             isCurrentUser: isCurrent,

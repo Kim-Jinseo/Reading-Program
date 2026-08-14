@@ -26,9 +26,8 @@ export const VocabModule = () => {
       
       if (!audio) {
         const text = encodeURIComponent(cleanWord);
-        const token = localStorage.getItem('token') || '';
         const timestamp = Date.now();
-        const audioUrl = `/api/audio/tts?text=${text}&token=${token}&t=${timestamp}`;
+        const audioUrl = `/api/audio/tts?text=${text}&t=${timestamp}`;
         audio = new Audio(audioUrl);
         audioCache.set(cleanWord, audio);
       } else {

@@ -144,9 +144,8 @@ export const ReadingModule = () => {
     setIsPlayingAudio(true);
     try {
       const text = encodeURIComponent(textToRead);
-      const token = localStorage.getItem('token');
       const timestamp = Date.now();
-      const audioUrl = `/api/audio/tts?text=${text}&token=${token}&t=${timestamp}`;
+      const audioUrl = `/api/audio/tts?text=${text}&t=${timestamp}`;
       
       const audio = new Audio(audioUrl);
       window.currentAudioInstance = audio;

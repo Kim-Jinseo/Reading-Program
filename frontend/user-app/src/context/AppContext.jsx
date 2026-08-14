@@ -61,21 +61,17 @@ export const AppProvider = ({ children }) => {
 
   const t = (key) => TRANSLATIONS[lang][key] || key;
 
-  // Helper: build the full user object with teacher overrides applied
+  // Build UI state only from the account record returned by the server.
   const buildUserObject = (rawUser) => {
-    const isTeacher = rawUser.role === 'admin' || rawUser.username?.toLowerCase() === 'teacher2026';
-    const teacherItems = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
     return {
       ...rawUser,
       name: rawUser.username || rawUser.name,
       isGuest: false,
-      role: isTeacher ? 'admin' : (rawUser.role || 'student'),
-      inventory: isTeacher ? teacherItems : (rawUser.inventory || []),
-      unlockedChars: isTeacher ? ['char_knight', 'char_paladin', 'char_wizard'] : (rawUser.unlockedChars || []),
-      unlockedPets: isTeacher ? ['pet_dragon', 'pet_griffin', 'pet_golem'] : (rawUser.unlockedPets || []),
-      clearedVoiceStages: isTeacher
-        ? { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) }
-        : (rawUser.clearedVoiceStages || {}),
+      role: rawUser.role === 'admin' ? 'admin' : 'student',
+      inventory: rawUser.inventory || [],
+      unlockedChars: rawUser.unlockedChars || [],
+      unlockedPets: rawUser.unlockedPets || [],
+      clearedVoiceStages: rawUser.clearedVoiceStages || {},
       masteredVocab: rawUser.masteredVocab || [],
       completedGrammar: rawUser.completedGrammar || [],
       completedWriting: rawUser.completedWriting || [],
@@ -89,7 +85,7 @@ export const AppProvider = ({ children }) => {
     };
   };
 
-  // Save user data to localStorage whenever user changes (for instant restore on refresh)
+  // Cache non-sensitive UI state for continuity. It is verified before use.
   useEffect(() => {
     if (user && !user.isGuest) {
       try {
@@ -100,101 +96,45 @@ export const AppProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Auto-login: instantly restore from localStorage, verify in background
+  // Restore an authenticated session only after server verification.
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const savedUserData = localStorage.getItem('savedUserData');
     const isGuestFlag = localStorage.getItem('isGuest');
 
-    // PRIORITY 1: If we have a token AND saved user data → instant restore (no server call needed)
-    if (token && savedUserData) {
-      try {
-        const parsed = JSON.parse(savedUserData);
-        if (parsed && parsed.name) {
-          setUser(parsed);
-          setIsAuthLoading(false);
-
-          // Background refresh: silently verify token & update user data from server
-          if (token !== 'offline_teacher_token') {
-            fetch('/api/auth/me', {
-              headers: { 'Authorization': `Bearer ${token}` }
-            })
-              .then(res => {
-                if (res.status === 401) {
-                  // The backend sometimes throws spurious 401s for valid tokens.
-                  // Since tokens don't expire in this app, we trust the cached data 
-                  // and avoid aggressively logging the user out here.
-                  return null;
-                }
-                if (!res.ok) return null; // Server error — keep using cached data
-                return res.json();
-              })
-              .then(data => {
-                if (data && data.success && data.user) {
-                  // Silently update user with fresh data from server
-                  const freshUser = buildUserObject(data.user);
-                  setUser(freshUser);
-                }
-              })
-              .catch(() => {
-                // Network error — keep using cached data, don't log out
-              });
-          }
-          return;
-        }
-      } catch (e) {
-        // Corrupted savedUserData — fall through to other methods
-        localStorage.removeItem('savedUserData');
-      }
-    }
-
-    // PRIORITY 2: Token exists but no saved data (e.g., first login before this update)
-    if (token && token !== 'offline_teacher_token') {
-      fetch('/api/auth/me', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-        .then(async (res) => {
-          if (res.status === 401) {
+    // An account (especially an admin) is only restored after the server
+    // verifies its signed session. Browser storage is never proof of a role.
+    if (token) {
+      const restoreVerifiedSession = async () => {
+        try {
+          const response = await fetch('/api/auth/me', {
+            headers: { Authorization: 'Bearer ' + token }
+          });
+          if (!response.ok) {
             localStorage.removeItem('token');
             localStorage.removeItem('savedUserData');
-            setIsAuthLoading(false);
-            return null;
+            return;
           }
-          if (!res.ok) throw new Error('Server error');
-          return res.json();
-        })
-        .then(data => {
-          if (data && data.success && data.user) {
+          const data = await response.json();
+          if (data?.success && data.user) {
             localStorage.removeItem('isGuest');
-            const fullUser = buildUserObject(data.user);
-            setUser(fullUser);
+            setUser(buildUserObject(data.user));
+          } else {
+            localStorage.removeItem('token');
+            localStorage.removeItem('savedUserData');
           }
-        })
-        .catch((err) => {
-          console.warn('Auto-login fetch failed:', err);
-        })
-        .finally(() => setIsAuthLoading(false));
-      return;
-    }
-
-    // PRIORITY 3: Offline teacher token
-    if (token === 'offline_teacher_token') {
-      const teacherUser = {
-        name: 'teacher2026', username: 'teacher2026', isGuest: false, role: 'admin', stars: 999,
-        inventory: ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'],
-        unlockedChars: ['char_knight', 'char_paladin', 'char_wizard'],
-        unlockedPets: ['pet_dragon', 'pet_griffin', 'pet_golem'],
-        clearedVoiceStages: { '1-2': Array.from({length: 20}, (_, i) => i), '3-4': Array.from({length: 20}, (_, i) => i), '5-6': Array.from({length: 20}, (_, i) => i) },
-        masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
-        stats: { vocab: 10, grammar: 10, writing: 10, speaking: 10, reading: 10 },
-        starsTracker: {}, trophies: 999
+        } catch {
+          // Do not enable a cached account when its session cannot be checked.
+          localStorage.removeItem('token');
+          localStorage.removeItem('savedUserData');
+        } finally {
+          setIsAuthLoading(false);
+        }
       };
-      setUser(teacherUser);
-      setIsAuthLoading(false);
+      restoreVerifiedSession();
       return;
     }
 
-    // PRIORITY 4: Guest mode
+    // Guest mode
     if (isGuestFlag === 'true') {
       setUser({ 
         name: 'Guest Student', stars: 0, isGuest: true, role: 'student',
@@ -206,7 +146,7 @@ export const AppProvider = ({ children }) => {
       return;
     }
 
-    // PRIORITY 5: Nothing found → show login page
+    // No stored session — show sign-in.
     setIsAuthLoading(false);
   }, []);
 
@@ -237,7 +177,7 @@ export const AppProvider = ({ children }) => {
       .catch(console.error);
   }, []);
 
-  // Keep localStorage perfectly synced with user state so refreshes never lose progress
+  // Keep the verified account snapshot in sync for the next session check.
   useEffect(() => {
     if (user && !user.isGuest) {
       localStorage.setItem('savedUserData', JSON.stringify(user));
@@ -391,7 +331,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const getDailyStatus = (moduleName, targetGrade = null) => {
-    if (user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026') {
+    if (user?.role === 'admin') {
       return { isComplete: true, bestStars: 3, itemId: null };
     }
     if (!user || !user.dailyProgress) return { isComplete: false, bestStars: 0, itemId: null };
@@ -432,7 +372,7 @@ export const AppProvider = ({ children }) => {
 
   const handleEquipItem = (itemId) => {
     setUser(prev => {
-      const isTeacher = prev?.role === 'admin' || prev?.name?.toLowerCase() === 'teacher2026' || prev?.username?.toLowerCase() === 'teacher2026';
+      const isTeacher = prev?.role === 'admin';
       if (isTeacher || prev?.inventory?.includes(itemId)) {
         const newState = { ...prev, equippedChar: itemId };
         syncProgress({ equippedChar: itemId });
@@ -444,7 +384,7 @@ export const AppProvider = ({ children }) => {
 
   const handleEquipPet = (petId) => {
     setUser(prev => {
-      const isTeacher = prev?.role === 'admin' || prev?.name?.toLowerCase() === 'teacher2026' || prev?.username?.toLowerCase() === 'teacher2026';
+      const isTeacher = prev?.role === 'admin';
       if (isTeacher || prev?.inventory?.includes(petId)) {
         const newState = { ...prev, equippedPet: petId };
         syncProgress({ equippedPet: petId });
@@ -456,7 +396,7 @@ export const AppProvider = ({ children }) => {
 
   const handleEquipShield = (shieldId) => {
     setUser(prev => {
-      const isTeacher = prev?.role === 'admin' || prev?.name?.toLowerCase() === 'teacher2026' || prev?.username?.toLowerCase() === 'teacher2026';
+      const isTeacher = prev?.role === 'admin';
       if (isTeacher || prev?.inventory?.includes(shieldId)) {
         const newState = { ...prev, equippedShield: shieldId };
         syncProgress({ equippedShield: shieldId });

@@ -6,18 +6,104 @@ import bcrypt from 'bcryptjs';
 import { MongoClient, ObjectId } from 'mongodb';
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
+import { randomUUID } from 'node:crypto';
 
 const rootApp = new Hono();
-rootApp.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
+const APP_ISSUER = 'stepping-stones';
+const APP_AUDIENCE = 'stepping-stones-web';
+const TOKEN_TTL_SECONDS = 8 * 60 * 60;
+const MAX_REQUEST_BYTES = 5 * 1024 * 1024;
+const MAX_AUDIO_BYTES = 3 * 1024 * 1024;
+const MAX_TTS_TEXT_LENGTH = 280;
+
+const configuredOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
+const allowedOrigins = new Set(configuredOrigins);
+
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET?.trim();
+  if (!secret || secret.length < 32) {
+    throw new Error('JWT_SECRET must be at least 32 characters long.');
+  }
+  return secret;
+};
+
+const jwtVerificationOptions = {
+  alg: 'HS256',
+  iss: APP_ISSUER,
+  aud: APP_AUDIENCE,
+};
+
+const hasRequiredSessionClaims = (session) => {
+  const now = Math.floor(Date.now() / 1000);
+  return Boolean(
+    session
+    && typeof session.userId === 'string'
+    && ObjectId.isValid(session.userId)
+    && Number.isInteger(session.iat)
+    && Number.isInteger(session.exp)
+    && session.iat <= now
+    && session.exp > now
+  );
+};
+
+const createSessionToken = (user) => {
+  const now = Math.floor(Date.now() / 1000);
+  return sign({
+    userId: user._id.toString(),
+    role: user.role === 'admin' ? 'admin' : 'student',
+    tokenVersion: Number.isInteger(user.tokenVersion) ? user.tokenVersion : 0,
+    iat: now,
+    exp: now + TOKEN_TTL_SECONDS,
+    iss: APP_ISSUER,
+    aud: APP_AUDIENCE,
+  }, getJwtSecret(), 'HS256');
+};
+
+rootApp.use('*', async (c, next) => {
+  const requestId = c.req.header('x-request-id') || randomUUID();
+  c.set('requestId', requestId);
+  c.header('X-Request-ID', requestId);
+  c.header('X-Content-Type-Options', 'nosniff');
+  c.header('X-Frame-Options', 'DENY');
+  c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+  c.header('Permissions-Policy', 'camera=(), geolocation=(), payment=(), usb=(), browsing-topics=()');
+  c.header('Cross-Origin-Opener-Policy', 'same-origin');
+  c.header('Cross-Origin-Resource-Policy', 'same-origin');
+  c.header('X-Permitted-Cross-Domain-Policies', 'none');
+  c.header('Cache-Control', 'no-store, max-age=0');
+  await next();
+});
+
+rootApp.onError((error, c) => {
+  console.error('[API]', c.get('requestId') || 'unknown', error);
+  return c.json({ success: false, error: 'Something went wrong. Please try again.', requestId: c.get('requestId') }, 500);
+});
+
+rootApp.notFound((c) => c.json({ success: false, error: 'Not found.' }, 404));
+rootApp.get('/', (c) => c.json({ status: 'ok' }));
 
 const app = new Hono().basePath('/api');
 
-// CORS setup
+// Same-origin browser traffic is routed through the frontend proxy. Direct
+// cross-origin API access is opt-in through the server-side ALLOWED_ORIGINS
+// environment variable; it is never reflected from an arbitrary request.
 app.use('/*', cors({
-  origin: '*', // Adjust this to your Cloudflare Pages URL for production
+  origin: (origin) => allowedOrigins.has(origin) ? origin : null,
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  maxAge: 86400,
 }));
+
+app.use('/*', async (c, next) => {
+  const contentLength = Number(c.req.header('content-length'));
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return c.json({ success: false, error: 'Request is too large.' }, 413);
+  }
+  await next();
+});
 
 // DB Connection Cache
 let client = null;
@@ -37,53 +123,64 @@ async function getDb() {
       progress: db.collection("progress"),
       placementTests: db.collection("placement_tests")
     };
+    try {
+      await cachedCols.users.createIndex({ username: 1 }, { unique: true, name: 'unique_username' });
+    } catch (error) {
+      // Keep the site available for legacy data while making a duplicate-name
+      // problem obvious in provider logs so it can be cleaned up.
+      console.error('[Database] Could not enforce the unique username index.', error);
+    }
     console.log("✅ Successfully connected to MongoDB Atlas on Vercel!");
   }
   return cachedCols;
 }
 
 // ── Security: In-memory rate limiter for auth endpoints ──────────────────────
-const authRateLimitMap = new Map();
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const RATE_LIMIT_MAX = 10; // max 10 auth attempts per window
+const rateLimitEntries = new Map();
 
-const authRateLimit = async (c, next) => {
-  const ip = c.req.header('x-forwarded-for')?.split(',')[0]?.trim() || 
-             c.req.header('x-real-ip') || 'unknown';
+const getRequestIdentity = (c) => {
+  const accountId = c.get('user')?.userId;
+  if (accountId) return 'user:' + accountId;
+  const forwarded = c.req.header('x-vercel-forwarded-for')
+    || 'unknown';
+  return 'ip:' + forwarded;
+};
+
+const createRateLimiter = (bucket, { windowMs, maxRequests }) => async (c, next) => {
   const now = Date.now();
-  
-  if (authRateLimitMap.has(ip)) {
-    const entry = authRateLimitMap.get(ip);
-    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-      // Reset window
-      authRateLimitMap.set(ip, { windowStart: now, count: 1 });
-    } else if (entry.count >= RATE_LIMIT_MAX) {
-      return c.json({ success: false, error: 'Too many login attempts. Please try again later.' }, 429);
-    } else {
-      entry.count++;
-    }
+  const key = bucket + ':' + getRequestIdentity(c);
+  const entry = rateLimitEntries.get(key);
+
+  if (!entry || now - entry.windowStart >= windowMs) {
+    rateLimitEntries.set(key, { windowStart: now, count: 1 });
+  } else if (entry.count >= maxRequests) {
+    const retryAfter = Math.max(1, Math.ceil((windowMs - (now - entry.windowStart)) / 1000));
+    c.header('Retry-After', String(retryAfter));
+    return c.json({ success: false, error: 'Too many requests. Please try again later.' }, 429);
   } else {
-    authRateLimitMap.set(ip, { windowStart: now, count: 1 });
+    entry.count += 1;
   }
-  
-  // Cleanup old entries every 100 requests
-  if (authRateLimitMap.size > 100) {
-    for (const [key, val] of authRateLimitMap) {
-      if (now - val.windowStart > RATE_LIMIT_WINDOW_MS) authRateLimitMap.delete(key);
+
+  if (rateLimitEntries.size > 500) {
+    for (const [storedKey, storedEntry] of rateLimitEntries) {
+      if (now - storedEntry.windowStart >= windowMs * 2) rateLimitEntries.delete(storedKey);
     }
   }
-  
+
   await next();
 };
 
-// ── Security Headers Middleware ──────────────────────────────────────────────
-app.use('/*', async (c, next) => {
-  await next();
-  c.header('X-Content-Type-Options', 'nosniff');
-  c.header('X-Frame-Options', 'DENY');
-  c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
-});
+// This is a per-instance safety net. Configure durable rate limits/WAF rules
+// at the hosting edge as described in SECURITY.md for cross-instance coverage.
+const authRateLimit = createRateLimiter('auth', { windowMs: 15 * 60 * 1000, maxRequests: 8 });
+const placementRateLimit = createRateLimiter('placement', { windowMs: 15 * 60 * 1000, maxRequests: 6 });
+const writingRateLimit = createRateLimiter('writing', { windowMs: 5 * 60 * 1000, maxRequests: 8 });
+const audioRateLimit = createRateLimiter('audio', { windowMs: 5 * 60 * 1000, maxRequests: 18 });
+const ttsRateLimit = createRateLimiter('tts', { windowMs: 5 * 60 * 1000, maxRequests: 30 });
+const practiceRateLimit = createRateLimiter('practice', { windowMs: 5 * 60 * 1000, maxRequests: 8 });
+const syncRateLimit = createRateLimiter('sync', { windowMs: 5 * 60 * 1000, maxRequests: 60 });
 
+// ── Security Headers Middleware ──────────────────────────────────────────────
 // Auth Middlewares
 const requireAuth = async (c, next) => {
   const authHeader = c.req.header('authorization');
@@ -92,11 +189,14 @@ const requireAuth = async (c, next) => {
   }
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = await verify(token, process.env.JWT_SECRET, "HS256");
+    const decoded = await verify(token, getJwtSecret(), jwtVerificationOptions);
+    if (!hasRequiredSessionClaims(decoded)) {
+      throw new Error('Invalid token subject.');
+    }
     c.set('user', decoded);
     await next();
-  } catch (err) {
-    return c.json({ success: false, error: 'Invalid or expired token', details: err.message }, 401);
+  } catch {
+    return c.json({ success: false, error: 'Invalid or expired session.' }, 401);
   }
 };
 
@@ -105,9 +205,9 @@ const optionalAuth = async (c, next) => {
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
     try {
-      const decoded = await verify(token, process.env.JWT_SECRET);
-      c.set('user', decoded);
-    } catch (err) {
+      const decoded = await verify(token, getJwtSecret(), jwtVerificationOptions);
+      c.set('user', hasRequiredSessionClaims(decoded) ? decoded : { isGuest: true });
+    } catch {
       c.set('user', { isGuest: true });
     }
   } else {
@@ -118,10 +218,24 @@ const optionalAuth = async (c, next) => {
 
 const requireAdmin = async (c, next) => {
   const user = c.get('user');
-  if (user && user.role === 'admin') {
+  if (!user?.userId || !ObjectId.isValid(user.userId)) {
+    return c.json({ success: false, error: 'Forbidden.' }, 403);
+  }
+  try {
+    const { users } = await getDb();
+    const account = await users.findOne(
+      { _id: new ObjectId(user.userId) },
+      { projection: { role: 1, tokenVersion: 1 } }
+    );
+    const currentTokenVersion = Number.isInteger(account?.tokenVersion) ? account.tokenVersion : 0;
+    if (account?.role !== 'admin' || currentTokenVersion !== (Number.isInteger(user.tokenVersion) ? user.tokenVersion : 0)) {
+      return c.json({ success: false, error: 'Forbidden.' }, 403);
+    }
+    c.set('account', account);
     await next();
-  } else {
-    return c.json({ success: false, error: 'Forbidden: Admin access required' }, 403);
+  } catch (error) {
+    console.error('[Admin authorization]', error);
+    return c.json({ success: false, error: 'Forbidden.' }, 403);
   }
 };
 
@@ -176,45 +290,62 @@ async function generateContentWithRetry(ai, requestConfig, isMultimodal = false,
 
 
 // Health Check
-app.get('/', (c) => c.json({ status: 'ok', message: 'API is live on Vercel!' }));
-app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
+app.get('/', (c) => c.json({ status: 'ok' }));
+app.get('/health', (c) => c.json({ status: 'ok' }));
 
 // 1. AUTH API
-app.get('/debug', (c) => c.json({ url: c.req.url, path: c.req.path }));
-app.post('/test', (c) => c.json({ status: 'ok', msg: 'POST test works' }));
+const cleanUsername = (value) => {
+  if (typeof value !== 'string') return null;
+  const username = value.trim();
+  if (username.length < 2 || username.length > 40 || /[\u0000-\u001F\u007F]/.test(username)) return null;
+  return username;
+};
+
+const publicUser = (user) => {
+  const { _id, pin, tokenVersion, role, ...safeUser } = user;
+  return { ...safeUser, role: role === 'admin' ? 'admin' : 'student' };
+};
+
 app.post('/auth/login', authRateLimit, async (c) => {
   try {
     const { users } = await getDb();
-    const { username, pin, isSignup } = await c.req.json();
+    const body = await c.req.json();
+    const username = cleanUsername(body?.username);
+    const pin = typeof body?.pin === 'string' ? body.pin : '';
+    const isSignup = body?.isSignup === true;
 
-    if (!username || !pin || pin.length < 6) {
-      return c.json({ success: false, error: "Password must be at least 6 characters long." }, 400);
+    if (!username || !pin || pin.length > 128) {
+      return c.json({ success: false, error: 'Please enter a valid username and password.' }, 400);
+    }
+    if (isSignup && pin.length < 8) {
+      return c.json({ success: false, error: 'New passwords must be at least 8 characters long.' }, 400);
     }
 
-    let user = await users.findOne({ username: String(username) });
+    let user = await users.findOne({ username });
     
     if (isSignup) {
-      if (user) return c.json({ success: false, error: "Username already exists." }, 400);
+      if (user) return c.json({ success: false, error: 'That username is not available.' }, 400);
 
-      const hashedPin = await bcrypt.hash(pin, 10);
+      const hashedPin = await bcrypt.hash(pin, 12);
       const baseUserData = {
-        username, pin: hashedPin, stars: 0,
+        username,
+        pin: hashedPin,
+        role: 'student',
+        tokenVersion: 0,
+        stars: 0,
         masteredVocab: [], completedGrammar: [], completedWriting: [], completedSpeaking: [], completedReading: [],
         stats: { vocab: 0, grammar: 0, writing: 0, speaking: 0, reading: 0 },
         starsTracker: {}, essays: {}
       };
 
-      const teacherInventory = ['relic_hourglass', 'court_gavel', 'shield_bronze', 'shield_silver', 'shield_gold', 'char_knight', 'char_paladin', 'pet_dragon', 'pet_griffin', 'pet_golem'];
-      const teacherChars = ['char_knight', 'char_paladin', 'char_wizard'];
-      const teacherPets = ['pet_dragon', 'pet_griffin', 'pet_golem'];
-      const isTeacherAccount = (username.toLowerCase() === 'admin' && pin === 'admin123') || username.toLowerCase() === 'teacher2026';
-
-      if (isTeacherAccount) {
-        const result = await users.insertOne({ ...baseUserData, role: 'admin', inventory: teacherInventory, unlockedChars: teacherChars, unlockedPets: teacherPets });
-        user = await users.findOne({ _id: result.insertedId });
-      } else {
+      try {
         const result = await users.insertOne({ ...baseUserData, role: 'student' });
         user = await users.findOne({ _id: result.insertedId });
+      } catch (error) {
+        if (error?.code === 11000) {
+          return c.json({ success: false, error: 'That username is not available.' }, 400);
+        }
+        throw error;
       }
     } else {
       if (!user) return c.json({ success: false, error: "Invalid credentials." }, 401);
@@ -222,12 +353,11 @@ app.post('/auth/login', authRateLimit, async (c) => {
       if (!isMatch) return c.json({ success: false, error: "Invalid credentials." }, 401);
     }
 
-    const token = await sign({ userId: user._id.toString(), role: user.role }, process.env.JWT_SECRET);
-    delete user.pin;
-    return c.json({ success: true, user, token });
+    const token = await createSessionToken(user);
+    return c.json({ success: true, user: publicUser(user), token });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Server Error: " + (error.message || "Unknown error") }, 500);
+    console.error('[Authentication]', error);
+    return c.json({ success: false, error: 'Unable to complete sign-in. Please try again.' }, 500);
   }
 });
 
@@ -235,35 +365,106 @@ app.post('/auth/login', authRateLimit, async (c) => {
 app.get('/auth/me', requireAuth, async (c) => {
   try {
     const { users } = await getDb();
-    const userId = c.get('user').userId;
+    const session = c.get('user');
+    const userId = session.userId;
     const user = await users.findOne({ _id: new ObjectId(userId) });
     if (!user) return c.json({ success: false, error: 'User not found' }, 404);
-    delete user.pin;
-    return c.json({ success: true, user });
+    const currentTokenVersion = Number.isInteger(user.tokenVersion) ? user.tokenVersion : 0;
+    if (currentTokenVersion !== (Number.isInteger(session.tokenVersion) ? session.tokenVersion : 0)) {
+      return c.json({ success: false, error: 'Invalid or expired session.' }, 401);
+    }
+    return c.json({ success: true, user: publicUser(user) });
   } catch (error) {
-    console.error(error);
+    console.error('[Session restore]', error);
     return c.json({ success: false, error: 'Failed to restore session' }, 500);
   }
 });
 
-app.post('/auth/sync', requireAuth, async (c) => {
+const isPlainRecord = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+const containsUnsafeKeys = (value, depth = 0) => {
+  if (depth > 5) return true;
+  if (Array.isArray(value)) return value.some(item => containsUnsafeKeys(item, depth + 1));
+  if (!isPlainRecord(value)) return false;
+  return Object.entries(value).some(([key, item]) => key.startsWith('$') || key.includes('.') || key === '__proto__' || key === 'constructor' || containsUnsafeKeys(item, depth + 1));
+};
+const isBoundedStringArray = (value, maxItems = 1000) => Array.isArray(value)
+  && value.length <= maxItems
+  && value.every(item => typeof item === 'string' && item.length > 0 && item.length <= 120);
+
+const syncArrayFields = new Set([
+  'masteredVocab', 'completedGrammar', 'completedWriting', 'completedSpeaking',
+  'completedReading', 'inventory', 'unlockedChars', 'unlockedPets'
+]);
+const syncObjectFields = new Set([
+  'vocabStats', 'grammarStats', 'dailyProgress', 'essays', 'clearedVoiceStages',
+  'starsTracker', 'stats'
+]);
+const syncEquipmentFields = new Set(['equippedChar', 'equippedPet', 'equippedShield']);
+
+const sanitizeProgressUpdates = (updates) => {
+  if (!isPlainRecord(updates) || Object.keys(updates).length === 0 || Object.keys(updates).length > 20) {
+    return { error: 'Invalid progress update.' };
+  }
+  if (containsUnsafeKeys(updates)) return { error: 'Invalid progress update.' };
+
+  const safeUpdates = {};
+  for (const [key, value] of Object.entries(updates)) {
+    if (syncArrayFields.has(key)) {
+      if (!isBoundedStringArray(value, key === 'inventory' ? 80 : 1500)) return { error: 'Invalid progress update.' };
+      safeUpdates[key] = value;
+      continue;
+    }
+    if (syncObjectFields.has(key)) {
+      if (!isPlainRecord(value) || Object.keys(value).length > 1500 || JSON.stringify(value).length > 300000) {
+        return { error: 'Invalid progress update.' };
+      }
+      safeUpdates[key] = value;
+      continue;
+    }
+    if (syncEquipmentFields.has(key)) {
+      if (value !== null && (typeof value !== 'string' || !/^[a-z0-9_]{2,60}$/.test(value))) {
+        return { error: 'Invalid progress update.' };
+      }
+      safeUpdates[key] = value;
+      continue;
+    }
+    if (key === 'stars' || key === 'trophies') {
+      if (!Number.isSafeInteger(value) || value < 0 || value > 100000) return { error: 'Invalid progress update.' };
+      safeUpdates[key] = value;
+      continue;
+    }
+    return { error: 'This account field cannot be changed from the browser.' };
+  }
+  return { value: safeUpdates };
+};
+
+app.post('/auth/sync', requireAuth, syncRateLimit, async (c) => {
   try {
     const { users } = await getDb();
-    const { updates } = await c.req.json();
-    const userId = c.get('user').userId;
-    
-    if (updates.role || updates.pin) return c.json({ success: false, error: "Cannot sync protected fields" }, 403);
+    const body = await c.req.json();
+    const { value: updates, error: validationError } = sanitizeProgressUpdates(body?.updates);
+    if (validationError) return c.json({ success: false, error: validationError }, 400);
+    const session = c.get('user');
+    const userId = session.userId;
+    const user = await users.findOne(
+      { _id: new ObjectId(userId) },
+      { projection: { tokenVersion: 1 } }
+    );
+    const currentTokenVersion = Number.isInteger(user?.tokenVersion) ? user.tokenVersion : 0;
+    if (!user || currentTokenVersion !== (Number.isInteger(session.tokenVersion) ? session.tokenVersion : 0)) {
+      return c.json({ success: false, error: 'Invalid or expired session.' }, 401);
+    }
     await users.updateOne({ _id: new ObjectId(userId) }, { $set: updates });
     return c.json({ success: true });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Failed to sync user data: " + (error.message || "Unknown error") }, 500);
+    console.error('[Progress sync]', error);
+    return c.json({ success: false, error: 'Failed to sync user data.' }, 500);
   }
 });
 
 // Placement tests are intentionally stored in their own MongoDB collection.
 // We store scores and recommendations, never microphone recordings.
-app.post('/placement-tests', optionalAuth, async (c) => {
+app.post('/placement-tests', optionalAuth, placementRateLimit, async (c) => {
   try {
     const body = await c.req.json();
     const chineseName = typeof body.chineseName === 'string' ? body.chineseName.trim() : '';
@@ -473,7 +674,6 @@ app.post('/placement-tests', optionalAuth, async (c) => {
     }
 
     const { placementTests } = await getDb();
-    const accountUser = c.get('user');
     const record = {
       chineseName,
       currentGrade,
@@ -486,39 +686,50 @@ app.post('/placement-tests', optionalAuth, async (c) => {
       ...((isAdaptiveForm || usesStrictAdaptiveRouting) ? { adaptivePath } : {}),
       ...(usesStrictAdaptiveRouting ? { adaptiveResponses } : {}),
       ...(usesStrictAdaptiveRouting ? { scaledScore } : {}),
-      accountUserId: accountUser?.userId || null,
       createdAt: new Date()
     };
-    const result = await placementTests.insertOne(record);
-    return c.json({ success: true, id: result.insertedId.toString(), recommendedLevel });
+    await placementTests.insertOne(record);
+    return c.json({ success: true, recommendedLevel });
   } catch (error) {
     console.error('[Placement Test Save]', error);
     return c.json({ success: false, error: 'Failed to save placement test.' }, 500);
   }
 });
 
-app.get('/leaderboard', async (c) => {
+const maskLeaderboardName = (username) => {
+  const text = typeof username === 'string' ? username.trim() : '';
+  if (!text) return 'Student';
+  if (text.length === 1) return text + '•';
+  return text.slice(0, 1) + '•'.repeat(Math.min(4, Math.max(1, text.length - 1)));
+};
+
+app.get('/leaderboard', optionalAuth, async (c) => {
   try {
     const { users } = await getDb();
     const usersData = await users.find(
       { role: { $ne: 'admin' } },
-      { projection: { username: 1, stars: 1, trophies: 1, grade: 1, equippedChar: 1, equippedPet: 1 } }
+      { projection: { username: 1, stars: 1, trophies: 1 } }
     ).toArray();
 
+    const accountUserId = c.get('user')?.userId || null;
     const leaderboard = usersData.map(u => ({
-      id: u._id.toString(),
-      name: u.username || 'Student',
+      userId: u._id.toString(),
+      name: maskLeaderboardName(u.username),
       trophies: u.trophies !== undefined ? u.trophies : (u.stars || 0),
-      stars: u.stars || 0,
-      grade: u.grade || '3-4',
-      equippedChar: u.equippedChar || null,
-      equippedPet: u.equippedPet || null
-    })).sort((a, b) => b.trophies - a.trophies);
+    }))
+      .sort((a, b) => b.trophies - a.trophies)
+      .slice(0, 100)
+      .map((u, index) => ({
+        id: 'rank-' + (index + 1),
+        name: u.name,
+        trophies: u.trophies,
+        isCurrentUser: Boolean(accountUserId && u.userId === accountUserId)
+      }));
 
     return c.json({ success: true, data: leaderboard });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Failed to fetch leaderboard: " + (error.message || "Unknown error") }, 500);
+    console.error('[Leaderboard]', error);
+    return c.json({ success: false, error: 'Failed to fetch leaderboard.' }, 500);
   }
 });
 
@@ -551,8 +762,8 @@ app.get('/curriculum', async (c) => {
 
     return c.json({ success: true, data: formattedData });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Failed to load curriculum: " + (error.message || "Unknown error") }, 500);
+    console.error('[Curriculum]', error);
+    return c.json({ success: false, error: 'Failed to load curriculum.' }, 500);
   }
 });
 
@@ -560,17 +771,23 @@ app.post('/curriculum/update', requireAuth, requireAdmin, async (c) => {
   try {
     const { curriculum } = await getDb();
     const { grade, content } = await c.req.json();
+    if (!['1-2', '3-4', '5-6'].includes(grade) || !isPlainRecord(content)) {
+      return c.json({ success: false, error: 'Invalid curriculum update.' }, 400);
+    }
     await curriculum.updateOne({ grade }, { $set: { content } }, { upsert: true });
     return c.json({ success: true });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Failed to update curriculum: " + (error.message || "Unknown error") }, 500);
+    console.error('[Curriculum update]', error);
+    return c.json({ success: false, error: 'Failed to update curriculum.' }, 500);
   }
 });
 
 // AI endpoints
-app.post('/practice/generate', requireAuth, async (c) => {
+app.post('/practice/generate', requireAuth, practiceRateLimit, async (c) => {
   const { grade } = await c.req.json();
+  if (!['1-2', '3-4', '5-6'].includes(grade)) {
+    return c.json({ success: false, error: 'Invalid grade.' }, 400);
+  }
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   try {
     const { response } = await generateContentWithRetry(ai, {
@@ -580,8 +797,8 @@ app.post('/practice/generate', requireAuth, async (c) => {
     const cleanJsonStr = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
     return c.json({ success: true, data: JSON.parse(cleanJsonStr) });
   } catch (error) {
-    console.error(error);
-    return c.json({ success: false, error: "Failed to generate practice: " + (error.message || "Unknown error") }, 500);
+    console.error('[Practice generation]', error);
+    return c.json({ success: false, error: 'Failed to generate practice.' }, 500);
   }
 });
 
@@ -593,7 +810,7 @@ const firewallLayer1 = async (c, next) => {
     const contentType = clonedReq.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
       const body = await clonedReq.json();
-      input = body.studentAnswer || body.prompt || "";
+      input = [body.studentAnswer, body.prompt].filter(value => typeof value === 'string').join('\n');
     }
   } catch(e) {}
   
@@ -608,9 +825,15 @@ const firewallLayer1 = async (c, next) => {
   await next();
 };
 
-app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
+app.post('/writing/grade', optionalAuth, writingRateLimit, firewallLayer1, async (c) => {
   const { prompt, studentAnswer, grade } = await c.req.json();
-  if (!prompt || !studentAnswer) return c.json({ success: false, error: "Missing data" }, 400);
+  if (
+    typeof prompt !== 'string' || prompt.trim().length === 0 || prompt.length > 600
+    || typeof studentAnswer !== 'string' || studentAnswer.trim().length === 0 || studentAnswer.length > 2000
+    || !['1-2', '3-4', '5-6'].includes(grade)
+  ) {
+    return c.json({ success: false, error: 'Please provide a valid writing response.' }, 400);
+  }
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const systemPrompt = `You are an encouraging but thorough English teacher evaluating a student's writing.
@@ -673,7 +896,7 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
       grammarZh: "请写出完整的句子。",
       content: "Nice effort answering the writing prompt!",
       contentZh: "感谢你努力回答问题！",
-      general: `Keep practicing! (Error: ${error.message})`,
+      general: 'Keep practicing!',
       generalZh: "继续练习！",
       modelUsed: "heuristic-fallback"
     });
@@ -691,28 +914,69 @@ app.post('/writing/grade', optionalAuth, firewallLayer1, async (c) => {
  * @param {object} c - Hono context
  * @returns {{ base64Audio: string, mimeType: string, extras: object }}
  */
+const allowedAudioMimeTypes = new Set([
+  'audio/webm', 'audio/mp4', 'audio/aac', 'audio/mpeg', 'audio/mp3',
+  'audio/ogg', 'audio/wav', 'audio/x-wav'
+]);
+
+const normalizeAudioMimeType = (value) => typeof value === 'string'
+  ? value.split(';')[0].trim().toLowerCase()
+  : '';
+
+const validateAudioInput = (base64Audio, requestedMimeType) => {
+  if (typeof base64Audio !== 'string' || base64Audio.length === 0) {
+    return { error: null, mimeType: normalizeAudioMimeType(requestedMimeType) || 'audio/webm' };
+  }
+  const mimeType = normalizeAudioMimeType(requestedMimeType);
+  if (!allowedAudioMimeTypes.has(mimeType)) {
+    return { error: 'Unsupported audio format.', mimeType };
+  }
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(base64Audio)) {
+    return { error: 'Invalid audio data.', mimeType };
+  }
+  const estimatedBytes = Math.floor((base64Audio.length * 3) / 4) - (base64Audio.endsWith('==') ? 2 : base64Audio.endsWith('=') ? 1 : 0);
+  if (estimatedBytes <= 0 || estimatedBytes > MAX_AUDIO_BYTES) {
+    return { error: 'Audio is too large. Please record a shorter answer.', mimeType };
+  }
+  return { error: null, mimeType };
+};
+
 async function parseAudioRequest(c) {
   const contentType = c.req.header('content-type') || '';
 
   if (contentType.includes('application/json')) {
-    const body = await c.req.json();
+    const parsedBody = await c.req.json();
+    const body = isPlainRecord(parsedBody) ? parsedBody : {};
+    const validation = validateAudioInput(body.audioBase64, body.mimeType || 'audio/webm');
     return {
       base64Audio: body.audioBase64 || null,
-      mimeType: body.mimeType || 'audio/webm',
+      mimeType: validation.mimeType,
       extras: body,
+      error: validation.error,
     };
   }
 
   // Multipart form-data (legacy browser uploads)
   const formData = await c.req.parseBody();
   const file = formData['voiceRecord'];
-  if (!file) return { base64Audio: null, mimeType: null, extras: formData };
+  if (!file || typeof file === 'string' || typeof file.arrayBuffer !== 'function') {
+    return { base64Audio: null, mimeType: null, extras: formData, error: null };
+  }
+  if (Number(file.size) > MAX_AUDIO_BYTES) {
+    return { base64Audio: null, mimeType: normalizeAudioMimeType(file.type), extras: formData, error: 'Audio is too large. Please record a shorter answer.' };
+  }
 
   const arrayBuffer = await file.arrayBuffer();
+  if (arrayBuffer.byteLength > MAX_AUDIO_BYTES) {
+    return { base64Audio: null, mimeType: normalizeAudioMimeType(file.type), extras: formData, error: 'Audio is too large. Please record a shorter answer.' };
+  }
+  const base64Audio = Buffer.from(arrayBuffer).toString('base64');
+  const validation = validateAudioInput(base64Audio, file.type || 'audio/webm');
   return {
-    base64Audio: Buffer.from(arrayBuffer).toString('base64'),
-    mimeType: file.type || 'audio/webm',
+    base64Audio,
+    mimeType: validation.mimeType,
     extras: formData,
+    error: validation.error,
   };
 }
 
@@ -748,11 +1012,12 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
           'Content-Type': cleanMimeType,
         },
         body: bodyData,
+        signal: AbortSignal.timeout(15000),
       }
     );
 
     if (!response.ok) {
-      console.error(`[STT] Deepgram returned ${response.status}: ${await response.text()}`);
+      console.error('[STT] Deepgram request failed with status', response.status);
       return null;
     }
 
@@ -766,7 +1031,7 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
     }
     return null;
   } catch (error) {
-    console.error('[STT] Deepgram request failed:', error.message);
+    console.error('[STT] Deepgram request failed.');
     return null;
   }
 }
@@ -792,7 +1057,7 @@ async function transcribeWithGemini(base64Audio, mimeType) {
     const text = response.text?.trim();
     return text && text.length > 0 ? text : null;
   } catch (error) {
-    console.error('[STT] Gemini transcription failed:', error.message);
+    console.error('[STT] Gemini transcription failed.');
     return null;
   }
 }
@@ -811,9 +1076,10 @@ async function transcribeWithGemini(base64Audio, mimeType) {
  * Accepts: { audioBase64, mimeType }
  * Returns: { success, transcript, provider }
  */
-app.post('/audio/stt', async (c) => {
+app.post('/audio/stt', optionalAuth, audioRateLimit, async (c) => {
   try {
-    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    const { base64Audio, mimeType, error: audioError } = await parseAudioRequest(c);
+    if (audioError) return c.json({ success: false, error: audioError }, 400);
     if (!base64Audio) {
       return c.json({ success: false, error: 'No audio detected.' }, 400);
     }
@@ -835,7 +1101,7 @@ app.post('/audio/stt', async (c) => {
     return c.json({ success: false, error: 'No speech detected in audio.' }, 200);
   } catch (error) {
     console.error('[STT] Endpoint error:', error);
-    return c.json({ success: false, error: 'STT failed: ' + (error.message || 'Unknown error') }, 500);
+    return c.json({ success: false, error: 'Speech recognition is temporarily unavailable.' }, 500);
   }
 });
 
@@ -889,12 +1155,13 @@ function calculateLevenshteinSimilarity(a, b) {
  * Accepts: { audioBase64, mimeType, targetSentence }
  * Returns: { success, score (0-4), feedback, targetSentence }
  */
-app.post('/audio/evaluate', async (c) => {
+app.post('/audio/evaluate', optionalAuth, audioRateLimit, async (c) => {
   try {
-    const { base64Audio, mimeType, extras } = await parseAudioRequest(c);
-    const targetSentence = extras.targetSentence || '';
+    const { base64Audio, mimeType, extras, error: audioError } = await parseAudioRequest(c);
+    if (audioError) return c.json({ success: false, error: audioError }, 400);
+    const targetSentence = typeof extras.targetSentence === 'string' ? extras.targetSentence.trim() : '';
 
-    if (!base64Audio) {
+    if (!base64Audio || !targetSentence || targetSentence.length > 300) {
       return c.json({ success: false, error: 'No audio detected.' }, 400);
     }
 
@@ -1046,7 +1313,7 @@ app.post('/audio/evaluate', async (c) => {
     });
   } catch (error) {
     console.error('[Audio Evaluate]', error);
-    return c.json({ success: false, error: 'Audio analysis failed: ' + (error.message || 'Unknown error') }, 500);
+    return c.json({ success: false, error: 'Audio analysis is temporarily unavailable.' }, 500);
   }
 });
 
@@ -1059,9 +1326,10 @@ app.post('/audio/evaluate', async (c) => {
  * Accepts: { audioBase64, mimeType }
  * Returns: { success, text, audioBase64, mimeType }
  */
-app.post('/audio/roleplay', requireAuth, async (c) => {
+app.post('/audio/roleplay', requireAuth, audioRateLimit, async (c) => {
   try {
-    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    const { base64Audio, mimeType, error: audioError } = await parseAudioRequest(c);
+    if (audioError) return c.json({ success: false, error: audioError }, 400);
     if (!base64Audio) {
       return c.json({ success: false, error: 'No audio detected.' }, 400);
     }
@@ -1090,47 +1358,35 @@ app.post('/audio/roleplay', requireAuth, async (c) => {
         audioBase64 = audioPart.inlineData.data;
         audioMimeType = audioPart.inlineData.mimeType;
       }
-    } catch (e) {
-      console.error('[Roleplay TTS]', e.message);
+    } catch {
+      console.error('[Roleplay TTS] failed.');
     }
 
     return c.json({ success: true, text: replyText, audioBase64, mimeType: audioMimeType });
   } catch (error) {
     console.error('[Roleplay]', error);
-    return c.json({ success: false, error: 'Roleplay failed: ' + (error.message || 'Unknown error') }, 500);
+    return c.json({ success: false, error: 'Roleplay is temporarily unavailable.' }, 500);
   }
 });
 
 
 /**
- * POST /api/audio/tts
+ * GET /api/audio/tts
  *
  * Text-to-speech endpoint using Gemini Flash TTS.
  *
  * Accepts: { text }
  * Returns: { success, audioBase64, mimeType }
  */
-app.get('/test/tts', async (c) => {
-  const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
-  const text = 'hello world';
-  const res = await fetch('https://api.deepgram.com/v1/speak?model=aura-stella-en&encoding=mp3', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Token ${ttsKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ text })
-  });
-  return c.json({ status: res.status, ok: res.ok, statusText: res.statusText });
-});
-
-app.get('/audio/tts', async (c) => {
-  const text = c.req.query('text');
+app.get('/audio/tts', optionalAuth, ttsRateLimit, async (c) => {
+  const text = c.req.query('text')?.trim();
   
-  if (!text) return c.json({ success: false, error: 'Missing text' }, 400);
+  if (!text || text.length > MAX_TTS_TEXT_LENGTH || /[\u0000-\u001F\u007F]/.test(text)) {
+    return c.json({ success: false, error: 'Please provide a short, valid text sample.' }, 400);
+  }
 
   const ttsKey = process.env.TEXT_TO_SPEECH?.trim();
-  if (!ttsKey) return c.json({ success: false, error: 'TEXT_TO_SPEECH key missing' }, 500);
+  if (!ttsKey) return c.json({ success: false, error: 'Speech audio is temporarily unavailable.' }, 503);
 
   let audioBuffer = null;
   let mimeType = 'audio/mp3';
@@ -1143,21 +1399,21 @@ app.get('/audio/tts', async (c) => {
         'Authorization': `Token ${ttsKey}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ text })
+      body: JSON.stringify({ text }),
+      signal: AbortSignal.timeout(15000)
     });
 
     if (deepgramRes.ok) {
       audioBuffer = await deepgramRes.arrayBuffer();
       mimeType = deepgramRes.headers.get('content-type') || 'audio/mp3';
     } else {
-      console.error(`Deepgram TTS failed: ${deepgramRes.status} ${deepgramRes.statusText}`);
-      const errText = await deepgramRes.text();
-      console.error(`Deepgram Error details:`, errText);
-      return c.json({ success: false, error: 'Deepgram API returned an error' }, 500);
+     console.error(`Deepgram TTS failed: ${deepgramRes.status} ${deepgramRes.statusText}`);
+      console.error('[TTS] Deepgram request failed with status', deepgramRes.status);
+      return c.json({ success: false, error: 'Speech audio is temporarily unavailable.' }, 503);
     }
   } catch (error) {
     console.error('[TTS]', error);
-    return c.json({ success: false, error: 'TTS network failed' }, 500);
+    return c.json({ success: false, error: 'Speech audio is temporarily unavailable.' }, 500);
   }
 
   c.header('Content-Type', mimeType);
@@ -1173,9 +1429,10 @@ app.get('/audio/tts', async (c) => {
  * Legacy transcription endpoint (multipart only). Kept for backward compatibility.
  * New code should use /api/audio/stt instead.
  */
-app.post('/audio/transcribe', async (c) => {
+app.post('/audio/transcribe', optionalAuth, audioRateLimit, async (c) => {
   try {
-    const { base64Audio, mimeType } = await parseAudioRequest(c);
+    const { base64Audio, mimeType, error: audioError } = await parseAudioRequest(c);
+    if (audioError) return c.json({ success: false, error: audioError }, 400);
     if (!base64Audio) {
       return c.json({ success: false, error: 'No audio detected.' }, 400);
     }
@@ -1191,7 +1448,7 @@ app.post('/audio/transcribe', async (c) => {
     return c.json({ success: false, error: 'No speech detected.' }, 200);
   } catch (error) {
     console.error('[Transcribe]', error);
-    return c.json({ success: false, error: 'Transcription failed: ' + (error.message || 'Unknown error') }, 500);
+    return c.json({ success: false, error: 'Speech recognition is temporarily unavailable.' }, 500);
   }
 });
 

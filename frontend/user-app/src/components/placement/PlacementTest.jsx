@@ -225,8 +225,7 @@ export const PlacementTest = ({ onExit }) => {
 
     let audio = targetAudioRef.current.get(target);
     if (!audio) {
-      const token = localStorage.getItem('token') || '';
-      audio = new Audio(`/api/audio/tts?text=${encodeURIComponent(target)}&token=${encodeURIComponent(token)}&t=${Date.now()}`);
+      audio = new Audio(`/api/audio/tts?text=${encodeURIComponent(target)}&t=${Date.now()}`);
       targetAudioRef.current.set(target, audio);
     }
 

@@ -175,7 +175,7 @@ export const ShopView = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentItems.map(item => {
-          const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';
+          const isAdmin = user?.role === 'admin';
           const isOwned = isAdmin || inventory.includes(item.id);
           const canAfford = stars >= item.cost;
 

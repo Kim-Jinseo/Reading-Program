@@ -5,7 +5,7 @@ import { COURTROOM_CASES_BY_GRADE } from '../../../data/courtroomCases';
 
 export const CourtroomView = ({ onBack }) => {
   const { t, grade, user, handleEarnStars, handleEarnBattleStars } = useAppContext();
-  const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';
+  const isAdmin = user?.role === 'admin';
   const equippedShield = user?.equippedShield || (user?.inventory?.includes('shield_gold') ? 'shield_gold' : user?.inventory?.includes('shield_silver') ? 'shield_silver' : user?.inventory?.includes('shield_bronze') ? 'shield_bronze' : (isAdmin ? 'shield_gold' : null));
   const hasGavel = isAdmin || user?.inventory?.includes('court_gavel');
   const COURTROOM_CASES = COURTROOM_CASES_BY_GRADE[grade] || COURTROOM_CASES_BY_GRADE['3-4'] || [];
@@ -181,8 +181,8 @@ export const CourtroomView = ({ onBack }) => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 animate-in fade-in slide-in-from-bottom-4">
           {Array.from({ length: totalLevels }).map((_, idx) => {
-            const isAdmin = user?.role === 'admin' || user?.name?.toLowerCase() === 'teacher2026' || user?.username?.toLowerCase() === 'teacher2026';
-            // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared (bypassed for teacher2026/admin)
+            const isAdmin = user?.role === 'admin';
+            // Level 1 (idx 0) is always unlocked; subsequent levels require ALL previous levels to be cleared for students.
             const isUnlocked = isAdmin || idx === 0 || Array.from({ length: idx }, (_, i) => i).every(prevIdx => (user?.starsTracker?.[`courtroom_level_${grade}_${prevIdx}`] || 0) > 0);
             const starsEarned = user?.starsTracker?.[`courtroom_level_${grade}_${idx}`] || 0;
             const baseStarsEarned = hasGavel ? Math.floor(starsEarned / 2) : starsEarned;
