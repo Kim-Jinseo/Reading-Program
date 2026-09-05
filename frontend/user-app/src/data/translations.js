@@ -2,6 +2,8 @@ export const TRANSLATIONS = {
   en: {
     app_title: "Stepping Stones",
     nav_dashboard: "Home",
+    nav_classes: "Classes",
+    home_classes_desc: "Join your class and review assignments.",
     nav_vocab: "Vocabulary",
     nav_grammar: "Grammar",
     nav_writing: "Writing",
@@ -167,6 +169,8 @@ export const TRANSLATIONS = {
   zh: {
     app_title: "铺路石 (Stepping Stones)",
     nav_dashboard: "主页",
+    nav_classes: "班级",
+    home_classes_desc: "加入班级，完成和复习作业。",
     nav_vocab: "词汇",
     nav_grammar: "语法",
     nav_writing: "写作",

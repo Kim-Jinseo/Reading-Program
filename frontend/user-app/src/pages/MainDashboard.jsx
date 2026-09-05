@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book, Edit3, Mic, BookOpen, ChevronRight, PenTool, CheckCircle2, Trophy, ShoppingBag, ClipboardCheck } from 'lucide-react';
+import { Book, Edit3, Mic, BookOpen, ChevronRight, PenTool, CheckCircle2, Trophy, ShoppingBag, ClipboardCheck, Users } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const MainDashboard = () => {
@@ -79,6 +79,7 @@ export const MainDashboard = () => {
   ];
 
   const quickLinks = [
+    { id: 'classes', icon: <Users size={28} />, color: 'text-indigo-600', bg: 'bg-indigo-100', border: 'hover:border-indigo-300', desc: t('home_classes_desc') },
     { id: 'leaderboard', icon: <Trophy size={28} />, color: 'text-amber-600', bg: 'bg-amber-100', border: 'hover:border-amber-300', desc: t('home_leaderboard_desc') },
     { id: 'shop', icon: <ShoppingBag size={28} />, color: 'text-pink-600', bg: 'bg-pink-100', border: 'hover:border-pink-300', desc: t('home_shop_desc') },
     { id: 'test', icon: <ClipboardCheck size={28} />, color: 'text-emerald-600', bg: 'bg-emerald-100', border: 'hover:border-emerald-300', desc: t('home_test_desc') }

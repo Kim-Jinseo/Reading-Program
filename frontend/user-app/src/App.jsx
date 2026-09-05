@@ -15,6 +15,7 @@ import { ExtraPractice } from './components/modules/ExtraPractice';
 import { LeaderboardView } from './pages/LeaderboardView';
 import { ShopView } from './pages/ShopView';
 import { TestView } from './pages/TestView';
+import { ClassesView } from './pages/ClassesView';
 
 const AppFooter = () => {
   const { lang } = useAppContext();
@@ -86,6 +87,7 @@ const AppContent = () => {
               {view === 'leaderboard' && <LeaderboardView />}
               {view === 'shop' && <ShopView />}
               {view === 'test' && <TestView />}
+              {view === 'classes' && <ClassesView />}
             </div>
             <AppFooter />
           </div>

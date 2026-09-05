@@ -38,7 +38,7 @@ export const AuthModal = () => {
           ...data.user, 
           name: data.user.username, 
           isGuest: false,
-          role: data.user.role === 'admin' ? 'admin' : 'student',
+          role: ['admin', 'teacher'].includes(data.user.role) ? data.user.role : 'student',
           inventory: data.user.inventory || [],
           unlockedChars: data.user.unlockedChars || [],
           unlockedPets: data.user.unlockedPets || [],

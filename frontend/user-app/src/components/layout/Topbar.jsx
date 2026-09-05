@@ -4,7 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 import { ProfileModal } from '../common/ProfileModal';
 
 export const Topbar = ({ onMenuClick }) => {
-  const { t, grade, setGrade, user, setView } = useAppContext();
+  const { t, lang, grade, setGrade, user, setView } = useAppContext();
   const [showProfile, setShowProfile] = useState(false);
   const [isGradeMenuOpen, setIsGradeMenuOpen] = useState(false);
 
@@ -61,7 +61,7 @@ export const Topbar = ({ onMenuClick }) => {
             <div className="text-left hidden sm:block">
               <p className="text-base font-extrabold text-slate-800 leading-tight">{user.name}</p>
               <p className={`text-xs font-bold uppercase tracking-wider ${user.role==='admin' ? 'text-indigo-500' : 'text-slate-400'}`}>
-                {user.isGuest ? t('guest') : user.role === 'admin' ? 'Administrator' : 'Student'}
+                {user.isGuest ? t('guest') : user.role === 'admin' ? (lang === 'zh' ? '管理员' : 'Administrator') : user.role === 'teacher' ? (lang === 'zh' ? '教师' : 'Teacher') : (lang === 'zh' ? '学生' : 'Student')}
               </p>
             </div>
           </button>

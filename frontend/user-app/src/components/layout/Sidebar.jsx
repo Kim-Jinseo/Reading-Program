@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, ClipboardCheck, Globe, ShieldCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Home, Book, Edit3, PenTool, Mic, BookOpen, Trophy, ShoppingBag, ClipboardCheck, Globe, ShieldCheck, ChevronLeft, ChevronRight, X, Users } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
@@ -8,6 +8,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
 
   const MODULES = [
     { id: 'dashboard', icon: <Home size={20}/>, bg: 'bg-slate-100', color: 'text-slate-600' },
+    { id: 'classes', icon: <Users size={20}/>, bg: 'bg-indigo-100', color: 'text-indigo-600' },
     { id: 'vocab', icon: <Book size={20}/>, bg: 'bg-sky-100', color: 'text-sky-600' },
     { id: 'grammar', icon: <Edit3 size={20}/>, bg: 'bg-indigo-100', color: 'text-indigo-600' },
     { id: 'reading', icon: <BookOpen size={20}/>, bg: 'bg-teal-100', color: 'text-teal-600' },

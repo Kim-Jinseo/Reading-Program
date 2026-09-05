@@ -67,7 +67,7 @@ export const AppProvider = ({ children }) => {
       ...rawUser,
       name: rawUser.username || rawUser.name,
       isGuest: false,
-      role: rawUser.role === 'admin' ? 'admin' : 'student',
+      role: ['admin', 'teacher'].includes(rawUser.role) ? rawUser.role : 'student',
       inventory: rawUser.inventory || [],
       unlockedChars: rawUser.unlockedChars || [],
       unlockedPets: rawUser.unlockedPets || [],

@@ -7,6 +7,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
+import { createClassroomRouter } from '../server/classrooms.js';
 
 const rootApp = new Hono();
 const APP_ISSUER = 'stepping-stones';
@@ -53,7 +54,7 @@ const createSessionToken = (user) => {
   const now = Math.floor(Date.now() / 1000);
   return sign({
     userId: user._id.toString(),
-    role: user.role === 'admin' ? 'admin' : 'student',
+    role: ['admin', 'teacher'].includes(user.role) ? user.role : 'student',
     tokenVersion: Number.isInteger(user.tokenVersion) ? user.tokenVersion : 0,
     iat: now,
     exp: now + TOKEN_TTL_SECONDS,
@@ -108,9 +109,11 @@ app.use('/*', async (c, next) => {
 // DB Connection Cache
 let client = null;
 let cachedCols = null;
+let connectionPromise = null;
 
 async function getDb() {
-  if (!client) {
+  if (cachedCols) return cachedCols;
+  if (!connectionPromise) connectionPromise = (async () => {
     const uri = process.env.MONGODB_URI;
     if (!uri) throw new Error("MONGODB_URI environment variable is not set!");
     
@@ -121,7 +124,12 @@ async function getDb() {
       users: db.collection("users"),
       curriculum: db.collection("curriculum"),
       progress: db.collection("progress"),
-      placementTests: db.collection("placement_tests")
+      placementTests: db.collection("placement_tests"),
+      classes: db.collection('classes'),
+      assignments: db.collection('class_assignments'),
+      submissions: db.collection('assignment_submissions'),
+      teacherInvites: db.collection('teacher_invitations'),
+      classroomLimits: db.collection('classroom_rate_limits')
     };
     try {
       await cachedCols.users.createIndex({ username: 1 }, { unique: true, name: 'unique_username' });
@@ -131,8 +139,9 @@ async function getDb() {
       console.error('[Database] Could not enforce the unique username index.', error);
     }
     console.log("✅ Successfully connected to MongoDB Atlas on Vercel!");
-  }
-  return cachedCols;
+    return cachedCols;
+  })().catch(error => { client = null; cachedCols = null; connectionPromise = null; throw error; });
+  return connectionPromise;
 }
 
 // ── Security: In-memory rate limiter for auth endpoints ──────────────────────
@@ -303,8 +312,10 @@ const cleanUsername = (value) => {
 
 const publicUser = (user) => {
   const { _id, pin, tokenVersion, role, ...safeUser } = user;
-  return { ...safeUser, role: role === 'admin' ? 'admin' : 'student' };
+  return { ...safeUser, role: ['admin', 'teacher'].includes(role) ? role : 'student' };
 };
+
+app.route('/classroom', createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser }));
 
 app.post('/auth/login', authRateLimit, async (c) => {
   try {
@@ -707,7 +718,7 @@ app.get('/leaderboard', optionalAuth, async (c) => {
   try {
     const { users } = await getDb();
     const usersData = await users.find(
-      { role: { $ne: 'admin' } },
+      { role: { $nin: ['admin', 'teacher'] } },
       { projection: { username: 1, stars: 1, trophies: 1 } }
     ).toArray();
 
