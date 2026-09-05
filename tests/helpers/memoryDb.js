@@ -44,6 +44,7 @@ class MemoryCollection {
       await this.insertOne(doc); doc = this.docs.at(-1);
     } else if (!doc) return { matchedCount: 0, modifiedCount: 0 };
     Object.assign(doc, clone(update.$set || {}));
+    for (const key of Object.keys(update.$unset || {})) delete doc[key];
     for (const [key, value] of Object.entries(update.$inc || {})) doc[key] = (doc[key] || 0) + value;
     for (const [key, value] of Object.entries(update.$addToSet || {})) { doc[key] ||= []; if (!doc[key].some(item => eq(item, value))) doc[key].push(clone(value)); }
     for (const [key, value] of Object.entries(update.$push || {})) { doc[key] ||= []; doc[key].push(clone(value)); }
@@ -51,5 +52,9 @@ class MemoryCollection {
   }
 }
 export function memoryDb() {
-  return Object.fromEntries(['users', 'classes', 'assignments', 'submissions', 'teacherInvites', 'classroomLimits'].map(name => [name, new MemoryCollection()]));
+  const db=Object.fromEntries(['users', 'classes', 'assignments', 'submissions', 'teacherInvites', 'classroomLimits', 'lessonCollections', 'lessons', 'lessonAssets', 'lessonParts'].map(name => [name, new MemoryCollection()]));
+  // Serial test boundary, not an implementation of Mongo's transaction engine.
+  let queue=Promise.resolve();
+  db.withLessonTransaction=work=>{const result=queue.then(()=>work(undefined));queue=result.catch(()=>{});return result;};
+  return db;
 }

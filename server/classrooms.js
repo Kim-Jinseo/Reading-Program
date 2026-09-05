@@ -8,7 +8,7 @@ const digest = code => createHash('sha256').update(code).digest('hex');
 const teacherRole = role => role === 'teacher' || role === 'admin';
 const invitationCode = () => randomBytes(6).toString('hex').toUpperCase();
 const notFound = () => { throw new ClassroomError('This class or assignment is not available to your account.', 404, 'not_found'); };
-const classSummary = (row, owner = false) => ({ id: row._id, name: row.name, createdAt: row.createdAt, studentCount: row.memberIds.length, ...(owner ? { invitationCode: row.invitationCode } : {}) });
+const classSummary = (row, owner = false) => ({ id: row._id, name: row.name, createdAt: row.createdAt, collectionId: row.collectionId || null, studentCount: row.memberIds.length, ...(owner ? { invitationCode: row.invitationCode } : {}) });
 
 export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser }) {
   const app = new Hono();
@@ -106,11 +106,12 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     return c.json({ success: true, role: c.get('account').role, classes: rows.map(row => classSummary(row, owner)) });
   });
   app.post('/classes', requireTeacher, limit('create-class', 10), async c => {
-    const { name } = await readBody(c);
+    const { name, collectionId } = await readBody(c);
     const ownerId = c.get('user').userId;
     const classes = c.get('db').classes;
     if (await classes.countDocuments({ ownerId }) >= 50) throw new ClassroomError('You have reached the class limit.');
-    const row = { _id: randomUUID(), ownerId, name: requireText(name, 'class name', 80), memberIds: [], members: [], assignmentCount: 0, invitationCode: invitationCode(), createdAt: new Date() };
+    if (collectionId !== undefined && (typeof collectionId !== 'string' || !await c.get('db').lessonCollections.findOne({ _id: collectionId }))) throw new ClassroomError('Choose an available lesson collection.');
+    const row = { _id: randomUUID(), ownerId, name: requireText(name, 'class name', 80), ...(collectionId ? { collectionId, lessonRevision: 0 } : {}), memberIds: [], members: [], assignmentCount: 0, invitationCode: invitationCode(), createdAt: new Date() };
     await classes.insertOne(row);
     return c.json({ success: true, class: classSummary(row, true) }, 201);
   });

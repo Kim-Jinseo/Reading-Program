@@ -6,11 +6,12 @@ import { useAppContext } from '../context/AppContext';
 jest.mock('../context/AppContext', () => ({ useAppContext: jest.fn() }));
 const student = { username: 'student1', name: '小明', role: 'student' };
 const classroom = { id: 'class1', name: 'Monday English', studentCount: 1 };
-function Harness({ api, initialUser = student }) {
+const lessonsApi = async path => path === '/collections' ? { collections: [] } : path.endsWith('/report') ? { students: [] } : { lessons: [], history: [], collection: null };
+function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
   const [user, setUser] = useState(initialUser);
   const [lang, setLang] = useState('en');
   useAppContext.mockReturnValue({ user, setUser, lang, curriculumDb: {} });
-  return <><button onClick={() => setLang(l => l === 'en' ? 'zh' : 'en')}>Toggle language</button><ClassesView api={api} /></>;
+  return <><button onClick={() => setLang(l => l === 'en' ? 'zh' : 'en')}>Toggle language</button><ClassesView api={api} lessonsApi={lessonRequests} /></>;
 }
 beforeEach(() => localStorage.clear());
 
@@ -62,4 +63,17 @@ test('changing language does not reload classes or discard an assignment editor 
   fireEvent.click(screen.getByRole('button', { name: 'Toggle language' }));
   await waitFor(() => expect(screen.getByLabelText('作业标题')).toHaveValue('Our garden'));
   expect(api).toHaveBeenCalledTimes(calls);
+});
+
+test('Refresh results also reloads newly published class lessons', async () => {
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [] });
+  let published = false;
+  const lessonRequests = jest.fn(async () => ({ collection: null, history: [], lessons: published ? [{ id: 'lesson2', number: 2, title: 'New classroom lesson', titleZh: '新课', progress: { done: [], total: 5 } }] : [] }));
+  render(<Harness api={api} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  await screen.findByText('No published lessons for this course yet.');
+  published = true;
+  fireEvent.click(screen.getByRole('button', { name: 'Refresh results' }));
+  await screen.findByRole('heading', { name: 'New classroom lesson' });
+  expect(lessonRequests.mock.calls.length).toBeGreaterThan(1);
 });
