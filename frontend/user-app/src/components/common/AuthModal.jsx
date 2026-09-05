@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserCircle, Lock } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { UserCircle, Lock, LoaderCircle } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export const AuthModal = () => {
@@ -8,12 +8,25 @@ export const AuthModal = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitting = useRef(false);
+
+  const changeMode = mode => {
+    if (submitting.current) return;
+    setAuthMode(mode);
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (submitting.current) return;
+    setError('');
+    if (name.trim().length < 2 || name.trim().length > 40 || [...name.trim()].some(char => char.charCodeAt(0) < 32 || char.charCodeAt(0) === 127)) {
+      setError(t('auth_invalid_name'));
+      return;
+    }
     if (authMode === 'signup' && password.length < 8) {
-      setError("New passwords must be at least 8 characters.");
+      setError(t('auth_short_password'));
       return;
     }
     
@@ -25,15 +38,20 @@ export const AuthModal = () => {
       setUser(userData);
     };
 
+    submitting.current = true;
+    setIsSubmitting(true);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
     try {
       const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: name, pin: password, isSignup: authMode === 'signup' })
+        body: JSON.stringify({ username: name.trim(), pin: password, isSignup: authMode === 'signup' }),
+        signal: controller.signal
       });
       const data = await response.json();
       
-      if (data.success) {
+      if (response.ok && data?.success && typeof data.token === 'string' && data.token.length > 0 && typeof data.user?.username === 'string') {
         const userData = { 
           ...data.user, 
           name: data.user.username, 
@@ -56,14 +74,19 @@ export const AuthModal = () => {
         };
         loginAs(userData, data.token);
       } else {
-        setError(data.error || "Login failed");
+        setError(data?.code === 'AUTH_UNAVAILABLE' ? t('auth_unavailable') : data?.error || t('auth_connection_error'));
       }
     } catch (err) {
-      setError("Server error. Try continuing as guest.");
+      setError(t('auth_connection_error'));
+    } finally {
+      clearTimeout(timeout);
+      submitting.current = false;
+      setIsSubmitting(false);
     }
   };
 
   const handleGuestEntry = () => {
+    if (submitting.current) return;
     localStorage.removeItem('token');
     localStorage.removeItem('savedUserData');
     localStorage.removeItem('voiceBattleCleared');
@@ -86,42 +109,43 @@ export const AuthModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[80] flex items-center justify-center overflow-y-auto p-4">
-      <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto shadow-2xl animate-in zoom-in-95 relative border border-slate-100">
+    <main aria-labelledby="auth-title" className="fixed inset-0 bg-transparent z-[80] flex items-center justify-center overflow-y-auto p-4 text-slate-800">
+      <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto shadow-xl shadow-slate-200/50 animate-in zoom-in-95 relative border border-white">
         
         <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8">
-          <button onClick={() => setAuthMode('login')} className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${authMode === 'login' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-800'}`}>{t('tab_login')}</button>
-          <button onClick={() => setAuthMode('signup')} className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${authMode === 'signup' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-800'}`}>{t('tab_signup')}</button>
+          <button disabled={isSubmitting} aria-pressed={authMode === 'login'} onClick={() => changeMode('login')} className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all disabled:cursor-wait focus-visible:outline-indigo-600 ${authMode === 'login' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-800'}`}>{t('tab_login')}</button>
+          <button disabled={isSubmitting} aria-pressed={authMode === 'signup'} onClick={() => changeMode('signup')} className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all disabled:cursor-wait focus-visible:outline-indigo-600 ${authMode === 'signup' ? 'bg-white shadow-sm text-indigo-600' : 'text-slate-500 hover:text-slate-800'}`}>{t('tab_signup')}</button>
         </div>
 
-        <h2 className="text-3xl font-extrabold text-center text-slate-800 mb-8 tracking-tight">
+        <h2 id="auth-title" className="text-3xl font-extrabold text-center text-slate-800 mb-8 tracking-tight">
           {authMode === 'login' ? t('login_title') : t('signup_title')}
         </h2>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} aria-busy={isSubmitting} className="space-y-4">
           <div className="relative">
             <UserCircle size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"/>
-            <input type="text" autoComplete="username" value={name} onChange={e=>setName(e.target.value)} required placeholder={t('login_name')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold focus:border-indigo-400 focus:outline-none transition-colors" />
+            <input type="text" aria-label={t('login_name')} disabled={isSubmitting} maxLength={40} autoCapitalize="none" spellCheck={false} autoComplete="username" value={name} onChange={e=>{setName(e.target.value);setError('');}} required placeholder={t('login_name')} className="w-full pl-12 pr-4 py-4 bg-white/70 border-2 border-slate-200 rounded-2xl font-bold focus:border-indigo-400 focus:outline-none transition-colors" />
           </div>
           
           <div className="relative">
             <Lock size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"/>
-            <input type="password" autoComplete={authMode === 'signup' ? 'new-password' : 'current-password'} value={password} onChange={e=>setPassword(e.target.value)} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
+            <input type="password" aria-label={t('login_pass')} disabled={isSubmitting} maxLength={128} autoComplete={authMode === 'signup' ? 'new-password' : 'current-password'} value={password} onChange={e=>{setPassword(e.target.value);setError('');}} required placeholder={t('login_pass')} className="w-full pl-12 pr-4 py-4 bg-white/70 border-2 border-slate-200 rounded-2xl font-bold transition-colors tracking-widest focus:outline-none focus:border-indigo-400" />
           </div>
 
-          {error && <p className="text-rose-500 text-sm font-bold text-center">{error}</p>}
+          {error && <p role="alert" className="text-rose-600 text-sm font-bold text-center leading-relaxed">{error}</p>}
 
-          <button type="submit" className="w-full bg-indigo-600 text-white font-bold text-lg py-4 rounded-2xl shadow-xl hover:bg-indigo-700 transition-all mt-4 active:scale-95">
-            {authMode === 'login' ? t('btn_login') : t('btn_signup')}
+          <button type="submit" disabled={isSubmitting} className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 transition-all mt-4 active:scale-95 disabled:cursor-wait disabled:opacity-70 focus-visible:outline-indigo-600 focus-visible:outline-offset-4">
+            {isSubmitting && <LoaderCircle aria-hidden="true" size={20} className="shrink-0 animate-spin motion-reduce:animate-none" />}
+            <span role={isSubmitting ? 'status' : undefined}>{isSubmitting ? t(authMode === 'login' ? 'auth_logging_in' : 'auth_creating') : t(authMode === 'login' ? 'btn_login' : 'btn_signup')}</span>
           </button>
         </form>
 
         <div className="mt-6 text-center border-t border-slate-100 pt-6">
-          <button onClick={handleGuestEntry} className="text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">
-            Continue as {t('guest')} &rarr;
+          <button disabled={isSubmitting} onClick={handleGuestEntry} className="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors disabled:cursor-wait focus-visible:outline-indigo-600">
+            {t('auth_guest')} &rarr;
           </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 };

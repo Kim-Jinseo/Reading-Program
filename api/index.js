@@ -27,7 +27,7 @@ const allowedOrigins = new Set(configuredOrigins);
 const getJwtSecret = () => {
   const secret = process.env.JWT_SECRET?.trim();
   if (!secret || secret.length < 32) {
-    throw new Error('JWT_SECRET must be at least 32 characters long.');
+    throw Object.assign(new Error('JWT_SECRET must be at least 32 characters long.'), { code: 'AUTH_CONFIGURATION' });
   }
   return secret;
 };
@@ -334,27 +334,36 @@ app.route('/lessons', createLessonRouter({ getDb, requireAuth, evaluateSpeech: a
 } }));
 
 app.post('/auth/login', authRateLimit, async (c) => {
+  let body;
   try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ success: false, error: 'Please enter a valid username and password.' }, 400);
+  }
+  const username = cleanUsername(body?.username);
+  const pin = typeof body?.pin === 'string' ? body.pin : '';
+  const isSignup = body?.isSignup === true;
+  if (!username || !pin || pin.length > 128) {
+    return c.json({ success: false, error: 'Please enter a valid username and password.' }, 400);
+  }
+  if (isSignup && pin.length < 8) {
+    return c.json({ success: false, error: 'New passwords must be at least 8 characters long.' }, 400);
+  }
+
+  try {
+    // Fail before touching account data if the deployment cannot issue sessions.
+    // Never fall back to a hardcoded or weak signing key.
+    getJwtSecret();
     const { users } = await getDb();
-    const body = await c.req.json();
-    const username = cleanUsername(body?.username);
-    const pin = typeof body?.pin === 'string' ? body.pin : '';
-    const isSignup = body?.isSignup === true;
-
-    if (!username || !pin || pin.length > 128) {
-      return c.json({ success: false, error: 'Please enter a valid username and password.' }, 400);
-    }
-    if (isSignup && pin.length < 8) {
-      return c.json({ success: false, error: 'New passwords must be at least 8 characters long.' }, 400);
-    }
-
     let user = await users.findOne({ username });
+    let token;
     
     if (isSignup) {
       if (user) return c.json({ success: false, error: 'That username is not available.' }, 400);
 
       const hashedPin = await bcrypt.hash(pin, 12);
       const baseUserData = {
+        _id: new ObjectId(),
         username,
         pin: hashedPin,
         role: 'student',
@@ -365,9 +374,12 @@ app.post('/auth/login', authRateLimit, async (c) => {
         starsTracker: {}, essays: {}
       };
 
+      // Signing can fail independently of MongoDB. Prepare the session first,
+      // but only return it once the account has been saved successfully.
+      token = await createSessionToken(baseUserData);
       try {
-        const result = await users.insertOne({ ...baseUserData, role: 'student' });
-        user = await users.findOne({ _id: result.insertedId });
+        await users.insertOne(baseUserData);
+        user = baseUserData;
       } catch (error) {
         if (error?.code === 11000) {
           return c.json({ success: false, error: 'That username is not available.' }, 400);
@@ -378,13 +390,18 @@ app.post('/auth/login', authRateLimit, async (c) => {
       if (!user) return c.json({ success: false, error: "Invalid credentials." }, 401);
       const isMatch = await bcrypt.compare(pin, user.pin);
       if (!isMatch) return c.json({ success: false, error: "Invalid credentials." }, 401);
+      token = await createSessionToken(user);
     }
 
-    const token = await createSessionToken(user);
     return c.json({ success: true, user: publicUser(user), token });
   } catch (error) {
-    console.error('[Authentication]', error);
-    return c.json({ success: false, error: 'Unable to complete sign-in. Please try again.' }, 500);
+    console.error('[Authentication]', c.get('requestId'), error);
+    return c.json({
+      success: false,
+      code: 'AUTH_UNAVAILABLE',
+      error: `${isSignup ? 'Account creation' : 'Sign-in'} is temporarily unavailable. Please contact your teacher or site administrator.`,
+      requestId: c.get('requestId')
+    }, 503);
   }
 });
 

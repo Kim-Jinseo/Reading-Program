@@ -17,6 +17,27 @@ checklist before publishing or sharing the site widely.
   set it to a comma-separated list of exact HTTPS origins, for example
   `https://learn.example.com`. Do not use `*`.
 
+## If signup reports that account creation is unavailable
+
+Check the **backend** Vercel project's runtime logs for `[Authentication]`
+and the response's `requestId`. Do not put deployment secrets in the browser
+or send them in a support screenshot.
+
+- A `JWT_SECRET must be at least 32 characters long` log means the backend
+  needs a securely generated secret in its encrypted environment settings.
+  Set it for the affected environment and redeploy the backend. Changing an
+  existing secret signs everyone out; do not rotate a valid secret just to
+  troubleshoot. Never remove the minimum-length check or use a public fallback.
+- A MongoDB connection or write error requires checking the backend's
+  `MONGODB_URI`, database access rules and database availability instead.
+- Before this fix, a failed session-signing step could leave an account saved.
+  After correcting the deployment, try **Log In** with the original details
+  if signup says the username is already taken. Do not delete the account or
+  reset its password automatically.
+
+Signup now checks the signing configuration and prepares a session before
+inserting an account; the session is returned only after a successful insert.
+
 ## Immediate account cleanup
 
 - Review the MongoDB `users` collection and remove or demote any unexpected
