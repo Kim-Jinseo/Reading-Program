@@ -19,7 +19,7 @@ The user has approved implementation. Admins alone publish materials; verified t
 
 ## Verification record
 - Server suites: 25 passing tests, including role/access checks, course history/restore, grading, full-upload replay, same-request replay across course changes, and commit-time revision rejection.
-- Frontend suites: 16 passing tests, including editable choices, explicit submission, network replay, read-only teacher work, and refreshing newly published lessons.
+- Frontend suites: 17 passing tests, including editable choices, explicit submission, network replay, read-only teacher work, refreshing newly published lessons, and JPEG fallback when WebP encoding is unavailable.
 - Production build passes. Built-site Chrome workflow uses synthetic data, a fake microphone and actual browser PDF rendering, with the production content-security policy. Tested 320/390/820/1440 widths in English/Chinese with no horizontal overflow or page errors.
 - Sample: eight decoded and visually checked WebP slides, 444,438 image bytes; original source unchanged. Four vocabulary questions, three concrete comprehension questions, one speaking sentence and a three-or-more-sentence writing prompt.
 - Independent review findings addressed: lesson refresh propagation, final-slide retry, atomic class-revision/submission transaction, and transactional idempotent replay ordering.

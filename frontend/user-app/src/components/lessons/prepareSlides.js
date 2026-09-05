@@ -3,6 +3,12 @@ async function compress(canvas, alt) {
   let blob;
   for (const quality of [0.84, 0.7, 0.55, 0.4]) {
     blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', quality));
+    // Unsupported canvas encoders silently return PNG, which has no useful
+    // quality control here. Fall back to JPEG for browsers without WebP export.
+    if (blob?.type !== 'image/webp')
+      blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+    if (blob && !['image/webp', 'image/jpeg'].includes(blob.type))
+      throw Error('This browser cannot create compressed previews. Please upload from another browser.');
     if (blob && blob.size <= 600000) break;
   }
   if (!blob || blob.size > 600000) throw Error('This slide is too large. Export smaller slide images and try again.');
