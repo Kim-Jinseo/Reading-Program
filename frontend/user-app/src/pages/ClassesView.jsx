@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Users, ShieldCheck, Plus, ArrowLeft, RefreshCw } from 'lucide-react';
+import { Users, ShieldCheck, Plus, ArrowLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { AssignmentEditor } from '../components/classes/AssignmentEditor';
 import { AssignmentPlayer } from '../components/classes/AssignmentPlayer';
@@ -119,7 +119,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           </form>}
         </section>
         <section className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-xl font-extrabold">{say(lang, 'My classes', '我的班级')}</h2><button className={secondary} onClick={goHome} disabled={busy}><RefreshCw size={16} className="inline mr-2" />{say(lang, 'Refresh', '刷新')}</button></div>
+          <h2 className="text-xl font-extrabold">{say(lang, 'My classes', '我的班级')}</h2>
           {!classes.length && <p className="text-slate-500">{say(lang, 'No classes yet. Use the form above to get started.', '目前还没有班级。请使用上方的表单开始。')}</p>}
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">{classes.map(row => <button key={row.id} className={card + ' text-left hover:border-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => run(() => openClass(row.id))}><Users className="text-indigo-500 mb-4" size={25} /><h3 className="text-xl font-extrabold break-words">{row.name}</h3><p className="mt-3 text-slate-500">{say(lang, `${row.studentCount} students`, `${row.studentCount} 名学生`)}</p><p className="mt-5 text-indigo-600 font-bold">{say(lang, 'Open class →', '进入班级 →')}</p></button>)}</div>
         </section>
@@ -140,7 +140,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         </section>}
       </>}
       {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
-        <div className="flex flex-wrap gap-3"><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button><button className={secondary} disabled={busy} onClick={() => run(() => openClass(detail.class.id, true))}><RefreshCw size={16} className="inline mr-2" />{say(lang, 'Refresh results', '刷新成绩')}</button></div>
+        <div><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>
         {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
           onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }}
           onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}

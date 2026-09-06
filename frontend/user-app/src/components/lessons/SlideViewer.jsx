@@ -9,7 +9,6 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
   const [index, setIndex] = useState(0),
     [display, setDisplay] = useState(null),
     [error, setError] = useState(false),
-    [zoom, setZoom] = useState(false),
     [loaded, setLoaded] = useState([]),
     [retry, setRetry] = useState(0);
   const cache = useRef(null);
@@ -68,7 +67,7 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
       <div
         className="rounded-2xl border border-slate-200 bg-slate-50 overflow-auto max-h-[65vh] min-h-40"
         tabIndex={0}
-        aria-label={say(lang, 'Slide preview; scroll when zoomed', '课件预览，放大后可滚动')}
+        aria-label={say(lang, 'Slide preview', '课件预览')}
       >
         {url ? (
           <img
@@ -76,7 +75,7 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
             src={url}
             alt={slides[index].alt}
             className="block mx-auto"
-            style={{ width: zoom ? '1200px' : '100%', maxWidth: zoom ? 'none' : '100%' }}
+            style={{ width: '100%', maxWidth: '100%' }}
             onLoad={() => {
               const seen = [...new Set([...loaded, index])];
               setLoaded(seen);
@@ -102,11 +101,8 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
           {say(lang, 'Next slide', '下一页')}
         </button>
       </div>
-      <button className={secondary} onClick={() => setZoom((z) => !z)}>
-        {zoom ? say(lang, 'Fit to screen', '适应屏幕') : say(lang, 'Zoom in to read', '放大阅读')}
-      </button>
       {error && (
-        <button className={secondary + ' ml-2'} onClick={() => setRetry((r) => r + 1)}>
+        <button className={secondary} onClick={() => setRetry((r) => r + 1)}>
           {say(lang, 'Retry', '重试')}
         </button>
       )}

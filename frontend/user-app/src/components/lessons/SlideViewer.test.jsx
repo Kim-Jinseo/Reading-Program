@@ -17,6 +17,8 @@ test('preloads the next slide and reuses both downloads when navigating back', a
   const viewed = jest.fn();
   render(<SlideViewer {...props} onViewedAll={viewed} />);
   fireEvent.load(await screen.findByAltText('First slide'));
+  expect(screen.queryByRole('button', { name: /Zoom in to read|Fit to screen/ })).not.toBeInTheDocument();
+  expect(screen.getByAltText('First slide')).toHaveStyle({ width: '100%', maxWidth: '100%' });
   await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
   expect(viewed).not.toHaveBeenCalled();
   fireEvent.click(screen.getByText('Next slide'));

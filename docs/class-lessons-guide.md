@@ -27,7 +27,7 @@ Summer 2026 is a sample course label, not a date asserted by the PPT. The origin
 5. **Save draft and upload previews**. Check every image, translation, question and answer. Drafts can be reopened and edited after an interrupted upload.
 6. Choose **Publish — available immediately**. Every class assigned to this course can use the new lesson straight away; students can refresh their class to see it.
 
-Limits: one source file up to 60 MB; at most 40 slides per lesson; each compressed image at most 600 KB. Use one PDF for reliable page order, or select images in their intended order. Slide previews are static: PowerPoint animations, audio and video are not retained. Students can zoom and scroll the preview without widening the page.
+Limits: one source file up to 60 MB; at most 40 slides per lesson; each compressed image at most 600 KB. Use one PDF for reliable page order, or select images in their intended order. Slide previews are static: PowerPoint animations, audio and video are not retained. Slides fit the available screen width; Previous/Next and failed-download Retry remain available without a separate zoom button.
 
 Published questions are fixed to protect existing scores. Revised content should use a new lesson. Teachers cannot edit or upload the shared course content.
 
@@ -64,6 +64,6 @@ The PDF implementation follows the [PDF.js browser examples](https://mozilla.git
 
 ## Verification notes
 
-Class and lesson reads reuse a small, account-session-specific memory cache for up to 30 seconds. Nothing is written to browser storage. Submissions and other changes invalidate both caches; explicit refresh fetches current data. Returning from an activity shows the existing class page immediately while refreshing progress. Teacher reports load independently, so they do not block lesson navigation. Switching accounts clears the reusable data and class screen state; server permission and submission checks are unchanged.
+Class and lesson reads reuse a small, account-session-specific memory cache for up to 30 seconds. Nothing is written to browser storage. Submissions and other changes invalidate both caches. Classes has no manual Refresh buttons. Returning from an activity shows the existing class page immediately while refreshing progress. Teacher reports load independently, so they do not block lesson navigation. Switching accounts clears the reusable data and class screen state; server permission and submission checks are unchanged.
 
 Use `node --test tests/classrooms.test.js tests/lessons.test.js` for the server contract checks. Frontend tests run through the existing React test command. `tests/classrooms.browser.mjs` exercises the built website with synthetic accounts/database data and a fake microphone, including browser-side PDF conversion and the site's content-security policy. It must never be pointed at production accounts. Live Mongo persistence, live speech-provider scoring, and physical iPad/WeChat behavior need a deployment smoke test; local simulation is not a claim that those services/devices were exercised.

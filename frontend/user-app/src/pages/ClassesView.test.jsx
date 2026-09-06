@@ -162,15 +162,19 @@ test('students see assigned extra practice and their existing results, separate 
   expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
 });
 
-test('Refresh results also reloads newly published class lessons', async () => {
+test('class navigation works without manual refresh controls and reopening loads lessons', async () => {
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [] });
   let published = false;
   const lessonRequests = jest.fn(async () => ({ collection: null, history: [], lessons: published ? [{ id: 'lesson2', number: 2, title: 'New classroom lesson', titleZh: '新课', progress: { done: [], total: 5 } }] : [] }));
   render(<Harness api={api} lessonRequests={lessonRequests} />);
+  await screen.findByRole('button', { name: /Monday English/ });
+  expect(screen.queryByRole('button', { name: /^Refresh/ })).not.toBeInTheDocument();
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   await screen.findByText('No published lessons for this course yet.');
+  expect(screen.queryByRole('button', { name: /^Refresh/ })).not.toBeInTheDocument();
   published = true;
-  fireEvent.click(screen.getByRole('button', { name: 'Refresh results' }));
+  fireEvent.click(screen.getByRole('button', { name: 'All classes' }));
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   await screen.findByRole('heading', { name: 'New classroom lesson' });
   expect(lessonRequests.mock.calls.length).toBeGreaterThan(1);
 });
