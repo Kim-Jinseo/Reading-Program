@@ -108,13 +108,24 @@ inserting an account; the session is returned only after a successful insert.
    not downloaded with the class overview. Practice counts are separate,
    self-reported completion indicators, not independently assessed grades.
 
-For initial provisioning without an existing administrator, a deployment owner
-may configure the server-only `TEACHER_VERIFICATION_CODE` environment variable
-to a new random secret of at least 16 characters. Never prefix it with
-`REACT_APP_`, put it in client code, or reuse old exposed passwords. This
-optional shared code is reusable until removed/rotated; prefer administrator-
-issued one-use codes and leave the setting absent afterward. No built-in
-teacher password is enabled.
+To use one shared teacher code for multiple teachers, the deployment owner
+can set `TEACHER_VERIFICATION_CODE` in the **backend** Vercel project's
+encrypted environment settings, then redeploy. It accepts at least eight
+characters; a random code of 16 or more characters is still recommended.
+Never prefix it with `REACT_APP_`, put its value in client code or GitHub,
+or use the login-signing `JWT_SECRET` as a teacher code.
+
+The shared code is case-sensitive (outer spaces are ignored), reusable, and
+does not expire until changed or removed. Teachers still create their own
+accounts and enter it under **Classes → Are you a teacher?** It only grants
+`teacher`, never `admin`. Sign-in and the existing verification rate limits
+remain required. Anyone who learns or guesses the shared code can become a
+teacher, so share it privately. Administrator-issued one-use invitations
+continue to work and are the safer option. No built-in teacher code is enabled.
+
+Changing or removing the shared code and redeploying prevents new accounts
+from using the old value; it does not revoke already-verified teachers.
+No shared admin code is provided by this feature.
 
 The first classroom request creates indexes automatically in the existing
 MongoDB database. New collections are `classes`, `class_assignments`,

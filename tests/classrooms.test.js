@@ -57,6 +57,79 @@ test('verification is required; one-use teacher code grants teacher, never admin
   await db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
   assert.equal((await request('/teacher/verify', outsiderId, { code })).status, 400);
 });
+
+function configureSharedTeacherCode(t, code) {
+  const previous = process.env.TEACHER_VERIFICATION_CODE;
+  if (code === undefined) delete process.env.TEACHER_VERIFICATION_CODE;
+  else process.env.TEACHER_VERIFICATION_CODE = code;
+  t.after(() => {
+    if (previous === undefined) delete process.env.TEACHER_VERIFICATION_CODE;
+    else process.env.TEACHER_VERIFICATION_CODE = previous;
+  });
+}
+
+test('an owner-configured short shared code verifies multiple teachers without granting admin', async t => {
+  // Synthetic value, not the deployment's private teacher code.
+  configureSharedTeacherCode(t, 'lesson-demo');
+  const { request, db } = await setup();
+  await db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
+  for (const id of [studentId, outsiderId]) {
+    const result = await request('/teacher/verify', id, { code: 'lesson-demo', role: 'admin' });
+    assert.equal(result.status, 200);
+    assert.equal(result.body.user.role, 'teacher');
+    assert.ok(result.body.token);
+    assert.equal((await db.users.findOne({ _id: new ObjectId(id) })).role, 'teacher');
+    assert.equal((await request('/classes', id, { name: 'Shared-code class' })).status, 201);
+    assert.equal((await request('/teacher/invitations', id, {})).status, 403);
+  }
+  assert.equal(db.teacherInvites.docs.length, 0, 'Shared verification must not consume one-use invitations');
+  assert.equal((await db.users.findOne({ _id: new ObjectId(adminId) })).role, 'admin');
+});
+
+test('shared-code verification requires a signed-in account and an exact match', async t => {
+  configureSharedTeacherCode(t, 'lesson-demo');
+  const { request, db } = await setup();
+  assert.equal((await request('/teacher/verify', null, { code: 'lesson-demo' })).status, 401);
+  assert.equal((await request('/teacher/verify', studentId, { code: 'Lesson-demo' })).status, 400);
+  assert.equal((await request('/teacher/verify', studentId, { code: 'wrong-value' })).status, 400);
+  assert.equal((await db.users.findOne({ _id: new ObjectId(studentId) })).role, 'student');
+  const accepted = await request('/teacher/verify', studentId, { code: '  lesson-demo  ' });
+  assert.equal(accepted.status, 200);
+  assert.equal(accepted.body.user.role, 'teacher');
+});
+
+test('a shared teacher code must contain at least eight characters after trimming', async t => {
+  configureSharedTeacherCode(t, 'seven77');
+  const { request, db } = await setup();
+  assert.equal((await request('/teacher/verify', studentId, { code: 'seven77' })).status, 400);
+  assert.equal((await db.users.findOne({ _id: new ObjectId(studentId) })).role, 'student');
+  process.env.TEACHER_VERIFICATION_CODE = '  eight888  ';
+  const accepted = await request('/teacher/verify', studentId, { code: 'eight888' });
+  assert.equal(accepted.status, 200);
+  assert.equal(accepted.body.user.role, 'teacher');
+});
+
+test('rotating or removing a shared code stops new verifications without revoking existing teachers', async t => {
+  configureSharedTeacherCode(t, 'lesson-demo');
+  const { request, db } = await setup();
+  assert.equal((await request('/teacher/verify', studentId, { code: 'lesson-demo' })).status, 200);
+  await db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
+  process.env.TEACHER_VERIFICATION_CODE = 'fresh-demo';
+  assert.equal((await request('/teacher/verify', outsiderId, { code: 'lesson-demo' })).status, 400);
+  delete process.env.TEACHER_VERIFICATION_CODE;
+  assert.equal((await request('/teacher/verify', outsiderId, { code: 'fresh-demo' })).status, 400);
+  assert.equal((await db.users.findOne({ _id: new ObjectId(outsiderId) })).role, 'student');
+  assert.equal((await request('/classes', studentId, { name: 'Still a teacher' })).status, 201);
+});
+
+test('an unset or undersized shared code never enables a fallback teacher password', async t => {
+  configureSharedTeacherCode(t, undefined);
+  const { request, db } = await setup();
+  assert.equal((await request('/teacher/verify', studentId, { code: 'lesson-demo' })).status, 400);
+  process.env.TEACHER_VERIFICATION_CODE = 'tiny';
+  assert.equal((await request('/teacher/verify', studentId, { code: 'tiny' })).status, 400);
+  assert.equal((await db.users.findOne({ _id: new ObjectId(studentId) })).role, 'student');
+});
 test('class joining is idempotent, hides its invitation from students, and excludes other classes', async () => {
   const { request, classroom, join } = await setup();
   assert.equal((await join()).status, 200);

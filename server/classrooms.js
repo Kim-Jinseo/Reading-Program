@@ -87,7 +87,9 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     if (typeof code !== 'string' || !code.trim() || code.length > 128) throw new ClassroomError('Enter a valid teacher code.', 400, 'invalid_teacher_code');
     const cleanCode = code.trim();
     const configured = process.env.TEACHER_VERIFICATION_CODE?.trim();
-    const configuredMatch = configured && configured.length >= 16 && timingSafeEqual(Buffer.from(digest(configured)), Buffer.from(digest(cleanCode)));
+    // A reusable code is explicitly configured by the site owner, never bundled
+    // with the client. Keep authentication and guessing limits in force.
+    const configuredMatch = configured && configured.length >= 8 && timingSafeEqual(Buffer.from(digest(configured)), Buffer.from(digest(cleanCode)));
     if (!configuredMatch) {
       const invites = c.get('db').teacherInvites;
       const key = digest(cleanCode);
