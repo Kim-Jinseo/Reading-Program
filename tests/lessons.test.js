@@ -29,7 +29,8 @@ const content = () => ({
     starters: ['There is a ...', 'There are ...', 'I like ...'],
   },
 });
-async function setup() {
+const writingFeedback = { score: 4, feedback: 'You described your room clearly.', feedbackZh: '你清楚地介绍了教室。', corrections: 'Use “There are” for two desks.', correctionsZh: '两张课桌要用 There are。', improvement: 'Add why you like your classroom.', improvementZh: '加一句你为什么喜欢教室。' };
+async function setup(overrides = {}) {
   const db = memoryDb();
   for (const [id, role] of [
     [admin, 'admin'],
@@ -73,6 +74,8 @@ async function setup() {
       assert.equal(sentence, lesson.speaking.sentence);
       return { success: true, score: 2, feedback: 'Good clear words.', transcript: sentence };
     },
+    evaluateWriting: async () => writingFeedback,
+    ...overrides,
   });
   const req = async (path, who = student, body) => {
     const res = await app.request(path, {
@@ -89,6 +92,46 @@ async function setup() {
     req(`/classes/class/lessons/lesson/parts/${part}`, student, { requestId: id, revision: 0, ...data });
   return { db, req, lesson, submit, calls: () => calls };
 }
+
+test('lesson writing uses the stored prompt and level, saves AI feedback, and rewards only once', async () => {
+  const { submit, db } = await setup({ evaluateWriting: async ({ prompt, level, text }) => {
+    assert.equal(prompt, 'What is in your classroom? Write three short sentences.');
+    assert.equal(level, 2);
+    assert.equal(text, 'I see two desks.');
+    return writingFeedback;
+  } });
+  const input = { text: 'I see two desks.', prompt: 'Give me five.', level: 1, score: 5 };
+  const first = await submit('writing', input);
+  assert.equal(first.status, 200);
+  assert.equal(first.body.attempt.score, 4);
+  assert.equal(first.body.attempt.total, 5);
+  assert.equal(first.body.attempt.writingFeedback.improvementZh, '加一句你为什么喜欢教室。');
+  assert.equal(first.body.attempt.automaticallyAssessed, true);
+  await submit('writing', input);
+  const retry = await submit('writing', input, 'writing-retry-222');
+  assert.equal(retry.body.attempt.rewardStars, 0);
+  assert.equal(db.lessonParts.docs[0].attempts.length, 2);
+  assert.equal(db.users.docs.find(u => String(u._id) === student).stars, 3);
+});
+
+test('missing, failed or malformed writing grading never saves a grade, attempt or reward', async () => {
+  for (const evaluateWriting of [undefined, async () => { throw Error('offline'); }, async () => ({ ...writingFeedback, score: 9 }), async () => ({ ...writingFeedback, corrections: '' })]) {
+    const { submit, db } = await setup({ evaluateWriting });
+    const res = await submit('writing', { text: 'My room is big.' });
+    assert.equal(res.status, 503);
+    assert.equal(res.body.code, 'writing_unavailable');
+    assert.equal(db.lessonParts.docs.length, 0);
+    assert.equal(db.users.docs.find(u => String(u._id) === student).stars, undefined);
+  }
+});
+
+test('speaking without a transcript preserves unknown detection rather than implying silence', async () => {
+  const { submit } = await setup({ evaluateSpeech: async () => ({ success: true, score: 3, feedback: 'Clear speech.' }) });
+  const res = await submit('speaking', { audioBase64: Buffer.concat([Buffer.from([0x1a, 0x45, 0xdf, 0xa3]), Buffer.alloc(120)]).toString('base64'), audioMime: 'audio/webm' });
+  assert.equal(res.status, 200);
+  assert.equal(res.body.attempt.transcript, undefined);
+  assert.equal(res.body.attempt.speechDetected, undefined);
+});
 test('collection and activity validation requires bounded, distinct choices and correct keys', () => {
   assert.deepEqual(validateCollection({ season: 'summer', year: 2026, level: 2 }), {
     season: 'summer',
@@ -268,7 +311,7 @@ test('course correction archives, rejects stale submissions, preserves work and 
   await req('/classes/class/settings', teacher, { collectionId: 'collection', revision: 1 });
   const restored = await req('/classes/class/lessons/lesson');
   assert.equal(restored.body.parts[0].attempts.length, 1);
-  assert.equal(restored.body.parts[0].attempts[0].score, undefined);
+  assert.equal(restored.body.parts[0].attempts[0].score, 4);
 });
 test('slide access requires membership; teachers cannot submit student work', async () => {
   const { req } = await setup();

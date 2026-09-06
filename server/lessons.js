@@ -3,6 +3,7 @@ import { bodyLimit } from 'hono/body-limit';
 import { ObjectId } from 'mongodb';
 import { randomUUID } from 'node:crypto';
 import { ClassroomError, requireText, gradeAssignment } from './classroomDomain.js';
+import { validateWritingFeedback } from './lessonWriting.js';
 import {
   PARTS,
   validateCollection,
@@ -26,7 +27,7 @@ const changed = () => {
   );
 };
 const brief = (row) => ({ id: row._id, title: row.title, titleZh: row.titleZh, number: row.number, level: row.level });
-export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = true }) {
+export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluateWriting, seed = true }) {
   const app = new Hono();
   let ready;
   app.onError((e, c) => {
@@ -368,10 +369,8 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
     let result = {};
     if (part === 'vocabulary' || part === 'questions')
       result = gradeAssignment({ questions: lesson[part] }, input.answers);
-    if (part === 'writing')
-      result = { text: requireText(input.text, 'writing answer', 2000), reviewStatus: 'submitted_for_teacher_review' };
-    if (part === 'speaking') {
-      const limitId = `${id}:lesson-speech:${Math.floor(Date.now() / 900000)}`;
+    if (part === 'writing' || part === 'speaking') {
+      const limitId = `${id}:lesson-${part}:${Math.floor(Date.now() / 900000)}`;
       try {
         await db.classroomLimits.updateOne(
           { _id: limitId },
@@ -384,7 +383,19 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
       if (
         !(await db.classroomLimits.updateOne({ _id: limitId, count: { $lt: 6 } }, { $inc: { count: 1 } })).modifiedCount
       )
-        throw new ClassroomError('Please wait before submitting more recordings.', 429, 'rate_limited');
+        throw new ClassroomError('Please wait before submitting more answers.', 429, 'rate_limited');
+    }
+    if (part === 'writing') {
+      const text = requireText(input.text, 'writing answer', 2000);
+      try {
+        const assessed = validateWritingFeedback(await evaluateWriting?.({ text, prompt: lesson.writing.prompt, level: lesson.level }));
+        const { score, ...writingFeedback } = assessed;
+        result = { text, score, total: 5, writingFeedback, automaticallyAssessed: true, reviewStatus: 'ai_feedback_available' };
+      } catch {
+        throw new ClassroomError('AI writing feedback is temporarily unavailable. Your answer has not been saved and no attempt was used. Please try again.', 503, 'writing_unavailable');
+      }
+    }
+    if (part === 'speaking') {
       const audio = decodeAudio(input);
       if (!evaluateSpeech)
         throw new ClassroomError(
@@ -408,7 +419,9 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
         score: evaluated.score,
         total: 3,
         feedback: String(evaluated.feedback || '').slice(0, 2000),
-        transcript: String(evaluated.transcript || '').slice(0, 2000),
+        ...(typeof evaluated.transcript === 'string' ? { transcript: evaluated.transcript.slice(0, 2000) } : {}),
+        ...(typeof evaluated.speechDetected === 'boolean' ? { speechDetected: evaluated.speechDetected }
+          : typeof evaluated.transcript === 'string' ? { speechDetected: !!evaluated.transcript.trim() } : {}),
         automaticallyAssessed: true,
       };
     }

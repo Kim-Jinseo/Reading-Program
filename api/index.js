@@ -11,6 +11,7 @@ import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
 import { createClassroomRouter } from '../server/classrooms.js';
 import { createLessonRouter } from '../server/lessons.js';
+import { gradeLessonWriting } from '../server/lessonWriting.js';
 
 const rootApp = new Hono();
 const APP_ISSUER = 'stepping-stones';
@@ -328,7 +329,15 @@ const publicUser = (user) => {
 };
 
 app.route('/classroom', createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser }));
-app.route('/lessons', createLessonRouter({ getDb, requireAuth, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization }) => {
+app.route('/lessons', createLessonRouter({ getDb, requireAuth,
+evaluateWriting: async (input) => {
+  if (!process.env.GEMINI_API_KEY) throw new Error('Writing service unavailable');
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  return gradeLessonWriting(input, request => ai.models.generateContent({
+    ...request, model: 'gemini-2.5-flash',
+    config: { ...request.config, abortSignal: AbortSignal.timeout(20000) },
+  }));
+}, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization }) => {
   // Internal dispatch reuses the existing Deepgram-first evaluator. The target
   // comes from the stored lesson, never from a student's request.
   const response = await app.request('http://localhost/api/audio/evaluate', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: authorization }, body: JSON.stringify({ targetSentence: sentence, audioBase64, mimeType: audioMime }) });
@@ -1354,7 +1363,8 @@ app.post('/audio/evaluate', optionalAuth, audioRateLimit, async (c) => {
       score: finalScore, 
       feedback: finalFeedback, 
       targetSentence,
-      provider: 'gemini' 
+      provider: 'gemini',
+      speechDetected,
     });
   } catch (error) {
     console.error('[Audio Evaluate]', error);

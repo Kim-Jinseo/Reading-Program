@@ -218,7 +218,27 @@ test('uncertain save retries the same answer and ID, and teacher history is read
 });
 
 const savedData = (part, attempts, extra = {}) => ({ ...initial, ...extra, parts: [{ part, attempts }] });
-const saved = { requestId: 'saved-attempt-1', submittedAt: '2026-09-06T08:00:00Z', score: 0, total: 3, transcript: '""', automaticallyAssessed: true };
+const saved = { requestId: 'saved-attempt-1', submittedAt: '2026-09-06T08:00:00Z', score: 0, total: 3, transcript: '""', speechDetected: false, automaticallyAssessed: true };
+
+test('a fallback speaking score without transcription does not claim no speech', () => {
+  render(<LessonPlayer data={savedData('speaking', [{ ...saved, score: 3, transcript: undefined, speechDetected: undefined }])} classId="c" lang="en" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /Speaking/ }));
+  expect(screen.queryByText(/No words were detected/)).not.toBeInTheDocument();
+  expect(screen.getByText(/Transcript unavailable/)).toBeInTheDocument();
+  expect(screen.getByText('3 / 3')).toBeInTheDocument();
+});
+
+test('AI writing results show translated feedback and separate score from completion stars', () => {
+  const attempt = { ...saved, score: 4, total: 5, rewardStars: 3, text: 'My room is big.', writingFeedback: { feedback: 'Good ideas.', feedbackZh: '想法很好。', corrections: 'Use a full stop.', correctionsZh: '句末加句号。', improvement: 'Add a reason.', improvementZh: '加一个原因。' } };
+  render(<LessonPlayer data={savedData('writing', [attempt])} classId="c" lang="zh" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /写作/ }));
+  expect(screen.getByText('4 / 5')).toBeInTheDocument();
+  expect(screen.getByText('想法很好。')).toBeInTheDocument();
+  expect(screen.getByText('句末加句号。')).toBeInTheDocument();
+  expect(screen.getByText('加一个原因。')).toBeInTheDocument();
+  expect(screen.getByText('已完成 · +3 颗星星')).toBeInTheDocument();
+  expect(screen.queryByText('口语自动反馈')).not.toBeInTheDocument();
+});
 
 test('speaking opens on its result, and only Try again reveals a fresh recorder', () => {
   render(<LessonPlayer data={savedData('speaking', [saved])} classId="c" lang="en" onBack={() => {}} />);

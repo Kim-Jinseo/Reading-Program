@@ -39,24 +39,38 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
   const hasScore = Number.isFinite(a.score);
   const fullScore = hasScore && a.total > 0 && a.score === a.total;
   const transcript = String(a.transcript || '').trim();
-  const noWords = ['', '""', "''"].includes(transcript);
+  const hasTranscript = !['', '""', "''"].includes(transcript);
+  const noWords = a.speechDetected === false;
   return <div className="space-y-5 min-w-0 break-words">
     <p className="text-sm text-slate-500">{say(lang, 'Saved: ', '保存时间：')}{dateText(lang, a.submittedAt)}</p>
     {hasScore && <div className={`rounded-xl border p-4 sm:p-5 ${fullScore ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900'}`}>
       <p className="text-sm font-semibold">{say(lang, 'Your score', '你的成绩')}</p>
       <p className="text-3xl font-extrabold mt-1">{a.score} / {a.total}</p>
-      {a.automaticallyAssessed && <p className="mt-2 text-sm">{say(lang, 'Automatic speaking feedback', '口语自动反馈')}</p>}
+      {a.automaticallyAssessed && <p className="mt-2 text-sm">{part === 'writing'
+        ? say(lang, 'AI writing score · separate from completion stars', 'AI 写作评分 · 与完成任务的星星奖励分开计算')
+        : say(lang, 'Automatic speaking feedback', '口语自动反馈')}</p>}
     </div>}
     {part === 'speaking' && <div className="space-y-3">
       <p className="font-semibold leading-relaxed">{lesson.speaking.sentence}</p>
       <p className="text-slate-600 leading-relaxed">{noWords
         ? say(lang, 'No words were detected in this recording. Listen to the sentence and speak clearly when the microphone is ready.', '这段录音没有识别出单词。先听示范朗读，等麦克风准备好后再清楚地朗读。')
-        : <>{say(lang, 'Heard: ', '识别内容：')}{transcript}</>}</p>
+        : hasTranscript ? <>{say(lang, 'Heard: ', '识别内容：')}{transcript}</>
+          : say(lang, 'Transcript unavailable. This does not mean your recording was silent; you can review the feedback and listen to your recording.', '暂无识别文本，这不代表录音没有声音。你可以查看反馈并回听录音。')}</p>
     </div>}
     {a.text && <div className="rounded-xl bg-slate-50 p-4 space-y-2">
       <p className="font-semibold">{say(lang, 'Your writing', '你的作文')}</p>
       <p className="whitespace-pre-wrap leading-relaxed">{a.text}</p>
-      <p className="text-sm text-slate-500">{say(lang, 'Submitted for your teacher to review.', '已提交，等待老师查看。')}</p>
+      <p className="text-sm text-slate-500">{a.writingFeedback ? say(lang, 'AI feedback is a learning guide. Your teacher can also review your work.', 'AI 反馈可供学习参考，老师也可以查看你的作文。') : say(lang, 'Submitted for your teacher to review.', '已提交，等待老师查看。')}</p>
+    </div>}
+    {a.writingFeedback && <div className="space-y-4">
+      {[
+        ['feedback', say(lang, 'Feedback', '反馈')],
+        ['corrections', say(lang, 'Corrections', '修改建议')],
+        ['improvement', say(lang, 'One thing to try next', '下一步试一试')],
+      ].map(([key, title]) => <section key={key} className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 sm:p-5">
+        <h5 className="font-bold text-indigo-900 mb-2">{title}</h5>
+        <p className="whitespace-pre-wrap leading-relaxed text-slate-700">{say(lang, a.writingFeedback[key], a.writingFeedback[`${key}Zh`])}</p>
+      </section>)}
     </div>}
     {a.feedback && <p className="leading-relaxed text-slate-700">{a.feedback}</p>}
     {a.hasAudio && <SavedAudio key={a.requestId} lang={lang} path={`${base}/audio/${a.requestId}${query}`} />}

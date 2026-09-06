@@ -234,8 +234,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             <p className="text-sm text-slate-500">
               {say(
                 lang,
-                'Your teacher can read your submitted writing. It is not given an automatic score.',
-                '老师可以阅读你提交的作文。作文不自动评分。',
+                'Submit for an AI score out of 5, feedback and a suggestion. Your teacher can also read your writing. Completion earns 3 stars once, separate from your score.',
+                '提交后可获得 5 分制 AI 评分、反馈和建议，老师也可以查看作文。完成任务可获得一次 3 颗星星奖励，与评分分开计算。',
               )}
             </p>
           </>
@@ -244,6 +244,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           <LessonSpeaking
             key={`${lesson.id}-${attempts.length}`}
             sentence={lesson.speaking.sentence}
+            hintZh={lesson.speaking.hintZh}
             lang={lang}
             disabled={locked || busy || !!pending.current}
             onRecording={setRecording}
@@ -257,7 +258,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             onClick={submit}
           >
             {busy
-              ? say(lang, 'Saving…', '正在保存…')
+              ? (part === 'writing' ? say(lang, 'Getting AI feedback and saving…', '正在获取 AI 反馈并保存…') : say(lang, 'Saving…', '正在保存…'))
               : pending.current
                 ? say(lang, 'Retry saving this answer', '重试保存这份答案')
                 : part === 'slides'

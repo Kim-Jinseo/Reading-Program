@@ -53,6 +53,8 @@ export const lessonError = (e, lang) =>
         attempt_limit: '本项练习的作答次数已用完。',
         admin_required: '只有管理员可以上传和发布课件。',
         speech_unavailable: '暂时无法检查录音，答案尚未保存。请重试。',
+        writing_unavailable: '暂时无法获取 AI 写作反馈。作文尚未保存，也没有使用作答次数，请重试。',
+        rate_limited: '提交次数较多，请稍等后重试。',
         lesson_number_used: '该课次已存在，请打开草稿或选择其他课次。',
         published_immutable: '已发布课程不能改写。请新建课程，以保留原来的成绩。',
         invalid_input: '请检查内容、选项和文件大小。',
