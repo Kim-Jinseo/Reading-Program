@@ -7,7 +7,7 @@ const emptyLesson = () => ({
   title: '',
   titleZh: '',
   number: 1,
-  vocabulary: Array.from({ length: 4 }, emptyQuestion),
+  vocabulary: Array.from({ length: 4 }, () => ({ ...emptyQuestion(), word: '' })),
   questions: Array.from({ length: 3 }, emptyQuestion),
   speaking: { sentence: '', hintZh: '请大声朗读这个句子。' },
   writing: { prompt: '', promptZh: '', starters: ['There is a ...', 'There are ...', 'I like ... because ...'] },
@@ -22,14 +22,21 @@ const editQuestion = (q) => ({
   options: q.options.map((o) => o.text),
   correctIndex: q.options.findIndex((o) => o.id === q.correctOptionId),
 });
-function QuestionEditor({ items, onChange, lang }) {
+function QuestionEditor({ items, onChange, lang, vocabulary = false }) {
   const groupId = useId();
   return (
     <div className="space-y-5">
       {items.map((q, index) => (
         <fieldset key={index} className="rounded-xl border p-4 space-y-3">
           <legend className="font-bold px-2">{say(lang, `Question ${index + 1}`, `第 ${index + 1} 题`)}</legend>
-          <label className="block">
+          {vocabulary ? <>
+            <label className="block">{say(lang, 'English word', '英语单词')}
+              <input required className={field} maxLength={60} value={q.word ?? /^What does [“"']?(.+?)[”"']? mean\?$/i.exec(q.prompt)?.[1] ?? ''}
+                onChange={e => onChange(items.map((item, i) => i === index ? { ...item, word: e.target.value, prompt: `What does “${e.target.value.trim()}” mean?` } : item))} />
+            </label>
+            <p className="text-slate-600 text-sm">{q.prompt || say(lang, 'The quiz question is created from this word.', '系统会用这个单词生成词义题。')}</p>
+            <p className="text-sm font-semibold text-emerald-800">{say(lang, 'Flashcard meaning: ', '卡片中文意思：')}{q.options[q.correctIndex] || say(lang, 'Enter Chinese choices and select the correct one below.', '请在下面填写中文选项并选择正确答案。')}</p>
+          </> : <label className="block">
             {say(lang, 'Question in English', '英文问题')}
             <input
               required
@@ -40,7 +47,7 @@ function QuestionEditor({ items, onChange, lang }) {
                 onChange(items.map((item, i) => (i === index ? { ...item, prompt: e.target.value } : item)))
               }
             />
-          </label>
+          </label>}
           {q.options.map((o, j) => (
             <label className="flex gap-3 items-center" key={j}>
               <input
@@ -374,7 +381,7 @@ export function LessonLibrary({ lang, onBack, api = lessonApi }) {
                 '请使用课件中的词汇。中文释义应简短准确，选项不重复，每题只有一个正确答案。',
               )}
             </p>
-            <QuestionEditor items={form.vocabulary} onChange={(v) => setForm({ ...form, vocabulary: v })} lang={lang} />
+            <QuestionEditor vocabulary items={form.vocabulary} onChange={(v) => setForm({ ...form, vocabulary: v })} lang={lang} />
             <h3 className="text-xl font-bold">{say(lang, 'Speaking', '口语')}</h3>
             <label className="block">
               {say(lang, 'Short sentence to read aloud', '朗读短句')}

@@ -7,6 +7,9 @@ import {
 } from './classroomDomain.js';
 
 export const PARTS = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
+const englishWord = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
+const chineseMeaning = text => typeof text === 'string' && /\p{Script=Han}/u.test(text) && !/[A-Za-z]/.test(text);
+const legacyWord = prompt => /^What does [“"']?([A-Za-z]+(?:[ '-][A-Za-z]+)*)[”"']? mean\?$/i.exec(prompt || '')?.[1];
 export function validateCollection(body) {
   if (
     !['spring', 'summer', 'autumn', 'winter'].includes(body.season) ||
@@ -24,6 +27,10 @@ export function validateLesson(body) {
       throw new ClassroomError(`Add ${min}–${max} questions for this activity.`);
     if (new Set(items.map((q) => q.prompt?.trim().toLowerCase())).size !== items.length)
       throw new ClassroomError('Use different questions in each activity.');
+    for (const q of items) {
+      if (Array.isArray(q.options) && new Set(q.options.map(o => String(o).normalize('NFKC').toLowerCase().replace(/[\p{P}\p{Z}\s]/gu, ''))).size !== q.options.length)
+        throw new ClassroomError('Answer choices must be different, including punctuation and spacing.');
+    }
     return validateAssignment({
       title: 'Lesson activity',
       subject: 'other',
@@ -41,7 +48,14 @@ export function validateLesson(body) {
     title: requireText(body.title, 'lesson title', 120),
     titleZh: requireText(body.titleZh, 'Chinese title', 120),
     number: body.number,
-    vocabulary: questions(body.vocabulary, 3, 4),
+    vocabulary: questions(Array.isArray(body.vocabulary) ? body.vocabulary.map(q => {
+      if (q.word === undefined) return q; // Preserve existing draft formats.
+      const word = requireText(q.word, 'English vocabulary word', 60);
+      if (!englishWord.test(word)) throw new ClassroomError('Enter an English vocabulary word.');
+      if (!Array.isArray(q.options) || !q.options.every(chineseMeaning))
+        throw new ClassroomError('Use simple Chinese meanings for every vocabulary choice.');
+      return { ...q, prompt: `What does “${word}” mean?` };
+    }) : body.vocabulary, 3, 4).map((q, i) => ({ ...q, ...(body.vocabulary[i].word !== undefined ? { word: body.vocabulary[i].word.trim() } : {}) })),
     questions: questions(body.questions, 2, 3),
     speaking: {
       sentence: requireText(body.speaking?.sentence, 'speaking sentence', 280),
@@ -65,6 +79,13 @@ export function safeLesson(row) {
     level: row.level,
     slides: row.slides,
     vocabulary: safe(row.vocabulary),
+    // Learning meanings are intentionally public; quiz answer IDs and Quick
+    // check keys remain hidden. Legacy content is mapped only when explicit.
+    vocabularyWords: row.vocabulary.flatMap(q => {
+      const word = q.word || legacyWord(q.prompt);
+      const meaningZh = q.options.find(o => o.id === q.correctOptionId)?.text;
+      return word && englishWord.test(word) && chineseMeaning(meaningZh) ? [{ word, meaningZh }] : [];
+    }),
     questions: safe(row.questions),
     speaking: row.speaking,
     writing: row.writing,

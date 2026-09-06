@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent, within, act } from '@testing-library/react';
 import { LessonPlayer } from './LessonPlayer';
 jest.mock('./SlideViewer', () => ({
   SlideViewer: ({ onViewedAll }) => <button onClick={onViewedAll}>View all sample slides</button>,
@@ -75,6 +75,95 @@ test('opening slides is not completion; submit only after explicitly viewing eve
   fireEvent.click(screen.getByRole('button', { name: 'I have reviewed all slides' }));
   await screen.findByText('Activity completed');
   expect(api.mock.calls[0][0]).toBe('/classes/c/lessons/l/parts/slides');
+});
+
+test('vocabulary starts with learn-first flip cards and keeps learning separate from submission', async () => {
+  const api = jest.fn(async () => ({ attempt: { requestId: 'learn-quiz', score: 1, total: 1, rewardStars: 3, submittedAt: '2026-09-06T08:00:00Z' } }));
+  const data = { ...initial, lesson: { ...initial.lesson, vocabularyWords: [{ word: 'desk', meaningZh: '课桌' }, { word: 'fan', meaningZh: '风扇' }] } };
+  render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} api={api} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Vocabulary/ }));
+  expect(screen.getByText('Learn the words first')).toBeInTheDocument();
+  expect(screen.getByText('desk')).toBeInTheDocument();
+  expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Submit this activity' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Flip card/ }));
+  expect(screen.getByText('课桌')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Next word' }));
+  expect(screen.getByText('fan')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Flip card/ }));
+  expect(screen.getByText('风扇')).toBeInTheDocument();
+  expect(api).not.toHaveBeenCalled();
+  expect(screen.getByText('0 of 5 activities completed')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Start vocabulary practice' }));
+  fireEvent.click(screen.getByLabelText('A. 课桌'));
+  fireEvent.click(screen.getByRole('button', { name: 'Back to word cards' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Start vocabulary practice' }));
+  expect(screen.getByLabelText('A. 课桌')).toBeChecked();
+  fireEvent.click(screen.getByRole('button', { name: 'Submit this activity' }));
+  await screen.findByText('Completed · +3 stars');
+  expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  expect(screen.getByText('Review word cards')).toBeInTheDocument();
+});
+
+test('Quick check shows one question at a time, keeps edits, and submits all answers together', async () => {
+  const q2 = { ...q, id: 'q2', prompt: 'What can you see?' };
+  const api = jest.fn(async () => ({ attempt: { requestId: 'quiz-all', score: 1, total: 2, submittedAt: '2026-09-06T08:00:00Z' } }));
+  render(<LessonPlayer data={{ ...initial, lesson: { ...initial.lesson, questions: [q, q2] } }} classId="c" lang="en" onBack={() => {}} api={api} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Quick check/ }));
+  expect(screen.getByText('Question 1 of 2')).toBeInTheDocument();
+  expect(screen.queryByText(q2.prompt)).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();
+  fireEvent.click(screen.getByLabelText('A. 课桌'));
+  expect(screen.getByText('Selected')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  expect(screen.getByText('Question 2 of 2')).toBeInTheDocument();
+  fireEvent.click(screen.getByLabelText('B. 风扇'));
+  fireEvent.click(screen.getByRole('button', { name: 'Previous question' }));
+  expect(screen.getByLabelText('A. 课桌')).toBeChecked();
+  fireEvent.click(screen.getByLabelText('C. 椅子'));
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  expect(api).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Submit this activity' }));
+  await screen.findByText('Activity completed');
+  expect(api.mock.calls[0][1].answers).toEqual([{ questionId: 'q', optionId: 'c' }, { questionId: 'q2', optionId: 'b' }]);
+});
+
+test('word audio uses the existing English TTS service and stops when leaving the card', async () => {
+  const oldFetch = global.fetch, oldAudio = global.Audio;
+  const oldCreate = URL.createObjectURL, oldRevoke = URL.revokeObjectURL;
+  const playback = { play: jest.fn(async () => {}), pause: jest.fn() };
+  global.fetch = jest.fn(async () => ({ ok: true, blob: async () => new Blob(['test-audio'], { type: 'audio/mpeg' }) }));
+  global.Audio = jest.fn(() => playback);
+  URL.createObjectURL = jest.fn(() => 'blob:word-audio');
+  URL.revokeObjectURL = jest.fn();
+  try {
+    render(<LessonPlayer data={{ ...initial, lesson: { ...initial.lesson, vocabularyWords: [{ word: 'desk', meaningZh: '课桌' }] } }} classId="c" lang="en" onBack={() => {}} />);
+    fireEvent.click(screen.getByRole('button', { name: /^Vocabulary/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Hear the word' }));
+    await screen.findByRole('button', { name: 'Playing…' });
+    expect(global.fetch.mock.calls[0][0]).toBe('/api/audio/tts?text=desk');
+    expect(playback.play).toHaveBeenCalledTimes(1);
+    act(() => playback.onpause());
+    expect(screen.getByRole('button', { name: 'Hear the word' })).toBeEnabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Hear the word' }));
+    await screen.findByRole('button', { name: 'Playing…' });
+    act(() => playback.onstalled());
+    expect(screen.getByRole('button', { name: 'Hear the word' })).toBeEnabled();
+    expect(screen.getByRole('alert')).toHaveTextContent('Audio could not play');
+    fireEvent.click(screen.getByRole('button', { name: 'Start vocabulary practice' }));
+    expect(playback.pause).toHaveBeenCalled();
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:word-audio');
+  } finally {
+    global.fetch = oldFetch; global.Audio = oldAudio;
+    URL.createObjectURL = oldCreate; URL.revokeObjectURL = oldRevoke;
+  }
+});
+
+test('teacher question previews do not offer student submission instructions', () => {
+  render(<LessonPlayer data={{ ...initial, readOnly: true, isOwner: true }} classId="c" lang="en" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Quick check/ }));
+  expect(screen.queryByText(/One submission only/)).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Submit this activity' })).not.toBeInTheDocument();
 });
 test('choice clicks stay editable; server results are saved only on submit', async () => {
   const api = jest.fn(async () => ({

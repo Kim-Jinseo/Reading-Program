@@ -14,7 +14,7 @@ Summer 2026 is a sample course label, not a date asserted by the PPT. The origin
 
 1. In PowerPoint, remove teacher-only notes from the visible slides and **export to PDF**, or export slide images. The website currently accepts PDF/JPEG/PNG/WebP, not native PPTX. No paid PowerPoint conversion service has been added.
 2. Open **Classes → Manage lesson library**. Create or select the season, year and learning level.
-3. Add the lesson number, English/Chinese title, vocabulary review, speaking sentence, scaffolded writing prompt, and simple comprehension questions. Use short familiar words and exactly one correct answer per question. Choose the correct answer using the radio circle.
+3. Add the lesson number, English/Chinese title, vocabulary review, speaking sentence, scaffolded writing prompt, and simple comprehension questions. For vocabulary, enter each English word and short Chinese answer choices, then select its correct meaning with the radio circle. That meaning is also used on its learning flashcard; the word-meaning quiz prompt is generated automatically. Check that every question has exactly one valid answer, with no synonymous distractors. Duplicate choices (including punctuation/spacing variants) are rejected.
 4. Select the PDF or slide images. The browser converts pages to smaller WebP/JPEG previews before uploading. The source PDF/PPT is not uploaded.
 5. **Save draft and upload previews**. Check every image, translation, question and answer. Drafts can be reopened and edited after an interrupted upload.
 6. Choose **Publish — available immediately**. Every class assigned to this course can use the new lesson straight away; students can refresh their class to see it.
@@ -33,6 +33,9 @@ The saved answer and class-revision check use one MongoDB transaction, so a conc
 
 - Slide review is an acknowledgment after viewing the pages, not a quiz score.
 - Vocabulary and comprehension are scored on the server with shuffled choices.
+- Vocabulary opens with learn-first flip cards showing an English word and its Chinese meaning, with pronunciation through the existing audio service. Card review never uses an attempt or earns stars. Students can revisit the cards before submitting or review them alongside their saved result afterwards.
+- Vocabulary and Quick check show one numbered question at a time with lettered choices. Previous/Next preserve editable selections; only **Submit this activity** saves all answers. Selection colors do not depend on hovering, so they work on touchscreens.
+- Existing explicit word-meaning questions (including the sample classroom lesson) supply flashcards without rewriting saved questions or results. Older free-form vocabulary questions that do not identify an English word retain their quiz; no word or translation is guessed. New uploads use the explicit word field.
 - Speaking uses the existing Deepgram-first audio service and its current fallback. Students see microphone readiness and may listen before submitting. The stored lesson supplies the sentence; the browser cannot supply a grade. Automated speech feedback is not a teacher assessment.
 - Writing is saved for the teacher to read. It is not given a fabricated automatic score.
 - Vocabulary and Quick check allow one submitted attempt; speaking and writing allow three. Choices and text are editable before submission; failed network saves retry the same request without consuming another attempt.

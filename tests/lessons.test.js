@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { ObjectId } from 'mongodb';
 import { memoryDb } from './helpers/memoryDb.js';
 import { createLessonRouter } from '../server/lessons.js';
-import { validateCollection, validateLesson, lessonSummary } from '../server/lessonDomain.js';
+import { validateCollection, validateLesson, lessonSummary, safeLesson } from '../server/lessonDomain.js';
+import { sampleLesson } from '../server/sampleLesson.js';
 
 const admin = '444444444444444444444444',
   teacher = '111111111111111111111111',
@@ -99,6 +100,40 @@ test('collection and activity validation requires bounded, distinct choices and 
   body.questions[0].options = ['Desk', 'desk', 'Dog'];
   assert.throws(() => validateLesson(body));
   assert.equal(lessonSummary([]).completed, false);
+});
+
+test('existing classroom vocabulary supplies learn-first words without changing questions or saved IDs', () => {
+  const snapshot = structuredClone(sampleLesson);
+  const safe = safeLesson(sampleLesson);
+  assert.deepEqual(safe.vocabularyWords, [
+    { word: 'desk', meaningZh: '课桌' }, { word: 'chair', meaningZh: '椅子' },
+    { word: 'blackboard', meaningZh: '黑板' }, { word: 'fan', meaningZh: '风扇' },
+  ]);
+  assert.deepEqual(sampleLesson, snapshot);
+  assert.ok(safe.vocabulary.every(q => !('correctOptionId' in q)));
+  assert.ok(safe.questions.every(q => !('correctOptionId' in q)));
+});
+
+test('new vocabulary words create clear English prompts and Chinese study meanings', () => {
+  const input = content();
+  input.vocabulary = ['desk', 'chair', 'fan'].map((word, i) => ({ word, prompt: '',
+    options: ['课桌', '椅子', '风扇'], correctIndex: i, explanation: '' }));
+  const lesson = validateLesson(input);
+  assert.equal(lesson.vocabulary[0].prompt, 'What does “desk” mean?');
+  assert.deepEqual(safeLesson(lesson).vocabularyWords, [
+    { word: 'desk', meaningZh: '课桌' }, { word: 'chair', meaningZh: '椅子' }, { word: 'fan', meaningZh: '风扇' },
+  ]);
+  input.vocabulary[0].options = ['课桌', '课桌。', '风扇'];
+  assert.throws(() => validateLesson(input), /different/);
+  input.vocabulary[0].options = ['desk', 'chair', 'fan'];
+  assert.throws(() => validateLesson(input), /Chinese/);
+  input.vocabulary[0].word = '课桌';
+  assert.throws(() => validateLesson(input), /English/);
+});
+
+test('legacy non-word questions are not guessed into misleading vocabulary cards', () => {
+  const lesson = validateLesson(content());
+  assert.deepEqual(safeLesson(lesson).vocabularyWords, []);
 });
 
 test('each first lesson task earns three stars, even with wrong answers, up to fifteen', async () => {

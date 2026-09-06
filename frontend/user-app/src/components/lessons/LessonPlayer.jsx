@@ -13,6 +13,8 @@ import {
 import { SlideViewer } from './SlideViewer';
 import { LessonSpeaking } from './LessonSpeaking';
 import { LessonResult } from './LessonResult';
+import { LessonVocabulary } from './LessonVocabulary';
+import { LessonQuiz } from './LessonQuiz';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
 export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards }) {
   const [data, setData] = useState(initial),
@@ -24,6 +26,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     [viewed, setViewed] = useState(false),
     [busy, setBusy] = useState(false),
     [retrying, setRetrying] = useState(false),
+    [vocabularyPractice, setVocabularyPractice] = useState(false),
     [error, setError] = useState('');
   const pending = React.useRef(null),
     lock = React.useRef(false);
@@ -35,6 +38,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     locked = data.readOnly || attempts.length >= max;
   const showForm = !attempts.length || retrying;
   const questions = ['vocabulary', 'questions'].includes(part) ? lesson[part] : [];
+  const words = lesson.vocabularyWords || [];
+  const learning = part === 'vocabulary' && words.length > 0 && !vocabularyPractice;
   const canSubmit =
     part === 'slides'
       ? viewed
@@ -164,6 +169,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               setRecording(null);
               setError('');
               setRetrying(false);
+              setVocabularyPractice(false);
             }}
           >
             <span className="block font-bold text-sm sm:text-base">{partName(p, lang)}</span>
@@ -203,31 +209,10 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             setRetrying(false); setWriting(''); setRecording(null); setError('');
           }}>{say(lang, 'Back to saved result', '返回已保存的结果')}</button>
         </div>}
-        {showForm && questions.map((q, index) => (
-          <fieldset key={q.id} disabled={locked || busy || !!pending.current} className="space-y-3">
-            <legend className="font-bold mb-3">
-              {index + 1}. {q.prompt}
-            </legend>
-            {q.options.map((o, i) => (
-              <label
-                key={o.id}
-                className={`flex items-start gap-3 border-2 rounded-xl p-4 min-h-14 cursor-pointer ${answers[q.id] === o.id ? 'bg-indigo-50 border-indigo-500' : 'border-slate-200 bg-white'}`}
-              >
-                <input
-                  className="mt-1 shrink-0"
-                  type="radio"
-                  name={q.id}
-                  checked={answers[q.id] === o.id}
-                  value={o.id}
-                  onChange={() => setAnswers((a) => ({ ...a, [q.id]: o.id }))}
-                />
-                <span className="break-words">
-                  {String.fromCharCode(65 + i)}. {o.text}
-                </span>
-              </label>
-            ))}
-          </fieldset>
-        ))}
+        {showForm && learning && <LessonVocabulary words={words} lang={lang} onStart={() => setVocabularyPractice(true)} />}
+        {showForm && !!questions.length && !learning && <LessonQuiz key={part} questions={questions} answers={answers} onChange={setAnswers}
+          lang={lang} disabled={locked} busy={busy} pending={!!pending.current} readOnly={data.readOnly} onSubmit={submit}
+          onLearn={part === 'vocabulary' && words.length ? () => setVocabularyPractice(false) : undefined} />}
         {showForm && part === 'writing' && (
           <>
             <p className="text-lg leading-relaxed">{say(lang, lesson.writing.prompt, lesson.writing.promptZh)}</p>
@@ -265,7 +250,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             onStatus={setMicBusy}
           />
         )}
-        {!data.readOnly && showForm && (
+        {!data.readOnly && showForm && !questions.length && (
           <button
             className={button + ' w-full sm:w-auto'}
             disabled={locked || busy || micBusy || (!canSubmit && !pending.current)}
@@ -280,7 +265,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
                   : say(lang, 'Submit this activity', '提交本项练习')}
           </button>
         )}
-        {showForm && !data.readOnly && part !== 'slides' && (
+        {showForm && !data.readOnly && ['speaking', 'writing'].includes(part) && (
           <p className="text-sm text-slate-500">
             {say(
               lang,
@@ -291,6 +276,10 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
         )}
         {!!attempts.length && !retrying && <LessonResult attempts={attempts} part={part} lesson={lesson} base={base} query={query} lang={lang}
           remaining={Math.max(0, max - attempts.length)} readOnly={data.readOnly} onRetry={() => { setRetrying(true); setError(''); }} />}
+        {part === 'vocabulary' && !!attempts.length && !!words.length && <details className="rounded-xl border border-slate-200 p-4 sm:p-5">
+          <summary className="font-bold cursor-pointer py-3">{say(lang, 'Review word cards', '复习单词卡片')}</summary>
+          <div className="mt-5"><LessonVocabulary words={words} lang={lang} /></div>
+        </details>}
       </section>
     </div>
   );
