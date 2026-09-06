@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { lessonApi, lessonError, collectionName, card, button, secondary, say } from './shared';
 import { CoursePicker } from './CoursePicker';
-export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0 }) {
+export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0, showProgress = true, settingsRequest = 0, onData, visible = true }) {
   const [data, setData] = useState(null),
     [collections, setCollections] = useState([]),
     [choice, setChoice] = useState(''),
@@ -12,16 +12,21 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
     [settings, setSettings] = useState(false);
   const language = useRef(lang);
   const generation = useRef(0);
+  const notify = useRef(onData);
+  notify.current = onData;
   language.current = lang;
+  useEffect(() => { if (settingsRequest) setSettings(true); }, [settingsRequest]);
+  useEffect(() => { if (data) notify.current?.(data); }, [data]);
   const refresh = async () => {
     const result = await api(`/classes/${classId}`, undefined, { fresh: true });
     setData(result);
     setChoice(result.collection?._id || '');
-    if (isOwner) {
+    if (isOwner && showProgress) {
       setReport(await api(`/classes/${classId}/report`, undefined, { fresh: true }));
     }
   };
   useEffect(() => {
+    if (!visible) { generation.current++; return; }
     let active = true;
     const epoch = ++generation.current;
     setStudent(null);
@@ -35,7 +40,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
       .catch((e) => {
         if (active) setError(lessonError(e, language.current));
       });
-    if (isOwner)
+    if (isOwner && showProgress)
       api(`/classes/${classId}/report`, undefined, { fresh: refreshKey > 0 })
         .then(r => {
           if (active) {
@@ -49,7 +54,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
       active = false;
       generation.current = epoch + 1;
     };
-  }, [api, classId, isOwner, refreshKey]);
+  }, [api, classId, isOwner, refreshKey, showProgress, visible]);
   useEffect(() => {
     if (!isOwner || !settings) return;
     let active = true;
@@ -109,7 +114,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
     <section className="space-y-5" data-testid="class-lessons">
       <div className="flex flex-wrap justify-between items-center gap-3">
         <h3 className="text-2xl font-extrabold">{say(lang, 'Class lessons', '班级课程')}</h3>
-        {isOwner && (
+        {isOwner && showProgress && (
           <button className={secondary} onClick={() => setSettings((s) => !s)}>
             {say(lang, 'Change course', '修改课程')}
           </button>
@@ -126,11 +131,11 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
         </button>
       ) : (
         <>
-          <p className="text-slate-500">
+          {showProgress && <p className="text-slate-500">
             {data.collection
               ? collectionName(data.collection, lang)
               : say(lang, 'No course selected yet.', '尚未选择课程。')}
-          </p>
+          </p>}
           {isOwner && settings && (
             <form
               className={card + ' space-y-5'}
@@ -155,6 +160,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
                 });
               }}
             >
+              <div className="flex flex-wrap items-center justify-between gap-3"><h4 className="font-bold text-lg">{say(lang, 'Class settings', '班级设置')}</h4><button type="button" className={secondary} disabled={busy} onClick={() => setSettings(false)}>{say(lang, 'Close settings', '关闭设置')}</button></div>
               <CoursePicker collections={collections} value={choice} onChange={setChoice} lang={lang} />
               <button type="submit" disabled={busy || choice === data.collection?._id} className={button}>
                 {say(lang, 'Update class lessons', '更新班级课程')}
@@ -183,7 +189,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
           )}
         </>
       )}
-      {isOwner && report && (
+      {isOwner && showProgress && report && (
         <section className={card + ' space-y-5'}>
           <h3 className="text-xl font-extrabold">
             {say(lang, 'Lesson progress and consistency', '课程进度与学习规律')}

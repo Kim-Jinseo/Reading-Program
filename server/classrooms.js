@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { ObjectId } from 'mongodb';
-import { ClassroomError, requireText, assignmentForStudent, gradeAssignment, summarizeAttempts } from './classroomDomain.js';
+import { ClassroomError, requireText, assignmentForStudent, gradeAssignment, summarizeAttempts, latestSubmission } from './classroomDomain.js';
 import { getPracticeCatalog } from './practiceCatalog.js';
 
 const digest = code => createHash('sha256').update(code).digest('hex');
@@ -236,6 +236,7 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
       const results = assignments.map(a => summarizeAttempts(own.find(s => s.assignmentId === a._id)?.attempts));
       const completed = results.filter(r => r.count);
       return { id: member.id, name: member.name, completed: completed.length, assigned: assignments.length,
+        lastSubmittedAt: latestSubmission(own),
         averagePercent: completed.length ? Math.round(completed.reduce((sum, r) => sum + r.latest.score / r.latest.total * 100, 0) / completed.length) : null,
         practice: Object.fromEntries(['masteredVocab', 'completedGrammar', 'completedReading', 'completedWriting', 'completedSpeaking'].map(key => [key, Array.isArray(account?.[key]) ? account[key].length : 0])) };
     });

@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { ObjectId } from 'mongodb';
 import { randomUUID } from 'node:crypto';
-import { ClassroomError, requireText, gradeAssignment } from './classroomDomain.js';
+import { ClassroomError, requireText, gradeAssignment, latestSubmission } from './classroomDomain.js';
 import { validateWritingFeedback } from './lessonWriting.js';
 import {
   PARTS,
@@ -511,6 +511,7 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
           assigned: lessons.length,
           completed: lessons.filter((l) => lessonSummary(own.filter((r) => r.lessonId === l._id)).completed).length,
           studyDays28: studyDays28(own),
+          lastSubmittedAt: latestSubmission(own),
           activitiesSubmitted: own.filter((r) => r.part !== 'slides' && r.attempts.length).length,
         };
       }),

@@ -3,6 +3,10 @@ import { randomInt, randomUUID } from 'node:crypto';
 export class ClassroomError extends Error {
   constructor(message, status = 400, code = 'invalid_input') { super(message); this.status = status; this.code = code; }
 }
+export function latestSubmission(rows) {
+  const dates = rows.flatMap(row => row.attempts || []).filter(a => a.submittedAt != null).map(a => new Date(a.submittedAt).getTime()).filter(Number.isFinite);
+  return dates.length ? new Date(dates.reduce((latest, date) => Math.max(latest, date), -Infinity)).toISOString() : null;
+}
 export const requireText = (value, name, max, optional = false) => {
   if (optional && (value === undefined || value === '')) return '';
   if (typeof value !== 'string' || !value.trim() || value.trim().length > max || /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(value)) {

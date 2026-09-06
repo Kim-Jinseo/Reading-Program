@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Users, ShieldCheck, Plus, ArrowLeft, Copy, RefreshCw } from 'lucide-react';
+import { Users, ShieldCheck, Plus, ArrowLeft, RefreshCw } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { AssignmentEditor } from '../components/classes/AssignmentEditor';
 import { AssignmentPlayer } from '../components/classes/AssignmentPlayer';
-import { ClassReport } from '../components/classes/ClassReport';
+import { TeacherClassView } from '../components/classes/TeacherClassView';
 import { classroomApi, say, card, field, button, secondary, subjectName, errorText } from '../components/classes/shared';
 import { lessonApi, lessonError } from '../components/lessons/shared';
 import { CoursePicker } from '../components/lessons/CoursePicker';
@@ -21,7 +21,6 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const [classes, setClasses] = useState([]);
   const [mode, setMode] = useState('home');
   const [detail, setDetail] = useState(null);
-  const [report, setReport] = useState(null);
   const [assignment, setAssignment] = useState(null);
   const [loading, setLoading] = useState(!user.isGuest);
   const [busy, setBusy] = useState(false);
@@ -47,15 +46,6 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     lessonsApi('/collections').then(data => { if (active) setCollections(data.collections); }).catch(e => { if (active) setError(lessonError(e, language.current)); });
     return () => { active = false; };
   }, [lessonsApi, user.isGuest, teacher]);
-  const detailId = detail?.class.id, detailOwner = detail?.isOwner;
-  useEffect(() => {
-    if (!detailId || !detailOwner) return;
-    let active = true;
-    api(`/classes/${detailId}/report`, undefined, { fresh: lessonRefresh > 0 })
-      .then(data => { if (active) setReport(data); })
-      .catch(e => { if (active) setError(errorText(language.current, e)); });
-    return () => { active = false; };
-  }, [api, detailId, detailOwner, lessonRefresh]);
   useEffect(() => {
     if (user.isGuest) return;
     let active = true;
@@ -72,7 +62,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     const request = ++navigation.current;
     const data = await api(`/classes/${id}`, undefined, { fresh });
     if (request !== navigation.current) return;
-    setDetail(data); setReport(previous => detailId === id ? previous : null); setLessonRefresh(v => fresh ? v + 1 : 0); setMode('detail');
+    setDetail(data); setLessonRefresh(v => fresh ? v + 1 : 0); setMode('detail');
   };
   const goHome = () => {
     const request = ++navigation.current;
@@ -151,18 +141,17 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
       </>}
       {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
         <div className="flex flex-wrap gap-3"><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button><button className={secondary} disabled={busy} onClick={() => run(() => openClass(detail.class.id, true))}><RefreshCw size={16} className="inline mr-2" />{say(lang, 'Refresh results', '刷新成绩')}</button></div>
+        {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
+          onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }}
+          onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
+          onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
         <section className={card + ' space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
-          {detail.isOwner && <div className="space-y-3">
-            <label className="block text-sm font-bold text-slate-500">{say(lang, 'Share this class invitation code with students', '将此班级邀请码分享给学生')}<input readOnly className={field + ' mt-2 font-mono tracking-widest text-xl'} value={detail.class.invitationCode} onFocus={e => e.target.select()} /></label>
-            <div className="flex flex-wrap gap-3"><button className={secondary} onClick={() => copyCode(detail.class.invitationCode)}><Copy className="inline mr-2" size={16} />{say(lang, 'Copy code', '复制邀请码')}</button><button className={secondary} disabled={busy} onClick={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }}>{say(lang, 'Replace code', '更换邀请码')}</button></div>
-          </div>}
         </section>
         <ClassLessons key={`lessons-${detail.class.id}`} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
-        {(detail.isOwner || detail.assignments.length > 0) && <section className="space-y-4">
-          {!detail.isOwner && <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>}
-          <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>{detail.isOwner && <button className={button} onClick={() => { setError(''); setMode('editor'); }}><Plus size={18} className="inline mr-2" />{say(lang, 'Assign extra practice', '布置拓展练习')}</button>}</div>
-          {!detail.assignments.length && <p className="text-slate-500">{say(lang, 'Choose website content when your class needs extra practice. Students only see this section after you assign something.', '班级需要额外练习时，可选择网站已有内容。布置练习后，学生才会看到此区域。')}</p>}
+        {detail.assignments.length > 0 && <section className="space-y-4">
+          <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>
+          <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>
             <p className="text-sm font-bold text-indigo-500">{subjectName(lang, a.subject)} · {say(lang, `Level ${a.level}`, `级别 ${a.level}`)}</p><h4 className="mt-2 text-xl font-extrabold break-words">{a.title}</h4>
             <p className="mt-3 text-sm text-slate-500">{say(lang, `${a.questionCount} questions · Up to ${a.maxAttempts} attempts`, `${a.questionCount} 道题 · 最多可作答 ${a.maxAttempts} 次`)}</p>
@@ -172,12 +161,12 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
             </>}
           </div>)}</div>
         </section>}
-        {detail.isOwner && !report && <p role="status" className="text-sm text-slate-500">{say(lang, 'Loading student report… You can use the class while it loads.', '正在加载学生报告…你可以先使用其他班级功能。')}</p>}
-        {detail.isOwner && report && <ClassReport key={`report-${detail.class.id}`} report={report} lang={lang} api={api} />}
+        </>}
       </div>}
       {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={backToClass} onPublished={backToClass} />}
       {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={backToClass} />}
       {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi}
+        backLabel={lesson.studentId ? say(lang, '← Back to student profile', '← 返回学生档案') : undefined}
         onRewards={total => setUser(previous => applyLessonRewardSnapshot(previous, total))}
         onBack={backToClass} />}
       {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => { setMode('home'); lessonsApi('/collections', undefined, { fresh: true }).then(data => setCollections(data.collections)).catch(e => setError(lessonError(e, language.current))); }} />}

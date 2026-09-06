@@ -3,10 +3,18 @@
 ## Try the supplied example
 
 1. Sign in as an administrator or verified teacher and open **Classes**.
-2. Create a class and select **2026 Summer · Level 2 (Grades 3–4)**, or open an existing class and choose **Change course**.
-3. Share the class invitation code. Enrolled students see **Lesson 1 — Our classroom** immediately.
+2. Create a class and select **2026 Summer · Level 2 (Grades 3–4)**, or open an existing class and choose **Class settings**.
+3. Open **Invite students** to copy the class invitation code. Enrolled students see **Lesson 1 — Our classroom** immediately.
 4. Students review eight slides, answer four vocabulary questions, record one short sentence, write several sentences, and answer three concrete comprehension questions.
-5. Teachers open **Lesson progress and consistency**, select a student, then a lesson to view saved attempts, writing, speech feedback and recordings.
+5. Teachers open **Students → View profile → Lesson work**, then select a lesson to view saved attempts, writing, speech feedback and recordings. **Back to student profile** returns to that student's work list.
+
+## Teacher class layout
+
+- **Lessons** holds course materials and previews. **Class settings** opens the course selector; **Invite students** reveals the invitation controls only when needed.
+- **Students** lists each enrolled student once, with completed lessons and their latest saved submission date. Opening a profile shows lesson completion and study days separately from assigned-practice completion and scores.
+- Within a student profile, **Lesson work** includes current and earlier-course work. **Extra practice** contains assigned exercises, scores, and answers. Detailed work loads only when that section or lesson is opened; answer details remain behind **Load answers**.
+- The class-level **Extra practice** tab contains existing assignments and **Assign extra practice**. Teachers can choose website content, not create custom questions. Student class pages remain unchanged.
+- Empty progress shows no submissions rather than suggesting a recent login was study activity. Failed report requests show an error and retry, not invented zero scores. Profile and report access still requires the owning teacher.
 
 Summer 2026 is a sample course label, not a date asserted by the PPT. The original 27-slide, 17,981,127-byte PowerPoint is unchanged. The eight student preview images total 444,438 bytes (about 0.44 MB); base64 storage adds overhead. Teacher-only instructions and repeated reward screens were omitted, while the original artwork and attribution remain. See `scripts/prepare-sample-lesson.md` for reproducible conversion details.
 
@@ -25,7 +33,7 @@ Published questions are fixed to protect existing scores. Revised content should
 
 ## Correct a class course
 
-Open the class → **Change course** → choose the correct term/level → confirm. Current lessons update automatically. Earlier submitted work stays in **Earlier course work**; teachers can also inspect it from the student's lesson report. Returning to the same course restores that lesson's saved progress. Scores are never transferred to a different lesson.
+Open the class → **Class settings** → choose the correct term/level → confirm. Current lessons update automatically. Earlier submitted work stays in **Earlier course work**; teachers can also inspect it from the student's **Lesson work** tab. Returning to the same course restores that lesson's saved progress. Scores are never transferred to a different lesson.
 
 The saved answer and class-revision check use one MongoDB transaction, so a concurrent course correction cannot silently accept a new answer for the wrong course. An already-saved request remains safely replayable after the course changes.
 

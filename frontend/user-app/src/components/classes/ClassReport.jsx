@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { say, card, field, secondary, dateText, errorText } from './shared';
 
-export const ClassReport = ({ report, lang, api }) => {
+export const ClassReport = ({ report, lang, api, profileStudentId }) => {
   const [studentId, setStudentId] = useState('');
   const [results, setResults] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -9,6 +9,12 @@ export const ClassReport = ({ report, lang, api }) => {
   const [error, setError] = useState('');
   const selection = useRef(0);
   const detailPanel = useRef(null);
+  const loader = useRef(null);
+  useEffect(() => {
+    const requests = selection;
+    if (profileStudentId) loader.current(profileStudentId);
+    return () => { requests.current++; };
+  }, [profileStudentId, api, report.class?.id]);
   const loadStudent = async id => {
     const version = ++selection.current;
     setStudentId(id); setResults([]); setAnswers({}); setError(''); setBusy(true);
@@ -30,10 +36,11 @@ export const ClassReport = ({ report, lang, api }) => {
     } catch (e) { if (selection.current === version) setError(errorText(lang, e)); }
     finally { if (selection.current === version) setBusy(false); }
   };
+  loader.current = loadStudent;
   const selected = report.students.find(s => s.id === studentId);
   const totalCompleted = report.students.reduce((sum, s) => sum + s.completed, 0);
   return <section className="space-y-5">
-    <div className={card}>
+    {!profileStudentId && <div className={card}>
       <h3 className="font-extrabold text-2xl">{say(lang, 'Student progress', '学生学习情况')}</h3>
       <p className="mt-2 text-slate-500">{say(lang, `Students: ${report.students.length} · Extra practice: ${report.assignments.length} · Completed submissions: ${totalCompleted}`, `${report.students.length} 名学生 · ${report.assignments.length} 份拓展练习 · 已完成 ${totalCompleted} 人次`)}</p>
       {!report.students.length && <p className="mt-6 text-slate-500">{say(lang, 'Share your class invitation code so students can join.', '分享班级邀请码，让学生加入。')}</p>}
@@ -47,10 +54,13 @@ export const ClassReport = ({ report, lang, api }) => {
           <button className={secondary + ' mt-4 w-full'} onClick={() => loadStudent(student.id)}>{say(lang, 'View answers and attempts', '查看答案及作答记录')}</button>
         </div>)}
       </div>
-    </div>
+    </div>}
     {selected && <div ref={detailPanel} className={card + ' space-y-6 scroll-mt-24'}>
-      <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold break-words">{selected.name}</h3><button className={secondary} onClick={() => { selection.current++; setStudentId(''); }}>{say(lang, 'Close details', '关闭详情')}</button></div>
-      <label className="block font-bold">{say(lang, 'Student', '学生')}<select className={field + ' mt-2'} value={studentId} onChange={e => loadStudent(e.target.value)}>{report.students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
+      {profileStudentId ? <h3 className="text-xl font-extrabold">{say(lang, 'Assigned extra practice', '老师布置的拓展练习')}</h3> : <>
+        <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold break-words">{selected.name}</h3><button className={secondary} onClick={() => { selection.current++; setStudentId(''); }}>{say(lang, 'Close details', '关闭详情')}</button></div>
+        <label className="block font-bold">{say(lang, 'Student', '学生')}<select className={field + ' mt-2'} value={studentId} onChange={e => loadStudent(e.target.value)}>{report.students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
+      </>}
+      {!busy && !error && !results.length && <p className="text-slate-500">{say(lang, 'No extra practice assigned yet.', '尚未布置拓展练习。')}</p>}
       {busy && <p role="status" className="text-slate-500">{say(lang, 'Loading results…', '正在加载成绩…')}</p>}
       {error && <div role="alert"><p className="text-rose-600">{error}</p><button className={secondary + ' mt-3'} disabled={busy} onClick={() => loadStudent(studentId)}>{say(lang, 'Reload student results', '重新加载学生成绩')}</button></div>}
       {results.map(result => {

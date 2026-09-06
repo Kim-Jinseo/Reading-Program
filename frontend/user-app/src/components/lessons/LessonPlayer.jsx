@@ -16,7 +16,7 @@ import { LessonResult } from './LessonResult';
 import { LessonVocabulary } from './LessonVocabulary';
 import { LessonQuiz } from './LessonQuiz';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
-export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards }) {
+export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards, backLabel }) {
   const [data, setData] = useState(initial),
     [part, setPart] = useState('slides'),
     [answers, setAnswers] = useState({}),
@@ -112,7 +112,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           onBack();
         }}
       >
-        {say(lang, '← Back to class', '← 返回班级')}
+        {backLabel || say(lang, '← Back to class', '← 返回班级')}
       </button>
       <header>
         <p className="text-indigo-600 font-bold">{say(lang, `Lesson ${lesson.number}`, `第 ${lesson.number} 课`)}</p>

@@ -52,6 +52,19 @@ test('student cannot create classes even with a forged admin token role', async 
   assert.equal((await request('/classes', studentId, { name: 'Bad' })).status, 403);
   assert.equal((await request('/classes', null)).status, 401);
 });
+
+test('teacher practice summaries show latest submitted date without revealing answers', async () => {
+  const { request, classroom, join, db } = await setup();
+  await join();
+  assert.equal((await request(`/classes/${classroom.id}/report`)).body.students[0].lastSubmittedAt, null);
+  await db.submissions.insertOne({ _id: 'date-summary', classId: classroom.id, studentId, assignmentId: 'old', attempts: [
+    { submittedAt: '2026-09-02T02:00:00Z', responses: ['private'] },
+    { submittedAt: '2026-09-06T03:00:00Z', responses: ['private'] },
+  ] });
+  const report = await request(`/classes/${classroom.id}/report`);
+  assert.equal(report.body.students[0].lastSubmittedAt, '2026-09-06T03:00:00.000Z');
+  assert.ok(!JSON.stringify(report.body).includes('private'));
+});
 test('verification is required; one-use teacher code grants teacher, never admin', async () => {
   const { request, db } = await setup();
   assert.equal((await request('/teacher/verify', studentId, { code: 'wrong-code' })).status, 400);

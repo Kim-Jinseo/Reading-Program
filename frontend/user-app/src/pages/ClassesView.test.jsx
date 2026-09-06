@@ -15,6 +15,32 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
 }
 beforeEach(() => localStorage.clear());
 
+test('teacher returns from read-only lesson work to the same student profile', async () => {
+  const pupil = { id: 's', name: '王小明', completed: 0, assigned: 1, studyDays28: 1, practice: {} };
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] }
+    : path.endsWith('/report') ? { students: [pupil], assignments: [] }
+    : { class: classroom, isOwner: true, assignments: [] });
+  const lessonRequests = jest.fn(async path => path === '/collections' ? { collections: [] }
+    : path.endsWith('/report') ? { students: [pupil] }
+    : path.includes('/students/') ? { lessons: [{ id: 'l', title: 'Our room', progress: { done: [], total: 5 } }] }
+    : path.includes('/lessons/') ? { readOnly: true, revision: 0, parts: [], lesson: { id: 'l', number: 1, title: 'Our room', slides: [], vocabulary: [], questions: [] } }
+    : { collection: null, history: [], lessons: [] });
+  render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Students', exact: true }));
+  fireEvent.click(await screen.findByRole('button', { name: /View profile.*王小明/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
+  fireEvent.click(await screen.findByRole('button', { name: /Our room/ }));
+  await screen.findByTestId('lesson-player');
+  expect(screen.queryByRole('button', { name: 'Submit this activity' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: '← Back to student profile' }));
+  expect(screen.getByRole('heading', { name: '王小明', level: 2 })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Lesson work', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await waitFor(() => expect(screen.getByRole('button', { name: /Our room/ })).toBeEnabled());
+  fireEvent.click(screen.getByRole('button', { name: 'Back to students' }));
+  expect(screen.getAllByText('王小明')).toHaveLength(1);
+});
+
 test('teacher can open a class before a slow report finishes and course lists do not reload on navigation', async () => {
   let finishReport;
   const slowReport = new Promise(resolve => { finishReport = resolve; });
@@ -22,8 +48,10 @@ test('teacher can open a class before a slow report finishes and course lists do
   const lessonRequests = jest.fn(lessonsApi);
   render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} lessonRequests={lessonRequests} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
-  await screen.findByRole('button', { name: 'Assign extra practice' });
+  await screen.findByRole('button', { name: 'Students', exact: true });
   expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeInTheDocument();
+  expect(api.mock.calls.some(([path]) => path.endsWith('/report'))).toBe(false);
+  fireEvent.click(screen.getByRole('button', { name: 'Students', exact: true }));
   fireEvent.click(screen.getByRole('button', { name: 'Toggle language' }));
   expect(lessonRequests.mock.calls.filter(([path]) => path === '/collections')).toHaveLength(1);
   await act(async () => finishReport({ students: [], assignments: [] }));
@@ -32,14 +60,17 @@ test('teacher can open a class before a slow report finishes and course lists do
 test('replacing a class invitation does not discard an already loaded teacher report', async () => {
   window.confirm = jest.fn(() => true);
   const api = async path => path === '/classes' ? { classes: [classroom] }
-    : path.endsWith('/report') ? { students: [], assignments: [] }
+    : path.endsWith('/report') ? { students: [{ id: 's', name: '王小明', practice: {} }], assignments: [] }
     : { class: { ...classroom, invitationCode: 'INVITE123' }, isOwner: true, assignments: [] };
   render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
-  await waitFor(() => expect(screen.queryByText(/Loading student report/)).not.toBeInTheDocument());
+  fireEvent.click(await screen.findByRole('button', { name: 'Students', exact: true }));
+  await screen.findByRole('button', { name: /View profile.*王小明/ });
+  fireEvent.click(screen.getByRole('button', { name: 'Invite students' }));
   fireEvent.click(screen.getByRole('button', { name: 'Replace code' }));
   await waitFor(() => expect(screen.getByRole('button', { name: 'Replace code' })).toBeEnabled());
   expect(screen.queryByText(/Loading student report/)).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /View profile.*王小明/ })).toBeVisible();
 });
 
 test('returning from a lesson shows the existing class immediately while progress refresh is delayed', async () => {
@@ -109,6 +140,7 @@ test('changing language preserves the teacher content selection without reloadin
   });
   render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Extra practice', exact: true }));
   fireEvent.click(await screen.findByRole('button', { name: 'Assign extra practice' }));
   fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: '1:reading:101' } });
   await screen.findByText('I see a bee.');

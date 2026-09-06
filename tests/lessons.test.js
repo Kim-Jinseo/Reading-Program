@@ -145,6 +145,16 @@ test('collection and activity validation requires bounded, distinct choices and 
   assert.equal(lessonSummary([]).completed, false);
 });
 
+test('teacher lesson summaries include the latest submission date without detailed student work', async () => {
+  const { req, submit, db } = await setup();
+  assert.equal((await req('/classes/class/report', teacher)).body.students[0].lastSubmittedAt, null);
+  await submit('writing', { text: 'I see a desk.' });
+  const report = await req('/classes/class/report', teacher);
+  assert.equal(report.body.students[0].lastSubmittedAt, db.lessonParts.docs[0].attempts[0].submittedAt.toISOString());
+  assert.equal(report.body.students[0].text, undefined);
+  assert.equal((await req('/classes/class/report', student)).status, 404);
+});
+
 test('existing classroom vocabulary supplies learn-first words without changing questions or saved IDs', () => {
   const snapshot = structuredClone(sampleLesson);
   const safe = safeLesson(sampleLesson);
