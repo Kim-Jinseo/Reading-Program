@@ -100,6 +100,59 @@ test('collection and activity validation requires bounded, distinct choices and 
   assert.throws(() => validateLesson(body));
   assert.equal(lessonSummary([]).completed, false);
 });
+
+test('each first lesson task earns three stars, even with wrong answers, up to fifteen', async () => {
+  const { db, submit, lesson, req } = await setup();
+  await db.users.updateOne({ _id: new ObjectId(student) }, { $set: { stars: 17, trophies: 23 } });
+  const inputs = {
+    slides: {},
+    vocabulary: { answers: lesson.vocabulary.map(q => ({ questionId: q.id, optionId: q.options.find(o => o.id !== q.correctOptionId).id })) },
+    questions: { answers: lesson.questions.map(q => ({ questionId: q.id, optionId: q.options.find(o => o.id !== q.correctOptionId).id })) },
+    writing: { text: 'I see a desk.' },
+    speaking: { audioBase64: Buffer.concat([Buffer.from([0x1a, 0x45, 0xdf, 0xa3]), Buffer.alloc(120)]).toString('base64'), audioMime: 'audio/webm' },
+  };
+  for (const [part, input] of Object.entries(inputs)) {
+    const response = await submit(part, input);
+    assert.equal(response.status, 200);
+    assert.equal(response.body.attempt.rewardStars, 3);
+    if (['vocabulary', 'questions'].includes(part)) assert.equal(response.body.attempt.score, 0);
+    await submit(part, input); // An uncertain response can safely be replayed.
+  }
+  const account = await db.users.findOne({ _id: new ObjectId(student) });
+  assert.equal(account.stars, 32);
+  assert.equal(account.trophies, 38);
+  assert.equal(account.lessonRewardStars, 15);
+  const refreshed = await req('/classes/class/lessons/lesson');
+  assert.equal(refreshed.body.parts.filter(p => p.attempts[0].rewardStars === 3).length, 5);
+  assert.equal((await db.users.findOne({ _id: new ObjectId(student) })).stars, 32);
+});
+
+test('simultaneous retries reward a task only once and return the saved reward balance', async () => {
+  const { db, submit } = await setup();
+  const results = await Promise.all([1, 2, 3].map(n => submit('writing', { text: 'My desk is big.' }, `reward-attempt-${n}`)));
+  assert.ok(results.every(r => r.status === 200));
+  assert.deepEqual(results.map(r => r.body.attempt.rewardStars).sort(), [0, 0, 3]);
+  assert.ok(results.every(r => r.body.lessonRewardStars === 3));
+  assert.equal((await db.users.findOne({ _id: new ObjectId(student) })).stars, 3);
+});
+
+test('legacy completions, failed submissions, and teacher previews do not award stars', async () => {
+  const { db, req, submit } = await setup();
+  await db.users.updateOne({ _id: new ObjectId(student) }, { $set: { stars: 17, trophies: 23 } });
+  const old = { requestId: 'legacy-request-123', text: 'Old answer.', submittedAt: new Date() };
+  await db.lessonParts.insertOne({ _id: `class:lesson:${student}:writing`, classId: 'class', lessonId: 'lesson', studentId: student, part: 'writing', attempts: [old] });
+  await req('/classes/class/lessons/lesson');
+  await submit('writing', {}, old.requestId);
+  const retry = await submit('writing', { text: 'New answer.' });
+  assert.equal(retry.status, 200);
+  assert.equal(retry.body.attempt.rewardStars, 0);
+  assert.equal((await submit('vocabulary', { answers: [] })).status, 400);
+  assert.equal((await req('/classes/class/lessons/lesson/parts/slides', teacher, { requestId: 'teacher-preview-123', revision: 0 })).status, 403);
+  const account = await db.users.findOne({ _id: new ObjectId(student) });
+  assert.equal(account.stars, 17);
+  assert.equal(account.trophies, 23);
+  assert.deepEqual(db.lessonParts.docs[0].attempts[0], old);
+});
 test('all published lessons available immediately; no answer key or another class access', async () => {
   const { req } = await setup();
   const list = await req('/classes/class');

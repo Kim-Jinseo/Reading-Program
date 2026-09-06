@@ -1,4 +1,6 @@
 import { Hono } from 'hono';
+import { saveProgressWithLessonRewards } from '../server/lessonRewards.js';
+import { ClassroomError } from '../server/classroomDomain.js';
 import { handle } from 'hono/vercel';
 import { cors } from 'hono/cors';
 import { sign, verify } from 'hono/jwt';
@@ -498,10 +500,11 @@ app.post('/auth/sync', requireAuth, syncRateLimit, async (c) => {
     if (!user || currentTokenVersion !== (Number.isInteger(session.tokenVersion) ? session.tokenVersion : 0)) {
       return c.json({ success: false, error: 'Invalid or expired session.' }, 401);
     }
-    await users.updateOne({ _id: new ObjectId(userId) }, { $set: updates });
+    await saveProgressWithLessonRewards(users, new ObjectId(userId), updates, body.lessonRewardStars ?? 0);
     return c.json({ success: true });
   } catch (error) {
     console.error('[Progress sync]', error);
+    if (error instanceof ClassroomError) return c.json({ success: false, error: error.message, code: error.code }, error.status);
     return c.json({ success: false, error: 'Failed to sync user data.' }, 500);
   }
 });

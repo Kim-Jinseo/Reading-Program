@@ -36,6 +36,36 @@ const initial = {
 beforeEach(() => {
   window.confirm = jest.fn(() => true);
 });
+
+test('a saved zero-score task shows its reward, but failed saves never claim completion', async () => {
+  const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({
+    attempt: { requestId: 'reward-request-1', score: 0, total: 1, rewardStars: 3, submittedAt: '2026-09-06T08:00:00Z' },
+    lessonRewardStars: 3,
+  });
+  const onRewards = jest.fn();
+  render(<LessonPlayer data={initial} classId="c" lang="en" onBack={() => {}} api={api} onRewards={onRewards} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Vocabulary/ }));
+  fireEvent.click(screen.getByLabelText('B. 风扇'));
+  fireEvent.click(screen.getByRole('button', { name: 'Submit this activity' }));
+  const retry = await screen.findByRole('button', { name: 'Retry saving this answer' });
+  expect(screen.queryByText('Completed · +3 stars')).not.toBeInTheDocument();
+  expect(onRewards).not.toHaveBeenCalled();
+  fireEvent.click(retry);
+  await screen.findByText('Completed · +3 stars');
+  expect(screen.getByText('0 / 1')).toBeInTheDocument();
+  expect(onRewards).toHaveBeenCalledWith(3);
+});
+
+test('reward remains visible after refresh or a retry, without claiming a second reward', () => {
+  const attempts = [
+    { requestId: 'first', rewardStars: 3, text: 'My room.', submittedAt: '2026-09-06T08:00:00Z' },
+    { requestId: 'retry', rewardStars: 0, text: 'My room is big.', submittedAt: '2026-09-06T09:00:00Z' },
+  ];
+  render(<LessonPlayer data={{ ...initial, parts: [{ part: 'writing', attempts }] }} classId="c" lang="zh" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /写作/ }));
+  expect(screen.getByText('已完成 · +3 颗星星')).toBeInTheDocument();
+  expect(screen.getByText('每项任务只奖励一次，重试不会重复获得星星。')).toBeInTheDocument();
+});
 test('opening slides is not completion; submit only after explicitly viewing every slide', async () => {
   const api = jest.fn(async () => ({ attempt: { requestId: 'saved1', submittedAt: new Date().toISOString() } }));
   render(<LessonPlayer data={initial} classId="c" lang="en" onBack={() => {}} api={api} />);

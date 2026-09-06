@@ -353,8 +353,11 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
     const _id = `${row._id}:${lesson._id}:${id}:${part}`,
       existing = await db.lessonParts.findOne({ _id });
     const replay = existing?.attempts.find((a) => a.requestId === input.requestId);
-    const respond = (attempt) =>
-      c.json({ success: true, attempt: publicParts([{ part, attempts: [attempt] }])[0].attempts[0] });
+    const respond = async (attempt) => {
+      const account = await db.users.findOne({ _id: new ObjectId(id) });
+      return c.json({ success: true, attempt: publicParts([{ part, attempts: [attempt] }])[0].attempts[0],
+        lessonRewardStars: account.lessonRewardStars || 0 });
+    };
     if (replay) return respond(replay);
     if (!active || input.revision !== (row.lessonRevision || 0)) changed();
     // Reviewed choice answers are shown after submission, so these activities
@@ -415,6 +418,9 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
       const prior = await db.lessonParts.findOne({ _id }, options);
       const replay = prior?.attempts.find((a) => a.requestId === input.requestId);
       if (replay) return replay;
+      // Determine eligibility inside the transaction, not from the earlier
+      // request snapshot. Older completions and retries never earn again.
+      const saved = { ...attempt, rewardStars: prior?.attempts.length ? 0 : 3 };
       // Write the class revision and the answer in the SAME transaction. A
       // simultaneous course correction conflicts/retries and rejects stale
       // work, rather than slipping between a revision read and answer write.
@@ -436,12 +442,20 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
         );
       const added = await db.lessonParts.updateOne(
         { _id, [`attempts.${max - 1}`]: { $exists: false }, 'attempts.requestId': { $ne: input.requestId } },
-        { $push: { attempts: attempt } },
+        { $push: { attempts: saved } },
         options,
       );
       if (!added.modifiedCount)
         throw new ClassroomError('You have used all attempts for this activity.', 409, 'attempt_limit');
-      return attempt;
+      if (saved.rewardStars) {
+        const account = await db.users.findOne({ _id: new ObjectId(id) }, options);
+        if (!account) throw new ClassroomError('Please sign in again.', 401, 'session_expired');
+        await db.users.updateOne({ _id: account._id }, {
+          $inc: { stars: 3, lessonRewardStars: 3 },
+          $set: { trophies: (account.trophies ?? account.stars ?? 0) + 3 },
+        }, options);
+      }
+      return saved;
     });
     return respond(savedAttempt);
   });

@@ -35,7 +35,9 @@ The saved answer and class-revision check use one MongoDB transaction, so a conc
 - Vocabulary and comprehension are scored on the server with shuffled choices.
 - Speaking uses the existing Deepgram-first audio service and its current fallback. Students see microphone readiness and may listen before submitting. The stored lesson supplies the sentence; the browser cannot supply a grade. Automated speech feedback is not a teacher assessment.
 - Writing is saved for the teacher to read. It is not given a fabricated automatic score.
-- Each scored/written activity allows three saved attempts. Choices and text are editable before submission; failed network saves retry the same request without consuming another attempt.
+- Vocabulary and Quick check allow one submitted attempt; speaking and writing allow three. Choices and text are editable before submission; failed network saves retry the same request without consuming another attempt.
+- Each newly completed task (slides, vocabulary, speaking, writing, Quick check) earns **3 stars**, regardless of its score: up to **15 stars per class lesson**. Students see **Completed · +3 stars** on the saved result. Retries, refreshes, and reopening a course do not earn duplicate rewards.
+- Stars and the first task submission are committed together. Previously completed tasks remain unchanged and receive no retroactive rewards, including on a writing/speaking retry. Failed submissions and teacher previews earn no stars.
 - A complete lesson means all five activities were submitted, not necessarily answered correctly.
 - Study days count days with submitted vocabulary/speaking/writing/comprehension work during the most recent 28 calendar days in China time. Logins and opening slides do not count.
 

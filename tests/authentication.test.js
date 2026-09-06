@@ -55,6 +55,22 @@ test('malformed signup requests are validation errors, not generic server errors
   assert.equal((await submit({ username: 'student', pin: 'short', isSignup: true })).status, 400);
 });
 
+test('the mounted progress endpoint preserves server lesson rewards and rejects forged reward snapshots', async () => {
+  const created = await submit({ username: 'Reward student', pin: 'test-password-only', isSignup: true });
+  const account = await db.users.findOne({ username: 'Reward student' });
+  await db.users.updateOne({ _id: account._id }, { $set: { stars: 20, trophies: 26, lessonRewardStars: 3 } });
+  const sync = async body => POST(new Request('http://localhost/api/auth/sync', {
+    method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${created.body.token}` },
+    body: JSON.stringify(body),
+  }));
+  assert.equal((await sync({ updates: { stars: 18, trophies: 24 }, lessonRewardStars: 0 })).status, 200);
+  assert.equal((await db.users.findOne({ _id: account._id })).stars, 21);
+  assert.equal((await sync({ updates: { stars: 10 }, lessonRewardStars: 3 })).status, 200);
+  assert.equal((await db.users.findOne({ _id: account._id })).stars, 10);
+  assert.equal((await sync({ updates: { stars: 0 }, lessonRewardStars: 999 })).status, 400);
+  assert.equal((await db.users.findOne({ _id: account._id })).stars, 10);
+});
+
 test('signup and subsequent login issue verifiable sessions and never expose password hashes or grant admin', async () => {
   process.env.JWT_SECRET = 'synthetic-test-secret-with-more-than-32-characters';
   const created = await submit({ username: '  Fresh Student  ', pin: 'test-password-only', isSignup: true, role: 'admin' });

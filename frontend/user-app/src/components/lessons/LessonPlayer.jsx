@@ -14,7 +14,7 @@ import { SlideViewer } from './SlideViewer';
 import { LessonSpeaking } from './LessonSpeaking';
 import { LessonResult } from './LessonResult';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
-export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId }) {
+export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards }) {
   const [data, setData] = useState(initial),
     [part, setPart] = useState('slides'),
     [answers, setAnswers] = useState({}),
@@ -60,6 +60,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     pending.current ||= { part, body: { ...input, requestId: requestId(), revision: data.revision } };
     try {
       const result = await api(`${base}/parts/${pending.current.part}`, pending.current.body);
+      onRewards?.(result.lessonRewardStars);
       const savedPart = pending.current.part;
       pending.current = null;
       setData((d) => ({

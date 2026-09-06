@@ -10,6 +10,7 @@ import { CoursePicker } from '../components/lessons/CoursePicker';
 import { ClassLessons } from '../components/lessons/ClassLessons';
 import { LessonPlayer } from '../components/lessons/LessonPlayer';
 import { LessonLibrary } from '../components/lessons/LessonLibrary';
+import { applyLessonRewardSnapshot } from '../utils/lessonRewards';
 
 export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const { user, setUser, lang } = useAppContext();
@@ -146,7 +147,9 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
       </>}
       {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={() => run(() => openClass(detail.class.id))} onPublished={() => run(() => openClass(detail.class.id))} />}
       {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={() => run(() => openClass(detail.class.id))} />}
-      {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi} onBack={() => run(() => openClass(detail.class.id))} />}
+      {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi}
+        onRewards={total => setUser(previous => applyLessonRewardSnapshot(previous, total))}
+        onBack={() => run(() => openClass(detail.class.id))} />}
       {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => setMode('home')} />}
     </>}
   </div>;

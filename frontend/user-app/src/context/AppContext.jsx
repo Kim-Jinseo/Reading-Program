@@ -181,7 +181,7 @@ export const AppProvider = ({ children }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ updates })
+        body: JSON.stringify({ updates, lessonRewardStars: user.lessonRewardStars || 0 })
       });
     } catch (e) {
       console.error(e);

@@ -77,13 +77,19 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
 export function LessonResult({ attempts, part, lesson, base, query, lang, remaining, readOnly, onRetry }) {
   const latest = attempts[attempts.length - 1];
   const repeatable = part === 'speaking' || part === 'writing';
+  const rewarded = attempts.some(a => a.rewardStars === 3);
   const details = { part, lesson, base, query, lang };
   return <div className="space-y-6" aria-label={say(lang, 'Activity result', '练习结果')} role="region">
     <div className="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
       <CheckCircle2 size={28} aria-hidden="true" className="shrink-0 text-emerald-700" />
       <div className="min-w-0">
-        <h4 className="font-bold text-lg text-emerald-900">{say(lang, 'Activity completed', '本项练习已完成')}</h4>
+        <h4 className="font-bold text-lg text-emerald-900" role="status">{rewarded
+          ? say(lang, 'Completed · +3 stars', '已完成 · +3 颗星星')
+          : say(lang, 'Activity completed', '本项练习已完成')}</h4>
         <p className="text-sm text-emerald-800 mt-1">{say(lang, 'Your work has been saved.', '你的学习结果已保存。')}</p>
+        {rewarded && <p className="text-sm text-emerald-800 mt-2">{say(lang,
+          'Awarded once per task. Retrying does not earn more stars.',
+          '每项任务只奖励一次，重试不会重复获得星星。')}</p>}
       </div>
     </div>
     <AttemptDetails key={latest.requestId} attempt={latest} {...details} />
