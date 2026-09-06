@@ -11,7 +11,7 @@ export const requireText = (value, name, max, optional = false) => {
   return value.trim();
 };
 
-export function validateAssignment(body) {
+export function validateAssignment(body, { caseSensitiveChoices = false } = {}) {
   const title = requireText(body.title, 'assignment title', 120);
   const instructions = requireText(body.instructions, 'instructions', 2000, true);
   const passage = requireText(body.passage, 'lesson text', 12000, true);
@@ -22,7 +22,7 @@ export function validateAssignment(body) {
     const prompt = requireText(q?.prompt, 'question', 600);
     if (!Array.isArray(q.options) || q.options.length < 2 || q.options.length > 4) throw new ClassroomError('Each question needs 2 to 4 choices.');
     const texts = q.options.map(o => requireText(o, 'answer choice', 300));
-    if (new Set(texts.map(o => o.normalize('NFKC').toLowerCase())).size !== texts.length) throw new ClassroomError('Answer choices must be different.');
+    if (new Set(texts.map(o => caseSensitiveChoices ? o.normalize('NFKC') : o.normalize('NFKC').toLowerCase())).size !== texts.length) throw new ClassroomError('Answer choices must be different.');
     if (!Number.isInteger(q.correctIndex) || q.correctIndex < 0 || q.correctIndex >= texts.length) throw new ClassroomError('Select one correct answer for every question.');
     const options = texts.map(text => ({ id: randomUUID(), text }));
     return { id: randomUUID(), prompt, options, correctOptionId: options[q.correctIndex].id, explanation: requireText(q.explanation, 'explanation', 1000, true) };

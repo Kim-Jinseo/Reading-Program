@@ -12,7 +12,7 @@ import { LessonPlayer } from '../components/lessons/LessonPlayer';
 import { LessonLibrary } from '../components/lessons/LessonLibrary';
 
 export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
-  const { user, setUser, lang, curriculumDb } = useAppContext();
+  const { user, setUser, lang } = useAppContext();
   const [classes, setClasses] = useState([]);
   const [mode, setMode] = useState('home');
   const [detail, setDetail] = useState(null);
@@ -129,21 +129,21 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           </div>}
         </section>
         <ClassLessons key={`lessons-${detail.class.id}-${lessonRefresh}`} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { setLesson({ data, studentId }); setMode('lesson'); }} />
-        <section className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold">{say(lang, 'Assignments', '作业')}</h3>{detail.isOwner && <button className={button} onClick={() => { setError(''); setMode('editor'); }}><Plus size={18} className="inline mr-2" />{say(lang, 'New assignment', '新建作业')}</button>}</div>
-          {!detail.assignments.length && <div className={card}><p className="text-slate-500">{say(lang, 'No assignments have been published yet.', '目前还没有发布作业。')}</p></div>}
+        {(detail.isOwner || detail.assignments.length > 0) && <section className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>{detail.isOwner && <button className={button} onClick={() => { setError(''); setMode('editor'); }}><Plus size={18} className="inline mr-2" />{say(lang, 'Assign extra practice', '布置拓展练习')}</button>}</div>
+          {!detail.assignments.length && <p className="text-slate-500">{say(lang, 'Choose website content when your class needs extra practice. Students only see this section after you assign something.', '班级需要额外练习时，可选择网站已有内容。布置练习后，学生才会看到此区域。')}</p>}
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>
             <p className="text-sm font-bold text-indigo-500">{subjectName(lang, a.subject)} · {say(lang, `Level ${a.level}`, `级别 ${a.level}`)}</p><h4 className="mt-2 text-xl font-extrabold break-words">{a.title}</h4>
             <p className="mt-3 text-sm text-slate-500">{say(lang, `${a.questionCount} questions · Up to ${a.maxAttempts} attempts`, `${a.questionCount} 道题 · 最多可作答 ${a.maxAttempts} 次`)}</p>
             {!detail.isOwner && <>
               <p className={`mt-4 font-bold ${a.progress.count ? 'text-emerald-700' : 'text-slate-500'}`}>{a.progress.count ? say(lang, `Latest: ${a.progress.latest.score} / ${a.progress.latest.total} · Best: ${a.progress.best.score} / ${a.progress.best.total}`, `最近：${a.progress.latest.score} / ${a.progress.latest.total} · 最佳：${a.progress.best.score} / ${a.progress.best.total}`) : say(lang, 'Not submitted', '尚未提交')}</p>
-              <button className={button + ' mt-4 w-full'} disabled={busy} onClick={() => run(async () => { setAssignment(await api(`/assignments/${a.id}`)); setMode('player'); })}>{a.progress.count ? say(lang, 'Review / Try again', '查看 / 再次作答') : say(lang, 'Start assignment', '开始作业')}</button>
+              <button className={button + ' mt-4 w-full'} disabled={busy} onClick={() => run(async () => { setAssignment(await api(`/assignments/${a.id}`)); setMode('player'); })}>{a.progress.count ? say(lang, 'Review / Try again', '查看 / 再次作答') : say(lang, 'Start extra practice', '开始拓展练习')}</button>
             </>}
           </div>)}</div>
-        </section>
+        </section>}
         {detail.isOwner && report && <ClassReport key={detail.class.id} report={report} lang={lang} api={api} />}
       </>}
-      {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} curriculumDb={curriculumDb} api={api} onBack={() => setMode('detail')} onPublished={() => run(() => openClass(detail.class.id))} />}
+      {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={() => run(() => openClass(detail.class.id))} onPublished={() => run(() => openClass(detail.class.id))} />}
       {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={() => run(() => openClass(detail.class.id))} />}
       {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi} onBack={() => run(() => openClass(detail.class.id))} />}
       {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => setMode('home')} />}

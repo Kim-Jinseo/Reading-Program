@@ -16,21 +16,21 @@ test('selection can change before submit and only submission sends the chosen an
   fireEvent.click(screen.getByRole('radio', { name: /A duck/ }));
   fireEvent.click(screen.getByRole('radio', { name: /A hen/ }));
   expect(calls).toHaveLength(0);
-  fireEvent.click(screen.getByRole('button', { name: 'Submit assignment' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Submit extra practice' }));
   await screen.findByText('0 / 1 correct');
   expect(calls[0].body.answers).toEqual([{ questionId: 'q1', optionId: 'b' }]);
   expect(screen.getByText(/Correct answer: A duck/)).toBeInTheDocument();
 });
 test('an incomplete assignment cannot be submitted', () => {
   render(<AssignmentPlayer data={{ assignment: lesson, attempts: [] }} api={async () => { throw Error(); }} lang="en" onBack={() => {}} />);
-  expect(screen.getByRole('button', { name: 'Submit assignment' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Submit extra practice' })).toBeDisabled();
 });
 test('a network retry keeps its submission identifier and selected answer', async () => {
   const calls = [];
   const api = async (path, body) => { calls.push(body); throw Error('Network unavailable'); };
   render(<AssignmentPlayer data={{ assignment: lesson, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
   fireEvent.click(screen.getByRole('radio', { name: /A duck/ }));
-  fireEvent.click(screen.getByRole('button', { name: 'Submit assignment' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Submit extra practice' }));
   await screen.findByRole('alert');
   fireEvent.click(screen.getByRole('button', { name: 'Retry saving' }));
   await waitFor(() => expect(calls).toHaveLength(2));
@@ -50,7 +50,7 @@ test('an attempt used in another tab shows saved results instead of an endless s
   };
   render(<AssignmentPlayer data={{ assignment: { ...lesson, maxAttempts: 1 }, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
   fireEvent.click(screen.getByRole('radio', { name: /A duck/ }));
-  fireEvent.click(screen.getByRole('button', { name: 'Submit assignment' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Submit extra practice' }));
   await screen.findByText('1 / 1 correct');
   expect(screen.queryByRole('button', { name: 'Retry saving' })).not.toBeInTheDocument();
 });

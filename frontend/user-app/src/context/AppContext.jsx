@@ -2,23 +2,11 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { TRANSLATIONS } from '../data/translations';
 import { getTodayString } from '../utils/dailySelection';
 import localCurriculum from '../data/curriculum.json';
-import { ADDITIONAL_READINGS_BY_GRADE } from '../data/additionalReadings';
-import { applyVeryHardReadingUpdates } from '../data/veryHardReadingUpdates';
-import { reviewVocabulary } from '../data/reviewedVocabulary';
+import { buildReviewedCurriculum } from '../data/reviewedCurriculum';
 
 const AppContext = createContext();
 
-const reviewedCurriculum = Object.fromEntries(Object.entries(localCurriculum).map(([gradeKey, gradeData]) => [
-  gradeKey,
-  {
-    ...gradeData,
-    vocab: reviewVocabulary(gradeKey, gradeData.vocab),
-    reading: [
-      ...applyVeryHardReadingUpdates(gradeKey, gradeData.reading || []),
-      ...(ADDITIONAL_READINGS_BY_GRADE[gradeKey] || [])
-    ]
-  }
-]));
+const reviewedCurriculum = buildReviewedCurriculum(localCurriculum);
 
 const FILLER_COMPETITORS = [
   { name: "Alex Chen", trophies: 129, grade: "5-6" },

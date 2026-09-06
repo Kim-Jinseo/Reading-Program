@@ -9,18 +9,24 @@ const studentId = '222222222222222222222222';
 const outsiderId = '333333333333333333333333';
 const adminId = '444444444444444444444444';
 import { createClassroomRouter } from '../server/classrooms.js';
+import { createPracticeCatalog } from '../server/practiceCatalog.js';
+import { validateAssignment } from '../server/classroomDomain.js';
 const quiz = { title: 'At the farm', subject: 'reading', level: 1, passage: 'A duck swims. A hen eats rice.', instructions: 'Read and choose.', maxAttempts: 2, questions: [
   { prompt: 'What swims?', options: ['A duck', 'A hen', 'A cat'], correctIndex: 0, explanation: 'The duck swims.' },
   { prompt: 'What does the hen eat?', options: ['Rice', 'Bread', 'Grass'], correctIndex: 0, explanation: 'The hen eats rice.' }
 ] };
 
-async function setup() {
+async function setup({ realCatalog = false } = {}) {
   assert.equal(typeof createClassroomRouter, 'function', 'The classroom workflow must be implemented');
   const db = memoryDb();
   for (const [id, role] of [[teacherId, 'teacher'], [studentId, 'student'], [outsiderId, 'teacher'], [adminId, 'admin']]) {
     await db.users.insertOne({ _id: new ObjectId(id), username: role + id[0], role, tokenVersion: 0, completedReading: ['one'], pin: 'private' });
   }
-  const app = createClassroomRouter({ getDb: async () => db, requireAuth: async (c, next) => {
+  const catalog = createPracticeCatalog({ '1-2': { reading: [{ id: 101, title: { en: quiz.title }, text: { en: quiz.passage }, questions: quiz.questions.map(q => ({ q: q.prompt, options: q.options, correct: q.correctIndex, explanation: q.explanation })) }] } });
+  let activeCatalog = catalog;
+  const source = catalog.preview('1:reading:101');
+  const selection = { sourceId: source.id, sourceVersion: source.version, maxAttempts: 2, requestId: 'publication-test-001' };
+  const app = createClassroomRouter({ ...(realCatalog ? {} : { practiceCatalog: () => activeCatalog }), getDb: async () => db, requireAuth: async (c, next) => {
     const id = c.req.header('authorization');
     if (!id) return c.json({ error: 'Unauthorized' }, 401);
     c.set('user', { userId: id, tokenVersion: 0, role: 'admin' }); // Intentionally forged role claim.
@@ -28,14 +34,17 @@ async function setup() {
   }, createSessionToken: async () => 'new-session', publicUser: u => ({ username: u.username, role: u.role }) });
   const request = async (url, user = teacherId, body, method = body ? 'POST' : 'GET') => {
     const response = await app.request(url, { method, headers: { ...(user ? { authorization: user } : {}), 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) });
-    return { status: response.status, body: await response.json() };
+    const text = await response.text();
+    let responseBody;
+    try { responseBody = JSON.parse(text); } catch { responseBody = { error: text }; }
+    return { status: response.status, body: responseBody };
   };
   const created = await request('/classes', teacherId, { name: 'English A' });
   assert.equal(created.status, 201);
   const classroom = created.body.class;
   const join = () => request('/classes/join', studentId, { code: classroom.invitationCode, displayName: '小明' });
-  const publish = () => request(`/classes/${classroom.id}/assignments`, teacherId, quiz);
-  return { db, request, classroom, join, publish };
+  const publish = () => request(`/classes/${classroom.id}/assignments`, teacherId, selection);
+  return { db, request, classroom, join, publish, selection, setCatalog: value => { activeCatalog = value; } };
 }
 
 test('student cannot create classes even with a forged admin token role', async () => {
@@ -203,10 +212,9 @@ test('submission replay is idempotent and parallel attempts cannot bypass retry 
   assert.equal(db.submissions.docs[0].attempts.length, 2);
 });
 test('duplicate choices, invalid keys and blank questions are rejected', async () => {
-  const { request, classroom } = await setup();
   for (const change of [{ options: ['A', ' a '] }, { correctIndex: 4 }, { prompt: ' ' }]) {
     const bad = { ...quiz, questions: [{ ...quiz.questions[0], ...change }] };
-    assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, bad)).status, 400);
+    assert.throws(() => validateAssignment(bad));
   }
 });
 test('rotating invitation code invalidates old code without removing enrolled students', async () => {
@@ -261,9 +269,110 @@ test('student answer detail endpoints require the class owner and enrolled stude
   assert.equal((await request(`/assignments/${id}/students/${outsiderId}`)).status, 404);
 });
 test('parallel publication cannot exceed the class assignment capacity', async () => {
-  const { request, db, classroom } = await setup();
+  const { request, db, classroom, selection } = await setup();
   await db.classes.updateOne({ _id: classroom.id }, { $set: { assignmentCount: 99 } });
-  const answers = await Promise.all([1, 2].map(n => request(`/classes/${classroom.id}/assignments`, teacherId, { ...quiz, title: 'Quiz ' + n })));
+  const answers = await Promise.all([1, 2].map(n => request(`/classes/${classroom.id}/assignments`, teacherId, { ...selection, requestId: `publication-capacity-${n}` })));
   assert.deepEqual(answers.map(r => r.status).sort(), [201, 400]);
   assert.equal(db.assignments.docs.length, 1);
+});
+
+test('new extra practice rejects custom questions without reserving a class slot', async () => {
+  const { request, classroom, db } = await setup();
+  const response = await request(`/classes/${classroom.id}/assignments`, teacherId, quiz);
+  assert.equal(response.status, 400);
+  assert.equal(db.assignments.docs.length, 0);
+  assert.equal((await db.classes.findOne({ _id: classroom.id })).assignmentCount, 0);
+});
+
+test('only the class owner can browse and preview the website practice catalog', async () => {
+  const { request, classroom, join } = await setup({ realCatalog: true });
+  await join();
+  const path = `/classes/${classroom.id}/practice-catalog`;
+  const listed = await request(`${path}?level=1&subject=reading`);
+  assert.equal(listed.status, 200);
+  assert.ok(listed.body.sources.length > 0);
+  assert.equal(listed.body.sources[0].questions, undefined, 'The list must be lightweight');
+  const preview = await request(`${path}/${encodeURIComponent(listed.body.sources[0].id)}`);
+  assert.equal(preview.status, 200);
+  assert.ok(preview.body.source.passage);
+  assert.ok(preview.body.source.questions.length);
+  for (const caller of [studentId, outsiderId]) {
+    assert.ok([403, 404].includes((await request(`${path}?level=1&subject=reading`, caller)).status));
+    assert.ok([403, 404].includes((await request(`${path}/${encodeURIComponent(listed.body.sources[0].id)}`, caller)).status));
+  }
+  for (const query of ['level=4&subject=reading', 'level=1&subject=other', 'level=1&subject=__proto__']) {
+    assert.equal((await request(`${path}?${query}`)).status, 400);
+  }
+});
+
+test('all reviewed levels and subjects are selectable, including capitalization grammar', async () => {
+  const { request, classroom } = await setup({ realCatalog: true });
+  const path = `/classes/${classroom.id}/practice-catalog`;
+  for (const level of [1, 2, 3]) for (const [subject, total] of [['reading', 120], ['vocab', 500], ['grammar', 25]]) {
+    const result = await request(`${path}?level=${level}&subject=${subject}`);
+    assert.equal(result.status, 200);
+    assert.equal(result.body.sources.length, total);
+  }
+  const source = (await request(`${path}/${encodeURIComponent('1:grammar:214')}`)).body.source;
+  assert.deepEqual(source.questions[0].options, ['The', 'the', 'tHe']);
+  assert.equal(source.questions[0].correctIndex, 0);
+  assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, { sourceId: source.id, sourceVersion: source.version, requestId: 'publication-caps-001' })).status, 201);
+  const upgraded = (await request(`${path}/${encodeURIComponent('3:vocab:2002')}`)).body.source;
+  assert.equal(upgraded.title, 'achieve');
+  assert.equal(upgraded.questions[0].options[upgraded.questions[0].correctIndex], '达到；取得');
+});
+
+test('legacy custom assignments and results stay available and cannot be edited', async () => {
+  const { request, classroom, db, join } = await setup();
+  await join();
+  const old = { ...validateAssignment(quiz), _id: 'legacy-assignment', classId: classroom.id, createdAt: new Date('2026-01-01') };
+  await db.assignments.insertOne(old);
+  const submitted = await request('/assignments/legacy-assignment/submit', studentId, { requestId: 'legacy-request-01', answers: old.questions.map(q => ({ questionId: q.id, optionId: q.correctOptionId })) });
+  assert.equal(submitted.body.attempt.score, 2);
+  const before = structuredClone(db.assignments.docs[0]);
+  assert.equal((await request('/assignments/legacy-assignment', teacherId, quiz, 'PUT')).status, 404);
+  assert.deepEqual(db.assignments.docs[0], before);
+  const reopened = await request('/assignments/legacy-assignment', studentId);
+  assert.equal(reopened.body.assignment.passage, 'A duck swims. A hen eats rice.');
+  assert.deepEqual(reopened.body.attempts[0], submitted.body.attempt);
+  assert.equal((await request(`/classes/${classroom.id}/report`)).body.students[0].completed, 1);
+});
+
+test('catalog selection is saved by the server and cannot override content or use a stale preview', async () => {
+  const { request, classroom, db } = await setup();
+  const path = `/classes/${classroom.id}/practice-catalog`;
+  const listed = await request(`${path}?level=1&subject=reading`);
+  assert.equal(listed.status, 200);
+  const source = (await request(`${path}/${encodeURIComponent(listed.body.sources[0].id)}`)).body.source;
+  const selection = { sourceId: source.id, sourceVersion: source.version, maxAttempts: 2, requestId: 'publication-source-001' };
+  for (const extra of [{ title: 'My custom title' }, { questions: quiz.questions }, { passage: 'Fake passage' }, { subject: 'other' }, { instructions: 'Custom instructions' }]) {
+    assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, { ...selection, ...extra })).status, 400);
+  }
+  assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, { ...selection, sourceVersion: 'outdated' })).status, 409);
+  assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, { ...selection, sourceId: 'missing' })).status, 400);
+  assert.equal(db.assignments.docs.length, 0);
+  const result = await request(`/classes/${classroom.id}/assignments`, teacherId, selection);
+  assert.equal(result.status, 201);
+  const saved = await db.assignments.findOne({ _id: result.body.assignment.id });
+  assert.equal(saved.title, source.title);
+  assert.equal(saved.passage, source.passage);
+  assert.equal(saved.sourceId, source.id);
+  assert.equal(saved.questions[0].prompt, source.questions[0].prompt);
+  assert.equal(saved.questions[0].options.find(o => o.id === saved.questions[0].correctOptionId).text, source.questions[0].options[source.questions[0].correctIndex]);
+});
+
+test('publication retries reserve one slot and recover a saved result even after the source changes', async () => {
+  const { request, classroom, db, selection, setCatalog } = await setup();
+  const body = { ...selection, requestId: 'publication-retry-0001' };
+  const results = await Promise.all([1, 2].map(() => request(`/classes/${classroom.id}/assignments`, teacherId, body)));
+  assert.deepEqual(results.map(r => r.status), [201, 201]);
+  assert.equal(results[0].body.assignment.id, results[1].body.assignment.id);
+  assert.equal(db.assignments.docs.length, 1);
+  assert.equal((await db.classes.findOne({ _id: classroom.id })).assignmentCount, 1);
+  setCatalog(createPracticeCatalog({}));
+  const replay = await request(`/classes/${classroom.id}/assignments`, teacherId, body);
+  assert.deepEqual(replay.body, results[0].body);
+  const changed = await request(`/classes/${classroom.id}/assignments`, teacherId, { ...body, maxAttempts: 1 });
+  assert.equal(changed.status, 409);
+  assert.equal(db.assignments.docs[0].maxAttempts, 2);
 });

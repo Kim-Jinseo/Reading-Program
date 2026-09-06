@@ -20,7 +20,7 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
     return () => window.removeEventListener('beforeunload', leave);
   }, [selectedCount, result]);
   const goBack = () => {
-    if (!result && selectedCount && !window.confirm(say(lang, 'Leave this assignment? Answers that have not been submitted will be lost.', '离开这份作业？尚未提交的答案将丢失。'))) return;
+    if (!result && selectedCount && !window.confirm(say(lang, 'Leave this extra practice? Answers that have not been submitted will be lost.', '离开这份拓展练习？尚未提交的答案将丢失。'))) return;
     onBack();
   };
   const submit = async () => {
@@ -48,6 +48,7 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
   return <div className="space-y-6">
     <button className={secondary} disabled={busy} onClick={goBack}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'Back to class', '返回班级')}</button>
     <section className={card}>
+      <p className="text-sm font-bold text-indigo-600 mb-2">{say(lang, 'Extra practice', '拓展练习')}</p>
       <h2 className="text-2xl sm:text-3xl font-extrabold break-words">{assignment.title}</h2>
       {assignment.instructions && <p className="mt-4 whitespace-pre-wrap break-words leading-relaxed text-slate-600">{assignment.instructions}</p>}
       {assignment.passage && <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-100 p-4 sm:p-6 text-lg leading-loose whitespace-pre-wrap break-words">{assignment.passage}</div>}
@@ -94,7 +95,7 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
       <section className={card + ' space-y-4'}>
         <p className="font-bold text-slate-500">{say(lang, `${selectedCount} / ${assignment.questions.length} answered`, `已作答 ${selectedCount} / ${assignment.questions.length} 题`)}</p>
         {error && <p role="alert" className="text-rose-600 font-bold">{error}</p>}
-        <button className={button + ' w-full'} disabled={busy || selectedCount !== assignment.questions.length} onClick={submit}>{busy ? say(lang, 'Saving…', '正在保存…') : error && pending.current ? say(lang, 'Retry saving', '重试保存') : say(lang, 'Submit assignment', '提交作业')}</button>
+        <button className={button + ' w-full'} disabled={busy || selectedCount !== assignment.questions.length} onClick={submit}>{busy ? say(lang, 'Saving…', '正在保存…') : error && pending.current ? say(lang, 'Retry saving', '重试保存') : say(lang, 'Submit extra practice', '提交拓展练习')}</button>
       </section>
     </>}
   </div>;

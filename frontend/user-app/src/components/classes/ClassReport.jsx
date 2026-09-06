@@ -35,13 +35,13 @@ export const ClassReport = ({ report, lang, api }) => {
   return <section className="space-y-5">
     <div className={card}>
       <h3 className="font-extrabold text-2xl">{say(lang, 'Student progress', '学生学习情况')}</h3>
-      <p className="mt-2 text-slate-500">{say(lang, `Students: ${report.students.length} · Assignments: ${report.assignments.length} · Completed submissions: ${totalCompleted}`, `${report.students.length} 名学生 · ${report.assignments.length} 份作业 · 已完成 ${totalCompleted} 人次`)}</p>
+      <p className="mt-2 text-slate-500">{say(lang, `Students: ${report.students.length} · Extra practice: ${report.assignments.length} · Completed submissions: ${totalCompleted}`, `${report.students.length} 名学生 · ${report.assignments.length} 份拓展练习 · 已完成 ${totalCompleted} 人次`)}</p>
       {!report.students.length && <p className="mt-6 text-slate-500">{say(lang, 'Share your class invitation code so students can join.', '分享班级邀请码，让学生加入。')}</p>}
       <div className="grid md:grid-cols-2 gap-4 mt-6">
         {report.students.map(student => <div className="rounded-2xl border border-slate-200 p-4 min-w-0" key={student.id}>
           <h4 className="font-extrabold text-lg break-words">{student.name}</h4>
           <dl className="grid grid-cols-2 gap-3 mt-4">
-            <div><dt className="text-xs text-slate-500">{say(lang, 'Assignments completed', '已完成作业')}</dt><dd className="font-bold text-xl">{student.completed} / {student.assigned}</dd></div>
+            <div><dt className="text-xs text-slate-500">{say(lang, 'Extra practice completed', '已完成拓展练习')}</dt><dd className="font-bold text-xl">{student.completed} / {student.assigned}</dd></div>
             <div><dt className="text-xs text-slate-500">{say(lang, 'Average latest score', '最近成绩平均分')}</dt><dd className="font-bold text-xl">{student.averagePercent === null ? '—' : `${student.averagePercent}%`}</dd></div>
           </dl>
           <button className={secondary + ' mt-4 w-full'} onClick={() => loadStudent(student.id)}>{say(lang, 'View answers and attempts', '查看答案及作答记录')}</button>
@@ -80,7 +80,7 @@ export const ClassReport = ({ report, lang, api }) => {
       })}
       <div className="rounded-2xl bg-slate-50 p-4">
         <h4 className="font-bold">{say(lang, 'Practice completed across the website', '网站练习完成情况')}</h4>
-        <p className="text-xs text-slate-500 mt-2">{say(lang, 'These are practice completion counts, separate from assignment scores.', '以下为练习完成数量，与作业成绩分开记录。')}</p>
+        <p className="text-xs text-slate-500 mt-2">{say(lang, 'These are self-study completion counts, separate from extra-practice scores.', '以下为自主练习完成数量，与拓展练习成绩分开记录。')}</p>
         <dl className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">{[['masteredVocab', 'Vocabulary', '词汇'], ['completedGrammar', 'Grammar', '语法'], ['completedReading', 'Reading', '阅读'], ['completedWriting', 'Writing', '写作'], ['completedSpeaking', 'Speaking', '口语']].map(([key, en, zh]) => <div key={key}><dt className="text-sm text-slate-500">{say(lang, en, zh)}</dt><dd className="font-bold">{selected.practice[key]}</dd></div>)}</dl>
       </div>
     </div>}

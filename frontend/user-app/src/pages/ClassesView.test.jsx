@@ -34,7 +34,10 @@ test('student joins using the entered invitation and sees only their assignments
   fireEvent.click(screen.getByRole('button', { name: 'Join class' }));
   await screen.findByRole('heading', { name: 'Monday English' });
   expect(api).toHaveBeenCalledWith('/classes/join', { code: 'ABCD12345678', displayName: '小明' });
-  expect(screen.queryByRole('button', { name: 'New assignment' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('heading', { name: 'Assignments' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('heading', { name: 'Extra practice' })).not.toBeInTheDocument();
+  expect(screen.queryByText('No assignments have been published yet.')).not.toBeInTheDocument();
   expect(api.mock.calls.some(([path]) => path.endsWith('/report'))).toBe(false);
 });
 test('successful verification refreshes the session and reveals teacher creation, not admin controls', async () => {
@@ -49,20 +52,34 @@ test('successful verification refreshes the session and reveals teacher creation
   expect(api).toHaveBeenCalledWith('/teacher/verify', { code: 'private-test-code' });
   expect(screen.queryByRole('button', { name: 'Generate teacher code' })).not.toBeInTheDocument();
 });
-test('changing language does not reload classes or discard an assignment editor draft', async () => {
+test('changing language preserves the teacher content selection without reloading classes', async () => {
   const api = jest.fn(async path => {
     if (path === '/classes') return { classes: [classroom] };
+    if (path.includes('/practice-catalog?')) return { sources: [{ id: '1:reading:101', title: 'Our garden', titleZh: '我们的花园', questionCount: 1 }] };
+    if (path.includes('/practice-catalog/')) return { source: { id: '1:reading:101', version: 'v1', title: 'Our garden', titleZh: '我们的花园', passage: 'I see a bee.', questions: [{ prompt: 'What do I see?', options: ['A bee', 'A cat'], correctIndex: 0 }] } };
     if (path.endsWith('/report')) return { students: [], assignments: [] };
     return { class: { ...classroom, invitationCode: 'ABCD12345678' }, isOwner: true, assignments: [] };
   });
   render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
-  fireEvent.click(await screen.findByRole('button', { name: 'New assignment' }));
-  fireEvent.change(screen.getByLabelText('Assignment title'), { target: { value: 'Our garden' } });
+  fireEvent.click(await screen.findByRole('button', { name: 'Assign extra practice' }));
+  fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: '1:reading:101' } });
+  await screen.findByText('I see a bee.');
   const calls = api.mock.calls.length;
   fireEvent.click(screen.getByRole('button', { name: 'Toggle language' }));
-  await waitFor(() => expect(screen.getByLabelText('作业标题')).toHaveValue('Our garden'));
+  await waitFor(() => expect(screen.getByLabelText('选择内容')).toHaveValue('1:reading:101'));
   expect(api).toHaveBeenCalledTimes(calls);
+});
+
+test('students see assigned extra practice and their existing results, separate from class lessons', async () => {
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [{ id: 'old', title: 'Our garden', subject: 'reading', level: 1, questionCount: 3, maxAttempts: 2, progress: { count: 1, latest: { score: 2, total: 3 }, best: { score: 2, total: 3 } } }] });
+  render(<Harness api={api} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  await screen.findByRole('heading', { name: 'Extra practice' });
+  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeInTheDocument();
+  expect(screen.getByText('Latest: 2 / 3 · Best: 2 / 3')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Review / Try again' })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
 });
 
 test('Refresh results also reloads newly published class lessons', async () => {

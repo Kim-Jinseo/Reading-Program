@@ -1,81 +1,111 @@
-import React, { useMemo, useState } from 'react';
-import { Plus, Trash2, ArrowLeft } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowLeft, BookOpen, CheckCircle2 } from 'lucide-react';
 import { say, card, field, button, secondary, subjectName, errorText } from './shared';
+import { requestId } from '../lessons/shared';
 
-const blankQuestion = () => ({ prompt: '', options: ['', '', ''], correctIndex: 0, explanation: '' });
-export const AssignmentEditor = ({ lang, curriculumDb, classId, api, onBack, onPublished }) => {
-  const [form, setForm] = useState({ title: '', subject: 'reading', level: 1, instructions: '', passage: '', maxAttempts: 3, questions: [blankQuestion()] });
+export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) => {
+  const [level, setLevel] = useState(1);
+  const [subject, setSubject] = useState('reading');
   const [sourceId, setSourceId] = useState('');
-  const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+  const [sources, setSources] = useState([]);
+  const [preview, setPreview] = useState(null);
+  const [maxAttempts, setMaxAttempts] = useState(3);
+  const [loading, setLoading] = useState(true);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [reload, setReload] = useState(0);
+  const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
-  const sources = useMemo(() => curriculumDb?.[{ 1: '1-2', 2: '3-4', 3: '5-6' }[form.level]]?.[form.subject] || [], [curriculumDb, form.level, form.subject]);
-  const update = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
-  const changeQuestion = (index, patch) => setForm(prev => ({ ...prev, questions: prev.questions.map((q, i) => i === index ? { ...q, ...patch } : q) }));
-  const useLesson = () => {
-    const lesson = sources.find((item, i) => String(i) === sourceId); if (!lesson) return;
-    const questions = (form.subject === 'vocab' ? [{ q: `What does “${lesson.word}” mean?`, options: lesson.options, a: lesson.answer || lesson.def }] : lesson.questions || []).slice(0, 30).map(q => {
-      const options = (q.options || []).map(String);
-      const correctIndex = Number.isInteger(q.correct) ? q.correct : options.indexOf(q.a || q.answer);
-      return { prompt: q.q || q.question || '', options, correctIndex, explanation: '' };
-    }).filter(q => q.options.length >= 2 && q.options.length <= 4 && q.correctIndex >= 0 && q.correctIndex < q.options.length);
-    if (!questions.length) { setError(say(lang, 'This lesson has no compatible questions. Please enter your own.', '这节课没有可用的选择题，请自行填写。')); return; }
-    setForm(prev => ({ ...prev, title: lesson.title?.en || lesson.word || 'Class assignment', passage: form.subject === 'reading' ? lesson.text?.en || '' : '', questions }));
-    setError('');
-  };
+  const [assigned, setAssigned] = useState(false);
+  const pending = useRef(null);
+  const sending = useRef(false);
+  const base = `/classes/${classId}/practice-catalog`;
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true); setSources([]); setError(null);
+    api(`${base}?level=${level}&subject=${subject}`)
+      .then(data => { if (active) setSources(data.sources); })
+      .catch(e => { if (active) setError(e); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [api, base, level, subject, reload]);
+
+  useEffect(() => {
+    let active = true;
+    setPreview(null);
+    if (!sourceId) { setPreviewLoading(false); return; }
+    setPreviewLoading(true); setError(null);
+    api(`${base}/${encodeURIComponent(sourceId)}`)
+      .then(data => { if (active) setPreview(data.source); })
+      .catch(e => { if (active) setError(e); })
+      .finally(() => { if (active) setPreviewLoading(false); });
+    return () => { active = false; };
+  }, [api, base, sourceId, reload]);
+
+  const filtered = useMemo(() => sources.filter(s => `${s.title} ${s.titleZh || ''}`.toLowerCase().includes(search.trim().toLowerCase())), [sources, search]);
+  const clearSelection = () => { setSourceId(''); setPreview(null); setSearch(''); setError(null); };
+  const locked = busy || Boolean(pending.current);
+  const canAssign = Boolean(pending.current) || (preview?.id === sourceId && !loading && !previewLoading);
   const publish = async event => {
     event.preventDefault();
-    if (busy) return;
-    if (form.questions.some(q => !q.prompt.trim() || q.options.some(o => !o.trim()) || new Set(q.options.map(o => o.trim().normalize('NFKC').toLowerCase())).size !== q.options.length || q.correctIndex < 0 || q.correctIndex >= q.options.length)) {
-      setError(say(lang, 'Fill every question and choice. Each choice must be different, with one correct answer.', '请填写每道题及所有选项。选项不能重复，每题必须有一个正确答案。')); return;
-    }
-    setBusy(true); setError('');
-    try { await api(`/classes/${classId}/assignments`, form); onPublished(); }
-    catch (e) { setError(errorText(lang, e)); }
-    finally { setBusy(false); }
+    if (sending.current || !canAssign) return;
+    sending.current = true; setBusy(true); setError(null);
+    try {
+      pending.current ||= { sourceId: preview.id, sourceVersion: preview.version, maxAttempts, requestId: requestId() };
+      await api(`/classes/${classId}/assignments`, pending.current);
+      pending.current = null;
+      setAssigned(true);
+      await onPublished();
+    } catch (e) {
+      if (['practice_source_changed', 'invalid_practice_source', 'invalid_input', 'publication_changed'].includes(e.code)) { pending.current = null; setSourceId(''); setPreview(null); }
+      setError(e);
+    } finally { sending.current = false; setBusy(false); }
   };
+
+  if (assigned) return <section className={card + ' border-emerald-200 bg-emerald-50 space-y-4'} role="status">
+    <CheckCircle2 className="text-emerald-700" size={32} />
+    <h2 className="text-2xl font-extrabold text-emerald-900">{say(lang, 'Extra practice assigned', '拓展练习已布置')}</h2>
+    <p>{say(lang, 'Your work has been saved for the class.', '练习已保存并布置给全班。')}</p>
+    <button className={secondary} onClick={onBack}>{say(lang, 'Back to class', '返回班级')}</button>
+  </section>;
+
   return <div className="space-y-6">
     <button className={secondary} onClick={onBack} disabled={busy}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'Back to class', '返回班级')}</button>
     <form onSubmit={publish} className="space-y-6">
-      <section className={card}>
-        <h2 className="text-2xl font-extrabold mb-2">{say(lang, 'Create an assignment', '创建作业')}</h2>
-        <p className="text-slate-500 mb-6">{say(lang, 'Choose a lesson or write your own questions. Check every answer before publishing.', '选择已有课程，或自己编写题目。发布前请检查所有答案。')}</p>
+      <section className={card + ' space-y-5'}>
+        <div>
+          <h2 className="text-2xl font-extrabold">{say(lang, 'Assign extra practice', '布置拓展练习')}</h2>
+          <p className="text-slate-500 mt-3 leading-relaxed">{say(lang, 'Choose existing website content, preview it, then assign it to your class. Questions and answers cannot be edited.', '选择网站已有内容，预览后布置给全班。题目和答案不能修改。')}</p>
+        </div>
         <div className="grid sm:grid-cols-2 gap-5">
-          <label className="font-bold space-y-2"><span>{say(lang, 'Subject', '科目')}</span><select className={field} value={form.subject} onChange={e => { update('subject', e.target.value); setSourceId(''); }}>{['reading', 'vocab', 'grammar', 'other'].map(s => <option key={s} value={s}>{subjectName(lang, s)}</option>)}</select></label>
-          <label className="font-bold space-y-2"><span>{say(lang, 'Level', '级别')}</span><select className={field} value={form.level} onChange={e => { update('level', Number(e.target.value)); setSourceId(''); }}>{[1, 2, 3].map(n => <option key={n} value={n}>{say(lang, `Level ${n}`, `级别 ${n}`)}</option>)}</select></label>
+          <label className="block font-bold min-w-0">{say(lang, 'Level', '级别')}<select className={field + ' mt-2'} value={level} disabled={locked} onChange={e => { setLevel(Number(e.target.value)); clearSelection(); }}>{[1, 2, 3].map(n => <option key={n} value={n}>{say(lang, `Level ${n} (Grades ${n * 2 - 1}–${n * 2})`, `级别 ${n}（${n * 2 - 1}–${n * 2} 年级）`)}</option>)}</select></label>
+          <label className="block font-bold min-w-0">{say(lang, 'Subject', '科目')}<select className={field + ' mt-2'} value={subject} disabled={locked} onChange={e => { setSubject(e.target.value); clearSelection(); }}>{['reading', 'vocab', 'grammar'].map(s => <option key={s} value={s}>{subjectName(lang, s)}</option>)}</select></label>
         </div>
-        {sources.length > 0 && <div className="mt-5 p-4 rounded-2xl bg-indigo-50 space-y-3">
-          <label className="block font-bold">{say(lang, 'Copy questions from a lesson (optional)', '复制已有课程的题目（可选）')}<select className={field + ' mt-2'} value={sourceId} onChange={e => setSourceId(e.target.value)}><option value="">{say(lang, 'Choose a lesson', '选择课程')}</option>{sources.map((s, i) => <option key={i} value={i}>{s.title?.en || s.word || `Lesson ${i + 1}`}</option>)}</select></label>
-          <button type="button" className={secondary} disabled={sourceId === ''} onClick={useLesson}>{say(lang, 'Use this lesson', '使用这节课')}</button>
-          <p className="text-sm text-slate-500">{say(lang, 'This replaces the title, lesson text and current questions below.', '这会替换下方的标题、课文和现有题目。')}</p>
-        </div>}
-        <div className="space-y-5 mt-6">
-          <label className="block font-bold">{say(lang, 'Assignment title', '作业标题')}<input className={field + ' mt-2'} required maxLength={120} value={form.title} onChange={e => update('title', e.target.value)} /></label>
-          <label className="block font-bold">{say(lang, 'Instructions (optional)', '说明（可选）')}<textarea className={field + ' mt-2'} rows={2} maxLength={2000} value={form.instructions} onChange={e => update('instructions', e.target.value)} /></label>
-          <label className="block font-bold">{say(lang, 'Lesson text or reading passage (optional)', '学习内容或阅读文章（可选）')}<textarea className={field + ' mt-2'} rows={6} maxLength={12000} value={form.passage} onChange={e => update('passage', e.target.value)} /></label>
-          <label className="block font-bold">{say(lang, 'Allowed attempts', '允许作答次数')}<select className={field + ' mt-2'} value={form.maxAttempts} onChange={e => update('maxAttempts', Number(e.target.value))}>{[1, 2, 3].map(n => <option key={n} value={n}>{n}</option>)}</select></label>
-          <p className="text-sm text-slate-500">{say(lang, 'Students see correct answers after submitting. First, latest and best scores are recorded separately.', '学生提交后可以查看正确答案。首次、最近和最佳成绩会分别记录。')}</p>
-        </div>
+        {loading ? <p role="status" className="text-slate-500">{say(lang, 'Loading website content…', '正在加载网站内容…')}</p> : sources.length ? <div className="space-y-4">
+          <label className="block font-bold">{say(lang, 'Search content', '搜索内容')}<input className={field + ' mt-2'} type="search" value={search} disabled={locked} onChange={e => { setSearch(e.target.value); setSourceId(''); setPreview(null); }} placeholder={say(lang, 'Search by title or word', '搜索标题或单词')} /></label>
+          <label className="block font-bold min-w-0">{say(lang, 'Choose content', '选择内容')}<select className={field + ' mt-2 truncate'} value={sourceId} disabled={locked} onChange={e => { setSourceId(e.target.value); setPreview(null); }}><option value="">{say(lang, 'Select content to preview', '选择要预览的内容')}</option>{filtered.map(s => <option key={s.id} value={s.id}>{say(lang, s.title, s.titleZh || s.title)} · {say(lang, `${s.questionCount} ${s.questionCount === 1 ? 'question' : 'questions'}`, `${s.questionCount} 道题`)}</option>)}</select></label>
+          {!filtered.length && <p className="text-sm text-slate-500">{say(lang, 'No matching content. Try another search.', '没有匹配的内容，请换个关键词。')}</p>}
+        </div> : !error && <p className="text-slate-500">{say(lang, 'No content is available for this level and subject.', '这个级别和科目暂时没有可用内容。')}</p>}
       </section>
-      {form.questions.map((q, index) => <fieldset className={card + ' space-y-4'} key={index}>
-        <legend className="font-extrabold px-2">{say(lang, `Question ${index + 1}`, `第 ${index + 1} 题`)}</legend>
-        <label className="block font-bold">{say(lang, 'Question', '题目')}<textarea required className={field + ' mt-2'} rows={2} maxLength={600} value={q.prompt} onChange={e => changeQuestion(index, { prompt: e.target.value })} /></label>
-        <p className="text-sm font-medium text-slate-500">{say(lang, 'Select the circle beside the correct answer.', '选中正确答案旁的圆圈。')}</p>
-        {q.options.map((option, i) => <div key={i} className="flex gap-2 items-center">
-          <label className="min-w-12 min-h-12 flex items-center justify-center rounded-xl border border-slate-200 cursor-pointer"><input type="radio" name={`correct-${index}`} aria-label={say(lang, `Correct answer ${i + 1} for question ${index + 1}`, `第 ${index + 1} 题的正确答案为选项 ${i + 1}`)} checked={q.correctIndex === i} onChange={() => changeQuestion(index, { correctIndex: i })} className="w-5 h-5 accent-indigo-600" /></label>
-          <input aria-label={say(lang, `Choice ${i + 1}`, `选项 ${i + 1}`)} required className={field + ' min-w-0'} maxLength={300} value={option} onChange={e => changeQuestion(index, { options: q.options.map((o, j) => j === i ? e.target.value : o) })} />
-        </div>)}
-        <div className="flex flex-wrap gap-2">
-          {q.options.length < 4 && <button type="button" className={secondary} onClick={() => changeQuestion(index, { options: [...q.options, ''] })}>{say(lang, 'Add choice', '添加选项')}</button>}
-          {q.options.length > 2 && <button type="button" className={secondary} onClick={() => changeQuestion(index, { options: q.options.slice(0, -1), correctIndex: Math.min(q.correctIndex, q.options.length - 2) })}>{say(lang, 'Remove last choice', '删除最后一个选项')}</button>}
-        </div>
-        <label className="block font-bold">{say(lang, 'Explanation (optional)', '答案说明（可选）')}<textarea className={field + ' mt-2'} rows={2} maxLength={1000} value={q.explanation} onChange={e => changeQuestion(index, { explanation: e.target.value })} /></label>
-        {form.questions.length > 1 && <button type="button" className={secondary + ' text-rose-600'} onClick={() => update('questions', form.questions.filter((_, i) => i !== index))}><Trash2 size={16} className="inline mr-2" />{say(lang, 'Remove question', '删除题目')}</button>}
-      </fieldset>)}
-      {form.questions.length < 30 && <button className={secondary} type="button" onClick={() => update('questions', [...form.questions, blankQuestion()])}><Plus size={18} className="inline mr-2" />{say(lang, 'Add question', '添加题目')}</button>}
-      <section className={card + ' space-y-4'}>
-        {error && <p role="alert" className="text-rose-600 font-bold">{error}</p>}
-        <p className="text-sm text-slate-500">{say(lang, 'Publishing makes this assignment available to the whole class. Published questions cannot be edited, so student scores remain comparable.', '发布后，全班学生都可以作答。已发布的题目不能修改，以保证成绩可比较。')}</p>
-        <button className={button + ' w-full'} disabled={busy} type="submit">{busy ? say(lang, 'Publishing…', '正在发布…') : say(lang, 'Publish assignment', '发布作业')}</button>
+
+      {previewLoading && <p role="status" className={card}>{say(lang, 'Loading preview…', '正在加载预览…')}</p>}
+      {preview && <section aria-label={say(lang, 'Content preview', '内容预览')} className={card + ' space-y-5'}>
+        <div className="flex items-start gap-3"><BookOpen className="shrink-0 text-indigo-600" size={24} /><div className="min-w-0"><p className="text-sm text-slate-500">{say(lang, 'Preview — read only', '预览（只读）')}</p><h3 className="mt-1 text-xl font-extrabold break-words">{say(lang, preview.title, preview.titleZh || preview.title)}</h3></div></div>
+        {preview.passage && <p className="rounded-xl border border-amber-100 bg-amber-50 p-4 sm:p-5 leading-loose whitespace-pre-wrap break-words">{preview.passage}</p>}
+        <p className="text-sm text-slate-500">{say(lang, 'The correct answers below are for your preview. Students answer before seeing their results.', '以下正确答案仅用于教师预览，学生作答后才能查看结果。')}</p>
+        <ol className="space-y-5">{preview.questions.map((q, index) => <li key={index} className="border-t border-slate-100 pt-5 space-y-3 min-w-0 break-words">
+          <div className="flex items-start gap-2"><span className="font-bold">{index + 1}.</span><p className="font-bold">{q.prompt}</p></div>
+          <ul className="grid sm:grid-cols-2 gap-2">{q.options.map((o, i) => <li key={i} className={`rounded-xl border p-3 ${i === q.correctIndex ? 'border-emerald-200 bg-emerald-50 text-emerald-900' : 'border-slate-200 text-slate-600'}`}>{String.fromCharCode(65 + i)}. {o}</li>)}</ul>
+          <p className="text-sm font-semibold text-emerald-800"><CheckCircle2 size={16} aria-hidden="true" className="inline mr-1" />{say(lang, 'Correct answer: ', '正确答案：')}{q.options[q.correctIndex]}</p>
+        </li>)}</ol>
+      </section>}
+
+      <section className={card + ' space-y-5'}>
+        {error && <div className="space-y-3"><p role="alert" className="text-rose-700 break-words">{errorText(lang, error)}</p><button type="button" className={secondary} disabled={locked} onClick={() => setReload(n => n + 1)}>{say(lang, 'Retry loading', '重新加载')}</button></div>}
+        <label className="block font-bold sm:max-w-xs">{say(lang, 'Allowed attempts', '允许作答次数')}<select className={field + ' mt-2'} value={maxAttempts} disabled={locked} onChange={e => setMaxAttempts(Number(e.target.value))}>{[1, 2, 3].map(n => <option key={n} value={n}>{n}</option>)}</select></label>
+        <p className="text-sm text-slate-500 leading-relaxed">{say(lang, 'This will appear under Extra practice for the whole class. Uploaded class lessons stay separate. Previously assigned work and results are kept.', '布置后，全班可在“拓展练习”中看到这些内容。上传的班级课程仍单独显示，已布置的练习和成绩都会保留。')}</p>
+        <button className={button + ' w-full sm:w-auto'} disabled={busy || !canAssign} type="submit">{busy ? say(lang, 'Assigning…', '正在布置…') : pending.current ? say(lang, 'Retry assigning', '重试布置') : say(lang, 'Assign to class', '布置给全班')}</button>
       </section>
     </form>
   </div>;

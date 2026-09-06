@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { ObjectId } from 'mongodb';
-import { ClassroomError, requireText, validateAssignment, assignmentForStudent, gradeAssignment, summarizeAttempts } from './classroomDomain.js';
+import { ClassroomError, requireText, assignmentForStudent, gradeAssignment, summarizeAttempts } from './classroomDomain.js';
+import { getPracticeCatalog } from './practiceCatalog.js';
 
 const digest = code => createHash('sha256').update(code).digest('hex');
 const teacherRole = role => role === 'teacher' || role === 'admin';
@@ -10,7 +11,7 @@ const invitationCode = () => randomBytes(6).toString('hex').toUpperCase();
 const notFound = () => { throw new ClassroomError('This class or assignment is not available to your account.', 404, 'not_found'); };
 const classSummary = (row, owner = false) => ({ id: row._id, name: row.name, createdAt: row.createdAt, collectionId: row.collectionId || null, studentCount: row.memberIds.length, ...(owner ? { invitationCode: row.invitationCode } : {}) });
 
-export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser }) {
+export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, practiceCatalog = getPracticeCatalog }) {
   const app = new Hono();
   let indexes;
   const database = async () => {
@@ -148,23 +149,39 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
       assignments: all.map(a => ({ id: a._id, title: a.title, subject: a.subject, level: a.level, maxAttempts: a.maxAttempts, questionCount: a.questions.length, createdAt: a.createdAt,
         ...(!owner ? { progress: summarizeAttempts(ownResults.find(s => s.assignmentId === a._id)?.attempts) } : {}) })) });
   });
+  app.get('/classes/:id/practice-catalog', requireTeacher, async c => {
+    await findClass(c, c.req.param('id'), true);
+    return c.json({ success: true, sources: practiceCatalog().list(Number(c.req.query('level')), c.req.query('subject')) });
+  });
+  app.get('/classes/:id/practice-catalog/:sourceId', requireTeacher, async c => {
+    await findClass(c, c.req.param('id'), true);
+    return c.json({ success: true, source: practiceCatalog().preview(c.req.param('sourceId')) });
+  });
   app.post('/classes/:id/assignments', requireTeacher, limit('publish-assignment', 15), async c => {
     const { row } = await findClass(c, c.req.param('id'), true);
-    const assignment = validateAssignment(await readBody(c));
+    const body = await readBody(c);
+    if (Object.keys(body).some(key => !['sourceId', 'sourceVersion', 'maxAttempts', 'requestId'].includes(key)))
+      throw new ClassroomError('Choose existing website content.', 400, 'invalid_practice_source');
+    const { requestId, ...selection } = body;
+    if (typeof requestId !== 'string' || !/^[a-zA-Z0-9_-]{12,80}$/.test(requestId))
+      throw new ClassroomError('A valid publication request is required.');
+    const id = `extra-${digest(`${row._id}:${c.get('user').userId}:${requestId}`)}`;
+    const publicationHash = digest(JSON.stringify({ sourceId: selection.sourceId, sourceVersion: selection.sourceVersion, maxAttempts: selection.maxAttempts ?? 3 }));
     const db = c.get('db');
-    const reserved = await db.classes.updateOne({ _id: row._id, assignmentCount: { $lt: 100 } }, { $inc: { assignmentCount: 1 } });
-    if (!reserved.modifiedCount) throw new ClassroomError('This class has reached 100 assignments.');
-    const record = { ...assignment, _id: randomUUID(), classId: row._id, createdAt: new Date() };
-    try { await db.assignments.insertOne(record); }
-    catch (error) {
-      // If Mongo acknowledged a timeout after writing, do not undo the slot
-      // or report a failed publication for an assignment that already exists.
-      const saved = await db.assignments.findOne({ _id: record._id });
-      if (!saved) {
-        await db.classes.updateOne({ _id: row._id }, { $inc: { assignmentCount: -1 } });
-        throw error;
+    const record = await db.withLessonTransaction(async session => {
+      // Recover saved work before validating a catalog that may have changed.
+      const saved = await db.assignments.findOne({ _id: id }, { session });
+      if (saved) {
+        if (saved.publicationHash !== publicationHash) throw new ClassroomError('This publication was already saved with different settings.', 409, 'publication_changed');
+        return saved;
       }
-    }
+      const assignment = practiceCatalog().assignment(selection);
+      const reserved = await db.classes.updateOne({ _id: row._id, assignmentCount: { $lt: 100 } }, { $inc: { assignmentCount: 1 } }, { session });
+      if (!reserved.modifiedCount) throw new ClassroomError('This class has reached 100 assignments.');
+      const created = { ...assignment, _id: id, publicationHash, classId: row._id, createdAt: new Date() };
+      await db.assignments.insertOne(created, { session });
+      return created;
+    });
     return c.json({ success: true, assignment: { id: record._id, title: record.title } }, 201);
   });
   const findAssignment = async c => {
