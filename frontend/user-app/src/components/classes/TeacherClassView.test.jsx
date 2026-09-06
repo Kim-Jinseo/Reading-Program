@@ -26,6 +26,39 @@ test('compact teacher class hides invitations and progress until requested', asy
   expect(screen.queryByText('Lesson progress and consistency')).not.toBeInTheDocument();
   expect(screen.queryByText('Student progress')).not.toBeInTheDocument();
 });
+
+test('class settings stays above the tabs and outside lesson content, and still saves the selected course', async () => {
+  const current = { id: 'summer', _id: 'summer', level: 2, year: 2026, season: 'summer' };
+  const next = { id: 'autumn', _id: 'autumn', level: 2, year: 2026, season: 'autumn' };
+  let saved = false;
+  const lessonsApi = jest.fn(async (path, body) => {
+    if (path === '/collections') return { collections: [current, next] };
+    if (path.endsWith('/settings')) { saved = true; return { success: true }; }
+    return { collection: saved ? next : current, revision: saved ? 2 : 1, lessons: [], history: [] };
+  });
+  const confirm = jest.spyOn(window, 'confirm').mockReturnValue(true);
+  setup({ lessonsApi });
+  await screen.findByText('2026 Summer · Level 2 (Grades 3–4)');
+  fireEvent.click(screen.getByRole('button', { name: 'Class settings' }));
+  const picker = await screen.findByRole('combobox', { name: 'Term and learning level' });
+  await screen.findByRole('option', { name: '2026 Autumn · Level 2 (Grades 3–4)' });
+  const panel = picker.closest('form');
+  const tabs = screen.getByRole('navigation', { name: 'Class sections' });
+  expect(screen.getByTestId('class-lessons')).not.toContainElement(panel);
+  expect(panel.compareDocumentPosition(tabs) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Monday English' }).compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  expect(screen.queryByRole('combobox', { name: 'Term and learning level' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Lessons', exact: true }));
+  const reopenedPicker = await screen.findByRole('combobox', { name: 'Term and learning level' });
+  expect(screen.getByRole('button', { name: 'Update class lessons' })).toBeDisabled();
+  fireEvent.change(reopenedPicker, { target: { value: 'autumn' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Update class lessons' }));
+  await waitFor(() => expect(screen.queryByRole('button', { name: 'Close settings' })).not.toBeInTheDocument());
+  expect(await screen.findByText('2026 Autumn · Level 2 (Grades 3–4)')).toBeVisible();
+  expect(lessonsApi).toHaveBeenCalledWith('/classes/c/settings', { collectionId: 'autumn', revision: 1 });
+  confirm.mockRestore();
+});
 test('profile separates scores, lazily opens work and retains the lesson-work tab on return', async () => {
   const { api, lessonsApi, onOpen } = setup();
   fireEvent.click(screen.getByRole('button', { name: 'Students', exact: true }));

@@ -10,7 +10,7 @@
 
 ## Teacher class layout
 
-- **Lessons** holds course materials and previews. **Class settings** opens the course selector; **Invite students** reveals the invitation controls only when needed.
+- **Lessons** holds course materials and previews. **Class settings** opens the course selector beneath the class header and above the section tabs, separate from lesson content; **Invite students** reveals the invitation controls only when needed.
 - **Students** lists each enrolled student once, with completed lessons and their latest saved submission date. Opening a profile shows lesson completion and study days separately from assigned-practice completion and scores.
 - Within a student profile, **Lesson work** includes current and earlier-course work. **Extra practice** contains assigned exercises, scores, and answers. Detailed work loads only when that section or lesson is opened; answer details remain behind **Load answers**.
 - The class-level **Extra practice** tab contains existing assignments and **Assign extra practice**. Teachers can choose website content, not create custom questions. Student class pages remain unchanged.

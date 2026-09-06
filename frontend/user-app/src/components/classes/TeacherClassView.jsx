@@ -7,6 +7,7 @@ import { say, card, field, button, secondary, subjectName, dateText, errorText }
 
 export function TeacherClassView({ detail, lang, api, lessonsApi, refreshKey = 0, busy = false, visible = true, onOpen, onAssign, onCopy, onReplace }) {
   const [tab, setTab] = useState('lessons'), [invite, setInvite] = useState(false), [settingsRequest, setSettingsRequest] = useState(0);
+  const [settingsContainer, setSettingsContainer] = useState(null);
   const [course, setCourse] = useState(null), [visited, setVisited] = useState(false), [reports, setReports] = useState(null), [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false), [error, setError] = useState(''), [reload, setReload] = useState(0);
   const language = useRef(lang), rosterButton = useRef(null), lastOpened = useRef(null);
@@ -43,12 +44,13 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, refreshKey = 0
         <label className="block text-sm font-semibold text-slate-600">{say(lang, 'Share this class invitation code with students', '将此班级邀请码分享给学生')}<input readOnly className={field + ' mt-2 font-mono tracking-wider'} value={detail.class.invitationCode || ''} onFocus={e => e.target.select()} /></label>
         <div className="flex flex-wrap gap-3"><button className={secondary} onClick={() => onCopy(detail.class.invitationCode)}><Copy size={16} className="inline mr-2" aria-hidden="true" />{say(lang, 'Copy code', '复制邀请码')}</button><button className={secondary} disabled={busy} onClick={onReplace}>{say(lang, 'Replace code', '更换邀请码')}</button></div>
       </section>}
+      <div ref={setSettingsContainer} className="empty:hidden" />
       <nav aria-label={say(lang, 'Class sections', '班级栏目')} className="grid grid-cols-3 gap-2">
         {['lessons', 'students', 'practice'].map((key, i) => <button key={key} className={secondary + (tab === key ? ' !border-indigo-400 !bg-indigo-50 !text-indigo-700' : '')} aria-pressed={tab === key} onClick={() => switchTab(key)}>{say(lang, ['Lessons', 'Students', 'Extra practice'][i], ['课程', '学生', '拓展练习'][i])}</button>)}
       </nav>
     </>}
     <div hidden={!!selectedStudent || tab !== 'lessons'}>
-      <ClassLessons classId={classId} isOwner lang={lang} api={lessonsApi} refreshKey={refreshKey} showProgress={false} settingsRequest={settingsRequest} onData={setCourse} onOpen={onOpen} visible={visible && !selectedStudent && tab === 'lessons'} />
+      <ClassLessons classId={classId} isOwner lang={lang} api={lessonsApi} refreshKey={refreshKey} showProgress={false} settingsRequest={settingsRequest} settingsContainer={settingsContainer} onData={setCourse} onOpen={onOpen} visible={visible && !selectedStudent && tab === 'lessons'} />
     </div>
     {selectedStudent && <StudentProfile key={selectedStudent.id} student={selectedStudent} report={reports.practice} lessonReport={reports.lessons} classId={classId} className={detail.class.name} lang={lang} api={api} lessonsApi={lessonsApi} refreshKey={refreshKey + reload} visible={visible} onOpen={onOpen} onBack={() => { setSelected(null); requestAnimationFrame(() => rosterButton.current?.focus()); }} />}
     {!selectedStudent && tab === 'students' && <section className="space-y-4">

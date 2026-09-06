@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { lessonApi, lessonError, collectionName, card, button, secondary, say } from './shared';
 import { CoursePicker } from './CoursePicker';
-export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0, showProgress = true, settingsRequest = 0, onData, visible = true }) {
+export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0, showProgress = true, settingsRequest = 0, settingsContainer, onData, visible = true }) {
   const [data, setData] = useState(null),
     [collections, setCollections] = useState([]),
     [choice, setChoice] = useState(''),
@@ -84,6 +85,8 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
     const result = await api(`/classes/${classId}/students/${s.id}`);
     if (request === generation.current) setStudent({ id: s.id, name: s.name, ...result });
   });
+  // Keep course saving in one place while letting the teacher page position its panel.
+  const placeSettings = form => settingsContainer === undefined ? form : settingsContainer ? createPortal(form, settingsContainer) : null;
   const list = (rows, archived = false) => (
     <div className="grid md:grid-cols-2 gap-4">
       {rows.map((l) => (
@@ -136,7 +139,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
               ? collectionName(data.collection, lang)
               : say(lang, 'No course selected yet.', '尚未选择课程。')}
           </p>}
-          {isOwner && settings && (
+          {isOwner && settings && visible && placeSettings(
             <form
               className={card + ' space-y-5'}
               onSubmit={(e) => {
