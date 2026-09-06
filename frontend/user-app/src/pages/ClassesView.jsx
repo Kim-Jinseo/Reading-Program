@@ -12,7 +12,11 @@ import { LessonPlayer } from '../components/lessons/LessonPlayer';
 import { LessonLibrary } from '../components/lessons/LessonLibrary';
 import { applyLessonRewardSnapshot } from '../utils/lessonRewards';
 
-export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
+export const ClassesView = props => {
+  const { user } = useAppContext();
+  return <ClassesScreen key={`${user.username}:${user.role}:${user.isGuest}:${localStorage.getItem('token') || ''}`} {...props} />;
+};
+const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const { user, setUser, lang } = useAppContext();
   const [classes, setClasses] = useState([]);
   const [mode, setMode] = useState('home');
@@ -33,14 +37,25 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const [teacherCode, setTeacherCode] = useState('');
   const [issued, setIssued] = useState(null);
   const teacher = ['teacher', 'admin'].includes(user.role);
+  const language = useRef(lang);
+  language.current = lang;
+  const navigation = useRef(0);
+  useEffect(() => () => { navigation.current++; }, []);
   useEffect(() => {
     if (user.isGuest || !teacher) return;
     let active = true;
-    lessonsApi('/collections').then(data => { if (active) setCollections(data.collections); }).catch(e => { if (active) setError(lessonError(e, lang)); });
+    lessonsApi('/collections').then(data => { if (active) setCollections(data.collections); }).catch(e => { if (active) setError(lessonError(e, language.current)); });
     return () => { active = false; };
-  }, [lessonsApi, user.isGuest, teacher, lang, mode]);
-  const language = useRef(lang);
-  language.current = lang;
+  }, [lessonsApi, user.isGuest, teacher]);
+  const detailId = detail?.class.id, detailOwner = detail?.isOwner;
+  useEffect(() => {
+    if (!detailId || !detailOwner) return;
+    let active = true;
+    api(`/classes/${detailId}/report`, undefined, { fresh: lessonRefresh > 0 })
+      .then(data => { if (active) setReport(data); })
+      .catch(e => { if (active) setError(errorText(language.current, e)); });
+    return () => { active = false; };
+  }, [api, detailId, detailOwner, lessonRefresh]);
   useEffect(() => {
     if (user.isGuest) return;
     let active = true;
@@ -53,12 +68,26 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     setBusy(true); setError(''); setNotice('');
     try { await action(); } catch (e) { setError(errorText(lang, e)); } finally { setBusy(false); }
   };
-  const openClass = async id => {
-    const data = await api(`/classes/${id}`);
-    const results = data.isOwner ? await api(`/classes/${id}/report`) : null;
-    setDetail(data); setReport(results); setLessonRefresh(v => v + 1); setMode('detail');
+  const openClass = async (id, fresh = false) => {
+    const request = ++navigation.current;
+    const data = await api(`/classes/${id}`, undefined, { fresh });
+    if (request !== navigation.current) return;
+    setDetail(data); setReport(previous => detailId === id ? previous : null); setLessonRefresh(v => fresh ? v + 1 : 0); setMode('detail');
   };
-  const goHome = () => run(async () => { const data = await api('/classes'); setClasses(data.classes); setDetail(null); setMode('home'); });
+  const goHome = () => {
+    const request = ++navigation.current;
+    setDetail(null); setMode('home'); setError('');
+    api('/classes', undefined, { fresh: true }).then(data => { if (request === navigation.current) setClasses(data.classes); })
+      .catch(e => { if (request === navigation.current) setError(errorText(language.current, e)); });
+  };
+  const backToClass = () => {
+    const request = ++navigation.current, id = detail.class.id;
+    setMode('detail'); setLesson(null); setAssignment(null); setError('');
+    setLessonRefresh(v => v + 1);
+    api(`/classes/${id}`, undefined, { fresh: true }).then(data => {
+      if (request === navigation.current) setDetail(data);
+    }).catch(e => { if (request === navigation.current) setError(errorText(language.current, e)); });
+  };
   const copyCode = async text => {
     try { await navigator.clipboard.writeText(text); setNotice(say(lang, 'Code copied.', '邀请码已复制。')); }
     catch { setNotice(say(lang, 'Select and copy the code shown here.', '请选中并复制这里显示的邀请码。')); }
@@ -120,8 +149,8 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           {issued && <div className="space-y-3"><label className="block font-bold">{say(lang, 'Copy this code now', '请立即复制此验证码')}<input readOnly className={field + ' mt-2 font-mono'} value={issued.code} onFocus={e => e.target.select()} /></label><button className={secondary} onClick={() => copyCode(issued.code)}>{say(lang, 'Copy teacher code', '复制教师验证码')}</button></div>}
         </section>}
       </>}
-      {mode === 'detail' && detail && <>
-        <div className="flex flex-wrap gap-3"><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button><button className={secondary} disabled={busy} onClick={() => run(() => openClass(detail.class.id))}><RefreshCw size={16} className="inline mr-2" />{say(lang, 'Refresh results', '刷新成绩')}</button></div>
+      {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
+        <div className="flex flex-wrap gap-3"><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button><button className={secondary} disabled={busy} onClick={() => run(() => openClass(detail.class.id, true))}><RefreshCw size={16} className="inline mr-2" />{say(lang, 'Refresh results', '刷新成绩')}</button></div>
         <section className={card + ' space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
           {detail.isOwner && <div className="space-y-3">
@@ -129,7 +158,7 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
             <div className="flex flex-wrap gap-3"><button className={secondary} onClick={() => copyCode(detail.class.invitationCode)}><Copy className="inline mr-2" size={16} />{say(lang, 'Copy code', '复制邀请码')}</button><button className={secondary} disabled={busy} onClick={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }}>{say(lang, 'Replace code', '更换邀请码')}</button></div>
           </div>}
         </section>
-        <ClassLessons key={`lessons-${detail.class.id}-${lessonRefresh}`} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { setLesson({ data, studentId }); setMode('lesson'); }} />
+        <ClassLessons key={`lessons-${detail.class.id}`} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
         {(detail.isOwner || detail.assignments.length > 0) && <section className="space-y-4">
           {!detail.isOwner && <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>}
           <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>{detail.isOwner && <button className={button} onClick={() => { setError(''); setMode('editor'); }}><Plus size={18} className="inline mr-2" />{say(lang, 'Assign extra practice', '布置拓展练习')}</button>}</div>
@@ -143,14 +172,15 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
             </>}
           </div>)}</div>
         </section>}
-        {detail.isOwner && report && <ClassReport key={detail.class.id} report={report} lang={lang} api={api} />}
-      </>}
-      {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={() => run(() => openClass(detail.class.id))} onPublished={() => run(() => openClass(detail.class.id))} />}
-      {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={() => run(() => openClass(detail.class.id))} />}
+        {detail.isOwner && !report && <p role="status" className="text-sm text-slate-500">{say(lang, 'Loading student report… You can use the class while it loads.', '正在加载学生报告…你可以先使用其他班级功能。')}</p>}
+        {detail.isOwner && report && <ClassReport key={`report-${detail.class.id}`} report={report} lang={lang} api={api} />}
+      </div>}
+      {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={backToClass} onPublished={backToClass} />}
+      {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={backToClass} />}
       {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi}
         onRewards={total => setUser(previous => applyLessonRewardSnapshot(previous, total))}
-        onBack={() => run(() => openClass(detail.class.id))} />}
-      {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => setMode('home')} />}
+        onBack={backToClass} />}
+      {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => { setMode('home'); lessonsApi('/collections', undefined, { fresh: true }).then(data => setCollections(data.collections)).catch(e => setError(lessonError(e, language.current))); }} />}
     </>}
   </div>;
 };

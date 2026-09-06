@@ -54,4 +54,6 @@ The PDF implementation follows the [PDF.js browser examples](https://mozilla.git
 
 ## Verification notes
 
+Class and lesson reads reuse a small, account-session-specific memory cache for up to 30 seconds. Nothing is written to browser storage. Submissions and other changes invalidate both caches; explicit refresh fetches current data. Returning from an activity shows the existing class page immediately while refreshing progress. Teacher reports load independently, so they do not block lesson navigation. Switching accounts clears the reusable data and class screen state; server permission and submission checks are unchanged.
+
 Use `node --test tests/classrooms.test.js tests/lessons.test.js` for the server contract checks. Frontend tests run through the existing React test command. `tests/classrooms.browser.mjs` exercises the built website with synthetic accounts/database data and a fake microphone, including browser-side PDF conversion and the site's content-security policy. It must never be pointed at production accounts. Live Mongo persistence, live speech-provider scoring, and physical iPad/WeChat behavior need a deployment smoke test; local simulation is not a claim that those services/devices were exercised.

@@ -86,10 +86,10 @@ export const LeaderboardView = () => {
             <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
               <Trophy size={30} className="text-white" />
             </div>
-            <div>
-              <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
                 <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-sm">Your Personal Rank</span>
-                <span className="text-[10px] sm:text-xs font-bold text-white/80">• {user.username || user.name || 'Student'}</span>
+                <span className="text-[10px] sm:text-xs font-bold text-white/80 min-w-0 [overflow-wrap:anywhere]">• {user.username || user.name || 'Student'}</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-black">
                 {userRankNumber <= 3 ? '🎉 Podium Ranking!' : `Rank #${userRankNumber} Global`}
@@ -127,14 +127,14 @@ export const LeaderboardView = () => {
 
           {/* Top 20 Ranks */}
           {top20Board.map((student, index) => (
-            <div key={student.id || index} className={`flex items-center justify-between p-6 border-b border-slate-50 last:border-0 transition-colors ${student.isCurrentUser ? 'bg-indigo-50/70 border-l-4 border-l-indigo-600' : 'hover:bg-slate-50'}`}>
+            <div key={student.id || index} className={`flex items-center justify-between gap-3 p-4 sm:p-6 border-b border-slate-50 last:border-0 transition-colors ${student.isCurrentUser ? 'bg-indigo-50/70 border-l-4 border-l-indigo-600' : 'hover:bg-slate-50'}`}>
               <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-white shadow-sm ${index === 0 ? 'bg-amber-400' : index === 1 ? 'bg-slate-400' : index === 2 ? 'bg-amber-600' : 'bg-slate-200 text-slate-600'}`}>
+                <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center font-black text-white shadow-sm ${index === 0 ? 'bg-amber-400' : index === 1 ? 'bg-slate-400' : index === 2 ? 'bg-amber-600' : 'bg-slate-200 text-slate-600'}`}>
                   {index + 1}
                 </div>
                 <div className="min-w-0">
-                  <p className={`font-bold text-lg flex items-center gap-2 ${student.isCurrentUser ? 'text-indigo-900 font-extrabold' : 'text-slate-800'}`}>
-                    <span className="truncate">{student.name}</span>
+                  <p className={`font-bold text-lg flex flex-wrap items-center gap-2 ${student.isCurrentUser ? 'text-indigo-900 font-extrabold' : 'text-slate-800'}`}>
+                    <span className="min-w-0 [overflow-wrap:anywhere]">{student.name}</span>
                     {student.isCurrentUser && (
                       <span className="text-xs bg-indigo-600 text-white px-2 py-0.5 rounded-full font-black uppercase tracking-wider flex items-center gap-1 shadow-xs">
                         <UserCheck size={12} /> You
@@ -143,7 +143,7 @@ export const LeaderboardView = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center gap-2">
                 <span className={`font-extrabold text-xl ${student.isCurrentUser ? 'text-indigo-700' : 'text-amber-500'}`}>{student.trophies}</span>
                 <Trophy size={22} className={student.isCurrentUser ? 'text-indigo-500' : 'text-amber-400'} />
               </div>
@@ -152,21 +152,21 @@ export const LeaderboardView = () => {
 
           {/* Sticky Rank Row if User is Outside Top 20 */}
           {isUserOutsideTop20 && currentUserObj && (
-            <div className="bg-indigo-600 text-white p-6 flex items-center justify-between shadow-lg border-t-2 border-indigo-400 animate-in fade-in">
+            <div className="bg-indigo-600 text-white p-4 sm:p-6 flex items-center justify-between gap-3 shadow-lg border-t-2 border-indigo-400 animate-in fade-in">
               <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center font-black text-white shadow-sm">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center font-black text-white shadow-sm">
                   #{userRankNumber}
                 </div>
                 <div className="min-w-0">
-                  <p className="font-extrabold text-lg flex items-center gap-2 text-white">
-                    <span className="truncate">{currentUserObj.name}</span>
+                  <p className="font-extrabold text-lg flex flex-wrap items-center gap-2 text-white">
+                    <span className="min-w-0 [overflow-wrap:anywhere]">{currentUserObj.name}</span>
                     <span className="text-xs bg-white text-indigo-700 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shadow-xs">
                       You
                     </span>
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center gap-2">
                 <span className="font-extrabold text-xl text-yellow-300">{currentUserObj.trophies}</span>
                 <Trophy size={22} className="text-yellow-300" />
               </div>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { lessonApi, lessonError, collectionName, card, button, secondary, say } from './shared';
 import { CoursePicker } from './CoursePicker';
-export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi }) {
+export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0 }) {
   const [data, setData] = useState(null),
     [collections, setCollections] = useState([]),
     [choice, setChoice] = useState(''),
@@ -10,18 +10,22 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi }
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [settings, setSettings] = useState(false);
+  const language = useRef(lang);
+  const generation = useRef(0);
+  language.current = lang;
   const refresh = async () => {
-    const result = await api(`/classes/${classId}`);
+    const result = await api(`/classes/${classId}`, undefined, { fresh: true });
     setData(result);
     setChoice(result.collection?._id || '');
     if (isOwner) {
-      setCollections((await api('/collections')).collections);
-      setReport(await api(`/classes/${classId}/report`));
+      setReport(await api(`/classes/${classId}/report`, undefined, { fresh: true }));
     }
   };
   useEffect(() => {
     let active = true;
-    api(`/classes/${classId}`)
+    const epoch = ++generation.current;
+    setStudent(null);
+    api(`/classes/${classId}`, undefined, { fresh: refreshKey > 0 })
       .then((result) => {
         if (active) {
           setData(result);
@@ -29,23 +33,30 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi }
         }
       })
       .catch((e) => {
-        if (active) setError(lessonError(e, lang));
+        if (active) setError(lessonError(e, language.current));
       });
     if (isOwner)
-      Promise.all([api('/collections'), api(`/classes/${classId}/report`)])
-        .then(([c, r]) => {
+      api(`/classes/${classId}/report`, undefined, { fresh: refreshKey > 0 })
+        .then(r => {
           if (active) {
-            setCollections(c.collections);
             setReport(r);
           }
         })
         .catch((e) => {
-          if (active) setError(lessonError(e, lang));
+          if (active) setError(lessonError(e, language.current));
         });
     return () => {
       active = false;
+      generation.current = epoch + 1;
     };
-  }, [api, classId, isOwner, lang]);
+  }, [api, classId, isOwner, refreshKey]);
+  useEffect(() => {
+    if (!isOwner || !settings) return;
+    let active = true;
+    api('/collections').then(result => { if (active) setCollections(result.collections); })
+      .catch(e => { if (active) setError(lessonError(e, language.current)); });
+    return () => { active = false; };
+  }, [api, isOwner, settings]);
   const run = async (fn) => {
     if (busy) return;
     setBusy(true);
@@ -58,10 +69,16 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi }
       setBusy(false);
     }
   };
-  const open = (id, studentId) =>
-    run(async () =>
-      onOpen(await api(`/classes/${classId}/lessons/${id}${studentId ? `?studentId=${studentId}` : ''}`), studentId),
-    );
+  const open = (id, studentId) => run(async () => {
+    const request = generation.current;
+    const result = await api(`/classes/${classId}/lessons/${id}${studentId ? `?studentId=${studentId}` : ''}`);
+    if (request === generation.current) onOpen(result, studentId);
+  });
+  const openStudent = s => run(async () => {
+    const request = generation.current;
+    const result = await api(`/classes/${classId}/students/${s.id}`);
+    if (request === generation.current) setStudent({ id: s.id, name: s.name, ...result });
+  });
   const list = (rows, archived = false) => (
     <div className="grid md:grid-cols-2 gap-4">
       {rows.map((l) => (
@@ -184,11 +201,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi }
                 key={s.id}
                 disabled={busy}
                 className="text-left p-4 border rounded-xl min-w-0 space-y-2"
-                onClick={() =>
-                  run(async () =>
-                    setStudent({ id: s.id, name: s.name, ...(await api(`/classes/${classId}/students/${s.id}`)) }),
-                  )
-                }
+                onClick={() => openStudent(s)}
               >
                 <span className="font-bold block break-words">{s.name}</span>
                 <span className="text-sm block">

@@ -9,6 +9,7 @@ function matches(doc, query) {
     if (wanted && typeof wanted === 'object' && !(wanted instanceof ObjectId) && !(wanted instanceof Date)) {
       return Object.entries(wanted).every(([op, target]) => {
         if (op === '$in') return target.some(item => eq(value, item));
+        if (op === '$nin') return !target.some(item => eq(value, item));
         if (op === '$ne') return Array.isArray(value) ? !value.some(item => eq(item, target)) : !eq(value, target);
         if (op === '$exists') return (value !== undefined) === target;
         if (op === '$lt') return value < target;

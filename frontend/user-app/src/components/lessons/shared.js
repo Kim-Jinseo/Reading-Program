@@ -1,7 +1,10 @@
 import { say } from '../classes/shared';
+import { classRequest } from '../../utils/classReads';
 export { say, card, field, button, secondary, dateText } from '../classes/shared';
 export const authHeaders = () => ({ Authorization: `Bearer ${localStorage.getItem('token') || ''}` });
-export async function lessonApi(path, body) {
+export async function lessonApi(path, body, { fresh = false } = {}) {
+  const token = localStorage.getItem('token');
+  return classRequest({ token, key: '/lessons' + path, write: body !== undefined, fresh }, async () => {
   const res = await fetch('/api/lessons' + path, {
     method: body === undefined ? 'GET' : 'POST',
     headers: { ...authHeaders(), ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
@@ -14,6 +17,7 @@ export async function lessonApi(path, body) {
       status: res.status,
     });
   return data;
+  });
 }
 export const requestId = () =>
   window.crypto?.randomUUID?.() || `lesson-${Date.now()}-${Math.random().toString(36).slice(2)}`;

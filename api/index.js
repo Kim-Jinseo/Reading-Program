@@ -743,11 +743,9 @@ app.post('/placement-tests', optionalAuth, placementRateLimit, async (c) => {
   }
 });
 
-const maskLeaderboardName = (username) => {
+const leaderboardName = (username) => {
   const text = typeof username === 'string' ? username.trim() : '';
-  if (!text) return 'Student';
-  if (text.length === 1) return text + '•';
-  return text.slice(0, 1) + '•'.repeat(Math.min(4, Math.max(1, text.length - 1)));
+  return text || 'Student';
 };
 
 app.get('/leaderboard', optionalAuth, async (c) => {
@@ -761,7 +759,7 @@ app.get('/leaderboard', optionalAuth, async (c) => {
     const accountUserId = c.get('user')?.userId || null;
     const leaderboard = usersData.map(u => ({
       userId: u._id.toString(),
-      name: maskLeaderboardName(u.username),
+      name: leaderboardName(u.username),
       trophies: u.trophies !== undefined ? u.trophies : (u.stars || 0),
     }))
       .sort((a, b) => b.trophies - a.trophies)

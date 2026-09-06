@@ -26,8 +26,24 @@ after(() => {
   }
   mock.restoreAll();
 });
-const { POST } = await import('../api/index.js');
+const { POST, GET } = await import('../api/index.js');
 let requestNumber = 0;
+test('public leaderboard shows complete English and Chinese usernames without private account fields', async () => {
+  for (const account of [
+    { username: '  Jinseo Kim  ', trophies: 116 },
+    { username: '王小明', trophies: 120 },
+    { username: ' ', stars: 3 },
+    { username: 'Private Teacher', role: 'teacher', trophies: 999 },
+  ]) await db.users.insertOne({ role: 'student', pin: 'private-hash', tokenVersion: 7, ...account });
+  const response = await GET(new Request('http://localhost/api/leaderboard'));
+  assert.equal(response.status, 200);
+  const { data } = await response.json();
+  assert.deepEqual(data, [
+    { id: 'rank-1', name: '王小明', trophies: 120, isCurrentUser: false },
+    { id: 'rank-2', name: 'Jinseo Kim', trophies: 116, isCurrentUser: false },
+    { id: 'rank-3', name: 'Student', trophies: 3, isCurrentUser: false },
+  ]);
+});
 async function submit(body) {
   const response = await POST(new Request('http://localhost/api/auth/login', {
     method: 'POST', headers: { 'content-type': 'application/json', 'x-vercel-forwarded-for': `synthetic-${++requestNumber}` },

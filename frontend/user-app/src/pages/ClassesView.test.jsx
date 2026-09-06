@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { ClassesView } from './ClassesView';
 import { useAppContext } from '../context/AppContext';
 
@@ -14,6 +14,53 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
   return <><button onClick={() => setLang(l => l === 'en' ? 'zh' : 'en')}>Toggle language</button><ClassesView api={api} lessonsApi={lessonRequests} /></>;
 }
 beforeEach(() => localStorage.clear());
+
+test('teacher can open a class before a slow report finishes and course lists do not reload on navigation', async () => {
+  let finishReport;
+  const slowReport = new Promise(resolve => { finishReport = resolve; });
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : path.endsWith('/report') ? slowReport : { class: classroom, isOwner: true, assignments: [] });
+  const lessonRequests = jest.fn(lessonsApi);
+  render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  await screen.findByRole('button', { name: 'Assign extra practice' });
+  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle language' }));
+  expect(lessonRequests.mock.calls.filter(([path]) => path === '/collections')).toHaveLength(1);
+  await act(async () => finishReport({ students: [], assignments: [] }));
+});
+
+test('replacing a class invitation does not discard an already loaded teacher report', async () => {
+  window.confirm = jest.fn(() => true);
+  const api = async path => path === '/classes' ? { classes: [classroom] }
+    : path.endsWith('/report') ? { students: [], assignments: [] }
+    : { class: { ...classroom, invitationCode: 'INVITE123' }, isOwner: true, assignments: [] };
+  render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  await waitFor(() => expect(screen.queryByText(/Loading student report/)).not.toBeInTheDocument());
+  fireEvent.click(screen.getByRole('button', { name: 'Replace code' }));
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Replace code' })).toBeEnabled());
+  expect(screen.queryByText(/Loading student report/)).not.toBeInTheDocument();
+});
+
+test('returning from a lesson shows the existing class immediately while progress refresh is delayed', async () => {
+  let slow = false;
+  const never = new Promise(() => {});
+  const api = jest.fn(async path => slow ? never : path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [] });
+  const lessonRequests = jest.fn(async path => {
+    if (slow) return never;
+    if (path.includes('/lessons/')) return { revision: 0, parts: [], lesson: { id: 'l', number: 1, title: 'Our room', slides: [], vocabulary: [], questions: [] } };
+    return { collection: null, history: [], lessons: [{ id: 'l', number: 1, title: 'Our room', progress: { done: [], total: 5 } }] };
+  });
+  render(<Harness api={api} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Open lesson' }));
+  await screen.findByTestId('lesson-player');
+  slow = true;
+  fireEvent.click(screen.getByRole('button', { name: '← Back to class' }));
+  expect(screen.getByRole('heading', { name: 'Monday English' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Open lesson' })).toBeInTheDocument();
+  expect(screen.queryByTestId('lesson-player')).not.toBeInTheDocument();
+});
 
 test('guest must sign in and cannot request private class data', () => {
   const api = jest.fn();
