@@ -357,7 +357,9 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, seed = 
       c.json({ success: true, attempt: publicParts([{ part, attempts: [attempt] }])[0].attempts[0] });
     if (replay) return respond(replay);
     if (!active || input.revision !== (row.lessonRevision || 0)) changed();
-    const max = part === 'slides' ? 1 : 3;
+    // Reviewed choice answers are shown after submission, so these activities
+    // allow only one attempt. Existing saved attempts remain reviewable.
+    const max = ['slides', 'vocabulary', 'questions'].includes(part) ? 1 : 3;
     if ((existing?.attempts.length || 0) >= max)
       throw new ClassroomError('You have used all attempts for this activity.', 409, 'attempt_limit');
     let result = {};

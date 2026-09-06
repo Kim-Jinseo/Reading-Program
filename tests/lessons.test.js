@@ -120,11 +120,46 @@ test('server grades choices, accepts a replay once, caps retries and counts real
   assert.equal(saved.body.attempt.score, 4);
   await submit('vocabulary', { answers });
   assert.equal(db.lessonParts.docs[0].attempts.length, 1);
-  for (const n of [2, 3]) assert.equal((await submit('vocabulary', { answers }, `request-123456789${n}`)).status, 200);
+  for (const n of [2, 3]) assert.equal((await submit('vocabulary', { answers }, `request-123456789${n}`)).status, 409);
   assert.equal((await submit('vocabulary', { answers }, 'request-1234567894')).status, 409);
   const report = await req('/classes/class/report', teacher);
   assert.equal(report.body.students[0].studyDays28, 1);
   assert.equal(report.body.students[0].completed, 0);
+});
+
+test('vocabulary and quick check accept only one submission, including competing requests', async () => {
+  for (const part of ['vocabulary', 'questions']) {
+    const { submit, lesson, db } = await setup();
+    const answers = lesson[part].map(q => ({ questionId: q.id, optionId: q.correctOptionId }));
+    const results = await Promise.all([1, 2].map(n => submit(part, { answers }, `single-attempt-${n}`)));
+    assert.deepEqual(results.map(r => r.status).sort(), [200, 409]);
+    assert.equal(db.lessonParts.docs[0].attempts.length, 1);
+  }
+});
+
+test('legacy multiple-choice results stay readable and replayable without allowing new attempts', async () => {
+  const { submit, req, lesson, db } = await setup();
+  const answers = lesson.questions.map(q => ({ questionId: q.id, optionId: q.correctOptionId }));
+  const first = await submit('questions', { answers });
+  const prior = db.lessonParts.docs[0];
+  prior.attempts.push({ ...prior.attempts[0], requestId: 'legacy-attempt-2' });
+  prior.attempts.push({ ...prior.attempts[0], requestId: 'legacy-attempt-3' });
+  assert.equal((await submit('questions', { answers })).status, 200);
+  assert.equal((await submit('questions', { answers }, 'new-attempt-444')).status, 409);
+  const saved = (await req('/classes/class/lessons/lesson')).body.parts.find(p => p.part === 'questions');
+  assert.equal(saved.attempts.length, 3);
+  assert.equal(saved.attempts[0].score, first.body.attempt.score);
+});
+
+test('speaking and writing still allow three submitted attempts, not four', async () => {
+  for (const part of ['writing', 'speaking']) {
+    const { submit } = await setup();
+    const data = part === 'writing' ? { text: 'I see a desk.' } : {
+      audioBase64: Buffer.concat([Buffer.from([0x1a, 0x45, 0xdf, 0xa3]), Buffer.alloc(120)]).toString('base64'), audioMime: 'audio/webm'
+    };
+    for (const n of [1, 2, 3]) assert.equal((await submit(part, data, `retry-attempt-${n}`)).status, 200);
+    assert.equal((await submit(part, data, 'retry-attempt-4')).status, 409);
+  }
 });
 test('course correction archives, rejects stale submissions, preserves work and restores original progress', async () => {
   const { req, submit } = await setup();

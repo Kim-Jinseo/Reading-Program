@@ -9,36 +9,11 @@ import {
   secondary,
   field,
   say,
-  mediaUrl,
-  dateText,
 } from './shared';
 import { SlideViewer } from './SlideViewer';
 import { LessonSpeaking } from './LessonSpeaking';
+import { LessonResult } from './LessonResult';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
-function SavedAudio({ path, lang }) {
-  const [url, setUrl] = React.useState(''),
-    [error, setError] = React.useState(false);
-  React.useEffect(
-    () => () => {
-      if (url) URL.revokeObjectURL(url);
-    },
-    [url],
-  );
-  return url ? (
-    <audio controls className="w-full max-w-md" src={url} />
-  ) : (
-    <button
-      className={secondary}
-      onClick={() =>
-        mediaUrl(path)
-          .then(setUrl)
-          .catch(() => setError(true))
-      }
-    >
-      {error ? say(lang, 'Retry audio', '重试音频') : say(lang, 'Listen to saved recording', '听已提交的录音')}
-    </button>
-  );
-}
 export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId }) {
   const [data, setData] = useState(initial),
     [part, setPart] = useState('slides'),
@@ -48,6 +23,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     [micBusy, setMicBusy] = useState(false),
     [viewed, setViewed] = useState(false),
     [busy, setBusy] = useState(false),
+    [retrying, setRetrying] = useState(false),
     [error, setError] = useState('');
   const pending = React.useRef(null),
     lock = React.useRef(false);
@@ -55,8 +31,9 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
   const base = `/classes/${classId}/lessons/${lesson.id}`,
     query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : '';
   const attempts = data.parts.find((p) => p.part === part)?.attempts || [],
-    max = part === 'slides' ? 1 : 3,
+    max = ['slides', 'vocabulary', 'questions'].includes(part) ? 1 : 3,
     locked = data.readOnly || attempts.length >= max;
+  const showForm = !attempts.length || retrying;
   const questions = ['vocabulary', 'questions'].includes(part) ? lesson[part] : [];
   const canSubmit =
     part === 'slides'
@@ -67,7 +44,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           ? !!recording
           : questions.every((q) => answers[q.id]);
   const submit = async () => {
-    if (lock.current) return;
+    if (lock.current || (!pending.current && (locked || !canSubmit))) return;
     lock.current = true;
     setBusy(true);
     setError('');
@@ -98,6 +75,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       setAnswers({});
       setRecording(null);
       setWriting('');
+      setRetrying(false);
     } catch (e) {
       if (e.status >= 400 && e.status < 500) pending.current = null;
       setError(lessonError(e, lang));
@@ -106,7 +84,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       setBusy(false);
     }
   };
-  const completed = parts.every((p) => data.parts.some((row) => row.part === p && row.attempts.length));
+  const completedCount = parts.filter(p => data.parts.some(row => row.part === p && row.attempts.length)).length;
+  const completed = completedCount === parts.length;
   return (
     <div className="space-y-6" data-testid="lesson-player">
       <button
@@ -141,6 +120,12 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               )
             : say(lang, 'Review the slides and try each short activity.', '先复习课件，再完成各项小练习。')}
         </p>
+        <div className="mt-5 space-y-2">
+          <p className="font-semibold text-sm text-emerald-800" role="status">{say(lang, `${completedCount} of 5 activities completed`, `已完成 ${completedCount} / 5 项学习任务`)}</p>
+          <div role="progressbar" aria-label={say(lang, 'Lesson progress', '课程进度')} aria-valuemin={0} aria-valuemax={5} aria-valuenow={completedCount} className="h-2 rounded-full bg-slate-200 overflow-hidden">
+            <div className="h-full rounded-full bg-emerald-500" style={{ width: `${completedCount * 20}%` }} />
+          </div>
+        </div>
         {data.readOnly && (
           <p className="mt-3 font-bold text-amber-800">
             {data.isOwner
@@ -149,13 +134,17 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           </p>
         )}
       </header>
-      <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-        {parts.map((p) => (
+      <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-3">
+        {parts.map((p) => {
+          const done = data.parts.some(r => r.part === p && r.attempts.length);
+          return (
           <button
             key={p}
             aria-pressed={part === p}
             disabled={busy || micBusy || !!pending.current}
-            className={(part === p ? button : secondary) + ' text-sm px-3'}
+            className={`min-w-0 min-h-[76px] border-2 rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${done
+              ? part === p ? 'border-emerald-600 bg-emerald-100 text-emerald-950' : 'border-emerald-200 bg-emerald-50 text-emerald-900'
+              : part === p ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-slate-200 bg-white text-slate-600'}`}
             onClick={() => {
               if (
                 (writing.trim() || Object.keys(answers).length || recording) &&
@@ -173,12 +162,13 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               setWriting('');
               setRecording(null);
               setError('');
+              setRetrying(false);
             }}
           >
-            {data.parts.some((r) => r.part === p && r.attempts.length) ? '✓ ' : ''}
-            {partName(p, lang)}
+            <span className="block font-bold text-sm sm:text-base">{partName(p, lang)}</span>
+            <span className="block mt-1 text-xs sm:text-sm">{done ? say(lang, 'Completed', '已完成') : say(lang, 'Not started', '未完成')}</span>
           </button>
-        ))}
+        ); })}
       </nav>
       <section className={card + ' space-y-6'}>
         <h3 className="text-xl font-extrabold">{partName(part, lang)}</h3>
@@ -205,7 +195,14 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             </p>
           </>
         )}
-        {questions.map((q, index) => (
+        {retrying && <div className="rounded-xl bg-indigo-50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <p className="text-indigo-900 font-semibold">{say(lang, 'New attempt — your earlier work is saved.', '再次尝试：以前的作答已保存。')}</p>
+          <button className={secondary} disabled={busy || micBusy || !!pending.current} onClick={() => {
+            if ((writing.trim() || recording) && !window.confirm(say(lang, 'Discard this unsubmitted attempt?', '放弃这次尚未提交的作答？'))) return;
+            setRetrying(false); setWriting(''); setRecording(null); setError('');
+          }}>{say(lang, 'Back to saved result', '返回已保存的结果')}</button>
+        </div>}
+        {showForm && questions.map((q, index) => (
           <fieldset key={q.id} disabled={locked || busy || !!pending.current} className="space-y-3">
             <legend className="font-bold mb-3">
               {index + 1}. {q.prompt}
@@ -230,7 +227,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             ))}
           </fieldset>
         ))}
-        {part === 'writing' && (
+        {showForm && part === 'writing' && (
           <>
             <p className="text-lg leading-relaxed">{say(lang, lesson.writing.prompt, lesson.writing.promptZh)}</p>
             <div className="bg-indigo-50 rounded-xl p-4 space-y-2">
@@ -257,7 +254,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             </p>
           </>
         )}
-        {part === 'speaking' && (
+        {showForm && part === 'speaking' && (
           <LessonSpeaking
             key={`${lesson.id}-${attempts.length}`}
             sentence={lesson.speaking.sentence}
@@ -267,7 +264,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             onStatus={setMicBusy}
           />
         )}
-        {!data.readOnly && (
+        {!data.readOnly && showForm && (
           <button
             className={button + ' w-full sm:w-auto'}
             disabled={locked || busy || micBusy || (!canSubmit && !pending.current)}
@@ -282,60 +279,17 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
                   : say(lang, 'Submit this activity', '提交本项练习')}
           </button>
         )}
-        {part !== 'slides' && (
+        {showForm && !data.readOnly && part !== 'slides' && (
           <p className="text-sm text-slate-500">
             {say(
               lang,
-              `${attempts.length} of ${max} attempts saved. Answers are saved only when you submit.`,
-              `${attempts.length} / ${max} 次已保存。点击提交后才会保存答案。`,
+              max === 1 ? 'One submission only. Check your answers before submitting.' : `${Math.max(0, max - attempts.length)} attempts remaining. Your answer is saved only when you submit.`,
+              max === 1 ? '只能提交一次，请检查答案后再提交。' : `还可以尝试 ${Math.max(0, max - attempts.length)} 次。点击提交后才会保存答案。`,
             )}
           </p>
         )}
-        {!!attempts.length && (
-          <div className="border-t pt-5 space-y-4">
-            <h4 className="font-bold">{say(lang, 'Saved work', '已保存的作业')}</h4>
-            {attempts.map((a, i) => (
-              <div key={a.requestId} className="rounded-xl bg-slate-50 p-4 space-y-3 break-words">
-                <p className="text-sm text-slate-500">
-                  {i + 1}. {dateText(lang, a.submittedAt)}
-                </p>
-                {a.score !== undefined && (
-                  <p className="font-bold text-emerald-800">
-                    {a.score} / {a.total}
-                    {a.automaticallyAssessed ? say(lang, ' · Automatic speaking feedback', ' · 口语自动反馈') : ''}
-                  </p>
-                )}
-                {a.text && <p className="whitespace-pre-wrap">{a.text}</p>}
-                {a.feedback && <p>{a.feedback}</p>}
-                {a.transcript && (
-                  <p>
-                    {say(lang, 'Heard: ', '识别内容：')}
-                    {a.transcript}
-                  </p>
-                )}
-                {a.hasAudio && <SavedAudio lang={lang} path={`${base}/audio/${a.requestId}${query}`} />}
-                {a.responses?.map((r) => {
-                  const q = lesson[part].find((q) => q.id === r.questionId);
-                  return (
-                    <div key={r.questionId} className="text-sm">
-                      <p className="font-bold">{q?.prompt}</p>
-                      <p>
-                        {say(lang, 'Your answer: ', '你的答案：')}
-                        {q?.options.find((o) => o.id === r.optionId)?.text} {r.correct ? '✓' : '✗'}
-                      </p>
-                      {!r.correct && (
-                        <p>
-                          {say(lang, 'Correct answer: ', '正确答案：')}
-                          {q?.options.find((o) => o.id === r.correctOptionId)?.text}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        )}
+        {!!attempts.length && !retrying && <LessonResult attempts={attempts} part={part} lesson={lesson} base={base} query={query} lang={lang}
+          remaining={Math.max(0, max - attempts.length)} readOnly={data.readOnly} onRetry={() => { setRetrying(true); setError(''); }} />}
       </section>
     </div>
   );
