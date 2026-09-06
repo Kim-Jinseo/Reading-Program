@@ -1,33 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { mediaUrl, secondary, say } from './shared';
-export function SlideViewer({ slides, basePath, query = '', lang, onViewedAll }) {
+export function SlideViewer(props) {
+  // Never reuse private media or viewing progress across lesson/account contexts.
+  const key = JSON.stringify([props.basePath, props.query || '', props.slides.map(s => s.id), localStorage.getItem('token')]);
+  return <SlideSession key={key} {...props} />;
+}
+function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
   const [index, setIndex] = useState(0),
-    [url, setUrl] = useState(''),
+    [display, setDisplay] = useState(null),
     [error, setError] = useState(false),
     [zoom, setZoom] = useState(false),
     [loaded, setLoaded] = useState([]),
     [retry, setRetry] = useState(0);
+  const cache = useRef(null);
   useEffect(() => {
-    let active = true,
-      objectUrl;
-    const controller = new AbortController();
-    setUrl('');
+    const session = { entries: new Map(), active: true };
+    cache.current = session;
+    return () => {
+      session.active = false;
+      for (const entry of session.entries.values()) {
+        entry.controller.abort();
+        if (entry.url) URL.revokeObjectURL(entry.url);
+      }
+      session.entries.clear();
+    };
+  }, []);
+  useEffect(() => {
+    let active = true;
+    const session = cache.current;
+    const load = (position) => {
+      const path = `${basePath}/slides/${encodeURIComponent(slides[position].id)}${query}`;
+      if (session.entries.has(path)) return session.entries.get(path).promise;
+      const entry = { controller: new AbortController(), url: '' };
+      entry.promise = mediaUrl(path, entry.controller.signal).then(result => {
+        if (!session.active) {
+          URL.revokeObjectURL(result);
+          return '';
+        }
+        entry.url = result;
+        return result;
+      }).catch(e => {
+        session.entries.delete(path);
+        throw e;
+      });
+      session.entries.set(path, entry);
+      return entry.promise;
+    };
     setError(false);
-    mediaUrl(`${basePath}/slides/${encodeURIComponent(slides[index].id)}${query}`, controller.signal)
+    if (!slides[index]) return undefined;
+    load(index)
       .then((result) => {
-        objectUrl = result;
-        if (active) setUrl(result);
-        else URL.revokeObjectURL(result);
+        if (!active || !session.active) return;
+        setDisplay({ index, url: result });
+        // Only one slide ahead; do not compete with the first visible download.
+        if (index + 1 < slides.length) load(index + 1).catch(() => {});
       })
       .catch((e) => {
         if (active && e.name !== 'AbortError') setError(true);
       });
     return () => {
       active = false;
-      controller.abort();
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
   }, [index, slides, basePath, query, retry]);
+  const url = display?.index === index ? display.url : '';
   return (
     <div className="space-y-4">
       <div
@@ -37,6 +72,7 @@ export function SlideViewer({ slides, basePath, query = '', lang, onViewedAll })
       >
         {url ? (
           <img
+            key={url}
             src={url}
             alt={slides[index].alt}
             className="block mx-auto"
