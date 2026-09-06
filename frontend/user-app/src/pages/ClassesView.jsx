@@ -130,6 +130,7 @@ export const ClassesView = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         </section>
         <ClassLessons key={`lessons-${detail.class.id}-${lessonRefresh}`} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { setLesson({ data, studentId }); setMode('lesson'); }} />
         {(detail.isOwner || detail.assignments.length > 0) && <section className="space-y-4">
+          {!detail.isOwner && <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>}
           <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>{detail.isOwner && <button className={button} onClick={() => { setError(''); setMode('editor'); }}><Plus size={18} className="inline mr-2" />{say(lang, 'Assign extra practice', '布置拓展练习')}</button>}</div>
           {!detail.assignments.length && <p className="text-slate-500">{say(lang, 'Choose website content when your class needs extra practice. Students only see this section after you assign something.', '班级需要额外练习时，可选择网站已有内容。布置练习后，学生才会看到此区域。')}</p>}
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>

@@ -76,6 +76,7 @@ test('students see assigned extra practice and their existing results, separate 
   render(<Harness api={api} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   await screen.findByRole('heading', { name: 'Extra practice' });
+  expect(screen.getByText('Assigned by your teacher.')).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeInTheDocument();
   expect(screen.getByText('Latest: 2 / 3 · Best: 2 / 3')).toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'Review / Try again' })).toBeInTheDocument();

@@ -16,6 +16,9 @@ import { LeaderboardView } from './pages/LeaderboardView';
 import { ShopView } from './pages/ShopView';
 import { TestView } from './pages/TestView';
 import { ClassesView } from './pages/ClassesView';
+import { PracticeHub } from './pages/PracticeHub';
+import { PracticeSubjectLayout } from './components/practice/PracticeSubjectLayout';
+import { isPracticeSubject } from './components/practice/PracticeCards';
 
 const AppFooter = () => {
   const { lang } = useAppContext();
@@ -33,6 +36,10 @@ const AppFooter = () => {
 const AppContent = () => {
   const { user, view, curriculumDb, isAuthLoading } = useAppContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const workspaceRef = React.useRef(null);
+  React.useLayoutEffect(() => {
+    if (workspaceRef.current) workspaceRef.current.scrollTop = 0;
+  }, [view]);
 
   if (isAuthLoading) {
     return (
@@ -73,16 +80,19 @@ const AppContent = () => {
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* WORKSPACE */}
-        <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 md:p-10 bg-slate-50/50">
+        <div ref={workspaceRef} className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 md:p-10 bg-slate-50/50">
           <div className="min-h-full flex flex-col">
             <div className="flex-1">
               {view === 'dashboard' && <MainDashboard />}
               {view === 'admin' && <AdminDashboardView />}
-              {view === 'vocab' && <VocabModule />}
-              {view === 'grammar' && <GrammarModule />}
-              {view === 'writing' && <WritingModule />}
-              {view === 'speaking' && <SpeakingModule />}
-              {view === 'reading' && <ReadingModule />}
+              {view === 'practice' && <PracticeHub />}
+              {isPracticeSubject(view) && <PracticeSubjectLayout>
+                {view === 'vocab' && <VocabModule />}
+                {view === 'grammar' && <GrammarModule />}
+                {view === 'writing' && <WritingModule />}
+                {view === 'speaking' && <SpeakingModule />}
+                {view === 'reading' && <ReadingModule />}
+              </PracticeSubjectLayout>}
               {view === 'extra_practice' && <ExtraPractice />}
               {view === 'leaderboard' && <LeaderboardView />}
               {view === 'shop' && <ShopView />}
