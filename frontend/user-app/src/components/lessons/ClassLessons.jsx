@@ -97,7 +97,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
   const list = (rows, archived = false) => (
     <div className="grid md:grid-cols-2 gap-4">
       {rows.map((l) => (
-        <article key={l.id} className={card + ' flex flex-col gap-5'}>
+        <article key={l.id} className={card + ' lesson-card flex flex-col gap-5'}>
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <p className="rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700">{say(lang, `Lesson ${l.number}`, `第 ${l.number} 课`)}</p>
             {!isOwner && <span className={`text-xs font-semibold ${l.progress.done.length === l.progress.total ? 'text-emerald-700' : 'text-slate-500'}`}>

@@ -33,7 +33,7 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons
   const switchTab = value => { setTab(value); setInvite(false); if (value === 'students') setVisited(true); };
   return <div className="space-y-6" data-testid="teacher-class">
     {!selectedStudent && <>
-      <header className={card + ' flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5'}>
+      <header className={card + ' class-cover flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5'}>
         <div className="min-w-0"><h2 className="text-2xl font-semibold tracking-tight break-words">{detail.class.name}</h2><p className="text-sm text-slate-500 mt-2 leading-relaxed">{course?.collection ? collectionName(course.collection, lang) : say(lang, 'Choose a course in Class settings.', '请在班级设置中选择课程。')}</p></div>
         <div className="grid grid-cols-2 gap-2 shrink-0">
           <button className={secondary} aria-expanded={invite} onClick={() => setInvite(v => !v)}><Users size={17} className="inline mr-2" aria-hidden="true" />{say(lang, 'Invite students', '邀请学生')}</button>

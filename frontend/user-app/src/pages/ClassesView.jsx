@@ -11,6 +11,7 @@ import { ClassLessons } from '../components/lessons/ClassLessons';
 import { LessonPlayer } from '../components/lessons/LessonPlayer';
 import { LessonLibrary } from '../components/lessons/LessonLibrary';
 import { applyLessonRewardSnapshot } from '../utils/lessonRewards';
+import { LearningArtwork } from '../components/common/LearningArtwork';
 
 export const ClassesView = props => {
   const { user } = useAppContext();
@@ -115,7 +116,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     <section className={card + ' space-y-5'}><Users className="text-indigo-600" size={36} /><h2 className="text-xl font-bold">{say(lang, 'Sign in to join your class', '登录后加入班级')}</h2><p className="text-slate-500">{say(lang, 'Use your own account so your teacher can see your assignment results.', '请使用自己的账号，以便老师查看你的作业成绩。')}</p><button className={button} onClick={() => { localStorage.removeItem('isGuest'); setUser(null); }}>{say(lang, 'Sign in / Create account', '登录 / 注册')}</button></section>
   </div>;
   return <div className="max-w-6xl mx-auto pb-6 space-y-6 sm:space-y-8">
-    {!['lesson', 'library'].includes(mode) && <header className="flex items-start gap-4 pt-2"><div className="rounded-xl border border-indigo-100 bg-indigo-50 text-indigo-600 p-3 shrink-0"><Users size={24} /></div><div><h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{say(lang, 'Classes', '班级')}</h1><p className="mt-2 text-sm sm:text-base text-slate-500 leading-relaxed">{teacher ? say(lang, 'Set assignments and follow your students’ learning.', '布置作业，了解学生的学习情况。') : say(lang, 'Join your class, finish assignments, and review your answers.', '加入班级，完成作业，复习答案。')}</p></div></header>}
+    {!['lesson', 'library'].includes(mode) && <header className="flex items-center gap-4 pt-2"><div className="rounded-2xl border border-indigo-100 bg-indigo-50 text-indigo-600 p-3 shrink-0"><Users size={24} /></div><div className="min-w-0 flex-1"><h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{say(lang, 'Classes', '班级')}</h1><p className="mt-2 text-sm sm:text-base text-slate-500 leading-relaxed">{teacher ? say(lang, 'Help your students grow, one lesson at a time.', '陪伴学生学习，见证每一课的进步。') : say(lang, 'Learn together. Try something new in every lesson.', '一起学习，每一课都有新收获。')}</p></div><LearningArtwork className="hidden sm:block h-20 w-28 shrink-0" /></header>}
     {error && <div role="alert" className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700 break-words">{error}</div>}
     {notice && <p role="status" className="rounded-2xl bg-emerald-50 p-4 text-emerald-800">{notice}</p>}
     {loading ? <p role="status" className="p-6 text-slate-500">{say(lang, 'Loading classes…', '正在加载班级…')}</p> : <>
@@ -123,7 +124,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'My classes', '我的班级')}</h2>
           {!classes.length && <p className={card + ' text-slate-500'}>{say(lang, 'No classes yet. Use the form below to get started.', '目前还没有班级。请使用下方的表单开始。')}</p>}
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">{classes.map(row => <button key={row.id} className={card + ' text-left transition-colors hover:border-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => run(() => openClass(row.id))}>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">{classes.map(row => <button key={row.id} className={card + ' class-list-card learning-link text-left transition-colors hover:border-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => run(() => openClass(row.id))}>
             <span className="flex items-center justify-between gap-3 mb-5"><span className="rounded-xl bg-indigo-50 p-2.5"><Users className="text-indigo-600" size={22} /></span><span className="text-xs font-medium text-slate-500">{say(lang, `${row.studentCount} students`, `${row.studentCount} 名学生`)}</span></span>
             <h3 className="text-xl font-semibold tracking-tight break-words">{row.name}</h3><p className="mt-5 border-t border-slate-100 pt-4 text-sm text-indigo-600 font-semibold">{say(lang, 'Open class →', '进入班级 →')}</p>
           </button>)}</div>
@@ -172,7 +173,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }}
           onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
-        <section className={card + ' space-y-5'}>
+        <section className={card + ' class-cover space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
         </section>
         <ClassLessons key={`lessons-${detail.class.id}`} initialLessons={lessonPreload} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />

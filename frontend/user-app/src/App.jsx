@@ -80,7 +80,7 @@ const AppContent = () => {
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* WORKSPACE */}
-        <div ref={workspaceRef} className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+        <div ref={workspaceRef} className="learning-workspace flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 lg:p-8">
           <div className="min-h-full flex flex-col">
             <div className="flex-1">
               {view === 'dashboard' && <MainDashboard />}

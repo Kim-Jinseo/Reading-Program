@@ -1,9 +1,9 @@
 import { classRequest } from '../../utils/classReads';
 export const say = (lang, en, zh) => lang === 'zh' ? zh : en;
-export const card = 'rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-[0_2px_8px_rgba(15,23,42,0.025)] min-w-0';
+export const card = 'learning-card rounded-[20px] border border-slate-200 bg-white p-5 sm:p-6 min-w-0';
 export const field = 'w-full min-h-12 rounded-xl border border-slate-300 bg-white px-3 py-3 text-base text-slate-800 focus:border-indigo-500 focus:outline focus:outline-2 focus:outline-indigo-100';
-export const button = 'min-h-12 rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
-export const secondary = 'min-h-12 rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
+export const button = 'learning-button min-h-12 rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
+export const secondary = 'learning-button min-h-12 rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
 export const subjectName = (lang, subject) => ({ reading: say(lang, 'Reading', '阅读'), vocab: say(lang, 'Vocabulary', '词汇'), grammar: say(lang, 'Grammar', '语法'), other: say(lang, 'Class lesson', '课堂学习') }[subject] || subject);
 export const dateText = (lang, date) => date ? new Date(date).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 export function errorText(lang, error) {

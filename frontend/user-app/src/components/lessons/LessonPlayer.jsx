@@ -15,6 +15,7 @@ import { LessonSpeaking } from './LessonSpeaking';
 import { LessonResult } from './LessonResult';
 import { LessonVocabulary } from './LessonVocabulary';
 import { LessonQuiz } from './LessonQuiz';
+import { Star } from 'lucide-react';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
 export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards, backLabel }) {
   const [data, setData] = useState(initial),
@@ -27,7 +28,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     [busy, setBusy] = useState(false),
     [retrying, setRetrying] = useState(false),
     [vocabularyPractice, setVocabularyPractice] = useState(false),
-    [error, setError] = useState('');
+    [error, setError] = useState(''),
+    [celebrate, setCelebrate] = useState(false);
   const pending = React.useRef(null),
     lock = React.useRef(false);
   const lesson = data.lesson;
@@ -68,6 +70,11 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       onRewards?.(result.lessonRewardStars);
       const savedPart = pending.current.part;
       pending.current = null;
+      // Celebrate a new full completion, not a retry or reopening saved work.
+      if (!data.readOnly && !data.parts.some(p => p.part === savedPart && p.attempts.length)
+        && parts.every(p => p === savedPart || data.parts.some(row => row.part === p && row.attempts.length))) {
+        setCelebrate(true);
+      }
       setData((d) => ({
         ...d,
         parts: [
@@ -140,6 +147,11 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           </p>
         )}
       </header>
+      {completed && !data.readOnly && <section aria-label={say(lang, 'Lesson complete', '课程已完成')} aria-live={celebrate ? 'polite' : 'off'} className={`lesson-celebration ${celebrate ? 'lesson-celebration--new' : ''}`}>
+        <span className="completion-star" aria-hidden="true"><Star size={28} fill="currentColor" /></span>
+        <div className="min-w-0"><h3 className="font-semibold text-lg text-emerald-900">{say(lang, 'Nicely done — lesson complete!', '做得好，这一课完成啦！')}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-emerald-800">{say(lang, 'All five activities are saved. Take a moment to enjoy your progress.', '五项学习任务都已保存。为自己的进步点个赞吧。')}</p></div>
+      </section>}
       <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-3">
         {parts.map((p) => {
           const done = data.parts.some(r => r.part === p && r.attempts.length);

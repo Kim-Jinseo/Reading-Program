@@ -37,6 +37,29 @@ beforeEach(() => {
   window.confirm = jest.fn(() => true);
 });
 
+test('celebrates a whole lesson only after the fifth activity is saved successfully', async () => {
+  const data = { ...initial, parts: ['vocabulary', 'speaking', 'writing', 'questions'].map(part => ({ part, attempts: [{ requestId: part, submittedAt: '2026-09-06T08:00:00Z' }] })) };
+  const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({ attempt: { requestId: 'last', submittedAt: '2026-09-06T09:00:00Z' }, lessonRewardStars: 15 });
+  render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} api={api} />);
+  expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByText('View all sample slides'));
+  fireEvent.click(screen.getByRole('button', { name: 'I have reviewed all slides' }));
+  const retry = await screen.findByRole('button', { name: 'Retry saving this answer' });
+  expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
+  fireEvent.click(retry);
+  const celebration = await screen.findByRole('region', { name: 'Lesson complete' });
+  expect(celebration).toHaveAttribute('aria-live', 'polite');
+  expect(screen.getByRole('progressbar', { name: 'Lesson progress' })).toHaveAttribute('aria-valuenow', '5');
+});
+
+test('returning to completed work shows quiet encouragement, not a new celebration', () => {
+  const data = { ...initial, parts: ['slides', 'vocabulary', 'speaking', 'writing', 'questions'].map(part => ({ part, attempts: [{ requestId: part, submittedAt: '2026-09-06T08:00:00Z' }] })) };
+  const { rerender } = render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} />);
+  expect(screen.getByRole('region', { name: 'Lesson complete' })).toHaveAttribute('aria-live', 'off');
+  rerender(<LessonPlayer key="teacher" data={{ ...data, readOnly: true, isOwner: true }} classId="c" lang="en" onBack={() => {}} />);
+  expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
+});
+
 test('a saved zero-score task shows its reward, but failed saves never claim completion', async () => {
   const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({
     attempt: { requestId: 'reward-request-1', score: 0, total: 1, rewardStars: 3, submittedAt: '2026-09-06T08:00:00Z' },
