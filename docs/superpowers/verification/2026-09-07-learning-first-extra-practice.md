@@ -15,10 +15,10 @@ sidebar styling, standalone practice, and placement testing are unchanged.
 
 ## Automated coverage
 
-Fresh controller runs on implementation commit `d60fe6c`:
+Latest independent verification, including the playback-guard fix `7d334dd`:
 
 - `node --test tests/*.test.js`: 93 passed, 0 failed.
-- Full React test suite (CI, non-watch, in-band): 113 passed, 18 suites, 0 failed.
+- Full React test suite (CI, non-watch, in-band): 117 passed, 18 suites, 0 failed.
 - Production React build: compiled successfully.
 - `git diff --check`: no whitespace errors.
 
@@ -42,6 +42,9 @@ Used a local memory-backed class and synthetic evaluators, never real accounts.
 | Desktop, 1280px | Five-subject picker; canonical writing preview/publication; activity labels; student profile writing/speaking results; teacher-only playback; read-only identity and English/Chinese labels |
 
 Document width matched viewport width at 390, 820, and 1280 pixels.
+The successful example-audio path was also checked with a synthetic WAV: before
+the fix, playback disabled Back despite no draft; after the fix, Back and sidebar
+Home navigation both work without a discard warning. Capture remains guarded.
 
 ## Narrow implementation decision
 
