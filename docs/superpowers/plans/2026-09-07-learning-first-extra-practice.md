@@ -90,6 +90,10 @@ pages/ClassesView.jsx for productive assignment summary labels; add focused Assi
 ProductiveAssignment.jsx and AssignmentFeedback.jsx as needed. Reuse LessonVocabulary
 and LessonSpeaking. Palette files: LessonPlayer.jsx, LessonResult.jsx,
 StudentReviewBanner.jsx, index.css. Tests alongside corresponding components.
+For the required unsent-work warning, add a narrowly registered navigation guard
+in AppContext.jsx and utils/navigationGuard.js; no Home/sidebar visual changes or
+navigation changes when no assigned-practice draft exists. Include active recording
+before a blob is produced, and unregister when the player unmounts.
 
 **Consumes:** Task 1 shared API contract.
 **Produces:** End-to-end teacher preview/publication and student/reviewer experience.
