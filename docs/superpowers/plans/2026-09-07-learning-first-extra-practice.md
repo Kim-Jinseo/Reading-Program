@@ -85,7 +85,8 @@ in api/index.js rather than duplicating provider calls.
 ### Task 2: Learning-first screens, feedback review, and calm colors
 
 **Files:** AssignmentEditor.jsx, AssignmentPlayer.jsx, ClassReport.jsx, shared.js under
-frontend/user-app/src/components/classes; add focused AssignmentLearning.jsx,
+frontend/user-app/src/components/classes; also TeacherClassView.jsx and
+pages/ClassesView.jsx for productive assignment summary labels; add focused AssignmentLearning.jsx,
 ProductiveAssignment.jsx and AssignmentFeedback.jsx as needed. Reuse LessonVocabulary
 and LessonSpeaking. Palette files: LessonPlayer.jsx, LessonResult.jsx,
 StudentReviewBanner.jsx, index.css. Tests alongside corresponding components.
@@ -107,6 +108,7 @@ StudentReviewBanner.jsx, index.css. Tests alongside corresponding components.
   attempts fixed at three and no misleading zero-question label. Keep legacy picker
   tests and immutable publication behavior. Learning stages return to quiz without
   destroying selected answers; new grammar quiz cannot skip initial learning screen.
+  Class list summaries label writing/speaking as one activity, not zero questions.
 - [ ] Add failing writing/speaking tests for submit-on-explicit-action, completed
   result/remaining attempts, network retry payload identity, recoverable AI failure
   keeping text/recording, attempt-limit recovery, and read-only teacher feedback.
@@ -114,7 +116,9 @@ StudentReviewBanner.jsx, index.css. Tests alongside corresponding components.
   explicit submit, guarded navigation, and shared feedback/result presentation.
   Use error codes to clear pending state on known-unsaved AI/validation failures;
   keep frozen payload and requestId for unknown network outcomes. Student and teacher
-  audio download uses authenticated mediaUrl; revoke object URLs on unmount.
+  audio download follows the existing authenticated mediaUrl pattern but targets
+  `/api/classroom` (the lesson helper hardcodes `/api/lessons`); use a focused
+  assignment media helper and revoke object URLs on unmount.
 - [ ] Extend ClassReport without assuming every attempt has responses. Show submitted
   prompt/sentence, writing, feedback and on-demand recording; never student controls.
   Keep latest/first/best subject score denominators clear and old MCQ review intact.
