@@ -16,8 +16,9 @@ import { LessonResult } from './LessonResult';
 import { LessonVocabulary } from './LessonVocabulary';
 import { LessonQuiz } from './LessonQuiz';
 import { Star } from 'lucide-react';
+import { StudentReviewBanner } from '../classes/StudentReviewBanner';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
-export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, onRewards, backLabel }) {
+export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, reviewStudent, onRewards, backLabel }) {
   const [data, setData] = useState(initial),
     [part, setPart] = useState('slides'),
     [answers, setAnswers] = useState({}),
@@ -33,6 +34,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
   const pending = React.useRef(null),
     lock = React.useRef(false);
   const lesson = data.lesson;
+  const reviewing = Boolean(studentId && data.readOnly);
   const base = `/classes/${classId}/lessons/${lesson.id}`,
     query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : '';
   const attempts = data.parts.find((p) => p.part === part)?.attempts || [],
@@ -102,7 +104,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
   return (
     <div className="space-y-6" data-testid="lesson-player">
       <button
-        className={secondary}
+        className={secondary + ' max-w-full break-words text-left'}
         disabled={busy || micBusy}
         onClick={() => {
           if (
@@ -121,11 +123,12 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       >
         {backLabel || say(lang, '← Back to class', '← 返回班级')}
       </button>
+      {reviewing && <StudentReviewBanner name={reviewStudent?.name} className={reviewStudent?.className} lang={lang} />}
       <header>
         <p className="text-indigo-600 font-bold">{say(lang, `Lesson ${lesson.number}`, `第 ${lesson.number} 课`)}</p>
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mt-2">{say(lang, lesson.title, lesson.titleZh)}</h2>
         <p className="text-slate-500 mt-3">
-          {completed
+          {reviewing ? say(lang, 'Student’s lesson work — view submitted activities and feedback below.', '学生的课程作业：在下方查看已提交的作答和反馈。') : completed
             ? say(
                 lang,
                 'All activities submitted. You can review your work below.',
@@ -139,10 +142,10 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             <div className="h-full rounded-full bg-emerald-500" style={{ width: `${completedCount * 20}%` }} />
           </div>
         </div>
-        {data.readOnly && (
+        {data.readOnly && !reviewing && (
           <p className="mt-3 font-bold text-amber-800">
             {data.isOwner
-              ? say(lang, 'Teacher preview / submitted work', '教师预览 / 已提交作业')
+              ? say(lang, 'Teacher preview', '教师预览')
               : say(lang, 'Earlier course — saved work is read-only.', '往期课程，已保存的作业仅供查看。')}
           </p>
         )}
@@ -191,6 +194,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       </nav>
       <section className={card + ' space-y-6'}>
         <h3 className="text-xl font-semibold tracking-tight">{partName(part, lang)}</h3>
+        {reviewing && !attempts.length && <p className="rounded-xl bg-teal-50 p-4 text-teal-800">{say(lang, 'No submission from this student yet.', '这位学生尚未提交本项作业。')}</p>}
         {error && (
           <p role="alert" className="text-rose-700">
             {error}
@@ -205,13 +209,13 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               lang={lang}
               onViewedAll={() => setViewed(true)}
             />
-            <p className="text-sm text-slate-500">
+            {!data.readOnly && <p className="text-sm text-slate-500">
               {say(
                 lang,
                 'View every slide, then confirm your review. This does not count as a quiz score.',
                 '看完每页课件后，确认已复习。查看课件不计入答题成绩。',
               )}
-            </p>
+            </p>}
         </div>
         {retrying && <div className="rounded-xl bg-indigo-50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <p className="text-indigo-900 font-semibold">{say(lang, 'New attempt — your earlier work is saved.', '再次尝试：以前的作答已保存。')}</p>
@@ -242,16 +246,21 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
                 onChange={(e) => setWriting(e.target.value)}
               />
             </label>}
-            <p className="text-sm text-slate-500">
+            {!data.readOnly && <p className="text-sm text-slate-500">
               {say(
                 lang,
                 'Submit for an AI score out of 5, feedback and a suggestion. Your teacher can also read your writing. Completion earns 3 stars once, separate from your score.',
                 '提交后可获得 5 分制 AI 评分、反馈和建议，老师也可以查看作文。完成任务可获得一次 3 颗星星奖励，与评分分开计算。',
               )}
-            </p>
+            </p>}
           </>
         )}
-        {showForm && part === 'speaking' && (
+        {showForm && part === 'speaking' && reviewing && <div className="rounded-xl border border-teal-100 p-5 space-y-3">
+          <p className="text-sm font-semibold text-teal-800">{say(lang, 'Assigned speaking sentence', '布置的口语句子')}</p>
+          <p className="text-xl font-semibold">{lesson.speaking.sentence}</p>
+          {lang === 'zh' && lesson.speaking.hintZh && <p className="text-slate-600">{lesson.speaking.hintZh}</p>}
+        </div>}
+        {showForm && part === 'speaking' && !reviewing && (
           <LessonSpeaking
             key={`${lesson.id}-${attempts.length}`}
             sentence={lesson.speaking.sentence}
@@ -287,7 +296,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
           </p>
         )}
         {!!attempts.length && !retrying && <LessonResult attempts={attempts} part={part} lesson={lesson} base={base} query={query} lang={lang}
-          remaining={Math.max(0, max - attempts.length)} readOnly={data.readOnly} onRetry={() => { setRetrying(true); setError(''); }} />}
+          reviewing={reviewing} remaining={Math.max(0, max - attempts.length)} readOnly={data.readOnly} onRetry={() => { setRetrying(true); setError(''); }} />}
         {part === 'vocabulary' && !!attempts.length && !!words.length && <details className="rounded-xl border border-slate-200 p-4 sm:p-5">
           <summary className="font-bold cursor-pointer py-3">{say(lang, 'Review word cards', '复习单词卡片')}</summary>
           <div className="mt-5"><LessonVocabulary words={words} lang={lang} /></div>

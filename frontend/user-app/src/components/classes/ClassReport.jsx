@@ -56,7 +56,7 @@ export const ClassReport = ({ report, lang, api, profileStudentId }) => {
       </div>
     </div>}
     {selected && <div ref={detailPanel} className={card + ' space-y-6 scroll-mt-24'}>
-      {profileStudentId ? <h3 className="text-xl font-extrabold">{say(lang, 'Assigned extra practice', '老师布置的拓展练习')}</h3> : <>
+      {profileStudentId ? <h3 className="text-xl font-extrabold">{say(lang, 'Student’s extra practice', '学生的拓展练习')}</h3> : <>
         <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-extrabold break-words">{selected.name}</h3><button className={secondary} onClick={() => { selection.current++; setStudentId(''); }}>{say(lang, 'Close details', '关闭详情')}</button></div>
         <label className="block font-bold">{say(lang, 'Student', '学生')}<select className={field + ' mt-2'} value={studentId} onChange={e => loadStudent(e.target.value)}>{report.students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
       </>}
@@ -70,6 +70,7 @@ export const ClassReport = ({ report, lang, api, profileStudentId }) => {
         return <div key={result.assignmentId} className="rounded-2xl border border-slate-200 p-4 sm:p-5 space-y-4">
           <h4 className="text-lg font-extrabold break-words">{assignment.title}</h4>
           {!result.count ? <p className="text-slate-500">{say(lang, 'Not submitted', '尚未提交')}</p> : <>
+            <p className="text-sm font-semibold text-teal-800">{say(lang, 'Submitted results', '已提交的成绩')}</p>
             <div className="grid grid-cols-3 gap-2 text-sm">{[['first', 'First', '首次'], ['latest', 'Latest', '最近'], ['best', 'Best', '最佳']].map(([key, en, zh]) => <div className="bg-slate-50 rounded-xl p-3" key={key}><p className="text-slate-500">{say(lang, en, zh)}</p><p className="font-bold mt-1">{result[key].score} / {result[key].total}</p></div>)}</div>
             {!detail && <button className={secondary} disabled={busy} onClick={() => loadAnswers(result.assignmentId)}>{say(lang, 'Load answers', '加载答案')}</button>}
             {detail?.attempts.map((attempt, index) => <details className="border-t border-slate-100 pt-3" key={attempt.requestId}>

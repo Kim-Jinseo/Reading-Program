@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
 import { ClassesView } from './ClassesView';
 import { useAppContext } from '../context/AppContext';
 
@@ -52,15 +52,21 @@ test('teacher returns from read-only lesson work to the same student profile', a
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   fireEvent.click(await screen.findByRole('button', { name: 'Students', exact: true }));
   fireEvent.click(await screen.findByRole('button', { name: /View profile.*王小明/ }));
+  expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('王小明')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
   fireEvent.click(await screen.findByRole('button', { name: /Our room/ }));
   await screen.findByTestId('lesson-player');
+  expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('王小明')).toBeVisible();
+  expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('Monday English')).toBeVisible();
   expect(screen.queryByRole('button', { name: 'Submit this activity' })).not.toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: '← Back to student profile' }));
+  fireEvent.click(screen.getByRole('button', { name: '← Back to 王小明’s profile' }));
   expect(screen.getByRole('heading', { name: '王小明', level: 2 })).toBeVisible();
   expect(screen.getByRole('button', { name: 'Lesson work', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await waitFor(() => expect(screen.getByRole('button', { name: /Our room/ })).toBeEnabled());
+  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('王小明')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Back to students' }));
+  expect(screen.queryByRole('region', { name: 'Student review' })).not.toBeInTheDocument();
   expect(screen.getAllByText('王小明')).toHaveLength(1);
 });
 

@@ -46,15 +46,21 @@ select {
 .learning-workspace { background: #fbfaf7; }
 .learning-card { box-shadow: 0 4px 16px rgb(85 63 111 / 0.045); }
 .home-class-feature {
-  border: 1px solid #dcd2f1;
+  border: 1px solid #d9e2f1;
   border-radius: 24px;
-  background: #f0eafa;
-  box-shadow: 0 5px 18px rgb(104 77 153 / 0.06);
+  background: #f1f5fc;
+  box-shadow: 0 5px 18px rgb(54 77 117 / 0.045);
 }
 .home-quick-link { border-radius: 20px; box-shadow: 0 3px 12px rgb(85 63 111 / 0.035); }
-.home-quick-link:nth-child(1) { background: #fffaf0; border-color: #eee3c8; }
-.home-quick-link:nth-child(2) { background: #fff3ee; border-color: #f1dfd7; }
-.home-quick-link:nth-child(3) { background: #eff8f3; border-color: #d7e9df; }
+.student-review-banner {
+  border: 1px solid #b9dcd6;
+  border-left: 4px solid #0f766e;
+  border-radius: 18px;
+  background: #eef8f6;
+  padding: 20px;
+}
+.student-review .class-section-nav { background: #eaf4f1; border-color: #cce2dc; }
+.student-review .class-section-tab[aria-pressed="true"] { color: #115e59; border-color: #b9dcd6; }
 .practice-card { border-radius: 20px; border-top-width: 3px; box-shadow: 0 3px 12px rgb(85 63 111 / 0.035); }
 .practice-card--vocab { border-top-color: #a4d6ed; }
 .practice-card--grammar { border-top-color: #c5b5ee; }
@@ -140,6 +146,7 @@ select {
 @media (hover: hover) and (pointer: fine) {
   .class-section-tab:not([aria-pressed="true"]):hover { background: #e2e8f0; }
   .home-class-feature:hover { border-color: #818cf8; }
+  .home-quick-link:hover { border-color: #a5b4fc; }
 }
 
 /* Touch screens do not have a reliable hover state. Choice feedback comes

@@ -170,7 +170,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
       {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
         <div><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>
         {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} initialLessons={lessonPreload} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
-          onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }}
+          onOpen={(data, studentId, reviewStudent) => { navigation.current++; setLesson({ data, studentId, reviewStudent }); setMode('lesson'); }}
           onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
         <section className={card + ' class-cover space-y-5'}>
@@ -194,7 +194,8 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
       {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={backToClass} onPublished={backToClass} />}
       {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={backToClass} />}
       {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi}
-        backLabel={lesson.studentId ? say(lang, '← Back to student profile', '← 返回学生档案') : undefined}
+        reviewStudent={lesson.reviewStudent}
+        backLabel={lesson.studentId ? lesson.reviewStudent?.name ? say(lang, `← Back to ${lesson.reviewStudent.name}’s profile`, `← 返回${lesson.reviewStudent.name}的档案`) : say(lang, '← Back to student profile', '← 返回学生档案') : undefined}
         onRewards={total => setUser(previous => applyLessonRewardSnapshot(previous, total))}
         onBack={backToClass} />}
       {mode === 'library' && user.role === 'admin' && <LessonLibrary lang={lang} api={lessonsApi} onBack={() => { setMode('home'); lessonsApi('/collections', undefined, { fresh: true }).then(data => setCollections(data.collections)).catch(e => setError(lessonError(e, language.current))); }} />}

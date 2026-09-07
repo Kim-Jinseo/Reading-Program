@@ -7,9 +7,9 @@ import { LearningArtwork } from '../components/common/LearningArtwork';
 export const MainDashboard = () => {
   const { t, setView, grade, lang } = useAppContext();
   const quickLinks = [
-    { id: 'leaderboard', Icon: Trophy, color: 'text-amber-600', bg: 'bg-amber-100', border: 'hover:border-amber-300' },
-    { id: 'shop', Icon: ShoppingBag, color: 'text-pink-600', bg: 'bg-pink-100', border: 'hover:border-pink-300' },
-    { id: 'test', Icon: ClipboardCheck, color: 'text-emerald-600', bg: 'bg-emerald-100', border: 'hover:border-emerald-300' },
+    { id: 'leaderboard', Icon: Trophy, color: 'text-amber-700', bg: 'bg-amber-50' },
+    { id: 'shop', Icon: ShoppingBag, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+    { id: 'test', Icon: ClipboardCheck, color: 'text-teal-700', bg: 'bg-teal-50' },
   ];
 
   return <div className="max-w-6xl mx-auto pt-2 md:pt-3">
@@ -30,8 +30,8 @@ export const MainDashboard = () => {
           <span className="mt-auto inline-flex items-center gap-3 rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white">{lang === 'zh' ? '进入班级' : 'Open classes'}<ChevronRight size={18} aria-hidden="true" /></span>
         </button>
         <div className="grid grid-cols-1 gap-3">
-        {quickLinks.map(({ id, Icon, color, bg, border }) => <button key={id} type="button" onClick={() => setView(id)}
-          className={`home-quick-link learning-link flex items-center gap-4 min-w-0 rounded-2xl border border-slate-200 bg-white p-5 text-left transition-colors ${border} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
+        {quickLinks.map(({ id, Icon, color, bg }) => <button key={id} type="button" onClick={() => setView(id)}
+          className="home-quick-link learning-link flex items-center gap-4 min-w-0 rounded-2xl border border-slate-200 bg-white p-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${bg} ${color}`}><Icon size={21} aria-hidden="true" /></span>
           <span className="min-w-0 flex-1"><span className="block text-base font-semibold text-slate-800 break-words">{t(`nav_${id}`)}</span>
           <span className="mt-1 block text-sm leading-relaxed text-slate-500">{t(`home_${id}_desc`)}</span></span>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ClassReport } from './ClassReport';
 import { say, card, secondary, dateText } from './shared';
 import { lessonError } from '../lessons/shared';
+import { StudentReviewBanner } from './StudentReviewBanner';
 
 export function StudentProfile({ student, report, lessonReport, classId, className, lang, api, lessonsApi, onBack, onOpen, refreshKey, visible = true }) {
   const [tab, setTab] = useState('overview'), [work, setWork] = useState(null), [busy, setBusy] = useState(false), [error, setError] = useState(''), [reload, setReload] = useState(0);
@@ -33,14 +34,16 @@ export function StudentProfile({ student, report, lessonReport, classId, classNa
     setBusy(true); setError('');
     try {
       const data = await lessonsApi(`/classes/${classId}/lessons/${id}?studentId=${encodeURIComponent(student.id)}`);
-      if (request === epoch.current) onOpen(data, student.id);
+      if (request === epoch.current) onOpen(data, student.id, { name: student.name, className });
     } catch (e) { if (request === epoch.current) setError(lessonError(e, language.current)); }
     finally { if (request === epoch.current) setBusy(false); }
   };
   const stat = (label, value) => <div className="rounded-xl bg-slate-50 p-4"><dt className="text-sm text-slate-500">{label}</dt><dd className="mt-2 text-2xl font-extrabold">{value}</dd></div>;
-  return <section className="space-y-6" aria-label={say(lang, 'Student profile', '学生学习档案')}>
+  return <section className="student-review space-y-6" aria-label={say(lang, 'Student profile', '学生学习档案')}>
     <button className={secondary} onClick={onBack}>{say(lang, 'Back to students', '返回学生列表')}</button>
-    <header className={card + ' space-y-2'}><p className="text-sm font-semibold text-indigo-600">{className} · {say(lang, 'Student profile', '学生学习档案')}</p><h2 ref={heading} tabIndex={-1} className="text-2xl sm:text-3xl font-extrabold break-words scroll-mt-28">{student.name}</h2><p className="text-slate-500 text-sm">{say(lang, 'Last submission: ', '最近提交：')}{last ? dateText(lang, last) : say(lang, 'No submissions yet', '尚未提交')}</p></header>
+    <StudentReviewBanner name={student.name} className={className} lang={lang} headingRef={heading}>
+      <p className="text-teal-800 text-sm mt-3">{say(lang, 'Last submission: ', '最近提交：')}{last ? dateText(lang, last) : say(lang, 'No submissions yet', '尚未提交')}</p>
+    </StudentReviewBanner>
     <nav aria-label={say(lang, 'Student profile sections', '学生档案栏目')} className="class-section-nav">
       {['overview', 'lessons', 'practice'].map((key, i) => <button key={key} aria-pressed={tab === key} className="class-section-tab" onClick={() => { if (key === tab) return; epoch.current++; setTab(key); setError(''); }}>{say(lang, ['Overview', 'Lesson work', 'Extra practice'][i], ['概览', '课程作业', '拓展练习'][i])}</button>)}
     </nav>
@@ -49,6 +52,7 @@ export function StudentProfile({ student, report, lessonReport, classId, classNa
       <section className={card + ' space-y-4'}><h3 className="text-xl font-bold">{say(lang, 'Assigned extra practice', '老师布置的拓展练习')}</h3><dl className="grid grid-cols-2 gap-3">{stat(say(lang, 'Completed', '已完成'), practice ? `${practice.completed} / ${practice.assigned}` : '—')}{stat(say(lang, 'Average latest score', '最近成绩平均分'), practice?.averagePercent == null ? '—' : `${practice.averagePercent}%`)}</dl><p className="text-sm text-slate-500">{say(lang, 'These scores are separate from lesson results.', '此处成绩与课程作业成绩分开记录。')}</p></section>
     </div>}
     {tab === 'lessons' && <div className="space-y-4">
+      <h3 className="text-xl font-bold">{say(lang, 'Student’s lesson work', '学生的课程作业')}</h3>
       {busy && <p role="status">{say(lang, 'Loading lesson work…', '正在加载课程作业…')}</p>}
       {error && <div role="alert" className={card}><p className="text-rose-700">{error}</p><button className={secondary + ' mt-3'} onClick={() => setReload(n => n + 1)}>{say(lang, 'Try loading again', '重新加载')}</button></div>}
       {work?.lessons.map(lesson => <button key={lesson.id} className={card + ' w-full text-left space-y-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => openLesson(lesson.id)}>

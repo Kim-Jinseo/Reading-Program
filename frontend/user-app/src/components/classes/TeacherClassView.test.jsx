@@ -70,7 +70,7 @@ test('profile separates scores, lazily opens work and retains the lesson-work ta
   expect(api.mock.calls.some(([path]) => path.includes('/students/'))).toBe(false);
   fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
   fireEvent.click(await screen.findByRole('button', { name: /Our classroom/ }));
-  await waitFor(() => expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ readOnly: true }), 's'));
+  await waitFor(() => expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ readOnly: true }), 's', { name: '王小明', className: 'Monday English' }));
   expect(screen.getByRole('button', { name: 'Lesson work', exact: true })).toHaveAttribute('aria-pressed', 'true');
   fireEvent.click(screen.getByRole('button', { name: 'Back to students' }));
   expect(screen.getAllByText('王小明')).toHaveLength(1);
@@ -119,6 +119,6 @@ test('clicking the active profile tab does not strand a pending lesson request',
   fireEvent.click(await screen.findByRole('button', { name: /Our classroom/ }));
   fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
   await act(async () => finish({ lesson: { id: 'l' }, readOnly: true, parts: [] }));
-  expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ readOnly: true }), 's');
+  expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ readOnly: true }), 's', { name: '王小明', className: 'Monday English' });
   expect(screen.getByRole('button', { name: /Our classroom/ })).toBeEnabled();
 });

@@ -37,6 +37,27 @@ beforeEach(() => {
   window.confirm = jest.fn(() => true);
 });
 
+test('student review identifies whose saved results are shown without changing self-study or teacher preview', () => {
+  const data = { ...initial, readOnly: true, isOwner: true, parts: [{ part: 'writing', attempts: [{ requestId: 'saved', text: 'I like my classroom.', score: 4, total: 5, submittedAt: '2026-09-06T08:00:00Z' }] }] };
+  const { rerender } = render(<LessonPlayer data={data} studentId="s" reviewStudent={{ name: '王小明', className: 'Monday English' }} classId="c" lang="en" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Writing/ }));
+  const result = screen.getByRole('region', { name: 'Activity result' });
+  expect(within(result).getByText('Student’s score')).toBeVisible();
+  expect(within(result).getByText('Student’s writing')).toBeVisible();
+  expect(within(result).queryByText('Your score')).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Try again!' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /^Speaking/ }));
+  expect(screen.queryByRole('button', { name: /Record/ })).not.toBeInTheDocument();
+  expect(screen.getByText('No submission from this student yet.')).toBeVisible();
+  rerender(<LessonPlayer key="preview" data={{ ...initial, readOnly: true, isOwner: true }} classId="c" lang="en" onBack={() => {}} />);
+  expect(screen.getByText('Teacher preview')).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'Student review' })).not.toBeInTheDocument();
+  rerender(<LessonPlayer key="self" data={{ ...data, readOnly: false, isOwner: false }} classId="c" lang="en" onBack={() => {}} />);
+  fireEvent.click(screen.getByRole('button', { name: /^Writing/ }));
+  expect(screen.getByText('Your score')).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'Student review' })).not.toBeInTheDocument();
+});
+
 test('celebrates a whole lesson only after the fifth activity is saved successfully', async () => {
   const data = { ...initial, parts: ['vocabulary', 'speaking', 'writing', 'questions'].map(part => ({ part, attempts: [{ requestId: part, submittedAt: '2026-09-06T08:00:00Z' }] })) };
   const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({ attempt: { requestId: 'last', submittedAt: '2026-09-06T09:00:00Z' }, lessonRewardStars: 15 });

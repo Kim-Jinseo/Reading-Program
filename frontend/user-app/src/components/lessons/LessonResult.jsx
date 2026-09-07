@@ -35,7 +35,7 @@ function SavedAudio({ path, lang }) {
   );
 }
 
-function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
+function AttemptDetails({ attempt: a, part, lesson, base, query, lang, reviewing }) {
   const hasScore = Number.isFinite(a.score);
   const fullScore = hasScore && a.total > 0 && a.score === a.total;
   const transcript = String(a.transcript || '').trim();
@@ -44,7 +44,7 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
   return <div className="space-y-5 min-w-0 break-words">
     <p className="text-sm text-slate-500">{say(lang, 'Saved: ', '保存时间：')}{dateText(lang, a.submittedAt)}</p>
     {hasScore && <div className={`rounded-xl border p-4 sm:p-5 ${fullScore ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900'}`}>
-      <p className="text-sm font-semibold">{say(lang, 'Your score', '你的成绩')}</p>
+      <p className="text-sm font-semibold">{reviewing ? say(lang, 'Student’s score', '学生的成绩') : say(lang, 'Your score', '你的成绩')}</p>
       <p className="text-3xl font-extrabold mt-1">{a.score} / {a.total}</p>
       {a.automaticallyAssessed && <p className="mt-2 text-sm">{part === 'writing'
         ? say(lang, 'AI writing score · separate from completion stars', 'AI 写作评分 · 与完成任务的星星奖励分开计算')
@@ -53,14 +53,14 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
     {part === 'speaking' && <div className="space-y-3">
       <p className="font-semibold leading-relaxed">{lesson.speaking.sentence}</p>
       <p className="text-slate-600 leading-relaxed">{noWords
-        ? say(lang, 'No words were detected in this recording. Listen to the sentence and speak clearly when the microphone is ready.', '这段录音没有识别出单词。先听示范朗读，等麦克风准备好后再清楚地朗读。')
+        ? reviewing ? say(lang, 'No words were detected in this submitted recording.', '这段已提交的录音没有识别出单词。') : say(lang, 'No words were detected in this recording. Listen to the sentence and speak clearly when the microphone is ready.', '这段录音没有识别出单词。先听示范朗读，等麦克风准备好后再清楚地朗读。')
         : hasTranscript ? <>{say(lang, 'Heard: ', '识别内容：')}{transcript}</>
-          : say(lang, 'Transcript unavailable. This does not mean your recording was silent; you can review the feedback and listen to your recording.', '暂无识别文本，这不代表录音没有声音。你可以查看反馈并回听录音。')}</p>
+          : reviewing ? say(lang, 'Transcript unavailable. This does not mean the student’s recording was silent. Listen to the saved recording below.', '暂无识别文本，这不代表学生的录音没有声音。可在下方回听已提交的录音。') : say(lang, 'Transcript unavailable. This does not mean your recording was silent; you can review the feedback and listen to your recording.', '暂无识别文本，这不代表录音没有声音。你可以查看反馈并回听录音。')}</p>
     </div>}
     {a.text && <div className="rounded-xl bg-slate-50 p-4 space-y-2">
-      <p className="font-semibold">{say(lang, 'Your writing', '你的作文')}</p>
+      <p className="font-semibold">{reviewing ? say(lang, 'Student’s writing', '学生的作文') : say(lang, 'Your writing', '你的作文')}</p>
       <p className="whitespace-pre-wrap leading-relaxed">{a.text}</p>
-      <p className="text-sm text-slate-500">{a.writingFeedback ? say(lang, 'AI feedback is a learning guide. Your teacher can also review your work.', 'AI 反馈可供学习参考，老师也可以查看你的作文。') : say(lang, 'Submitted for your teacher to review.', '已提交，等待老师查看。')}</p>
+      <p className="text-sm text-slate-500">{reviewing ? say(lang, 'Submitted by the student. Any AI feedback is a learning guide, not a teacher assessment.', '学生已提交。AI 反馈仅供学习参考，不代表教师评价。') : a.writingFeedback ? say(lang, 'AI feedback is a learning guide. Your teacher can also review your work.', 'AI 反馈可供学习参考，老师也可以查看你的作文。') : say(lang, 'Submitted for your teacher to review.', '已提交，等待老师查看。')}</p>
     </div>}
     {a.writingFeedback && <div className="space-y-4">
       {[
@@ -79,7 +79,7 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
       return <div key={r.questionId} className="border-t border-slate-100 pt-4 space-y-2">
         <p className="font-semibold">{q?.prompt}</p>
         <p className={r.correct ? 'text-emerald-800' : 'text-amber-900'}>
-          {say(lang, 'Your answer: ', '你的答案：')}{q?.options.find(o => o.id === r.optionId)?.text}
+          {reviewing ? say(lang, 'Student’s answer: ', '学生的答案：') : say(lang, 'Your answer: ', '你的答案：')}{q?.options.find(o => o.id === r.optionId)?.text}
           {' · '}{r.correct ? say(lang, 'Correct', '正确') : say(lang, 'Review this answer', '复习这道题')}
         </p>
         {!r.correct && <p className="text-slate-600">{say(lang, 'Correct answer: ', '正确答案：')}{q?.options.find(o => o.id === r.correctOptionId)?.text}</p>}
@@ -88,11 +88,11 @@ function AttemptDetails({ attempt: a, part, lesson, base, query, lang }) {
   </div>;
 }
 
-export function LessonResult({ attempts, part, lesson, base, query, lang, remaining, readOnly, onRetry }) {
+export function LessonResult({ attempts, part, lesson, base, query, lang, remaining, readOnly, reviewing, onRetry }) {
   const latest = attempts[attempts.length - 1];
   const repeatable = part === 'speaking' || part === 'writing';
   const rewarded = attempts.some(a => a.rewardStars === 3);
-  const details = { part, lesson, base, query, lang };
+  const details = { part, lesson, base, query, lang, reviewing };
   return <div className="space-y-6" aria-label={say(lang, 'Activity result', '练习结果')} role="region">
     <div className="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
       <CheckCircle2 size={28} aria-hidden="true" className="shrink-0 text-emerald-700" />
@@ -100,7 +100,7 @@ export function LessonResult({ attempts, part, lesson, base, query, lang, remain
         <h4 className="font-bold text-lg text-emerald-900" role="status">{rewarded
           ? say(lang, 'Completed · +3 stars', '已完成 · +3 颗星星')
           : say(lang, 'Activity completed', '本项练习已完成')}</h4>
-        <p className="text-sm text-emerald-800 mt-1">{say(lang, 'Your work has been saved.', '你的学习结果已保存。')}</p>
+        <p className="text-sm text-emerald-800 mt-1">{reviewing ? say(lang, 'Student’s submitted results', '学生已提交的结果') : say(lang, 'Your work has been saved.', '你的学习结果已保存。')}</p>
         {rewarded && <p className="text-sm text-emerald-800 mt-2">{say(lang,
           'Awarded once per task. Retrying does not earn more stars.',
           '每项任务只奖励一次，重试不会重复获得星星。')}</p>}
@@ -115,7 +115,7 @@ export function LessonResult({ attempts, part, lesson, base, query, lang, remain
         <RotateCcw size={18} aria-hidden="true" />{say(lang, 'Try again!', '再试一次！')}
       </button>}
     </div>}
-    {!repeatable && part !== 'slides' && <p className="text-sm text-slate-600 border-t pt-4">{say(lang, 'One submission only. You can review your answers here.', '本项练习只能提交一次。你可以在这里复习答案。')}</p>}
+    {!repeatable && part !== 'slides' && <p className="text-sm text-slate-600 border-t pt-4">{reviewing ? say(lang, 'One submitted attempt is allowed for this activity.', '本项练习只允许提交一次。') : say(lang, 'One submission only. You can review your answers here.', '本项练习只能提交一次。你可以在这里复习答案。')}</p>}
     {attempts.length > 1 && <details className="rounded-xl border border-slate-200 p-4 sm:p-5">
       <summary className="cursor-pointer py-3 font-semibold text-slate-700">{say(lang, `Previous attempts (${attempts.length - 1})`, `以前的作答（${attempts.length - 1} 次）`)}</summary>
       <div className="mt-4 space-y-6">{attempts.slice(0, -1).reverse().map(a => <div key={a.requestId} className="border-t pt-5"><AttemptDetails attempt={a} {...details} /></div>)}</div>
