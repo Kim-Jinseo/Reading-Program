@@ -42,6 +42,47 @@ select {
   outline-offset: 3px;
 }
 
+/* Compact, text-labelled sections stay usable without hover on touch devices. */
+.class-section-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f1f5f9;
+}
+
+.class-section-tab {
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  touch-action: manipulation;
+}
+
+.class-section-tab[aria-pressed="true"] {
+  background: white;
+  border-color: #e2e8f0;
+  color: #4338ca;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 0.06);
+}
+
+.class-section-tab:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .class-section-tab:not([aria-pressed="true"]):hover { background: #e2e8f0; }
+  .home-class-feature:hover { border-color: #818cf8; }
+}
+
 /* Touch screens do not have a reliable hover state. Choice feedback comes
    from the selected/correct state and active press animation instead. */
 @media (hover: hover) and (pointer: fine) {

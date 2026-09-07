@@ -10,7 +10,7 @@ export const Topbar = ({ onMenuClick }) => {
 
   return (
     <>
-      <header className="h-16 sm:h-20 md:h-24 bg-white/80 backdrop-blur-xl border-b border-slate-200 flex items-center justify-between px-3 sm:px-4 md:px-10 shrink-0 z-10 shadow-sm">
+      <header className="h-16 sm:h-[76px] bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 md:px-8 shrink-0 z-10">
         
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 min-w-0">
           <button 
@@ -25,7 +25,7 @@ export const Topbar = ({ onMenuClick }) => {
               onClick={() => setIsGradeMenuOpen(open => !open)}
               aria-expanded={isGradeMenuOpen}
               aria-haspopup="menu"
-              className="flex min-h-11 items-center bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-extrabold text-sm sm:text-base transition-colors whitespace-nowrap"
+              className="flex min-h-11 items-center bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 px-3 sm:px-4 py-2 rounded-xl font-semibold text-sm transition-colors whitespace-nowrap"
             >
               {t(`grade_${grade.replace('-','_')}`)}
             </button>
@@ -45,9 +45,9 @@ export const Topbar = ({ onMenuClick }) => {
 
         <div className="flex items-center gap-2 sm:gap-6 shrink-0">
           {user.role !== 'admin' && (
-            <div className="flex items-center gap-1 sm:gap-2 bg-amber-50 px-2.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl border border-amber-200 shadow-inner">
+            <div className="flex items-center gap-1 sm:gap-2 bg-amber-50 px-2.5 sm:px-3 py-2 rounded-full border border-amber-100">
               <Star className="text-amber-500 fill-amber-500 w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-extrabold text-amber-700 text-sm sm:text-lg">{user.stars}</span>
+              <span className="font-semibold text-amber-800 text-sm tabular-nums">{user.stars}</span>
             </div>
           )}
           
@@ -55,11 +55,11 @@ export const Topbar = ({ onMenuClick }) => {
             onClick={() => setShowProfile(true)} 
             className="flex items-center gap-4 hover:bg-slate-50 p-1 sm:p-2 sm:pr-5 rounded-full transition-colors border border-transparent hover:border-slate-200"
           >
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 text-white rounded-full flex items-center justify-center font-extrabold text-base sm:text-lg shadow-md ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-800'}`}>
+            <div className={`w-10 h-10 text-white rounded-full flex items-center justify-center font-semibold text-base ${user.role === 'admin' ? 'bg-indigo-600' : 'bg-slate-700'}`}>
               {user.name.charAt(0).toUpperCase()}
             </div>
             <div className="text-left hidden sm:block">
-              <p className="text-base font-extrabold text-slate-800 leading-tight">{user.name}</p>
+              <p className="max-w-[180px] truncate text-sm font-semibold text-slate-800 leading-tight" title={user.name}>{user.name}</p>
               <p className={`text-xs font-bold uppercase tracking-wider ${user.role==='admin' ? 'text-indigo-500' : 'text-slate-400'}`}>
                 {user.isGuest ? t('guest') : user.role === 'admin' ? (lang === 'zh' ? '管理员' : 'Administrator') : user.role === 'teacher' ? (lang === 'zh' ? '教师' : 'Teacher') : (lang === 'zh' ? '学生' : 'Student')}
               </p>

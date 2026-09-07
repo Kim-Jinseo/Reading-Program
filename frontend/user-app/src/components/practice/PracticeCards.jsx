@@ -19,10 +19,10 @@ export const PracticeCards = () => {
       const done = getDailyStatus(id).isComplete;
       return <button key={id} type="button" aria-label={t(`nav_${id}`)} onClick={() => setView(id)}
         aria-describedby={`${idPrefix}-${id}-description${done ? ` ${idPrefix}-${id}-done` : ''}`}
-        className={`flex flex-col items-start min-w-0 rounded-2xl border p-5 text-left shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${done ? 'border-emerald-200 bg-emerald-50/50' : `border-slate-200 bg-white ${border}`}`}>
+        className={`flex flex-col items-start min-w-0 rounded-2xl border p-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${done ? 'border-emerald-200 bg-emerald-50/50' : `border-slate-200 bg-white ${border}`}`}>
         <span className="flex w-full items-center gap-3">
-          <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${iconStyle}`}><Icon size={22} aria-hidden="true" /></span>
-          <span className="min-w-0 flex-1 text-lg font-extrabold text-slate-800 break-words">{t(`nav_${id}`)}</span>
+          <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${iconStyle}`}><Icon size={19} aria-hidden="true" /></span>
+          <span className="min-w-0 flex-1 text-base font-semibold text-slate-800 break-words">{t(`nav_${id}`)}</span>
           <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-slate-400" />
         </span>
         <span id={`${idPrefix}-${id}-description`} className="mt-3 block text-sm leading-relaxed text-slate-500">{t(`module_${id}_desc`)}</span>

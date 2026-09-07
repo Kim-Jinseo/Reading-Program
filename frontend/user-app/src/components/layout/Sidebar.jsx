@@ -26,7 +26,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         />
       )}
       
-      <aside className={`fixed lg:relative inset-y-0 left-0 h-[100dvh] bg-white border-r border-slate-200 flex flex-col shadow-2xl z-[70] shrink-0 transition-transform duration-300 ease-in-out lg:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'lg:w-[88px] w-64' : 'w-64 lg:w-[300px]'}`}>
+      <aside className={`fixed lg:relative inset-y-0 left-0 h-[100dvh] bg-white border-r border-slate-200 flex flex-col z-[70] shrink-0 motion-safe:transition-transform motion-safe:duration-200 ease-in-out lg:translate-x-0 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} ${isCollapsed ? 'lg:w-[88px] w-64' : 'w-64 lg:w-[248px]'}`}>
         
         {/* Mobile Close Button */}
         <button 
@@ -45,19 +45,19 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
           {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
 
-      <div className={`p-8 flex items-center justify-between border-b border-slate-50 mb-6 bg-white transition-all ${isCollapsed ? 'px-4' : ''}`}>
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center shadow-md shrink-0 mx-auto">
+      <div className={`px-5 py-7 flex items-center justify-between mb-4 bg-white ${isCollapsed ? 'lg:px-4' : ''}`}>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0 mx-auto">
             <BookOpen size={20} className="text-white"/>
           </div>
             <div className={`flex flex-col ${isCollapsed ? 'lg:hidden' : ''}`}>
-              <span className="font-extrabold text-2xl tracking-tight text-slate-800 leading-tight pb-1">Stepping</span>
-              <span className="font-bold text-sm tracking-widest text-slate-400 uppercase mt-1 truncate">Stones</span>
+              <span className="font-bold text-xl tracking-tight text-slate-800 leading-tight">Stepping</span>
+              <span className="font-medium text-xs tracking-[0.18em] text-slate-500 uppercase mt-1">Stones</span>
             </div>
         </div>
       </div>
 
-      <nav className={`flex-1 space-y-2 overflow-y-auto overflow-x-hidden ${isCollapsed ? 'px-3' : 'px-6'}`}>
+      <nav className="flex-1 space-y-1.5 overflow-y-auto overflow-x-hidden px-3">
         {user.role === 'admin' && (
           <button 
             onClick={() => setView('admin')} 
@@ -81,10 +81,10 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               setView(item.id);
               if (setIsMobileOpen) setIsMobileOpen(false);
             }} 
-            className={`w-full flex items-center gap-4 px-3 py-3 ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0' : ''} rounded-2xl font-bold transition-colors text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600
-            ${active ? 'bg-slate-50 text-slate-900 shadow-sm border border-slate-200' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border border-transparent'}`}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0' : ''} rounded-xl font-semibold transition-colors text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600
+            ${active ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border border-transparent'}`}
           >
-            <div className={`w-10 h-10 rounded-[1rem] flex items-center justify-center transition-colors shrink-0 shadow-sm ${item.bg} ${item.color}`}>
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0 ${active ? 'bg-white text-indigo-600' : item.color}`}>
               {item.icon}
             </div>
             <span className={`truncate ${isCollapsed ? 'lg:hidden' : ''}`}>{t(`nav_${item.id}`)}</span>
@@ -92,10 +92,10 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         ); })}
       </nav>
 
-      <div className={`p-6 border-t border-slate-100 bg-slate-50/50 flex ${isCollapsed ? 'justify-center px-4' : ''}`}>
+      <div className={`p-4 border-t border-slate-100 flex ${isCollapsed ? 'justify-center' : ''}`}>
         <button 
           onClick={() => setLang(lang === 'en' ? 'zh' : 'en')} 
-          className={`flex items-center justify-center gap-2 py-4 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-2xl transition-all border border-slate-200 shadow-sm hover:shadow-md active:scale-95 ${isCollapsed ? 'w-12 h-12 rounded-full p-0' : 'w-full'}`}
+          className={`flex min-h-11 items-center justify-center gap-2 py-2.5 bg-white hover:bg-slate-50 text-slate-600 text-sm font-semibold rounded-xl transition-colors border border-slate-200 ${isCollapsed ? 'w-12 h-12 p-0' : 'w-full'}`}
           title={lang === 'en' ? '中文' : 'English'}
           aria-label={lang === 'en' ? '中文' : 'English'}
         >

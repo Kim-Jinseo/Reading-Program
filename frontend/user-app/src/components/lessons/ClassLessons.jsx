@@ -97,19 +97,28 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
   const list = (rows, archived = false) => (
     <div className="grid md:grid-cols-2 gap-4">
       {rows.map((l) => (
-        <article key={l.id} className={card + ' space-y-4'}>
-          <p className="text-sm font-bold text-indigo-600">{say(lang, `Lesson ${l.number}`, `第 ${l.number} 课`)}</p>
-          <h4 className="text-xl font-bold">{say(lang, l.title, l.titleZh)}</h4>
+        <article key={l.id} className={card + ' flex flex-col gap-5'}>
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <p className="rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700">{say(lang, `Lesson ${l.number}`, `第 ${l.number} 课`)}</p>
+            {!isOwner && <span className={`text-xs font-semibold ${l.progress.done.length === l.progress.total ? 'text-emerald-700' : 'text-slate-500'}`}>
+              {l.progress.done.length === l.progress.total ? say(lang, 'Completed', '已完成') : l.progress.done.length ? say(lang, 'In progress', '学习中') : say(lang, 'Not started', '尚未开始')}
+            </span>}
+          </div>
+          <h4 className="text-xl font-semibold tracking-tight break-words">{say(lang, l.title, l.titleZh)}</h4>
           {!isOwner && (
-            <p className="text-slate-500">
+            <div className="space-y-2.5"><p className="text-sm text-slate-500">
               {say(
                 lang,
                 `${l.progress.done.length} / ${l.progress.total} activities submitted`,
                 `${l.progress.done.length} / ${l.progress.total} 项学习任务已提交`,
               )}
             </p>
+              <div role="progressbar" aria-label={say(lang, l.title, l.titleZh)} aria-valuemin={0} aria-valuemax={l.progress.total} aria-valuenow={l.progress.done.length} className="h-1.5 overflow-hidden rounded-full bg-slate-100">
+                <div className={l.progress.done.length === l.progress.total ? 'h-full rounded-full bg-emerald-500' : 'h-full rounded-full bg-indigo-500'} style={{ width: `${l.progress.total ? Math.min(100, l.progress.done.length / l.progress.total * 100) : 0}%` }} />
+              </div>
+            </div>
           )}
-          <button className={button + ' w-full'} disabled={busy} onClick={() => open(l.id)}>
+          <button className={button + ' w-full mt-auto'} disabled={busy} onClick={() => open(l.id)}>
             {archived
               ? say(lang, 'Review saved work', '查看往期作业')
               : isOwner
@@ -123,7 +132,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
   return (
     <section className="space-y-5" data-testid="class-lessons">
       <div className="flex flex-wrap justify-between items-center gap-3">
-        <h3 className="text-2xl font-extrabold">{say(lang, 'Class lessons', '班级课程')}</h3>
+        <h3 className="text-xl font-semibold tracking-tight">{say(lang, 'Class lessons', '班级课程')}</h3>
         {isOwner && showProgress && (
           <button className={secondary} onClick={() => setSettings((s) => !s)}>
             {say(lang, 'Change course', '修改课程')}
@@ -177,7 +186,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
               </button>
             </form>
           )}
-          <p className="text-sm text-emerald-700">
+          <p className="text-sm text-slate-500 leading-relaxed">
             {say(
               lang,
               'All published lessons are available now. Work through them in lesson order.',

@@ -15,6 +15,15 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
 }
 beforeEach(() => localStorage.clear());
 
+test.each(['student', 'teacher'])('%s sees existing classes before the join or create form', async role => {
+  const api = jest.fn(async () => ({ classes: [classroom] }));
+  render(<Harness api={api} initialUser={{ ...student, role }} />);
+  const existing = await screen.findByRole('heading', { name: 'My classes' });
+  const form = screen.getByRole('heading', { name: role === 'teacher' ? 'Create a class' : 'Join a class' });
+  expect(existing.compareDocumentPosition(form) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  expect(screen.getByRole('button', { name: /Monday English/ })).toBeEnabled();
+});
+
 test('opening a class responds immediately and starts its lesson request before class details finish', async () => {
   let resolveDetails;
   const details = new Promise(resolve => { resolveDetails = resolve; });

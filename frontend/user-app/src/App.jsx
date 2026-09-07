@@ -26,7 +26,7 @@ const AppFooter = () => {
 
   return (
     <footer className="mt-10 sm:mt-14 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-center text-xs sm:text-sm font-medium text-slate-400">
-      <span className="inline-flex max-w-full items-center justify-center rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 shadow-sm">
+      <span className="inline-flex max-w-full items-center justify-center px-4 py-2">
         {lang === 'zh' ? `© ${year} Jinseo Kim 版权所有。` : `© ${year} Jinseo Kim. All rights reserved.`}
       </span>
     </footer>
@@ -67,7 +67,7 @@ const AppContent = () => {
     >
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap');
         `}
       </style>
 
@@ -80,7 +80,7 @@ const AppContent = () => {
         <Topbar onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* WORKSPACE */}
-        <div ref={workspaceRef} className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 md:p-10 bg-slate-50/50">
+        <div ref={workspaceRef} className="flex-1 overflow-x-hidden overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
           <div className="min-h-full flex flex-col">
             <div className="flex-1">
               {view === 'dashboard' && <MainDashboard />}

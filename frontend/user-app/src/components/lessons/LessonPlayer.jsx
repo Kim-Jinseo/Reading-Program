@@ -116,7 +116,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       </button>
       <header>
         <p className="text-indigo-600 font-bold">{say(lang, `Lesson ${lesson.number}`, `第 ${lesson.number} 课`)}</p>
-        <h2 className="text-2xl sm:text-3xl font-extrabold mt-2">{say(lang, lesson.title, lesson.titleZh)}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mt-2">{say(lang, lesson.title, lesson.titleZh)}</h2>
         <p className="text-slate-500 mt-3">
           {completed
             ? say(
@@ -148,7 +148,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             key={p}
             aria-pressed={part === p}
             disabled={busy || micBusy || !!pending.current}
-            className={`min-w-0 min-h-[76px] border-2 rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${done
+            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${done
               ? part === p ? 'border-emerald-600 bg-emerald-100 text-emerald-950' : 'border-emerald-200 bg-emerald-50 text-emerald-900'
               : part === p ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-slate-200 bg-white text-slate-600'}`}
             onClick={() => {
@@ -172,13 +172,13 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               setVocabularyPractice(false);
             }}
           >
-            <span className="block font-bold text-sm sm:text-base">{partName(p, lang)}</span>
+            <span className="block font-semibold text-sm">{partName(p, lang)}</span>
             <span className="block mt-1 text-xs sm:text-sm">{done ? say(lang, 'Completed', '已完成') : say(lang, 'Not started', '未完成')}</span>
           </button>
         ); })}
       </nav>
       <section className={card + ' space-y-6'}>
-        <h3 className="text-xl font-extrabold">{partName(part, lang)}</h3>
+        <h3 className="text-xl font-semibold tracking-tight">{partName(part, lang)}</h3>
         {error && (
           <p role="alert" className="text-rose-700">
             {error}

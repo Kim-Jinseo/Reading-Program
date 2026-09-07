@@ -115,19 +115,27 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     <section className={card + ' space-y-5'}><Users className="text-indigo-600" size={36} /><h2 className="text-xl font-bold">{say(lang, 'Sign in to join your class', '登录后加入班级')}</h2><p className="text-slate-500">{say(lang, 'Use your own account so your teacher can see your assignment results.', '请使用自己的账号，以便老师查看你的作业成绩。')}</p><button className={button} onClick={() => { localStorage.removeItem('isGuest'); setUser(null); }}>{say(lang, 'Sign in / Create account', '登录 / 注册')}</button></section>
   </div>;
   return <div className="max-w-6xl mx-auto pb-6 space-y-6 sm:space-y-8">
-    {!['lesson', 'library'].includes(mode) && <header className="flex items-start gap-4"><div className="rounded-2xl bg-indigo-100 text-indigo-600 p-3 shrink-0"><Users size={28} /></div><div><h1 className="text-3xl font-extrabold">{say(lang, 'Classes', '班级')}</h1><p className="mt-2 text-slate-500 leading-relaxed">{teacher ? say(lang, 'Set assignments and follow your students’ learning.', '布置作业，了解学生的学习情况。') : say(lang, 'Join your class, finish assignments, and review your answers.', '加入班级，完成作业，复习答案。')}</p></div></header>}
+    {!['lesson', 'library'].includes(mode) && <header className="flex items-start gap-4 pt-2"><div className="rounded-xl border border-indigo-100 bg-indigo-50 text-indigo-600 p-3 shrink-0"><Users size={24} /></div><div><h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{say(lang, 'Classes', '班级')}</h1><p className="mt-2 text-sm sm:text-base text-slate-500 leading-relaxed">{teacher ? say(lang, 'Set assignments and follow your students’ learning.', '布置作业，了解学生的学习情况。') : say(lang, 'Join your class, finish assignments, and review your answers.', '加入班级，完成作业，复习答案。')}</p></div></header>}
     {error && <div role="alert" className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700 break-words">{error}</div>}
     {notice && <p role="status" className="rounded-2xl bg-emerald-50 p-4 text-emerald-800">{notice}</p>}
     {loading ? <p role="status" className="p-6 text-slate-500">{say(lang, 'Loading classes…', '正在加载班级…')}</p> : <>
       {mode === 'home' && <>
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'My classes', '我的班级')}</h2>
+          {!classes.length && <p className={card + ' text-slate-500'}>{say(lang, 'No classes yet. Use the form below to get started.', '目前还没有班级。请使用下方的表单开始。')}</p>}
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">{classes.map(row => <button key={row.id} className={card + ' text-left transition-colors hover:border-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => run(() => openClass(row.id))}>
+            <span className="flex items-center justify-between gap-3 mb-5"><span className="rounded-xl bg-indigo-50 p-2.5"><Users className="text-indigo-600" size={22} /></span><span className="text-xs font-medium text-slate-500">{say(lang, `${row.studentCount} students`, `${row.studentCount} 名学生`)}</span></span>
+            <h3 className="text-xl font-semibold tracking-tight break-words">{row.name}</h3><p className="mt-5 border-t border-slate-100 pt-4 text-sm text-indigo-600 font-semibold">{say(lang, 'Open class →', '进入班级 →')}</p>
+          </button>)}</div>
+        </section>
         <section className={card}>
           {teacher ? <form onSubmit={e => { e.preventDefault(); run(async () => { const data = await api('/classes', { name: className, ...(collectionId ? { collectionId } : {}) }); setClassName(''); await openClass(data.class.id); }); }} className="space-y-4">
-            <h2 className="text-xl font-extrabold">{say(lang, 'Create a class', '创建班级')}</h2>
+            <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'Create a class', '创建班级')}</h2>
             <label className="block font-bold">{say(lang, 'Class name', '班级名称')}<input className={field + ' mt-2'} maxLength={80} required value={className} onChange={e => setClassName(e.target.value)} placeholder={say(lang, 'For example: Monday English', '例如：星期一英语班')} /></label>
             <CoursePicker collections={collections} value={collectionId} onChange={setCollectionId} lang={lang} required={collections.length > 0} />
             <button disabled={busy} className={button} type="submit"><Plus size={18} className="inline mr-2" />{say(lang, 'Create class', '创建班级')}</button>
           </form> : <form onSubmit={e => { e.preventDefault(); run(async () => { const data = await api('/classes/join', { code, displayName: studentName }); setCode(''); await openClass(data.class.id); }); }} className="space-y-5">
-            <h2 className="text-xl font-extrabold">{say(lang, 'Join a class', '加入班级')}</h2>
+            <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'Join a class', '加入班级')}</h2>
             <div className="grid sm:grid-cols-2 gap-5">
               <label className="block font-bold">{say(lang, 'Class invitation code', '班级邀请码')}<input className={field + ' mt-2 uppercase tracking-wider'} required value={code} onChange={e => setCode(e.target.value)} maxLength={30} autoCapitalize="characters" autoCorrect="off" spellCheck={false} /></label>
               <label className="block font-bold">{say(lang, 'Your name for the teacher', '老师认识的姓名')}<input className={field + ' mt-2'} required maxLength={40} value={studentName} onChange={e => setStudentName(e.target.value)} /></label>
@@ -135,11 +143,6 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
             <p className="text-sm text-slate-500">{say(lang, 'When you join, this teacher can see your name, submitted answers, writing, speaking recordings and scores, practice completion counts, and days you submit lesson activities.', '加入后，本班老师可以查看你的姓名、已提交的答案、作文、口语录音和成绩，以及练习完成数量和提交课程练习的学习天数。')}</p>
             <button className={button} disabled={busy} type="submit">{say(lang, 'Join class', '加入班级')}</button>
           </form>}
-        </section>
-        <section className="space-y-5">
-          <h2 className="text-xl font-extrabold">{say(lang, 'My classes', '我的班级')}</h2>
-          {!classes.length && <p className="text-slate-500">{say(lang, 'No classes yet. Use the form above to get started.', '目前还没有班级。请使用上方的表单开始。')}</p>}
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">{classes.map(row => <button key={row.id} className={card + ' text-left hover:border-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600'} disabled={busy} onClick={() => run(() => openClass(row.id))}><Users className="text-indigo-500 mb-4" size={25} /><h3 className="text-xl font-extrabold break-words">{row.name}</h3><p className="mt-3 text-slate-500">{say(lang, `${row.studentCount} students`, `${row.studentCount} 名学生`)}</p><p className="mt-5 text-indigo-600 font-bold">{say(lang, 'Open class →', '进入班级 →')}</p></button>)}</div>
         </section>
         {!teacher && <details className={card}>
           <summary className="min-h-12 py-3 cursor-pointer font-bold text-indigo-700"><ShieldCheck className="inline mr-2" size={20} />{say(lang, 'Are you a teacher?', '你是老师吗？')}</summary>

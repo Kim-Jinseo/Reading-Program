@@ -2,6 +2,25 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { ClassLessons } from './ClassLessons';
 
+test('lesson cards show actual completion progress without presenting teacher previews as student work', async () => {
+  const lessons = [
+    { id: 'a', number: 1, title: 'Our classroom', progress: { done: ['slides', 'vocab'], total: 5 } },
+    { id: 'b', number: 2, title: 'Our garden', progress: { done: ['slides', 'vocab', 'speaking', 'writing', 'quiz'], total: 5 } },
+  ];
+  const api = jest.fn(async () => ({ lessons, history: [], collection: null }));
+  const props = { classId: 'c', lang: 'en', api, onOpen: jest.fn(), showProgress: false };
+  const { rerender } = render(<ClassLessons {...props} />);
+  const progress = await screen.findByRole('progressbar', { name: 'Our classroom' });
+  expect(progress).toHaveAttribute('aria-valuenow', '2');
+  expect(progress).toHaveAttribute('aria-valuemax', '5');
+  expect(screen.getByText('Completed')).toBeInTheDocument();
+  expect(screen.getByText('In progress')).toBeInTheDocument();
+  rerender(<ClassLessons {...props} isOwner />);
+  await screen.findAllByRole('button', { name: 'Preview lesson' });
+  expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+  expect(screen.queryByText('Completed')).not.toBeInTheDocument();
+});
+
 test('returning to the Lessons tab does not force another download after a completed refresh', async () => {
   const original = global.fetch;
   localStorage.setItem('token', 'synthetic-tab-cache');
