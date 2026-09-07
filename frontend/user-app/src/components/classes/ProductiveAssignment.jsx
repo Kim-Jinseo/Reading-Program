@@ -13,7 +13,7 @@ export function ProductiveAssignment({ data, lang, api, onBack }) {
   const [attempts, setAttempts] = useState(data.attempts || []), [result, setResult] = useState(data.attempts?.at(-1) || null);
   const [writing, setWriting] = useState(''), [recording, setRecording] = useState(null), [micBusy, setMicBusy] = useState(false);
   const [busy, setBusy] = useState(false), [error, setError] = useState(''), [knownRetry, setKnownRetry] = useState(false);
-  const pending = useRef(null), sending = useRef(false);
+  const pending = useRef(null), uncertain = useRef(false), sending = useRef(false);
   const hasDraft = Boolean(writing.trim() || recording || pending.current || micBusy);
   useEffect(() => {
     const leave = event => { if (!result && hasDraft) { event.preventDefault(); event.returnValue = ''; } };
@@ -35,21 +35,22 @@ export function ProductiveAssignment({ data, lang, api, onBack }) {
     try {
       const response = await api(`/assignments/${assignment.id}/submit`, pending.current);
       setAttempts(previous => previous.some(a => a.requestId === response.attempt.requestId) ? previous : [...previous, response.attempt]);
-      setResult(response.attempt); pending.current = null; setWriting(''); setRecording(null);
+      setResult(response.attempt); pending.current = null; uncertain.current = false; setWriting(''); setRecording(null);
     } catch (e) {
       if (e.code === 'attempt_limit') {
         try {
           const saved = await api(`/assignments/${assignment.id}`);
-          if (saved.attempts?.length) { setAttempts(saved.attempts); setResult(saved.attempts.at(-1)); pending.current = null; }
+          if (saved.attempts?.length) { setAttempts(saved.attempts); setResult(saved.attempts.at(-1)); pending.current = null; uncertain.current = false; }
           else setError(errorText(lang, e));
         } catch (refreshError) { setError(errorText(lang, refreshError)); }
       } else {
-        if (knownUnsent.has(e.code)) { pending.current = null; setKnownRetry(true); }
+        if (knownUnsent.has(e.code) && !uncertain.current) { pending.current = null; setKnownRetry(true); }
+        else uncertain.current = true;
         setError(errorText(lang, e));
       }
     } finally { sending.current = false; setBusy(false); }
   };
-  const retry = () => { setResult(null); setWriting(''); setRecording(null); setError(''); setKnownRetry(false); pending.current = null; };
+  const retry = () => { setResult(null); setWriting(''); setRecording(null); setError(''); setKnownRetry(false); pending.current = null; uncertain.current = false; };
   const submitLabel = busy ? (assignment.format === 'writing' ? say(lang, 'Getting feedback and saving…', '正在获取反馈并保存…') : say(lang, 'Checking recording and saving…', '正在检查录音并保存…'))
     : pending.current ? (assignment.format === 'writing' ? say(lang, 'Retry saving writing', '重试保存作文') : say(lang, 'Retry saving recording', '重试保存录音'))
       : knownRetry ? say(lang, 'Try submission again', '重新提交')

@@ -171,6 +171,28 @@ test('an uncertain writing retry keeps the frozen request ID and original text',
   expect(calls[1]).toEqual(calls[0]);
 });
 
+test('writing keeps its frozen submission after an uncertain response followed by rate limiting', async () => {
+  const calls = [];
+  const api = jest.fn(async (path, body) => {
+    calls.push(body);
+    if (calls.length === 1) throw new Error('Connection lost');
+    if (calls.length === 2) throw Object.assign(new Error('Too many requests'), { code: 'rate_limited', status: 429 });
+    return { attempt: { ...writingAttempt, requestId: body.requestId, text: body.text } };
+  });
+  render(<AssignmentPlayer data={{ assignment: writingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  fireEvent.change(screen.getByLabelText('Your writing'), { target: { value: 'Frozen answer' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Submit writing' }));
+  await screen.findByRole('alert');
+  fireEvent.click(screen.getByRole('button', { name: 'Retry saving writing' }));
+  await waitFor(() => expect(calls).toHaveLength(2));
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Retry saving writing' })).toBeEnabled());
+  expect(screen.getByLabelText('Your writing')).toBeDisabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Retry saving writing' }));
+  await screen.findByText('Writing completed');
+  expect(calls[1]).toEqual(calls[0]);
+  expect(calls[2]).toEqual(calls[0]);
+});
+
 test('known-unsaved AI failure keeps writing editable and starts a fresh request', async () => {
   const calls = [];
   const api = jest.fn(async (path, body) => {
@@ -287,6 +309,29 @@ test('an uncertain speaking retry keeps the identical audio and request ID', asy
     await screen.findByText('Speaking completed');
     expect(calls[1]).toEqual(calls[0]);
     expect(calls[1]).toEqual({ requestId: expect.any(String), audioBase64: expect.any(String), audioMime: 'audio/webm' });
+  } finally { view.unmount(); speech.restore(); }
+});
+
+test('speaking keeps its frozen submission after an uncertain response followed by provider failure', async () => {
+  const speech = installSpeechCapture(), calls = [];
+  const api = jest.fn(async (path, body) => {
+    calls.push(body);
+    if (calls.length === 1) throw new Error('Connection lost');
+    if (calls.length === 2) throw Object.assign(new Error('Speech feedback is temporarily unavailable. Nothing was saved.'), { code: 'speech_unavailable', status: 503 });
+    return { attempt: { ...speakingAttempt, requestId: body.requestId } };
+  });
+  const view = render(<AssignmentPlayer data={{ assignment: speakingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  try {
+    await finishSpeechRecording(speech.recorder);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit recording' }));
+    await screen.findByRole('alert');
+    fireEvent.click(screen.getByRole('button', { name: 'Retry saving recording' }));
+    await waitFor(() => expect(calls).toHaveLength(2));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Retry saving recording' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('button', { name: 'Retry saving recording' }));
+    await screen.findByText('Speaking completed');
+    expect(calls[1]).toEqual(calls[0]);
+    expect(calls[2]).toEqual(calls[0]);
   } finally { view.unmount(); speech.restore(); }
 });
 
