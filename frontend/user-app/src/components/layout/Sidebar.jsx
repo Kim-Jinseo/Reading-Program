@@ -8,12 +8,12 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const MODULES = [
-    { id: 'dashboard', icon: <Home size={20}/>, bg: 'bg-slate-100', color: 'text-slate-600' },
-    { id: 'classes', icon: <Users size={20}/>, bg: 'bg-indigo-100', color: 'text-indigo-600' },
-    { id: 'practice', icon: <BookOpen size={20}/>, bg: 'bg-teal-100', color: 'text-teal-600' },
-    { id: 'leaderboard', icon: <Trophy size={20}/>, bg: 'bg-amber-100', color: 'text-amber-600' },
-    { id: 'shop', icon: <ShoppingBag size={20}/>, bg: 'bg-pink-100', color: 'text-pink-600' },
-    { id: 'test', icon: <ClipboardCheck size={20}/>, bg: 'bg-emerald-100', color: 'text-emerald-600' }
+    { id: 'dashboard', icon: <Home size={20}/>, selected: 'bg-slate-50 text-slate-700 border-slate-200', color: 'text-slate-600' },
+    { id: 'classes', icon: <Users size={20}/>, selected: 'bg-indigo-50 text-indigo-700 border-indigo-100', color: 'text-indigo-600' },
+    { id: 'practice', icon: <BookOpen size={20}/>, selected: 'bg-teal-50 text-teal-700 border-teal-100', color: 'text-teal-600' },
+    { id: 'leaderboard', icon: <Trophy size={20}/>, selected: 'bg-amber-50 text-amber-700 border-amber-100', color: 'text-amber-600' },
+    { id: 'shop', icon: <ShoppingBag size={20}/>, selected: 'bg-pink-50 text-pink-700 border-pink-100', color: 'text-pink-600' },
+    { id: 'test', icon: <ClipboardCheck size={20}/>, selected: 'bg-emerald-50 text-emerald-700 border-emerald-100', color: 'text-emerald-600' }
   ];
 
   return (
@@ -81,10 +81,10 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               setView(item.id);
               if (setIsMobileOpen) setIsMobileOpen(false);
             }} 
-            className={`w-full flex items-center gap-3 px-3 py-2.5 ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0' : ''} rounded-xl font-semibold transition-colors text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600
-            ${active ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border border-transparent'}`}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0' : ''} rounded-xl border font-semibold transition-colors text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-slate-600
+            ${active ? item.selected : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-transparent'}`}
           >
-            <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0 ${active ? 'bg-white text-indigo-600' : item.color}`}>
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0 ${item.color} ${active ? 'bg-white' : ''}`}>
               {item.icon}
             </div>
             <span className={`truncate ${isCollapsed ? 'lg:hidden' : ''}`}>{t(`nav_${item.id}`)}</span>
