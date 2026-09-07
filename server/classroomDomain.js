@@ -42,6 +42,10 @@ function shuffled(items) {
 export function assignmentForStudent(assignment) {
   const { _id, classId, title, instructions, passage, subject, level, maxAttempts, createdAt } = assignment;
   return { id: _id, classId, title, instructions, passage, subject, level, maxAttempts, createdAt,
+    ...(assignment.format ? { format: assignment.format } : {}),
+    ...(assignment.learning ? { learning: structuredClone(assignment.learning) } : {}),
+    ...(assignment.writing ? { writing: structuredClone(assignment.writing) } : {}),
+    ...(assignment.speaking ? { speaking: structuredClone(assignment.speaking) } : {}),
     questions: assignment.questions.map(({ id, prompt, options }) => ({ id, prompt, options: shuffled(options) })) };
 }
 export function gradeAssignment(assignment, answers) {

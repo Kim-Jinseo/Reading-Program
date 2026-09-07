@@ -2,46 +2,72 @@ import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import { buildReviewedCurriculum } from '../frontend/user-app/src/data/reviewedCurriculum.js';
 import { ClassroomError, validateAssignment } from './classroomDomain.js';
+import { validateActivity } from './assignmentActivities.js';
 
 const gradeKeys = { 1: '1-2', 2: '3-4', 3: '5-6' };
-const subjects = ['reading', 'vocab', 'grammar'];
+const subjects = ['reading', 'vocab', 'grammar', 'writing', 'speaking'];
 const invalidSource = () => new ClassroomError('Choose existing website content for extra practice.', 400, 'invalid_practice_source');
 
 export function createPracticeCatalog(curriculum) {
   const sources = new Map();
+  const errors = [];
+  const seen = new Set();
   for (const level of [1, 2, 3]) {
     for (const subject of subjects) {
       for (const item of curriculum[gradeKeys[level]]?.[subject] || []) {
+        const id = `${level}:${subject}:${item.id}`;
+        if (item.id === undefined || seen.has(id)) throw new Error(`Duplicate or missing practice source ID: ${id}`);
+        seen.add(id);
+        try {
         const rawQuestions = subject === 'vocab'
           ? [{ q: `What does “${item.word}” mean?`, options: item.options, a: item.answer || item.def }]
           : item.questions;
         const definition = {
-          title: item.title?.en || item.word,
+          title: item.title?.en || item.word || item.en?.slice(0, 120),
           subject, level,
-          instructions: subject === 'reading' ? 'Read the passage and choose one answer for each question.' : 'Choose the correct answer for each question.',
+          format: ['writing', 'speaking'].includes(subject) ? subject : 'quiz',
+          instructions: subject === 'reading' ? 'Read the passage and choose one answer for each question.' : subject === 'writing' ? 'Write your answer, then submit for feedback.' : subject === 'speaking' ? 'Record the sentence, listen, then submit for feedback.' : 'Learn first, then choose the correct answer for each question.',
           passage: subject === 'reading' ? item.text?.en : '',
-          questions: (rawQuestions || []).slice(0, 30).map(q => ({
-            prompt: q.q || q.question,
-            options: q.options,
-            correctIndex: Number.isInteger(q.correct) ? q.correct : (q.options || []).indexOf(q.a || q.answer),
-            explanation: typeof q.explanation === 'string' ? q.explanation : q.explanation?.en || '',
+          ...(subject === 'grammar' ? { learning: { description: item.desc, rule: item.rule } } : {}),
+          ...(subject === 'vocab' ? { learning: { words: [{ word: item.word, meaningZh: item.def }] } } : {}),
+          ...(subject === 'writing' ? { writing: { prompt: item.en, promptZh: item.zh } } : {}),
+          ...(subject === 'speaking' ? { speaking: { sentence: item.en, hintZh: item.zh } } : {}),
+          questions: (subject === 'grammar' ? rawQuestions || [] : (rawQuestions || []).slice(0, 30)).map(q => ({
+            prompt: q?.q || q?.question,
+            options: q?.options,
+            correctIndex: Number.isInteger(q?.correct) ? q.correct : (Array.isArray(q?.options) ? q.options.indexOf(q.a || q.answer) : -1),
+            explanation: typeof q?.explanation === 'string' ? q.explanation : q?.explanation?.en || '',
           })),
         };
-        // Check the canonical source before offering it; never silently drop
-        // malformed questions or let the browser supply a replacement key.
-        validateAssignment({ ...definition, maxAttempts: 3 }, { caseSensitiveChoices: subject === 'grammar' });
-        const id = `${level}:${subject}:${item.id}`;
-        if (item.id === undefined || sources.has(id)) throw new Error(`Duplicate or missing practice source ID: ${id}`);
-        const version = createHash('sha256').update(JSON.stringify(definition)).digest('hex');
-        sources.set(id, { ...definition, id, version, titleZh: item.title?.zh || item.word, difficulty: item.difficulty || null });
+        if (subject === 'grammar') {
+          const distinct = new Set();
+          definition.questions = definition.questions.filter(q => {
+            try { validateAssignment({ ...definition, maxAttempts: 3, questions: [q] }, { caseSensitiveChoices: true }); }
+            catch { return false; }
+            const key = q.prompt.trim().normalize('NFKC').toLowerCase();
+            if (distinct.has(key)) return false;
+            distinct.add(key); return true;
+          }).slice(0, 3);
+        }
+        const normalized = validateActivity({ ...definition, maxAttempts: 3 });
+        // Hash normalized content, not freshly generated question/option IDs.
+        normalized.questions = normalized.questions.map(q => ({ prompt: q.prompt, options: q.options.map(o => o.text), correctIndex: q.options.findIndex(o => o.id === q.correctOptionId), explanation: q.explanation }));
+        const metadata = { titleZh: item.title?.zh || item.zh?.slice(0, 120) || item.word, difficulty: item.difficulty || null };
+        const version = createHash('sha256').update(JSON.stringify({ ...normalized, ...metadata })).digest('hex');
+        sources.set(id, { ...normalized, ...metadata, id, version });
+        } catch (error) {
+          if (!(error instanceof ClassroomError)) throw error;
+          errors.push({ sourceId: id, error: error.message, code: error.code });
+        }
       }
     }
   }
   return {
+    validationErrors() { return structuredClone(errors); },
     list(level, subject) {
       if (![1, 2, 3].includes(level) || !subjects.includes(subject)) throw invalidSource();
       return [...sources.values()].filter(s => s.level === level && s.subject === subject)
-        .map(({ id, title, titleZh, difficulty, questions }) => ({ id, title, titleZh, difficulty, questionCount: questions.length }));
+        .map(({ id, title, titleZh, difficulty, questions, format }) => ({ id, title, titleZh, difficulty, format, questionCount: questions.length }));
     },
     preview(id) {
       if (typeof id !== 'string' || !sources.has(id)) throw invalidSource();
@@ -51,7 +77,7 @@ export function createPracticeCatalog(curriculum) {
       if (Object.keys(body).some(key => !['sourceId', 'sourceVersion', 'maxAttempts'].includes(key))) throw invalidSource();
       const source = this.preview(body.sourceId);
       if (body.sourceVersion !== source.version) throw new ClassroomError('This content has changed. Preview it again before assigning.', 409, 'practice_source_changed');
-      return { ...validateAssignment({ ...source, maxAttempts: body.maxAttempts ?? 3 }, { caseSensitiveChoices: source.subject === 'grammar' }), sourceId: source.id, sourceVersion: source.version };
+      return { ...validateActivity({ ...source, maxAttempts: body.maxAttempts ?? 3 }), sourceId: source.id, sourceVersion: source.version };
     },
   };
 }

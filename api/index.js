@@ -328,21 +328,22 @@ const publicUser = (user) => {
   return { ...safeUser, role: ['admin', 'teacher'].includes(role) ? role : 'student' };
 };
 
-app.route('/classroom', createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser }));
-app.route('/lessons', createLessonRouter({ getDb, requireAuth,
+const activityEvaluators = {
 evaluateWriting: async (input) => {
   if (!process.env.GEMINI_API_KEY) throw new Error('Writing service unavailable');
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   return gradeLessonWriting(input, request => ai.models.generateContent({
     ...request, model: 'gemini-2.5-flash',
-    config: { ...request.config, abortSignal: AbortSignal.timeout(20000) },
+    config: { ...request.config, abortSignal: input.signal || AbortSignal.timeout(20000) },
   }));
-}, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization }) => {
+}, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization, signal }) => {
   // Internal dispatch reuses the existing Deepgram-first evaluator. The target
-  // comes from the stored lesson, never from a student's request.
-  const response = await app.request('http://localhost/api/audio/evaluate', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: authorization }, body: JSON.stringify({ targetSentence: sentence, audioBase64, mimeType: audioMime }) });
+  // comes from the stored lesson/assignment, never a student's request.
+  const response = await app.request('http://localhost/api/audio/evaluate', { method: 'POST', signal, headers: { 'Content-Type': 'application/json', Authorization: authorization }, body: JSON.stringify({ targetSentence: sentence, audioBase64, mimeType: audioMime }) });
   return response.json();
-} }));
+} };
+app.route('/classroom', createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, ...activityEvaluators }));
+app.route('/lessons', createLessonRouter({ getDb, requireAuth, ...activityEvaluators }));
 
 app.post('/auth/login', authRateLimit, async (c) => {
   let body;

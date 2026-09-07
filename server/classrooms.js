@@ -6,6 +6,7 @@ import { ClassroomError, requireText, assignmentForStudent, gradeAssignment, sum
 import { getPracticeCatalog } from './practiceCatalog.js';
 import { consumeRequest } from './requestLimit.js';
 import { requestTiming } from './requestTiming.js';
+import { productiveInput, gradeProductive, publicAssignmentAttempt } from './assignmentActivities.js';
 
 const digest = code => createHash('sha256').update(code).digest('hex');
 const teacherRole = role => role === 'teacher' || role === 'admin';
@@ -13,15 +14,17 @@ const invitationCode = () => randomBytes(6).toString('hex').toUpperCase();
 const notFound = () => { throw new ClassroomError('This class or assignment is not available to your account.', 404, 'not_found'); };
 const classSummary = (row, owner = false) => ({ id: row._id, name: row.name, createdAt: row.createdAt, collectionId: row.collectionId || null, studentCount: row.memberIds.length, ...(owner ? { invitationCode: row.invitationCode } : {}) });
 
-export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, practiceCatalog = getPracticeCatalog }) {
+export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, practiceCatalog = getPracticeCatalog, evaluateWriting, evaluateSpeech, evaluatorTimeoutMs = 25000 }) {
   const app = new Hono();
   app.use('*', requestTiming);
+  app.use('/assignments/:id/audio/:requestId', async (c, next) => { c.header('Cache-Control', 'private, no-store'); await next(); });
   app.onError((error, c) => {
     if (error instanceof ClassroomError) return c.json({ success: false, error: error.message, code: error.code }, error.status);
     console.error('[Classrooms]', error);
     return c.json({ success: false, error: 'Unable to complete this request. Please try again.', code: 'unavailable' }, 503);
   });
-  app.use('*', bodyLimit({ maxSize: 100000, onError: c => c.json({ success: false, error: 'Request is too large.', code: 'invalid_input' }, 413) }));
+  app.use('*', (c, next) => bodyLimit({ maxSize: c.req.method === 'POST' && /\/assignments\/[^/]+\/submit$/.test(c.req.path) ? 2050000 : 100000,
+    onError: c => c.json({ success: false, error: 'Request is too large.', code: 'invalid_input' }, 413) })(c, next));
   app.use('*', requireAuth);
   app.use('*', async (c, next) => {
     const session = c.get('user');
@@ -130,11 +133,11 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   app.get('/classes/:id', async c => {
     const { row, owner } = await findClass(c, c.req.param('id'));
     const { assignments, submissions } = c.get('db');
-    const all = await assignments.find({ classId: row._id }).sort({ createdAt: -1 }).limit(100).toArray();
-    const ownResults = owner ? [] : await submissions.find({ classId: row._id, studentId: c.get('user').userId }).toArray();
+    const all = await assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, level: 1, format: 1, maxAttempts: 1, 'questions.id': 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
+    const ownResults = owner ? [] : await submissions.find({ classId: row._id, studentId: c.get('user').userId }, { projection: { assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray();
     return c.json({ success: true, class: classSummary(row, owner), isOwner: owner,
       ...(owner ? { students: row.members.map(({ id, name, joinedAt }) => ({ id, name, joinedAt })) } : {}),
-      assignments: all.map(a => ({ id: a._id, title: a.title, subject: a.subject, level: a.level, maxAttempts: a.maxAttempts, questionCount: a.questions.length, createdAt: a.createdAt,
+      assignments: all.map(a => ({ id: a._id, title: a.title, subject: a.subject, level: a.level, ...(a.format ? { format: a.format } : {}), maxAttempts: a.maxAttempts, questionCount: a.questions.length, createdAt: a.createdAt,
         ...(!owner ? { progress: summarizeAttempts(ownResults.find(s => s.assignmentId === a._id)?.attempts) } : {}) })) });
   });
   app.get('/classes/:id/practice-catalog', requireTeacher, async c => {
@@ -180,8 +183,8 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   };
   app.get('/assignments/:id', async c => {
     const { assignment, owner } = await findAssignment(c);
-    const submission = owner ? null : await c.get('db').submissions.findOne({ _id: `${assignment._id}:${c.get('user').userId}` });
-    const attempts = submission?.attempts || [];
+    const submission = owner ? null : await c.get('db').submissions.findOne({ _id: `${assignment._id}:${c.get('user').userId}` }, { projection: { 'attempts.audioBase64': 0 } });
+    const attempts = (submission?.attempts || []).map(publicAssignmentAttempt);
     const safeAssignment = assignmentForStudent(assignment);
     return c.json({ success: true, assignment: safeAssignment, attempts,
       ...(owner || attempts.length ? { review: assignment.questions.map(({ id, prompt, options, correctOptionId, explanation }) => ({ id, prompt, options, correctOptionId, explanation })) } : {}) });
@@ -193,28 +196,68 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     if (typeof body.requestId !== 'string' || !/^[a-zA-Z0-9_-]{12,80}$/.test(body.requestId)) throw new ClassroomError('Invalid submission request.');
     const studentId = c.get('user').userId;
     const _id = `${assignment._id}:${studentId}`;
-    const { submissions } = c.get('db');
-    const savedResponse = attempt => c.json({ success: true, attempt, review: assignment.questions.map(({ id, explanation }) => ({ id, explanation })) });
+    const db = c.get('db');
+    const { submissions } = db;
+    const savedResponse = attempt => c.json({ success: true, attempt: publicAssignmentAttempt(attempt), review: assignment.questions.map(({ id, explanation }) => ({ id, explanation })) });
     const existing = await submissions.findOne({ _id });
     const prior = existing?.attempts.find(a => a.requestId === body.requestId);
     if (prior) return savedResponse(prior);
-    const attempt = { ...gradeAssignment(assignment, body.answers), requestId: body.requestId, submittedAt: new Date() };
-    try { await submissions.updateOne({ _id }, { $setOnInsert: { classId: assignment.classId, assignmentId: assignment._id, studentId, attempts: [] } }, { upsert: true }); } catch (e) { if (e.code !== 11000) throw e; }
-    const added = await submissions.updateOne({ _id, [`attempts.${assignment.maxAttempts - 1}`]: { $exists: false }, 'attempts.requestId': { $ne: body.requestId } }, { $push: { attempts: attempt } });
-    if (!added.modifiedCount) {
-      const concurrent = await submissions.findOne({ _id });
-      const replay = concurrent?.attempts.find(a => a.requestId === body.requestId);
-      if (replay) return savedResponse(replay);
-      throw new ClassroomError('You have used all attempts for this assignment.', 409, 'attempt_limit');
+    const attemptLimit = () => { throw new ClassroomError('You have used all attempts for this assignment.', 409, 'attempt_limit'); };
+    if ((existing?.attempts.length || 0) >= assignment.maxAttempts) attemptLimit();
+    let result;
+    if (['writing', 'speaking'].includes(assignment.format)) {
+      const input = productiveInput(assignment, body);
+      const now = Date.now();
+      const accepted = await consumeRequest(db.classroomLimits, `${_id}:assignment-ai:${Math.floor(now / 900000)}`, 6, new Date(now + 1800000));
+      if (!accepted) throw new ClassroomError('Please wait before requesting more AI feedback.', 429, 'rate_limited');
+      result = await gradeProductive(assignment, input, { evaluateWriting, evaluateSpeech, authorization: c.req.header('authorization'), timeoutMs: evaluatorTimeoutMs });
+    } else {
+      result = gradeAssignment(assignment, body.answers);
     }
-    return savedResponse(attempt);
+    const attempt = { ...result, requestId: body.requestId, submittedAt: new Date() };
+    const saved = await db.withLessonTransaction(async session => {
+      const options = { session };
+      // Guarded writes ensure concurrent account revocation or membership
+      // removal conflicts with this transaction, not just an earlier read.
+      const account = await db.users.findOne({ _id: new ObjectId(studentId) }, options);
+      if (!account || (account.tokenVersion || 0) !== (c.get('user').tokenVersion || 0))
+        throw new ClassroomError('Please sign in again.', 401, 'session_expired');
+      if (account.role !== 'student') throw new ClassroomError('Only enrolled students can submit assignments.', 403, 'student_required');
+      const authorized = await db.users.updateOne({ _id: account._id, role: 'student', tokenVersion: account.tokenVersion === undefined ? { $exists: false } : account.tokenVersion }, { $inc: { assignmentWriteVersion: 1 } }, options);
+      if (!authorized.modifiedCount) throw new ClassroomError('Please sign in again.', 401, 'session_expired');
+      const member = await db.classes.updateOne({ _id: assignment.classId, memberIds: studentId }, { $inc: { assignmentWriteVersion: 1 } }, options);
+      if (!member.modifiedCount) return notFound();
+      const current = await submissions.findOne({ _id }, options);
+      const replay = current?.attempts.find(a => a.requestId === body.requestId);
+      if (replay) return replay;
+      if ((current?.attempts.length || 0) >= assignment.maxAttempts) attemptLimit();
+      if (!current) await submissions.insertOne({ _id, classId: assignment.classId, assignmentId: assignment._id, studentId, attempts: [] }, options);
+      const added = await submissions.updateOne({ _id, [`attempts.${assignment.maxAttempts - 1}`]: { $exists: false }, 'attempts.requestId': { $ne: body.requestId } }, { $push: { attempts: attempt } }, options);
+      if (!added.modifiedCount) attemptLimit();
+      return attempt;
+    });
+    return savedResponse(saved);
+  });
+
+  app.get('/assignments/:id/audio/:requestId', async c => {
+    c.header('Cache-Control', 'private, no-store');
+    const { assignment, owner, row } = await findAssignment(c);
+    const requestedStudent = c.req.query('studentId');
+    if (requestedStudent !== undefined && (!owner || !row.memberIds.includes(requestedStudent))) return notFound();
+    const studentId = requestedStudent || c.get('user').userId;
+    const submission = await c.get('db').submissions.findOne({ _id: `${assignment._id}:${studentId}` });
+    const attempt = submission?.attempts.find(a => a.requestId === c.req.param('requestId'));
+    if (!attempt?.audioBase64) return notFound();
+    c.header('Content-Type', attempt.audioMime);
+    c.header('X-Content-Type-Options', 'nosniff');
+    return c.body(Buffer.from(attempt.audioBase64, 'base64'));
   });
 
   app.get('/classes/:id/report', requireTeacher, async c => {
     const { row } = await findClass(c, c.req.param('id'), true);
     const db = c.get('db');
     const [assignments, submissions, accounts] = await Promise.all([
-      db.assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray(),
+      db.assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, format: 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray(),
       db.submissions.find({ classId: row._id }, { projection: { studentId: 1, assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray(),
       db.users.find({ _id: { $in: row.memberIds.map(id => new ObjectId(id)) } }, { projection: { completedReading: 1, completedWriting: 1, completedSpeaking: 1, completedGrammar: 1, masteredVocab: 1 } }).toArray()
     ]);
@@ -229,7 +272,7 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
         practice: Object.fromEntries(['masteredVocab', 'completedGrammar', 'completedReading', 'completedWriting', 'completedSpeaking'].map(key => [key, Array.isArray(account?.[key]) ? account[key].length : 0])) };
     });
     return c.json({ success: true, class: classSummary(row, true), students,
-      assignments: assignments.map(({ _id, title, subject }) => ({ id: _id, title, subject })) });
+      assignments: assignments.map(({ _id, title, subject, format }) => ({ id: _id, title, subject, ...(format ? { format } : {}) })) });
   });
   // Load details one student, then one assignment at a time. A full class's
   // answer history is deliberately never included in an overview response.
@@ -248,8 +291,8 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const { assignment, row, owner } = await findAssignment(c);
     const studentId = c.req.param('studentId');
     if (!owner || !row.memberIds.includes(studentId)) return notFound();
-    const submission = await c.get('db').submissions.findOne({ _id: `${assignment._id}:${studentId}` });
-    return c.json({ success: true, assignment: { id: assignment._id, title: assignment.title, passage: assignment.passage, questions: assignment.questions }, attempts: submission?.attempts || [] });
+    const submission = await c.get('db').submissions.findOne({ _id: `${assignment._id}:${studentId}` }, { projection: { 'attempts.audioBase64': 0 } });
+    return c.json({ success: true, assignment: { ...assignmentForStudent(assignment), questions: assignment.questions }, attempts: (submission?.attempts || []).map(publicAssignmentAttempt) });
   });
   return app;
 }

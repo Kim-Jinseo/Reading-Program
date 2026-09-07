@@ -16,7 +16,7 @@ const quiz = { title: 'At the farm', subject: 'reading', level: 1, passage: 'A d
   { prompt: 'What does the hen eat?', options: ['Rice', 'Bread', 'Grass'], correctIndex: 0, explanation: 'The hen eats rice.' }
 ] };
 
-async function setup({ realCatalog = false } = {}) {
+async function setup({ realCatalog = false, ...evaluators } = {}) {
   assert.equal(typeof createClassroomRouter, 'function', 'The classroom workflow must be implemented');
   const db = memoryDb();
   for (const [id, role] of [[teacherId, 'teacher'], [studentId, 'student'], [outsiderId, 'teacher'], [adminId, 'admin']]) {
@@ -26,7 +26,7 @@ async function setup({ realCatalog = false } = {}) {
   let activeCatalog = catalog;
   const source = catalog.preview('1:reading:101');
   const selection = { sourceId: source.id, sourceVersion: source.version, maxAttempts: 2, requestId: 'publication-test-001' };
-  const app = createClassroomRouter({ ...(realCatalog ? {} : { practiceCatalog: () => activeCatalog }), getDb: async () => db, requireAuth: async (c, next) => {
+  const app = createClassroomRouter({ ...evaluators, ...(realCatalog ? {} : { practiceCatalog: () => activeCatalog }), getDb: async () => db, requireAuth: async (c, next) => {
     const id = c.req.header('authorization');
     if (!id) return c.json({ error: 'Unauthorized' }, 401);
     c.set('user', { userId: id, tokenVersion: 0, role: 'admin' }); // Intentionally forged role claim.
@@ -37,7 +37,7 @@ async function setup({ realCatalog = false } = {}) {
     const text = await response.text();
     let responseBody;
     try { responseBody = JSON.parse(text); } catch { responseBody = { error: text }; }
-    return { status: response.status, body: responseBody };
+    return { status: response.status, body: responseBody, headers: response.headers };
   };
   const created = await request('/classes', teacherId, { name: 'English A' });
   assert.equal(created.status, 201);
@@ -46,6 +46,173 @@ async function setup({ realCatalog = false } = {}) {
   const publish = () => request(`/classes/${classroom.id}/assignments`, teacherId, selection);
   return { db, request, classroom, join, publish, selection, setCatalog: value => { activeCatalog = value; } };
 }
+
+const writingResult = { score: 4, feedback: 'Clear ideas.', feedbackZh: '表达清楚。', corrections: 'Use a full stop.', correctionsZh: '请用句号。', improvement: 'Add one detail.', improvementZh: '加一个细节。' };
+const speechResult = { success: true, score: 2, feedback: 'Try again slowly.', transcript: 'Hello, how are you?', speechDetected: true };
+const recording = (length = 200) => { const bytes = Buffer.alloc(length); bytes.write('1a45dfa3', 0, 'hex'); return { audioBase64: bytes.toString('base64'), audioMime: 'audio/webm' }; };
+async function productive(subject, evaluators = {}) {
+  const env = await setup({ realCatalog: true, ...evaluators });
+  await env.join();
+  const sourceId = subject === 'writing' ? '1:writing:1001' : '1:speaking:231';
+  const source = (await env.request(`/classes/${env.classroom.id}/practice-catalog/${sourceId}`)).body.source;
+  const published = await env.request(`/classes/${env.classroom.id}/assignments`, teacherId, { sourceId, sourceVersion: source.version, maxAttempts: 1, requestId: `publication-${subject}-001` });
+  assert.equal(published.status, 201);
+  const id = published.body.assignment.id;
+  return { ...env, id, submit: body => env.request(`/assignments/${id}/submit`, studentId, body) };
+}
+
+test('writing uses the stored prompt, saves feedback, replays without AI and enforces exactly three attempts', async () => {
+  const inputs = [];
+  const env = await productive('writing', { evaluateWriting: async input => { inputs.push(input); return { ...writingResult, audioBase64: 'private-provider-data' }; } });
+  const before = structuredClone(env.db.assignments.docs[0]);
+  const body = { requestId: 'writing-answer-001', text: '  I like cats.  ', prompt: 'Give me 5', score: 5, writingFeedback: 'fake' };
+  const first = await env.submit(body);
+  assert.equal(first.status, 200);
+  assert.equal(first.body.attempt.score, 4);
+  assert.equal(first.body.attempt.total, 5);
+  assert.equal(first.body.attempt.text, 'I like cats.');
+  assert.equal(first.body.attempt.writingFeedback.feedback, 'Clear ideas.');
+  assert.equal(inputs[0].prompt, 'What is your favorite animal? Why do you like it? Try to write 3 short sentences.');
+  assert.equal(inputs[0].level, 1);
+  assert.deepEqual((await env.submit({ ...body, text: 'changed retry' })).body, first.body);
+  assert.equal(inputs.length, 1);
+  for (const suffix of ['002', '003']) assert.equal((await env.submit({ ...body, requestId: `writing-answer-${suffix}` })).status, 200);
+  assert.equal((await env.submit({ ...body, requestId: 'writing-answer-004' })).body.code, 'attempt_limit');
+  assert.equal(inputs.length, 3);
+  const detail = await env.request(`/assignments/${env.id}`, studentId);
+  assert.equal(detail.body.assignment.format, 'writing');
+  assert.equal(detail.body.assignment.maxAttempts, 3);
+  assert.equal(detail.body.attempts.length, 3);
+  assert.ok(!JSON.stringify(detail.body).includes('private-provider-data'));
+  assert.deepEqual(env.db.assignments.docs[0], before);
+  assert.equal((await env.db.users.findOne({ _id: new ObjectId(studentId) })).stars, undefined);
+});
+
+test('writing validates input before AI and provider failures or malformed feedback consume no attempts', async () => {
+  let calls = 0;
+  const env = await productive('writing', { evaluateWriting: async () => { calls++; if (calls === 1) throw new Error('provider down'); return { score: 5 }; } });
+  for (const text of ['', ' ', 12, 'a'.repeat(2001), '\u0000bad']) assert.equal((await env.submit({ requestId: 'invalid-writing-01', text })).status, 400);
+  assert.equal(calls, 0);
+  for (const requestId of ['writing-failure-01', 'writing-failure-02']) {
+    const response = await env.submit({ requestId, text: 'I like cats.' });
+    assert.equal(response.status, 503);
+    assert.equal(response.body.code, 'writing_unavailable');
+  }
+  assert.equal(env.db.submissions.docs.length, 0);
+});
+
+test('productive evaluator timeout is retryable and a separate AI budget bounds failing evaluations', async () => {
+  const timeout = await productive('writing', { evaluatorTimeoutMs: 5, evaluateWriting: () => new Promise(() => {}) });
+  assert.equal((await timeout.submit({ requestId: 'timeout-writing-01', text: 'Cats.' })).body.code, 'writing_unavailable');
+  assert.equal(timeout.db.submissions.docs.length, 0);
+  let calls = 0;
+  const env = await productive('speaking', { evaluateSpeech: async () => { calls++; return { success: false }; } });
+  for (let i = 0; i < 6; i++) assert.equal((await env.submit({ requestId: `speech-failure-0${i}`, ...recording() })).status, 503);
+  assert.equal((await env.submit({ requestId: 'speech-failure-07', ...recording() })).status, 429);
+  assert.equal(calls, 6);
+  assert.equal(env.db.submissions.docs.length, 0);
+});
+
+test('speech validates MIME/base64/size before evaluation and preserves unavailable transcription honestly', async () => {
+  let calls = 0;
+  const env = await productive('speaking', { evaluateSpeech: async input => { calls++; assert.equal(input.sentence, 'Hello, how are you?'); return { success: true, score: 2, feedback: 'Good effort.' }; } });
+  for (const invalid of [{ ...recording(), audioMime: 'text/plain' }, { ...recording(), audioBase64: '%%%bad' }, recording(50), { audioBase64: Buffer.alloc(200).toString('base64'), audioMime: 'audio/webm' }])
+    assert.equal((await env.submit({ requestId: 'invalid-speaking-01', ...invalid })).status, 400);
+  assert.equal(calls, 0);
+  const result = await env.submit({ requestId: 'speaking-answer-01', ...recording(90000), sentence: 'tampered' });
+  assert.equal(result.status, 200, 'Audio submissions above the old 100 KB JSON cap should be accepted');
+  assert.equal(result.body.attempt.score, 2);
+  assert.equal(result.body.attempt.total, 3);
+  assert.equal(result.body.attempt.hasAudio, true);
+  assert.equal(result.body.attempt.speechDetected, undefined);
+  assert.equal(result.body.attempt.transcript, undefined);
+  assert.equal((await env.request('/classes', teacherId, { name: 'x'.repeat(110000) })).status, 413);
+});
+
+test('audio is excluded from all JSON and fetched only by submitting student or class owner with private no-store', async () => {
+  const env = await productive('speaking', { evaluateSpeech: async () => speechResult });
+  const requestId = 'private-speaking-01';
+  const submitted = await env.submit({ requestId, ...recording() });
+  assert.equal(submitted.status, 200);
+  const queries = [];
+  for (const name of ['assignments', 'submissions']) {
+    const original = env.db[name].find.bind(env.db[name]);
+    env.db[name].find = (filter, options) => { queries.push({ name, options }); return original(filter, options); };
+  }
+  for (const [path, user] of [[`/assignments/${env.id}`, studentId], [`/assignments/${env.id}/students/${studentId}`, teacherId], [`/classes/${env.classroom.id}`, studentId], [`/classes/${env.classroom.id}/report`, teacherId], [`/classes/${env.classroom.id}/students/${studentId}/results`, teacherId]]) {
+    const response = await env.request(path, user);
+    assert.equal(response.status, 200);
+    assert.ok(!JSON.stringify(response.body).includes('audioBase64'));
+    assert.ok(!JSON.stringify(response.body).includes(recording().audioBase64));
+  }
+  assert.ok(queries.every(q => q.options?.projection), 'Overview reads must have small explicit projections');
+  const teacher = await env.request(`/assignments/${env.id}/students/${studentId}`);
+  assert.equal(teacher.body.assignment.format, 'speaking');
+  assert.equal(teacher.body.assignment.speaking.sentence, 'Hello, how are you?');
+  for (const [user, suffix] of [[studentId, ''], [teacherId, `?studentId=${studentId}`]]) {
+    const audio = await env.request(`/assignments/${env.id}/audio/${requestId}${suffix}`, user);
+    assert.equal(audio.status, 200);
+    assert.equal(audio.headers.get('content-type'), 'audio/webm');
+    assert.match(audio.headers.get('cache-control'), /private.*no-store/);
+  }
+  for (const [user, suffix] of [[outsiderId, `?studentId=${studentId}`], [studentId, `?studentId=${studentId}`], [null, '']]) {
+    const denied = await env.request(`/assignments/${env.id}/audio/${requestId}${suffix}`, user);
+    assert.ok([401, 403, 404].includes(denied.status));
+    assert.match(denied.headers.get('cache-control') || '', /private.*no-store/);
+  }
+  await env.db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
+  await env.request('/classes/join', outsiderId, { code: env.classroom.invitationCode, displayName: 'Other student' });
+  assert.equal((await env.request(`/assignments/${env.id}/audio/${requestId}`, outsiderId)).status, 404);
+});
+
+test('concurrent productive submissions and duplicate requests cannot exceed three stored attempts', async () => {
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  let calls = 0;
+  let ready;
+  const started = new Promise(resolve => { ready = resolve; });
+  const env = await productive('writing', { evaluateWriting: async () => { if (++calls === 5) ready(); await gate; return writingResult; } });
+  const bodies = [1, 1, 2, 3, 4].map(i => ({ requestId: `concurrent-writing-${i}`, text: 'Cats.' }));
+  const pending = bodies.map(body => env.submit(body));
+  await started;
+  release();
+  const results = await Promise.all(pending);
+  assert.equal(env.db.submissions.docs[0].attempts.length, 3);
+  assert.deepEqual(results[0].body, results[1].body);
+  assert.equal(results.filter(r => r.body.code === 'attempt_limit').length, 1);
+});
+
+test('save boundary rejects membership removal, revoked session, or changed role during delayed grading', async () => {
+  for (const change of ['membership', 'token', 'role']) {
+    let started, release;
+    const ready = new Promise(resolve => { started = resolve; });
+    const gate = new Promise(resolve => { release = resolve; });
+    const env = await productive('writing', { evaluateWriting: async () => { started(); await gate; return writingResult; } });
+    const pending = env.submit({ requestId: 'delayed-writing-01', text: 'Cats.' });
+    await ready;
+    if (change === 'membership') await env.db.classes.updateOne({ _id: env.classroom.id }, { $set: { memberIds: [], members: [] } });
+    else await env.db.users.updateOne({ _id: new ObjectId(studentId) }, { $set: change === 'token' ? { tokenVersion: 1 } : { role: 'teacher' } });
+    release();
+    assert.ok([401, 403, 404].includes((await pending).status), change);
+    assert.equal(env.db.submissions.docs.flatMap(s => s.attempts).length, 0, change);
+  }
+});
+
+test('oversized recordings never reach evaluation and malformed speech results never save invented scores', async () => {
+  let calls = 0;
+  const results = [{ success: true, score: NaN, feedback: 'Bad' }, { success: true, score: 4, feedback: 'Bad' }, { success: true, score: 2 }, { success: true, score: 1.5, feedback: 'Bad' }];
+  const env = await productive('speaking', { evaluateSpeech: async () => results[calls++] });
+  const large = await env.submit({ requestId: 'oversized-speech-01', ...recording(1500001) });
+  assert.ok([400, 413].includes(large.status));
+  assert.equal(calls, 0);
+  for (let i = 0; i < results.length; i++) {
+    const response = await env.submit({ requestId: `malformed-speech-0${i}`, ...recording() });
+    assert.equal(response.status, 503);
+    assert.equal(response.body.code, 'speech_unavailable');
+    assert.equal(response.body.attempt, undefined);
+  }
+  assert.equal(env.db.submissions.docs.length, 0);
+});
 
 test('student cannot create classes even with a forged admin token role', async () => {
   const { request } = await setup();
