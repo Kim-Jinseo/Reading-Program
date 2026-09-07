@@ -15,12 +15,14 @@ sidebar styling, standalone practice, and placement testing are unchanged.
 
 ## Automated coverage
 
-Latest independent verification, including the playback-guard fix `7d334dd`:
+Latest independent verification on September 8, including playback-guard and uncertain-retry fixes:
 
 - `node --test tests/*.test.js`: 93 passed, 0 failed.
-- Full React test suite (CI, non-watch, in-band): 117 passed, 18 suites, 0 failed.
+- Full React test suite (CI, non-watch, in-band): 119 passed, 18 suites, 0 failed.
 - Production React build: compiled successfully.
 - `git diff --check`: no whitespace errors.
+- Both task reviews approved. Final integration review found one uncertain-retry
+  defect; fix `d08cd25` passed scoped re-review with no remaining findings.
 
 - Backend: all five subjects/levels, source versions and tampering, legacy data,
   grammar validity, AI input/result validation, failure/no-attempt behavior,
@@ -30,6 +32,9 @@ Latest independent verification, including the playback-guard fix `7d334dd`:
 - Frontend: learning gates, editable choices, immutable teacher publication,
   productive results/retries, actual recorder lifecycle with browser doubles,
   read-only teacher feedback, audio cleanup, navigation guards, and lesson colors.
+- Lost-response recovery: writing and speaking keep the original frozen payload
+  and request ID through subsequent rate-limit or evaluator errors, so replay
+  resolves the original submission rather than using another attempt.
 
 ## Browser walkthrough
 
