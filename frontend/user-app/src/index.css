@@ -45,7 +45,7 @@ select {
 /* Warm surfaces and small illustrated accents; reading areas stay plain. */
 .learning-workspace { background: #fbfaf7; }
 .learning-card { box-shadow: 0 4px 16px rgb(85 63 111 / 0.045); }
-.home-start-panel {
+.home-class-feature, .home-quick-list {
   border: 1px solid #dce2e9;
   border-radius: 20px;
   background: #fff;
@@ -54,15 +54,11 @@ select {
 }
 .home-class-action { background: #233c5a; }
 .home-class-icon { background: #edf2f8; color: #233c5a; }
-.home-quick-list { border-top: 1px solid #e2e8f0; }
 .home-quick-link + .home-quick-link { border-top: 1px solid #e2e8f0; }
 .home-class-feature, .home-quick-link { touch-action: manipulation; }
 .home-class-feature:focus-visible, .home-quick-link:focus-visible {
   outline: 2px solid #526f91;
   outline-offset: -3px;
-}
-@media (min-width: 768px) {
-  .home-quick-list { border-top: 0; border-left: 1px solid #e2e8f0; }
 }
 .home-quick-link--leaderboard { --home-icon: #946315; --home-icon-bg: #fff6de; }
 .home-quick-link--shop { --home-icon: #ac472d; --home-icon-bg: #fff0e9; }
