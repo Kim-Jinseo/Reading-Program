@@ -2,6 +2,23 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { ClassLessons } from './ClassLessons';
 
+test('returning to the Lessons tab does not force another download after a completed refresh', async () => {
+  const original = global.fetch;
+  localStorage.setItem('token', 'synthetic-tab-cache');
+  global.fetch = jest.fn(async () => ({ ok: true, json: async () => ({ success: true, lessons: [], history: [], collection: null }) }));
+  const props = { classId: 'c', lang: 'en', refreshKey: 1, onOpen: () => {} };
+  const { rerender, unmount } = render(<ClassLessons {...props} />);
+  try {
+    await screen.findByText('No published lessons for this course yet.');
+    rerender(<ClassLessons {...props} visible={false} />);
+    rerender(<ClassLessons {...props} visible />);
+    await act(async () => {});
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    rerender(<ClassLessons {...props} refreshKey={2} />);
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+  } finally { unmount(); global.fetch = original; localStorage.clear(); }
+});
+
 test('refresh clears an old selected-student snapshot instead of leaving stale lesson progress visible', async () => {
   const api = async path => path.endsWith('/report')
     ? { students: [{ id: 's', name: '小明', completed: 0, assigned: 1, studyDays28: 1 }] }

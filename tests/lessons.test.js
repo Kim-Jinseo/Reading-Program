@@ -93,6 +93,32 @@ async function setup(overrides = {}) {
   return { db, req, lesson, submit, calls: () => calls };
 }
 
+test('lesson details omit recording bytes but retain playback for old saved attempts', async () => {
+  const { db, req } = await setup();
+  await db.lessonParts.insertOne({ _id: 'audio', classId: 'class', lessonId: 'lesson', studentId: student, part: 'speaking',
+    attempts: [{ requestId: 'recording', score: 2, total: 3, audioBase64: 'aGVsbG8=', audioMime: 'audio/webm' }] });
+  const original = db.lessonParts.find.bind(db.lessonParts);
+  const projections = [];
+  db.lessonParts.find = (filter, options) => {
+    projections.push(options?.projection);
+    const cursor = original(filter), read = cursor.toArray.bind(cursor);
+    cursor.toArray = async () => (await read()).map(row => ({ ...row, attempts: row.attempts.map(a => {
+      const value = { ...a };
+      if (options?.projection?.['attempts.audioBase64'] === 0) delete value.audioBase64;
+      return value;
+    }) }));
+    return cursor;
+  };
+  const detail = await req('/classes/class/lessons/lesson');
+  assert.equal(detail.status, 200);
+  assert.equal(projections[0]?.['attempts.audioBase64'], 0);
+  assert.equal(detail.body.parts[0].attempts[0].hasAudio, true);
+  assert.equal(detail.body.parts[0].attempts[0].audioBase64, undefined);
+  const audio = await req('/classes/class/lessons/lesson/audio/recording');
+  assert.equal(audio.status, 200);
+  assert.equal(audio.body, 'hello');
+});
+
 test('lesson writing uses the stored prompt and level, saves AI feedback, and rewards only once', async () => {
   const { submit, db } = await setup({ evaluateWriting: async ({ prompt, level, text }) => {
     assert.equal(prompt, 'What is in your classroom? Write three short sentences.');

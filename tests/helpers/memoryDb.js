@@ -34,6 +34,20 @@ class MemoryCollection {
   }
   async findOne(query) { return clone(this.docs.find(doc => matches(doc, query)) || null); }
   async countDocuments(query) { return this.docs.filter(doc => matches(doc, query)).length; }
+  async findOneAndUpdate(query, update, options = {}) {
+    // No await between matching and applying: mirror Mongo's atomic operation.
+    let doc = this.docs.find(row => matches(row, query));
+    if (!doc && options.upsert) {
+      doc = { ...clone(query), ...clone(update.$setOnInsert || {}) };
+      if (this.docs.some(row => eq(row._id, doc._id))) throw Object.assign(new Error('Duplicate'), { code: 11000 });
+      this.docs.push(doc);
+    }
+    if (!doc) return null;
+    const before = clone(doc);
+    Object.assign(doc, clone(update.$set || {}));
+    for (const [key, value] of Object.entries(update.$inc || {})) doc[key] = (doc[key] || 0) + value;
+    return clone(options.returnDocument === 'after' ? doc : before);
+  }
   async insertOne(doc) {
     if (this.docs.some(row => eq(row._id, doc._id))) throw Object.assign(new Error('Duplicate'), { code: 11000 });
     this.docs.push(clone(doc)); return { insertedId: doc._id };

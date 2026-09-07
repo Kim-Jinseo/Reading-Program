@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { lessonApi, lessonError, collectionName, card, button, secondary, say } from './shared';
 import { CoursePicker } from './CoursePicker';
-export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, refreshKey = 0, showProgress = true, settingsRequest = 0, settingsContainer, onData, visible = true }) {
+export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, initialLessons, refreshKey = 0, showProgress = true, settingsRequest = 0, settingsContainer, onData, visible = true }) {
   const [data, setData] = useState(null),
     [collections, setCollections] = useState([]),
     [choice, setChoice] = useState(''),
@@ -13,6 +13,8 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
     [settings, setSettings] = useState(false);
   const language = useRef(lang);
   const generation = useRef(0);
+  const preloaded = useRef(initialLessons);
+  const lastRefresh = useRef(null);
   const notify = useRef(onData);
   notify.current = onData;
   language.current = lang;
@@ -31,7 +33,12 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
     let active = true;
     const epoch = ++generation.current;
     setStudent(null);
-    api(`/classes/${classId}`, undefined, { fresh: refreshKey > 0 })
+    const refreshIdentity = `${classId}:${refreshKey}`;
+    const fresh = refreshKey > 0 && lastRefresh.current !== refreshIdentity;
+    lastRefresh.current = refreshIdentity;
+    const pending = preloaded.current?.classId === classId ? preloaded.current.read : null;
+    preloaded.current = null;
+    (pending || api(`/classes/${classId}`, undefined, { fresh }))
       .then((result) => {
         if (active) {
           setData(result);
@@ -42,7 +49,7 @@ export function ClassLessons({ classId, isOwner, lang, onOpen, api = lessonApi, 
         if (active) setError(lessonError(e, language.current));
       });
     if (isOwner && showProgress)
-      api(`/classes/${classId}/report`, undefined, { fresh: refreshKey > 0 })
+      api(`/classes/${classId}/report`, undefined, { fresh })
         .then(r => {
           if (active) {
             setReport(r);

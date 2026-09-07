@@ -5,11 +5,12 @@ export function SlideViewer(props) {
   const key = JSON.stringify([props.basePath, props.query || '', props.slides.map(s => s.id), localStorage.getItem('token')]);
   return <SlideSession key={key} {...props} />;
 }
-function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
+function SlideSession({ slides, basePath, query = '', lang, onViewedAll, visible = true }) {
   const [index, setIndex] = useState(0),
     [display, setDisplay] = useState(null),
     [error, setError] = useState(false),
     [loaded, setLoaded] = useState([]),
+    [decoded, setDecoded] = useState([]),
     [retry, setRetry] = useState(0);
   const cache = useRef(null);
   useEffect(() => {
@@ -62,6 +63,12 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
     };
   }, [index, slides, basePath, query, retry]);
   const url = display?.index === index ? display.url : '';
+  useEffect(() => {
+    if (!visible || !url || !decoded.includes(index) || loaded.includes(index)) return;
+    const seen = [...loaded, index];
+    setLoaded(seen);
+    if (seen.length === slides.length) onViewedAll?.();
+  }, [visible, url, index, decoded, loaded, slides.length, onViewedAll]);
   return (
     <div className="space-y-4">
       <div
@@ -76,11 +83,7 @@ function SlideSession({ slides, basePath, query = '', lang, onViewedAll }) {
             alt={slides[index].alt}
             className="block mx-auto"
             style={{ width: '100%', maxWidth: '100%' }}
-            onLoad={() => {
-              const seen = [...new Set([...loaded, index])];
-              setLoaded(seen);
-              if (seen.length === slides.length) onViewedAll?.();
-            }}
+            onLoad={() => setDecoded(previous => previous.includes(index) ? previous : [...previous, index])}
           />
         ) : (
           <p className="p-8 text-center" role="status">

@@ -107,7 +107,7 @@ export function lessonSummary(parts) {
 export const publicParts = (rows) =>
   rows.map(({ part, attempts }) => ({
     part,
-    attempts: attempts.map(({ audioBase64, audioMime, ...attempt }) => ({ ...attempt, hasAudio: !!audioBase64 })),
+    attempts: attempts.map(({ audioBase64, audioMime, ...attempt }) => ({ ...attempt, hasAudio: !!(audioBase64 || audioMime) })),
   }));
 export function studyDays28(rows, now = new Date()) {
   const day = (date) => new Date(date).toLocaleDateString('en-CA', { timeZone: 'Asia/Shanghai' });

@@ -15,6 +15,20 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
 }
 beforeEach(() => localStorage.clear());
 
+test('opening a class responds immediately and starts its lesson request before class details finish', async () => {
+  let resolveDetails;
+  const details = new Promise(resolve => { resolveDetails = resolve; });
+  const api = jest.fn(path => path === '/classes' ? Promise.resolve({ classes: [classroom] }) : details);
+  const lessonRequests = jest.fn(lessonsApi);
+  render(<Harness api={api} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  expect(screen.getByRole('heading', { name: 'Monday English' })).toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveTextContent('Loading class');
+  expect(lessonRequests.mock.calls.some(([path]) => path === '/classes/class1')).toBe(true);
+  await act(async () => resolveDetails({ class: classroom, isOwner: false, assignments: [] }));
+  await screen.findByRole('heading', { name: 'Class lessons' });
+});
+
 test('teacher returns from read-only lesson work to the same student profile', async () => {
   const pupil = { id: 's', name: '王小明', completed: 0, assigned: 1, studyDays28: 1, practice: {} };
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] }

@@ -2,6 +2,16 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { SlideViewer } from './SlideViewer';
 
+test('a hidden downloaded slide counts as viewed only when its tab becomes visible', async () => {
+  const viewed = jest.fn();
+  const single = { ...props, slides: [slides[0]], onViewedAll: viewed };
+  const { rerender } = render(<SlideViewer {...single} visible={false} />);
+  fireEvent.load(await screen.findByAltText('First slide'));
+  expect(viewed).not.toHaveBeenCalled();
+  rerender(<SlideViewer {...single} visible />);
+  await waitFor(() => expect(viewed).toHaveBeenCalledTimes(1));
+});
+
 const slides = [{ id: 'one', alt: 'First slide' }, { id: 'two', alt: 'Second slide' }];
 const props = { slides, basePath: '/classes/c/lessons/l', lang: 'en' };
 const response = () => ({ ok: true, blob: async () => new Blob(['image']) });

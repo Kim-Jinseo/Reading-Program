@@ -4,6 +4,8 @@ import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypt
 import { ObjectId } from 'mongodb';
 import { ClassroomError, requireText, assignmentForStudent, gradeAssignment, summarizeAttempts, latestSubmission } from './classroomDomain.js';
 import { getPracticeCatalog } from './practiceCatalog.js';
+import { consumeRequest } from './requestLimit.js';
+import { requestTiming } from './requestTiming.js';
 
 const digest = code => createHash('sha256').update(code).digest('hex');
 const teacherRole = role => role === 'teacher' || role === 'admin';
@@ -13,21 +15,7 @@ const classSummary = (row, owner = false) => ({ id: row._id, name: row.name, cre
 
 export function createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, practiceCatalog = getPracticeCatalog }) {
   const app = new Hono();
-  let indexes;
-  const database = async () => {
-    const db = await getDb();
-    if (!indexes) indexes = Promise.all([
-      db.classes.createIndex({ invitationCode: 1 }, { unique: true }),
-      db.classes.createIndex({ ownerId: 1 }),
-      db.classes.createIndex({ memberIds: 1 }),
-      db.assignments.createIndex({ classId: 1, createdAt: -1 }),
-      db.submissions.createIndex({ classId: 1, studentId: 1 }),
-      db.teacherInvites.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
-      db.classroomLimits.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 })
-    ]).catch(error => { indexes = null; throw error; });
-    await indexes;
-    return db;
-  };
+  app.use('*', requestTiming);
   app.onError((error, c) => {
     if (error instanceof ClassroomError) return c.json({ success: false, error: error.message, code: error.code }, error.status);
     console.error('[Classrooms]', error);
@@ -38,8 +26,9 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   app.use('*', async (c, next) => {
     const session = c.get('user');
     if (!session?.userId || !ObjectId.isValid(session.userId)) return c.json({ success: false, error: 'Please sign in again.', code: 'session_expired' }, 401);
-    const db = await database();
-    const account = await db.users.findOne({ _id: new ObjectId(session.userId) });
+    const db = await getDb();
+    const account = await db.users.findOne({ _id: new ObjectId(session.userId) },
+      c.req.method === 'GET' ? { projection: { role: 1, tokenVersion: 1 } } : {});
     if (!account || (account.tokenVersion || 0) !== (session.tokenVersion || 0)) return c.json({ success: false, error: 'Please sign in again.', code: 'session_expired' }, 401);
     c.set('account', account); c.set('db', db);
     await next();
@@ -50,9 +39,8 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const now = Date.now();
     const collection = c.get('db').classroomLimits;
     const _id = `${c.get('user').userId}:${operation}:${Math.floor(now / windowMs)}`;
-    try { await collection.updateOne({ _id }, { $setOnInsert: { count: 0, expiresAt: new Date(now + windowMs * 2) } }, { upsert: true }); } catch (e) { if (e.code !== 11000) throw e; }
-    const result = await collection.updateOne({ _id, count: { $lt: maximum } }, { $inc: { count: 1 } });
-    if (!result.modifiedCount) { c.header('Retry-After', String(Math.ceil(windowMs / 1000))); throw new ClassroomError('Too many requests. Please try again later.', 429, 'rate_limited'); }
+    const accepted = await consumeRequest(collection, _id, maximum, new Date(now + windowMs * 2));
+    if (!accepted) { c.header('Retry-After', String(Math.ceil(windowMs / 1000))); throw new ClassroomError('Too many requests. Please try again later.', 429, 'rate_limited'); }
     await next();
   };
   app.use('*', limit('requests', 120, 60000));

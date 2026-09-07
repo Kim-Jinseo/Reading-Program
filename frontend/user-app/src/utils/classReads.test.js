@@ -63,3 +63,26 @@ test('failed requests are not cached', async () => {
   await expect(classroomApi('/classes/c')).rejects.toMatchObject({ status: 403 });
   expect((await classroomApi('/classes/c')).value).toBe('available');
 });
+
+test('simultaneous refreshes share a pending authorized request', async () => {
+  const pending = deferred();
+  global.fetch = jest.fn(() => pending.promise);
+  const first = lessonApi('/classes/c', undefined, { fresh: true });
+  const second = lessonApi('/classes/c', undefined, { fresh: true });
+  pending.resolve(response('current progress'));
+  expect((await first).value).toBe('current progress');
+  expect((await second).value).toBe('current progress');
+  expect(global.fetch).toHaveBeenCalledTimes(1);
+});
+
+test('submitting a lesson refreshes its class without throwing away unrelated classes or course choices', async () => {
+  let calls = 0;
+  global.fetch = jest.fn(async () => response(++calls));
+  const other = await lessonApi('/classes/other');
+  const collections = await lessonApi('/collections');
+  const current = await lessonApi('/classes/c');
+  await lessonApi('/classes/c/lessons/l/parts/writing', { text: 'My room.' });
+  expect(await lessonApi('/classes/other')).toEqual(other);
+  expect(await lessonApi('/collections')).toEqual(collections);
+  expect(await lessonApi('/classes/c')).not.toEqual(current);
+});

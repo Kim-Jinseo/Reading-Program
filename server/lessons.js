@@ -4,6 +4,8 @@ import { ObjectId } from 'mongodb';
 import { randomUUID } from 'node:crypto';
 import { ClassroomError, requireText, gradeAssignment, latestSubmission } from './classroomDomain.js';
 import { validateWritingFeedback } from './lessonWriting.js';
+import { consumeRequest } from './requestLimit.js';
+import { requestTiming } from './requestTiming.js';
 import {
   PARTS,
   validateCollection,
@@ -27,9 +29,9 @@ const changed = () => {
   );
 };
 const brief = (row) => ({ id: row._id, title: row.title, titleZh: row.titleZh, number: row.number, level: row.level });
-export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluateWriting, seed = true }) {
+export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluateWriting }) {
   const app = new Hono();
-  let ready;
+  app.use('*', requestTiming);
   app.onError((e, c) => {
     if (e instanceof ClassroomError) return c.json({ success: false, error: e.message, code: e.code }, e.status);
     console.error('[Lessons]', e);
@@ -51,56 +53,14 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
     if (!session?.userId || !ObjectId.isValid(session.userId))
       return c.json({ success: false, code: 'session_expired' }, 401);
     const db = await getDb();
-    const account = await db.users.findOne({ _id: new ObjectId(session.userId) });
+    const account = await db.users.findOne({ _id: new ObjectId(session.userId) }, { projection: { role: 1, tokenVersion: 1 } });
     if (!account || (account.tokenVersion || 0) !== (session.tokenVersion || 0))
       return c.json({ success: false, code: 'session_expired' }, 401);
-    if (!ready)
-      ready = (async () => {
-        await Promise.all([
-          db.lessonCollections.createIndex({ season: 1, year: 1, level: 1 }, { unique: true }),
-          db.lessons.createIndex({ collectionId: 1, number: 1 }, { unique: true }),
-          db.lessonParts.createIndex({ classId: 1, studentId: 1, lessonId: 1 }),
-          db.lessonAssets.createIndex({ lessonId: 1 }),
-          db.classroomLimits.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
-        ]);
-        if (seed) {
-          const { sampleCollection, sampleLesson, sampleAssets } = await import('./sampleLesson.js');
-          await db.lessonCollections.updateOne(
-            { _id: sampleCollection._id },
-            { $setOnInsert: sampleCollection },
-            { upsert: true },
-          );
-          for (const asset of sampleAssets)
-            await db.lessonAssets.updateOne(
-              { _id: asset._id },
-              { $setOnInsert: { ...asset, lessonId: sampleLesson._id } },
-              { upsert: true },
-            );
-          await db.lessons.updateOne(
-            { _id: sampleLesson._id },
-            { $setOnInsert: { ...sampleLesson, published: true, createdAt: new Date(), publishedAt: new Date() } },
-            { upsert: true },
-          );
-        }
-      })().catch((e) => {
-        ready = null;
-        throw e;
-      });
-    await ready;
     c.set('db', db);
     c.set('account', account);
     const _id = `${session.userId}:lessons:${Math.floor(Date.now() / 60000)}`;
-    try {
-      await db.classroomLimits.updateOne(
-        { _id },
-        { $setOnInsert: { count: 0, expiresAt: new Date(Date.now() + 120000) } },
-        { upsert: true },
-      );
-    } catch (e) {
-      if (e.code !== 11000) throw e;
-    }
-    const accepted = await db.classroomLimits.updateOne({ _id, count: { $lt: 180 } }, { $inc: { count: 1 } });
-    if (!accepted.modifiedCount)
+    const accepted = await consumeRequest(db.classroomLimits, _id, 180, new Date(Date.now() + 120000));
+    if (!accepted)
       throw new ClassroomError('Please wait a minute before trying again.', 429, 'rate_limited');
     c.header('Cache-Control', 'private, no-store');
     c.header('X-Content-Type-Options', 'nosniff');
@@ -128,15 +88,19 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
     if (!row || (ownerOnly ? !owner : !owner && !row.memberIds.includes(id))) return missing();
     return { row, owner, id };
   };
-  const lessonAccess = async (c) => {
+  const lessonAccess = async (c, { media = false, includeAudio = false } = {}) => {
     const access = await classAccess(c),
       db = c.get('db');
-    const lesson = await db.lessons.findOne({ _id: c.req.param('lessonId'), published: true });
+    const lesson = await db.lessons.findOne({ _id: c.req.param('lessonId'), published: true },
+      media ? { projection: { collectionId: 1, slides: 1 } } : {});
     if (!lesson) return missing();
     const active = lesson.collectionId === access.row.collectionId;
     const studentId = access.owner && c.req.query('studentId') ? c.req.query('studentId') : access.id;
     if (studentId !== access.id && !access.row.memberIds.includes(studentId)) return missing();
-    const parts = await db.lessonParts.find({ classId: access.row._id, lessonId: lesson._id, studentId }).toArray();
+    const filter = { classId: access.row._id, lessonId: lesson._id, studentId };
+    const parts = media
+      ? (active ? [] : await db.lessonParts.find(filter, { projection: { _id: 1 } }).limit(1).toArray())
+      : await db.lessonParts.find(filter, includeAudio ? {} : { projection: { 'attempts.audioBase64': 0 } }).toArray();
     if (!active && !parts.length) return missing();
     return { ...access, lesson, parts, active, studentId };
   };
@@ -266,21 +230,20 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
   app.get('/classes/:classId', async (c) => {
     const { row, owner, id } = await classAccess(c),
       db = c.get('db');
-    const lessons = await db.lessons
-      .find({ collectionId: row.collectionId || '', published: true })
+    const [lessons, parts, collection] = await Promise.all([db.lessons
+      .find({ collectionId: row.collectionId || '', published: true }, { projection: { title: 1, titleZh: 1, number: 1, level: 1 } })
       .sort({ number: 1 })
       .limit(100)
-      .toArray();
-    const parts = owner
+      .toArray(), owner
       ? []
-      : await db.lessonParts
+      : db.lessonParts
           .find(
             { classId: row._id, studentId: id },
             {
               projection: { lessonId: 1, part: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 },
             },
           )
-          .toArray();
+          .toArray(), row.collectionId ? db.lessonCollections.findOne({ _id: row.collectionId }) : null]);
     const oldIds = [...new Set(parts.map((p) => p.lessonId))].filter((id) => !lessons.some((l) => l._id === id));
     const old = oldIds.length
       ? await db.lessons
@@ -290,7 +253,7 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
     return c.json({
       success: true,
       revision: row.lessonRevision || 0,
-      collection: row.collectionId ? await db.lessonCollections.findOne({ _id: row.collectionId }) : null,
+      collection,
       lessons: lessons.map((l) => ({
         ...brief(l),
         progress: lessonSummary(parts.filter((p) => p.lessonId === l._id)),
@@ -326,7 +289,7 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
     });
   });
   app.get('/classes/:classId/lessons/:lessonId/slides/:assetId', async (c) => {
-    const { lesson } = await lessonAccess(c);
+    const { lesson } = await lessonAccess(c, { media: true });
     const id = c.req.param('assetId');
     if (!lesson.slides.some((s) => s.id === id)) return missing();
     const asset = await c.get('db').lessonAssets.findOne({ _id: id, lessonId: lesson._id });
@@ -473,7 +436,7 @@ export function createLessonRouter({ getDb, requireAuth, evaluateSpeech, evaluat
     return respond(savedAttempt);
   });
   app.get('/classes/:classId/lessons/:lessonId/audio/:requestId', async (c) => {
-    const { parts } = await lessonAccess(c),
+    const { parts } = await lessonAccess(c, { includeAudio: true }),
       a = parts.find((p) => p.part === 'speaking')?.attempts.find((a) => a.requestId === c.req.param('requestId'));
     if (!a?.audioBase64) return missing();
     c.header('Content-Type', a.audioMime);

@@ -184,9 +184,9 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             {error}
           </p>
         )}
-        {part === 'slides' && (
-          <>
+        <div hidden={part !== 'slides'} className="space-y-6">
             <SlideViewer
+              visible={part === 'slides'}
               slides={lesson.slides}
               basePath={base}
               query={query}
@@ -200,8 +200,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
                 '看完每页课件后，确认已复习。查看课件不计入答题成绩。',
               )}
             </p>
-          </>
-        )}
+        </div>
         {retrying && <div className="rounded-xl bg-indigo-50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <p className="text-indigo-900 font-semibold">{say(lang, 'New attempt — your earlier work is saved.', '再次尝试：以前的作答已保存。')}</p>
           <button className={secondary} disabled={busy || micBusy || !!pending.current} onClick={() => {

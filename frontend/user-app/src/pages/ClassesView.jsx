@@ -21,6 +21,8 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const [classes, setClasses] = useState([]);
   const [mode, setMode] = useState('home');
   const [detail, setDetail] = useState(null);
+  const [openingName, setOpeningName] = useState('');
+  const [lessonPreload, setLessonPreload] = useState(null);
   const [assignment, setAssignment] = useState(null);
   const [loading, setLoading] = useState(!user.isGuest);
   const [busy, setBusy] = useState(false);
@@ -60,13 +62,29 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   };
   const openClass = async (id, fresh = false) => {
     const request = ++navigation.current;
-    const data = await api(`/classes/${id}`, undefined, { fresh });
-    if (request !== navigation.current) return;
-    setDetail(data); setLessonRefresh(v => fresh ? v + 1 : 0); setMode('detail');
+    const showOpening = mode === 'home' || detail?.class.id !== id;
+    if (showOpening) {
+      setOpeningName(classes.find(row => row.id === id)?.name || say(lang, 'Your class', '你的班级'));
+      setMode('opening');
+    }
+    const read = lessonsApi(`/classes/${id}`, undefined, { fresh });
+    // The lesson component handles this error when mounted; prevent an unhandled
+    // rejection if the user leaves before class details arrive.
+    read.catch(() => {});
+    try {
+      const data = await api(`/classes/${id}`, undefined, { fresh });
+      if (request !== navigation.current) return;
+      setLessonPreload({ classId: id, read });
+      setDetail(data); setLessonRefresh(v => fresh ? v + 1 : 0); setMode('detail');
+    } catch (error) {
+      if (request !== navigation.current) return;
+      if (showOpening) setMode('home');
+      throw error;
+    }
   };
   const goHome = () => {
     const request = ++navigation.current;
-    setDetail(null); setMode('home'); setError('');
+    setDetail(null); setMode('home'); setError(''); setBusy(false);
     api('/classes', undefined, { fresh: true }).then(data => { if (request === navigation.current) setClasses(data.classes); })
       .catch(e => { if (request === navigation.current) setError(errorText(language.current, e)); });
   };
@@ -139,16 +157,22 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           {issued && <div className="space-y-3"><label className="block font-bold">{say(lang, 'Copy this code now', '请立即复制此验证码')}<input readOnly className={field + ' mt-2 font-mono'} value={issued.code} onFocus={e => e.target.select()} /></label><button className={secondary} onClick={() => copyCode(issued.code)}>{say(lang, 'Copy teacher code', '复制教师验证码')}</button></div>}
         </section>}
       </>}
+      {mode === 'opening' && <section className={card + ' space-y-5'} aria-busy="true">
+        <button className={secondary} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button>
+        <h2 className="text-2xl font-extrabold break-words">{openingName}</h2>
+        <p role="status" className="text-slate-500">{say(lang, 'Loading class…', '正在加载班级…')}</p>
+        <div aria-hidden="true" className="h-24 rounded-2xl bg-slate-100 motion-safe:animate-pulse" />
+      </section>}
       {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
         <div><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>
-        {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
+        {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} initialLessons={lessonPreload} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
           onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }}
           onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
         <section className={card + ' space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
         </section>
-        <ClassLessons key={`lessons-${detail.class.id}`} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
+        <ClassLessons key={`lessons-${detail.class.id}`} initialLessons={lessonPreload} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
         {detail.assignments.length > 0 && <section className="space-y-4">
           <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>
           <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>

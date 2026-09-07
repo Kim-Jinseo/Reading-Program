@@ -5,7 +5,7 @@ import { collectionName } from '../lessons/shared';
 import { StudentProfile } from './StudentProfile';
 import { say, card, field, button, secondary, subjectName, dateText, errorText } from './shared';
 
-export function TeacherClassView({ detail, lang, api, lessonsApi, refreshKey = 0, busy = false, visible = true, onOpen, onAssign, onCopy, onReplace }) {
+export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons, refreshKey = 0, busy = false, visible = true, onOpen, onAssign, onCopy, onReplace }) {
   const [tab, setTab] = useState('lessons'), [invite, setInvite] = useState(false), [settingsRequest, setSettingsRequest] = useState(0);
   const [settingsContainer, setSettingsContainer] = useState(null);
   const [course, setCourse] = useState(null), [visited, setVisited] = useState(false), [reports, setReports] = useState(null), [selected, setSelected] = useState(null);
@@ -50,7 +50,7 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, refreshKey = 0
       </nav>
     </>}
     <div hidden={!!selectedStudent || tab !== 'lessons'}>
-      <ClassLessons classId={classId} isOwner lang={lang} api={lessonsApi} refreshKey={refreshKey} showProgress={false} settingsRequest={settingsRequest} settingsContainer={settingsContainer} onData={setCourse} onOpen={onOpen} visible={visible && !selectedStudent && tab === 'lessons'} />
+      <ClassLessons classId={classId} isOwner lang={lang} api={lessonsApi} initialLessons={initialLessons} refreshKey={refreshKey} showProgress={false} settingsRequest={settingsRequest} settingsContainer={settingsContainer} onData={setCourse} onOpen={onOpen} visible={visible && !selectedStudent && tab === 'lessons'} />
     </div>
     {selectedStudent && <StudentProfile key={selectedStudent.id} student={selectedStudent} report={reports.practice} lessonReport={reports.lessons} classId={classId} className={detail.class.name} lang={lang} api={api} lessonsApi={lessonsApi} refreshKey={refreshKey + reload} visible={visible} onOpen={onOpen} onBack={() => { setSelected(null); requestAnimationFrame(() => rosterButton.current?.focus()); }} />}
     {!selectedStudent && tab === 'students' && <section className="space-y-4">
