@@ -53,7 +53,16 @@ select {
   box-shadow: 0 2px 8px rgb(35 60 90 / 0.035);
 }
 .home-class-action { background: #233c5a; }
-.home-quick-link { border-radius: 16px; box-shadow: 0 2px 8px rgb(35 60 90 / 0.025); }
+.home-class-icon { background: #edf2f8; color: #233c5a; }
+.home-quick-link {
+  border-radius: 20px;
+  border-top: 3px solid var(--home-accent);
+  box-shadow: 0 3px 12px rgb(85 63 111 / 0.035);
+}
+.home-quick-link--leaderboard { --home-accent: #dfbd69; --home-icon: #946315; --home-icon-bg: #fff6de; }
+.home-quick-link--shop { --home-accent: #eca98e; --home-icon: #ac472d; --home-icon-bg: #fff0e9; }
+.home-quick-link--test { --home-accent: #8fb29b; --home-icon: #2c6240; --home-icon-bg: #eef6ef; }
+.home-quick-icon { color: var(--home-icon); background: var(--home-icon-bg); }
 .student-review-banner {
   border: 1px solid #b9dcd6;
   border-left: 4px solid #0f766e;
@@ -149,7 +158,7 @@ select {
   .class-section-tab:not([aria-pressed="true"]):hover { background: #e2e8f0; }
   .home-class-feature:hover { border-color: #526f91; }
   .home-class-feature:hover .home-class-action { background: #2e5178; }
-  .home-quick-link:hover { border-color: #a8b9cd; background: #fcfdff; }
+  .home-quick-link:hover { border-color: var(--home-accent); }
 }
 
 /* Touch screens do not have a reliable hover state. Choice feedback comes
