@@ -15,7 +15,7 @@ import { LessonSpeaking } from './LessonSpeaking';
 import { LessonResult } from './LessonResult';
 import { LessonVocabulary } from './LessonVocabulary';
 import { LessonQuiz } from './LessonQuiz';
-import { Star } from 'lucide-react';
+import { CheckCircle2, Star } from 'lucide-react';
 import { StudentReviewBanner } from '../classes/StudentReviewBanner';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
 export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, reviewStudent, onRewards, backLabel }) {
@@ -137,9 +137,9 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             : say(lang, 'Review the slides and try each short activity.', '先复习课件，再完成各项小练习。')}
         </p>
         <div className="mt-5 space-y-2">
-          <p className="font-semibold text-sm text-emerald-800" role="status">{say(lang, `${completedCount} of 5 activities completed`, `已完成 ${completedCount} / 5 项学习任务`)}</p>
+          <p className="font-semibold text-sm text-slate-600" role="status">{say(lang, `${completedCount} of 5 activities completed`, `已完成 ${completedCount} / 5 项学习任务`)}</p>
           <div role="progressbar" aria-label={say(lang, 'Lesson progress', '课程进度')} aria-valuemin={0} aria-valuemax={5} aria-valuenow={completedCount} className="h-2 rounded-full bg-slate-200 overflow-hidden">
-            <div className="h-full rounded-full bg-emerald-500" style={{ width: `${completedCount * 20}%` }} />
+            <div className="lesson-progress-fill h-full rounded-full bg-blue-500" style={{ width: `${completedCount * 20}%` }} />
           </div>
         </div>
         {data.readOnly && !reviewing && (
@@ -152,8 +152,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       </header>
       {completed && !data.readOnly && <section aria-label={say(lang, 'Lesson complete', '课程已完成')} aria-live={celebrate ? 'polite' : 'off'} className={`lesson-celebration ${celebrate ? 'lesson-celebration--new' : ''}`}>
         <span className="completion-star" aria-hidden="true"><Star size={28} fill="currentColor" /></span>
-        <div className="min-w-0"><h3 className="font-semibold text-lg text-emerald-900">{say(lang, 'Nicely done — lesson complete!', '做得好，这一课完成啦！')}</h3>
-        <p className="mt-1 text-sm leading-relaxed text-emerald-800">{say(lang, 'All five activities are saved. Take a moment to enjoy your progress.', '五项学习任务都已保存。为自己的进步点个赞吧。')}</p></div>
+        <div className="min-w-0"><h3 className="font-semibold text-lg text-slate-900">{say(lang, 'Nicely done — lesson complete!', '做得好，这一课完成啦！')}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-slate-600">{say(lang, 'All five activities are saved. Take a moment to enjoy your progress.', '五项学习任务都已保存。为自己的进步点个赞吧。')}</p></div>
       </section>}
       <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-3">
         {parts.map((p) => {
@@ -163,9 +163,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             key={p}
             aria-pressed={part === p}
             disabled={busy || micBusy || !!pending.current}
-            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${done
-              ? part === p ? 'border-emerald-600 bg-emerald-100 text-emerald-950' : 'border-emerald-200 bg-emerald-50 text-emerald-900'
-              : part === p ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-slate-200 bg-white text-slate-600'}`}
+            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${part === p ? 'border-blue-500 bg-blue-50 text-blue-950' : 'border-slate-200 bg-white text-slate-600'}`}
             onClick={() => {
               if (
                 (writing.trim() || Object.keys(answers).length || recording) &&
@@ -188,7 +186,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             }}
           >
             <span className="block font-semibold text-sm">{partName(p, lang)}</span>
-            <span className="block mt-1 text-xs sm:text-sm">{done ? say(lang, 'Completed', '已完成') : say(lang, 'Not started', '未完成')}</span>
+            <span className="mt-1 flex items-center gap-1.5 text-xs sm:text-sm">{done && <CheckCircle2 className="lesson-tab-check text-blue-600" size={14} aria-hidden="true" />}{done ? say(lang, 'Completed', '已完成') : say(lang, 'Not started', '未完成')}</span>
           </button>
         ); })}
       </nav>

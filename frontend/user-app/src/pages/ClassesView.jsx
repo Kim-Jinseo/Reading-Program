@@ -4,7 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import { AssignmentEditor } from '../components/classes/AssignmentEditor';
 import { AssignmentPlayer } from '../components/classes/AssignmentPlayer';
 import { TeacherClassView } from '../components/classes/TeacherClassView';
-import { classroomApi, say, card, field, button, secondary, subjectName, errorText } from '../components/classes/shared';
+import { classroomApi, say, card, field, button, secondary, subjectName, assignmentSummary, errorText } from '../components/classes/shared';
 import { lessonApi, lessonError } from '../components/lessons/shared';
 import { CoursePicker } from '../components/lessons/CoursePicker';
 import { ClassLessons } from '../components/lessons/ClassLessons';
@@ -182,7 +182,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>
             <p className="text-sm font-bold text-indigo-500">{subjectName(lang, a.subject)} · {say(lang, `Level ${a.level}`, `级别 ${a.level}`)}</p><h4 className="mt-2 text-xl font-extrabold break-words">{a.title}</h4>
-            <p className="mt-3 text-sm text-slate-500">{say(lang, `${a.questionCount} questions · Up to ${a.maxAttempts} attempts`, `${a.questionCount} 道题 · 最多可作答 ${a.maxAttempts} 次`)}</p>
+            <p className="mt-3 text-sm text-slate-500">{assignmentSummary(lang, a)}</p>
             {!detail.isOwner && <>
               <p className={`mt-4 font-bold ${a.progress.count ? 'text-emerald-700' : 'text-slate-500'}`}>{a.progress.count ? say(lang, `Latest: ${a.progress.latest.score} / ${a.progress.latest.total} · Best: ${a.progress.best.score} / ${a.progress.best.total}`, `最近：${a.progress.latest.score} / ${a.progress.latest.total} · 最佳：${a.progress.best.score} / ${a.progress.best.total}`) : say(lang, 'Not submitted', '尚未提交')}</p>
               <button className={button + ' mt-4 w-full'} disabled={busy} onClick={() => run(async () => { setAssignment(await api(`/assignments/${a.id}`)); setMode('player'); })}>{a.progress.count ? say(lang, 'Review / Try again', '查看 / 再次作答') : say(lang, 'Start extra practice', '开始拓展练习')}</button>

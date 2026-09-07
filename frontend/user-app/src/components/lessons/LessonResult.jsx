@@ -37,13 +37,12 @@ function SavedAudio({ path, lang }) {
 
 function AttemptDetails({ attempt: a, part, lesson, base, query, lang, reviewing }) {
   const hasScore = Number.isFinite(a.score);
-  const fullScore = hasScore && a.total > 0 && a.score === a.total;
   const transcript = String(a.transcript || '').trim();
   const hasTranscript = !['', '""', "''"].includes(transcript);
   const noWords = a.speechDetected === false;
   return <div className="space-y-5 min-w-0 break-words">
     <p className="text-sm text-slate-500">{say(lang, 'Saved: ', '保存时间：')}{dateText(lang, a.submittedAt)}</p>
-    {hasScore && <div className={`rounded-xl border p-4 sm:p-5 ${fullScore ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900'}`}>
+    {hasScore && <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 text-slate-900">
       <p className="text-sm font-semibold">{reviewing ? say(lang, 'Student’s score', '学生的成绩') : say(lang, 'Your score', '你的成绩')}</p>
       <p className="text-3xl font-extrabold mt-1">{a.score} / {a.total}</p>
       {a.automaticallyAssessed && <p className="mt-2 text-sm">{part === 'writing'
@@ -94,14 +93,14 @@ export function LessonResult({ attempts, part, lesson, base, query, lang, remain
   const rewarded = attempts.some(a => a.rewardStars === 3);
   const details = { part, lesson, base, query, lang, reviewing };
   return <div className="space-y-6" aria-label={say(lang, 'Activity result', '练习结果')} role="region">
-    <div className="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
-      <CheckCircle2 size={28} aria-hidden="true" className="shrink-0 text-emerald-700" />
+    <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
+      <CheckCircle2 size={28} aria-hidden="true" className="shrink-0 text-blue-600" />
       <div className="min-w-0">
-        <h4 className="font-bold text-lg text-emerald-900" role="status">{rewarded
+        <h4 className="font-bold text-lg text-slate-900" role="status">{rewarded
           ? say(lang, 'Completed · +3 stars', '已完成 · +3 颗星星')
           : say(lang, 'Activity completed', '本项练习已完成')}</h4>
-        <p className="text-sm text-emerald-800 mt-1">{reviewing ? say(lang, 'Student’s submitted results', '学生已提交的结果') : say(lang, 'Your work has been saved.', '你的学习结果已保存。')}</p>
-        {rewarded && <p className="text-sm text-emerald-800 mt-2">{say(lang,
+        <p className="text-sm text-slate-600 mt-1">{reviewing ? say(lang, 'Student’s submitted results', '学生已提交的结果') : say(lang, 'Your work has been saved.', '你的学习结果已保存。')}</p>
+        {rewarded && <p className="text-sm text-slate-600 mt-2">{say(lang,
           'Awarded once per task. Retrying does not earn more stars.',
           '每项任务只奖励一次，重试不会重复获得星星。')}</p>}
       </div>

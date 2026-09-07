@@ -191,6 +191,16 @@ test('students see assigned extra practice and their existing results, separate 
   expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
 });
 
+test('student class cards label speaking as an activity with its fixed attempt policy', async () => {
+  const assignment = { id: 'speak', title: 'Read aloud', subject: 'speaking', format: 'speaking', level: 1, questionCount: 0, maxAttempts: 3, progress: { count: 0 } };
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [assignment] });
+  render(<Harness api={api} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  expect(await screen.findByText('Speaking · Level 1')).toBeInTheDocument();
+  expect(screen.getByText('1 activity · Up to 3 attempts')).toBeInTheDocument();
+  expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
+});
+
 test('class navigation works without manual refresh controls and reopening loads lessons', async () => {
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [] });
   let published = false;

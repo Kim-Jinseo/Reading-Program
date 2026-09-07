@@ -22,6 +22,22 @@ test('teacher previews read-only website content and publishes only its verified
   await waitFor(() => expect(api).toHaveBeenCalledWith('/classes/class1/assignments', { sourceId: source.id, sourceVersion: 'source-v1', maxAttempts: 2, requestId: expect.any(String) }));
 });
 
+test.each([
+  ['writing', { id: '1:writing:1', version: 'w1', title: 'My room', titleZh: '我的房间', subject: 'writing', format: 'writing', questions: [], writing: { prompt: 'Describe your room.', promptZh: '描述你的房间。' } }, 'Describe your room.'],
+  ['speaking', { id: '1:speaking:1', version: 's1', title: 'Read aloud', titleZh: '朗读', subject: 'speaking', format: 'speaking', questions: [], speaking: { sentence: 'I see a desk.', hintZh: '我看到一张课桌。' } }, 'I see a desk.'],
+])('teacher can choose and preview %s without a zero-question label', async (subject, productive, previewText) => {
+  const api = jest.fn(async path => path.includes('?')
+    ? { sources: [{ id: productive.id, title: productive.title, titleZh: productive.titleZh, format: productive.format, questionCount: 0 }] }
+    : { source: productive });
+  mount(api);
+  fireEvent.change(screen.getByLabelText('Subject'), { target: { value: subject } });
+  fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: productive.id } });
+  expect(await screen.findByText(previewText)).toBeInTheDocument();
+  expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
+  expect(screen.getByLabelText('Allowed attempts')).toHaveValue('3');
+  expect(screen.getByLabelText('Allowed attempts')).toBeDisabled();
+});
+
 test('changing filters clears the old preview and stale responses cannot be assigned', async () => {
   let resolvePreview;
   const api = jest.fn((path) => path.includes('?') ? Promise.resolve(path.includes('level=2') ? { sources: [] } : list) : new Promise(resolve => { resolvePreview = resolve; }));

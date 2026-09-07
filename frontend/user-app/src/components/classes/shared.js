@@ -4,13 +4,19 @@ export const card = 'learning-card rounded-[20px] border border-slate-200 bg-whi
 export const field = 'w-full min-h-12 rounded-xl border border-slate-300 bg-white px-3 py-3 text-base text-slate-800 focus:border-indigo-500 focus:outline focus:outline-2 focus:outline-indigo-100';
 export const button = 'learning-button min-h-12 rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
 export const secondary = 'learning-button min-h-12 rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed';
-export const subjectName = (lang, subject) => ({ reading: say(lang, 'Reading', '阅读'), vocab: say(lang, 'Vocabulary', '词汇'), grammar: say(lang, 'Grammar', '语法'), other: say(lang, 'Class lesson', '课堂学习') }[subject] || subject);
+export const subjectName = (lang, subject) => ({ reading: say(lang, 'Reading', '阅读'), vocab: say(lang, 'Vocabulary', '词汇'), grammar: say(lang, 'Grammar', '语法'), writing: say(lang, 'Writing', '写作'), speaking: say(lang, 'Speaking', '口语'), other: say(lang, 'Class lesson', '课堂学习') }[subject] || subject);
+export const assignmentSummary = (lang, assignment) => {
+  const work = ['writing', 'speaking'].includes(assignment.format)
+    ? say(lang, '1 activity', '1 项练习')
+    : say(lang, `${assignment.questionCount} ${assignment.questionCount === 1 ? 'question' : 'questions'}`, `${assignment.questionCount} 道题`);
+  return `${work} · ${say(lang, `Up to ${assignment.maxAttempts} attempts`, `最多 ${assignment.maxAttempts} 次作答`)}`;
+};
 export const dateText = (lang, date) => date ? new Date(date).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 export function errorText(lang, error) {
   if (error.code === 'invalid_practice_source') return say(lang, 'Choose existing website content for extra practice.', '请为拓展练习选择网站已有内容。');
   if (error.code === 'practice_source_changed') return say(lang, 'This content has changed. Select and preview it again before assigning.', '内容已更新，请重新选择并预览后再布置。');
   if (lang !== 'zh') return error.message || 'Unable to load. Please try again.';
-  return ({ invalid_teacher_code: '教师验证码无效、已过期或已被使用。', teacher_required: '请先验证教师身份。', student_required: '请使用学生账号。', admin_required: '只有管理员可以生成教师验证码。', session_expired: '请重新登录。', rate_limited: '操作过于频繁，请稍后再试。', not_found: '找不到班级或作业，或你没有访问权限。', attempt_limit: '你已用完这份作业的作答次数。', invalid_input: '请检查填写内容。每题需要不同的选项和一个正确答案。', class_changed: '班级已满或邀请码已更新。' })[error.code] || '暂时无法完成操作。请检查网络后重试。';
+  return ({ invalid_teacher_code: '教师验证码无效、已过期或已被使用。', teacher_required: '请先验证教师身份。', student_required: '请使用学生账号。', admin_required: '只有管理员可以生成教师验证码。', session_expired: '请重新登录。', rate_limited: '操作过于频繁，作答尚未保存，请稍后再试。', not_found: '找不到班级或作业，或你没有访问权限。', attempt_limit: '你已用完这份作业的作答次数。', invalid_input: '请检查填写或录音内容。作答尚未保存。', writing_unavailable: '暂时无法获取 AI 写作反馈。作文尚未保存，也没有使用作答次数，请重试。', speech_unavailable: '暂时无法检查录音。录音尚未保存，也没有使用作答次数，请重试。', class_changed: '班级已满或邀请码已更新。' })[error.code] || '暂时无法完成操作。请检查网络后重试。';
 }
 export async function classroomApi(path, body, { fresh = false } = {}) {
   const token = localStorage.getItem('token');
@@ -20,4 +26,10 @@ export async function classroomApi(path, body, { fresh = false } = {}) {
   if (!response.ok || !result.success) throw Object.assign(new Error(result.error || 'Unable to complete this request. Please try again.'), { code: response.status === 401 ? 'session_expired' : result.code, status: response.status });
   return result;
   });
+}
+export async function assignmentMediaUrl(path, signal) {
+  const token = localStorage.getItem('token');
+  const response = await fetch('/api/classroom' + path, { headers: { Authorization: `Bearer ${token || ''}` }, signal });
+  if (!response.ok) throw Error('Unable to load this recording.');
+  return URL.createObjectURL(await response.blob());
 }

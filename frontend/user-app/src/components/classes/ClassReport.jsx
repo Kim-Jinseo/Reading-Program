@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { say, card, field, secondary, dateText, errorText } from './shared';
+import { AssignmentFeedback } from './AssignmentFeedback';
 
 export const ClassReport = ({ report, lang, api, profileStudentId }) => {
   const [studentId, setStudentId] = useState('');
@@ -67,15 +68,21 @@ export const ClassReport = ({ report, lang, api, profileStudentId }) => {
         const assignment = report.assignments.find(a => a.id === result.assignmentId);
         if (!assignment) return null;
         const detail = answers[result.assignmentId];
+        const productive = ['writing', 'speaking'].includes(detail?.assignment?.format || assignment.format);
         return <div key={result.assignmentId} className="rounded-2xl border border-slate-200 p-4 sm:p-5 space-y-4">
           <h4 className="text-lg font-extrabold break-words">{assignment.title}</h4>
           {!result.count ? <p className="text-slate-500">{say(lang, 'Not submitted', '尚未提交')}</p> : <>
             <p className="text-sm font-semibold text-teal-800">{say(lang, 'Submitted results', '已提交的成绩')}</p>
             <div className="grid grid-cols-3 gap-2 text-sm">{[['first', 'First', '首次'], ['latest', 'Latest', '最近'], ['best', 'Best', '最佳']].map(([key, en, zh]) => <div className="bg-slate-50 rounded-xl p-3" key={key}><p className="text-slate-500">{say(lang, en, zh)}</p><p className="font-bold mt-1">{result[key].score} / {result[key].total}</p></div>)}</div>
-            {!detail && <button className={secondary} disabled={busy} onClick={() => loadAnswers(result.assignmentId)}>{say(lang, 'Load answers', '加载答案')}</button>}
-            {detail?.attempts.map((attempt, index) => <details className="border-t border-slate-100 pt-3" key={attempt.requestId}>
+            {!detail && <button className={secondary} disabled={busy} onClick={() => loadAnswers(result.assignmentId)}>{['writing', 'speaking'].includes(assignment.format) ? say(lang, 'Load work', '加载作业') : say(lang, 'Load answers', '加载答案')}</button>}
+            {detail && productive && <div className="space-y-4 border-t border-slate-100 pt-4">
+              {detail.assignment.format === 'writing' && <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4"><p className="text-sm font-semibold text-indigo-800">{say(lang, 'Assigned prompt', '布置的题目')}</p><p className="mt-2 font-bold whitespace-pre-wrap">{detail.assignment.writing?.prompt}</p>{detail.assignment.writing?.promptZh && <p className="mt-2 text-slate-600">{detail.assignment.writing.promptZh}</p>}</div>}
+              {detail.assignment.format === 'speaking' && <div className="rounded-xl border border-slate-200 bg-slate-50 p-4"><p className="text-sm font-semibold text-slate-600">{say(lang, 'Assigned sentence', '布置的句子')}</p><p className="mt-2 font-bold">{detail.assignment.speaking?.sentence}</p>{detail.assignment.speaking?.hintZh && <p className="mt-2 text-slate-600">{detail.assignment.speaking.hintZh}</p>}</div>}
+              <AssignmentFeedback assignment={detail.assignment} attempts={detail.attempts} lang={lang} reviewing audioQuery={`?studentId=${encodeURIComponent(studentId)}`} />
+            </div>}
+            {detail && !productive && detail.attempts.map((attempt, index) => <details className="border-t border-slate-100 pt-3" key={attempt.requestId}>
               <summary className="min-h-12 cursor-pointer font-bold break-words py-3">{say(lang, `Attempt ${index + 1}`, `第 ${index + 1} 次`)} · {attempt.score} / {attempt.total} · <span className="font-normal text-slate-500">{dateText(lang, attempt.submittedAt)}</span></summary>
-              <div className="space-y-3 mt-3">{attempt.responses.map(response => {
+              <div className="space-y-3 mt-3">{(attempt.responses || []).map(response => {
                 const question = detail.assignment.questions.find(q => q.id === response.questionId);
                 if (!question) return null;
                 return <div key={question.id} className={`rounded-xl p-4 break-words ${response.correct ? 'bg-emerald-50' : 'bg-rose-50'}`}>

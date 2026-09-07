@@ -50,7 +50,7 @@ function WordAudio({ word, lang }) {
   </div>;
 }
 
-export function LessonVocabulary({ words, lang, onStart }) {
+export function LessonVocabulary({ words, lang, onStart, startLabel }) {
   const [index, setIndex] = useState(0), [flipped, setFlipped] = useState(false);
   const current = words[index];
   if (!current) return null;
@@ -73,7 +73,7 @@ export function LessonVocabulary({ words, lang, onStart }) {
       <button type="button" className={secondary} disabled={index === 0} onClick={() => move(index - 1)}>{say(lang, 'Previous word', '上一个单词')}</button>
       <button type="button" className={secondary} disabled={index === words.length - 1} onClick={() => move(index + 1)}>{say(lang, 'Next word', '下一个单词')}</button>
     </div>
-    {onStart && <button type="button" className={button + ' w-full'} onClick={onStart}>{say(lang, 'Start vocabulary practice', '开始词汇练习')}</button>}
+    {onStart && <button type="button" className={button + ' w-full'} onClick={onStart}>{startLabel || say(lang, 'Start vocabulary practice', '开始词汇练习')}</button>}
     <p className="text-sm text-slate-500 text-center">{say(lang, 'Learning the cards does not submit the task or use your attempt.', '学习卡片不会提交任务，也不会使用作答次数。')}</p>
   </div>;
 }

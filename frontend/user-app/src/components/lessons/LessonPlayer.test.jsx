@@ -81,6 +81,25 @@ test('returning to completed work shows quiet encouragement, not a new celebrati
   expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
 });
 
+test('completed lesson navigation and results use calm neutral cards with muted blue selection', () => {
+  const attempt = { requestId: 'saved', submittedAt: '2026-09-06T08:00:00Z', score: 4, total: 5, text: 'My classroom is bright.' };
+  const data = { ...initial, parts: [{ part: 'slides', attempts: [attempt] }, { part: 'writing', attempts: [attempt] }] };
+  render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} />);
+  const slides = screen.getByRole('button', { name: /^Slides/ });
+  const writing = screen.getByRole('button', { name: /^Writing/ });
+  expect(slides).toHaveClass('bg-blue-50');
+  expect(slides).not.toHaveClass('bg-emerald-100');
+  expect(writing).toHaveClass('bg-white');
+  expect(writing.querySelector('.lesson-tab-check')).toBeInTheDocument();
+  expect(within(writing).getByText('Completed')).toBeInTheDocument();
+  expect(screen.getByRole('progressbar', { name: 'Lesson progress' }).firstElementChild).toHaveClass('bg-blue-500');
+  fireEvent.click(writing);
+  const scoreCard = screen.getByText('4 / 5').closest('div');
+  expect(scoreCard).toHaveClass('bg-white');
+  expect(scoreCard).not.toHaveClass('bg-emerald-50');
+  expect(screen.getByText('Activity completed').closest('div').parentElement).toHaveClass('bg-slate-50');
+});
+
 test('a saved zero-score task shows its reward, but failed saves never claim completion', async () => {
   const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({
     attempt: { requestId: 'reward-request-1', score: 0, total: 1, rewardStars: 3, submittedAt: '2026-09-06T08:00:00Z' },

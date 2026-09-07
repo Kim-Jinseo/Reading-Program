@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { say, card, button, secondary, dateText, errorText } from './shared';
+import { AssignmentLearning } from './AssignmentLearning';
+import { ProductiveAssignment } from './ProductiveAssignment';
+import { registerNavigationGuard } from '../../utils/navigationGuard';
 
 const requestId = () => Array.from(window.crypto.getRandomValues(new Uint8Array(16)), n => n.toString(16).padStart(2, '0')).join('');
-export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
+const QuizAssignment = ({ data, lang, api, onBack }) => {
   const { assignment } = data;
   const [answers, setAnswers] = useState({});
   const [attempts, setAttempts] = useState(data.attempts || []);
@@ -11,6 +14,8 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
   const [review, setReview] = useState(data.review || []);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const hasLearning = assignment.format === 'quiz' && ['vocab', 'grammar'].includes(assignment.subject) && Boolean(assignment.learning);
+  const [learning, setLearning] = useState(hasLearning && !result);
   const pending = useRef(null);
   const sending = useRef(false);
   const selectedCount = Object.keys(answers).length;
@@ -19,6 +24,10 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
     window.addEventListener('beforeunload', leave);
     return () => window.removeEventListener('beforeunload', leave);
   }, [selectedCount, result]);
+  useEffect(() => {
+    if (result || (!selectedCount && !pending.current)) return undefined;
+    return registerNavigationGuard(() => window.confirm(say(lang, 'Leave this extra practice? Answers that have not been submitted will be lost.', '离开这份拓展练习？尚未提交的答案将丢失。')));
+  }, [selectedCount, result, lang, error]);
   const goBack = () => {
     if (!result && selectedCount && !window.confirm(say(lang, 'Leave this extra practice? Answers that have not been submitted will be lost.', '离开这份拓展练习？尚未提交的答案将丢失。'))) return;
     onBack();
@@ -61,7 +70,7 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
         <p className="mt-2 text-sm text-slate-500">{dateText(lang, result.submittedAt)}</p>
         <div className="flex flex-wrap justify-center gap-3 mt-5">
           <button onClick={onBack} className={secondary}>{say(lang, 'Back to class', '返回班级')}</button>
-          {attempts.length < assignment.maxAttempts && <button className={button} onClick={() => { setResult(null); setAnswers({}); setError(''); pending.current = null; }}>{say(lang, `Try again (${assignment.maxAttempts - attempts.length} left)`, `再试一次（还剩 ${assignment.maxAttempts - attempts.length} 次）`)}</button>}
+          {attempts.length < assignment.maxAttempts && <button className={button} onClick={() => { setResult(null); setAnswers({}); setError(''); setLearning(hasLearning); pending.current = null; }}>{say(lang, `Try again (${assignment.maxAttempts - attempts.length} left)`, `再试一次（还剩 ${assignment.maxAttempts - attempts.length} 次）`)}</button>}
         </div>
         <p className="mt-4 text-xs text-slate-500">{say(lang, 'All attempts remain visible to your teacher.', '老师可以查看每一次作答记录。')}</p>
       </section>
@@ -81,7 +90,8 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
           </div>;
         })}
       </section>
-    </> : <>
+    </> : learning ? <AssignmentLearning assignment={assignment} lang={lang} returning={selectedCount > 0} onStart={() => setLearning(false)} /> : <>
+      {hasLearning && <button type="button" className={secondary} disabled={busy || Boolean(pending.current)} onClick={() => setLearning(true)}>{assignment.subject === 'vocab' ? say(lang, 'Review word cards', '复习单词卡片') : say(lang, 'Review grammar explanation', '复习语法讲解')}</button>}
       <p className="text-slate-500 text-sm leading-relaxed">{say(lang, 'Choose one answer for each question. You can change your choices before submitting. Leaving without submitting does not save your answers.', '每题选一个答案。提交前可以修改。未提交就离开，答案不会保存。')}</p>
       {assignment.questions.map((q, index) => <fieldset className={card + ' space-y-4'} key={q.id}>
         <legend className="px-2 text-sm font-bold text-indigo-600">{say(lang, `Question ${index + 1} of ${assignment.questions.length}`, `第 ${index + 1} / ${assignment.questions.length} 题`)}</legend>
@@ -100,3 +110,7 @@ export const AssignmentPlayer = ({ data, lang, api, onBack }) => {
     </>}
   </div>;
 };
+
+export const AssignmentPlayer = props => ['writing', 'speaking'].includes(props.data.assignment.format)
+  ? <ProductiveAssignment {...props} />
+  : <QuizAssignment {...props} />;

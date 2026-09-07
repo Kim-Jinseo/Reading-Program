@@ -65,14 +65,14 @@ select {
 .home-quick-link--test { --home-icon: #2c6240; --home-icon-bg: #eef6ef; }
 .home-quick-icon { color: var(--home-icon); background: var(--home-icon-bg); }
 .student-review-banner {
-  border: 1px solid #b9dcd6;
-  border-left: 4px solid #0f766e;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #3b82f6;
   border-radius: 18px;
-  background: #eef8f6;
+  background: #f8fafc;
   padding: 20px;
 }
-.student-review .class-section-nav { background: #eaf4f1; border-color: #cce2dc; }
-.student-review .class-section-tab[aria-pressed="true"] { color: #115e59; border-color: #b9dcd6; }
+.student-review .class-section-nav { background: #f1f5f9; border-color: #cbd5e1; }
+.student-review .class-section-tab[aria-pressed="true"] { color: #1d4ed8; border-color: #bfdbfe; }
 .practice-card { border-radius: 20px; border-top-width: 3px; box-shadow: 0 3px 12px rgb(85 63 111 / 0.035); }
 .practice-card--vocab { border-top-color: #a4d6ed; }
 .practice-card--grammar { border-top-color: #c5b5ee; }
@@ -89,9 +89,9 @@ select {
   align-items: center;
   gap: 16px;
   padding: 20px;
-  border: 1px solid #c4e2d2;
+  border: 1px solid #cbd5e1;
   border-radius: 20px;
-  background: #edf8f0;
+  background: #fff;
 }
 .completion-star {
   display: flex;

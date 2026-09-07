@@ -1,8 +1,9 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { TRANSLATIONS } from '../data/translations';
 import { getTodayString } from '../utils/dailySelection';
 import localCurriculum from '../data/curriculum.json';
 import { buildReviewedCurriculum } from '../data/reviewedCurriculum';
+import { guardedViewChange } from '../utils/navigationGuard';
 
 const AppContext = createContext();
 
@@ -42,7 +43,15 @@ export const MOCK_LEADERBOARD = FILLER_COMPETITORS.map((c, i) => ({
 export const AppProvider = ({ children }) => {
   const [lang, setLang] = useState('en');
   const [grade, setGrade] = useState('3-4');
-  const [view, setView] = useState('dashboard');
+  const [view, setViewState] = useState('dashboard');
+  const viewRef = useRef('dashboard');
+  const setView = useCallback(next => {
+    const value = guardedViewChange(viewRef.current, next);
+    if (!Object.is(value, viewRef.current)) {
+      viewRef.current = value;
+      setViewState(value);
+    }
+  }, []);
   const [curriculumDb, setCurriculumDb] = useState(reviewedCurriculum);
   const [user, setUser] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);

@@ -122,3 +122,14 @@ test('clicking the active profile tab does not strand a pending lesson request',
   expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ readOnly: true }), 's', { name: '王小明', className: 'Monday English' });
   expect(screen.getByRole('button', { name: /Our classroom/ })).toBeEnabled();
 });
+
+test('productive assignment summaries say one activity instead of zero questions', async () => {
+  setup({ detail: { class: { id: 'c', name: 'Monday English', invitationCode: 'PRIVATE-CODE' }, isOwner: true, assignments: [
+    { id: 'w', title: 'My room', subject: 'writing', format: 'writing', level: 1, questionCount: 0, maxAttempts: 3 },
+    { id: 'legacy', title: 'Legacy writing quiz', subject: 'writing', format: 'quiz', level: 1, questionCount: 3, maxAttempts: 2 },
+  ] } });
+  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  expect(screen.getByText('1 activity · Up to 3 attempts')).toBeInTheDocument();
+  expect(screen.getByText('3 questions · Up to 2 attempts')).toBeInTheDocument();
+  expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
+});
