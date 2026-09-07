@@ -9,6 +9,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 import { GoogleGenAI } from '@google/genai';
 import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
+import { setTimeout as abortableDelay } from 'node:timers/promises';
 import { createClassroomRouter } from '../server/classrooms.js';
 import { createLessonRouter } from '../server/lessons.js';
 import { gradeLessonWriting } from '../server/lessonWriting.js';
@@ -288,18 +289,22 @@ const MULTIMODAL_MODELS = [
 
 async function generateContentWithRetry(ai, requestConfig, isMultimodal = false, maxRetriesPerModel = 2) {
   const modelsList = isMultimodal ? MULTIMODAL_MODELS : TEXT_MODELS;
+  const signal = requestConfig.config?.abortSignal;
   for (const modelName of modelsList) {
     for (let i = 0; i < maxRetriesPerModel; i++) {
+      signal?.throwIfAborted();
       try {
         const config = { ...requestConfig, model: modelName };
         const response = await ai.models.generateContent(config);
+        signal?.throwIfAborted();
         return { response, modelUsed: modelName };
       } catch (error) {
+        signal?.throwIfAborted();
         if (error?.status === 429 || error?.status === 404 || error?.status === 503) {
            if (error?.status === 404) break;
            if (i < maxRetriesPerModel - 1) {
              const waitTime = Math.pow(2, i) * 1500 + Math.random() * 1000;
-             await new Promise(resolve => setTimeout(resolve, waitTime));
+             await abortableDelay(waitTime, undefined, { signal });
            }
         } else {
           throw error;
@@ -328,6 +333,9 @@ const publicUser = (user) => {
   return { ...safeUser, role: ['admin', 'teacher'].includes(role) ? role : 'student' };
 };
 
+// An internal environment symbol cannot be supplied through a browser header
+// or JSON body. Strict activity checks run before legacy speech normalization.
+const strictActivitySpeech = Symbol('strictActivitySpeech');
 const activityEvaluators = {
 evaluateWriting: async (input) => {
   if (!process.env.GEMINI_API_KEY) throw new Error('Writing service unavailable');
@@ -339,7 +347,7 @@ evaluateWriting: async (input) => {
 }, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization, signal }) => {
   // Internal dispatch reuses the existing Deepgram-first evaluator. The target
   // comes from the stored lesson/assignment, never a student's request.
-  const response = await app.request('http://localhost/api/audio/evaluate', { method: 'POST', signal, headers: { 'Content-Type': 'application/json', Authorization: authorization }, body: JSON.stringify({ targetSentence: sentence, audioBase64, mimeType: audioMime }) });
+  const response = await app.request('http://localhost/api/audio/evaluate', { method: 'POST', signal, headers: { 'Content-Type': 'application/json', Authorization: authorization }, body: JSON.stringify({ targetSentence: sentence, audioBase64, mimeType: audioMime }) }, { [strictActivitySpeech]: true });
   return response.json();
 } };
 app.route('/classroom', createClassroomRouter({ getDb, requireAuth, createSessionToken, publicUser, ...activityEvaluators }));
@@ -1043,7 +1051,8 @@ async function parseAudioRequest(c) {
  * @param {string} mimeType    - MIME type (e.g. 'audio/webm', 'audio/mp4')
  * @returns {string|null}       - Transcribed text, or null on failure
  */
-async function transcribeWithDeepgram(audioBuffer, mimeType) {
+async function transcribeWithDeepgram(audioBuffer, mimeType, signal) {
+  signal?.throwIfAborted();
   const apiKey = process.env.DEEPGRAM_API_KEY;
   if (!apiKey) {
     console.warn('[STT] DEEPGRAM_API_KEY not set, skipping Deepgram tier.');
@@ -1067,16 +1076,18 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
           'Content-Type': cleanMimeType,
         },
         body: bodyData,
-        signal: AbortSignal.timeout(15000),
+        signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000),
       }
     );
 
+    signal?.throwIfAborted();
     if (!response.ok) {
       console.error('[STT] Deepgram request failed with status', response.status);
       return null;
     }
 
     const result = await response.json();
+    signal?.throwIfAborted();
     const alternative = result?.results?.channels?.[0]?.alternatives?.[0];
     if (alternative && typeof alternative.transcript === 'string') {
       return {
@@ -1086,6 +1097,7 @@ async function transcribeWithDeepgram(audioBuffer, mimeType) {
     }
     return null;
   } catch (error) {
+    signal?.throwIfAborted();
     console.error('[STT] Deepgram request failed.');
     return null;
   }
@@ -1212,6 +1224,8 @@ function calculateLevenshteinSimilarity(a, b) {
  */
 app.post('/audio/evaluate', optionalAuth, audioRateLimit, async (c) => {
   try {
+    const signal = c.req.raw.signal;
+    signal.throwIfAborted();
     const { base64Audio, mimeType, extras, error: audioError } = await parseAudioRequest(c);
     if (audioError) return c.json({ success: false, error: audioError }, 400);
     const targetSentence = typeof extras.targetSentence === 'string' ? extras.targetSentence.trim() : '';
@@ -1223,7 +1237,8 @@ app.post('/audio/evaluate', optionalAuth, audioRateLimit, async (c) => {
     const audioBuffer = Buffer.from(base64Audio, 'base64');
 
     // Tier 1: Deepgram STT
-    const deepgramResult = await transcribeWithDeepgram(audioBuffer, mimeType);
+    const deepgramResult = await transcribeWithDeepgram(audioBuffer, mimeType, signal);
+    signal.throwIfAborted();
     
     if (deepgramResult !== null) {
       const { transcript: deepgramTranscript, confidence } = deepgramResult;
@@ -1345,10 +1360,16 @@ app.post('/audio/evaluate', optionalAuth, audioRateLimit, async (c) => {
           { inlineData: { data: base64Audio, mimeType } }
         ]
       }],
-      config: { responseMimeType: 'application/json' },
+      config: { responseMimeType: 'application/json', abortSignal: signal },
     }, true);
 
     const evaluation = JSON.parse(response.text.replace(/```json/g, '').replace(/```/g, '').trim());
+    if (c.env?.[strictActivitySpeech] && (
+      typeof evaluation?.speech_detected !== 'boolean'
+      || !Number.isInteger(evaluation.stars) || evaluation.stars < 0 || evaluation.stars > 3
+      || typeof evaluation.feedback !== 'string' || !evaluation.feedback.trim()
+      || (evaluation.speech_detected === false && evaluation.stars !== 0)
+    )) throw new Error('Invalid speech provider evaluation');
     const speechDetected = evaluation.speech_detected === true || evaluation.speech_detected === 'true';
     let finalScore = speechDetected ? Math.max(0, Math.min(3, Math.round(evaluation.stars))) : 0;
     
