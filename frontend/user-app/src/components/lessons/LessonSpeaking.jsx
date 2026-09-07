@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Mic, Square, Volume2, Loader2 } from 'lucide-react';
 import { authHeaders, blobBase64, secondary, say } from './shared';
 
-export function LessonSpeaking({ sentence, hintZh, lang, disabled, onRecording, onStatus }) {
+export function LessonSpeaking({ sentence, hintZh, lang, disabled, onRecording, onStatus, onCaptureStatus }) {
   const [state, setState] = useState('idle'), [url, setUrl] = useState(''), [error, setError] = useState('');
   const resource = useRef(null);
   useEffect(() => {
@@ -25,6 +25,7 @@ export function LessonSpeaking({ sentence, hintZh, lang, disabled, onRecording, 
     entry.state = value;
     setState(value);
     onStatus?.(['preparing', 'recording', 'processing', 'listening'].includes(value));
+    onCaptureStatus?.(['preparing', 'recording', 'processing'].includes(value));
   };
   const stop = entry => {
     clearTimeout(entry.timer);

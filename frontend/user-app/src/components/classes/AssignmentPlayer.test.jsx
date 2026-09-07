@@ -107,6 +107,44 @@ const writingAttempt = {
   writingFeedback: { feedback: 'Clear description.', feedbackZh: '描述清楚。', corrections: 'Add an article.', correctionsZh: '添加冠词。', improvement: 'Add one detail.', improvementZh: '增加一个细节。' },
 };
 
+const speakingAssignment = {
+  id: 'speaking1', title: 'Read aloud', subject: 'speaking', format: 'speaking', maxAttempts: 3, questions: [],
+  speaking: { sentence: 'I see a desk.', hintZh: '我看到一张课桌。' },
+};
+const speakingAttempt = {
+  requestId: 'saved-speaking', submittedAt: '2026-09-07T08:00:00Z', score: 2, total: 3,
+  feedback: 'Clear speech.', hasAudio: true, automaticallyAssessed: true,
+};
+
+function installSpeechCapture() {
+  const original = { recorder: global.MediaRecorder, media: navigator.mediaDevices, create: URL.createObjectURL, revoke: URL.revokeObjectURL };
+  let recorder;
+  Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: { getUserMedia: async () => ({ getTracks: () => [{ stop: jest.fn() }] }) } });
+  global.MediaRecorder = class {
+    static isTypeSupported() { return true; }
+    constructor() { recorder = this; this.state = 'inactive'; this.mimeType = 'audio/webm'; }
+    start() { this.state = 'recording'; }
+    stop() { this.state = 'inactive'; this.ondataavailable({ data: new Blob(['recorded voice']) }); this.onstop(); }
+  };
+  URL.createObjectURL = jest.fn(() => 'blob:voice'); URL.revokeObjectURL = jest.fn();
+  return {
+    recorder: () => recorder,
+    restore: () => {
+      global.MediaRecorder = original.recorder;
+      Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: original.media });
+      URL.createObjectURL = original.create; URL.revokeObjectURL = original.revoke;
+    },
+  };
+}
+
+async function finishSpeechRecording(getRecorder) {
+  fireEvent.click(screen.getByRole('button', { name: /Record \(/ }));
+  await waitFor(() => expect(getRecorder()).toBeDefined());
+  act(() => getRecorder().onstart());
+  fireEvent.click(screen.getByRole('button', { name: 'Stop recording' }));
+  await screen.findByLabelText('Your recording');
+}
+
 test('writing is editable until explicit submission, then shows feedback and remaining attempts', async () => {
   const api = jest.fn(async (path, body) => ({ attempt: { ...writingAttempt, requestId: body.requestId, text: body.text }, review: [] }));
   render(<AssignmentPlayer data={{ assignment: writingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
@@ -196,6 +234,76 @@ test('speaking reuses microphone readiness and playback before explicit submissi
     Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: original.media });
     URL.createObjectURL = original.create; URL.revokeObjectURL = original.revoke;
   }
+});
+
+test('playing the speaking example does not create an unsent-work navigation guard', async () => {
+  const original = { fetch: global.fetch, Audio: global.Audio, create: URL.createObjectURL, revoke: URL.revokeObjectURL };
+  const playback = { play: jest.fn(async () => {}), pause: jest.fn() };
+  global.fetch = jest.fn(async () => ({ ok: true, blob: async () => new Blob(['example'], { type: 'audio/mpeg' }) }));
+  global.Audio = jest.fn(() => playback);
+  URL.createObjectURL = jest.fn(() => 'blob:example'); URL.revokeObjectURL = jest.fn();
+  const confirm = jest.spyOn(window, 'confirm').mockReturnValue(false);
+  const view = render(<AssignmentPlayer data={{ assignment: speakingAssignment, attempts: [] }} api={jest.fn()} lang="en" onBack={() => {}} />);
+  try {
+    fireEvent.click(screen.getByRole('button', { name: 'Hear the sentence' }));
+    await waitFor(() => expect(playback.play).toHaveBeenCalled());
+    expect(screen.getByRole('button', { name: 'Back to class' })).toBeEnabled();
+    expect(guardedViewChange('classes', 'dashboard')).toBe('dashboard');
+    expect(confirm).not.toHaveBeenCalled();
+  } finally {
+    view.unmount(); confirm.mockRestore();
+    global.fetch = original.fetch; global.Audio = original.Audio;
+    URL.createObjectURL = original.create; URL.revokeObjectURL = original.revoke;
+  }
+});
+
+test('speech unavailable keeps the recording playable without using an attempt', async () => {
+  const speech = installSpeechCapture();
+  const api = jest.fn(async () => { throw Object.assign(new Error('Speech feedback is temporarily unavailable. Nothing was saved.'), { code: 'speech_unavailable', status: 503 }); });
+  const view = render(<AssignmentPlayer data={{ assignment: speakingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  try {
+    await finishSpeechRecording(speech.recorder);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit recording' }));
+    await screen.findByRole('alert');
+    expect(screen.getByLabelText('Your recording')).toHaveAttribute('src', 'blob:voice');
+    expect(screen.getByText(/3 attempts remaining/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Try submission again' })).toBeEnabled();
+  } finally { view.unmount(); speech.restore(); }
+});
+
+test('an uncertain speaking retry keeps the identical audio and request ID', async () => {
+  const speech = installSpeechCapture(), calls = [];
+  const api = jest.fn(async (path, body) => {
+    calls.push(body);
+    if (calls.length === 1) throw new Error('Connection lost');
+    return { attempt: { ...speakingAttempt, requestId: body.requestId } };
+  });
+  const view = render(<AssignmentPlayer data={{ assignment: speakingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  try {
+    await finishSpeechRecording(speech.recorder);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit recording' }));
+    await screen.findByRole('alert');
+    fireEvent.click(screen.getByRole('button', { name: 'Retry saving recording' }));
+    await screen.findByText('Speaking completed');
+    expect(calls[1]).toEqual(calls[0]);
+    expect(calls[1]).toEqual({ requestId: expect.any(String), audioBase64: expect.any(String), audioMime: 'audio/webm' });
+  } finally { view.unmount(); speech.restore(); }
+});
+
+test('speaking attempt-limit recovery shows the saved result and remaining attempts', async () => {
+  const speech = installSpeechCapture();
+  const api = jest.fn(async (path, body) => {
+    if (body) throw Object.assign(new Error('Attempts used'), { code: 'attempt_limit', status: 409 });
+    return { assignment: speakingAssignment, attempts: [speakingAttempt], review: [] };
+  });
+  const view = render(<AssignmentPlayer data={{ assignment: speakingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  try {
+    await finishSpeechRecording(speech.recorder);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit recording' }));
+    expect(await screen.findByText('Speaking completed')).toBeInTheDocument();
+    expect(screen.getByText('2 / 3')).toBeInTheDocument();
+    expect(screen.getByText('2 attempts remaining')).toBeInTheDocument();
+  } finally { view.unmount(); speech.restore(); }
 });
 
 test('in-app navigation can cancel an unsent writing discard and releases the guard on unmount', () => {
