@@ -167,8 +167,9 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         <div aria-hidden="true" className="h-24 rounded-2xl bg-slate-100 motion-safe:animate-pulse" />
       </section>}
       {detail && <div hidden={mode !== 'detail'} className="space-y-6 sm:space-y-8">
-        <div><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>
+        {!detail.isOwner && <div><button className={secondary} disabled={busy} onClick={goHome}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>}
         {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} initialLessons={lessonPreload} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
+          onBackToClasses={goHome}
           onOpen={(data, studentId, reviewStudent) => { navigation.current++; setLesson({ data, studentId, reviewStudent }); setMode('lesson'); }}
           onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>

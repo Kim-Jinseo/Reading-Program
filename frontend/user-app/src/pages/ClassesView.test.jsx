@@ -51,7 +51,10 @@ test('teacher returns from read-only lesson work to the same student profile', a
   render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} lessonRequests={lessonRequests} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   fireEvent.click(await screen.findByRole('button', { name: 'Students', exact: true }));
+  expect(screen.getByRole('button', { name: 'All classes' })).toBeVisible();
   fireEvent.click(await screen.findByRole('button', { name: /View profile.*王小明/ }));
+  expect(screen.getByRole('button', { name: 'Back to students' })).toBeVisible();
+  expect(screen.queryByRole('button', { name: 'All classes' })).not.toBeInTheDocument();
   expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('王小明')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
   fireEvent.click(await screen.findByRole('button', { name: /Our room/ }));
@@ -62,12 +65,16 @@ test('teacher returns from read-only lesson work to the same student profile', a
   fireEvent.click(screen.getByRole('button', { name: '← Back to 王小明’s profile' }));
   expect(screen.getByRole('heading', { name: '王小明', level: 2 })).toBeVisible();
   expect(screen.getByRole('button', { name: 'Lesson work', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.queryByRole('button', { name: 'All classes' })).not.toBeInTheDocument();
   await waitFor(() => expect(screen.getByRole('button', { name: /Our room/ })).toBeEnabled());
   fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  expect(screen.queryByRole('button', { name: 'All classes' })).not.toBeInTheDocument();
   expect(within(screen.getByRole('region', { name: 'Student review' })).getByText('王小明')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'Back to students' }));
   expect(screen.queryByRole('region', { name: 'Student review' })).not.toBeInTheDocument();
   expect(screen.getAllByText('王小明')).toHaveLength(1);
+  fireEvent.click(screen.getByRole('button', { name: 'All classes' }));
+  expect(await screen.findByRole('heading', { name: 'My classes' })).toBeVisible();
 });
 
 test('teacher can open a class before a slow report finishes and course lists do not reload on navigation', async () => {

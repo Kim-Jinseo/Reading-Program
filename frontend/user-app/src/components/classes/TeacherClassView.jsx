@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Copy, Plus, Users, Settings } from 'lucide-react';
+import { ArrowLeft, Copy, Plus, Users, Settings } from 'lucide-react';
 import { ClassLessons } from '../lessons/ClassLessons';
 import { collectionName } from '../lessons/shared';
 import { StudentProfile } from './StudentProfile';
 import { say, card, field, button, secondary, subjectName, assignmentSummary, dateText, errorText } from './shared';
 
-export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons, refreshKey = 0, busy = false, visible = true, onOpen, onAssign, onCopy, onReplace }) {
+export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons, refreshKey = 0, busy = false, visible = true, onOpen, onAssign, onCopy, onReplace, onBackToClasses }) {
   const [tab, setTab] = useState('lessons'), [invite, setInvite] = useState(false), [settingsRequest, setSettingsRequest] = useState(0);
   const [settingsContainer, setSettingsContainer] = useState(null);
   const [course, setCourse] = useState(null), [visited, setVisited] = useState(false), [reports, setReports] = useState(null), [selected, setSelected] = useState(null);
@@ -33,6 +33,7 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons
   const switchTab = value => { setTab(value); setInvite(false); if (value === 'students') setVisited(true); };
   return <div className="space-y-6" data-testid="teacher-class">
     {!selectedStudent && <>
+      {onBackToClasses && <div><button className={secondary} disabled={busy} onClick={onBackToClasses}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'All classes', '所有班级')}</button></div>}
       <header className={card + ' class-cover flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5'}>
         <div className="min-w-0"><h2 className="text-2xl font-semibold tracking-tight break-words">{detail.class.name}</h2><p className="text-sm text-slate-500 mt-2 leading-relaxed">{course?.collection ? collectionName(course.collection, lang) : say(lang, 'Choose a course in Class settings.', '请在班级设置中选择课程。')}</p></div>
         <div className="grid grid-cols-2 gap-2 shrink-0">
