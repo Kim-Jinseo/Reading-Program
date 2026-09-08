@@ -19,7 +19,7 @@ export function validateActivity(body) {
       learning = { description: bilingual(body.learning?.description, 'grammar explanation', 2000), rule: bilingual(body.learning?.rule, 'grammar rule and examples', 4000) };
     }
     if (body.subject === 'vocab') {
-      if (!Array.isArray(body.learning?.words) || body.learning.words.length !== 1) throw new ClassroomError('Select one vocabulary word.');
+      if (!Array.isArray(body.learning?.words) || ![1, 5].includes(body.learning.words.length) || body.learning.words.length !== quiz.questions.length) throw new ClassroomError('Vocabulary needs one question per word.');
       learning = { words: body.learning.words.map(w => {
         const word = requireText(w.word, 'vocabulary word', 60);
         const meaningZh = requireText(w.meaningZh, 'Chinese meaning', 300);

@@ -1,4 +1,5 @@
-import { randomInt, randomUUID } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
+import { spreadAnswerChoices } from './answerChoices.js';
 
 export class ClassroomError extends Error {
   constructor(message, status = 400, code = 'invalid_input') { super(message); this.status = status; this.code = code; }
@@ -34,11 +35,6 @@ export function validateAssignment(body, { caseSensitiveChoices = false } = {}) 
   return { title, instructions, passage, subject: body.subject, level: body.level, maxAttempts: body.maxAttempts, questions };
 }
 
-function shuffled(items) {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) { const j = randomInt(i + 1); [result[i], result[j]] = [result[j], result[i]]; }
-  return result;
-}
 export function assignmentForStudent(assignment) {
   const { _id, classId, title, instructions, passage, subject, level, maxAttempts, createdAt } = assignment;
   return { id: _id, classId, title, instructions, passage, subject, level, maxAttempts, createdAt,
@@ -46,7 +42,7 @@ export function assignmentForStudent(assignment) {
     ...(assignment.learning ? { learning: structuredClone(assignment.learning) } : {}),
     ...(assignment.writing ? { writing: structuredClone(assignment.writing) } : {}),
     ...(assignment.speaking ? { speaking: structuredClone(assignment.speaking) } : {}),
-    questions: assignment.questions.map(({ id, prompt, options }) => ({ id, prompt, options: shuffled(options) })) };
+    questions: spreadAnswerChoices(assignment.questions).map(({ id, prompt, options }) => ({ id, prompt, options })) };
 }
 export function gradeAssignment(assignment, answers) {
   if (!Array.isArray(answers) || answers.length !== assignment.questions.length || new Set(answers.map(a => a?.questionId)).size !== answers.length) throw new ClassroomError('Answer every question once before submitting.');

@@ -11,6 +11,74 @@ const adminId = '444444444444444444444444';
 import { createClassroomRouter } from '../server/classrooms.js';
 import { createPracticeCatalog } from '../server/practiceCatalog.js';
 import { validateAssignment } from '../server/classroomDomain.js';
+
+test('vocab bundles are owner-only, exclude legacy words, reject overlap atomically, and replay publication safely', async () => {
+  const env = await setup();
+  const vocab = Array.from({ length: 11 }, (_, i) => ({ id: i, word: `word${i}`, def: `意思${i}`, options: [`意思${i}`, '其他', '另外'] }));
+  const catalog = createPracticeCatalog({ '1-2': { vocab } });
+  env.setCatalog(catalog);
+  await env.join();
+  // A pre-bundle assignment in a different grade band still excludes this word.
+  const legacy = { ...validateAssignment({ ...quiz, subject: 'vocab', title: 'WORD0', level: 3 }), _id: 'old-word', classId: env.classroom.id };
+  await env.db.assignments.insertOne(legacy);
+  const path = `/classes/${env.classroom.id}/vocabulary-bundle`;
+  for (const user of [studentId, outsiderId]) assert.ok([403, 404].includes((await env.request(path, user, { level: 1 })).status));
+  assert.equal((await env.request(path, teacherId, { level: 9 })).status, 400);
+  const generated = await env.request(path, teacherId, { level: 1 });
+  assert.equal(generated.status, 200);
+  assert.equal(generated.body.remaining, 10);
+  const source = generated.body.source;
+  assert.equal(source.learning.words.length, 5);
+  assert.ok(source.learning.words.every(w => w.word !== 'word0'));
+  const body = { sourceId: source.id, sourceVersion: source.version, maxAttempts: 2, requestId: 'bundle-publish-001' };
+  const publishPath = `/classes/${env.classroom.id}/assignments`;
+  const results = await Promise.all([
+    env.request(publishPath, teacherId, body),
+    env.request(publishPath, teacherId, { ...body, requestId: 'bundle-publish-002' }),
+  ]);
+  assert.deepEqual(results.map(r => r.status).sort(), [201, 409]);
+  assert.equal(results.find(r => r.status === 409).body.code, 'vocabulary_overlap');
+  const winningIndex = results.findIndex(r => r.status === 201);
+  const winner = winningIndex === 0 ? body : { ...body, requestId: 'bundle-publish-002' };
+  assert.deepEqual((await env.request(publishPath, teacherId, winner)).body, results[winningIndex].body);
+  assert.equal(env.db.assignments.docs.length, 2);
+  const second = await env.request(path, teacherId, { level: 1 });
+  assert.equal(second.body.remaining, 5);
+  assert.ok(second.body.source.learning.words.every(w => !source.learning.words.some(old => old.word === w.word)));
+  const student = await env.request(`/assignments/${results[winningIndex].body.assignment.id}`, studentId);
+  assert.equal(student.body.assignment.learning.words.length, 5);
+  assert.equal(student.body.assignment.questions.length, 5);
+  assert.ok(!JSON.stringify(student.body.assignment).includes('correctOptionId'));
+  const savedBundle = await env.db.assignments.findOne({ _id: student.body.assignment.id });
+  const submitted = await env.request(`/assignments/${savedBundle._id}/submit`, studentId, {
+    requestId: 'five-word-answer-001', answers: savedBundle.questions.map(q => ({ questionId: q.id, optionId: q.correctOptionId })),
+  });
+  assert.equal(submitted.status, 200);
+  assert.equal(submitted.body.attempt.score, 5);
+  assert.equal(submitted.body.attempt.total, 5);
+  assert.equal((await env.request(`/assignments/${savedBundle._id}`, studentId)).body.attempts.length, 1);
+  assert.deepEqual(await env.db.assignments.findOne({ _id: 'old-word' }), legacy);
+  // Cannot bypass bundling by publishing a canonical individual word directly.
+  const single = catalog.preview('1:vocab:10');
+  assert.equal((await env.request(publishPath, teacherId, { sourceId: single.id, sourceVersion: single.version, requestId: 'single-word-bypass' })).status, 400);
+});
+
+test('previewing and shuffling do not reserve words; a short pool reports exhaustion instead of recycling', async () => {
+  const env = await setup();
+  const catalog = createPracticeCatalog({ '1-2': { vocab: Array.from({ length: 5 }, (_, i) => ({ id: i, word: `word${i}`, def: `意思${i}`, options: [`意思${i}`, '其他'] })) } });
+  env.setCatalog(catalog);
+  const path = `/classes/${env.classroom.id}/vocabulary-bundle`;
+  const a = await env.request(path, teacherId, { level: 1 });
+  const b = await env.request(path, teacherId, { level: 1 });
+  assert.equal(a.status, 200);
+  assert.equal(b.body.remaining, 5);
+  assert.equal(env.db.assignments.docs.length, 0);
+  const source = b.body.source;
+  assert.equal((await env.request(`/classes/${env.classroom.id}/assignments`, teacherId, { sourceId: source.id, sourceVersion: source.version, requestId: 'exhaust-bundle-001' })).status, 201);
+  const exhausted = await env.request(path, teacherId, { level: 1 });
+  assert.equal(exhausted.status, 409);
+  assert.equal(exhausted.body.code, 'vocabulary_exhausted');
+});
 const quiz = { title: 'At the farm', subject: 'reading', level: 1, passage: 'A duck swims. A hen eats rice.', instructions: 'Read and choose.', maxAttempts: 2, questions: [
   { prompt: 'What swims?', options: ['A duck', 'A hen', 'A cat'], correctIndex: 0, explanation: 'The duck swims.' },
   { prompt: 'What does the hen eat?', options: ['Rice', 'Bread', 'Grass'], correctIndex: 0, explanation: 'The hen eats rice.' }
@@ -494,8 +562,8 @@ test('all reviewed levels and subjects are selectable, including capitalization 
     assert.equal(result.body.sources.length, total);
   }
   const source = (await request(`${path}/${encodeURIComponent('1:grammar:214')}`)).body.source;
-  assert.deepEqual(source.questions[0].options, ['The', 'the', 'tHe']);
-  assert.equal(source.questions[0].correctIndex, 0);
+  assert.deepEqual([...source.questions[0].options].sort(), ['The', 'tHe', 'the']);
+  assert.equal(source.questions[0].options[source.questions[0].correctIndex], 'The');
   assert.equal((await request(`/classes/${classroom.id}/assignments`, teacherId, { sourceId: source.id, sourceVersion: source.version, requestId: 'publication-caps-001' })).status, 201);
   const upgraded = (await request(`${path}/${encodeURIComponent('3:vocab:2002')}`)).body.source;
   assert.equal(upgraded.title, 'achieve');

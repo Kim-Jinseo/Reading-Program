@@ -11,6 +11,7 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
   const [sourceId, setSourceId] = useState('');
   const [sources, setSources] = useState([]);
   const [preview, setPreview] = useState(null);
+  const [remainingWords, setRemainingWords] = useState(null);
   const [maxAttempts, setMaxAttempts] = useState(3);
   const [loading, setLoading] = useState(true);
   const [previewLoading, setPreviewLoading] = useState(false);
@@ -25,14 +26,23 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
   useEffect(() => {
     let active = true;
     setLoading(true); setSources([]); setError(null);
-    api(`${base}?level=${level}&subject=${subject}`)
-      .then(data => { if (active) setSources(data.sources); })
+    setRemainingWords(null);
+    if (subject === 'vocab') { setPreview(null); setPreviewLoading(false); }
+    const request = subject === 'vocab'
+      ? api(`/classes/${classId}/vocabulary-bundle`, { level })
+      : api(`${base}?level=${level}&subject=${subject}`);
+    request.then(data => {
+        if (!active) return;
+        if (subject === 'vocab') { setPreview(data.source); setRemainingWords(data.remaining); }
+        else setSources(data.sources);
+      })
       .catch(e => { if (active) setError(e); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [api, base, level, subject, reload]);
+  }, [api, base, classId, level, subject, reload]);
 
   useEffect(() => {
+    if (subject === 'vocab') return undefined;
     let active = true;
     setPreview(null);
     if (!sourceId) { setPreviewLoading(false); return; }
@@ -42,11 +52,11 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
       .catch(e => { if (active) setError(e); })
       .finally(() => { if (active) setPreviewLoading(false); });
     return () => { active = false; };
-  }, [api, base, sourceId, reload]);
+  }, [api, base, subject, sourceId, reload]);
 
   const clearSelection = () => { setSourceId(''); setPreview(null); setError(null); };
   const locked = busy || Boolean(pending.current);
-  const canAssign = Boolean(pending.current) || (preview?.id === sourceId && !loading && !previewLoading);
+  const canAssign = Boolean(pending.current) || (Boolean(preview) && (subject === 'vocab' || preview.id === sourceId) && !loading && !previewLoading);
   const publish = async event => {
     event.preventDefault();
     if (sending.current || !canAssign) return;
@@ -58,7 +68,7 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
       setAssigned(true);
       await onPublished();
     } catch (e) {
-      if (['practice_source_changed', 'invalid_practice_source', 'invalid_input', 'publication_changed'].includes(e.code)) { pending.current = null; setSourceId(''); setPreview(null); }
+      if (['practice_source_changed', 'invalid_practice_source', 'invalid_input', 'publication_changed', 'vocabulary_overlap', 'vocabulary_exhausted'].includes(e.code)) { pending.current = null; setSourceId(''); setPreview(null); }
       setError(e);
     } finally { sending.current = false; setBusy(false); }
   };
@@ -82,7 +92,13 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
           <label className="block font-bold min-w-0">{say(lang, 'Grade band', '年级段')}<select className={field + ' mt-2'} value={level} disabled={locked} onChange={e => { setLevel(Number(e.target.value)); clearSelection(); }}>{[1, 2, 3].map(n => <option key={n} value={n}>{gradeBandLabel(n, lang)}</option>)}</select></label>
           <label className="block font-bold min-w-0">{say(lang, 'Subject', '科目')}<select className={field + ' mt-2'} value={subject} disabled={locked} onChange={e => { const next = e.target.value; setSubject(next); if (['writing', 'speaking'].includes(next)) setMaxAttempts(3); clearSelection(); }}>{['reading', 'vocab', 'grammar', 'writing', 'speaking'].map(s => <option key={s} value={s}>{subjectName(lang, s)}</option>)}</select></label>
         </div>
-        {loading ? <p role="status" className="text-slate-500">{say(lang, 'Loading website content…', '正在加载网站内容…')}</p> : sources.length ? <div className="space-y-4">
+        {subject === 'vocab' ? <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+          <h3 className="font-bold">{say(lang, 'Five new words for your class', '为班级选择五个新单词')}</h3>
+          <p className="text-sm leading-relaxed text-slate-600">{say(lang, 'A random bundle from this grade band, excluding words already assigned to this class. Students learn five flashcards first, then answer five questions.', '从当前年级段随机选取五个单词，避开已布置给本班的单词。学生先学习五张单词卡，再回答五道题。')}</p>
+          {remainingWords !== null && <p className="text-sm text-slate-500">{say(lang, `${remainingWords} unused words available, including this bundle.`, `还有 ${remainingWords} 个未布置的单词（包含本组）。`)}</p>}
+          {loading && <p role="status" className="text-sm text-slate-500">{say(lang, 'Choosing five unused words…', '正在选择五个未布置的单词…')}</p>}
+          <button type="button" className={secondary} disabled={locked || loading} onClick={() => { setPreviewLoading(false); setReload(n => n + 1); }}>{preview ? say(lang, 'Shuffle again', '重新随机选择') : say(lang, 'Generate five words', '生成五个单词')}</button>
+        </div> : loading ? <p role="status" className="text-slate-500">{say(lang, 'Loading website content…', '正在加载网站内容…')}</p> : sources.length ? <div className="space-y-4">
           <label className="block font-bold min-w-0">{say(lang, 'Choose content', '选择内容')}<select className={field + ' mt-2 truncate'} value={sourceId} disabled={locked} onChange={e => { setSourceId(e.target.value); setPreview(null); }}><option value="">{say(lang, 'Select content to preview', '选择要预览的内容')}</option>{sources.map(s => <option key={s.id} value={s.id}>{say(lang, s.title, s.titleZh || s.title)} · {['writing', 'speaking'].includes(s.format) ? say(lang, '1 activity', '1 项练习') : say(lang, `${s.questionCount} ${s.questionCount === 1 ? 'question' : 'questions'}`, `${s.questionCount} 道题`)}</option>)}</select></label>
         </div> : !error && <p className="text-slate-500">{say(lang, 'No content is available for this grade band and subject.', '这个年级段和科目暂时没有可用内容。')}</p>}
       </section>
@@ -91,7 +107,7 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
       {preview && <section aria-label={say(lang, 'Content preview', '内容预览')} className={card + ' space-y-5'}>
         <div className="flex items-start gap-3"><BookOpen className="shrink-0 text-indigo-600" size={24} /><div className="min-w-0"><p className="text-sm text-slate-500">{say(lang, 'Preview — read only', '预览（只读）')}</p><h3 className="mt-1 text-xl font-extrabold break-words">{say(lang, preview.title, preview.titleZh || preview.title)}</h3></div></div>
         {preview.passage && <p className="rounded-xl border border-amber-100 bg-amber-50 p-4 sm:p-5 leading-loose whitespace-pre-wrap break-words">{preview.passage}</p>}
-        {preview.learning?.words && <LessonVocabulary words={preview.learning.words} lang={lang} />}
+        {preview.learning?.words && <LessonVocabulary key={preview.id} words={preview.learning.words} lang={lang} />}
         {preview.learning?.description && <div className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4"><p className="font-bold">{say(lang, 'Explanation', '讲解')}</p><p className="whitespace-pre-wrap">{say(lang, preview.learning.description.en, preview.learning.description.zh)}</p><p className="font-bold">{say(lang, 'Rule and examples', '规则和例句')}</p><p className="whitespace-pre-wrap">{say(lang, preview.learning.rule.en, preview.learning.rule.zh)}</p></div>}
         {preview.writing && <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 space-y-2"><p className="text-sm font-semibold text-indigo-800">{say(lang, 'Writing prompt', '写作题目')}</p><p className="font-bold whitespace-pre-wrap">{preview.writing.prompt}</p>{preview.writing.promptZh && <p className="text-slate-600">{preview.writing.promptZh}</p>}</div>}
         {preview.speaking && <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2"><p className="text-sm font-semibold text-slate-600">{say(lang, 'Speaking sentence', '口语句子')}</p><p className="font-bold text-xl">{preview.speaking.sentence}</p>{preview.speaking.hintZh && <p className="text-slate-600">{preview.speaking.hintZh}</p>}</div>}

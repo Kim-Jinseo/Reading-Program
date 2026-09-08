@@ -148,6 +148,17 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     await findClass(c, c.req.param('id'), true);
     return c.json({ success: true, source: practiceCatalog().preview(c.req.param('sourceId')) });
   });
+  const previousVocabulary = (db, classId, session) => db.assignments.find({ classId, subject: 'vocab' }, {
+    projection: { subject: 1, sourceId: 1, title: 1, 'learning.words': 1, 'questions.prompt': 1 }, ...(session ? { session } : {}),
+  }).toArray();
+  app.post('/classes/:id/vocabulary-bundle', requireTeacher, limit('preview-vocabulary', 60), async c => {
+    const { row } = await findClass(c, c.req.param('id'), true);
+    const body = await readBody(c);
+    if (Object.keys(body).some(key => key !== 'level')) throw new ClassroomError('Choose a grade band.');
+    const previous = await previousVocabulary(c.get('db'), row._id);
+    c.header('Cache-Control', 'private, no-store');
+    return c.json({ success: true, ...practiceCatalog().vocabularyBundle(body.level, previous) });
+  });
   app.post('/classes/:id/assignments', requireTeacher, limit('publish-assignment', 15), async c => {
     const { row } = await findClass(c, c.req.param('id'), true);
     const body = await readBody(c);
@@ -167,6 +178,11 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
         return saved;
       }
       const assignment = practiceCatalog().assignment(selection);
+      if (assignment.subject === 'vocab') {
+        // Recheck inside the same transaction as the class write below. Competing
+        // publications conflict on that class row and retry with fresh history.
+        practiceCatalog().assertVocabularyUnused(assignment, await previousVocabulary(db, row._id, session));
+      }
       const reserved = await db.classes.updateOne({ _id: row._id, assignmentCount: { $lt: 100 } }, { $inc: { assignmentCount: 1 } }, { session });
       if (!reserved.modifiedCount) throw new ClassroomError('This class has reached 100 assignments.');
       const created = { ...assignment, _id: id, publicationHash, classId: row._id, createdAt: new Date() };

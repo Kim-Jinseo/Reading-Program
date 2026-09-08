@@ -13,6 +13,8 @@ export const assignmentSummary = (lang, assignment) => {
 };
 export const dateText = (lang, date) => date ? new Date(date).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 export function errorText(lang, error) {
+  if (error.code === 'vocabulary_overlap') return say(lang, 'Some words were already assigned to this class. Generate a new bundle before assigning.', '部分单词已布置给本班，请重新生成一组单词后再布置。');
+  if (error.code === 'vocabulary_exhausted') return say(lang, error.message || 'Fewer than five unused words remain in this grade band. Previously assigned words will not be repeated.', '当前年级段未布置的单词不足五个，无法生成新的一组。系统不会重复布置以前的单词。');
   if (error.code === 'invalid_practice_source') return say(lang, 'Choose existing website content for extra practice.', '请为拓展练习选择网站已有内容。');
   if (error.code === 'practice_source_changed') return say(lang, 'This content has changed. Select and preview it again before assigning.', '内容已更新，请重新选择并预览后再布置。');
   if (lang !== 'zh') return error.message || 'Unable to load. Please try again.';

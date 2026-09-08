@@ -12,14 +12,21 @@ const lesson = { id: 'quiz1', title: 'At the farm', instructions: 'Read and choo
 ] };
 const question = (id, prompt) => ({ id, prompt, options: [{ id: `${id}-a`, text: 'First choice' }, { id: `${id}-b`, text: 'Second choice' }] });
 
-test('vocabulary opens on its flashcard and starts the quiz only after explicit action', () => {
-  const assignment = { ...lesson, format: 'quiz', subject: 'vocab', learning: { words: [{ word: 'duck', meaningZh: '鸭子' }] } };
+test.each([1, 5])('vocabulary with %s words opens on flashcards and starts the matching quiz only after explicit action', count => {
+  const words = [{ word: 'duck', meaningZh: '鸭子' }, { word: 'cat', meaningZh: '猫' }, { word: 'bird', meaningZh: '鸟' }, { word: 'fish', meaningZh: '鱼' }, { word: 'dog', meaningZh: '狗' }].slice(0, count);
+  const assignment = { ...lesson, format: 'quiz', subject: 'vocab', learning: { words }, questions: words.map((w, i) => question(`word-${i}`, `What does ${w.word} mean?`)) };
   render(<AssignmentPlayer data={{ assignment, attempts: [] }} api={jest.fn()} lang="en" onBack={() => {}} />);
   expect(screen.getByText('Learn the words first')).toBeInTheDocument();
   expect(screen.getByText('duck')).toBeInTheDocument();
   expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  for (const [i, word] of words.entries()) {
+    expect(screen.getByText(`Word ${i + 1} of ${count}`)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: `Flip card: ${word.word}` }));
+    expect(screen.getByText(word.meaningZh)).toBeInTheDocument();
+    if (i + 1 < count) fireEvent.click(screen.getByRole('button', { name: 'Next word' }));
+  }
   fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
-  expect(screen.getAllByRole('radio')).toHaveLength(2);
+  expect(screen.getAllByRole('radio')).toHaveLength(count * 2);
 });
 
 test('grammar explains one concept before exactly three related questions', () => {

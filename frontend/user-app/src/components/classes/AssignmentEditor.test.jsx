@@ -7,6 +7,77 @@ const list = { sources: [{ id: source.id, title: source.title, titleZh: source.t
 const base = '/classes/class1/practice-catalog';
 const mount = api => render(<AssignmentEditor lang="en" classId="class1" api={api} onBack={() => {}} onPublished={() => {}} />);
 
+const wordBundle = number => ({ id: `vocab-bundle:${number}`, version: `bundle-v${number}`, title: `Word bundle ${number}`, subject: 'vocab', level: 1, format: 'quiz',
+  learning: { words: Array.from({ length: 5 }, (_, i) => ({ word: `word${number}-${i}`, meaningZh: `词义${i}` })) },
+  questions: Array.from({ length: 5 }, (_, i) => ({ prompt: `Meaning ${i}?`, options: ['词义', '其他'], correctIndex: i % 2 })),
+});
+
+test('switching from a pending reading preview to vocabulary does not leave bundle publication disabled', async () => {
+  let finishReading;
+  const api = jest.fn(async path => path.endsWith('/vocabulary-bundle') ? { source: wordBundle(1), remaining: 10 }
+    : path.includes('?') ? list : new Promise(resolve => { finishReading = resolve; }));
+  mount(api);
+  fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: source.id } });
+  await waitFor(() => expect(finishReading).toBeDefined());
+  fireEvent.change(screen.getByLabelText('Subject'), { target: { value: 'vocab' } });
+  await screen.findByText('Word bundle 1');
+  expect(screen.getByRole('button', { name: 'Assign to class' })).not.toBeDisabled();
+  await act(async () => finishReading({ source }));
+  expect(screen.queryByText(source.passage)).not.toBeInTheDocument();
+});
+
+test('vocab generates five cards, reshuffles the preview, and publishes only the latest bundle reference', async () => {
+  let generation = 0;
+  const api = jest.fn(async (path, body) => path.endsWith('/vocabulary-bundle')
+    ? { source: wordBundle(++generation), remaining: 15 } : body ? { success: true } : list);
+  mount(api);
+  fireEvent.change(screen.getByLabelText('Subject'), { target: { value: 'vocab' } });
+  await screen.findByText('Word bundle 1');
+  expect(screen.queryByLabelText('Choose content')).not.toBeInTheDocument();
+  expect(screen.getByText('Word 1 of 5')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Next word' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Shuffle again' }));
+  await screen.findByText('Word bundle 2');
+  expect(screen.getByText('Word 1 of 5')).toBeInTheDocument();
+  expect(api).toHaveBeenCalledWith('/classes/class1/vocabulary-bundle', { level: 1 });
+  fireEvent.click(screen.getByRole('button', { name: 'Assign to class' }));
+  await screen.findByText('Extra practice assigned');
+  expect(api).toHaveBeenCalledWith('/classes/class1/assignments', { sourceId: 'vocab-bundle:2', sourceVersion: 'bundle-v2', maxAttempts: 3, requestId: expect.any(String) });
+});
+
+test('stale bundle responses cannot replace the grade selection and exhausted pools cannot be assigned', async () => {
+  let finish;
+  const api = jest.fn(async (path, body) => {
+    if (!path.endsWith('/vocabulary-bundle')) return list;
+    if (body.level === 1) return new Promise(resolve => { finish = resolve; });
+    throw Object.assign(new Error('Only 4 unused words remain.'), { code: 'vocabulary_exhausted' });
+  });
+  mount(api);
+  fireEvent.change(screen.getByLabelText('Subject'), { target: { value: 'vocab' } });
+  await waitFor(() => expect(finish).toBeDefined());
+  fireEvent.change(screen.getByLabelText('Grade band'), { target: { value: '2' } });
+  await screen.findByRole('alert');
+  await act(async () => finish({ source: wordBundle(1), remaining: 10 }));
+  expect(screen.queryByText('Word bundle 1')).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Assign to class' })).toBeDisabled();
+});
+
+test('a vocabulary publication conflict unlocks generation instead of retrying an overlapping bundle', async () => {
+  const api = jest.fn(async (path, body) => {
+    if (path.endsWith('/vocabulary-bundle')) return { source: wordBundle(1), remaining: 8 };
+    if (body) throw Object.assign(new Error('Already assigned.'), { code: 'vocabulary_overlap' });
+    return list;
+  });
+  mount(api);
+  fireEvent.change(screen.getByLabelText('Subject'), { target: { value: 'vocab' } });
+  await screen.findByText('Word bundle 1');
+  fireEvent.click(screen.getByRole('button', { name: 'Assign to class' }));
+  await screen.findByRole('alert');
+  expect(screen.getByRole('button', { name: 'Assign to class' })).toBeDisabled();
+  expect(screen.getByLabelText('Grade band')).not.toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Generate five words' })).not.toBeDisabled();
+});
+
 test('teacher previews read-only website content and publishes only its verified reference', async () => {
   const api = jest.fn(async (path, body) => body ? { success: true } : path.includes('?') ? list : { source });
   mount(api);
