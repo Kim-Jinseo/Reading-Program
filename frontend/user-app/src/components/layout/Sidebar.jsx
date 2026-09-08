@@ -47,9 +47,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
 
       <div className={`px-5 py-7 flex items-center justify-between mb-4 bg-white ${isCollapsed ? 'lg:px-4' : ''}`}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0 mx-auto">
-            <BookOpen size={20} className="text-white"/>
-          </div>
+          <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" aria-hidden="true" className="w-10 h-10 rounded-xl shrink-0 mx-auto" />
             <div className={`flex flex-col ${isCollapsed ? 'lg:hidden' : ''}`}>
               <span className="font-bold text-xl tracking-tight text-slate-800 leading-tight">Stepping</span>
               <span className="font-medium text-xs tracking-[0.18em] text-slate-500 uppercase mt-1">Stones</span>
