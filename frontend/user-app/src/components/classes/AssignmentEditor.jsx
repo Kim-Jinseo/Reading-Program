@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, BookOpen, CheckCircle2 } from 'lucide-react';
 import { say, card, field, button, secondary, subjectName, errorText } from './shared';
 import { requestId } from '../lessons/shared';
@@ -8,7 +8,6 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
   const [level, setLevel] = useState(1);
   const [subject, setSubject] = useState('reading');
   const [sourceId, setSourceId] = useState('');
-  const [search, setSearch] = useState('');
   const [sources, setSources] = useState([]);
   const [preview, setPreview] = useState(null);
   const [maxAttempts, setMaxAttempts] = useState(3);
@@ -44,8 +43,7 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
     return () => { active = false; };
   }, [api, base, sourceId, reload]);
 
-  const filtered = useMemo(() => sources.filter(s => `${s.title} ${s.titleZh || ''}`.toLowerCase().includes(search.trim().toLowerCase())), [sources, search]);
-  const clearSelection = () => { setSourceId(''); setPreview(null); setSearch(''); setError(null); };
+  const clearSelection = () => { setSourceId(''); setPreview(null); setError(null); };
   const locked = busy || Boolean(pending.current);
   const canAssign = Boolean(pending.current) || (preview?.id === sourceId && !loading && !previewLoading);
   const publish = async event => {
@@ -84,9 +82,7 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
           <label className="block font-bold min-w-0">{say(lang, 'Subject', '科目')}<select className={field + ' mt-2'} value={subject} disabled={locked} onChange={e => { const next = e.target.value; setSubject(next); if (['writing', 'speaking'].includes(next)) setMaxAttempts(3); clearSelection(); }}>{['reading', 'vocab', 'grammar', 'writing', 'speaking'].map(s => <option key={s} value={s}>{subjectName(lang, s)}</option>)}</select></label>
         </div>
         {loading ? <p role="status" className="text-slate-500">{say(lang, 'Loading website content…', '正在加载网站内容…')}</p> : sources.length ? <div className="space-y-4">
-          <label className="block font-bold">{say(lang, 'Search content', '搜索内容')}<input className={field + ' mt-2'} type="search" value={search} disabled={locked} onChange={e => { setSearch(e.target.value); setSourceId(''); setPreview(null); }} placeholder={say(lang, 'Search by title or word', '搜索标题或单词')} /></label>
-          <label className="block font-bold min-w-0">{say(lang, 'Choose content', '选择内容')}<select className={field + ' mt-2 truncate'} value={sourceId} disabled={locked} onChange={e => { setSourceId(e.target.value); setPreview(null); }}><option value="">{say(lang, 'Select content to preview', '选择要预览的内容')}</option>{filtered.map(s => <option key={s.id} value={s.id}>{say(lang, s.title, s.titleZh || s.title)} · {['writing', 'speaking'].includes(s.format) ? say(lang, '1 activity', '1 项练习') : say(lang, `${s.questionCount} ${s.questionCount === 1 ? 'question' : 'questions'}`, `${s.questionCount} 道题`)}</option>)}</select></label>
-          {!filtered.length && <p className="text-sm text-slate-500">{say(lang, 'No matching content. Try another search.', '没有匹配的内容，请换个关键词。')}</p>}
+          <label className="block font-bold min-w-0">{say(lang, 'Choose content', '选择内容')}<select className={field + ' mt-2 truncate'} value={sourceId} disabled={locked} onChange={e => { setSourceId(e.target.value); setPreview(null); }}><option value="">{say(lang, 'Select content to preview', '选择要预览的内容')}</option>{sources.map(s => <option key={s.id} value={s.id}>{say(lang, s.title, s.titleZh || s.title)} · {['writing', 'speaking'].includes(s.format) ? say(lang, '1 activity', '1 项练习') : say(lang, `${s.questionCount} ${s.questionCount === 1 ? 'question' : 'questions'}`, `${s.questionCount} 道题`)}</option>)}</select></label>
         </div> : !error && <p className="text-slate-500">{say(lang, 'No content is available for this level and subject.', '这个级别和科目暂时没有可用内容。')}</p>}
       </section>
 

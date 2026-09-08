@@ -12,6 +12,7 @@ test('teacher previews read-only website content and publishes only its verified
   mount(api);
   fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: source.id } });
   await screen.findByText(source.passage);
+  expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
   expect(screen.getByText('Where is the bee?')).toBeInTheDocument();
   expect(screen.getByText(/Correct answer: On a flower/)).toBeInTheDocument();
   expect(screen.queryByLabelText('Assignment title')).not.toBeInTheDocument();
