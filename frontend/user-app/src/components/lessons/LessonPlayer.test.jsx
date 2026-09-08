@@ -81,19 +81,24 @@ test('returning to completed work shows quiet encouragement, not a new celebrati
   expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
 });
 
-test('completed lesson navigation and results use calm neutral cards with muted blue selection', () => {
+test.each([false, true])('completed lesson tabs remain distinct from selection in read-only=%s', readOnly => {
   const attempt = { requestId: 'saved', submittedAt: '2026-09-06T08:00:00Z', score: 4, total: 5, text: 'My classroom is bright.' };
-  const data = { ...initial, parts: [{ part: 'slides', attempts: [attempt] }, { part: 'writing', attempts: [attempt] }] };
+  const data = { ...initial, readOnly, parts: [{ part: 'slides', attempts: [attempt] }, { part: 'writing', attempts: [attempt] }] };
   render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} />);
   const slides = screen.getByRole('button', { name: /^Slides/ });
   const writing = screen.getByRole('button', { name: /^Writing/ });
   expect(slides).toHaveClass('bg-blue-50');
+  expect(slides).toHaveClass('border-blue-600');
   expect(slides).not.toHaveClass('bg-emerald-100');
   expect(writing).toHaveClass('bg-white');
+  expect(writing).toHaveClass('border-blue-400');
+  expect(screen.getByRole('button', { name: /^Speaking/ })).toHaveClass('border-slate-200');
   expect(writing.querySelector('.lesson-tab-check')).toBeInTheDocument();
   expect(within(writing).getByText('Completed')).toBeInTheDocument();
   expect(screen.getByRole('progressbar', { name: 'Lesson progress' }).firstElementChild).toHaveClass('bg-blue-500');
   fireEvent.click(writing);
+  expect(writing).toHaveClass('border-blue-600', 'bg-blue-50');
+  expect(slides).toHaveClass('border-blue-400', 'bg-white');
   const scoreCard = screen.getByText('4 / 5').closest('div');
   expect(scoreCard).toHaveClass('bg-white');
   expect(scoreCard).not.toHaveClass('bg-emerald-50');

@@ -163,7 +163,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             key={p}
             aria-pressed={part === p}
             disabled={busy || micBusy || !!pending.current}
-            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 ${part === p ? 'border-blue-500 bg-blue-50 text-blue-950' : 'border-slate-200 bg-white text-slate-600'}`}
+            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:opacity-50 ${part === p ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50 text-blue-950' : done ? 'border-blue-400 bg-white text-slate-600' : 'border-slate-200 bg-white text-slate-600'}`}
             onClick={() => {
               if (
                 (writing.trim() || Object.keys(answers).length || recording) &&

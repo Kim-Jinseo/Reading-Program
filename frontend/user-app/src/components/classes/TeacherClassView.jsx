@@ -46,7 +46,7 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons
         <div className="flex flex-wrap gap-3"><button className={secondary} onClick={() => onCopy(detail.class.invitationCode)}><Copy size={16} className="inline mr-2" aria-hidden="true" />{say(lang, 'Copy code', '复制邀请码')}</button><button className={secondary} disabled={busy} onClick={onReplace}>{say(lang, 'Replace code', '更换邀请码')}</button></div>
       </section>}
       <div ref={setSettingsContainer} className="empty:hidden" />
-      <nav aria-label={say(lang, 'Class sections', '班级栏目')} className="class-section-nav">
+      <nav aria-label={say(lang, 'Class sections', '班级栏目')} className="class-section-nav class-section-nav--class">
         {['lessons', 'students', 'practice'].map((key, i) => <button key={key} className="class-section-tab" aria-pressed={tab === key} onClick={() => switchTab(key)}>{say(lang, ['Lessons', 'Students', 'Extra practice'][i], ['课程', '学生', '拓展练习'][i])}</button>)}
       </nav>
     </>}
