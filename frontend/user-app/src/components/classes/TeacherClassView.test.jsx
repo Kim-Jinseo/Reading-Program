@@ -13,7 +13,7 @@ function setup(extra = {}) {
 }
 test('compact teacher class hides invitations and progress until requested', async () => {
   const { api, lessonsApi } = setup();
-  await screen.findByText('2026 Summer · Level 2 (Grades 3–4)');
+  await screen.findByText('2026 Summer · Grades 3–4');
   expect(screen.queryByDisplayValue('PRIVATE-CODE')).not.toBeInTheDocument();
   expect(screen.queryByText('王小明')).not.toBeInTheDocument();
   expect(api).not.toHaveBeenCalled();
@@ -38,24 +38,24 @@ test('class settings stays above the tabs and outside lesson content, and still 
   });
   const confirm = jest.spyOn(window, 'confirm').mockReturnValue(true);
   setup({ lessonsApi });
-  await screen.findByText('2026 Summer · Level 2 (Grades 3–4)');
+  await screen.findByText('2026 Summer · Grades 3–4');
   fireEvent.click(screen.getByRole('button', { name: 'Class settings' }));
-  const picker = await screen.findByRole('combobox', { name: 'Term and learning level' });
-  await screen.findByRole('option', { name: '2026 Autumn · Level 2 (Grades 3–4)' });
+  const picker = await screen.findByRole('combobox', { name: 'Term and grade band' });
+  await screen.findByRole('option', { name: '2026 Autumn · Grades 3–4' });
   const panel = picker.closest('form');
   const tabs = screen.getByRole('navigation', { name: 'Class sections' });
   expect(screen.getByTestId('class-lessons')).not.toContainElement(panel);
   expect(panel.compareDocumentPosition(tabs) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   expect(screen.getByRole('heading', { name: 'Monday English' }).compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
-  expect(screen.queryByRole('combobox', { name: 'Term and learning level' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('combobox', { name: 'Term and grade band' })).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: 'Lessons', exact: true }));
-  const reopenedPicker = await screen.findByRole('combobox', { name: 'Term and learning level' });
+  const reopenedPicker = await screen.findByRole('combobox', { name: 'Term and grade band' });
   expect(screen.getByRole('button', { name: 'Update class lessons' })).toBeDisabled();
   fireEvent.change(reopenedPicker, { target: { value: 'autumn' } });
   fireEvent.click(screen.getByRole('button', { name: 'Update class lessons' }));
   await waitFor(() => expect(screen.queryByRole('button', { name: 'Close settings' })).not.toBeInTheDocument());
-  expect(await screen.findByText('2026 Autumn · Level 2 (Grades 3–4)')).toBeVisible();
+  expect(await screen.findByText('2026 Autumn · Grades 3–4')).toBeVisible();
   expect(lessonsApi).toHaveBeenCalledWith('/classes/c/settings', { collectionId: 'autumn', revision: 1 });
   confirm.mockRestore();
 });

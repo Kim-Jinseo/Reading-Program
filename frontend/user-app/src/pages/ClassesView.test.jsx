@@ -203,7 +203,7 @@ test('student class cards label speaking as an activity with its fixed attempt p
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [assignment] });
   render(<Harness api={api} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
-  expect(await screen.findByText('Speaking · Level 1')).toBeInTheDocument();
+  expect(await screen.findByText('Speaking · Grades 1–2')).toBeInTheDocument();
   expect(screen.getByText('1 activity · Up to 3 attempts')).toBeInTheDocument();
   expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
 });

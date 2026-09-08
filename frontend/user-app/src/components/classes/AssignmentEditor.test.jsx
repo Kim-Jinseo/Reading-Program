@@ -45,8 +45,8 @@ test('changing filters clears the old preview and stale responses cannot be assi
   mount(api);
   fireEvent.change(await screen.findByLabelText('Choose content'), { target: { value: source.id } });
   await waitFor(() => expect(api).toHaveBeenCalledWith(`${base}/${encodeURIComponent(source.id)}`));
-  fireEvent.change(screen.getByLabelText('Level'), { target: { value: '2' } });
-  await screen.findByText('No content is available for this level and subject.');
+  fireEvent.change(screen.getByLabelText('Grade band'), { target: { value: '2' } });
+  await screen.findByText('No content is available for this grade band and subject.');
   await act(async () => resolvePreview({ source }));
   expect(screen.queryByText(source.passage)).not.toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'Assign to class' })).toBeDisabled();
@@ -89,7 +89,7 @@ test('an uncertain publication retry keeps its request ID and selection locked',
   await screen.findByText(source.passage);
   fireEvent.click(screen.getByRole('button', { name: 'Assign to class' }));
   await screen.findByRole('alert');
-  expect(screen.getByLabelText('Level')).toBeDisabled();
+  expect(screen.getByLabelText('Grade band')).toBeDisabled();
   expect(screen.getByLabelText('Choose content')).toBeDisabled();
   fireEvent.click(screen.getByRole('button', { name: 'Retry assigning' }));
   await screen.findByText('Extra practice assigned');

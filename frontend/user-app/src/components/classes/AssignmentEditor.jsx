@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../../utils/gradeLabels';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, BookOpen, CheckCircle2 } from 'lucide-react';
 import { say, card, field, button, secondary, subjectName, errorText } from './shared';
@@ -78,12 +79,12 @@ export const AssignmentEditor = ({ lang, classId, api, onBack, onPublished }) =>
           <p className="text-slate-500 mt-3 leading-relaxed">{say(lang, 'Choose existing website content, preview it, then assign it to your class. Questions and answers cannot be edited.', '选择网站已有内容，预览后布置给全班。题目和答案不能修改。')}</p>
         </div>
         <div className="grid sm:grid-cols-2 gap-5">
-          <label className="block font-bold min-w-0">{say(lang, 'Level', '级别')}<select className={field + ' mt-2'} value={level} disabled={locked} onChange={e => { setLevel(Number(e.target.value)); clearSelection(); }}>{[1, 2, 3].map(n => <option key={n} value={n}>{say(lang, `Level ${n} (Grades ${n * 2 - 1}–${n * 2})`, `级别 ${n}（${n * 2 - 1}–${n * 2} 年级）`)}</option>)}</select></label>
+          <label className="block font-bold min-w-0">{say(lang, 'Grade band', '年级段')}<select className={field + ' mt-2'} value={level} disabled={locked} onChange={e => { setLevel(Number(e.target.value)); clearSelection(); }}>{[1, 2, 3].map(n => <option key={n} value={n}>{gradeBandLabel(n, lang)}</option>)}</select></label>
           <label className="block font-bold min-w-0">{say(lang, 'Subject', '科目')}<select className={field + ' mt-2'} value={subject} disabled={locked} onChange={e => { const next = e.target.value; setSubject(next); if (['writing', 'speaking'].includes(next)) setMaxAttempts(3); clearSelection(); }}>{['reading', 'vocab', 'grammar', 'writing', 'speaking'].map(s => <option key={s} value={s}>{subjectName(lang, s)}</option>)}</select></label>
         </div>
         {loading ? <p role="status" className="text-slate-500">{say(lang, 'Loading website content…', '正在加载网站内容…')}</p> : sources.length ? <div className="space-y-4">
           <label className="block font-bold min-w-0">{say(lang, 'Choose content', '选择内容')}<select className={field + ' mt-2 truncate'} value={sourceId} disabled={locked} onChange={e => { setSourceId(e.target.value); setPreview(null); }}><option value="">{say(lang, 'Select content to preview', '选择要预览的内容')}</option>{sources.map(s => <option key={s.id} value={s.id}>{say(lang, s.title, s.titleZh || s.title)} · {['writing', 'speaking'].includes(s.format) ? say(lang, '1 activity', '1 项练习') : say(lang, `${s.questionCount} ${s.questionCount === 1 ? 'question' : 'questions'}`, `${s.questionCount} 道题`)}</option>)}</select></label>
-        </div> : !error && <p className="text-slate-500">{say(lang, 'No content is available for this level and subject.', '这个级别和科目暂时没有可用内容。')}</p>}
+        </div> : !error && <p className="text-slate-500">{say(lang, 'No content is available for this grade band and subject.', '这个年级段和科目暂时没有可用内容。')}</p>}
       </section>
 
       {previewLoading && <p role="status" className={card}>{say(lang, 'Loading preview…', '正在加载预览…')}</p>}

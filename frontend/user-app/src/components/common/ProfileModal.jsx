@@ -75,7 +75,7 @@ export const ProfileModal = ({ onClose }) => {
                 <p className="text-3xl font-extrabold text-rose-700">{(user.completedSpeaking || []).length}</p>
               </div>
               <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex flex-col justify-between h-full">
-                <p className="text-amber-500 font-bold text-xs uppercase tracking-wider mb-2">Voice Battle Lvl</p>
+                <p className="text-amber-500 font-bold text-xs uppercase tracking-wider mb-2">Voice Battle Stage</p>
                 <p className="text-3xl font-extrabold text-amber-700">
                   {user.clearedVoiceStages && Object.keys(user.clearedVoiceStages).length > 0 
                     ? Math.max(0, ...Object.values(user.clearedVoiceStages).map(arr => arr.length ? Math.max(...arr) + 1 : 0)) + 1 

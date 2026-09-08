@@ -1,9 +1,10 @@
+import { gradeBandLabel } from '../utils/gradeLabels';
 import React, { useState } from 'react';
 import { ShieldCheck, PlusCircle, Trash2 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
 export const AdminDashboardView = () => {
-  const { curriculumDb, setCurriculumDb } = useAppContext();
+  const { curriculumDb, setCurriculumDb, lang } = useAppContext();
   const [adminGrade, setAdminGrade] = useState('3-4');
   const [adminTab, setAdminTab] = useState('vocab');
 
@@ -101,9 +102,9 @@ export const AdminDashboardView = () => {
           value={adminGrade} onChange={(e) => setAdminGrade(e.target.value)}
           className="bg-white border-2 border-slate-200 text-slate-800 font-bold px-6 py-3 rounded-2xl focus:outline-none focus:border-indigo-500 shadow-sm cursor-pointer"
         >
-          <option value="1-2">Edit Level 1</option>
-          <option value="3-4">Edit Level 2</option>
-          <option value="5-6">Edit Level 3</option>
+          <option value="1-2">{lang === 'zh' ? '编辑' : 'Edit'} {gradeBandLabel(1, lang)}</option>
+          <option value="3-4">{lang === 'zh' ? '编辑' : 'Edit'} {gradeBandLabel(2, lang)}</option>
+          <option value="5-6">{lang === 'zh' ? '编辑' : 'Edit'} {gradeBandLabel(3, lang)}</option>
         </select>
       </div>
 

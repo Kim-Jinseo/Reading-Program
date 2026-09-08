@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../../utils/gradeLabels';
 import React, { useEffect, useRef, useState } from 'react';
 import { BookOpen, CheckCircle2, ChevronRight, Languages, Loader2, LogOut, Mic, Square, Volume2 } from 'lucide-react';
 import { ADAPTIVE_PLACEMENT_BANK, ADAPTIVE_SECTION_ORDER } from '../../data/adaptivePlacementBank';
@@ -508,7 +509,7 @@ export const PlacementTest = ({ onExit }) => {
           <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center"><BookOpen size={30} /></div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-800">{text('Adaptive Placement Test', '自适应分级测试')}</h2>
-            <p className="max-w-2xl text-slate-600 font-medium leading-relaxed mt-2">Correct answers move up, and wrong answers move down to find a good starting level.</p>
+            <p className="max-w-2xl text-slate-600 font-medium leading-relaxed mt-2">Correct answers move up, and wrong answers move down to find a suitable practice grade band.</p>
           </div>
         </div>
 
@@ -540,15 +541,15 @@ export const PlacementTest = ({ onExit }) => {
 
   if (stage === 'result' && result) {
     const messages = {
-      1: { en: 'Level 1 is a strong place to begin. Build your foundation with short, clear English.', zh: '建议从 Level 1 开始，先把简单英语基础学扎实。' },
-      2: { en: 'Level 2 is a good fit. You can build on your foundation with longer sentences and new words.', zh: '建议从 Level 2 开始。你可以在已有基础上学习更长的句子和新词。' },
-      3: { en: 'Level 3 is a good fit. You are ready for longer reading and more detailed English.', zh: '建议从 Level 3 开始。你已经可以学习较长的阅读和更丰富的英语表达。' }
+      1: { en: 'Grades 1–2 practice is a strong place to begin. Build your foundation with short, clear English.', zh: '建议从 1–2 年级的练习开始，先把简单英语基础学扎实。' },
+      2: { en: 'Grades 3–4 practice is a good fit. You can build on your foundation with longer sentences and new words.', zh: '建议从 3–4 年级的练习开始。你可以在已有基础上学习更长的句子和新词。' },
+      3: { en: 'Grades 5–6 practice is a good fit. You are ready for longer reading and more detailed English.', zh: '建议从 5–6 年级的练习开始。你已经可以学习较长的阅读和更丰富的英语表达。' }
     };
     return (
       <div className="max-w-4xl mx-auto bg-white rounded-[1.75rem] sm:rounded-[2rem] border-2 border-emerald-100 shadow-sm p-5 sm:p-8 md:p-10 text-center">
         <div className="w-16 h-16 mx-auto bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center"><CheckCircle2 size={36} /></div>
         <p className="mt-5 text-sm font-extrabold tracking-widest uppercase text-emerald-600">{text('Placement complete', '分级测试完成')}</p>
-        <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested Level ${result.recommendedLevel}`, `建议等级 ${result.recommendedLevel}`)}</h2>
+        <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mt-2">{text(`Suggested practice: ${gradeBandLabel(result.recommendedLevel)}`, `建议练习：${gradeBandLabel(result.recommendedLevel, 'zh')}`)}</h2>
         <p className="text-slate-600 font-medium mt-4 max-w-xl mx-auto">{messages[result.recommendedLevel].en}</p>
         <div className="mt-7 sm:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-left">
           {ADAPTIVE_SECTION_ORDER.map(section => {
@@ -565,7 +566,7 @@ export const PlacementTest = ({ onExit }) => {
         <p className={`mt-6 text-sm font-bold ${saveState === 'saved' ? 'text-emerald-600' : saveState === 'error' ? 'text-amber-700' : 'text-slate-500'}`}>
           {saveState === 'saving' && text('Saving your result…', '正在保存你的结果…')}
           {saveState === 'saved' && text('Your result has been saved.', '你的结果已保存。')}
-          {saveState === 'error' && text('Your suggested level is ready, but saving did not work. Please ask your teacher to check the connection.', '你的建议等级已生成，但结果没有保存成功。请让老师检查网络连接。')}
+          {saveState === 'error' && text('Your suggested practice is ready, but saving did not work. Please ask your teacher to check the connection.', '你的练习建议已生成，但结果没有保存成功。请让老师检查网络连接。')}
         </p>
         <button onClick={exitCompletedTest} className="mt-5 inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-extrabold"><LogOut size={18} /> Exit Test</button>
       </div>
@@ -621,7 +622,7 @@ export const PlacementTest = ({ onExit }) => {
           </>
         )}
         {recordingError && <p className="mt-5 text-sm font-bold text-rose-600">{recordingError}</p>}
-        <button disabled={!canContinue} onClick={nextItem} className="mt-8 w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-lg disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed flex items-center justify-center gap-2">{isLastQuestion ? text('See my suggested level', '查看我的建议等级') : text('Next question', '下一题')} <ChevronRight size={20} /></button>
+        <button disabled={!canContinue} onClick={nextItem} className="mt-8 w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-lg disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed flex items-center justify-center gap-2">{isLastQuestion ? text('See my suggested practice', '查看我的练习建议') : text('Next question', '下一题')} <ChevronRight size={20} /></button>
       </div>
     </div>
   );

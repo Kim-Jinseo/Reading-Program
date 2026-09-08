@@ -20,7 +20,7 @@ afterEach(() => { global.fetch = originalFetch; });
 
 async function openApp() {
   render(<App />);
-  await screen.findByRole('heading', { name: /Home.*Level 2/ });
+  await screen.findByRole('heading', { name: /Home.*Grades 3–4/ });
   return { main: screen.getByRole('main'), nav: screen.getByRole('navigation') };
 }
 

@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../../utils/gradeLabels';
 import React, { useEffect, useState, useId } from 'react';
 import { lessonApi, lessonError, requestId, collectionName, card, field, button, secondary, say } from './shared';
 import { prepareSlides } from './prepareSlides';
@@ -224,7 +225,7 @@ export function LessonLibrary({ lang, onBack, api = lessonApi }) {
                 />
               </label>
               <label>
-                {say(lang, 'Learning level', '学习级别')}
+                {say(lang, 'Grade band', '年级段')}
                 <select
                   className={field}
                   value={term.level}
@@ -232,7 +233,7 @@ export function LessonLibrary({ lang, onBack, api = lessonApi }) {
                 >
                   {[1, 2, 3].map((l) => (
                     <option key={l} value={l}>
-                      {say(lang, `Level ${l} · Grades ${l * 2 - 1}–${l * 2}`, `级别 ${l} · ${l * 2 - 1}–${l * 2} 年级`)}
+                      {gradeBandLabel(l, lang)}
                     </option>
                   ))}
                 </select>

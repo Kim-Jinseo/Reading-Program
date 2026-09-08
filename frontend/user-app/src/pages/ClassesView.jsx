@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../utils/gradeLabels';
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, ShieldCheck, Plus, ArrowLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
@@ -181,7 +182,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
           <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>
           <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>
-            <p className="text-sm font-bold text-indigo-500">{subjectName(lang, a.subject)} · {say(lang, `Level ${a.level}`, `级别 ${a.level}`)}</p><h4 className="mt-2 text-xl font-extrabold break-words">{a.title}</h4>
+            <p className="text-sm font-bold text-indigo-500">{subjectName(lang, a.subject)} · {gradeBandLabel(a.level, lang)}</p><h4 className="mt-2 text-xl font-extrabold break-words">{a.title}</h4>
             <p className="mt-3 text-sm text-slate-500">{assignmentSummary(lang, a)}</p>
             {!detail.isOwner && <>
               <p className={`mt-4 font-bold ${a.progress.count ? 'text-emerald-700' : 'text-slate-500'}`}>{a.progress.count ? say(lang, `Latest: ${a.progress.latest.score} / ${a.progress.latest.total} · Best: ${a.progress.best.score} / ${a.progress.best.total}`, `最近：${a.progress.latest.score} / ${a.progress.latest.total} · 最佳：${a.progress.best.score} / ${a.progress.best.total}`) : say(lang, 'Not submitted', '尚未提交')}</p>

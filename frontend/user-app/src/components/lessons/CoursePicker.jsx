@@ -3,15 +3,15 @@ import { collectionName, field, say } from './shared';
 export function CoursePicker({ collections, value, onChange, lang, required = true }) {
   return (
     <label className="block font-bold">
-      {say(lang, 'Term and learning level', '学期与学习级别')}
+      {say(lang, 'Term and grade band', '学期与年级段')}
       <select
-        aria-label={say(lang, 'Term and learning level', '学期与学习级别')}
+        aria-label={say(lang, 'Term and grade band', '学期与年级段')}
         className={field + ' mt-2'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
       >
-        <option value="">{say(lang, 'Choose term / level', '请选择学期和级别')}</option>
+        <option value="">{say(lang, 'Choose term / grade band', '请选择学期和年级段')}</option>
         {collections.map((c) => (
           <option key={c.id} value={c.id}>
             {collectionName(c, lang)}

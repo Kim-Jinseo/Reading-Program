@@ -563,7 +563,7 @@ export const VocabModule = () => {
                 </div>
                 <h3 className="text-3xl font-black text-slate-800 mb-2">🎉 You have finished all Vocab content!</h3>
                 <p className="text-slate-600 font-bold text-lg max-w-md mx-auto mb-6">
-                  You have mastered every single vocabulary flashcard for Level {grade === '1-2' ? '1' : grade === '3-4' ? '2' : '3'}! Exceptional word mastery!
+                  You have mastered every single vocabulary flashcard for {t(`grade_${grade.replace('-', '_')}`)}! Exceptional word mastery!
                 </p>
                 <button 
                   onClick={() => { setFilter('mastered'); setPage(1); }}

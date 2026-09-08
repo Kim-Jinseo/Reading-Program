@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../../utils/gradeLabels';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Copy, Plus, Users, Settings } from 'lucide-react';
 import { ClassLessons } from '../lessons/ClassLessons';
@@ -71,7 +72,7 @@ export function TeacherClassView({ detail, lang, api, lessonsApi, initialLessons
     {!selectedStudent && tab === 'practice' && <section className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-xl font-bold">{say(lang, 'Assigned extra practice', '已布置的拓展练习')}</h3><button className={button} onClick={onAssign}><Plus size={18} className="inline mr-2" aria-hidden="true" />{say(lang, 'Assign extra practice', '布置拓展练习')}</button></div>
       {!detail.assignments.length && <p className={card}>{say(lang, 'No extra practice assigned yet. Choose existing website content when your class needs more practice.', '尚未布置拓展练习。需要时可选择网站已有内容。')}</p>}
-      <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <article key={a.id} className={card + ' space-y-3'}><p className="text-sm font-semibold text-indigo-600">{subjectName(lang, a.subject)} · {say(lang, `Level ${a.level}`, `级别 ${a.level}`)}</p><h4 className="text-xl font-bold break-words">{a.title}</h4><p className="text-sm text-slate-500">{assignmentSummary(lang, a)}</p></article>)}</div>
+      <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <article key={a.id} className={card + ' space-y-3'}><p className="text-sm font-semibold text-indigo-600">{subjectName(lang, a.subject)} · {gradeBandLabel(a.level, lang)}</p><h4 className="text-xl font-bold break-words">{a.title}</h4><p className="text-sm text-slate-500">{assignmentSummary(lang, a)}</p></article>)}</div>
     </section>}
   </div>;
 }

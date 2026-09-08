@@ -228,7 +228,7 @@ export const CourtroomView = ({ onBack }) => {
                           ? 'text-emerald-800' 
                           : 'text-slate-700'
                     }`}>
-                      Level {idx + 1}
+                      Stage {idx + 1}
                     </span>
                     <div className="flex gap-1">
                       {Array.from({ length: 3 }).map((_, i) => (
@@ -270,7 +270,7 @@ export const CourtroomView = ({ onBack }) => {
       {/* Top Header Controls */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-8">
         <button onClick={returnToMenu} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 font-bold transition-colors text-xs sm:text-base self-start sm:self-auto">
-          <ChevronLeft size={18}/><span className="hidden sm:inline">Leave Level</span><span className="sm:hidden">Leave</span>
+          <ChevronLeft size={18}/><span className="hidden sm:inline">Leave Stage</span><span className="sm:hidden">Leave</span>
         </button>
 
         <div className="flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-6 bg-white px-3 py-2 sm:px-6 sm:py-2.5 rounded-2xl sm:rounded-full border border-slate-200 shadow-sm relative overflow-hidden">
@@ -278,7 +278,7 @@ export const CourtroomView = ({ onBack }) => {
           {damageFlash && <div className="absolute inset-0 bg-rose-500/20 animate-pulse"></div>}
           
           <div className="flex items-center gap-1 relative z-10">
-            <span className="text-[10px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider">Lvl:</span>
+            <span className="text-[10px] sm:text-xs font-extrabold text-slate-400 uppercase tracking-wider">Stage:</span>
             <span className="text-sm sm:text-lg font-black text-indigo-600">{levelIndex + 1}</span>
           </div>
 
@@ -476,7 +476,7 @@ export const CourtroomView = ({ onBack }) => {
               <h2 className={`text-3xl sm:text-5xl font-black mb-3 sm:mb-4 tracking-tight ${
                 isPurple ? 'text-purple-600 drop-shadow-sm' : 'text-emerald-500'
               }`}>
-                LEVEL {levelIndex + 1} CLEARED!
+                STAGE {levelIndex + 1} CLEARED!
               </h2>
 
               {isPurple ? (
@@ -518,7 +518,7 @@ export const CourtroomView = ({ onBack }) => {
                   isPurple ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-200' : 'bg-indigo-500 hover:bg-indigo-600'
                 }`}
               >
-                Return to Level Select <ArrowRight size={20} className="sm:w-6 sm:h-6" />
+                Return to Stage Select <ArrowRight size={20} className="sm:w-6 sm:h-6" />
               </button>
             </div>
           );
@@ -535,7 +535,7 @@ export const CourtroomView = ({ onBack }) => {
               OUT OF HEALTH!
             </h2>
             <p className="text-xl font-bold text-slate-500 mb-8">
-              You made too many mistakes and failed Level {levelIndex + 1}.
+              You made too many mistakes and failed Stage {levelIndex + 1}.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
@@ -543,7 +543,7 @@ export const CourtroomView = ({ onBack }) => {
                 onClick={() => startLevel(levelIndex)}
                 className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-slate-800 hover:bg-slate-900 text-white font-black text-lg sm:text-xl rounded-2xl shadow-md active:translate-y-1 transition-all inline-flex items-center justify-center gap-2"
               >
-                <RotateCcw size={20} /> Retry Level
+                <RotateCcw size={20} /> Retry Stage
               </button>
               <button
                 onClick={returnToMenu}

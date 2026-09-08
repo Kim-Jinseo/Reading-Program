@@ -15,7 +15,7 @@ export const TestView = () => {
           </span>
           Test
         </h1>
-        <p className="text-slate-500 mt-3 font-medium leading-relaxed max-w-xl">Take the placement test to find a good English starting level.</p>
+        <p className="text-slate-500 mt-3 font-medium leading-relaxed max-w-xl">Take the placement test to find a suitable English practice grade band.</p>
       </div>
       <PlacementTest onExit={() => setView('dashboard')} />
     </div>

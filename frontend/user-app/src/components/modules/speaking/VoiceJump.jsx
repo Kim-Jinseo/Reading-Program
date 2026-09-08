@@ -919,7 +919,7 @@ export const VoiceJump = ({ onBack }) => {
   return (
     <div className="max-w-5xl mx-auto pt-6 animate-in fade-in slide-in-from-bottom-4">
       <button onClick={() => { stopRecording(); setView('levels'); }} className="mb-4 text-slate-500 hover:text-slate-800 font-bold flex items-center gap-2">
-        <ChevronLeft size={16}/> Back to Levels
+        <ChevronLeft size={16}/> Back to Stages
       </button>
       
       <div className="bg-white p-3 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-xl text-center border-4 border-indigo-100">
@@ -1159,7 +1159,7 @@ export const VoiceJump = ({ onBack }) => {
                    </p>
                    
                    <button onClick={() => setView('levels')} className="px-5 py-2 sm:px-8 sm:py-3.5 bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-sm sm:text-xl rounded-full shadow-md active:translate-y-1 transition-all shrink-0">
-                     Back to Levels
+                     Back to Stages
                    </button>
                  </div>
                );
@@ -1183,7 +1183,7 @@ export const VoiceJump = ({ onBack }) => {
                    </p>
                    
                    <button onClick={() => setView('levels')} className="px-6 py-2 sm:px-8 sm:py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-sm sm:text-xl rounded-full shadow-[0_4px_0_rgba(126,34,206,1)] active:shadow-none active:translate-y-1 transition-all shrink-0">
-                     Back to Levels
+                     Back to Stages
                    </button>
                  </div>
                );
@@ -1199,7 +1199,7 @@ export const VoiceJump = ({ onBack }) => {
                   </div>
                   <p className="text-slate-300 font-bold text-xs sm:text-base mb-3 sm:mb-4 px-2">Great job! You defeated the monster!</p>
                   <button onClick={() => setView('levels')} className="px-6 py-2 sm:px-8 sm:py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-sm sm:text-xl rounded-full shadow-[0_4px_0_rgba(202,138,4,1)] active:shadow-none active:translate-y-1 transition-all shrink-0">
-                    Back to Levels
+                    Back to Stages
                   </button>
                </div>
              );

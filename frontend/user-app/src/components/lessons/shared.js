@@ -1,3 +1,4 @@
+import { gradeBandLabel } from '../../utils/gradeLabels';
 import { say } from '../classes/shared';
 import { classRequest } from '../../utils/classReads';
 export { say, card, field, button, secondary, dateText } from '../classes/shared';
@@ -23,7 +24,7 @@ export const requestId = () =>
   window.crypto?.randomUUID?.() || `lesson-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 export const collectionName = (c, lang) =>
   c
-    ? `${c.year} ${say(lang, { spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter' }[c.season], { spring: '春季', summer: '暑期', autumn: '秋季', winter: '寒假' }[c.season])} · ${say(lang, `Level ${c.level} (Grades ${c.level * 2 - 1}–${c.level * 2})`, `级别 ${c.level}（${c.level * 2 - 1}–${c.level * 2} 年级）`)}`
+    ? `${c.year} ${say(lang, { spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter' }[c.season], { spring: '春季', summer: '暑期', autumn: '秋季', winter: '寒假' }[c.season])} · ${gradeBandLabel(c.level, lang)}`
     : '';
 export const partName = (part, lang) =>
   ({
