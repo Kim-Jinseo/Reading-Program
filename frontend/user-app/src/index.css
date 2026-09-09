@@ -79,7 +79,11 @@ select {
 .practice-card--reading { border-top-color: #9fd8c8; }
 .practice-card--writing { border-top-color: #d9b6e6; }
 .practice-card--speaking { border-top-color: #efb7bf; }
-.class-cover { background: #fffefa; border-color: #e4e0d8; }
+.class-cover {
+  background: #f3f2ef;
+  border-color: #e5e3de;
+  box-shadow: 0 2px 8px rgb(41 37 36 / 0.025);
+}
 .class-cover h2 { color: #334155; }
 .class-list-card { border-top: 3px solid #c5b5ee; }
 .class-list-card:nth-child(3n + 2) { border-top-color: #9fd8c8; }
