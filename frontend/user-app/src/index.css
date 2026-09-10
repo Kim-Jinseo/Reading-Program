@@ -80,12 +80,12 @@ select {
 .practice-card--writing { border-top-color: #d9b6e6; }
 .practice-card--speaking { border-top-color: #efb7bf; }
 .class-cover {
-  background: #f1e8dc;
-  border-color: #d7c4ad;
-  box-shadow: 0 3px 12px rgb(91 65 43 / 0.06);
+  background: #f0edf6;
+  border-color: #d2c5ee;
+  box-shadow: 0 3px 12px rgb(79 70 229 / 0.06);
 }
-.class-cover h2 { color: #503a29; }
-.class-cover p { color: #6c5541; }
+.class-cover h2 { color: #312e81; }
+.class-cover p { color: #596574; }
 .class-list-card { border-top: 3px solid #c5b5ee; }
 .class-list-card:nth-child(3n + 2) { border-top-color: #9fd8c8; }
 .class-list-card:nth-child(3n + 3) { border-top-color: #f0c2a8; }
@@ -163,19 +163,19 @@ select {
 }
 
 /* Class navigation has its own palette; student-profile tabs stay unchanged. */
-.class-section-nav--class { background: #f1e8dc; border-color: #d7c4ad; }
-.class-section-nav--class .class-section-tab { color: #604934; }
+.class-section-nav--class { background: #f0edf6; border-color: #d2c5ee; }
+.class-section-nav--class .class-section-tab { color: #475569; }
 .class-section-nav--class .class-section-tab[aria-pressed="true"] {
-  background: #896548;
-  border-color: #896548;
+  background: #4f46e5;
+  border-color: #4f46e5;
   color: #fff;
-  box-shadow: 0 2px 5px rgb(91 65 43 / 0.14);
+  box-shadow: 0 2px 5px rgb(79 70 229 / 0.14);
 }
-.class-section-nav--class .class-section-tab:focus-visible { outline-color: #896548; }
+.class-section-nav--class .class-section-tab:focus-visible { outline-color: #4f46e5; }
 
 @media (hover: hover) and (pointer: fine) {
   .class-section-tab:not([aria-pressed="true"]):hover { background: #e2e8f0; }
-  .class-section-nav--class .class-section-tab:not([aria-pressed="true"]):hover { background: #e6d6c3; }
+  .class-section-nav--class .class-section-tab:not([aria-pressed="true"]):hover { background: #e0e7ff; }
   .home-class-feature:hover, .home-quick-link:hover { background: #f8fafc; }
   .home-class-feature:hover .home-class-action { background: #2e5178; }
 }
