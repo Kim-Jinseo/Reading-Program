@@ -15,15 +15,15 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
 }
 beforeEach(() => localStorage.clear());
 
-test.each(['student', 'teacher'])('%s sees the Classes banner only on the class list', async role => {
+test.each(['student', 'teacher'])('%s sees the restored Classes banner on the list and class overview', async role => {
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] }
     : { class: classroom, isOwner: role === 'teacher', assignments: [] });
   render(<Harness api={api} initialUser={{ ...student, role }} />);
   expect(screen.getByRole('heading', { name: 'Classes', exact: true })).toBeVisible();
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
   await screen.findByRole('heading', { name: 'Class lessons' });
-  expect(screen.queryByRole('heading', { name: 'Classes', exact: true })).not.toBeInTheDocument();
-  expect(screen.queryByText(/Help your students grow|Learn together\. Try something new/)).not.toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Classes', exact: true })).toBeVisible();
+  expect(screen.getByText(/Help your students grow|Learn together\. Try something new/)).toBeVisible();
   expect(screen.getByRole('heading', { name: 'Monday English' })).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: 'All classes' }));
   expect(await screen.findByRole('heading', { name: 'My classes' })).toBeVisible();
