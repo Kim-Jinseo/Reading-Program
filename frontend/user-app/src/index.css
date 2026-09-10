@@ -80,8 +80,8 @@ select {
 .practice-card--writing { border-top-color: #d9b6e6; }
 .practice-card--speaking { border-top-color: #efb7bf; }
 .class-cover {
-  background: #eadfd2;
-  border-color: #ccb79f;
+  background: #f1e8dc;
+  border-color: #d7c4ad;
   box-shadow: 0 3px 12px rgb(91 65 43 / 0.06);
 }
 .class-cover h2 { color: #503a29; }
@@ -163,19 +163,19 @@ select {
 }
 
 /* Class navigation has its own palette; student-profile tabs stay unchanged. */
-.class-section-nav--class { background: #eadfd2; border-color: #ccb79f; }
+.class-section-nav--class { background: #f1e8dc; border-color: #d7c4ad; }
 .class-section-nav--class .class-section-tab { color: #604934; }
 .class-section-nav--class .class-section-tab[aria-pressed="true"] {
-  background: #79583c;
-  border-color: #79583c;
+  background: #896548;
+  border-color: #896548;
   color: #fff;
   box-shadow: 0 2px 5px rgb(91 65 43 / 0.14);
 }
-.class-section-nav--class .class-section-tab:focus-visible { outline-color: #79583c; }
+.class-section-nav--class .class-section-tab:focus-visible { outline-color: #896548; }
 
 @media (hover: hover) and (pointer: fine) {
   .class-section-tab:not([aria-pressed="true"]):hover { background: #e2e8f0; }
-  .class-section-nav--class .class-section-tab:not([aria-pressed="true"]):hover { background: #ddcbb7; }
+  .class-section-nav--class .class-section-tab:not([aria-pressed="true"]):hover { background: #e6d6c3; }
   .home-class-feature:hover, .home-quick-link:hover { background: #f8fafc; }
   .home-class-feature:hover .home-class-action { background: #2e5178; }
 }
