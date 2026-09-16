@@ -226,6 +226,23 @@ async function finishSpeechRecording(getRecorder) {
   await screen.findByLabelText('Your recording');
 }
 
+test.each(['en', 'zh'])('writing shows a duplicated title/prompt only once while composing (%s)', lang => {
+  const assignment = { ...writingAssignment, title: 'Describe your room.' };
+  const { rerender } = render(<AssignmentPlayer data={{ assignment, attempts: [] }} api={jest.fn()} lang={lang} onBack={() => {}} />);
+  expect(screen.getAllByText('Describe your room.')).toHaveLength(1);
+  expect(screen.getByText('描述你的房间。')).toBeVisible();
+  expect(screen.getByRole('heading', { level: 2 })).not.toHaveTextContent('Describe your room.');
+  rerender(<AssignmentPlayer data={{ assignment: writingAssignment, attempts: [] }} api={jest.fn()} lang={lang} onBack={() => {}} />);
+  expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('My room');
+  expect(screen.getByText('Describe your room.')).toBeVisible();
+});
+
+test('completed writing keeps the prompt visible when it is also the assignment title', () => {
+  render(<AssignmentPlayer data={{ assignment: { ...writingAssignment, title: 'Describe your room.' }, attempts: [writingAttempt] }} api={jest.fn()} lang="en" onBack={() => {}} />);
+  expect(screen.getAllByText('Describe your room.')).toHaveLength(1);
+  expect(screen.getByText('Writing completed')).toBeVisible();
+});
+
 test('writing is editable until explicit submission, then shows feedback and remaining attempts', async () => {
   const api = jest.fn(async (path, body) => ({ attempt: { ...writingAttempt, requestId: body.requestId, text: body.text }, review: [] }));
   render(<AssignmentPlayer data={{ assignment: writingAssignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);

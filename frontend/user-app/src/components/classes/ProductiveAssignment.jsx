@@ -14,6 +14,8 @@ export function ProductiveAssignment({ data, lang, api, onBack }) {
   const [writing, setWriting] = useState(''), [recording, setRecording] = useState(null), [micBusy, setMicBusy] = useState(false);
   const [busy, setBusy] = useState(false), [error, setError] = useState(''), [knownRetry, setKnownRetry] = useState(false);
   const pending = useRef(null), uncertain = useRef(false), sending = useRef(false);
+  const title = !result && assignment.format === 'writing' && assignment.writing?.prompt && assignment.title?.trim() === assignment.writing.prompt.trim()
+    ? say(lang, 'Writing practice', '写作练习') : assignment.title;
   const hasDraft = Boolean(writing.trim() || recording || pending.current || micBusy);
   useEffect(() => {
     const leave = event => { if (!result && hasDraft) { event.preventDefault(); event.returnValue = ''; } };
@@ -57,7 +59,7 @@ export function ProductiveAssignment({ data, lang, api, onBack }) {
         : assignment.format === 'writing' ? say(lang, 'Submit writing', '提交作文') : say(lang, 'Submit recording', '提交录音');
   return <div className="space-y-6">
     <button className={secondary} disabled={busy || micBusy} onClick={goBack}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'Back to class', '返回班级')}</button>
-    <section className={card + ' space-y-3'}><p className="text-sm font-bold text-indigo-600">{say(lang, 'Extra practice', '拓展练习')}</p><h2 className="text-2xl sm:text-3xl font-extrabold break-words">{assignment.title}</h2>{assignment.instructions && <p className="text-slate-600 whitespace-pre-wrap">{assignment.instructions}</p>}</section>
+    <section className={card + ' space-y-3'}><p className="text-sm font-bold text-indigo-600">{say(lang, 'Extra practice', '拓展练习')}</p><h2 className="text-2xl sm:text-3xl font-extrabold break-words">{title}</h2>{assignment.instructions && <p className="text-slate-600 whitespace-pre-wrap">{assignment.instructions}</p>}</section>
     {result ? <AssignmentFeedback assignment={assignment} attempts={attempts} lang={lang} onRetry={retry} /> : <section className={card + ' space-y-6'}>
       {assignment.format === 'writing' ? <>
         <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 space-y-2"><p className="text-sm font-semibold text-indigo-800">{say(lang, 'Writing prompt', '写作题目')}</p><p className="text-lg font-bold whitespace-pre-wrap">{assignment.writing?.prompt}</p>{assignment.writing?.promptZh && <p className="text-slate-600">{assignment.writing.promptZh}</p>}</div>
