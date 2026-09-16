@@ -74,11 +74,14 @@ select {
 .student-review .class-section-nav { background: #f1f5f9; border-color: #cbd5e1; }
 .student-review .class-section-tab[aria-pressed="true"] { color: #1d4ed8; border-color: #bfdbfe; }
 .practice-card { border-radius: 20px; border-top-width: 3px; box-shadow: 0 3px 12px rgb(85 63 111 / 0.035); }
-.practice-card--vocab { border-top-color: #a4d6ed; }
-.practice-card--grammar { border-top-color: #c5b5ee; }
-.practice-card--reading { border-top-color: #9fd8c8; }
-.practice-card--writing { border-top-color: #d9b6e6; }
-.practice-card--speaking { border-top-color: #efb7bf; }
+.practice-card--vocab { --practice-accent: #a4d6ed; --practice-tint: #f5fbff; --practice-badge: #e0f2fe; --practice-ink: #075985; }
+.practice-card--grammar { --practice-accent: #c5b5ee; --practice-tint: #f8f7ff; --practice-badge: #eae5fa; --practice-ink: #51408a; }
+.practice-card--reading { --practice-accent: #9fd8c8; --practice-tint: #f3fbf8; --practice-badge: #d9f2e9; --practice-ink: #176451; }
+.practice-card--writing { --practice-accent: #d9b6e6; --practice-tint: #fcf7ff; --practice-badge: #f1e3f8; --practice-ink: #793b90; }
+.practice-card--speaking { --practice-accent: #efb7bf; --practice-tint: #fff7f8; --practice-badge: #ffe4e9; --practice-ink: #9f2340; }
+.practice-card { border-top-color: var(--practice-accent); }
+.practice-card--done { border-color: var(--practice-accent); background: var(--practice-tint); }
+.practice-daily-done { background: var(--practice-badge); color: var(--practice-ink); }
 .class-cover {
   background: #f3f2ef;
   border-color: #dedbd5;

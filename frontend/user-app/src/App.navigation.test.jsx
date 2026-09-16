@@ -59,6 +59,11 @@ test('Home lists main destinations first and keeps daily progress on the lower s
   expect(within(practice).getAllByRole('button')).toHaveLength(5);
   expect(within(within(practice).getByRole('button', { name: 'Vocabulary', exact: true })).getByText('Daily done')).toBeInTheDocument();
   expect(within(practice).getByRole('button', { name: 'Vocabulary', exact: true })).toHaveAccessibleDescription(/Daily done/);
+  const vocabCard = within(practice).getByRole('button', { name: 'Vocabulary', exact: true });
+  const doneBadge = within(vocabCard).getByText('Daily done');
+  const description = within(vocabCard).getByText('Learn and test new words.');
+  expect(doneBadge.compareDocumentPosition(description) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  expect(within(practice).getAllByText('Daily done')).toHaveLength(1);
   for (const name of ['Leaderboard', 'Shop', 'Test']) expect(within(main).getByRole('button', { name: new RegExp(`^${name}`) })).toBeInTheDocument();
   fireEvent.click(within(practice).getByRole('button', { name: 'Reading', exact: true }));
   fireEvent.click(within(main).getByRole('button', { name: 'Back to Extra practice' }));

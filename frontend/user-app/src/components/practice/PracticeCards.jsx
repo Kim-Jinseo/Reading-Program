@@ -19,14 +19,16 @@ export const PracticeCards = () => {
       const done = getDailyStatus(id).isComplete;
       return <button key={id} type="button" aria-label={t(`nav_${id}`)} onClick={() => setView(id)}
         aria-describedby={`${idPrefix}-${id}-description${done ? ` ${idPrefix}-${id}-done` : ''}`}
-        className={`practice-card practice-card--${id} learning-link flex flex-col items-start min-w-0 rounded-2xl border p-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${done ? 'border-emerald-200 bg-emerald-50/50' : `border-slate-200 bg-white ${border}`}`}>
-        <span className="flex w-full items-center gap-3">
+        className={`practice-card practice-card--${id} learning-link flex flex-col items-start min-w-0 rounded-2xl border p-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${done ? 'practice-card--done' : `border-slate-200 bg-white ${border}`}`}>
+        <span className="flex w-full items-center gap-2">
           <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${iconStyle}`}><Icon size={19} aria-hidden="true" /></span>
-          <span className="min-w-0 flex-1 text-base font-semibold text-slate-800 break-words">{t(`nav_${id}`)}</span>
+          <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1.5">
+            <span className="text-base font-semibold text-slate-800 break-words">{t(`nav_${id}`)}</span>
+            {done && <span id={`${idPrefix}-${id}-done`} className="practice-daily-done inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold"><CheckCircle2 size={12} aria-hidden="true" />{t('practice_daily_done')}</span>}
+          </span>
           <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-slate-400" />
         </span>
         <span id={`${idPrefix}-${id}-description`} className="mt-3 block text-sm leading-relaxed text-slate-500">{t(`module_${id}_desc`)}</span>
-        {done && <span id={`${idPrefix}-${id}-done`} className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-800"><CheckCircle2 size={14} aria-hidden="true" />{t('practice_daily_done')}</span>}
       </button>;
     })}
   </div>;
