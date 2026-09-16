@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { say, card, button, secondary, dateText, errorText } from './shared';
 import { AssignmentLearning } from './AssignmentLearning';
+import { AssignmentQuiz } from './AssignmentQuiz';
 import { ProductiveAssignment } from './ProductiveAssignment';
 import { registerNavigationGuard } from '../../utils/navigationGuard';
 
@@ -14,8 +15,10 @@ const QuizAssignment = ({ data, lang, api, onBack }) => {
   const [review, setReview] = useState(data.review || []);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const hasLearning = assignment.format === 'quiz' && ['vocab', 'grammar'].includes(assignment.subject) && Boolean(assignment.learning);
+  const isReading = assignment.subject === 'reading' && Boolean(assignment.passage);
+  const hasLearning = isReading || (assignment.format === 'quiz' && ['vocab', 'grammar'].includes(assignment.subject) && Boolean(assignment.learning));
   const [learning, setLearning] = useState(hasLearning && !result);
+  const [questionIndex, setQuestionIndex] = useState(0);
   const pending = useRef(null);
   const sending = useRef(false);
   const selectedCount = Object.keys(answers).length;
@@ -56,11 +59,11 @@ const QuizAssignment = ({ data, lang, api, onBack }) => {
   };
   return <div className="space-y-6">
     <button className={secondary} disabled={busy} onClick={goBack}><ArrowLeft size={18} className="inline mr-2" />{say(lang, 'Back to class', '返回班级')}</button>
-    <section className={card}>
+    <section className={learning || result ? card : 'max-w-2xl mx-auto'}>
       <p className="text-sm font-bold text-indigo-600 mb-2">{say(lang, 'Extra practice', '拓展练习')}</p>
-      <h2 className="text-2xl sm:text-3xl font-extrabold break-words">{assignment.title}</h2>
-      {assignment.instructions && <p className="mt-4 whitespace-pre-wrap break-words leading-relaxed text-slate-600">{assignment.instructions}</p>}
-      {assignment.passage && <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-100 p-4 sm:p-6 text-lg leading-loose whitespace-pre-wrap break-words">{assignment.passage}</div>}
+      <h2 className={`${learning || result ? 'text-2xl sm:text-3xl' : 'text-lg'} font-extrabold break-words`}>{assignment.title}</h2>
+      {(learning || result || !hasLearning) && assignment.instructions && <p className="mt-4 whitespace-pre-wrap break-words leading-relaxed text-slate-600">{assignment.instructions}</p>}
+      {result && assignment.passage && <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-100 p-4 sm:p-6 text-lg leading-loose whitespace-pre-wrap break-words">{assignment.passage}</div>}
     </section>
     {result ? <>
       <section className={card + ' text-center border-emerald-200'}>
@@ -70,7 +73,7 @@ const QuizAssignment = ({ data, lang, api, onBack }) => {
         <p className="mt-2 text-sm text-slate-500">{dateText(lang, result.submittedAt)}</p>
         <div className="flex flex-wrap justify-center gap-3 mt-5">
           <button onClick={onBack} className={secondary}>{say(lang, 'Back to class', '返回班级')}</button>
-          {attempts.length < assignment.maxAttempts && <button className={button} onClick={() => { setResult(null); setAnswers({}); setError(''); setLearning(hasLearning); pending.current = null; }}>{say(lang, `Try again (${assignment.maxAttempts - attempts.length} left)`, `再试一次（还剩 ${assignment.maxAttempts - attempts.length} 次）`)}</button>}
+          {attempts.length < assignment.maxAttempts && <button className={button} onClick={() => { setResult(null); setAnswers({}); setQuestionIndex(0); setError(''); setLearning(hasLearning); pending.current = null; }}>{say(lang, `Try again (${assignment.maxAttempts - attempts.length} left)`, `再试一次（还剩 ${assignment.maxAttempts - attempts.length} 次）`)}</button>}
         </div>
         <p className="mt-4 text-xs text-slate-500">{say(lang, 'All attempts remain visible to your teacher.', '老师可以查看每一次作答记录。')}</p>
       </section>
@@ -90,24 +93,8 @@ const QuizAssignment = ({ data, lang, api, onBack }) => {
           </div>;
         })}
       </section>
-    </> : learning ? <AssignmentLearning assignment={assignment} lang={lang} returning={selectedCount > 0} onStart={() => setLearning(false)} /> : <>
-      {hasLearning && <button type="button" className={secondary} disabled={busy || Boolean(pending.current)} onClick={() => setLearning(true)}>{assignment.subject === 'vocab' ? say(lang, 'Review word cards', '复习单词卡片') : say(lang, 'Review grammar explanation', '复习语法讲解')}</button>}
-      <p className="text-slate-500 text-sm leading-relaxed">{say(lang, 'Choose one answer for each question. You can change your choices before submitting. Leaving without submitting does not save your answers.', '每题选一个答案。提交前可以修改。未提交就离开，答案不会保存。')}</p>
-      {assignment.questions.map((q, index) => <fieldset className={card + ' space-y-4'} key={q.id}>
-        <legend className="px-2 text-sm font-bold text-indigo-600">{say(lang, `Question ${index + 1} of ${assignment.questions.length}`, `第 ${index + 1} / ${assignment.questions.length} 题`)}</legend>
-        <h3 className="text-xl font-extrabold break-words">{q.prompt}</h3>
-        <div role="radiogroup" aria-label={q.prompt} className="space-y-3">
-          {q.options.map((o, i) => <button key={o.id} role="radio" aria-checked={answers[q.id] === o.id} disabled={busy || Boolean(pending.current)} onClick={() => setAnswers(prev => ({ ...prev, [q.id]: o.id }))} className={`w-full min-h-14 flex items-start gap-3 rounded-2xl border-2 p-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${answers[q.id] === o.id ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-slate-200 bg-white text-slate-700'}`}>
-            <span className="shrink-0 font-bold">{String.fromCharCode(65 + i)}.</span><span className="break-words min-w-0">{o.text}</span>
-          </button>)}
-        </div>
-      </fieldset>)}
-      <section className={card + ' space-y-4'}>
-        <p className="font-bold text-slate-500">{say(lang, `${selectedCount} / ${assignment.questions.length} answered`, `已作答 ${selectedCount} / ${assignment.questions.length} 题`)}</p>
-        {error && <p role="alert" className="text-rose-600 font-bold">{error}</p>}
-        <button className={button + ' w-full'} disabled={busy || selectedCount !== assignment.questions.length} onClick={submit}>{busy ? say(lang, 'Saving…', '正在保存…') : error && pending.current ? say(lang, 'Retry saving', '重试保存') : say(lang, 'Submit extra practice', '提交拓展练习')}</button>
-      </section>
-    </>}
+    </> : learning ? <AssignmentLearning assignment={assignment} lang={lang} returning={selectedCount > 0} onStart={() => setLearning(false)} />
+      : <AssignmentQuiz assignment={assignment} lang={lang} answers={answers} onAnswer={(id, option) => setAnswers(prev => ({ ...prev, [id]: option }))} index={questionIndex} onIndex={setQuestionIndex} locked={busy || Boolean(pending.current)} busy={busy} error={error} retrySaving={Boolean(error && pending.current)} onSubmit={submit} onLearn={hasLearning && !isReading ? () => setLearning(true) : undefined} />}
   </div>;
 };
 

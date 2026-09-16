@@ -6,6 +6,13 @@ const bilingual = (lang, value) => value?.[lang === 'zh' ? 'zh' : 'en'] || value
 
 export function AssignmentLearning({ assignment, lang, onStart, returning = false }) {
   const startLabel = returning ? say(lang, 'Return to quiz', '返回答题') : say(lang, 'Start quiz', '开始答题');
+  if (assignment.subject === 'reading') {
+    return <section className={card + ' max-w-3xl mx-auto space-y-6'} aria-label={say(lang, 'Read the story', '阅读故事')}>
+      <h3 className="text-xl font-extrabold">{say(lang, 'Read the story first', '先阅读故事')}</h3>
+      <p className="text-lg leading-loose whitespace-pre-wrap break-words">{assignment.passage}</p>
+      <button type="button" className={button + ' w-full'} onClick={onStart}>{startLabel}</button>
+    </section>;
+  }
   if (assignment.subject === 'vocab') {
     return <section className={card + ' space-y-5'} aria-label={say(lang, 'Vocabulary learning', '词汇学习')}>
       <LessonVocabulary words={assignment.learning?.words || []} lang={lang} onStart={onStart} startLabel={startLabel} />

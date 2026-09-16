@@ -12,6 +12,29 @@ const lesson = { id: 'quiz1', title: 'At the farm', instructions: 'Read and choo
 ] };
 const question = (id, prompt) => ({ id, prompt, options: [{ id: `${id}-a`, text: 'First choice' }, { id: `${id}-b`, text: 'Second choice' }] });
 
+test.each(['other', 'vocab', 'grammar'])('legacy %s quizzes keep teacher instructions visible while answering', subject => {
+  render(<AssignmentPlayer data={{ assignment: { ...lesson, subject, instructions: 'Choose the sentence written in the past tense.' }, attempts: [] }} api={jest.fn()} lang="en" onBack={() => {}} />);
+  expect(screen.getByText('Choose the sentence written in the past tense.')).toBeVisible();
+  expect(screen.getAllByRole('radio')).toHaveLength(2);
+});
+
+test('quiz choices support roving focus and arrow-key selection with a visible selected label', () => {
+  render(<AssignmentPlayer data={{ assignment: lesson, attempts: [] }} api={jest.fn()} lang="en" onBack={() => {}} />);
+  const [first, second] = screen.getAllByRole('radio');
+  expect(first).toHaveAttribute('tabindex', '0');
+  expect(second).toHaveAttribute('tabindex', '-1');
+  first.focus();
+  fireEvent.keyDown(first, { key: 'ArrowDown' });
+  expect(second).toHaveFocus();
+  expect(second).toHaveAttribute('aria-checked', 'true');
+  expect(first).toHaveAttribute('tabindex', '-1');
+  expect(second).toHaveAttribute('tabindex', '0');
+  expect(screen.getByText('Selected')).toBeVisible();
+  fireEvent.keyDown(second, { key: 'ArrowRight' });
+  expect(first).toHaveFocus();
+  expect(first).toHaveAttribute('aria-checked', 'true');
+});
+
 test.each([1, 5])('vocabulary with %s words opens on flashcards and starts the matching quiz only after explicit action', count => {
   const words = [{ word: 'duck', meaningZh: '鸭子' }, { word: 'cat', meaningZh: '猫' }, { word: 'bird', meaningZh: '鸟' }, { word: 'fish', meaningZh: '鱼' }, { word: 'dog', meaningZh: '狗' }].slice(0, count);
   const assignment = { ...lesson, format: 'quiz', subject: 'vocab', learning: { words }, questions: words.map((w, i) => question(`word-${i}`, `What does ${w.word} mean?`)) };
@@ -26,7 +49,8 @@ test.each([1, 5])('vocabulary with %s words opens on flashcards and starts the m
     if (i + 1 < count) fireEvent.click(screen.getByRole('button', { name: 'Next word' }));
   }
   fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
-  expect(screen.getAllByRole('radio')).toHaveLength(count * 2);
+  expect(screen.getAllByRole('radio')).toHaveLength(2);
+  expect(screen.getByText(`Question 1 of ${count}`)).toBeVisible();
 });
 
 test('grammar explains one concept before exactly three related questions', () => {
@@ -46,7 +70,57 @@ test('grammar explains one concept before exactly three related questions', () =
   expect(screen.getByText('He is. She is. It is.')).toBeInTheDocument();
   expect(screen.queryByText('Question one')).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
-  expect(screen.getAllByText(/Question (one|two|three)/)).toHaveLength(3);
+  expect(screen.getByText('Question one')).toBeVisible();
+  expect(screen.queryByText('Question two')).not.toBeInTheDocument();
+  expect(screen.getByText('Question 1 of 3')).toBeVisible();
+});
+
+test.each(['reading', 'vocab', 'grammar'])('%s quiz shows one question at a time and submits all editable choices only at the end', async subject => {
+  const assignment = { ...lesson, subject, questions: [question('q1', 'First question'), question('q2', 'Second question'), question('q3', 'Third question')] };
+  const api = jest.fn(async (path, body) => ({ attempt: { score: 2, total: 3, responses: [], requestId: body.requestId } }));
+  render(<AssignmentPlayer data={{ assignment, attempts: [] }} api={api} lang="en" onBack={() => {}} />);
+  if (subject === 'reading') fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
+  expect(screen.getByText('Question 1 of 3')).toBeVisible();
+  expect(screen.queryByText('Second question')).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Submit extra practice' })).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();
+  fireEvent.click(screen.getByRole('radio', { name: /First choice/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  expect(screen.getByText('Second question')).toBeVisible();
+  expect(screen.queryByText('First question')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('radio', { name: /Second choice/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Previous question' }));
+  expect(screen.getByRole('radio', { name: /First choice/ })).toHaveAttribute('aria-checked', 'true');
+  fireEvent.click(screen.getByRole('radio', { name: /Second choice/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  expect(screen.getByRole('radio', { name: /Second choice/ })).toHaveAttribute('aria-checked', 'true');
+  fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+  expect(screen.getByRole('button', { name: 'Submit extra practice' })).toBeDisabled();
+  fireEvent.click(screen.getByRole('radio', { name: /First choice/ }));
+  expect(api).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Submit extra practice' }));
+  await screen.findByText('2 / 3 correct');
+  expect(api).toHaveBeenCalledWith('/assignments/quiz1/submit', { requestId: expect.any(String), answers: [
+    { questionId: 'q1', optionId: 'q1-b' }, { questionId: 'q2', optionId: 'q2-b' }, { questionId: 'q3', optionId: 'q3-a' },
+  ] });
+  fireEvent.click(screen.getByRole('button', { name: 'Try again (1 left)' }));
+  if (subject === 'reading') fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
+  expect(screen.getByText('Question 1 of 3')).toBeVisible();
+  expect(screen.getByRole('radio', { name: /First choice/ })).toHaveAttribute('aria-checked', 'false');
+});
+
+test('reading starts with the story and lets students peek without losing their selected answer', () => {
+  render(<AssignmentPlayer data={{ assignment: { ...lesson, subject: 'reading', format: 'quiz' }, attempts: [] }} api={jest.fn()} lang="en" onBack={() => {}} />);
+  expect(screen.getByText('A duck swims.')).toBeVisible();
+  expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Start quiz' }));
+  expect(screen.queryByText('A duck swims.')).not.toBeVisible();
+  fireEvent.click(screen.getByRole('radio', { name: /A duck/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Peek story' }));
+  expect(screen.getByText('A duck swims.')).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Hide story' }));
+  expect(screen.queryByText('A duck swims.')).not.toBeVisible();
+  expect(screen.getByRole('radio', { name: /A duck/ })).toHaveAttribute('aria-checked', 'true');
 });
 
 test('returning to learning does not destroy editable quiz choices', () => {
