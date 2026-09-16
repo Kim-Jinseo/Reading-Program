@@ -164,6 +164,7 @@ select {
 
 /* Class navigation has its own palette; student-profile tabs stay unchanged. */
 .class-section-nav--class { background: #efede9; border-color: #ddd9d2; }
+.class-section-nav--student { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 .class-section-nav--class .class-section-tab { color: #475569; }
 .class-section-nav--class .class-section-tab[aria-pressed="true"] {
   background: #fff;

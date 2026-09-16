@@ -22,6 +22,11 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const [classes, setClasses] = useState([]);
   const [mode, setMode] = useState('home');
   const [detail, setDetail] = useState(null);
+  const [studentTab, setStudentTab] = useState('lessons');
+  const studentSection = studentTab === 'practice' && detail?.assignments.length ? 'practice' : 'lessons';
+  useEffect(() => {
+    if (!detail?.assignments.length) setStudentTab('lessons');
+  }, [detail?.assignments.length]);
   const [openingName, setOpeningName] = useState('');
   const [lessonPreload, setLessonPreload] = useState(null);
   const [assignment, setAssignment] = useState(null);
@@ -78,6 +83,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     const request = ++navigation.current;
     const showOpening = mode === 'home' || detail?.class.id !== id;
     if (showOpening) {
+      setStudentTab('lessons');
       setOpeningName(classes.find(row => row.id === id)?.name || say(lang, 'Your class', '你的班级'));
       setMode('opening');
     }
@@ -207,8 +213,14 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         <section className={card + ' class-cover space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
         </section>
-        <ClassLessons key={`lessons-${detail.class.id}`} initialLessons={lessonPreload} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
-        {detail.assignments.length > 0 && <section className="space-y-4">
+        <nav aria-label={say(lang, 'Class sections', '班级栏目')} className="class-section-nav class-section-nav--class class-section-nav--student">
+          <button className="class-section-tab" aria-pressed={studentSection === 'lessons'} aria-controls="student-class-lessons" onClick={() => setStudentTab('lessons')}>{say(lang, 'Lessons', '课程')}</button>
+          {detail.assignments.length > 0 && <button className="class-section-tab" aria-pressed={studentSection === 'practice'} aria-controls="student-class-practice" onClick={() => setStudentTab('practice')}>{say(lang, 'Extra practice', '拓展练习')}</button>}
+        </nav>
+        <div id="student-class-lessons" hidden={studentSection !== 'lessons'}>
+          <ClassLessons key={`lessons-${detail.class.id}`} initialLessons={lessonPreload} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} visible={mode === 'detail'} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
+        </div>
+        {detail.assignments.length > 0 && <section id="student-class-practice" hidden={studentSection !== 'practice'} className="space-y-4">
           <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>
           <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>

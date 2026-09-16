@@ -253,6 +253,8 @@ test('student joins using the entered invitation and sees only their assignments
   expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
   expect(screen.queryByRole('heading', { name: 'Assignments' })).not.toBeInTheDocument();
   expect(screen.queryByRole('heading', { name: 'Extra practice' })).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Lessons', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.queryByRole('button', { name: 'Extra practice', exact: true })).not.toBeInTheDocument();
   expect(screen.queryByText('No assignments have been published yet.')).not.toBeInTheDocument();
   expect(api.mock.calls.some(([path]) => path.endsWith('/report'))).toBe(false);
 });
@@ -292,9 +294,10 @@ test('students see assigned extra practice and their existing results, separate 
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [{ id: 'old', title: 'Our garden', subject: 'reading', level: 1, questionCount: 3, maxAttempts: 2, progress: { count: 1, latest: { score: 2, total: 3 }, best: { score: 2, total: 3 } } }] });
   render(<Harness api={api} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Extra practice', exact: true }));
   await screen.findByRole('heading', { name: 'Extra practice' });
   expect(screen.getByText('Assigned by your teacher.')).toBeInTheDocument();
-  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeInTheDocument();
+  expect(screen.queryByRole('heading', { name: 'Class lessons' })).not.toBeInTheDocument();
   expect(screen.getByText('Latest: 2 / 3 · Best: 2 / 3')).toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'Review / Try again' })).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Assign extra practice' })).not.toBeInTheDocument();
@@ -305,9 +308,71 @@ test('student class cards label speaking as an activity with its fixed attempt p
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [assignment] });
   render(<Harness api={api} />);
   fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Extra practice', exact: true }));
   expect(await screen.findByText('Speaking · Grades 1–2')).toBeInTheDocument();
   expect(screen.getByText('1 activity · Up to 3 attempts')).toBeInTheDocument();
   expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
+});
+
+test('student sections separate lessons and practice without reloading when switching tabs', async () => {
+  const assignment = { id: 'a', title: 'The garden', subject: 'reading', level: 1, questionCount: 1, maxAttempts: 1, progress: { count: 0 } };
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] } : { class: classroom, isOwner: false, assignments: [assignment] });
+  const lessonRequests = jest.fn(lessonsApi);
+  render(<Harness api={api} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  expect(await screen.findByRole('heading', { name: 'Class lessons' })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Lessons', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.queryByRole('heading', { name: 'The garden' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Students', exact: true })).not.toBeInTheDocument();
+  const reads = lessonRequests.mock.calls.length;
+  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  expect(screen.getByRole('heading', { name: 'The garden' })).toBeVisible();
+  expect(screen.queryByRole('heading', { name: 'Class lessons' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Lessons', exact: true }));
+  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeVisible();
+  expect(screen.queryByRole('button', { name: 'Start extra practice' })).not.toBeInTheDocument();
+  expect(lessonRequests).toHaveBeenCalledTimes(reads);
+  fireEvent.click(screen.getByRole('button', { name: 'Toggle language' }));
+  expect(screen.getByRole('button', { name: '课程', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.getByRole('button', { name: '拓展练习', exact: true })).toBeVisible();
+});
+
+test('returning from practice keeps its tab, resets for another class and falls back if all practice is removed', async () => {
+  const assignment = { id: 'a', title: 'The garden', subject: 'reading', level: 1, questionCount: 1, maxAttempts: 1, progress: { count: 0 } };
+  let removed = false;
+  const api = jest.fn(async path => {
+    if (path === '/classes') return { classes: [classroom, { ...classroom, id: 'class2', name: 'Tuesday English' }] };
+    if (path === '/assignments/a') return { assignment: { ...assignment, questions: [] }, attempts: [] };
+    return { class: { ...classroom, id: path.split('/').at(-1) }, isOwner: false, assignments: removed ? [] : [assignment] };
+  });
+  const lessonRequests = async path => path.includes('/lessons/')
+    ? { revision: 0, parts: [], lesson: { id: 'l', number: 1, title: 'Our room', slides: [], vocabulary: [], questions: [] } }
+    : { collection: null, history: [], lessons: [{ id: 'l', number: 1, title: 'Our room', progress: { done: [], total: 5 } }] };
+  render(<Harness api={api} lessonRequests={lessonRequests} />);
+  fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Extra practice', exact: true }));
+  fireEvent.click(screen.getByRole('button', { name: 'Start extra practice' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Back to class' }));
+  expect(await screen.findByRole('button', { name: 'Start extra practice' })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Extra practice', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  fireEvent.click(screen.getByRole('button', { name: 'All classes' }));
+  fireEvent.click(await screen.findByRole('button', { name: /Tuesday English/ }));
+  expect(await screen.findByRole('button', { name: 'Lessons', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  fireEvent.click(screen.getByRole('button', { name: 'Start extra practice' }));
+  await screen.findByRole('button', { name: 'Back to class' });
+  removed = true;
+  fireEvent.click(screen.getByRole('button', { name: 'Back to class' }));
+  await waitFor(() => expect(screen.queryByRole('button', { name: 'Extra practice', exact: true })).not.toBeInTheDocument());
+  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Lessons', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  fireEvent.click(await screen.findByRole('button', { name: 'Open lesson' }));
+  await screen.findByTestId('lesson-player');
+  removed = false;
+  fireEvent.click(screen.getByRole('button', { name: '← Back to class' }));
+  await screen.findByRole('button', { name: 'Extra practice', exact: true });
+  expect(screen.getByRole('button', { name: 'Lessons', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.getByRole('heading', { name: 'Class lessons' })).toBeVisible();
 });
 
 test('class navigation works without manual refresh controls and reopening loads lessons', async () => {
