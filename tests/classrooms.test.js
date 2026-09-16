@@ -12,6 +12,83 @@ import { createClassroomRouter } from '../server/classrooms.js';
 import { createPracticeCatalog } from '../server/practiceCatalog.js';
 import { validateAssignment } from '../server/classroomDomain.js';
 
+test('only the class owner can delete practice; deletion hides work but preserves submitted results', async () => {
+  const env = await setup();
+  await env.join();
+  const id = (await env.publish()).body.assignment.id;
+  const saved = await env.db.assignments.findOne({ _id: id });
+  const answers = saved.questions.map(q => ({ questionId: q.id, optionId: q.correctOptionId }));
+  assert.equal((await env.request(`/assignments/${id}/submit`, studentId, { requestId: 'before-delete-001', answers })).status, 200);
+  const before = structuredClone(env.db.submissions.docs);
+  for (const user of [studentId, outsiderId, adminId]) {
+    assert.ok([403, 404].includes((await env.request(`/assignments/${id}/delete`, user, {})).status));
+    assert.equal((await env.request(`/classes/${env.classroom.id}`, studentId)).body.assignments.length, 1);
+  }
+  assert.equal((await env.request(`/assignments/${id}/delete`, teacherId, {})).status, 200);
+  const deleted = await env.db.assignments.findOne({ _id: id });
+  assert.ok(deleted.deletedAt);
+  assert.equal(deleted.deletedBy, teacherId);
+  assert.equal((await env.request(`/assignments/${id}/delete`, teacherId, {})).status, 200);
+  assert.deepEqual(await env.db.assignments.findOne({ _id: id }), deleted);
+  for (const user of [teacherId, studentId]) assert.deepEqual((await env.request(`/classes/${env.classroom.id}`, user)).body.assignments, []);
+  assert.equal((await env.request(`/assignments/${id}`, studentId)).status, 404);
+  assert.equal((await env.request(`/assignments/${id}/submit`, studentId, { requestId: 'after-delete-001', answers })).status, 404);
+  assert.deepEqual(env.db.submissions.docs, before);
+  const report = (await env.request(`/classes/${env.classroom.id}/report`)).body;
+  assert.equal(report.students[0].assigned, 0);
+  assert.equal(report.students[0].completed, 0);
+  assert.equal(report.students[0].averagePercent, null);
+  assert.ok(report.assignments[0].deletedAt);
+  assert.equal((await env.request(`/classes/${env.classroom.id}/students/${studentId}/results`)).body.results[0].count, 1);
+  assert.equal((await env.request(`/assignments/${id}/students/${studentId}`)).body.attempts[0].score, 2);
+  // Replaying an old publication must not bring removed work back.
+  await env.publish();
+  assert.deepEqual((await env.request(`/classes/${env.classroom.id}`)).body.assignments, []);
+});
+
+test('deleting during AI grading prevents a late submission from being saved', async () => {
+  let started, release;
+  const ready = new Promise(resolve => { started = resolve; });
+  const gate = new Promise(resolve => { release = resolve; });
+  const env = await productive('writing', { evaluateWriting: async () => { started(); await gate; return writingResult; } });
+  const pending = env.submit({ requestId: 'delete-during-ai-001', text: 'My room has a desk and a bed.' });
+  await ready;
+  const deletion = await env.request(`/assignments/${env.id}/delete`, teacherId, {});
+  release();
+  assert.equal(deletion.status, 200);
+  assert.equal((await pending).status, 404);
+  assert.equal(env.db.submissions.docs.length, 0);
+});
+
+test('deleted speaking recordings remain private and available for owner review', async () => {
+  const env = await productive('speaking', { evaluateSpeech: async () => speechResult });
+  assert.equal((await env.submit({ ...recording(), requestId: 'saved-recording-001' })).status, 200);
+  assert.equal((await env.request(`/assignments/${env.id}/delete`, teacherId, {})).status, 200);
+  const path = `/assignments/${env.id}/audio/saved-recording-001?studentId=${studentId}`;
+  for (const user of [studentId, outsiderId, adminId]) assert.equal((await env.request(path, user)).status, 404);
+  const audio = await env.request(path, teacherId);
+  assert.equal(audio.status, 200);
+  assert.equal(audio.headers.get('content-type'), 'audio/webm');
+  assert.equal(audio.headers.get('cache-control'), 'private, no-store');
+  const review = await env.request(`/assignments/${env.id}/students/${studentId}`);
+  assert.equal(review.body.attempts[0].hasAudio, true);
+  assert.ok(!JSON.stringify(review.body).includes('audioBase64'));
+});
+
+test('removed vocabulary remains excluded from new bundles and unsubmitted deleted work stays out of student history', async () => {
+  const env = await setup();
+  await env.join();
+  env.setCatalog(createPracticeCatalog({ '1-2': { vocab: Array.from({ length: 10 }, (_, i) => ({ id: i, word: `word${i}`, def: `意思${i}`, options: [`意思${i}`, '其他'] })) } }));
+  const path = `/classes/${env.classroom.id}/vocabulary-bundle`;
+  const source = (await env.request(path, teacherId, { level: 1 })).body.source;
+  const id = (await env.request(`/classes/${env.classroom.id}/assignments`, teacherId, { sourceId: source.id, sourceVersion: source.version, requestId: 'deleted-vocab-001' })).body.assignment.id;
+  assert.equal((await env.request(`/assignments/${id}/delete`, teacherId, {})).status, 200);
+  const next = (await env.request(path, teacherId, { level: 1 })).body;
+  assert.equal(next.remaining, 5);
+  assert.ok(next.source.learning.words.every(w => !source.learning.words.some(old => old.word === w.word)));
+  assert.deepEqual((await env.request(`/classes/${env.classroom.id}/students/${studentId}/results`)).body.results, []);
+});
+
 test('vocab bundles are owner-only, exclude legacy words, reject overlap atomically, and replay publication safely', async () => {
   const env = await setup();
   const vocab = Array.from({ length: 11 }, (_, i) => ({ id: i, word: `word${i}`, def: `意思${i}`, options: [`意思${i}`, '其他', '另外'] }));

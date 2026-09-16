@@ -1,6 +1,21 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ClassReport } from './ClassReport';
+
+test('removed practice is labelled as saved history and can still be reviewed', async () => {
+  const score = { score: 1, total: 1 };
+  const report = { class: { id: 'c' }, students: [{ id: 's', name: 'Sam', completed: 0, assigned: 0, averagePercent: null, practice: {} }], assignments: [{ id: 'a', title: 'Old practice', deletedAt: '2026-09-16T00:00:00Z' }] };
+  const api = jest.fn(async path => path.endsWith('/results')
+    ? { results: [{ assignmentId: 'a', count: 1, first: score, latest: score, best: score }] }
+    : { assignment: { questions: [] }, attempts: [] });
+  render(<ClassReport report={report} lang="en" api={api} />);
+  expect(screen.getByText(/Extra practice: 0/)).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'View answers and attempts' }));
+  expect(await screen.findByText('Removed from class · Saved results')).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Load answers' }));
+  await waitFor(() => expect(screen.queryByRole('button', { name: 'Load answers' })).not.toBeInTheDocument());
+  expect(api).toHaveBeenCalledWith('/assignments/a/students/s');
+});
 
 test('teacher loads answer details only after selecting a student and assignment', async () => {
   const score = { score: 1, total: 1, submittedAt: '2026-09-05T10:00:00Z' };

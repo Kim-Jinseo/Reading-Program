@@ -40,10 +40,11 @@ export const ClassReport = ({ report, lang, api, profileStudentId }) => {
   loader.current = loadStudent;
   const selected = report.students.find(s => s.id === studentId);
   const totalCompleted = report.students.reduce((sum, s) => sum + s.completed, 0);
+  const activeCount = report.assignments.filter(a => !a.deletedAt).length;
   return <section className="space-y-5">
     {!profileStudentId && <div className={card}>
       <h3 className="font-extrabold text-2xl">{say(lang, 'Student progress', '学生学习情况')}</h3>
-      <p className="mt-2 text-slate-500">{say(lang, `Students: ${report.students.length} · Extra practice: ${report.assignments.length} · Completed submissions: ${totalCompleted}`, `${report.students.length} 名学生 · ${report.assignments.length} 份拓展练习 · 已完成 ${totalCompleted} 人次`)}</p>
+      <p className="mt-2 text-slate-500">{say(lang, `Students: ${report.students.length} · Extra practice: ${activeCount} · Completed submissions: ${totalCompleted}`, `${report.students.length} 名学生 · ${activeCount} 份拓展练习 · 已完成 ${totalCompleted} 人次`)}</p>
       {!report.students.length && <p className="mt-6 text-slate-500">{say(lang, 'Share your class invitation code so students can join.', '分享班级邀请码，让学生加入。')}</p>}
       <div className="grid md:grid-cols-2 gap-4 mt-6">
         {report.students.map(student => <div className="rounded-2xl border border-slate-200 p-4 min-w-0" key={student.id}>
@@ -71,6 +72,7 @@ export const ClassReport = ({ report, lang, api, profileStudentId }) => {
         const productive = ['writing', 'speaking'].includes(detail?.assignment?.format || assignment.format);
         return <div key={result.assignmentId} className="rounded-2xl border border-slate-200 p-4 sm:p-5 space-y-4">
           <h4 className="text-lg font-extrabold break-words">{assignment.title}</h4>
+          {assignment.deletedAt && <p className="text-sm text-slate-500">{say(lang, 'Removed from class · Saved results', '已从班级删除 · 成绩已保留')}</p>}
           {!result.count ? <p className="text-slate-500">{say(lang, 'Not submitted', '尚未提交')}</p> : <>
             <p className="text-sm font-semibold text-teal-800">{say(lang, 'Submitted results', '已提交的成绩')}</p>
             <div className="grid grid-cols-3 gap-2 text-sm">{[['first', 'First', '首次'], ['latest', 'Latest', '最近'], ['best', 'Best', '最佳']].map(([key, en, zh]) => <div className="bg-slate-50 rounded-xl p-3" key={key}><p className="text-slate-500">{say(lang, en, zh)}</p><p className="font-bold mt-1">{result[key].score} / {result[key].total}</p></div>)}</div>

@@ -15,6 +15,93 @@ function Harness({ api, initialUser = student, lessonRequests = lessonsApi }) {
 }
 beforeEach(() => localStorage.clear());
 
+test('copy confirmation expires, repeated copying restarts the timer, and leaving clears it', async () => {
+  const original = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+  Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: jest.fn().mockResolvedValue() } });
+  const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] }
+    : { class: { ...classroom, invitationCode: 'ABC123' }, isOwner: true, assignments: [] });
+  const view = render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
+  try {
+    fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Invite students' }));
+    jest.useFakeTimers();
+    const copy = () => act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Copy code' })); });
+    await copy();
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('ABC123');
+    expect(screen.getByText('Code copied.')).toBeVisible();
+    act(() => jest.advanceTimersByTime(2000));
+    await copy();
+    act(() => jest.advanceTimersByTime(1000));
+    expect(screen.getByText('Code copied.')).toBeVisible();
+    act(() => jest.advanceTimersByTime(2000));
+    expect(screen.queryByText('Code copied.')).not.toBeInTheDocument();
+    await copy();
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'All classes' })); });
+    expect(screen.queryByText('Code copied.')).not.toBeInTheDocument();
+    view.unmount();
+  } finally {
+    view.unmount();
+    jest.useRealTimers();
+    if (original) Object.defineProperty(navigator, 'clipboard', original); else delete navigator.clipboard;
+  }
+});
+
+test('teacher can cancel deletion, sees errors without losing practice, and can retry successfully', async () => {
+  const confirm = jest.spyOn(window, 'confirm').mockReturnValue(false);
+  let fail = true;
+  const api = jest.fn(async path => {
+    if (path === '/classes') return { classes: [classroom] };
+    if (path === '/assignments/a1/delete') { if (fail) throw new Error('Please try again.'); return { success: true }; }
+    return { class: classroom, isOwner: true, assignments: [{ id: 'a1', title: 'At the farm', subject: 'reading', level: 1, questionCount: 2, maxAttempts: 1 }] };
+  });
+  render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
+  try {
+    fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Extra practice', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: 'Delete extra practice: At the farm' }));
+    expect(confirm).toHaveBeenCalledWith(expect.stringContaining('At the farm'));
+    expect(api.mock.calls.some(([path]) => path.endsWith('/delete'))).toBe(false);
+    confirm.mockReturnValue(true);
+    fireEvent.click(screen.getByRole('button', { name: 'Delete extra practice: At the farm' }));
+    expect(await screen.findByRole('alert')).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'At the farm' })).toBeVisible();
+    fail = false;
+    fireEvent.click(screen.getByRole('button', { name: 'Delete extra practice: At the farm' }));
+    await waitFor(() => expect(screen.queryByRole('heading', { name: 'At the farm' })).not.toBeInTheDocument());
+    expect(api).toHaveBeenCalledWith('/assignments/a1/delete', {});
+    expect(screen.getByText(/No extra practice assigned yet/)).toBeVisible();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  } finally { confirm.mockRestore(); }
+});
+
+test('clipboard failure instructions stay visible and a late clipboard response cannot follow navigation', async () => {
+  const original = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+  let finish;
+  const writeText = jest.fn().mockRejectedValueOnce(new Error('Clipboard denied'))
+    .mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+  Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } });
+  const api = async path => path === '/classes' ? { classes: [classroom] }
+    : { class: { ...classroom, invitationCode: 'ABC123' }, isOwner: true, assignments: [] };
+  const view = render(<Harness api={api} initialUser={{ ...student, role: 'teacher' }} />);
+  try {
+    fireEvent.click(await screen.findByRole('button', { name: /Monday English/ }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Invite students' }));
+    jest.useFakeTimers();
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Copy code' })); });
+    act(() => jest.advanceTimersByTime(10000));
+    expect(screen.getByText('Select and copy the code shown here.')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'Copy code' }));
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'All classes' })); });
+    await act(async () => finish());
+    expect(screen.queryByText('Code copied.')).not.toBeInTheDocument();
+    expect(screen.queryByText('Select and copy the code shown here.')).not.toBeInTheDocument();
+  } finally {
+    view.unmount();
+    jest.useRealTimers();
+    if (original) Object.defineProperty(navigator, 'clipboard', original); else delete navigator.clipboard;
+  }
+});
+
 test.each(['student', 'teacher'])('%s sees the Classes banner only on the class list', async role => {
   const api = jest.fn(async path => path === '/classes' ? { classes: [classroom] }
     : { class: classroom, isOwner: role === 'teacher', assignments: [] });

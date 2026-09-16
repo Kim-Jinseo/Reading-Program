@@ -1,5 +1,5 @@
 import { gradeBandLabel } from '../utils/gradeLabels';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Users, ShieldCheck, Plus, ArrowLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { AssignmentEditor } from '../components/classes/AssignmentEditor';
@@ -28,7 +28,20 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const [loading, setLoading] = useState(!user.isGuest);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
+  const [notice, setNoticeValue] = useState('');
+  const noticeTimer = useRef(null), noticeVersion = useRef(0);
+  const setNotice = useCallback((text, temporary = false) => {
+    noticeVersion.current++;
+    clearTimeout(noticeTimer.current);
+    noticeTimer.current = null;
+    setNoticeValue(text);
+    if (temporary) noticeTimer.current = setTimeout(() => { setNoticeValue(''); noticeTimer.current = null; }, 3000);
+  }, []);
+  useEffect(() => {
+    const version = noticeVersion, timer = noticeTimer;
+    setNotice('');
+    return () => { version.current++; clearTimeout(timer.current); };
+  }, [mode, detail?.class.id, setNotice]);
   const [code, setCode] = useState('');
   const [studentName, setStudentName] = useState(user.name || '');
   const [className, setClassName] = useState('');
@@ -98,8 +111,25 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     }).catch(e => { if (request === navigation.current) setError(errorText(language.current, e)); });
   };
   const copyCode = async text => {
-    try { await navigator.clipboard.writeText(text); setNotice(say(lang, 'Code copied.', '邀请码已复制。')); }
-    catch { setNotice(say(lang, 'Select and copy the code shown here.', '请选中并复制这里显示的邀请码。')); }
+    const request = ++noticeVersion.current;
+    try {
+      await navigator.clipboard.writeText(text);
+      if (request === noticeVersion.current) setNotice(say(lang, 'Code copied.', '邀请码已复制。'), true);
+    } catch {
+      if (request === noticeVersion.current) setNotice(say(lang, 'Select and copy the code shown here.', '请选中并复制这里显示的邀请码。'));
+    }
+  };
+  const deleteAssignment = assignment => {
+    if (busy || !window.confirm(say(lang,
+      `Delete “${assignment.title}” from this class? Students will no longer see it. Submitted work will remain in student profiles.`,
+      `从本班删除“${assignment.title}”？学生将不再看到此练习，已提交的作业仍保留在学生档案中。`))) return;
+    const request = navigation.current, classId = detail.class.id;
+    run(async () => {
+      await api(`/assignments/${assignment.id}/delete`, {});
+      if (request !== navigation.current) return;
+      setDetail(current => current?.class.id === classId ? { ...current, assignments: current.assignments.filter(a => a.id !== assignment.id) } : current);
+      setLessonRefresh(value => value + 1);
+    });
   };
   const verify = event => {
     event.preventDefault();
@@ -172,7 +202,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} initialLessons={lessonPreload} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
           onBackToClasses={goHome}
           onOpen={(data, studentId, reviewStudent) => { navigation.current++; setLesson({ data, studentId, reviewStudent }); setMode('lesson'); }}
-          onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode}
+          onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode} onDelete={deleteAssignment}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
         <section className={card + ' class-cover space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>

@@ -133,7 +133,7 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   app.get('/classes/:id', async c => {
     const { row, owner } = await findClass(c, c.req.param('id'));
     const { assignments, submissions } = c.get('db');
-    const all = await assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, level: 1, format: 1, maxAttempts: 1, 'questions.id': 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
+    const all = await assignments.find({ classId: row._id, deletedAt: { $exists: false } }, { projection: { title: 1, subject: 1, level: 1, format: 1, maxAttempts: 1, 'questions.id': 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
     const ownResults = owner ? [] : await submissions.find({ classId: row._id, studentId: c.get('user').userId }, { projection: { assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray();
     return c.json({ success: true, class: classSummary(row, owner), isOwner: owner,
       ...(owner ? { students: row.members.map(({ id, name, joinedAt }) => ({ id, name, joinedAt })) } : {}),
@@ -195,8 +195,29 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const assignment = await c.get('db').assignments.findOne({ _id: c.req.param('id') });
     if (!assignment) return notFound();
     const access = await findClass(c, assignment.classId);
+    if (assignment.deletedAt && !access.owner) return notFound();
     return { assignment, ...access };
   };
+  app.post('/assignments/:id/delete', requireTeacher, limit('delete-assignment', 30), async c => {
+    const { assignment } = await findAssignment(c);
+    await findClass(c, assignment.classId, true);
+    const db = c.get('db'), userId = c.get('user').userId;
+    await db.withLessonTransaction(async session => {
+      const options = { session };
+      const account = await db.users.findOne({ _id: new ObjectId(userId) }, options);
+      if (!account || (account.tokenVersion || 0) !== (c.get('user').tokenVersion || 0))
+        throw new ClassroomError('Please sign in again.', 401, 'session_expired');
+      if (!teacherRole(account.role)) throw new ClassroomError('Teacher access is required.', 403, 'teacher_required');
+      const authorized = await db.users.updateOne({ _id: account._id, role: account.role, tokenVersion: account.tokenVersion === undefined ? { $exists: false } : account.tokenVersion }, { $inc: { assignmentWriteVersion: 1 } }, options);
+      if (!authorized.modifiedCount) throw new ClassroomError('Please sign in again.', 401, 'session_expired');
+      const owned = await db.classes.updateOne({ _id: assignment.classId, ownerId: userId }, { $inc: { assignmentWriteVersion: 1 } }, options);
+      if (!owned.modifiedCount) return notFound();
+      // Keep the canonical content, vocabulary history, attempts and recordings.
+      // The lifetime publication cap is unchanged; removing work is not a purge.
+      await db.assignments.updateOne({ _id: assignment._id, deletedAt: { $exists: false } }, { $set: { deletedAt: new Date(), deletedBy: userId } }, options);
+    });
+    return c.json({ success: true });
+  });
   app.get('/assignments/:id', async c => {
     const { assignment, owner } = await findAssignment(c);
     const submission = owner ? null : await c.get('db').submissions.findOne({ _id: `${assignment._id}:${c.get('user').userId}` }, { projection: { 'attempts.audioBase64': 0 } });
@@ -233,6 +254,9 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const attempt = { ...result, requestId: body.requestId, submittedAt: new Date() };
     const saved = await db.withLessonTransaction(async session => {
       const options = { session };
+      // Both saving and removal write the class row below, so Mongo retries a
+      // concurrent removal with a fresh snapshot before accepting this read.
+      if (!await db.assignments.findOne({ _id: assignment._id, deletedAt: { $exists: false } }, options)) return notFound();
       // Guarded writes ensure concurrent account revocation or membership
       // removal conflicts with this transaction, not just an earlier read.
       const account = await db.users.findOne({ _id: new ObjectId(studentId) }, options);
@@ -273,22 +297,23 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const { row } = await findClass(c, c.req.param('id'), true);
     const db = c.get('db');
     const [assignments, submissions, accounts] = await Promise.all([
-      db.assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, format: 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray(),
+      db.assignments.find({ classId: row._id }, { projection: { title: 1, subject: 1, format: 1, createdAt: 1, deletedAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray(),
       db.submissions.find({ classId: row._id }, { projection: { studentId: 1, assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray(),
       db.users.find({ _id: { $in: row.memberIds.map(id => new ObjectId(id)) } }, { projection: { completedReading: 1, completedWriting: 1, completedSpeaking: 1, completedGrammar: 1, masteredVocab: 1 } }).toArray()
     ]);
+    const activeAssignments = assignments.filter(a => !a.deletedAt);
     const students = row.members.map(member => {
       const own = submissions.filter(s => s.studentId === member.id && s.attempts.length);
       const account = accounts.find(a => String(a._id) === member.id);
-      const results = assignments.map(a => summarizeAttempts(own.find(s => s.assignmentId === a._id)?.attempts));
+      const results = activeAssignments.map(a => summarizeAttempts(own.find(s => s.assignmentId === a._id)?.attempts));
       const completed = results.filter(r => r.count);
-      return { id: member.id, name: member.name, completed: completed.length, assigned: assignments.length,
+      return { id: member.id, name: member.name, completed: completed.length, assigned: activeAssignments.length,
         lastSubmittedAt: latestSubmission(own),
         averagePercent: completed.length ? Math.round(completed.reduce((sum, r) => sum + r.latest.score / r.latest.total * 100, 0) / completed.length) : null,
         practice: Object.fromEntries(['masteredVocab', 'completedGrammar', 'completedReading', 'completedWriting', 'completedSpeaking'].map(key => [key, Array.isArray(account?.[key]) ? account[key].length : 0])) };
     });
     return c.json({ success: true, class: classSummary(row, true), students,
-      assignments: assignments.map(({ _id, title, subject, format }) => ({ id: _id, title, subject, ...(format ? { format } : {}) })) });
+      assignments: assignments.map(({ _id, title, subject, format, deletedAt }) => ({ id: _id, title, subject, ...(format ? { format } : {}), ...(deletedAt ? { deletedAt } : {}) })) });
   });
   // Load details one student, then one assignment at a time. A full class's
   // answer history is deliberately never included in an overview response.
@@ -298,10 +323,10 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     if (!row.memberIds.includes(studentId)) return notFound();
     const db = c.get('db');
     const [assignments, submissions] = await Promise.all([
-      db.assignments.find({ classId: row._id }, { projection: { _id: 1 } }).limit(100).toArray(),
+      db.assignments.find({ classId: row._id }, { projection: { _id: 1, deletedAt: 1 } }).limit(100).toArray(),
       db.submissions.find({ classId: row._id, studentId }, { projection: { assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray()
     ]);
-    return c.json({ success: true, results: assignments.map(a => ({ assignmentId: a._id, ...summarizeAttempts(submissions.find(s => s.assignmentId === a._id)?.attempts) })) });
+    return c.json({ success: true, results: assignments.filter(a => !a.deletedAt || submissions.some(s => s.assignmentId === a._id && s.attempts.length)).map(a => ({ assignmentId: a._id, ...summarizeAttempts(submissions.find(s => s.assignmentId === a._id)?.attempts) })) });
   });
   app.get('/assignments/:id/students/:studentId', requireTeacher, async c => {
     const { assignment, row, owner } = await findAssignment(c);
