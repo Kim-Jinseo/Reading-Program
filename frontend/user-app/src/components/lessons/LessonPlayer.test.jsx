@@ -36,6 +36,50 @@ const initial = {
 beforeEach(() => {
   window.confirm = jest.fn(() => true);
 });
+const quickCheckStep = () => within(screen.getByRole('group', { name: 'Slides and quick check steps' })).getByRole('button', { name: /Quick check/ });
+
+test('slides and quick check share one tab; slide review saves before the quiz opens', async () => {
+  const api = jest.fn(async (path, body) => ({ attempt: { requestId: body.requestId, rewardStars: 3, submittedAt: '2026-09-06T08:00:00Z', ...(path.endsWith('/questions') ? { score: 1, total: 1 } : {}) }, lessonRewardStars: path.endsWith('/questions') ? 6 : 3 }));
+  render(<LessonPlayer data={initial} classId="c" lang="en" onBack={() => {}} api={api} />);
+  const nav = screen.getByRole('navigation', { name: 'Lesson activities' });
+  expect(within(nav).getAllByRole('button')).toHaveLength(4);
+  const combined = within(nav).getByRole('button', { name: /Slides & Quick check/ });
+  expect(quickCheckStep()).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Continue to Quick check' })).toBeDisabled();
+  fireEvent.click(screen.getByText('View all sample slides'));
+  expect(api).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Continue to Quick check' }));
+  await screen.findByText('Question 1 of 1');
+  expect(screen.getByRole('heading', { name: 'Quick check', exact: true })).toHaveFocus();
+  expect(api.mock.calls[0][0]).toBe('/classes/c/lessons/l/parts/slides');
+  expect(within(combined).getByText('1 of 2 completed')).toBeVisible();
+  fireEvent.click(screen.getByLabelText('A. 课桌'));
+  fireEvent.click(within(screen.getByRole('group', { name: 'Slides and quick check steps' })).getByRole('button', { name: /Slides/ }));
+  expect(screen.getByText('View all sample slides')).toBeVisible();
+  fireEvent.click(quickCheckStep());
+  expect(screen.getByLabelText('A. 课桌')).toBeChecked();
+  expect(window.confirm).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Submit this activity' }));
+  await screen.findByText('1 / 1');
+  expect(api.mock.calls[1][0]).toBe('/classes/c/lessons/l/parts/questions');
+  expect(within(combined).getByText('Completed')).toBeVisible();
+  expect(screen.getByText('2 of 5 activities completed')).toBeVisible();
+});
+
+test('failed slide confirmation stays on slides and retries the same save before opening Quick check', async () => {
+  const api = jest.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue({ attempt: { requestId: 'reviewed', rewardStars: 3 }, lessonRewardStars: 3 });
+  render(<LessonPlayer data={initial} classId="c" lang="en" onBack={() => {}} api={api} />);
+  fireEvent.click(screen.getByText('View all sample slides'));
+  fireEvent.click(screen.getByRole('button', { name: 'Continue to Quick check' }));
+  const retry = await screen.findByRole('button', { name: 'Retry saving this answer' });
+  expect(screen.queryByRole('radio')).not.toBeInTheDocument();
+  expect(quickCheckStep()).toBeDisabled();
+  expect(screen.getByText('0 of 5 activities completed')).toBeVisible();
+  fireEvent.click(retry);
+  await screen.findByText('Question 1 of 1');
+  expect(api.mock.calls[0]).toEqual(api.mock.calls[1]);
+  expect(quickCheckStep()).toBeEnabled();
+});
 
 test('student review identifies whose saved results are shown without changing self-study or teacher preview', () => {
   const data = { ...initial, readOnly: true, isOwner: true, parts: [{ part: 'writing', attempts: [{ requestId: 'saved', text: 'I like my classroom.', score: 4, total: 5, submittedAt: '2026-09-06T08:00:00Z' }] }] };
@@ -64,7 +108,7 @@ test('celebrates a whole lesson only after the fifth activity is saved successfu
   render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} api={api} />);
   expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
   fireEvent.click(screen.getByText('View all sample slides'));
-  fireEvent.click(screen.getByRole('button', { name: 'I have reviewed all slides' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Continue to Quick check' }));
   const retry = await screen.findByRole('button', { name: 'Retry saving this answer' });
   expect(screen.queryByRole('region', { name: 'Lesson complete' })).not.toBeInTheDocument();
   fireEvent.click(retry);
@@ -83,7 +127,7 @@ test('returning to completed work shows quiet encouragement, not a new celebrati
 
 test.each([false, true])('completed lesson tabs remain distinct from selection in read-only=%s', readOnly => {
   const attempt = { requestId: 'saved', submittedAt: '2026-09-06T08:00:00Z', score: 4, total: 5, text: 'My classroom is bright.' };
-  const data = { ...initial, readOnly, parts: [{ part: 'slides', attempts: [attempt] }, { part: 'writing', attempts: [attempt] }] };
+  const data = { ...initial, readOnly, parts: [{ part: 'slides', attempts: [attempt] }, { part: 'questions', attempts: [attempt] }, { part: 'writing', attempts: [attempt] }] };
   render(<LessonPlayer data={data} classId="c" lang="en" onBack={() => {}} />);
   const slides = screen.getByRole('button', { name: /^Slides/ });
   const writing = screen.getByRole('button', { name: /^Writing/ });
@@ -137,11 +181,11 @@ test('reward remains visible after refresh or a retry, without claiming a second
 test('opening slides is not completion; submit only after explicitly viewing every slide', async () => {
   const api = jest.fn(async () => ({ attempt: { requestId: 'saved1', submittedAt: new Date().toISOString() } }));
   render(<LessonPlayer data={initial} classId="c" lang="en" onBack={() => {}} api={api} />);
-  expect(screen.getByRole('button', { name: 'I have reviewed all slides' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Continue to Quick check' })).toBeDisabled();
   expect(api).not.toHaveBeenCalled();
   fireEvent.click(screen.getByText('View all sample slides'));
-  fireEvent.click(screen.getByRole('button', { name: 'I have reviewed all slides' }));
-  await screen.findByText('Activity completed');
+  fireEvent.click(screen.getByRole('button', { name: 'Continue to Quick check' }));
+  await screen.findByText('Question 1 of 1');
   expect(api.mock.calls[0][0]).toBe('/classes/c/lessons/l/parts/slides');
 });
 
@@ -176,8 +220,8 @@ test('vocabulary starts with learn-first flip cards and keeps learning separate 
 test('Quick check shows one question at a time, keeps edits, and submits all answers together', async () => {
   const q2 = { ...q, id: 'q2', prompt: 'What can you see?' };
   const api = jest.fn(async () => ({ attempt: { requestId: 'quiz-all', score: 1, total: 2, submittedAt: '2026-09-06T08:00:00Z' } }));
-  render(<LessonPlayer data={{ ...initial, lesson: { ...initial.lesson, questions: [q, q2] } }} classId="c" lang="en" onBack={() => {}} api={api} />);
-  fireEvent.click(screen.getByRole('button', { name: /^Quick check/ }));
+  render(<LessonPlayer data={{ ...initial, parts: [{ part: 'slides', attempts: [{ requestId: 'reviewed' }] }], lesson: { ...initial.lesson, questions: [q, q2] } }} classId="c" lang="en" onBack={() => {}} api={api} />);
+  fireEvent.click(quickCheckStep());
   expect(screen.getByText('Question 1 of 2')).toBeInTheDocument();
   expect(screen.queryByText(q2.prompt)).not.toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'Next question' })).toBeDisabled();
@@ -229,7 +273,7 @@ test('word audio uses the existing English TTS service and stops when leaving th
 
 test('teacher question previews do not offer student submission instructions', () => {
   render(<LessonPlayer data={{ ...initial, readOnly: true, isOwner: true }} classId="c" lang="en" onBack={() => {}} />);
-  fireEvent.click(screen.getByRole('button', { name: /^Quick check/ }));
+  fireEvent.click(quickCheckStep());
   expect(screen.queryByText(/One submission only/)).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Submit this activity' })).not.toBeInTheDocument();
 });
@@ -341,11 +385,14 @@ test('writing retries are explicit, keep earlier answers, and return to complete
 
 test.each(['vocabulary', 'questions'])('saved %s is review-only even with legacy extra attempts', part => {
   render(<LessonPlayer data={savedData(part, [saved, { ...saved, requestId: 'old-second' }])} classId="c" lang="en" onBack={() => {}} />);
-  fireEvent.click(screen.getByRole('button', { name: part === 'vocabulary' ? /Vocabulary/ : /Quick check/ }));
+  fireEvent.click(part === 'vocabulary' ? screen.getByRole('button', { name: /Vocabulary/ }) : quickCheckStep());
   expect(screen.getByText('Activity completed')).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: 'Try again!' })).not.toBeInTheDocument();
   expect(screen.queryByRole('radio')).not.toBeInTheDocument();
   expect(screen.getByText('Previous attempts (1)')).toBeInTheDocument();
+  if (part === 'questions') {
+    expect(screen.getByRole('button', { name: /Slides & Quick check 1 of 2 completed/ })).toHaveAttribute('aria-pressed', 'true');
+  }
 });
 
 test.each([{}, { readOnly: true, isOwner: true }])('used-up or read-only speaking results cannot start another attempt', extra => {

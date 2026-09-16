@@ -20,7 +20,7 @@ test('switching lesson activities retains the displayed slide and avoids downloa
     fireEvent.click(screen.getByRole('button', { name: /^Slides/ }));
     await screen.findByAltText('Our classroom slide');
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
-    expect(screen.getByRole('button', { name: 'I have reviewed all slides' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Continue to Quick check' })).toBeEnabled();
     expect(URL.revokeObjectURL).not.toHaveBeenCalled();
     unmount();
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:slide');

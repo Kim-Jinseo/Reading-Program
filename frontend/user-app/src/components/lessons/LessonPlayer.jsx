@@ -18,6 +18,7 @@ import { LessonQuiz } from './LessonQuiz';
 import { CheckCircle2, Star } from 'lucide-react';
 import { StudentReviewBanner } from '../classes/StudentReviewBanner';
 const parts = ['slides', 'vocabulary', 'speaking', 'writing', 'questions'];
+const tabs = ['slides', 'vocabulary', 'speaking', 'writing'];
 export function LessonPlayer({ data: initial, classId, lang, onBack, api = lessonApi, studentId, reviewStudent, onRewards, backLabel }) {
   const [data, setData] = useState(initial),
     [part, setPart] = useState('slides'),
@@ -33,7 +34,18 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
     [celebrate, setCelebrate] = useState(false);
   const pending = React.useRef(null),
     lock = React.useRef(false);
+  const stepPanel = React.useRef(null), activityHeading = React.useRef(null), previousPart = React.useRef(part);
+  React.useEffect(() => {
+    if (previousPart.current !== part && ['slides', 'questions'].includes(part)) {
+      activityHeading.current?.focus({ preventScroll: true });
+      stepPanel.current?.scrollIntoView?.({ block: 'start' });
+    }
+    previousPart.current = part;
+  }, [part]);
   const lesson = data.lesson;
+  const slidesDone = data.parts.some(p => p.part === 'slides' && p.attempts.length);
+  const checkDone = data.parts.some(p => p.part === 'questions' && p.attempts.length);
+  const slideActivity = part === 'slides' || part === 'questions';
   const reviewing = Boolean(studentId && data.readOnly);
   const base = `/classes/${classId}/lessons/${lesson.id}`,
     query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : '';
@@ -91,6 +103,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
       setRecording(null);
       setWriting('');
       setRetrying(false);
+      if (savedPart === 'slides' && lesson.questions.length) setPart('questions');
     } catch (e) {
       if (e.status >= 400 && e.status < 500) pending.current = null;
       setError(lessonError(e, lang));
@@ -155,16 +168,19 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
         <div className="min-w-0"><h3 className="font-semibold text-lg text-slate-900">{say(lang, 'Nicely done — lesson complete!', '做得好，这一课完成啦！')}</h3>
         <p className="mt-1 text-sm leading-relaxed text-slate-600">{say(lang, 'All five activities are saved. Take a moment to enjoy your progress.', '五项学习任务都已保存。为自己的进步点个赞吧。')}</p></div>
       </section>}
-      <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-3">
-        {parts.map((p) => {
-          const done = data.parts.some(r => r.part === p && r.attempts.length);
+      <nav aria-label={say(lang, 'Lesson activities', '学习任务')} className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+        {tabs.map((p) => {
+          const done = p === 'slides' ? slidesDone && checkDone : data.parts.some(r => r.part === p && r.attempts.length);
+          const selected = p === 'slides' ? slideActivity : part === p;
+          const started = p === 'slides' && (slidesDone || checkDone);
           return (
           <button
             key={p}
-            aria-pressed={part === p}
+            aria-pressed={selected}
             disabled={busy || micBusy || !!pending.current}
-            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:opacity-50 ${part === p ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50 text-blue-950' : done ? 'border-blue-400 bg-white text-slate-600' : 'border-slate-200 bg-white text-slate-600'}`}
+            className={`min-w-0 min-h-[76px] border rounded-xl px-3 sm:px-4 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:opacity-50 ${selected ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50 text-blue-950' : done ? 'border-blue-400 bg-white text-slate-600' : 'border-slate-200 bg-white text-slate-600'}`}
             onClick={() => {
+              if (selected) return;
               if (
                 (writing.trim() || Object.keys(answers).length || recording) &&
                 !window.confirm(
@@ -185,13 +201,24 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               setVocabularyPractice(false);
             }}
           >
-            <span className="block font-semibold text-sm">{partName(p, lang)}</span>
-            <span className="mt-1 flex items-center gap-1.5 text-xs sm:text-sm">{done && <CheckCircle2 className="lesson-tab-check text-blue-600" size={14} aria-hidden="true" />}{done ? say(lang, 'Completed', '已完成') : say(lang, 'Not started', '未完成')}</span>
+            <span className="block font-semibold text-sm">{p === 'slides' ? say(lang, 'Slides & Quick check', '课件与小测验') : partName(p, lang)}</span>
+            <span className="mt-1 flex items-center gap-1.5 text-xs sm:text-sm">{done && <CheckCircle2 className="lesson-tab-check text-blue-600" size={14} aria-hidden="true" />}{done ? say(lang, 'Completed', '已完成') : started ? say(lang, '1 of 2 completed', '已完成 1 / 2 步') : say(lang, 'Not started', '未完成')}</span>
           </button>
         ); })}
       </nav>
       <section className={card + ' space-y-6'}>
-        <h3 className="text-xl font-semibold tracking-tight">{partName(part, lang)}</h3>
+        {slideActivity && <div ref={stepPanel} className="space-y-3 scroll-mt-24">
+          <div role="group" aria-label={say(lang, 'Slides and quick check steps', '课件与小测验步骤')} className="flex flex-col sm:flex-row gap-2">
+            {['slides', 'questions'].map((step, index) => <button key={step} type="button" aria-pressed={part === step}
+              disabled={busy || !!pending.current || (step === 'questions' && !slidesDone && !checkDone && !data.readOnly)}
+              onClick={() => { setPart(step); setError(''); setRetrying(false); }}
+              className={`${secondary} flex items-center justify-center gap-2 sm:flex-1 ${part === step ? 'ring-1 ring-blue-400' : ''}`}>
+              {index + 1}. {partName(step, lang)}{(step === 'slides' ? slidesDone : checkDone) && <CheckCircle2 size={16} className="text-blue-600" aria-label={say(lang, 'Completed', '已完成')} />}
+            </button>)}
+          </div>
+          <p className="text-sm text-slate-500">{say(lang, 'Review the slides, then test what you learned. Each step earns 3 completion stars once.', '先复习课件，再通过小测验检查所学内容。每一步完成后可获得一次 3 颗星星奖励。')}</p>
+        </div>}
+        <h3 ref={activityHeading} tabIndex={-1} className="text-xl font-semibold tracking-tight outline-none">{partName(part, lang)}</h3>
         {reviewing && !attempts.length && <p className="rounded-xl bg-teal-50 p-4 text-teal-800">{say(lang, 'No submission from this student yet.', '这位学生尚未提交本项作业。')}</p>}
         {error && (
           <p role="alert" className="text-rose-700">
@@ -210,8 +237,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
             {!data.readOnly && <p className="text-sm text-slate-500">
               {say(
                 lang,
-                'View every slide, then confirm your review. This does not count as a quiz score.',
-                '看完每页课件后，确认已复习。查看课件不计入答题成绩。',
+                'View every slide, then continue to Quick check. Your slide review is saved before the questions begin.',
+                '看完每页课件后，继续小测验。开始答题前会先保存课件复习记录。',
               )}
             </p>}
         </div>
@@ -280,7 +307,7 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
               : pending.current
                 ? say(lang, 'Retry saving this answer', '重试保存这份答案')
                 : part === 'slides'
-                  ? say(lang, 'I have reviewed all slides', '我已复习所有课件')
+                  ? say(lang, 'Continue to Quick check', '继续小测验')
                   : say(lang, 'Submit this activity', '提交本项练习')}
           </button>
         )}
@@ -295,6 +322,8 @@ export function LessonPlayer({ data: initial, classId, lang, onBack, api = lesso
         )}
         {!!attempts.length && !retrying && <LessonResult attempts={attempts} part={part} lesson={lesson} base={base} query={query} lang={lang}
           reviewing={reviewing} remaining={Math.max(0, max - attempts.length)} readOnly={data.readOnly} onRetry={() => { setRetrying(true); setError(''); }} />}
+        {part === 'slides' && (slidesDone || data.readOnly) && <button type="button" className={button + ' w-full sm:w-auto'} disabled={busy || !!pending.current}
+          onClick={() => { setPart('questions'); setError(''); }}>{checkDone ? say(lang, 'View Quick check result', '查看小测验结果') : say(lang, 'Continue to Quick check', '继续小测验')}</button>}
         {part === 'vocabulary' && !!attempts.length && !!words.length && <details className="rounded-xl border border-slate-200 p-4 sm:p-5">
           <summary className="font-bold cursor-pointer py-3">{say(lang, 'Review word cards', '复习单词卡片')}</summary>
           <div className="mt-5"><LessonVocabulary words={words} lang={lang} /></div>
