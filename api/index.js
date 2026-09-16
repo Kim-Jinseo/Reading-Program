@@ -340,10 +340,15 @@ const activityEvaluators = {
 evaluateWriting: async (input) => {
   if (!process.env.GEMINI_API_KEY) throw new Error('Writing service unavailable');
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-  return gradeLessonWriting(input, request => ai.models.generateContent({
-    ...request, model: 'gemini-2.5-flash',
-    config: { ...request.config, abortSignal: input.signal || AbortSignal.timeout(20000) },
-  }));
+  // Use the same Google connection and model fallback as standalone writing,
+  // while retaining the stored activity prompt, strict feedback and deadline.
+  return gradeLessonWriting(input, async request => {
+    const { response } = await generateContentWithRetry(ai, {
+      ...request,
+      config: { ...request.config, abortSignal: input.signal || AbortSignal.timeout(20000) },
+    });
+    return response;
+  });
 }, evaluateSpeech: async ({ sentence, audioBase64, audioMime, authorization, signal }) => {
   // Internal dispatch reuses the existing Deepgram-first evaluator. The target
   // comes from the stored lesson/assignment, never a student's request.
