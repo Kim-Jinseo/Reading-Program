@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronRight, Trophy, ShoppingBag, ClipboardCheck, Users } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PracticeCards } from '../components/practice/PracticeCards';
-import { EXTRA_PRACTICE_ENABLED } from '../config/visibility';
+import { EXTRA_PRACTICE_ENABLED, SHOP_ENABLED } from '../config/visibility';
 
 export const MainDashboard = () => {
   const { t, setView, grade, lang } = useAppContext();
@@ -10,7 +10,7 @@ export const MainDashboard = () => {
     { id: 'leaderboard', Icon: Trophy },
     { id: 'shop', Icon: ShoppingBag },
     { id: 'test', Icon: ClipboardCheck },
-  ];
+  ].filter(item => SHOP_ENABLED || item.id !== 'shop');
 
   return <div className="max-w-6xl mx-auto pt-2 md:pt-3">
     <h1 className="flex flex-wrap items-center gap-3 text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">

@@ -19,7 +19,7 @@ import { ClassesView } from './pages/ClassesView';
 import { PracticeHub } from './pages/PracticeHub';
 import { PracticeSubjectLayout } from './components/practice/PracticeSubjectLayout';
 import { isPracticeSubject } from './components/practice/PracticeCards';
-import { EXTRA_PRACTICE_ENABLED, visibleAppView } from './config/visibility';
+import { EXTRA_PRACTICE_ENABLED, SHOP_ENABLED, visibleAppView } from './config/visibility';
 
 const AppFooter = () => {
   const { lang } = useAppContext();
@@ -97,7 +97,7 @@ const AppContent = () => {
               </PracticeSubjectLayout>}
               {EXTRA_PRACTICE_ENABLED && view === 'extra_practice' && <ExtraPractice />}
               {view === 'leaderboard' && <LeaderboardView />}
-              {view === 'shop' && <ShopView />}
+              {SHOP_ENABLED && view === 'shop' && <ShopView />}
               {view === 'test' && <TestView />}
               {view === 'classes' && <ClassesView />}
             </div>
