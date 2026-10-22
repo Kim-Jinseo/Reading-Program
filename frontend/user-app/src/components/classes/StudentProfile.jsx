@@ -1,3 +1,4 @@
+import { EXTRA_PRACTICE_ENABLED } from '../../config/visibility';
 import React, { useEffect, useRef, useState } from 'react';
 import { ClassReport } from './ClassReport';
 import { say, card, secondary, dateText } from './shared';
@@ -10,8 +11,8 @@ export function StudentProfile({ student, report, lessonReport, classId, classNa
   language.current = lang;
   useEffect(() => { heading.current?.focus(); heading.current?.scrollIntoView?.({ block: 'start' }); }, []);
   const lessonProgress = lessonReport.students.find(s => s.id === student.id);
-  const practice = report.students.find(s => s.id === student.id);
-  const last = [lessonProgress?.lastSubmittedAt, practice?.lastSubmittedAt].filter(Boolean).sort((a, b) => new Date(b) - new Date(a))[0];
+  const practice = EXTRA_PRACTICE_ENABLED ? report?.students.find(s => s.id === student.id) : null;
+  const last = EXTRA_PRACTICE_ENABLED ? [lessonProgress?.lastSubmittedAt, practice?.lastSubmittedAt].filter(Boolean).sort((a, b) => new Date(b) - new Date(a))[0] : lessonProgress?.lastSubmittedAt;
   useEffect(() => {
     if (tab !== 'lessons' || !visible) return;
     let active = true;
@@ -44,12 +45,12 @@ export function StudentProfile({ student, report, lessonReport, classId, classNa
     <StudentReviewBanner name={student.name} className={className} lang={lang} headingRef={heading}>
       <p className="text-teal-800 text-sm mt-3">{say(lang, 'Last submission: ', '最近提交：')}{last ? dateText(lang, last) : say(lang, 'No submissions yet', '尚未提交')}</p>
     </StudentReviewBanner>
-    <nav aria-label={say(lang, 'Student profile sections', '学生档案栏目')} className="class-section-nav">
-      {['overview', 'lessons', 'practice'].map((key, i) => <button key={key} aria-pressed={tab === key} className="class-section-tab" onClick={() => { if (key === tab) return; epoch.current++; setTab(key); setError(''); }}>{say(lang, ['Overview', 'Lesson work', 'Extra practice'][i], ['概览', '课程作业', '拓展练习'][i])}</button>)}
+    <nav aria-label={say(lang, 'Student profile sections', '学生档案栏目')} className="class-section-nav" style={{ gridTemplateColumns: `repeat(${EXTRA_PRACTICE_ENABLED ? 3 : 2}, minmax(0, 1fr))` }}>
+      {(EXTRA_PRACTICE_ENABLED ? ['overview', 'lessons', 'practice'] : ['overview', 'lessons']).map((key, i) => <button key={key} aria-pressed={tab === key} className="class-section-tab" onClick={() => { if (key === tab) return; epoch.current++; setTab(key); setError(''); }}>{say(lang, ['Overview', 'Lesson work', 'Extra practice'][i], ['概览', '课程作业', '拓展练习'][i])}</button>)}
     </nav>
     {tab === 'overview' && <div className="space-y-5">
       <section className={card + ' space-y-4'}><h3 className="text-xl font-bold">{say(lang, 'Lesson progress', '课程进度')}</h3><dl className="grid grid-cols-2 gap-3">{stat(say(lang, 'Lessons completed', '已完成课程'), lessonProgress ? `${lessonProgress.completed} / ${lessonProgress.assigned}` : '—')}{stat(say(lang, 'Study days · last 28 days', '最近 28 天的学习天数'), lessonProgress?.studyDays28 ?? '—')}</dl><p className="text-sm text-slate-500 leading-relaxed">{say(lang, 'Study days count submitted activities, not logins or time spent. All five submitted tasks complete a lesson; completion does not mean every answer was correct.', '学习天数统计提交练习的日期，不计算登录或学习时长。五项任务均提交即为完成一课，不代表全部答对。')}</p></section>
-      <section className={card + ' space-y-4'}><h3 className="text-xl font-bold">{say(lang, 'Assigned extra practice', '老师布置的拓展练习')}</h3><dl className="grid grid-cols-2 gap-3">{stat(say(lang, 'Completed', '已完成'), practice ? `${practice.completed} / ${practice.assigned}` : '—')}{stat(say(lang, 'Average latest score', '最近成绩平均分'), practice?.averagePercent == null ? '—' : `${practice.averagePercent}%`)}</dl><p className="text-sm text-slate-500">{say(lang, 'These scores are separate from lesson results.', '此处成绩与课程作业成绩分开记录。')}</p></section>
+      {EXTRA_PRACTICE_ENABLED && <section className={card + ' space-y-4'}><h3 className="text-xl font-bold">{say(lang, 'Assigned extra practice', '老师布置的拓展练习')}</h3><dl className="grid grid-cols-2 gap-3">{stat(say(lang, 'Completed', '已完成'), practice ? `${practice.completed} / ${practice.assigned}` : '—')}{stat(say(lang, 'Average latest score', '最近成绩平均分'), practice?.averagePercent == null ? '—' : `${practice.averagePercent}%`)}</dl><p className="text-sm text-slate-500">{say(lang, 'These scores are separate from lesson results.', '此处成绩与课程作业成绩分开记录。')}</p></section>}
     </div>}
     {tab === 'lessons' && <div className="space-y-4">
       <h3 className="text-xl font-bold">{say(lang, 'Student’s lesson work', '学生的课程作业')}</h3>
@@ -62,6 +63,6 @@ export function StudentProfile({ student, report, lessonReport, classId, classNa
       </button>)}
       {work && !work.lessons.length && <p className={card}>{say(lang, 'No lesson work is available yet.', '暂无课程作业。')}</p>}
     </div>}
-    {tab === 'practice' && <ClassReport key={`${student.id}:${refreshKey}`} report={{ ...report, class: { id: classId } }} lang={lang} api={api} profileStudentId={student.id} />}
+    {EXTRA_PRACTICE_ENABLED && tab === 'practice' && <ClassReport key={`${student.id}:${refreshKey}`} report={{ ...report, class: { id: classId } }} lang={lang} api={api} profileStudentId={student.id} />}
   </section>;
 }

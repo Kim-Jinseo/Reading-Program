@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Home, BookOpen, Trophy, ShoppingBag, ClipboardCheck, Globe, ShieldCheck, ChevronLeft, ChevronRight, X, Users } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { isPracticeSubject } from '../practice/PracticeCards';
+import { EXTRA_PRACTICE_ENABLED } from '../../config/visibility';
 
 export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
   const { t, lang, setLang, view, setView, user } = useAppContext();
@@ -67,7 +68,7 @@ export const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
           </button>
         )}
 
-        {MODULES.map(item => {
+        {MODULES.filter(item => EXTRA_PRACTICE_ENABLED || item.id !== 'practice').map(item => {
           const active = view === item.id || (item.id === 'practice' && (isPracticeSubject(view) || view === 'extra_practice'));
           return (
           <button 

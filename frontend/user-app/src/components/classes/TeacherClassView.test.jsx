@@ -32,6 +32,7 @@ test('class settings stays above the tabs and outside lesson content, and still 
   const next = { id: 'autumn', _id: 'autumn', level: 2, year: 2026, season: 'autumn' };
   let saved = false;
   const lessonsApi = jest.fn(async (path, body) => {
+    if (path.endsWith('/report')) return { students: [] };
     if (path === '/collections') return { collections: [current, next] };
     if (path.endsWith('/settings')) { saved = true; return { success: true }; }
     return { collection: saved ? next : current, revision: saved ? 2 : 1, lessons: [], history: [] };
@@ -47,7 +48,7 @@ test('class settings stays above the tabs and outside lesson content, and still 
   expect(screen.getByTestId('class-lessons')).not.toContainElement(panel);
   expect(panel.compareDocumentPosition(tabs) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   expect(screen.getByRole('heading', { name: 'Monday English' }).compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
+  fireEvent.click(screen.getByRole('button', { name: 'Students', exact: true }));
   expect(screen.queryByRole('combobox', { name: 'Term and grade band' })).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: 'Lessons', exact: true }));
   const reopenedPicker = await screen.findByRole('combobox', { name: 'Term and grade band' });
@@ -65,7 +66,9 @@ test('profile separates scores, lazily opens work and retains the lesson-work ta
   fireEvent.click(await screen.findByRole('button', { name: /View profile.*王小明/ }));
   expect(screen.getByRole('heading', { name: '王小明' })).toBeVisible();
   expect(screen.getByText('1 / 2')).toBeVisible();
-  expect(screen.getByText('2 / 3')).toBeVisible();
+  expect(screen.queryByText('2 / 3')).not.toBeInTheDocument();
+  expect(screen.queryByText('Assigned extra practice')).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Extra practice' })).not.toBeInTheDocument();
   expect(lessonsApi.mock.calls.some(([path]) => path.includes('/students/'))).toBe(false);
   expect(api.mock.calls.some(([path]) => path.includes('/students/'))).toBe(false);
   fireEvent.click(screen.getByRole('button', { name: 'Lesson work', exact: true }));
@@ -123,13 +126,9 @@ test('clicking the active profile tab does not strand a pending lesson request',
   expect(screen.getByRole('button', { name: /Our classroom/ })).toBeEnabled();
 });
 
-test('productive assignment summaries say one activity instead of zero questions', async () => {
-  setup({ detail: { class: { id: 'c', name: 'Monday English', invitationCode: 'PRIVATE-CODE' }, isOwner: true, assignments: [
-    { id: 'w', title: 'My room', subject: 'writing', format: 'writing', level: 1, questionCount: 0, maxAttempts: 3 },
-    { id: 'legacy', title: 'Legacy writing quiz', subject: 'writing', format: 'quiz', level: 1, questionCount: 3, maxAttempts: 2 },
-  ] } });
-  fireEvent.click(screen.getByRole('button', { name: 'Extra practice', exact: true }));
-  expect(screen.getByText('1 activity · Up to 3 attempts')).toBeInTheDocument();
-  expect(screen.getByText('3 questions · Up to 2 attempts')).toBeInTheDocument();
-  expect(screen.queryByText(/0 questions/)).not.toBeInTheDocument();
+test('retained assignments have no teacher entry points', async () => {
+  setup({ detail: { class: { id: 'c', name: 'Monday English' }, assignments: [{ id: 'w', title: 'Hidden writing', subject: 'writing' }] } });
+  await screen.findByRole('heading', { name: 'Class lessons' });
+  expect(screen.queryByRole('button', { name: 'Extra practice' })).not.toBeInTheDocument();
+  expect(screen.queryByText('Hidden writing')).not.toBeInTheDocument();
 });

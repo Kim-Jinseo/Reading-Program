@@ -131,6 +131,7 @@ async function getDb() {
       progress: db.collection("progress"),
       placementTests: db.collection("placement_tests"),
       classes: db.collection('classes'),
+      classJoinRequests: db.collection('class_join_requests'),
       assignments: db.collection('class_assignments'),
       submissions: db.collection('assignment_submissions'),
       teacherInvites: db.collection('teacher_invitations'),

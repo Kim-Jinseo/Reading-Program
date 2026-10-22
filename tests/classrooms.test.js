@@ -187,7 +187,14 @@ async function setup({ realCatalog = false, ...evaluators } = {}) {
   const created = await request('/classes', teacherId, { name: 'English A' });
   assert.equal(created.status, 201);
   const classroom = created.body.class;
-  const join = () => request('/classes/join', studentId, { code: classroom.invitationCode, displayName: '小明' });
+  const join = async (id = studentId, displayName = '小明') => {
+    const response = await request('/classes/join', id, { code: classroom.invitationCode, displayName });
+    if (response.body.status === 'pending') {
+      const decision = await request(`/classes/${classroom.id}/join-requests/${response.body.request.id}/decision`, teacherId, { decision: 'approve' });
+      assert.equal(decision.status, 200);
+    }
+    return response;
+  };
   const publish = () => request(`/classes/${classroom.id}/assignments`, teacherId, selection);
   return { db, request, classroom, join, publish, selection, setCatalog: value => { activeCatalog = value; } };
 }
@@ -306,7 +313,7 @@ test('audio is excluded from all JSON and fetched only by submitting student or 
     assert.match(denied.headers.get('cache-control') || '', /private.*no-store/);
   }
   await env.db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
-  await env.request('/classes/join', outsiderId, { code: env.classroom.invitationCode, displayName: 'Other student' });
+  await env.join(outsiderId, 'Other student');
   assert.equal((await env.request(`/assignments/${env.id}/audio/${requestId}`, outsiderId)).status, 404);
 });
 
@@ -567,7 +574,7 @@ test('a second enrolled student cannot see the first student answer keys or atte
   const { request, db, join, classroom, publish } = await setup();
   await join();
   await db.users.updateOne({ _id: new ObjectId(outsiderId) }, { $set: { role: 'student' } });
-  await request('/classes/join', outsiderId, { code: classroom.invitationCode, displayName: '小红' });
+  await join(outsiderId, '小红');
   const id = (await publish()).body.assignment.id;
   const questions = (await request(`/assignments/${id}`, studentId)).body.assignment.questions;
   await request(`/assignments/${id}/submit`, studentId, { requestId: 'request-isolation', answers: questions.map(q => ({ questionId: q.id, optionId: q.options[0].id })) });

@@ -19,6 +19,7 @@ import { ClassesView } from './pages/ClassesView';
 import { PracticeHub } from './pages/PracticeHub';
 import { PracticeSubjectLayout } from './components/practice/PracticeSubjectLayout';
 import { isPracticeSubject } from './components/practice/PracticeCards';
+import { EXTRA_PRACTICE_ENABLED, visibleAppView } from './config/visibility';
 
 const AppFooter = () => {
   const { lang } = useAppContext();
@@ -34,7 +35,8 @@ const AppFooter = () => {
 };
 
 const AppContent = () => {
-  const { user, view, curriculumDb, isAuthLoading } = useAppContext();
+  const { user, view: requestedView, curriculumDb, isAuthLoading } = useAppContext();
+  const view = visibleAppView(requestedView);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const workspaceRef = React.useRef(null);
   React.useLayoutEffect(() => {
@@ -85,15 +87,15 @@ const AppContent = () => {
             <div className="flex-1">
               {view === 'dashboard' && <MainDashboard />}
               {view === 'admin' && <AdminDashboardView />}
-              {view === 'practice' && <PracticeHub />}
-              {isPracticeSubject(view) && <PracticeSubjectLayout>
+              {EXTRA_PRACTICE_ENABLED && view === 'practice' && <PracticeHub />}
+              {EXTRA_PRACTICE_ENABLED && isPracticeSubject(view) && <PracticeSubjectLayout>
                 {view === 'vocab' && <VocabModule />}
                 {view === 'grammar' && <GrammarModule />}
                 {view === 'writing' && <WritingModule />}
                 {view === 'speaking' && <SpeakingModule />}
                 {view === 'reading' && <ReadingModule />}
               </PracticeSubjectLayout>}
-              {view === 'extra_practice' && <ExtraPractice />}
+              {EXTRA_PRACTICE_ENABLED && view === 'extra_practice' && <ExtraPractice />}
               {view === 'leaderboard' && <LeaderboardView />}
               {view === 'shop' && <ShopView />}
               {view === 'test' && <TestView />}

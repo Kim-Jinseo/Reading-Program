@@ -1,94 +1,55 @@
 import React from 'react';
-import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import App from './App';
-import { getTodayString } from './utils/dailySelection';
 
+jest.mock('./context/AppContext', () => {
+  const actual = jest.requireActual('./context/AppContext');
+  const Probe = () => {
+    const { setView } = actual.useAppContext();
+    return <button onClick={() => setView('practice')}>Attempt hidden view</button>;
+  };
+  return { ...actual, AppProvider: ({ children }) => <actual.AppProvider><Probe />{children}</actual.AppProvider> };
+});
 const originalFetch = global.fetch;
 beforeEach(() => {
   localStorage.clear();
   localStorage.setItem('token', 'navigation-test-session');
   global.fetch = jest.fn(async path => {
-    if (path === '/api/auth/me') return { ok: true, json: async () => ({ success: true, user: {
-      id: 'student-1', username: '小明', role: 'student', stars: 17, trophies: 23,
-      dailyProgress: { '3-4_vocab': { date: getTodayString(), bestStars: 2, itemId: [1001] } },
-    } }) };
+    if (path === '/api/auth/me') return { ok: true, json: async () => ({ success: true, user: { id: 'student-1', username: 'Sam', role: 'student', stars: 17, trophies: 23 } }) };
+    if (path === '/api/classroom/classes') return { ok: true, json: async () => ({ success: true, classes: [], joinRequests: [] }) };
     if (path === '/api/curriculum') return { ok: true, json: async () => ({ success: false }) };
     throw new Error(`Unexpected navigation request: ${path}`);
   });
 });
 afterEach(() => { global.fetch = originalFetch; });
 
-async function openApp() {
+test('Home and sidebar hide standalone practice but retain classes and other destinations', async () => {
   render(<App />);
   await screen.findByRole('heading', { name: /Home.*Grades 3–4/ });
-  return { main: screen.getByRole('main'), nav: screen.getByRole('navigation') };
-}
-
-test('sidebar groups the five subjects under one Extra practice destination', async () => {
-  const { nav } = await openApp();
-  const menu = within(nav);
-  for (const name of ['Vocabulary', 'Grammar', 'Reading', 'Writing', 'Speaking']) {
-    expect(menu.queryByRole('button', { name, exact: true })).not.toBeInTheDocument();
+  const main = screen.getByRole('main'), nav = screen.getByRole('navigation');
+  for (const name of ['Extra practice', 'Vocabulary', 'Grammar', 'Reading', 'Writing', 'Speaking']) {
+    expect(within(nav).queryByRole('button', { name, exact: true })).not.toBeInTheDocument();
+    expect(within(main).queryByRole('button', { name, exact: true })).not.toBeInTheDocument();
   }
-  fireEvent.click(menu.getByRole('button', { name: 'Extra practice', exact: true }));
-  expect(screen.getByRole('heading', { name: 'Extra practice', exact: true })).toBeInTheDocument();
-  expect(menu.getByRole('button', { name: 'Extra practice', exact: true })).toHaveAttribute('aria-current', 'page');
-  expect(screen.queryByText('Infinite Extra Practice')).not.toBeInTheDocument();
+  expect(within(main).queryByRole('region', { name: 'Extra practice' })).not.toBeInTheDocument();
+  for (const name of ['Classes', 'Leaderboard', 'Shop', 'Test']) expect(within(main).getByRole('button', { name: new RegExp(`^${name}`) })).toBeVisible();
+  fireEvent.click(within(nav).getByRole('button', { name: 'Classes' }));
+  expect(await screen.findByRole('heading', { name: 'Classes', exact: true })).toBeVisible();
 });
 
-test.each([
-  ['Vocabulary', 'Daily Vocab 📖'], ['Grammar', 'Daily Grammar 📜'],
-  ['Reading', 'Daily Reading 📘'], ['Writing', "Today's Writing Mission ✏️"],
-  ['Speaking', 'Daily Speaking 🎙️'],
-])('%s opens its existing exercises and returns to the practice hub', async (subject, heading) => {
-  const { main, nav } = await openApp();
-  fireEvent.click(within(nav).getByRole('button', { name: 'Extra practice', exact: true }));
-  fireEvent.click(within(main).getByRole('button', { name: subject, exact: true }));
-  expect(within(main).getByRole('heading', { name: heading, exact: true })).toBeInTheDocument();
-  expect(within(nav).getByRole('button', { name: 'Extra practice', exact: true })).toHaveAttribute('aria-current', 'page');
-  fireEvent.click(within(main).getByRole('button', { name: 'Back to Extra practice', exact: true }));
-  expect(within(main).getByRole('heading', { name: 'Extra practice', exact: true })).toBeInTheDocument();
-  expect(within(main).getByRole('button', { name: subject, exact: true })).toBeInTheDocument();
+test('hidden view navigation cannot render practice modules or leave a blank workspace', async () => {
+  render(<App />);
+  await screen.findByRole('heading', { name: /Home.*Grades 3–4/ });
+  fireEvent.click(screen.getByRole('button', { name: 'Attempt hidden view' }));
+  expect(screen.queryByRole('heading', { name: 'Extra practice', exact: true })).not.toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /Home.*Grades 3–4/ })).toBeVisible();
 });
 
-test('Home lists main destinations first and keeps daily progress on the lower subject cards', async () => {
-  const { main } = await openApp();
-  const practice = within(main).getByRole('region', { name: 'Extra practice' });
-  const classes = within(main).getByRole('button', { name: /^Classes/ });
-  expect(classes.compareDocumentPosition(practice) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-  expect(within(practice).getAllByRole('button')).toHaveLength(5);
-  expect(within(within(practice).getByRole('button', { name: 'Vocabulary', exact: true })).getByText('Daily done')).toBeInTheDocument();
-  expect(within(practice).getByRole('button', { name: 'Vocabulary', exact: true })).toHaveAccessibleDescription(/Daily done/);
-  const vocabCard = within(practice).getByRole('button', { name: 'Vocabulary', exact: true });
-  const doneBadge = within(vocabCard).getByText('Daily done');
-  const description = within(vocabCard).getByText('Learn and test new words.');
-  expect(doneBadge.compareDocumentPosition(description) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-  expect(within(practice).getAllByText('Daily done')).toHaveLength(1);
-  for (const name of ['Leaderboard', 'Shop', 'Test']) expect(within(main).getByRole('button', { name: new RegExp(`^${name}`) })).toBeInTheDocument();
-  fireEvent.click(within(practice).getByRole('button', { name: 'Reading', exact: true }));
-  fireEvent.click(within(main).getByRole('button', { name: 'Back to Extra practice' }));
-  await waitFor(() => expect(JSON.parse(localStorage.getItem('savedUserData')).stars).toBe(17));
-  expect(global.fetch.mock.calls.filter(([, options]) => options?.method === 'POST')).toHaveLength(0);
-});
-
-test('collapsed navigation keeps an accessible practice link and new controls translate to Chinese', async () => {
-  const { nav, main } = await openApp();
+test('collapsed navigation and Chinese Home retain classes without practice entry points', async () => {
+  render(<App />);
+  await screen.findByRole('heading', { name: /Home.*Grades 3–4/ });
   fireEvent.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
-  fireEvent.click(within(nav).getByRole('button', { name: 'Extra practice', exact: true }));
-  fireEvent.click(screen.getByRole('button', { name: '中文', exact: true }));
-  expect(within(main).getByRole('heading', { name: '拓展练习', exact: true })).toBeInTheDocument();
-  fireEvent.click(within(main).getByRole('button', { name: '词汇', exact: true }));
-  fireEvent.click(within(main).getByRole('button', { name: '返回拓展练习', exact: true }));
-  expect(within(nav).getByRole('button', { name: '拓展练习', exact: true })).toHaveAttribute('aria-current', 'page');
-});
-
-test('opening a lower Home card and returning to the hub reset the workspace scroll', async () => {
-  const { main } = await openApp();
-  const workspace = main.querySelector('.overflow-y-auto');
-  workspace.scrollTop = 512;
-  fireEvent.click(within(main).getByRole('button', { name: 'Speaking', exact: true }));
-  expect(workspace.scrollTop).toBe(0);
-  workspace.scrollTop = 300;
-  fireEvent.click(within(main).getByRole('button', { name: 'Back to Extra practice' }));
-  expect(workspace.scrollTop).toBe(0);
+  fireEvent.click(screen.getByRole('button', { name: '中文' }));
+  expect(within(screen.getByRole('navigation')).getByRole('button', { name: '班级' })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: '拓展练习' })).not.toBeInTheDocument();
 });

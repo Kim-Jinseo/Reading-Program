@@ -67,7 +67,7 @@ class MemoryCollection {
   }
 }
 export function memoryDb() {
-  const db=Object.fromEntries(['users', 'classes', 'assignments', 'submissions', 'teacherInvites', 'classroomLimits', 'lessonCollections', 'lessons', 'lessonAssets', 'lessonParts'].map(name => [name, new MemoryCollection()]));
+  const db=Object.fromEntries(['users', 'classes', 'classJoinRequests', 'assignments', 'submissions', 'teacherInvites', 'classroomLimits', 'lessonCollections', 'lessons', 'lessonAssets', 'lessonParts'].map(name => [name, new MemoryCollection()]));
   // Serial test boundary, not an implementation of Mongo's transaction engine.
   let queue=Promise.resolve();
   db.withLessonTransaction=work=>{const result=queue.then(()=>work(undefined));queue=result.catch(()=>{});return result;};

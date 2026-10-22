@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronRight, Trophy, ShoppingBag, ClipboardCheck, Users } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { PracticeCards } from '../components/practice/PracticeCards';
+import { EXTRA_PRACTICE_ENABLED } from '../config/visibility';
 
 export const MainDashboard = () => {
   const { t, setView, grade, lang } = useAppContext();
@@ -37,10 +38,10 @@ export const MainDashboard = () => {
       </div>
     </section>
 
-    <section aria-labelledby="home-practice-title" className="mt-10 sm:mt-12">
+    {EXTRA_PRACTICE_ENABLED && <section aria-labelledby="home-practice-title" className="mt-10 sm:mt-12">
       <h2 id="home-practice-title" className="text-xl font-semibold tracking-tight text-slate-800">{t('nav_practice')}</h2>
       <p className="mt-2 mb-5 text-sm sm:text-base text-slate-500 leading-relaxed">{t('practice_intro')}</p>
       <PracticeCards />
-    </section>
+    </section>}
   </div>;
 };

@@ -2,8 +2,10 @@ import { gradeBandLabel } from '../utils/gradeLabels';
 import React, { useState } from 'react';
 import { ShieldCheck, PlusCircle, Trash2 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
+import { TeacherOversight } from '../components/admin/TeacherOversight';
+import { say, secondary } from '../components/classes/shared';
 
-export const AdminDashboardView = () => {
+const ContentManager = () => {
   const { curriculumDb, setCurriculumDb, lang } = useAppContext();
   const [adminGrade, setAdminGrade] = useState('3-4');
   const [adminTab, setAdminTab] = useState('vocab');
@@ -190,4 +192,18 @@ export const AdminDashboardView = () => {
       </div>
     </div>
   );
+};
+
+export const AdminDashboardView = () => {
+  const { user, lang } = useAppContext();
+  const [section, setSection] = useState('teachers');
+  if (user?.role !== 'admin') return <p role="alert">{say(lang, 'Administrator access required.', '需要管理员权限。')}</p>;
+  return <div className="max-w-6xl mx-auto space-y-6 pb-8">
+    <h1 className="text-3xl font-bold">{say(lang, 'Administration', '管理中心')}</h1>
+    <nav aria-label={say(lang, 'Administration sections', '管理栏目')} className="flex flex-wrap gap-3">
+      <button className={secondary + (section === 'teachers' ? ' border-indigo-300 text-indigo-700 bg-indigo-50' : '')} aria-pressed={section === 'teachers'} onClick={() => setSection('teachers')}>{say(lang, 'Teachers', '教师概览')}</button>
+      <button className={secondary + (section === 'content' ? ' border-indigo-300 text-indigo-700 bg-indigo-50' : '')} aria-pressed={section === 'content'} onClick={() => setSection('content')}>{say(lang, 'Content library', '内容资料库')}</button>
+    </nav>
+    {section === 'teachers' ? <TeacherOversight key={user.id || user.username} role={user.role} lang={lang} /> : <ContentManager />}
+  </div>;
 };

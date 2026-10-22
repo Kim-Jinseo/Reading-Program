@@ -7,6 +7,8 @@ import { getPracticeCatalog } from './practiceCatalog.js';
 import { consumeRequest } from './requestLimit.js';
 import { requestTiming } from './requestTiming.js';
 import { productiveInput, gradeProductive, publicAssignmentAttempt } from './assignmentActivities.js';
+import { requestClassJoin, decideClassJoin } from './classEnrollment.js';
+import { teacherOverview, teacherClasses, administratorClassReport } from './teacherOversight.js';
 
 const digest = code => createHash('sha256').update(code).digest('hex');
 const teacherRole = role => role === 'teacher' || role === 'admin';
@@ -26,6 +28,7 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   app.use('*', (c, next) => bodyLimit({ maxSize: c.req.method === 'POST' && /\/assignments\/[^/]+\/submit$/.test(c.req.path) ? 2050000 : 100000,
     onError: c => c.json({ success: false, error: 'Request is too large.', code: 'invalid_input' }, 413) })(c, next));
   app.use('*', requireAuth);
+  app.use('*', async (c, next) => { c.header('Cache-Control', 'private, no-store'); await next(); });
   app.use('*', async (c, next) => {
     const session = c.get('user');
     if (!session?.userId || !ObjectId.isValid(session.userId)) return c.json({ success: false, error: 'Please sign in again.', code: 'session_expired' }, 401);
@@ -64,6 +67,14 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     return { row, owner };
   };
 
+  app.use('/admin/*', async (c, next) => {
+    if (c.get('account').role !== 'admin') throw new ClassroomError('Only an administrator can view teacher oversight.', 403, 'admin_required');
+    await next();
+  });
+  app.get('/admin/teachers', async c => c.json({ success: true, ...await teacherOverview(c.get('db'), c.req.query('after')) }));
+  app.get('/admin/teachers/:teacherId/classes', async c => c.json({ success: true, ...await teacherClasses(c.get('db'), c.req.param('teacherId')) }));
+  app.get('/admin/classes/:classId/report', async c => c.json({ success: true, ...await administratorClassReport(c.get('db'), c.req.param('classId')) }));
+
   app.post('/teacher/invitations', limit('teacher-invites', 10), async c => {
     if (c.get('account').role !== 'admin') throw new ClassroomError('Only an administrator can issue teacher codes.', 403, 'admin_required');
     const code = randomBytes(18).toString('base64url');
@@ -97,7 +108,9 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   app.get('/classes', async c => {
     const owner = teacherRole(c.get('account').role);
     const rows = await c.get('db').classes.find(owner ? { ownerId: c.get('user').userId } : { memberIds: c.get('user').userId }).sort({ createdAt: -1 }).limit(100).toArray();
-    return c.json({ success: true, role: c.get('account').role, classes: rows.map(row => classSummary(row, owner)) });
+    const requests = owner ? [] : await c.get('db').classJoinRequests.find({ studentId: c.get('user').userId, status: { $in: ['pending', 'declined'] } }, { projection: { requestId: 1, classId: 1, className: 1, status: 1, requestedAt: 1 } }).sort({ requestedAt: -1 }).toArray();
+    return c.json({ success: true, role: c.get('account').role, classes: rows.map(row => classSummary(row, owner)),
+      joinRequests: requests.filter(request => !rows.some(row => row._id === request.classId)).map(({ requestId, classId, className, status, requestedAt }) => ({ id: requestId, classId, className, status, requestedAt })) });
   });
   app.post('/classes', requireTeacher, limit('create-class', 10), async c => {
     const { name, collectionId } = await readBody(c);
@@ -114,15 +127,12 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
     const body = await readBody(c);
     const code = requireText(body.code, 'class code', 30).replace(/[\s-]/g, '').toUpperCase();
     const name = requireText(body.displayName, 'student name', 40);
-    const { classes } = c.get('db');
-    const row = await classes.findOne({ invitationCode: code }); if (!row) return notFound();
-    const userId = c.get('user').userId;
-    if (row.memberIds.includes(userId)) return c.json({ success: true, class: classSummary(row) });
-    if (await classes.countDocuments({ memberIds: userId }) >= 20) throw new ClassroomError('You have reached the class limit.');
-    const result = await classes.updateOne({ _id: row._id, invitationCode: code, memberIds: { $ne: userId }, 'memberIds.199': { $exists: false } }, { $addToSet: { memberIds: userId }, $push: { members: { id: userId, name, joinedAt: new Date() } } });
-    const fresh = await classes.findOne({ _id: row._id });
-    if (!result.modifiedCount && !fresh.memberIds.includes(userId)) throw new ClassroomError('This class is full or its invitation code changed.', 409, 'class_changed');
-    return c.json({ success: true, class: classSummary(fresh) });
+    return c.json({ success: true, ...await requestClassJoin(c.get('db'), c.get('user'), code, name) });
+  });
+  app.post('/classes/:id/join-requests/:requestId/decision', requireTeacher, limit('review-join', 60), async c => {
+    const { decision } = await readBody(c);
+    if (!['approve', 'decline'].includes(decision)) throw new ClassroomError('Choose approve or decline.');
+    return c.json({ success: true, ...await decideClassJoin(c.get('db'), c.get('user'), c.req.param('id'), c.req.param('requestId'), decision) });
   });
   app.post('/classes/:id/invitation', requireTeacher, limit('rotate-code', 10), async c => {
     const { row } = await findClass(c, c.req.param('id'), true);
@@ -132,11 +142,14 @@ export function createClassroomRouter({ getDb, requireAuth, createSessionToken, 
   });
   app.get('/classes/:id', async c => {
     const { row, owner } = await findClass(c, c.req.param('id'));
+    const pending = owner ? await c.get('db').classJoinRequests.find({ classId: row._id, status: 'pending' }, { projection: { requestId: 1, studentId: 1, name: 1, requestedAt: 1 } }).sort({ requestedAt: 1 }).toArray() : [];
+    const applicants = pending.length ? await c.get('db').users.find({ _id: { $in: pending.map(request => new ObjectId(request.studentId)) } }, { projection: { username: 1 } }).toArray() : [];
     const { assignments, submissions } = c.get('db');
     const all = await assignments.find({ classId: row._id, deletedAt: { $exists: false } }, { projection: { title: 1, subject: 1, level: 1, format: 1, maxAttempts: 1, 'questions.id': 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
     const ownResults = owner ? [] : await submissions.find({ classId: row._id, studentId: c.get('user').userId }, { projection: { assignmentId: 1, 'attempts.score': 1, 'attempts.total': 1, 'attempts.submittedAt': 1 } }).toArray();
     return c.json({ success: true, class: classSummary(row, owner), isOwner: owner,
-      ...(owner ? { students: row.members.map(({ id, name, joinedAt }) => ({ id, name, joinedAt })) } : {}),
+      ...(owner ? { students: row.members.map(({ id, name, joinedAt }) => ({ id, name, joinedAt })),
+        joinRequests: pending.map(request => ({ id: request.requestId, studentId: request.studentId, name: request.name, username: applicants.find(account => String(account._id) === request.studentId)?.username || '', requestedAt: request.requestedAt })) } : {}),
       assignments: all.map(a => ({ id: a._id, title: a.title, subject: a.subject, level: a.level, ...(a.format ? { format: a.format } : {}), maxAttempts: a.maxAttempts, questionCount: a.questions.length, createdAt: a.createdAt,
         ...(!owner ? { progress: summarizeAttempts(ownResults.find(s => s.assignmentId === a._id)?.attempts) } : {}) })) });
   });

@@ -5,13 +5,14 @@ import { useAppContext } from '../context/AppContext';
 import { AssignmentEditor } from '../components/classes/AssignmentEditor';
 import { AssignmentPlayer } from '../components/classes/AssignmentPlayer';
 import { TeacherClassView } from '../components/classes/TeacherClassView';
-import { classroomApi, say, card, field, button, secondary, subjectName, assignmentSummary, errorText } from '../components/classes/shared';
+import { classroomApi, say, card, field, button, secondary, subjectName, assignmentSummary, errorText, dateText } from '../components/classes/shared';
 import { lessonApi, lessonError } from '../components/lessons/shared';
 import { CoursePicker } from '../components/lessons/CoursePicker';
 import { ClassLessons } from '../components/lessons/ClassLessons';
 import { LessonPlayer } from '../components/lessons/LessonPlayer';
 import { LessonLibrary } from '../components/lessons/LessonLibrary';
 import { applyLessonRewardSnapshot } from '../utils/lessonRewards';
+import { EXTRA_PRACTICE_ENABLED } from '../config/visibility';
 
 export const ClassesView = props => {
   const { user } = useAppContext();
@@ -20,10 +21,11 @@ export const ClassesView = props => {
 const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const { user, setUser, lang } = useAppContext();
   const [classes, setClasses] = useState([]);
+  const [joinRequests, setJoinRequests] = useState([]);
   const [mode, setMode] = useState('home');
   const [detail, setDetail] = useState(null);
   const [studentTab, setStudentTab] = useState('lessons');
-  const studentSection = studentTab === 'practice' && detail?.assignments.length ? 'practice' : 'lessons';
+  const studentSection = EXTRA_PRACTICE_ENABLED && studentTab === 'practice' && detail?.assignments.length ? 'practice' : 'lessons';
   useEffect(() => {
     if (!detail?.assignments.length) setStudentTab('lessons');
   }, [detail?.assignments.length]);
@@ -60,6 +62,26 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const language = useRef(lang);
   language.current = lang;
   const navigation = useRef(0);
+  const listVersion = useRef(0), busyLock = useRef(false);
+  const updateList = useCallback(data => {
+    setClasses(data.classes);
+    setJoinRequests(data.joinRequests || []);
+  }, []);
+  const checkStatus = useCallback(async () => {
+    const request = ++listVersion.current;
+    try {
+      const data = await api('/classes', undefined, { fresh: true });
+      if (request === listVersion.current) { updateList(data); setError(''); }
+    } catch (e) { if (request === listVersion.current) setError(errorText(language.current, e)); }
+  }, [api, updateList]);
+  useEffect(() => {
+    if (user.isGuest || teacher || mode !== 'home') return;
+    const version = listVersion;
+    const onFocus = () => { if (document.visibilityState !== 'hidden') checkStatus(); };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onFocus);
+    return () => { window.removeEventListener('focus', onFocus); document.removeEventListener('visibilitychange', onFocus); version.current++; };
+  }, [user.isGuest, teacher, mode, checkStatus]);
   useEffect(() => () => { navigation.current++; }, []);
   useEffect(() => {
     if (user.isGuest || !teacher) return;
@@ -71,13 +93,15 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
     if (user.isGuest) return;
     let active = true;
     setLoading(true);
-    api('/classes').then(data => { if (active) { setClasses(data.classes); setError(''); } }).catch(e => { if (active) setError(errorText(language.current, e)); }).finally(() => { if (active) setLoading(false); });
+    const request = ++listVersion.current;
+    api('/classes').then(data => { if (active && request === listVersion.current) { updateList(data); setError(''); } }).catch(e => { if (active) setError(errorText(language.current, e)); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [api, user.isGuest, user.username, user.role]);
+  }, [api, user.isGuest, user.username, user.role, updateList]);
   const run = async action => {
-    if (busy) return;
+    if (busyLock.current) return;
+    busyLock.current = true;
     setBusy(true); setError(''); setNotice('');
-    try { await action(); } catch (e) { setError(errorText(lang, e)); } finally { setBusy(false); }
+    try { await action(); } catch (e) { setError(errorText(lang, e)); } finally { busyLock.current = false; setBusy(false); }
   };
   const openClass = async (id, fresh = false) => {
     const request = ++navigation.current;
@@ -105,7 +129,7 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
   const goHome = () => {
     const request = ++navigation.current;
     setDetail(null); setMode('home'); setError(''); setBusy(false);
-    api('/classes', undefined, { fresh: true }).then(data => { if (request === navigation.current) setClasses(data.classes); })
+    api('/classes', undefined, { fresh: true }).then(data => { if (request === navigation.current) updateList(data); })
       .catch(e => { if (request === navigation.current) setError(errorText(language.current, e)); });
   };
   const backToClass = () => {
@@ -165,19 +189,29 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
             <h3 className="text-xl font-semibold tracking-tight break-words">{row.name}</h3><p className="mt-5 border-t border-slate-100 pt-4 text-sm text-indigo-600 font-semibold">{say(lang, 'Open class →', '进入班级 →')}</p>
           </button>)}</div>
         </section>
+        {!teacher && joinRequests.length > 0 && <section className={card + ' space-y-4'} aria-label={say(lang, 'Join requests', '入班申请')}>
+          <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-xl font-semibold">{say(lang, 'Join requests', '入班申请')}</h2><button className={secondary} disabled={busy} onClick={() => run(checkStatus)}>{say(lang, 'Check status', '查看申请状态')}</button></div>
+          {joinRequests.map(request => <article key={request.id} className="border-t border-slate-100 pt-4"><h3 className="font-bold break-words">{request.className}</h3><p className="mt-2 text-sm text-slate-600">{request.status === 'declined' ? say(lang, 'Request declined', '申请未获批准') : say(lang, 'Waiting for teacher approval', '等待老师批准')}</p><p className="mt-1 text-sm text-slate-500">{dateText(lang, request.requestedAt)}</p></article>)}
+        </section>}
         <section className={card}>
           {teacher ? <form onSubmit={e => { e.preventDefault(); run(async () => { const data = await api('/classes', { name: className, ...(collectionId ? { collectionId } : {}) }); setClassName(''); await openClass(data.class.id); }); }} className="space-y-4">
             <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'Create a class', '创建班级')}</h2>
             <label className="block font-bold">{say(lang, 'Class name', '班级名称')}<input className={field + ' mt-2'} maxLength={80} required value={className} onChange={e => setClassName(e.target.value)} placeholder={say(lang, 'For example: Monday English', '例如：星期一英语班')} /></label>
             <CoursePicker collections={collections} value={collectionId} onChange={setCollectionId} lang={lang} required={collections.length > 0} />
             <button disabled={busy} className={button} type="submit"><Plus size={18} className="inline mr-2" />{say(lang, 'Create class', '创建班级')}</button>
-          </form> : <form onSubmit={e => { e.preventDefault(); run(async () => { const data = await api('/classes/join', { code, displayName: studentName }); setCode(''); await openClass(data.class.id); }); }} className="space-y-5">
+          </form> : <form onSubmit={e => { e.preventDefault(); run(async () => { const data = await api('/classes/join', { code, displayName: studentName }); setCode('');
+            if (data.status === 'approved') await openClass(data.class.id);
+            else {
+              setJoinRequests(current => [...current.filter(row => row.classId !== data.class.id), { ...data.request, classId: data.class.id, className: data.class.name, status: 'pending' }]);
+              setNotice(say(lang, 'Request sent. Your teacher must approve before you can open this class.', '申请已发送，老师批准后即可进入班级。'));
+              await checkStatus();
+            } }); }} className="space-y-5">
             <h2 className="text-xl font-semibold tracking-tight">{say(lang, 'Join a class', '加入班级')}</h2>
             <div className="grid sm:grid-cols-2 gap-5">
               <label className="block font-bold">{say(lang, 'Class invitation code', '班级邀请码')}<input className={field + ' mt-2 uppercase tracking-wider'} required value={code} onChange={e => setCode(e.target.value)} maxLength={30} autoCapitalize="characters" autoCorrect="off" spellCheck={false} /></label>
               <label className="block font-bold">{say(lang, 'Your name for the teacher', '老师认识的姓名')}<input className={field + ' mt-2'} required maxLength={40} value={studentName} onChange={e => setStudentName(e.target.value)} /></label>
             </div>
-            <p className="text-sm text-slate-500">{say(lang, 'When you join, this teacher can see your name, submitted answers, writing, speaking recordings and scores, practice completion counts, and days you submit lesson activities.', '加入后，本班老师可以查看你的姓名、已提交的答案、作文、口语录音和成绩，以及练习完成数量和提交课程练习的学习天数。')}</p>
+            <p className="text-sm text-slate-500">{say(lang, 'Your teacher will review your name and account username. Once approved, they can see your submitted lesson answers, writing, recordings, scores, completion and study days.', '老师会核对你的姓名和账号用户名。批准入班后，老师可查看已提交的课程答案、作文、录音、成绩、完成情况和学习天数。')}</p>
             <button className={button} disabled={busy} type="submit">{say(lang, 'Join class', '加入班级')}</button>
           </form>}
         </section>
@@ -208,19 +242,19 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         {detail.isOwner ? <TeacherClassView key={detail.class.id} detail={detail} lang={lang} api={api} lessonsApi={lessonsApi} initialLessons={lessonPreload} refreshKey={lessonRefresh} busy={busy} visible={mode === 'detail'}
           onBackToClasses={goHome}
           onOpen={(data, studentId, reviewStudent) => { navigation.current++; setLesson({ data, studentId, reviewStudent }); setMode('lesson'); }}
-          onAssign={() => { setError(''); setMode('editor'); }} onCopy={copyCode} onDelete={deleteAssignment}
+          onDetail={setDetail} onAssign={() => { if (EXTRA_PRACTICE_ENABLED) { setError(''); setMode('editor'); } }} onCopy={copyCode} onDelete={deleteAssignment}
           onReplace={() => { if (window.confirm(say(lang, 'Replace this invitation code? The old code will stop working. Current students stay in the class.', '更换班级邀请码？旧码将失效，已加入的学生不受影响。'))) run(async () => { await api(`/classes/${detail.class.id}/invitation`, {}); await openClass(detail.class.id); }); }} /> : <>
         <section className={card + ' class-cover space-y-5'}>
           <h2 className="text-2xl font-extrabold break-words">{detail.class.name}</h2>
         </section>
         <nav aria-label={say(lang, 'Class sections', '班级栏目')} className="class-section-nav class-section-nav--class class-section-nav--student">
           <button className="class-section-tab" aria-pressed={studentSection === 'lessons'} aria-controls="student-class-lessons" onClick={() => setStudentTab('lessons')}>{say(lang, 'Lessons', '课程')}</button>
-          {detail.assignments.length > 0 && <button className="class-section-tab" aria-pressed={studentSection === 'practice'} aria-controls="student-class-practice" onClick={() => setStudentTab('practice')}>{say(lang, 'Extra practice', '拓展练习')}</button>}
+          {EXTRA_PRACTICE_ENABLED && detail.assignments.length > 0 && <button className="class-section-tab" aria-pressed={studentSection === 'practice'} aria-controls="student-class-practice" onClick={() => setStudentTab('practice')}>{say(lang, 'Extra practice', '拓展练习')}</button>}
         </nav>
         <div id="student-class-lessons" hidden={studentSection !== 'lessons'}>
           <ClassLessons key={`lessons-${detail.class.id}`} initialLessons={lessonPreload} refreshKey={lessonRefresh} classId={detail.class.id} isOwner={detail.isOwner} lang={lang} api={lessonsApi} visible={mode === 'detail'} onOpen={(data, studentId) => { navigation.current++; setLesson({ data, studentId }); setMode('lesson'); }} />
         </div>
-        {detail.assignments.length > 0 && <section id="student-class-practice" hidden={studentSection !== 'practice'} className="space-y-4">
+        {EXTRA_PRACTICE_ENABLED && detail.assignments.length > 0 && <section id="student-class-practice" hidden={studentSection !== 'practice'} className="space-y-4">
           <p className="text-sm font-semibold text-slate-500">{say(lang, 'Assigned by your teacher.', '老师布置的练习。')}</p>
           <h3 className="text-xl font-extrabold">{say(lang, 'Extra practice', '拓展练习')}</h3>
           <div className="grid md:grid-cols-2 gap-4">{detail.assignments.map(a => <div key={a.id} className={card}>
@@ -234,8 +268,8 @@ const ClassesScreen = ({ api = classroomApi, lessonsApi = lessonApi }) => {
         </section>}
         </>}
       </div>}
-      {mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={backToClass} onPublished={backToClass} />}
-      {mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={backToClass} />}
+      {EXTRA_PRACTICE_ENABLED && mode === 'editor' && detail?.isOwner && <AssignmentEditor lang={lang} classId={detail.class.id} api={api} onBack={backToClass} onPublished={backToClass} />}
+      {EXTRA_PRACTICE_ENABLED && mode === 'player' && assignment && <AssignmentPlayer key={assignment.assignment.id} data={assignment} lang={lang} api={api} onBack={backToClass} />}
       {mode === 'lesson' && lesson && <LessonPlayer key={`${lesson.data.lesson.id}:${lesson.studentId || 'self'}`} data={lesson.data} studentId={lesson.studentId} classId={detail.class.id} lang={lang} api={lessonsApi}
         reviewStudent={lesson.reviewStudent}
         backLabel={lesson.studentId ? lesson.reviewStudent?.name ? say(lang, `← Back to ${lesson.reviewStudent.name}’s profile`, `← 返回${lesson.reviewStudent.name}的档案`) : say(lang, '← Back to student profile', '← 返回学生档案') : undefined}

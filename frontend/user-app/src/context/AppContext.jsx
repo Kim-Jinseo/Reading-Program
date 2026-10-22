@@ -4,6 +4,7 @@ import { getTodayString } from '../utils/dailySelection';
 import localCurriculum from '../data/curriculum.json';
 import { buildReviewedCurriculum } from '../data/reviewedCurriculum';
 import { guardedViewChange } from '../utils/navigationGuard';
+import { visibleAppView } from '../config/visibility';
 
 const AppContext = createContext();
 
@@ -46,7 +47,7 @@ export const AppProvider = ({ children }) => {
   const [view, setViewState] = useState('dashboard');
   const viewRef = useRef('dashboard');
   const setView = useCallback(next => {
-    const value = guardedViewChange(viewRef.current, next);
+    const value = guardedViewChange(viewRef.current, current => visibleAppView(typeof next === 'function' ? next(current) : next));
     if (!Object.is(value, viewRef.current)) {
       viewRef.current = value;
       setViewState(value);
